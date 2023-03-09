@@ -1,24 +1,39 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-import TonConnect from '@tonconnect/sdk';
+import { TonConnect, isWalletInfoInjected } from '@tonconnect/sdk';
 
-const connector = new TonConnect({ manifestUrl: 'https://gist.githubusercontent.com/733amir/ebc7a21ddc4801b58a5d0f3fc192ca15/raw/873f4c5a4646b0881d9eed297d9065876f28f7a1/tonchallenge-manifest.json' });
-// const connector = new TonConnect();
+const connector = new TonConnect({ manifestUrl: 'https://733amir.github.io/tonchallenge/manifest.json' });
+
 // eslint-disable-next-line no-unused-vars
 const unsubscribe = connector.onStatusChange(
-    walletInfo => {
-        // update state/reactive variables to show updates in the ui
-        console.log("wallet:", walletInfo);
-    } 
+  walletInfo => {
+    // update state/reactive variables to show updates in the ui
+    console.log("wallet:", walletInfo);
+  }
 );
 
 async function getQRCode() {
-  const walletsList = await connector.getWallets();
-  console.log("wallets: ", walletsList);
+  const walletsList = await connector.getWallets(); // or use `walletsList` fetched before  
 
-  console.log("qr code: ", await connector.connect(walletsList[0]));
+  const embeddedWallet = walletsList.find(
+    wallet => isWalletInfoInjected(wallet) && wallet.embedded
+  );
+
+  if (embeddedWallet) {
+    connector.connect({ jsBridgeKey: embeddedWallet.jsBridgeKey });
+    return;
+  }
+
+  const walletConnectionSource = {
+    universalLink: walletsList[0]["universalLink"],
+    bridgeUrl: walletsList[0]["bridgeUrl"],
+  }
+
+  const universalLink = connector.connect(walletConnectionSource);
+  console.log("qr code: ", universalLink);
 }
+
 </script>
 
 <template>
