@@ -1,14 +1,18 @@
 <script setup>
-import { TonConnect } from '@tonconnect/sdk'
-import QRCode from 'qrcode-svg'
 import { ref, onBeforeMount, defineEmits } from 'vue'
+import { useWalletStore } from '../../stores/wallet'
+import { TonConnect } from '@tonconnect/sdk'
+import { toUserFriendlyAddress } from '@tonconnect/sdk';
+import QRCode from 'qrcode-svg'
+
 
 const emit = defineEmits(['walletConnect'])
 
 const wallets = ref([])
 const svg = ref(null)
-const scanDialog = ref(false)
 const walletDialog = ref(false)
+const scanDialog = ref(false)
+const { walletData, setWalletData } = useWalletStore();
 
 const connector = new TonConnect({
     manifestUrl: 'https://733amir.github.io/tonchallenge/manifest.json',
@@ -21,24 +25,7 @@ const unsubscribe = connector.onStatusChange((walletInfo) => {
     walletDialog.value = false
 
     console.log('wallet:', JSON.stringify(walletInfo))
-
-    // eslint-disable-next-line no-unused-vars
-    const w = {
-        device: {
-            platform: 'iphone',
-            appName: 'Tonkeeper',
-            appVersion: '2.9.0.268',
-            maxProtocolVersion: 2,
-            features: ['SendTransaction'],
-        },
-        provider: 'http',
-        account: {
-            address: '0:069769d731aa8b567fd078905e8c85e10edcfd1a9aa31ae29f120da476a81624',
-            chain: '-3',
-            walletStateInit:
-                'te6cckECFgEAAwQAAgE0ARUBFP8A9KQT9LzyyAsCAgEgAxACAUgEBwLm0AHQ0wMhcbCSXwTgItdJwSCSXwTgAtMfIYIQcGx1Z70ighBkc3RyvbCSXwXgA/pAMCD6RAHIygfL/8nQ7UTQgQFA1yH0BDBcgQEI9ApvoTGzkl8H4AXTP8glghBwbHVnupI4MOMNA4IQZHN0crqSXwbjDQUGAHgB+gD0BDD4J28iMFAKoSG+8uBQghBwbHVngx6xcIAYUATLBSbPFlj6Ahn0AMtpF8sfUmDLPyDJgED7AAYAilAEgQEI9Fkw7UTQgQFA1yDIAc8W9ADJ7VQBcrCOI4IQZHN0coMesXCAGFAFywVQA88WI/oCE8tqyx/LP8mAQPsAkl8D4gIBIAgPAgEgCQ4CAVgKCwA9sp37UTQgQFA1yH0BDACyMoHy//J0AGBAQj0Cm+hMYAIBIAwNABmtznaiaEAga5Drhf/AABmvHfaiaEAQa5DrhY/AABG4yX7UTQ1wsfgAWb0kK29qJoQICga5D6AhhHDUCAhHpJN9KZEM5pA+n/mDeBKAG3gQFImHFZ8xhAT48oMI1xgg0x/TH9MfAvgju/Jk7UTQ0x/TH9P/9ATRUUO68qFRUbryogX5AVQQZPkQ8qP4ACSkyMsfUkDLH1Iwy/9SEPQAye1U+A8B0wchwACfbFGTINdKltMH1AL7AOgw4CHAAeMAIcAC4wABwAORMOMNA6TIyx8Syx/L/xESExQAbtIH+gDU1CL5AAXIygcVy//J0Hd0gBjIywXLAiLPFlAF+gIUy2sSzMzJc/sAyEAUgQEI9FHypwIAcIEBCNcY+gDTP8hUIEeBAQj0UfKnghBub3RlcHSAGMjLBcsCUAbPFlAE+gIUy2oSyx/LP8lz+wACAGyBAQjXGPoA0z8wUiSBAQj0WfKnghBkc3RycHSAGMjLBcsCUAXPFlAD+gITy2rLHxLLP8lz+wAACvQAye1UAFEAAAAAKamjF08Bnj6haO00bZg7PmzPNy/cUv6cIklD6lOqpurMHSHqQJyns+4=',
-        },
-    }
+    setWalletData(walletInfo);
 })
 
 onBeforeMount(async function () {
@@ -87,13 +74,25 @@ function select(index) {
     svg.value = qrcode.svg()
     scanDialog.value = true
 }
+
+const btnText = ref("Connect Wallet");
+if (walletData() != null) {
+    const rawAddress = walletData().account.address; // like '0:abcdef123456789...'
+    const bouncableUserFriendlyAddress = toUserFriendlyAddress(rawAddress);
+    btnText.value = bouncableUserFriendlyAddress.substring(0, 8);
+}
+function buttonClicked() {
+    if (walletData() != null) {
+        return;
+    }
+
+    walletDialog.value = true;
+}
 </script>
 
 <template>
+    <v-btn @click="buttonClicked" color="#FF7E73" variant="tonal"> {{ btnText }} </v-btn>
     <v-dialog width="350" @update:modelValue="emit('walletConnect')" v-model="walletDialog">
-        <template v-slot:activator="{ props }">
-            <v-btn v-bind="props" color="#FF7E73" variant="tonal"> Connect Wallet </v-btn>
-        </template>
         <template v-slot:default="{ isActive }">
             <v-card>
                 <v-toolbar
