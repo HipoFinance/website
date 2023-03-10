@@ -13,6 +13,9 @@
 * `npm install @orbs-network/ton-access`
 * `npm install vite-plugin-node-polyfills`
 * `npm install @tonconnect/sdk`
+* `npm install vuetify@^3.1.8`
+    + `vite-plugin-vuetify`
+* `npm install -D tailwindcss postcss autoprefixer`
 
 ### Dev
 

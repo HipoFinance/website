@@ -1,9 +1,12 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import WalletAccess from '../components/dialogs/WalletConnect.vue';
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <v-main>
+    <v-container class="fill-height">
+      <WalletAccess />
+    </v-container>
+    <v-footer app>hi</v-footer>
+  </v-main>
 </template>

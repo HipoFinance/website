@@ -13,20 +13,27 @@
     "@orbs-network/ton-access": "^2.3.0",
     "@tonconnect/sdk": "^2.0.7",
     "pinia": "^2.0.32",
+    "qrcode-svg": "^1.1.0",
     "ton": "^13.4.1",
     "ton-core": "^0.48.0",
     "ton-crypto": "^3.2.0",
     "vite-plugin-node-polyfills": "^0.7.0",
+    "vite-plugin-vuetify": "^1.0.2",
     "vue": "^3.2.47",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "vuetify": "^3.1.8"
   },
   "devDependencies": {
+    "@mdi/font": "^7.1.96",
     "@rushstack/eslint-patch": "^1.2.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/eslint-config-prettier": "^7.1.0",
+    "autoprefixer": "^10.4.13",
     "eslint": "^8.34.0",
     "eslint-plugin-vue": "^9.9.0",
+    "postcss": "^8.4.21",
     "prettier": "^2.8.4",
+    "tailwindcss": "^3.2.7",
     "vite": "^4.1.4"
   }
 }
