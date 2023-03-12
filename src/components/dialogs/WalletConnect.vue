@@ -1,65 +1,64 @@
 <script setup>
-import { ref, onBeforeMount, defineEmits } from 'vue'
+import { ref, defineEmits, watch } from 'vue'
 import { useWalletStore } from '../../stores/wallet'
-import { TonConnect } from '@tonconnect/sdk'
-import { toUserFriendlyAddress } from '@tonconnect/sdk';
 import QRCode from 'qrcode-svg'
 
-
 const emit = defineEmits(['walletConnect'])
+const { wallet, connectTo, disconnect } = useWalletStore()
+
+const svg = ref(null)
+const scanDialog = ref(false)
+const walletDialog = ref(false)
+const btnText = ref('Connect Wallet')
+
+function buttonClicked() {
+    if (wallet.connected) {
+        return
+    }
+    walletDialog.value = true
+}
+
+watch(
+    () => wallet.connected,
+    (connected) => {
+        if (!connected) {
+            btnText.value = 'Connect Wallet'
+            return
+        }
+        scanDialog.value = false
+        walletDialog.value = false
+        const l = wallet.address.length
+        btnText.value = wallet.address.substring(0, 4) + '...' + wallet.address.substring(l - 4)
+    },
+)
 
 const wallets = ref([])
-const svg = ref(null)
-const walletDialog = ref(false)
-const scanDialog = ref(false)
-const { walletData, setWalletData } = useWalletStore();
+watch(
+    () => wallet.list,
+    (l) => {
+        if (l == null) {
+            wallets.value = []
+            return
+        }
 
-const connector = new TonConnect({
-    manifestUrl: 'https://733amir.github.io/tonchallenge/manifest.json',
-})
-// eslint-disable-next-line no-unused-vars
-const unsubscribe = connector.onStatusChange((walletInfo) => {
-    // update state/reactive variables to show updates in the ui
-
-    scanDialog.value = false
-    walletDialog.value = false
-
-    console.log('wallet:', JSON.stringify(walletInfo))
-    setWalletData(walletInfo);
-})
-
-onBeforeMount(async function () {
-    const walletsList = await connector.getWallets() // or use `walletsList` fetched before
-    wallets.value = walletsList
-        .filter(function (info) {
-            return info.universalLink != null && info.bridgeUrl != null
-        })
-        .map(function (info) {
-            return {
-                prependAvatar: info.imageUrl,
-                title: info.name,
-                height: 65,
-                universalLink: info.universalLink,
-                bridgeUrl: info.bridgeUrl,
-            }
-        })
-})
-
-// const embeddedWallet = walletsList.find(
-//   wallet => isWalletInfoInjected(wallet) && wallet.embedded
-// );
-
-// if (embeddedWallet) {
-//   connector.connect({ jsBridgeKey: embeddedWallet.jsBridgeKey });
-// }
+        wallets.value = l
+            .filter(function (info) {
+                // TODO support all wallets.
+                return info.universalLink != null && info.bridgeUrl != null
+            })
+            .map(function (info) {
+                return {
+                    prependAvatar: info.imageUrl,
+                    title: info.name,
+                    universalLink: info.universalLink,
+                    bridgeUrl: info.bridgeUrl,
+                }
+            })
+    },
+)
 
 function select(index) {
-    const walletConnectionSource = {
-        universalLink: wallets.value[index]['universalLink'],
-        bridgeUrl: wallets.value[index]['bridgeUrl'],
-    }
-    const universalLink = connector.connect(walletConnectionSource)
-
+    const universalLink = connectTo(index)
     var qrcode = new QRCode({
         content: universalLink,
         padding: 4,
@@ -74,24 +73,21 @@ function select(index) {
     svg.value = qrcode.svg()
     scanDialog.value = true
 }
-
-const btnText = ref("Connect Wallet");
-if (walletData() != null) {
-    const rawAddress = walletData().account.address; // like '0:abcdef123456789...'
-    const bouncableUserFriendlyAddress = toUserFriendlyAddress(rawAddress);
-    btnText.value = bouncableUserFriendlyAddress.substring(0, 8);
-}
-function buttonClicked() {
-    if (walletData() != null) {
-        return;
-    }
-
-    walletDialog.value = true;
-}
 </script>
 
 <template>
-    <v-btn @click="buttonClicked" color="#FF7E73" variant="tonal"> {{ btnText }} </v-btn>
+    <v-btn @click="buttonClicked" color="#FF7E73" variant="tonal">
+        {{ btnText }}
+
+        <v-menu activator="parent" v-if="wallet.connected">
+            <v-list>
+                <v-list-item>
+                    <v-btn @click="disconnect" color="#FF7E73" variant="tonal">Logout</v-btn>
+                </v-list-item>
+            </v-list>
+        </v-menu>
+    </v-btn>
+
     <v-dialog width="350" @update:modelValue="emit('walletConnect')" v-model="walletDialog">
         <template v-slot:default="{ isActive }">
             <v-card>

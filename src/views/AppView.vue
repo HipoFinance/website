@@ -1,7 +1,8 @@
 <script setup>
 import { reactive } from 'vue'
 import WalletConnect from '../components/dialogs/WalletConnect.vue'
-// import WalletAccess from '../components/WalletAccess.vue';
+import ContractInfo from '../components/cards/ContractInfo.vue'
+import StakeAction from '../components/cards/StakeAction.vue'
 
 let data = reactive({
     drawer: false,
@@ -37,12 +38,18 @@ function closeNavDraw() {
     </v-navigation-drawer>
 
     <v-main style="background-color: #efebe5">
-        <v-container class="d-flex align-center" style="max-width: 1200px">
+        <v-container class="flex align-center" style="max-width: 1200px">
             <v-row>
-                <v-col cols="12" sm="2">
-                    <v-sheet rounded="lg" min-height="268">
-                        <!--  -->
-                    </v-sheet>
+                <v-col class="v-col-12 v-col-md-6">
+                    <!-- <v-sheet rounded="lg" min-height="268"> -->
+                    <!--  -->
+                    <!-- </v-sheet> -->
+                    <suspense>
+                        <contract-info></contract-info>
+                    </suspense>
+                </v-col>
+                <v-col class="v-col-12 v-col-md-6">
+                    <stake-action></stake-action>
                 </v-col>
             </v-row>
         </v-container>
