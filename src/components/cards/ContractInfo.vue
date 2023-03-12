@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
 import { getHttpEndpoint } from '@orbs-network/ton-access'
 import { TonClient, Address, TupleBuilder, Dictionary } from 'ton'
@@ -35,7 +35,6 @@ const symbol = ref(fromTextCell(d.get(symbolKey)))
 const name = ref(fromTextCell(d.get(nameKey)))
 const image = ref(fromTextCell(d.get(imageKey)))
 const description = ref(fromTextCell(d.get(descriptionKey)))
-
 
 const walletAddress = 'EQAGl2nXMaqLVn_QeJBejIXhDtz9GpqjGuKfEg2kdqgWJEOy'
 const t = new TupleBuilder()

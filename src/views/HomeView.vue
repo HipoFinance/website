@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts"  setup>
 import WalletAccess from '../components/dialogs/WalletConnect.vue';
 </script>
 

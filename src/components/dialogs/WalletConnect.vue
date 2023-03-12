@@ -1,5 +1,5 @@
-<script setup>
-import { ref, defineEmits, watch } from 'vue'
+<script lang="ts" setup>
+import { ref, watch } from 'vue'
 import { useWalletStore } from '../../stores/wallet'
 import QRCode from 'qrcode-svg'
 

@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
 import { reactive } from 'vue'
 import WalletConnect from '../components/dialogs/WalletConnect.vue'
 import ContractInfo from '../components/cards/ContractInfo.vue'
