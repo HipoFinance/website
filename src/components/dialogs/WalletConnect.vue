@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 import { useWalletStore } from '../../stores/wallet'
 import QRCode from 'qrcode-svg'
+import { fromNano } from 'ton-core';
 
 const emit = defineEmits(['walletConnect'])
 const { wallet, connectTo, disconnect } = useWalletStore()
@@ -28,7 +29,7 @@ watch(
         scanDialog.value = false
         walletDialog.value = false
         const l = wallet.address.length
-        btnText.value = wallet.address.substring(0, 4) + '...' + wallet.address.substring(l - 4)
+        btnText.value = wallet.address.substring(0, 4) + '...' + wallet.address.substring(l - 4) + ': ' + fromNano(wallet.balance)
     },
 )
 

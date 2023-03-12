@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { getHttpEndpoint } from '@orbs-network/ton-access'
-import { TonClient, Address, TupleBuilder, Dictionary } from 'ton'
+import { TonClient, Address, TupleBuilder, Dictionary, Cell } from 'ton'
 import { sha256 } from 'ton-crypto'
 
 const endpoint = await getHttpEndpoint({ network: 'testnet' }) // get the decentralized RPC endpoint
@@ -9,6 +9,7 @@ const client = new TonClient({ endpoint }) // initialize ton library
 
 // make some query to mainnet
 const address = Address.parseFriendly('EQAzgl2-Kl34XQlN4TU2PfKjSmhiJdiAm3sBiTphrPMmZfVo').address
+const address2 = Address.parseFriendly('EQAzgl2-Kl34XQlN4TU2PfKjSmhiJdiAm3sBiTphrPMmZfVo').address.toRawString()
 const balance = ref(0)
 balance.value = await client.getBalance(address)
 
@@ -68,6 +69,7 @@ function removeBits(c, n) {
     <v-card>
         <v-card-item> Contract Information </v-card-item>
         <v-card-text>
+            <div><span style="color: red">Address</span>: {{ address2 }}</div>
             <div><span style="color: red">Balance</span>: {{ balance }}</div>
             <br />
             <div>
