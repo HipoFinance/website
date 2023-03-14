@@ -38,7 +38,7 @@ export const useWalletStore = defineStore('wallet', () => {
     })
 
     const connector = new TonConnect({
-        manifestUrl: 'https://733amir.github.io/tonchallenge/manifest.json',
+        manifestUrl: 'https://github.com/StakeHipo/website/raw/main/public/manifest.json',
     })
 
     connector.getWallets().then((ws) => {
