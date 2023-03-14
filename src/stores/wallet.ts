@@ -80,7 +80,7 @@ export const useWalletStore = defineStore('wallet', () => {
         if (!connector.connected) {
             return
         }
-        // unsubscribe() // TODO It seems this does not work ?!
+        unsubscribe() // TODO It seems this does not work ?!
         connector.disconnect()
         setRestore(false)
         wallet.address = ''
@@ -173,14 +173,14 @@ export const useWalletStore = defineStore('wallet', () => {
         }
 
         const payload = beginCell()
-                .storeUint(0x595f07bc, 32)
-                .storeUint(queryId || 0, 64)
-                .storeCoins(stakeAmount)
-                .storeAddress(returnExcess || userAddress)
-                .storeMaybeBuilder(rp)
-                .endCell()
-                .toBoc()
-                .toString('base64')
+            .storeUint(0x595f07bc, 32)
+            .storeUint(queryId || 0, 64)
+            .storeCoins(stakeAmount)
+            .storeAddress(returnExcess || userAddress)
+            .storeMaybeBuilder(rp)
+            .endCell()
+            .toBoc()
+            .toString('base64')
 
         const result = await connector.sendTransaction({
             validUntil: Math.floor(Date.now() / 1000) + 300,
