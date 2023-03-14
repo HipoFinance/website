@@ -133,8 +133,8 @@ function resize() {
                             <v-card-title style="font-size: 2.5em;" class="px-1 py-1 px-md-2 py-md-2">
                                 StakeHipo
                             </v-card-title>
-                            <v-card-subtitle style="white-space: break-spaces;" class="px-1 pt-1 pb-4 px-md-2 pt-md-2
-                                                    pb-md-6">
+                            <v-card-subtitle style="white-space: break-spaces;"
+                                class="px-1 pt-1 pb-4 px-md-2 pt-md-2 pb-md-6">
                                 The decentralized solution for liquid staking.
                             </v-card-subtitle>
                         </v-card-item>
@@ -164,10 +164,9 @@ function resize() {
         <v-container style="max-width: 1200px;">
             <v-row class="justify-center align-center" style="min-height: calc(100vh - 64px);">
                 <v-col class="v-col-12 v-col-md-9">
-                    <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
+                    <v-card class="mb-16" variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                         <v-card-item>
-                            <v-card-title style="font-size: 2.5em; white-space: break-spaces;" class="pa-1 pt-md-2
-                                                pb-md-6">
+                            <v-card-title style="font-size: 2.5em; white-space: break-spaces;" class="pa-1 pt-md-2 pb-md-6">
                                 How StakeHipo Works?
                             </v-card-title>
                         </v-card-item>
@@ -237,6 +236,210 @@ function resize() {
                                     </v-card>
                                 </v-carousel-item>
                             </v-carousel>
+                        </v-card-text>
+                    </v-card>
+                    <v-card class="mt-16" variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
+                        <v-card-text style="font-size: 1.75em; line-height: 1.5;">
+                            At StakeHipo, we believe in the power of liquid staking to make staking more accessible and
+                            flexible for users. With our easy-to-use platform and competitive staking rewards, we offer
+                            a simple and efficient way for you to stake your TON and earn rewards.
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
+        <v-container style="max-width: 1200px;">
+            <v-row class="justify-center align-center">
+                <v-col class="v-col-12 v-col-md-9">
+                    <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
+                        <v-card-item>
+                            <v-card-title style="font-size: 2.5em; white-space: break-spaces;" class="pa-1 pt-md-2 pb-md-6">
+                                Why TON?
+                            </v-card-title>
+                        </v-card-item>
+                        <v-card-text style="font-size: 1.75em; line-height: 1.5;">
+                            TON (Telegram Open Network) is a next-generation blockchain platform that offers fast
+                            transaction speeds and a robust infrastructure for building decentralized applications. Here are
+                            some reasons why we believe TON is the perfect blockchain for liquid staking:
+                        </v-card-text>
+                    </v-card>
+                    <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
+                        <v-card-text>
+                            <v-carousel color="#776464" hide-delimiter-background
+                                :height="displayCode <= 2 ? '350px' : '425px'" :show-arrows="displayCode > 2"
+                                :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
+                                <template v-slot:prev="{ props }">
+                                    <v-btn icon variant="elevated" color="#FF7E73" @click="props.onClick">
+                                        <v-icon icon="mdi-arrow-left" color="white"></v-icon>
+                                    </v-btn>
+                                </template>
+                                <template v-slot:next="{ props }">
+                                    <v-btn icon variant="elevated" color="#FF7E73" @click="props.onClick">
+                                        <v-icon icon="mdi-arrow-right" color="white"></v-icon>
+                                    </v-btn>
+                                </template>
+                                <v-carousel-item>
+                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '96px') }">
+                                        <v-card-item class="pa-0">
+                                            <v-card-title style="font-size: 1.75em; padding: 24px;">
+                                                1. Speed and Scalability
+                                            </v-card-title>
+                                        </v-card-item>
+                                        <v-card-text style="font-size: 1.5em; line-height: 1.5;">
+                                            <div>
+                                                The TON blockchain is designed for high-speed transactions, with the
+                                                capacity to process millions of transactions per second. This speed and
+                                                scalability make it ideal for liquid staking, as it allows for fast and
+                                                efficient transfers of hTONs and TONs.
+                                            </div>
+                                        </v-card-text>
+                                    </v-card>
+                                </v-carousel-item>
+                                <v-carousel-item>
+                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '96px') }">
+                                        <v-card-item class="pa-0">
+                                            <v-card-title style="font-size: 1.75em; padding: 24px;">
+                                                2. Robust Infrastructure
+                                            </v-card-title>
+                                        </v-card-item>
+                                        <v-card-text style="font-size: 1.5em; line-height: 1.5;">
+                                            <div>
+                                                The TON blockchain is built on a powerful and secure infrastructure that
+                                                offers high availability and fault tolerance. This makes it a reliable
+                                                platform for liquid staking, as it ensures that stakers' funds are secure
+                                                and accessible at all times.
+                                            </div>
+                                        </v-card-text>
+                                    </v-card>
+                                </v-carousel-item>
+                                <v-carousel-item>
+                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '96px') }">
+                                        <v-card-item class="pa-0">
+                                            <v-card-title style="font-size: 1.75em; padding: 24px;">
+                                                3. Active Community
+                                            </v-card-title>
+                                        </v-card-item>
+                                        <v-card-text style="font-size: 1.5em; line-height: 1.5;">
+                                            <div>
+                                                The TON blockchain has a large and active community of developers and
+                                                enthusiasts who are constantly working to improve and innovate on the
+                                                platform. This community ensures that TON is always evolving and adapting to
+                                                meet the needs of its users.
+                                            </div>
+                                        </v-card-text>
+                                    </v-card>
+                                </v-carousel-item>
+                            </v-carousel>
+                        </v-card-text>
+                    </v-card>
+                    <v-card class="mt-16" variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
+                        <v-card-text style="font-size: 1.75em; line-height: 1.5;">
+                            At StakeHipo, we believe that TON is the future of blockchain technology, and we are proud to
+                            offer a liquid staking platform that harnesses its power and potential. Join us today and start
+                            earning rewards for your TON!
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
+        <v-container style="max-width: 1200px;">
+            <v-row class="justify-center align-center" style="min-height: calc(100vh - 64px);">
+                <v-col class="v-col-12 v-col-md-9">
+                    <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
+                        <v-card-item>
+                            <v-card-title style="font-size: 2.5em; white-space: break-spaces;" class="pa-1 pt-md-2 pb-md-6">
+                                FAQ
+                            </v-card-title>
+                        </v-card-item>
+                        <v-card-text style="font-size: 1.35em; line-height: 1.5; min-height: 800px;">
+                            <v-expansion-panels variant="inset">
+                                <v-expansion-panel>
+                                    <v-expansion-panel-title style="font-size: 1em;">
+                                        What is liquid staking?
+                                    </v-expansion-panel-title>
+                                    <v-expansion-panel-text>
+                                        Liquid staking is a way to stake your cryptocurrency and receive liquid rewards in
+                                        return. Instead of locking up your cryptocurrency, you receive a liquid version of
+                                        your staked cryptocurrency that can be used for other purposes, such as trading or
+                                        providing liquidity.
+                                    </v-expansion-panel-text>
+                                </v-expansion-panel>
+                                <v-expansion-panel>
+                                    <v-expansion-panel-title style="font-size: 1em;">
+                                        How does liquid staking work on StakeHipo?
+                                    </v-expansion-panel-title>
+                                    <v-expansion-panel-text>
+                                        StakeHipo uses decentralized nodes to securely stake your TON and generate liquid
+                                        staked TON rewards. Simply stake any amount of TON on our platform to start earning
+                                        daily staking rewards. Once you stake your TON, you will receive an equivalent
+                                        amount of liquid hTONs, which can be used for other purposes while still earning
+                                        staking rewards in real-time. With your hTONs, you can participate in the larger
+                                        DeFi ecosystem and compound your daily staked rewards, giving you a range of options
+                                        for generating even more rewards.
+                                    </v-expansion-panel-text>
+                                </v-expansion-panel>
+                                <v-expansion-panel>
+                                    <v-expansion-panel-title style="font-size: 1em;">
+                                        Is my TON safe on StakeHipo?
+                                    </v-expansion-panel-title>
+                                    <v-expansion-panel-text>
+                                        Yes, your TON is secure on our platform. We use advanced blockchain technology,
+                                        including smart contracts and decentralized nodes, to ensure that your TON is staked
+                                        securely and that your rewards are distributed fairly. Our platform is also
+                                        regularly audited to ensure the highest level of security and reliability.
+                                    </v-expansion-panel-text>
+                                </v-expansion-panel>
+                                <v-expansion-panel>
+                                    <v-expansion-panel-title style="font-size: 1em;">
+                                        How are staking rewards calculated?
+                                    </v-expansion-panel-title>
+                                    <v-expansion-panel-text>
+                                        Staking rewards are calculated based on a variety of factors, including the amount
+                                        of TON staked, the length of the staking period, and the overall demand for TON
+                                        staking on our platform. Our platform offers competitive staking rewards to ensure
+                                        that our users are rewarded fairly for their participation.
+                                    </v-expansion-panel-text>
+                                </v-expansion-panel>
+                                <v-expansion-panel>
+                                    <v-expansion-panel-title style="font-size: 1em;">
+                                        How do I unstake my TON?
+                                    </v-expansion-panel-title>
+                                    <v-expansion-panel-text>
+                                        To unstake your TON, simply navigate to the unstaking section on our platform and
+                                        initiate the unstaking process. The amount of time it takes for your TON to become
+                                        available will depend on the availability of unstaked TON in the smart contract. If
+                                        there is enough unstaked TON in the smart contract, your unstake request will be
+                                        processed instantly. However, if there is not enough unstaked TON, you will need to
+                                        wait for the next validation round that ustaked TON become available in the smart
+                                        contacts.
+                                    </v-expansion-panel-text>
+                                </v-expansion-panel>
+                                <v-expansion-panel>
+                                    <v-expansion-panel-title style="font-size: 1em;">
+                                        What happens if there are network issues or my transaction fails during the staking
+                                        process?
+                                    </v-expansion-panel-title>
+                                    <v-expansion-panel-text>
+                                        Our liquid staking platform is built on a decentralized blockchain network, meaning
+                                        that your transactions and staking activities are handled by smart contracts and
+                                        distributed nodes rather than a centralized authority. In the unlikely event of
+                                        network issues or a failed transaction, the decentralized nodes automatically detect
+                                        the issue and work to resolve it. Your TON remains secure in your wallet and is not
+                                        at risk of being lost. Additionally, our platform is designed with fail-safes to
+                                        ensure that you do not lose any staking rewards.
+                                    </v-expansion-panel-text>
+                                </v-expansion-panel>
+                                <v-expansion-panel>
+                                    <v-expansion-panel-title style="font-size: 1em;">
+                                        How do I get involved in the StakeHipo community?
+                                    </v-expansion-panel-title>
+                                    <v-expansion-panel-text>
+                                        Our platform offers a community forum where users can connect and share information.
+                                        You can also follow us on social media to stay up-to-date on the latest developments
+                                        on our platform and in the larger TON ecosystem.
+                                    </v-expansion-panel-text>
+                                </v-expansion-panel>
+                            </v-expansion-panels>
                         </v-card-text>
                     </v-card>
                 </v-col>
