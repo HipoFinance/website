@@ -49,7 +49,7 @@ function resize() {
 <template>
     <v-app-bar class="px-3 justify-center" color="white" flat>
         <v-container class="d-flex align-center" style="max-width: 1200px">
-            <img style="margin: 8px; height: 40px;" src="/website/icons/horizontal.png" />
+            <img style="margin: 8px; height: 40px;" src="/icons/horizontal.png" />
             <v-spacer></v-spacer>
         </v-container>
     </v-app-bar>
