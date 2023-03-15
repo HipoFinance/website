@@ -49,13 +49,13 @@ function resize() {
 <template>
     <v-app-bar class="px-3 justify-center" color="white" flat>
         <v-container class="d-flex align-center" style="max-width: 1200px">
-            <img style="margin: 8px; height: 40px;" src="/icons/horizontal.png" />
+            <img style="margin: 8px; height: 40px;" src="/website/icons/horizontal.png" />
             <v-spacer></v-spacer>
         </v-container>
     </v-app-bar>
     <v-main>
         <v-container v-resize="resize"
-            style="position: fixed; width: 100%; max-width: 100%; background-image: url(/icons/3.jpg); background-size: cover;">
+            style="position: fixed; width: 100%; max-width: 100%; background-image: url(/website/icons/3.jpg); background-size: cover;">
             <v-row style="min-height: calc(100vh - 64px);"> </v-row>
         </v-container>
         <v-container style="max-width: 1200px;">
@@ -64,7 +64,7 @@ function resize() {
                     <v-card variant="tonal">
                         <v-card-item class="d-flex">
                             <div class="d-flex justify-center align-center">
-                                <v-img width="48" height="48" src="/icons/hton128.png"></v-img>
+                                <v-img width="48" height="48" src="/website/icons/hton128.png"></v-img>
                                 <div style="padding: 3px 16px 3px 16px;">
                                     <v-card-title class="d-flex">
                                         Staked
@@ -85,7 +85,7 @@ function resize() {
                     <v-card variant="tonal">
                         <v-card-item class="d-flex">
                             <div class="d-flex justify-center align-center">
-                                <v-img width="48" height="48" src="/icons/ton-icon-560-560.png"></v-img>
+                                <v-img width="48" height="48" src="/website/icons/ton-icon-560-560.png"></v-img>
                                 <div style="padding: 3px 16px 3px 16px;">
                                     <v-card-title class="d-flex">
                                         Rewards

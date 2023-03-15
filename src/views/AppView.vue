@@ -20,10 +20,10 @@ function closeNavDraw() {
                 <v-icon icon="mdi-menu" color="#FF7E73" />
             </v-app-bar-nav-icon>
             <v-spacer></v-spacer>
-            <img style="margin: 8px; height: 40px; width: 40px" src="/icons/64-icon.png" />
+            <img style="margin: 8px; height: 40px; width: 40px" src="/website/icons/64-icon.png" />
         </v-container>
         <v-container class="d-none d-md-flex align-center" style="max-width: 1200px">
-            <img style="margin: 8px; height: 40px; width: 40px" src="/icons/64-icon.png" />
+            <img style="margin: 8px; height: 40px; width: 40px" src="/website/icons/64-icon.png" />
             <v-spacer></v-spacer>
             <wallet-connect></wallet-connect>
         </v-container>

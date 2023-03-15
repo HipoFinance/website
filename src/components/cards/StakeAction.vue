@@ -39,7 +39,7 @@
                                     v-model="amount.stake"
                                 >
                                     <template #prepend-inner>
-                                        <v-img width="24" src="/icons/ton-icon-560-560.png"></v-img>
+                                        <v-img width="24" src="/website/icons/ton-icon-560-560.png"></v-img>
                                     </template>
                                 </v-text-field>
                             </v-col>
@@ -68,7 +68,7 @@
                                     v-model="amount.unstake"
                                 >
                                     <template #prepend-inner>
-                                        <v-img width="24" src="/icons/hton128.png"></v-img>
+                                        <v-img width="24" src="/website/icons/hton128.png"></v-img>
                                     </template>
                                 </v-text-field>
                             </v-col>
