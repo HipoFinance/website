@@ -110,7 +110,7 @@ setTimeout(() => {
                             Decentralized, Secure, and Easy with <span class="px-3" style="color: #776464;">StakeHipo</span>
                         </v-card-text>
                         <v-card-actions class="d-flex justify-center align-center">
-                            <v-btn color="#FF7E73" variant="tonal" style="margin: 10px" @click="" size="x-large">
+                            <v-btn color="#FF7E73" variant="tonal" style="margin: 10px" to="/app" size="x-large">
                                 <div class="mx-16">Stake Now</div>
                             </v-btn>
                         </v-card-actions>
