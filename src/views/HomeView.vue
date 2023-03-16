@@ -474,8 +474,7 @@ setTimeout(() => {
                                     <v-expansion-panel-title style="font-size: 1em;">
                                         <div>
                                             How does liquid staking work on
-                                            <span :class="{ 'pl-2': displayCode > 2 }"
-                                                style="color: #776464;">StakeHipo</span>?
+                                            <span style="color: #776464;">StakeHipo</span>?
                                         </div>
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
@@ -491,8 +490,7 @@ setTimeout(() => {
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
                                         <div>
-                                            Is my <span :class="{ 'px-2': displayCode > 2 }"
-                                                style="color: #3a86c7;">TON</span> safe on <span class="pl-2"
+                                            Is my <span style="color: #3a86c7;">TON</span> safe on <span
                                                 style="color: #776464;">StakeHipo</span>?
                                         </div>
                                     </v-expansion-panel-title>
@@ -517,8 +515,7 @@ setTimeout(() => {
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
                                         <div>
-                                            How do I unstake my <span :class="{ 'pl-2': displayCode > 2 }"
-                                                style="color: #3a86c7;">TON</span>?
+                                            How do I unstake my <span style="color: #3a86c7;">TON</span>?
                                         </div>
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
@@ -550,8 +547,7 @@ setTimeout(() => {
                                     <v-expansion-panel-title style="font-size: 1em;">
                                         <div>
                                             How do I get involved in the
-                                            <span :class="{ 'px-2': displayCode > 2 }"
-                                                style="color: #776464;">StakeHipo</span> community?
+                                            <span style="color: #776464;">StakeHipo</span> community?
                                         </div>
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
