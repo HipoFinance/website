@@ -1,5 +1,6 @@
 <script lang="ts"  setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
+import gsap from 'gsap'
 
 const icons = [
     'mdi-facebook',
@@ -29,6 +30,38 @@ function resize() {
         displayCode.value = 5 // 'xl'
     }
 }
+
+const statistics = reactive({
+    staked: 0,
+    reward: 0,
+    users: 0,
+})
+
+const statsAnimated: {
+    staked: number
+    reward: number
+    users: number
+} = reactive({
+    staked: 0,
+    reward: 0,
+    users: 0,
+})
+watch(statistics, (n: any) => {
+    console.log('got')
+    gsap.to(statsAnimated, {
+        duration: 0.5,
+        staked: Number(n.staked) || 0,
+        reward: Number(n.reward) || 0,
+        users: Number(n.users) || 0,
+    })
+})
+
+setTimeout(() => {
+    console.log('set')
+    statistics.staked = 8932398
+    statistics.reward = 397361
+    statistics.users = 34
+}, 3000);
 </script>
 
 <template>
@@ -86,7 +119,7 @@ function resize() {
                         </v-card-item>
                         <v-card-text class="d-flex justify-center align-center my-14 mx-8 my-md-16"
                             style="font-size: 3rem;">
-                            8,932,398
+                            {{ statsAnimated.staked }}
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -107,7 +140,7 @@ function resize() {
                         </v-card-item>
                         <v-card-text class="d-flex justify-center align-center my-14 mx-8 my-md-16"
                             style="font-size: 3rem;">
-                            397,361
+                            {{ statsAnimated.reward }}
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -128,7 +161,7 @@ function resize() {
                         </v-card-item>
                         <v-card-text class="d-flex justify-center align-center my-14 mx-8 my-md-16"
                             style="font-size: 3rem;">
-                            34
+                            {{ statsAnimated.users }}
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -377,7 +410,7 @@ function resize() {
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
                                         How does liquid staking work on<span class="pl-2" style="color:
-                                                        #776464;">StakeHipo</span>?
+                                                                            #776464;">StakeHipo</span>?
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         StakeHipo uses decentralized nodes to securely stake your TON and generate liquid
@@ -391,7 +424,8 @@ function resize() {
                                 </v-expansion-panel>
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
-                                        Is my <span class="px-2" style="color: #3a86c7;">TON</span> safe on <span class="pl-2" style="color: #776464;">StakeHipo</span>?
+                                        Is my <span class="px-2" style="color: #3a86c7;">TON</span> safe on <span
+                                            class="pl-2" style="color: #776464;">StakeHipo</span>?
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         Yes, your TON is secure on our platform. We use advanced blockchain technology,
@@ -443,7 +477,7 @@ function resize() {
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
                                         How do I get involved in the <span class="px-2" style="color:
-                                                        #776464;">StakeHipo</span> community?
+                                                                            #776464;">StakeHipo</span> community?
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         Our platform offers a community forum where users can connect and share information.

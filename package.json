@@ -12,6 +12,7 @@
   "dependencies": {
     "@orbs-network/ton-access": "^2.3.0",
     "@tonconnect/sdk": "^2.0.7",
+    "gsap": "^3.11.4",
     "pinia": "^2.0.32",
     "qrcode-svg": "^1.1.0",
     "ton": "^13.4.1",
