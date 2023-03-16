@@ -9,6 +9,24 @@ const icons = [
     'mdi-instagram',
 ];
 
+const socials = [
+    {
+        title: 'Telegram',
+        link: 'http://t.me/stakehipo',
+        icon: 'mdi-send',
+    },
+    {
+        title: 'Twitter',
+        link: 'https://twitter.com/stakehipo',
+        icon: 'mdi-twitter',
+    },
+    {
+        title: 'Chat',
+        link: 'https://t.me/stakehipo_chat',
+        icon: 'mdi-chat',
+    },
+]
+
 // const data = reactive({ drawer: false })
 
 const displayCode = ref(1)
@@ -409,8 +427,8 @@ setTimeout(() => {
                                 </v-expansion-panel>
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
-                                        How does liquid staking work on<span class="pl-2" style="color:
-                                                                            #776464;">StakeHipo</span>?
+                                        How does liquid staking work on
+                                        <span class="pl-2" style="color: #776464;">StakeHipo</span>?
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         StakeHipo uses decentralized nodes to securely stake your TON and generate liquid
@@ -476,8 +494,8 @@ setTimeout(() => {
                                 </v-expansion-panel>
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
-                                        How do I get involved in the <span class="px-2" style="color:
-                                                                            #776464;">StakeHipo</span> community?
+                                        How do I get involved in the
+                                        <span class="px-2" style="color: #776464;">StakeHipo</span> community?
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         Our platform offers a community forum where users can connect and share information.
@@ -491,23 +509,19 @@ setTimeout(() => {
                 </v-col>
             </v-row>
         </v-container>
-        <v-footer class="bg-indigo-lighten-1 text-center d-flex flex-column">
+        <v-footer class="text-center d-flex flex-column" style="color: white; background-color: #776464;">
             <div>
-                <v-btn v-for="icon in icons" :key="icon" class="mx-4" :icon="icon" variant="text"></v-btn>
+                <v-btn v-for="icon in socials" :key="icon.title" class="mx-4" :icon="icon.icon" variant="text"
+                    color="white"></v-btn>
             </div>
 
             <div class="pt-0">
-                Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent
-                ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet
-                dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum
-                ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci
-                varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
             </div>
 
             <v-divider></v-divider>
 
             <div>
-                {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+                {{ new Date().getFullYear() }} — <strong>StakeHipo</strong>
             </div>
         </v-footer>
     </v-main>
