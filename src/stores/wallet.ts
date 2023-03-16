@@ -10,7 +10,7 @@ export const useWalletStore = defineStore('wallet', () => {
     const testnet = true
     /* cspell: disable-next-line */
     const rootAddress = Address.parseFriendly(
-        'EQAzgl2-Kl34XQlN4TU2PfKjSmhiJdiAm3sBiTphrPMmZfVo',
+        'EQD5SxgI2HAWJCJVsKKdZFbdkSGX4v2tBGqRWIHXrqr6_wvJ',
     ).address
 
     function setRestore(value: boolean) {
