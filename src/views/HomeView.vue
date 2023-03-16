@@ -120,8 +120,8 @@ setTimeout(() => {
                     <v-card variant="text" :style="{ marginTop: displayCode <= 2 ? '10vh' : '20vh' }">
                         <!-- <v-card-item class="d-flex" style="width: 100%;"> -->
                         <v-card-title class="d-flex" style="line-height: 2; white-space: break-spaces;"
-                            :style="{ fontSize: displayCode <= 2 ? '1.7rem' : '3rem' }">
-                            Empowering Your<span class="px-3" style="color: #3a86c7;">TON</span>
+                            :style="{ fontSize: displayCode <= 2 ? '1.7rem' : '3rem' }">Empowering Your
+                            <span class="px-3" style="color: #3a86c7;">TON</span>
                         </v-card-title>
                         <v-card-subtitle style="font-size: 1.5rem; line-height: 1; width: 100%">
                             stake smarter,
@@ -132,7 +132,7 @@ setTimeout(() => {
                         <v-card-text class="d-flex" :class="[displayCode <= 2 ? 'flex-column' : 'align-center']"
                             style="margin: 7vh 0; line-height: 1;"
                             :style="{ fontSize: displayCode <= 2 ? '1.75rem' : '3rem' }">
-                            <span :class="{ 'px-3': displayCode > 2 }" style="color: #776464;">StakeHipo</span>
+                            <span :class="{ 'pr-3': displayCode > 2 }" style="color: #776464;">StakeHipo</span>
                             is
                             <div class="typewrite mx-2" data-period="2000"
                                 data-type='[ "Decentralized", "Secure", "Easy" ]'>
