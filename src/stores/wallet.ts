@@ -30,11 +30,13 @@ export const useWalletStore = defineStore('wallet', () => {
         address: string
         balance: string
         list: any[]
+        testnet: boolean
     } = reactive({
         connected: false,
         address: '',
         balance: '',
         list: [],
+        testnet,
     })
 
     const connector = new TonConnect({
@@ -58,6 +60,10 @@ export const useWalletStore = defineStore('wallet', () => {
         wallet.address = toUserFriendlyAddress(connector.account?.address || '', testnet)
         wallet.balance = (await getBalance(wallet.address)).toString()
         wallet.connected = true
+        if (cb) {
+            cb()
+            cb = null
+        }
         setRestore(true)
     })
 
@@ -65,7 +71,8 @@ export const useWalletStore = defineStore('wallet', () => {
         connector.restoreConnection()
     }
 
-    function connectTo(index: number) {
+    let cb: Function | null = null
+    function connectTo(index: number, callback: Function | null) {
         const walletConnectionSource: {
             universalLink: string
             bridgeUrl: string
@@ -73,6 +80,7 @@ export const useWalletStore = defineStore('wallet', () => {
             universalLink: wallet.list[index]['universalLink'],
             bridgeUrl: wallet.list[index]['bridgeUrl'],
         }
+        cb = callback
         return connector.connect(walletConnectionSource)
     }
 

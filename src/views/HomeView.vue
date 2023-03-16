@@ -1,35 +1,46 @@
-<script lang="ts"  setup>
+<script lang="ts" setup>
 import { reactive, ref, watch } from 'vue'
 import gsap from 'gsap'
-
-const icons = [
-    'mdi-facebook',
-    'mdi-twitter',
-    'mdi-linkedin',
-    'mdi-instagram',
-];
+import WalletConnect from '../components/dialogs/WalletConnect.vue'
 
 const socials = [
     {
         title: 'Telegram',
         link: 'http://t.me/stakehipo',
         icon: 'mdi-send',
+        rotate: -45,
     },
     {
         title: 'Twitter',
         link: 'https://twitter.com/stakehipo',
         icon: 'mdi-twitter',
+        rotate: 0,
     },
     {
         title: 'Chat',
         link: 'https://t.me/stakehipo_chat',
         icon: 'mdi-chat',
+        rotate: 0,
     },
+    {
+        title: 'GitHub',
+        link: 'https://github.com/StakeHipo',
+        icon: 'mdi-github',
+        rotate: 0,
+    }
 ]
 
 // const data = reactive({ drawer: false })
+const background = ref('/website/icons/1.jpg')
+if (Math.random() < 0.5) {
+    background.value = '/website/icons/3.jpg'
+}
 
 const displayCode = ref(1)
+const containerSpace = reactive({
+    marginTop: '192px',
+    marginBottom: '192px',
+})
 function resize() {
     const w = window.innerWidth
     let adj = 0
@@ -38,8 +49,12 @@ function resize() {
     }
     if (w < 600) {
         displayCode.value = 1 // 'xs'
+        containerSpace.marginTop = '96px'
+        containerSpace.marginBottom = '96px'
     } else if (w < 960) {
         displayCode.value = 2 // 'sm'
+        containerSpace.marginTop = '96px'
+        containerSpace.marginBottom = '96px'
     } else if (w < 1264 - adj) {
         displayCode.value = 3 // 'md'
     } else if (w < 1904 - adj) {
@@ -65,7 +80,6 @@ const statsAnimated: {
     users: 0,
 })
 watch(statistics, (n: any) => {
-    console.log('got')
     gsap.to(statsAnimated, {
         duration: 0.5,
         staked: Number(n.staked) || 0,
@@ -75,7 +89,6 @@ watch(statistics, (n: any) => {
 })
 
 setTimeout(() => {
-    console.log('set')
     statistics.staked = 8932398
     statistics.reward = 397361
     statistics.users = 34
@@ -85,32 +98,55 @@ setTimeout(() => {
 <template>
     <v-app-bar class="px-3 justify-center" color="white" flat>
         <v-container class="d-flex align-center" style="max-width: 1200px">
-            <img style="margin: 8px; height: 40px;" src="/website/icons/horizontal.png" />
+            <img style="margin: 8px; height: 40px;"
+                :src="displayCode <= 2 ? '/website/icon.png' : '/website/icons/horizontal.png'" />
             <v-spacer></v-spacer>
+            <a href="https://github.com/StakeHipo" target="_blank" v-if="displayCode > 2">
+                <v-btn color="#FF7E73" icon="mdi-github" size="x-large"></v-btn>
+            </a>
+            <wallet-connect :redirect-to-app="true"></wallet-connect>
         </v-container>
     </v-app-bar>
     <v-main>
-        <v-container v-resize="resize"
-            style="position: fixed; width: 100%; max-width: 100%; background-image: url(/website/icons/3.jpg); background-size: cover;">
+        <v-container v-resize="resize" :style="{
+            backgroundImage: 'url(' + background + ')', position: 'fixed', width: '100%', maxWidth: '100%', backgroundSize:
+                'cover'
+        }">
             <v-row style="min-height: calc(100vh - 64px);"> </v-row>
         </v-container>
         <v-container style="max-width: 1200px;">
             <v-row class="justify-center" style="min-height: calc(100vh - 64px);">
                 <v-col class="v-col-12">
-                    <v-card variant="text" style="margin-top: 25vh;">
+                    <v-card variant="text" :style="{ marginTop: displayCode <= 2 ? '10vh' : '20vh' }">
                         <!-- <v-card-item class="d-flex" style="width: 100%;"> -->
-                        <v-card-title class="d-flex" style="font-size: 3rem; line-height: 2;">
+                        <v-card-title class="d-flex" style="line-height: 2; white-space: break-spaces;"
+                            :style="{ fontSize: displayCode <= 2 ? '1.7rem' : '3rem' }">
                             Empowering Your<span class="px-3" style="color: #3a86c7;">TON</span>
                         </v-card-title>
                         <v-card-subtitle style="font-size: 1.5rem; line-height: 1; width: 100%">
-                            stake smarter, access liquidity easier
+                            stake smarter,
+                            <br v-if="displayCode <= 2" />
+                            access liquidity easier
                         </v-card-subtitle>
                         <!-- </v-card-item> -->
-                        <v-card-text class="d-flex justify-center align-center" style="font-size: 2.5rem; margin: 100px 0;">
-                            Decentralized, Secure, and Easy with <span class="px-3" style="color: #776464;">StakeHipo</span>
+                        <v-card-text class="d-flex" :class="[displayCode <= 2 ? 'flex-column' : 'align-center']"
+                            style="margin: 7vh 0; line-height: 1;"
+                            :style="{ fontSize: displayCode <= 2 ? '1.75rem' : '3rem' }">
+                            <span :class="{ 'px-3': displayCode > 2 }" style="color: #776464;">StakeHipo</span>
+                            is
+                            <div class="typewrite mx-2" data-period="2000"
+                                data-type='[ "Decentralized", "Secure", "Easy" ]'>
+                                <span class="wrap"></span>
+                            </div>
+                            <!-- Decentralized, -->
+                            <!-- <br v-if="displayCode <= 2" /> -->
+                            <!-- Secure, -->
+                            <!-- <br v-if="displayCode <= 2" /> -->
+                            <!-- and Easy with -->
                         </v-card-text>
-                        <v-card-actions class="d-flex justify-center align-center">
-                            <v-btn color="#FF7E73" variant="tonal" style="margin: 10px" to="/app" size="x-large">
+                        <v-card-actions class="d-flex" :class="[displayCode <= 2 ? 'flex-column' : 'align-center']">
+                            <v-btn color="#776464" variant="elevated" style="color: white; margin: 10px" to="/app"
+                                size="x-large">
                                 <div class="mx-16">Stake Now</div>
                             </v-btn>
                         </v-card-actions>
@@ -185,7 +221,7 @@ setTimeout(() => {
                 </v-col>
             </v-row>
         </v-container>
-        <v-container style="max-width: 1200px; margin-top: 192px; margin-bottom: 192px;">
+        <v-container style="max-width: 1200px;" :style="{ ...containerSpace }">
             <v-row class="justify-center align-center">
                 <v-col class="v-col-12 v-col-md-9">
                     <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
@@ -220,18 +256,18 @@ setTimeout(() => {
                 </v-col>
             </v-row>
         </v-container>
-        <v-container style="max-width: 1200px; margin-top: 192px; margin-bottom: 192px;">
+        <v-container style="max-width: 1200px;" :style="{ ...containerSpace }">
             <v-row class="justify-center align-center">
                 <v-col class="v-col-12 v-col-md-9">
                     <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                         <v-card-item>
-                            <v-card-title style="font-size: 2.5em; white-space: break-spaces;" class="pa-2">
+                            <v-card-title style="font-size: 2.5em; white-space: break-spaces;" class="pa-md-2">
                                 How<span class="px-3" style="color: #776464;">StakeHipo</span>Works?
                             </v-card-title>
                         </v-card-item>
                         <v-card-text>
                             <v-carousel color="#776464" hide-delimiter-background
-                                :height="displayCode <= 2 ? '400px' : '350px'" :show-arrows="displayCode > 2"
+                                :height="displayCode <= 2 ? '360px' : '350px'" :show-arrows="displayCode > 2"
                                 :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                                 <template v-slot:prev="{ props }">
                                     <v-btn icon variant="elevated" color="#FF7E73" @click="props.onClick">
@@ -244,7 +280,7 @@ setTimeout(() => {
                                     </v-btn>
                                 </template>
                                 <v-carousel-item>
-                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '0 96px') }">
+                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '0' : '0 96px') }">
                                         <v-card-item class="pa-0">
                                             <v-card-title style="font-size: 1.75em; padding: 24px;">
                                                 Step 1: Stake your <span style="color: #3a86c7;">TON</span>
@@ -260,7 +296,7 @@ setTimeout(() => {
                                     </v-card>
                                 </v-carousel-item>
                                 <v-carousel-item>
-                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '0 96px') }">
+                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '0' : '0 96px') }">
                                         <v-card-item class="pa-0">
                                             <v-card-title style="font-size: 1.75em; padding: 24px;">
                                                 Step 2: Receive <span style="color: #776464;">hTON</span>
@@ -278,7 +314,7 @@ setTimeout(() => {
                                     </v-card>
                                 </v-carousel-item>
                                 <v-carousel-item>
-                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '0 96px') }">
+                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '0' : '0 96px') }">
                                         <v-card-item class="pa-0">
                                             <v-card-title style="font-size: 1.75em; padding: 24px;">
                                                 Step 3: Use in DeFi
@@ -308,7 +344,7 @@ setTimeout(() => {
                 </v-col>
             </v-row>
         </v-container>
-        <v-container style="max-width: 1200px; margin-top: 192px; margin-bottom: 192px;">
+        <v-container style="max-width: 1200px;" :style="{ ...containerSpace }">
             <v-row class="justify-center align-center">
                 <v-col class="v-col-12 v-col-md-9">
                     <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
@@ -324,9 +360,9 @@ setTimeout(() => {
                         </v-card-text>
                     </v-card>
                     <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
-                        <v-card-text>
+                        <v-card-text class="py-0">
                             <v-carousel color="#776464" hide-delimiter-background
-                                :height="displayCode <= 2 ? '350px' : '325px'" :show-arrows="displayCode > 2"
+                                :height="displayCode <= 2 ? '310px' : '325px'" :show-arrows="displayCode > 2"
                                 :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                                 <template v-slot:prev="{ props }">
                                     <v-btn icon variant="elevated" color="#FF7E73" @click="props.onClick">
@@ -403,7 +439,16 @@ setTimeout(() => {
                 </v-col>
             </v-row>
         </v-container>
-        <v-container style="max-width: 1200px; margin-top: 192px; margin-bottom: 192px;">
+        <v-container style="max-width: 1200px;" :style="{ ...containerSpace }">
+            <v-row class="justify-center align-center">
+                <v-col class="v-col-12 v-col-md-9 d-flex justify-center align-center">
+                    <v-btn color="#776464" variant="elevated" style="color: white; margin: 10px" to="/app" size="x-large">
+                        <div class="mx-16">Stake Now</div>
+                    </v-btn>
+                </v-col>
+            </v-row>
+        </v-container>
+        <v-container style="max-width: 1200px;" :style="{ marginTop: containerSpace.marginTop }">
             <v-row class="justify-center align-center">
                 <v-col class="v-col-12 v-col-md-9">
                     <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
@@ -413,7 +458,7 @@ setTimeout(() => {
                             </v-card-title>
                         </v-card-item>
                         <v-card-text style="font-size: 1.35em; line-height: 1.5; min-height: 800px;">
-                            <v-expansion-panels variant="inset">
+                            <v-expansion-panels variant="accordion">
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
                                         What is liquid staking?
@@ -427,8 +472,11 @@ setTimeout(() => {
                                 </v-expansion-panel>
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
-                                        How does liquid staking work on
-                                        <span class="pl-2" style="color: #776464;">StakeHipo</span>?
+                                        <div>
+                                            How does liquid staking work on
+                                            <span :class="{ 'pl-2': displayCode > 2 }"
+                                                style="color: #776464;">StakeHipo</span>?
+                                        </div>
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         StakeHipo uses decentralized nodes to securely stake your TON and generate liquid
@@ -442,8 +490,11 @@ setTimeout(() => {
                                 </v-expansion-panel>
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
-                                        Is my <span class="px-2" style="color: #3a86c7;">TON</span> safe on <span
-                                            class="pl-2" style="color: #776464;">StakeHipo</span>?
+                                        <div>
+                                            Is my <span :class="{ 'px-2': displayCode > 2 }"
+                                                style="color: #3a86c7;">TON</span> safe on <span class="pl-2"
+                                                style="color: #776464;">StakeHipo</span>?
+                                        </div>
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         Yes, your TON is secure on our platform. We use advanced blockchain technology,
@@ -465,7 +516,10 @@ setTimeout(() => {
                                 </v-expansion-panel>
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
-                                        How do I unstake my <span class="pl-2" style="color: #3a86c7;">TON</span>?
+                                        <div>
+                                            How do I unstake my <span :class="{ 'pl-2': displayCode > 2 }"
+                                                style="color: #3a86c7;">TON</span>?
+                                        </div>
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         To unstake your TON, simply navigate to the unstaking section on our platform and
@@ -494,8 +548,11 @@ setTimeout(() => {
                                 </v-expansion-panel>
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
-                                        How do I get involved in the
-                                        <span class="px-2" style="color: #776464;">StakeHipo</span> community?
+                                        <div>
+                                            How do I get involved in the
+                                            <span :class="{ 'px-2': displayCode > 2 }"
+                                                style="color: #776464;">StakeHipo</span> community?
+                                        </div>
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         Our platform offers a community forum where users can connect and share information.
@@ -510,9 +567,13 @@ setTimeout(() => {
             </v-row>
         </v-container>
         <v-footer class="text-center d-flex flex-column" style="color: white; background-color: #776464;">
-            <div>
-                <v-btn v-for="icon in socials" :key="icon.title" class="mx-4" :icon="icon.icon" variant="text"
-                    color="white"></v-btn>
+            <div class="d-flex mt-4 mb-8">
+                <div v-for="icon in socials" :key="icon.title">
+                    <a :href="icon.link" target="_blank">
+                        <v-btn class="mx-4" :icon="icon.icon" variant="text" color="white"
+                            :style="{ transform: 'rotate(' + icon.rotate + 'deg)' }"></v-btn>
+                    </a>
+                </div>
             </div>
 
             <div class="pt-0">
@@ -526,3 +587,21 @@ setTimeout(() => {
         </v-footer>
     </v-main>
 </template>
+
+<style scoped>
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+</style>

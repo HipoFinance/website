@@ -3,6 +3,11 @@ import { ref, watch } from 'vue'
 import { useWalletStore } from '../../stores/wallet'
 import QRCode from 'qrcode-svg'
 import { fromNano } from 'ton-core';
+import { useRouter } from 'vue-router';
+
+const props = defineProps<{
+    redirectToApp?: Boolean
+}>()
 
 const emit = defineEmits(['walletConnect'])
 const { wallet, connectTo, disconnect } = useWalletStore()
@@ -11,26 +16,33 @@ const svg = ref(null)
 const scanDialog = ref(false)
 const walletDialog = ref(false)
 const btnText = ref('Connect Wallet')
+const router = useRouter()
 
 function buttonClicked() {
-    if (wallet.connected) {
-        return
+    if (!wallet.connected) {
+        walletDialog.value = true
+    } else if (props.redirectToApp) {
+        router.push({ name: 'app' })
     }
-    walletDialog.value = true
 }
 
+function onConnect(connected: Boolean) {
+    if (!connected) {
+        btnText.value = 'Connect Wallet'
+        return
+    }
+    scanDialog.value = false
+    walletDialog.value = false
+    const l = wallet.address.length
+    btnText.value = wallet.address.substring(0, 4) + '...' + wallet.address.substring(l - 4) + ': ' + fromNano(wallet.balance).substring(0, 5)
+    if (wallet.testnet) {
+        btnText.value += ' (TEST)'
+    }
+}
+onConnect(wallet.connected)
 watch(
     () => wallet.connected,
-    (connected) => {
-        if (!connected) {
-            btnText.value = 'Connect Wallet'
-            return
-        }
-        scanDialog.value = false
-        walletDialog.value = false
-        const l = wallet.address.length
-        btnText.value = wallet.address.substring(0, 4) + '...' + wallet.address.substring(l - 4) + ': ' + fromNano(wallet.balance)
-    },
+    onConnect,
 )
 
 const wallets = ref([])
@@ -59,7 +71,7 @@ watch(
 )
 
 function select(index) {
-    const universalLink = connectTo(index)
+    const universalLink = connectTo(index, props.redirectToApp ? () => router.push({ name: 'app' }) : null)
     var qrcode = new QRCode({
         content: universalLink,
         padding: 4,
@@ -92,21 +104,11 @@ function select(index) {
     <v-dialog width="350" @update:modelValue="emit('walletConnect')" v-model="walletDialog">
         <template v-slot:default="{ isActive }">
             <v-card>
-                <v-toolbar
-                    color="#FF7E73"
-                    title="Select Your Wallet"
-                    style="color: white"
-                ></v-toolbar>
+                <v-toolbar color="#FF7E73" title="Select Your Wallet" style="color: white"></v-toolbar>
                 <v-card-text>
                     <v-list>
-                        <v-list-item
-                            v-for="(item, i) in wallets"
-                            :prepend-avatar="item.prependAvatar"
-                            :title="item.title"
-                            :key="item.title"
-                            :height="65"
-                            @click="select(i)"
-                        ></v-list-item>
+                        <v-list-item v-for="(item, i) in wallets" :prepend-avatar="item.prependAvatar" :title="item.title"
+                            :key="item.title" :height="65" @click="select(i)"></v-list-item>
                     </v-list>
                 </v-card-text>
                 <v-card-actions class="justify-end">
