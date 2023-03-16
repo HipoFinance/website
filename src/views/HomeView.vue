@@ -8,22 +8,7 @@ const icons = [
     'mdi-instagram',
 ];
 
-const colors = [
-    'indigo',
-    'warning',
-    'pink darken-2',
-    'red lighten-1',
-    'deep-purple accent-4',
-];
-const slides = [
-    'First',
-    'Second',
-    'Third',
-    'Fourth',
-    'Fifth',
-];
-
-const data = reactive({ drawer: false })
+// const data = reactive({ drawer: false })
 
 const displayCode = ref(1)
 function resize() {
@@ -59,7 +44,31 @@ function resize() {
             <v-row style="min-height: calc(100vh - 64px);"> </v-row>
         </v-container>
         <v-container style="max-width: 1200px;">
-            <v-row class="justify-center align-center" style="min-height: calc(100vh - 64px);">
+            <v-row class="justify-center" style="min-height: calc(100vh - 64px);">
+                <v-col class="v-col-12">
+                    <v-card variant="text" style="margin-top: 25vh;">
+                        <!-- <v-card-item class="d-flex" style="width: 100%;"> -->
+                        <v-card-title class="d-flex" style="font-size: 3rem; line-height: 2;">
+                            Empowering Your<span class="px-3" style="color: #3a86c7;">TON</span>
+                        </v-card-title>
+                        <v-card-subtitle style="font-size: 1.5rem; line-height: 1; width: 100%">
+                            stake smarter, access liquidity easier
+                        </v-card-subtitle>
+                        <!-- </v-card-item> -->
+                        <v-card-text class="d-flex justify-center align-center" style="font-size: 2.5rem; margin: 100px 0;">
+                            Decentralized, Secure, and Easy with <span class="px-3" style="color: #776464;">StakeHipo</span>
+                        </v-card-text>
+                        <v-card-actions class="d-flex justify-center align-center">
+                            <v-btn color="#FF7E73" variant="tonal" style="margin: 10px" @click="" size="x-large">
+                                <div class="mx-16">Stake Now</div>
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-container>
+        <v-container style="max-width: 1200px;">
+            <v-row class="justify-center align-center">
                 <v-col class="v-col-12 v-col-md-6 v-col-lg-4">
                     <v-card variant="tonal">
                         <v-card-item class="d-flex">
@@ -126,7 +135,7 @@ function resize() {
             </v-row>
         </v-container>
         <v-container style="max-width: 1200px;">
-            <v-row class="justify-center align-center">
+            <v-row class="justify-center align-center" style="min-height: calc(100vh - 64px);">
                 <v-col class="v-col-12 v-col-md-9">
                     <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                         <v-card-item>
@@ -162,7 +171,7 @@ function resize() {
             </v-row>
         </v-container>
         <v-container style="max-width: 1200px;">
-            <v-row class="justify-center align-center" style="min-height: calc(100vh - 64px);">
+            <v-row class="justify-center align-center">
                 <v-col class="v-col-12 v-col-md-9">
                     <v-card class="mb-16" variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                         <v-card-item>
@@ -249,7 +258,7 @@ function resize() {
             </v-row>
         </v-container>
         <v-container style="max-width: 1200px;">
-            <v-row class="justify-center align-center">
+            <v-row class="justify-center align-center" style="min-height: calc(100vh - 64px);">
                 <v-col class="v-col-12 v-col-md-9">
                     <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                         <v-card-item>
@@ -343,7 +352,7 @@ function resize() {
             </v-row>
         </v-container>
         <v-container style="max-width: 1200px;">
-            <v-row class="justify-center align-center" style="min-height: calc(100vh - 64px);">
+            <v-row class="justify-center align-center">
                 <v-col class="v-col-12 v-col-md-9">
                     <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                         <v-card-item>
