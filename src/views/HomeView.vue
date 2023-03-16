@@ -134,13 +134,13 @@ function resize() {
                 </v-col>
             </v-row>
         </v-container>
-        <v-container style="max-width: 1200px;">
-            <v-row class="justify-center align-center" style="min-height: calc(100vh - 64px);">
+        <v-container style="max-width: 1200px; margin-top: 192px; margin-bottom: 192px;">
+            <v-row class="justify-center align-center">
                 <v-col class="v-col-12 v-col-md-9">
                     <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                         <v-card-item>
                             <v-card-title style="font-size: 2.5em;" class="px-1 py-1 px-md-2 py-md-2">
-                                StakeHipo
+                                <span class="px-3" style="color: #776464;">StakeHipo</span>
                             </v-card-title>
                             <v-card-subtitle style="white-space: break-spaces;"
                                 class="px-1 pt-1 pb-4 px-md-2 pt-md-2 pb-md-6">
@@ -150,38 +150,37 @@ function resize() {
                         <v-card-text style="font-size: 1.5em; line-height: 1.5;">
                             <div>
                                 Our platform offers a secure, decentralized way to stake your TON and earn rewards in
-                                real-time. By
-                                using decentralized nodes, we ensure that your funds are secure and that staking rewards are
-                                distributed fairly and transparently.
+                                real-time. By using decentralized nodes, we ensure that your funds are secure and that
+                                staking rewards are distributed fairly and transparently.
                             </div>
                             <br />
                             <div>
                                 With our platform, you can easily stake your TON and receive liquid hTONs, which can be used
-                                in
-                                other DeFi applications to compound your daily staking rewards. And with our user-friendly
-                                interface, staking on the TON blockchain has never been easier.
+                                in other DeFi applications to compound your daily staking rewards. And with our
+                                user-friendly interface, staking on the TON blockchain has never been easier.
                             </div>
                             <br />
                             <div>
-                                Join us at StakeHipo and experience the power of decentralized liquid staking today!
+                                Join us at <span style="color: #776464;">StakeHipo</span> and experience the power of
+                                decentralized liquid staking today!
                             </div>
                         </v-card-text>
                     </v-card>
                 </v-col>
             </v-row>
         </v-container>
-        <v-container style="max-width: 1200px;">
+        <v-container style="max-width: 1200px; margin-top: 192px; margin-bottom: 192px;">
             <v-row class="justify-center align-center">
                 <v-col class="v-col-12 v-col-md-9">
-                    <v-card class="mb-16" variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
+                    <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                         <v-card-item>
-                            <v-card-title style="font-size: 2.5em; white-space: break-spaces;" class="pa-1 pt-md-2 pb-md-6">
-                                How StakeHipo Works?
+                            <v-card-title style="font-size: 2.5em; white-space: break-spaces;" class="pa-2">
+                                How<span class="px-3" style="color: #776464;">StakeHipo</span>Works?
                             </v-card-title>
                         </v-card-item>
                         <v-card-text>
                             <v-carousel color="#776464" hide-delimiter-background
-                                :height="displayCode <= 2 ? '400px' : '475px'" :show-arrows="displayCode > 2"
+                                :height="displayCode <= 2 ? '400px' : '350px'" :show-arrows="displayCode > 2"
                                 :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                                 <template v-slot:prev="{ props }">
                                     <v-btn icon variant="elevated" color="#FF7E73" @click="props.onClick">
@@ -194,10 +193,10 @@ function resize() {
                                     </v-btn>
                                 </template>
                                 <v-carousel-item>
-                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '96px') }">
+                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '0 96px') }">
                                         <v-card-item class="pa-0">
                                             <v-card-title style="font-size: 1.75em; padding: 24px;">
-                                                Step 1: Stake your TON
+                                                Step 1: Stake your <span style="color: #3a86c7;">TON</span>
                                             </v-card-title>
                                         </v-card-item>
                                         <v-card-text style="font-size: 1.5em; line-height: 1.5;">
@@ -210,10 +209,10 @@ function resize() {
                                     </v-card>
                                 </v-carousel-item>
                                 <v-carousel-item>
-                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '96px') }">
+                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '0 96px') }">
                                         <v-card-item class="pa-0">
                                             <v-card-title style="font-size: 1.75em; padding: 24px;">
-                                                Step 2: Receive hTON
+                                                Step 2: Receive <span style="color: #776464;">hTON</span>
                                             </v-card-title>
                                         </v-card-item>
                                         <v-card-text style="font-size: 1.5em; line-height: 1.5;">
@@ -228,7 +227,7 @@ function resize() {
                                     </v-card>
                                 </v-carousel-item>
                                 <v-carousel-item>
-                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '96px') }">
+                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '0 96px') }">
                                         <v-card-item class="pa-0">
                                             <v-card-title style="font-size: 1.75em; padding: 24px;">
                                                 Step 3: Use in DeFi
@@ -247,9 +246,10 @@ function resize() {
                             </v-carousel>
                         </v-card-text>
                     </v-card>
-                    <v-card class="mt-16" variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
+                    <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                         <v-card-text style="font-size: 1.75em; line-height: 1.5;">
-                            At StakeHipo, we believe in the power of liquid staking to make staking more accessible and
+                            At StakeHipo, we believe in the power of liquid
+                            staking to make staking more accessible and
                             flexible for users. With our easy-to-use platform and competitive staking rewards, we offer
                             a simple and efficient way for you to stake your TON and earn rewards.
                         </v-card-text>
@@ -257,13 +257,13 @@ function resize() {
                 </v-col>
             </v-row>
         </v-container>
-        <v-container style="max-width: 1200px;">
-            <v-row class="justify-center align-center" style="min-height: calc(100vh - 64px);">
+        <v-container style="max-width: 1200px; margin-top: 192px; margin-bottom: 192px;">
+            <v-row class="justify-center align-center">
                 <v-col class="v-col-12 v-col-md-9">
                     <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                         <v-card-item>
-                            <v-card-title style="font-size: 2.5em; white-space: break-spaces;" class="pa-1 pt-md-2 pb-md-6">
-                                Why TON?
+                            <v-card-title style="font-size: 2.5em; white-space: break-spaces;" class="pa-2 pb-6">
+                                Why <span style="color: #3a86c7;">TON</span>?
                             </v-card-title>
                         </v-card-item>
                         <v-card-text style="font-size: 1.75em; line-height: 1.5;">
@@ -275,7 +275,7 @@ function resize() {
                     <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                         <v-card-text>
                             <v-carousel color="#776464" hide-delimiter-background
-                                :height="displayCode <= 2 ? '350px' : '425px'" :show-arrows="displayCode > 2"
+                                :height="displayCode <= 2 ? '350px' : '325px'" :show-arrows="displayCode > 2"
                                 :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                                 <template v-slot:prev="{ props }">
                                     <v-btn icon variant="elevated" color="#FF7E73" @click="props.onClick">
@@ -288,7 +288,7 @@ function resize() {
                                     </v-btn>
                                 </template>
                                 <v-carousel-item>
-                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '96px') }">
+                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '0' : '0 96px') }">
                                         <v-card-item class="pa-0">
                                             <v-card-title style="font-size: 1.75em; padding: 24px;">
                                                 1. Speed and Scalability
@@ -305,7 +305,7 @@ function resize() {
                                     </v-card>
                                 </v-carousel-item>
                                 <v-carousel-item>
-                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '96px') }">
+                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '0' : '0 96px') }">
                                         <v-card-item class="pa-0">
                                             <v-card-title style="font-size: 1.75em; padding: 24px;">
                                                 2. Robust Infrastructure
@@ -322,7 +322,7 @@ function resize() {
                                     </v-card>
                                 </v-carousel-item>
                                 <v-carousel-item>
-                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '24px 0' : '96px') }">
+                                    <v-card variant="text" :style="{ padding: (displayCode <= 2 ? '0' : '0 96px') }">
                                         <v-card-item class="pa-0">
                                             <v-card-title style="font-size: 1.75em; padding: 24px;">
                                                 3. Active Community
@@ -341,9 +341,10 @@ function resize() {
                             </v-carousel>
                         </v-card-text>
                     </v-card>
-                    <v-card class="mt-16" variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
+                    <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
                         <v-card-text style="font-size: 1.75em; line-height: 1.5;">
-                            At StakeHipo, we believe that TON is the future of blockchain technology, and we are proud to
+                            At StakeHipo, we believe that TON is the future
+                            of blockchain technology, and we are proud to
                             offer a liquid staking platform that harnesses its power and potential. Join us today and start
                             earning rewards for your TON!
                         </v-card-text>
@@ -351,7 +352,7 @@ function resize() {
                 </v-col>
             </v-row>
         </v-container>
-        <v-container style="max-width: 1200px;">
+        <v-container style="max-width: 1200px; margin-top: 192px; margin-bottom: 192px;">
             <v-row class="justify-center align-center">
                 <v-col class="v-col-12 v-col-md-9">
                     <v-card variant="text" :style="{ fontSize: (displayCode <= 2 ? '0.7rem' : '1rem') }">
@@ -375,7 +376,8 @@ function resize() {
                                 </v-expansion-panel>
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
-                                        How does liquid staking work on StakeHipo?
+                                        How does liquid staking work on<span class="pl-2" style="color:
+                                                        #776464;">StakeHipo</span>?
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         StakeHipo uses decentralized nodes to securely stake your TON and generate liquid
@@ -389,7 +391,7 @@ function resize() {
                                 </v-expansion-panel>
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
-                                        Is my TON safe on StakeHipo?
+                                        Is my <span class="px-2" style="color: #3a86c7;">TON</span> safe on <span class="pl-2" style="color: #776464;">StakeHipo</span>?
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         Yes, your TON is secure on our platform. We use advanced blockchain technology,
@@ -411,7 +413,7 @@ function resize() {
                                 </v-expansion-panel>
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
-                                        How do I unstake my TON?
+                                        How do I unstake my <span class="pl-2" style="color: #3a86c7;">TON</span>?
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         To unstake your TON, simply navigate to the unstaking section on our platform and
@@ -440,7 +442,8 @@ function resize() {
                                 </v-expansion-panel>
                                 <v-expansion-panel>
                                     <v-expansion-panel-title style="font-size: 1em;">
-                                        How do I get involved in the StakeHipo community?
+                                        How do I get involved in the <span class="px-2" style="color:
+                                                        #776464;">StakeHipo</span> community?
                                     </v-expansion-panel-title>
                                     <v-expansion-panel-text>
                                         Our platform offers a community forum where users can connect and share information.
