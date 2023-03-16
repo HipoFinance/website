@@ -1,2 +1,2 @@
-mv public/fonts public/icons public/website/ && npm run build && mv public/website/* public/ && mv dist/website/* dist/ && mv dist ../ && git switch pages && rm -rf assets fonts icons index.html manifest.json public favicon.ico && mv ../dist/* . && rm -r ../dist
+npm run build && mv dist ../ && git switch pages && rm -rf assets fonts icons index.html manifest.json public favicon.ico website && mv ../dist/* . && rm -r ../dist && git add -A && git commit -m 'update' && git push hipo pages && git switch main
 
