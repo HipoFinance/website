@@ -127,21 +127,30 @@ watch(
                         <v-row class="mt-12">
                             <v-col>
                                 <v-icon icon="mdi-wallet-outline"></v-icon>
-                                You Balance
+                                Your hTON Balance
+                            </v-col>
+                            <v-col style="text-align: right;">
+                                <span style="color: #776464;">{{ hTonBalance.balance || 0 }} hTON</span>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-icon icon="mdi-wallet-outline"></v-icon>
+                                You TON Balance
                             </v-col>
                             <v-col style="text-align: right;">
                                 <span style="color: #3a86c7;">{{ tonBalance.balance || 0 }} TON</span>
                             </v-col>
                         </v-row>
-                        <v-row>
-                            <v-col>
-                                <v-icon icon="mdi-wallet-plus-outline"></v-icon>
-                                You Will Receive
-                            </v-col>
-                            <v-col style="text-align: right;">
-                                <span style="color: #776464;">{{ amount.stake || 0 }} hTON</span>
-                            </v-col>
-                        </v-row>
+                        <!-- <v-row> -->
+                        <!--     <v-col> -->
+                        <!--         <v-icon icon="mdi-wallet-plus-outline"></v-icon> -->
+                        <!--         You Will Receive -->
+                        <!--     </v-col> -->
+                        <!--     <v-col style="text-align: right;"> -->
+                        <!--         <span style="color: #776464;">{{ amount.stake || 0 }} hTON</span> -->
+                        <!--     </v-col> -->
+                        <!-- </v-row> -->
                         <v-row>
                             <v-col>
                                 <v-icon icon="mdi-swap-horizontal"></v-icon>
@@ -195,7 +204,7 @@ watch(
                         <v-row class="mt-12">
                             <v-col>
                                 <v-icon icon="mdi-wallet-outline"></v-icon>
-                                You Balance
+                                Your hTON Balance
                             </v-col>
                             <v-col style="text-align: right;">
                                 <span style="color: #776464;">{{ hTonBalance.balance || 0 }} hTON</span>
@@ -203,13 +212,22 @@ watch(
                         </v-row>
                         <v-row>
                             <v-col>
-                                <v-icon icon="mdi-wallet-plus-outline"></v-icon>
-                                You Will Receive
+                                <v-icon icon="mdi-wallet-outline"></v-icon>
+                                You TON Balance
                             </v-col>
                             <v-col style="text-align: right;">
-                                <span style="color: #3a86c7;">{{ amount.unstake || 0 }} TON</span>
+                                <span style="color: #3a86c7;">{{ tonBalance.balance || 0 }} TON</span>
                             </v-col>
                         </v-row>
+                        <!-- <v-row> -->
+                        <!--     <v-col> -->
+                        <!--         <v-icon icon="mdi-wallet-plus-outline"></v-icon> -->
+                        <!--         You Will Receive -->
+                        <!--     </v-col> -->
+                        <!--     <v-col style="text-align: right;"> -->
+                        <!--         <span style="color: #3a86c7;">{{ amount.unstake || 0 }} TON</span> -->
+                        <!--     </v-col> -->
+                        <!-- </v-row> -->
                         <v-row>
                             <v-col>
                                 <v-icon icon="mdi-swap-horizontal"></v-icon>
