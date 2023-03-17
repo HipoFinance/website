@@ -111,8 +111,8 @@ watch(
                 <v-window-item :value="1">
                     <v-container fluid>
                         <v-row class="justify-center mb-8">
-                            Stake <span class="px-1" style="color: #3a86c7;">TON</span> and receive <span class="px-1"
-                                style="color: #776464;">hTON</span> while staking.
+                            Stake <span class="px-1 font-weight-bold" style="color: #3a86c7;">TON</span> and receive
+                            <span class="px-1 font-weight-bold" style="color: #776464;">hTON</span> while staking.
                         </v-row>
                         <v-row class="justify-center">
                             <v-col class="py-0">
@@ -188,8 +188,8 @@ watch(
                 <v-window-item :value="2">
                     <v-container fluid>
                         <v-row class="justify-center mb-8">
-                            Unstake <span class="px-1" style="color: #776464;">hTON</span> and receive <span class="px-1"
-                                style="color: #3a86c7;">TON</span> while unstaking.
+                            Unstake <span class="px-1 font-weight-bold" style="color: #776464;">hTON</span> and receive
+                            <span class="px-1 font-weight-bold" style="color: #3a86c7;">TON</span> while unstaking.
                         </v-row>
                         <v-row class="justify-center">
                             <v-col class="py-0">
