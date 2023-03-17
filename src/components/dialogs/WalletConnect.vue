@@ -35,9 +35,6 @@ function onConnect(connected: Boolean) {
     walletDialog.value = false
     const l = wallet.address.length
     btnText.value = wallet.address.substring(0, 4) + '...' + wallet.address.substring(l - 4) + ': ' + fromNano(wallet.balance).substring(0, 5)
-    if (wallet.testnet) {
-        btnText.value += ' (TEST)'
-    }
 }
 onConnect(wallet.connected)
 watch(

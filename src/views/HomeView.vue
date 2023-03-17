@@ -2,6 +2,9 @@
 import { reactive, ref, watch } from 'vue'
 import gsap from 'gsap'
 import WalletConnect from '../components/dialogs/WalletConnect.vue'
+import { useWalletStore } from '../stores/wallet'
+
+const { wallet } = useWalletStore()
 
 const socials = [
     {
@@ -98,11 +101,19 @@ setTimeout(() => {
 <template>
     <v-app-bar class="px-3 justify-center" color="white" flat>
         <v-container class="d-flex align-center" style="max-width: 1200px">
-            <img style="margin: 8px; height: 40px;"
-                :src="displayCode <= 2 ? '/website/icon.png' : '/website/icons/horizontal.png'" />
+            <router-link :to="{ name: 'home' }">
+                <img style="margin: 8px; height: 40px;"
+                    :src="displayCode <= 2 ? '/website/icon.png' : '/website/icons/horizontal.png'" />
+            </router-link>
+            <v-chip class="rounded-pill" v-if="wallet.testnet">testnet</v-chip>
             <v-spacer></v-spacer>
             <a href="https://github.com/StakeHipo" target="_blank" v-if="displayCode > 2">
-                <v-btn color="#FF7E73" icon="mdi-github" size="x-large"></v-btn>
+                <v-btn color="#FF7E73" prepend-icon="mdi-github" size="large" style="text-transform: none;">GitHub</v-btn>
+            </a>
+            <a href="https://github.com/StakeHipo/contract/blob/main/README.md#stake-hipo-hton" target="_blank"
+                v-if="displayCode > 2">
+                <v-btn color="#FF7E73" prepend-icon="mdi-file-document" size="large"
+                    style="text-transform: none;">Docs</v-btn>
             </a>
             <wallet-connect :redirect-to-app="true"></wallet-connect>
         </v-container>
@@ -129,10 +140,10 @@ setTimeout(() => {
                             access liquidity easier
                         </v-card-subtitle>
                         <!-- </v-card-item> -->
-                        <v-card-text class="d-flex" :class="[displayCode <= 2 ? 'flex-column' : 'align-center']"
+                        <v-card-text class="d-flex" :class="[displayCode <= 2 ? '' : 'align-center']"
                             style="margin: 7vh 0; line-height: 1;"
                             :style="{ fontSize: displayCode <= 2 ? '1.75rem' : '3rem' }">
-                            <span :class="{ 'pr-3': displayCode > 2 }" style="color: #776464;">StakeHipo</span>
+                            <span class='pr-3' style="color: #776464;">StakeHipo</span>
                             is
                             <div class="typewrite mx-2" data-period="2000"
                                 data-type='[ "Decentralized", "Secure", "Easy" ]'>
@@ -160,7 +171,7 @@ setTimeout(() => {
                     <v-card variant="tonal">
                         <v-card-item class="d-flex">
                             <div class="d-flex justify-center align-center">
-                                <v-img width="48" height="48" src="/website/icons/hton128.png"></v-img>
+                                <v-img width="48" height="48" src="/website/icons/hton512.png"></v-img>
                                 <div style="padding: 3px 16px 3px 16px;">
                                     <v-card-title class="d-flex">
                                         Staked
@@ -562,42 +573,70 @@ setTimeout(() => {
                 </v-col>
             </v-row>
         </v-container>
-        <v-footer class="text-center d-flex flex-column" style="color: white; background-color: #776464;">
-            <div class="d-flex mt-4 mb-8">
-                <div v-for="icon in socials" :key="icon.title">
-                    <a :href="icon.link" target="_blank">
-                        <v-btn class="mx-4" :icon="icon.icon" variant="text" color="white"
-                            :style="{ transform: 'rotate(' + icon.rotate + 'deg)' }"></v-btn>
-                    </a>
-                </div>
-            </div>
-
-            <div class="pt-0">
-            </div>
-
-            <v-divider></v-divider>
-
-            <div>
-                {{ new Date().getFullYear() }} — <strong>StakeHipo</strong>
-            </div>
-        </v-footer>
     </v-main>
+    <v-footer class="text-center d-flex flex-column" style="color: white; background-color: #776464;"
+        :style="{ maxHeight: displayCode <= 2 ? '200px' : '130px' }">
+        <div class="d-flex flex-wrap justify-center mt-4 mb-8">
+            <div>
+                <a href="https://t.me/stakehipo_chat" target="_blank">
+                    <v-btn class="mx-4" variant="text" color="white" style="text-transform: none;">
+                        <v-icon class="mr-1 mb-3" icon="mdi-send" size="x-large"
+                            style="transform: rotate(-40deg);"></v-icon>
+                        Telegram
+                    </v-btn>
+                </a>
+            </div>
+            <div>
+                <a href="https://t.me/stakehipo_chat" target="_blank">
+                    <v-btn class="mx-4" variant="text" color="white" style="text-transform: none;">
+                        <v-icon class="mr-1 mb-1" icon="mdi-twitter" size="x-large"></v-icon>
+                        Twitter
+                    </v-btn>
+                </a>
+            </div>
+            <div>
+                <a href="https://t.me/stakehipo_chat" target="_blank">
+                    <v-btn class="mx-4" variant="text" color="white" style="text-transform: none;">
+                        <v-icon class="mr-1 mb-1" icon="mdi-chat" size="x-large"></v-icon>
+                        Chat
+                    </v-btn>
+                </a>
+            </div>
+            <div>
+                <a href="https://github.com/StakeHipo" target="_blank">
+                    <v-btn class="mx-4" variant="text" color="white" style="text-transform: none;">
+                        <v-icon class="mr-1 mb-1" icon="mdi-github" size="x-large"></v-icon>
+                        GitHub
+                    </v-btn>
+                </a>
+            </div>
+            <div>
+                <a href="https://github.com/StakeHipo/contract/blob/main/README.md#stake-hipo-hton" target="_blank">
+                    <v-btn class="mx-4" variant="text" color="white" style="text-transform: none;">
+                        <v-icon class="mr-1 mb-1" icon="mdi-file-document" size="x-large"></v-icon>
+                        Docs
+                    </v-btn>
+                </a>
+            </div>
+        </div>
+
+        <v-divider></v-divider>
+
+        <div>
+            {{ new Date().getFullYear() }} — <strong>StakeHipo</strong>
+        </div>
+    </v-footer>
 </template>
 
 <style scoped>
-a:link {
-    text-decoration: none;
-}
-
-a:visited {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none;
-}
-
+a:link,
+a:visited,
+a:hover,
 a:active {
     text-decoration: none;
 }
+
+/* a:visited { text-decoration: none; } */
+/* a:hover { text-decoration: none; } */
+/* a:active { text-decoration: none; } */
 </style>

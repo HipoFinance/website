@@ -1,8 +1,39 @@
 <script lang="ts" setup>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import WalletConnect from '../components/dialogs/WalletConnect.vue'
 import ContractInfo from '../components/cards/ContractInfo.vue'
 import StakeAction from '../components/cards/StakeAction.vue'
+import { useWalletStore } from '../stores/wallet'
+
+const { wallet } = useWalletStore()
+
+const displayCode = ref(1)
+const containerSpace = reactive({
+    marginTop: '192px',
+    marginBottom: '192px',
+})
+function resize() {
+    const w = window.innerWidth
+    let adj = 0
+    if (window.innerWidth > window.innerHeight) {
+        adj = 16
+    }
+    if (w < 600) {
+        displayCode.value = 1 // 'xs'
+        containerSpace.marginTop = '96px'
+        containerSpace.marginBottom = '96px'
+    } else if (w < 960) {
+        displayCode.value = 2 // 'sm'
+        containerSpace.marginTop = '96px'
+        containerSpace.marginBottom = '96px'
+    } else if (w < 1264 - adj) {
+        displayCode.value = 3 // 'md'
+    } else if (w < 1904 - adj) {
+        displayCode.value = 4 // 'lg'
+    } else {
+        displayCode.value = 5 // 'xl'
+    }
+}
 
 let data = reactive({
     drawer: false,
@@ -15,16 +46,33 @@ function closeNavDraw() {
 
 <template>
     <v-app-bar class="px-3 justify-center" color="white" flat>
-        <v-container class="d-flex d-md-none align-center" style="max-width: 1200px">
-            <v-app-bar-nav-icon variant="text" @click.stop="data.drawer = !data.drawer">
-                <v-icon icon="mdi-menu" color="#FF7E73" />
-            </v-app-bar-nav-icon>
+        <!-- <v-container class="d-flex d-md-none align-center" style="max-width: 1200px"> -->
+        <!--     <v-app-bar-nav-icon variant="text" @click.stop="data.drawer = !data.drawer"> -->
+        <!--         <v-icon icon="mdi-menu" color="#FF7E73" /> -->
+        <!--     </v-app-bar-nav-icon> -->
+        <!--     <v-spacer></v-spacer> -->
+        <!--     <img style="margin: 8px; height: 40px; width: 40px" src="/icons/64-icon.png" /> -->
+        <!-- </v-container> -->
+        <!-- <v-container class="d-none d-md-flex align-center" style="max-width: 1200px"> -->
+        <!--     <img style="margin: 8px; height: 40px; width: 40px" src="/icons/64-icon.png" /> -->
+        <!--     <v-spacer></v-spacer> -->
+        <!--     <wallet-connect></wallet-connect> -->
+        <!-- </v-container> -->
+        <v-container class="d-flex align-center" style="max-width: 1200px">
+            <router-link :to="{ name: 'home' }">
+                <img style="margin: 8px; height: 40px;"
+                    :src="displayCode <= 2 ? '/website/icon.png' : '/website/icons/horizontal.png'" />
+            </router-link>
+            <v-chip class="rounded-pill" v-if="wallet.testnet">testnet</v-chip>
             <v-spacer></v-spacer>
-            <img style="margin: 8px; height: 40px; width: 40px" src="/icons/64-icon.png" />
-        </v-container>
-        <v-container class="d-none d-md-flex align-center" style="max-width: 1200px">
-            <img style="margin: 8px; height: 40px; width: 40px" src="/icons/64-icon.png" />
-            <v-spacer></v-spacer>
+            <a href="https://github.com/StakeHipo" target="_blank" v-if="displayCode > 2">
+                <v-btn color="#FF7E73" prepend-icon="mdi-github" size="large" style="text-transform: none;">GitHub</v-btn>
+            </a>
+            <a href="https://github.com/StakeHipo/contract/blob/main/README.md#stake-hipo-hton" target="_blank"
+                v-if="displayCode > 2">
+                <v-btn color="#FF7E73" prepend-icon="mdi-file-document" size="large"
+                    style="text-transform: none;">Docs</v-btn>
+            </a>
             <wallet-connect></wallet-connect>
         </v-container>
     </v-app-bar>
@@ -37,7 +85,7 @@ function closeNavDraw() {
         </v-list>
     </v-navigation-drawer>
 
-    <v-main style="background-color: #efebe5">
+    <v-main style="background-color: #efebe5" v-resize="resize">
         <v-container class="flex align-center" style="max-width: 1200px">
             <v-row>
                 <v-col class="v-col-12 v-col-md-6">
@@ -54,4 +102,65 @@ function closeNavDraw() {
             </v-row>
         </v-container>
     </v-main>
+    <v-footer class="text-center d-flex flex-column" style="color: white; background-color: #776464;"
+        :style="{ maxHeight: displayCode <= 2 ? '200px' : '130px' }">
+        <div class="d-flex flex-wrap justify-center mt-4 mb-8">
+            <div>
+                <a href="https://t.me/stakehipo_chat" target="_blank">
+                    <v-btn class="mx-4" variant="text" color="white" style="text-transform: none;">
+                        <v-icon class="mr-1 mb-3" icon="mdi-send" size="x-large"
+                            style="transform: rotate(-40deg);"></v-icon>
+                        Telegram
+                    </v-btn>
+                </a>
+            </div>
+            <div>
+                <a href="https://t.me/stakehipo_chat" target="_blank">
+                    <v-btn class="mx-4" variant="text" color="white" style="text-transform: none;">
+                        <v-icon class="mr-1 mb-1" icon="mdi-twitter" size="x-large"></v-icon>
+                        Twitter
+                    </v-btn>
+                </a>
+            </div>
+            <div>
+                <a href="https://t.me/stakehipo_chat" target="_blank">
+                    <v-btn class="mx-4" variant="text" color="white" style="text-transform: none;">
+                        <v-icon class="mr-1 mb-1" icon="mdi-chat" size="x-large"></v-icon>
+                        Chat
+                    </v-btn>
+                </a>
+            </div>
+            <div>
+                <a href="https://github.com/StakeHipo" target="_blank">
+                    <v-btn class="mx-4" variant="text" color="white" style="text-transform: none;">
+                        <v-icon class="mr-1 mb-1" icon="mdi-github" size="x-large"></v-icon>
+                        GitHub
+                    </v-btn>
+                </a>
+            </div>
+            <div>
+                <a href="https://github.com/StakeHipo/contract/blob/main/README.md#stake-hipo-hton" target="_blank">
+                    <v-btn class="mx-4" variant="text" color="white" style="text-transform: none;">
+                        <v-icon class="mr-1 mb-1" icon="mdi-file-document" size="x-large"></v-icon>
+                        Docs
+                    </v-btn>
+                </a>
+            </div>
+        </div>
+
+        <v-divider></v-divider>
+
+        <div>
+            {{ new Date().getFullYear() }} — <strong>StakeHipo</strong>
+        </div>
+    </v-footer>
 </template>
+
+<style scoped>
+a:link,
+a:visited,
+a:hover,
+a:active {
+    text-decoration: none;
+}
+</style>
