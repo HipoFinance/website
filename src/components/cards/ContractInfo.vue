@@ -3,13 +3,14 @@ import { ref } from 'vue'
 import { getHttpEndpoint } from '@orbs-network/ton-access'
 import { TonClient, Address, TupleBuilder, Dictionary, Cell } from 'ton'
 import { sha256 } from 'ton-crypto'
+import { useWalletStore } from '../../stores/wallet'
 
 const endpoint = await getHttpEndpoint({ network: 'testnet' }) // get the decentralized RPC endpoint
 const client = new TonClient({ endpoint }) // initialize ton library
 
 // make some query to mainnet
-const address = Address.parseFriendly('EQD5SxgI2HAWJCJVsKKdZFbdkSGX4v2tBGqRWIHXrqr6_wvJ').address
-const address2 = Address.parseFriendly('EQD5SxgI2HAWJCJVsKKdZFbdkSGX4v2tBGqRWIHXrqr6_wvJ').address.toRawString()
+const address = useWalletStore().rootAddress
+const address2 = address.toRawString()
 const balance = ref(0)
 balance.value = await client.getBalance(address)
 

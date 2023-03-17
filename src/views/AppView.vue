@@ -61,7 +61,7 @@ function closeNavDraw() {
         <v-container class="d-flex align-center" style="max-width: 1200px">
             <router-link :to="{ name: 'home' }">
                 <img style="margin: 8px; height: 40px;"
-                    :src="displayCode <= 2 ? '/website/icon.png' : '/website/icons/horizontal.png'" />
+                    :src="displayCode <= 2 ? '/website/favicon.png' : '/website/icons/horizontal.png'" />
             </router-link>
             <v-chip class="rounded-pill" v-if="wallet.testnet">testnet</v-chip>
             <v-spacer></v-spacer>

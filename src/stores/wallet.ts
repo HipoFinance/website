@@ -1,16 +1,31 @@
 import { reactive } from 'vue'
 import { defineStore } from 'pinia'
-import { TonConnect, WalletInfo } from '@tonconnect/sdk'
-import { TonClient, Address, beginCell, Slice, toNano } from 'ton'
+import { TonConnect, UserRejectsError, WalletInfo } from '@tonconnect/sdk'
+import { TonClient, Address, beginCell, Slice, toNano, Cell } from 'ton'
 import { getHttpEndpoint } from '@orbs-network/ton-access'
 import { toUserFriendlyAddress } from '@tonconnect/sdk'
 import { RecipientPayload } from './Root'
 
-export const useWalletStore = defineStore('wallet', () => {
+interface Wallet {
+    connected: boolean
+    address: string
+    balance: string
+    list: any[]
+    testnet: boolean
+}
+
+export const useWalletStore: () => {
+    rootAddress: Address
+    wallet: Wallet
+    connectTo: Function
+    disconnect: Function
+    sendDeposit: Function
+} = defineStore('wallet', () => {
     const testnet = true
     /* cspell: disable-next-line */
     const rootAddress = Address.parseFriendly(
-        'EQD5SxgI2HAWJCJVsKKdZFbdkSGX4v2tBGqRWIHXrqr6_wvJ',
+        // 'EQD5SxgI2HAWJCJVsKKdZFbdkSGX4v2tBGqRWIHXrqr6_wvJ',
+        'EQAvfVyBQ5IPLuoxtkSzzMzCVOClMqueZLHTuDyAEOweBIFi',
     ).address
 
     function setRestore(value: boolean) {
@@ -25,13 +40,7 @@ export const useWalletStore = defineStore('wallet', () => {
         return JSON.parse(d)
     }
 
-    const wallet: {
-        connected: boolean
-        address: string
-        balance: string
-        list: any[]
-        testnet: boolean
-    } = reactive({
+    const wallet: Wallet = reactive({
         connected: false,
         address: '',
         balance: '',
@@ -96,7 +105,7 @@ export const useWalletStore = defineStore('wallet', () => {
         wallet.connected = false
     }
 
-    async function getBalance(address: string) {
+    async function getBalance(address: string): Promise<bigint> {
         const client = new TonClient({
             endpoint: await getHttpEndpoint({ network: testnet ? 'testnet' : 'mainnet' }),
         })
@@ -104,7 +113,22 @@ export const useWalletStore = defineStore('wallet', () => {
         return await client.getBalance(Address.parseFriendly(address).address)
     }
 
-    connector.wallet?.provider
+    async function getSeqNo(address: string | undefined): Promise<number> {
+        if (address == null) {
+            return 0;
+        }
+
+        const client = new TonClient({
+            endpoint: await getHttpEndpoint({ network: testnet ? 'testnet' : 'mainnet' }),
+        })
+
+        const m1 = await client.runMethod(Address.parse(address), 'seqno')
+        return m1.stack.readNumber()
+    }
+
+    function sleep(ms: number) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     async function sendDeposit(
         stakeAmount: bigint,
@@ -113,15 +137,15 @@ export const useWalletStore = defineStore('wallet', () => {
         returnExcess?: Address,
         notificationTonAmount?: bigint,
         notificationPayload?: Slice,
-    ) {
+    ): Promise<Boolean> {
         if (!connector.connected) {
             console.log('Not connected')
-            return
+            return false
         }
 
         if (connector.account == null) {
             console.log('Account was null')
-            return
+            return false
         }
 
         const userAddress = Address.parseRaw(connector.account.address)
@@ -138,21 +162,38 @@ export const useWalletStore = defineStore('wallet', () => {
             .toBoc()
             .toString('base64')
 
-        const result = await connector.sendTransaction({
-            validUntil: Math.floor(Date.now() / 1000) + 300,
-            messages: [
-                {
-                    address: rootAddress.toRawString(),
-                    amount: (stakeAmount + toNano('0.5')).toString(),
-                    payload,
-                },
-            ],
-        })
+        console.log('getting the seqno')
+        const seqNo = await getSeqNo(connector.account.address)
+        console.log('initial seqno', seqNo)
+        try {
+            const result = await connector.sendTransaction({
+                validUntil: Math.floor(Date.now() / 1000) + 300,
+                messages: [
+                    {
+                        address: rootAddress.toRawString(),
+                        amount: (stakeAmount + toNano('0.5')).toString(),
+                        payload,
+                    },
+                ],
+            })
+            console.log('transaction result:', result)
+            // TODO parse the boc for information.
+            // const c = Cell.fromBase64("te6cckECGQEABAgAAuGIAUCLGaG3fjRQIIRoB5wx2DJ33roigGC71KvYq8BHzD14GlNXTYdyQSxsStmUcfGmrV4wKnG52H+7iXOK5KszxcDtWkW7dDKM48awy9zHJCvhR/xI6E2bhaGi04DRTO+ERAimpoxf/////AAAAAAADgEXAgE0AhYBFP8A9KQT9LzyyAsDAgEgBBECAUgFCALm0AHQ0wMhcbCSXwTgItdJwSCSXwTgAtMfIYIQcGx1Z70ighBkc3RyvbCSXwXgA/pAMCD6RAHIygfL/8nQ7UTQgQFA1yH0BDBcgQEI9ApvoTGzkl8H4AXTP8glghBwbHVnupI4MOMNA4IQZHN0crqSXwbjDQYHAHgB+gD0BDD4J28iMFAKoSG+8uBQghBwbHVngx6xcIAYUATLBSbPFlj6Ahn0AMtpF8sfUmDLPyDJgED7AAYAilAEgQEI9Fkw7UTQgQFA1yDIAc8W9ADJ7VQBcrCOI4IQZHN0coMesXCAGFAFywVQA88WI/oCE8tqyx/LP8mAQPsAkl8D4gIBIAkQAgEgCg8CAVgLDAA9sp37UTQgQFA1yH0BDACyMoHy//J0AGBAQj0Cm+hMYAIBIA0OABmtznaiaEAga5Drhf/AABmvHfaiaEAQa5DrhY/AABG4yX7UTQ1wsfgAWb0kK29qJoQICga5D6AhhHDUCAhHpJN9KZEM5pA+n/mDeBKAG3gQFImHFZ8xhAT48oMI1xgg0x/TH9MfAvgju/Jk7UTQ0x/TH9P/9ATRUUO68qFRUbryogX5AVQQZPkQ8qP4ACSkyMsfUkDLH1Iwy/9SEPQAye1U+A8B0wchwACfbFGTINdKltMH1AL7AOgw4CHAAeMAIcAC4wABwAORMOMNA6TIyx8Syx/L/xITFBUAbtIH+gDU1CL5AAXIygcVy//J0Hd0gBjIywXLAiLPFlAF+gIUy2sSzMzJc/sAyEAUgQEI9FHypwIAcIEBCNcY+gDTP8hUIEeBAQj0UfKnghBub3RlcHSAGMjLBcsCUAbPFlAE+gIUy2oSyx/LP8lz+wACAGyBAQjXGPoA0z8wUiSBAQj0WfKnghBkc3RycHSAGMjLBcsCUAXPFlAD+gITy2rLHxLLP8lz+wAACvQAye1UAFEAAAAAKamjF3TwK3KVbG80yPrAN+0DBYlmjYtHAY68E86g+37hxqe6QAFqQgB8pYwEbDgLEhEq2FFOsituyJDL8X7WgjVIrEDr11V9f6gTjspIAAAAAAAAAAAAAAAAAAEYAKlpaqzgAAAAAAAAAABQJUC+QAgBQIsZobd+NFAghGgHnDHYMnfeuiKAYLvUq9irwEfMPXkAKBFjNDbvxooEEI0A84Y7Bk7710RQDBd6lXsVeAj5h68BPMO4Dw==")
 
-        // TODO parse the boc for information.
-        // const c = Cell.fromBase64("te6cckECGQEABAgAAuGIAUCLGaG3fjRQIIRoB5wx2DJ33roigGC71KvYq8BHzD14GlNXTYdyQSxsStmUcfGmrV4wKnG52H+7iXOK5KszxcDtWkW7dDKM48awy9zHJCvhR/xI6E2bhaGi04DRTO+ERAimpoxf/////AAAAAAADgEXAgE0AhYBFP8A9KQT9LzyyAsDAgEgBBECAUgFCALm0AHQ0wMhcbCSXwTgItdJwSCSXwTgAtMfIYIQcGx1Z70ighBkc3RyvbCSXwXgA/pAMCD6RAHIygfL/8nQ7UTQgQFA1yH0BDBcgQEI9ApvoTGzkl8H4AXTP8glghBwbHVnupI4MOMNA4IQZHN0crqSXwbjDQYHAHgB+gD0BDD4J28iMFAKoSG+8uBQghBwbHVngx6xcIAYUATLBSbPFlj6Ahn0AMtpF8sfUmDLPyDJgED7AAYAilAEgQEI9Fkw7UTQgQFA1yDIAc8W9ADJ7VQBcrCOI4IQZHN0coMesXCAGFAFywVQA88WI/oCE8tqyx/LP8mAQPsAkl8D4gIBIAkQAgEgCg8CAVgLDAA9sp37UTQgQFA1yH0BDACyMoHy//J0AGBAQj0Cm+hMYAIBIA0OABmtznaiaEAga5Drhf/AABmvHfaiaEAQa5DrhY/AABG4yX7UTQ1wsfgAWb0kK29qJoQICga5D6AhhHDUCAhHpJN9KZEM5pA+n/mDeBKAG3gQFImHFZ8xhAT48oMI1xgg0x/TH9MfAvgju/Jk7UTQ0x/TH9P/9ATRUUO68qFRUbryogX5AVQQZPkQ8qP4ACSkyMsfUkDLH1Iwy/9SEPQAye1U+A8B0wchwACfbFGTINdKltMH1AL7AOgw4CHAAeMAIcAC4wABwAORMOMNA6TIyx8Syx/L/xITFBUAbtIH+gDU1CL5AAXIygcVy//J0Hd0gBjIywXLAiLPFlAF+gIUy2sSzMzJc/sAyEAUgQEI9FHypwIAcIEBCNcY+gDTP8hUIEeBAQj0UfKnghBub3RlcHSAGMjLBcsCUAbPFlAE+gIUy2oSyx/LP8lz+wACAGyBAQjXGPoA0z8wUiSBAQj0WfKnghBkc3RycHSAGMjLBcsCUAXPFlAD+gITy2rLHxLLP8lz+wAACvQAye1UAFEAAAAAKamjF3TwK3KVbG80yPrAN+0DBYlmjYtHAY68E86g+37hxqe6QAFqQgB8pYwEbDgLEhEq2FFOsituyJDL8X7WgjVIrEDr11V9f6gTjspIAAAAAAAAAAAAAAAAAAEYAKlpaqzgAAAAAAAAAABQJUC+QAgBQIsZobd+NFAghGgHnDHYMnfeuiKAYLvUq9irwEfMPXkAKBFjNDbvxooEEI0A84Y7Bk7710RQDBd6lXsVeAj5h68BPMO4Dw==")
-
-        console.log('transaction result:', result)
+            for (let i = 0; i < 20; i++) {
+                const newSeqNo = await getSeqNo(connector.account.address)
+                console.log('new seqno', newSeqNo)
+                if (seqNo < newSeqNo) {
+                    return true
+                }
+                await sleep(3000)
+            }
+        } catch (e) {
+            if (e instanceof UserRejectsError) {
+                alert('You rejected the transaction.');
+            }
+        }
+        return false
     }
 
     async function sendWithdraw(
@@ -207,5 +248,5 @@ export const useWalletStore = defineStore('wallet', () => {
         console.log('transaction result:', result)
     }
 
-    return { wallet, connectTo, disconnect, sendDeposit }
+    return { rootAddress, wallet, connectTo, disconnect, sendDeposit }
 })
