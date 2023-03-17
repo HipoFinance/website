@@ -580,8 +580,7 @@ setTimeout(() => {
             <div>
                 <a href="https://t.me/stakehipo_chat" target="_blank">
                     <v-btn class="mx-4" variant="text" color="white" style="text-transform: none;">
-                        <v-icon class="mr-1 mb-3" icon="mdi-send" size="x-large"
-                            style="transform: rotate(-40deg);"></v-icon>
+                        <v-img class="mr-1 mb-1" :width="24" src="/icons/telegram.png"></v-img>
                         Telegram
                     </v-btn>
                 </a>
