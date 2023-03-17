@@ -314,11 +314,14 @@ watch(
 #staketabs input::-webkit-outer-spin-button,
 #staketabs input::-webkit-inner-spin-button {
     -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
     margin: 0;
 }
 
 /* Firefox */
-#staketabas input[type='number'] {
+#staketabs input[type='number'] {
+    -webkit-appearance: none;
     -moz-appearance: textfield;
     appearance: textfield;
 }
