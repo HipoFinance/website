@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { ref, reactive, watch } from 'vue'
 import { useWalletStore } from '../../stores/wallet'
-import { Cell, toNano } from 'ton'
+import { Cell, fromNano, toNano } from 'ton'
 import { TextDecoder } from 'util';
 
-const { wallet, sendDeposit, sendWithdraw, getTonBalance } = useWalletStore()
+const { wallet, sendDeposit, sendWithdraw, getTonBalance, gethTonBalance } = useWalletStore()
 
 const tab = ref(1)
 
@@ -43,7 +43,7 @@ watch(tab, () => {
     states.unstaked = null
 })
 
-const balance = reactive({
+const tonBalance = reactive({
     loading: true,
     balance: '',
 })
@@ -51,8 +51,22 @@ watch(
     () => wallet.address,
     () => {
         getTonBalance().then((b: bigint) => {
-            balance.balance = b.toString()
-            balance.loading = false
+            tonBalance.balance = fromNano(b)
+            tonBalance.loading = false
+        })
+    }
+)
+
+const hTonBalance = reactive({
+    loading: true,
+    balance: '',
+})
+watch(
+    () => wallet.address,
+    () => {
+        gethTonBalance().then((b: bigint) => {
+            hTonBalance.balance = fromNano(b)
+            hTonBalance.loading = false
         })
     }
 )
@@ -112,8 +126,17 @@ watch(
                         </v-row>
                         <v-row class="mt-12">
                             <v-col>
+                                <v-icon icon="mdi-wallet-outline"></v-icon>
+                                You Balance
+                            </v-col>
+                            <v-col style="text-align: right;">
+                                <span style="color: #3a86c7;">{{ tonBalance.balance || 0 }} TON</span>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
                                 <v-icon icon="mdi-wallet-plus-outline"></v-icon>
-                                You will receive
+                                You Will Receive
                             </v-col>
                             <v-col style="text-align: right;">
                                 <span style="color: #776464;">{{ amount.stake || 0 }} hTON</span>
@@ -122,7 +145,7 @@ watch(
                         <v-row>
                             <v-col>
                                 <v-icon icon="mdi-swap-horizontal"></v-icon>
-                                Exchange rate
+                                Exchange Rate
                             </v-col>
                             <v-col style="text-align: right;">
                                 <span class="px-1" style="color: #3a86c7;">1 TON</span> = <span style="color: #776464;">1 hTON</span>
@@ -131,7 +154,7 @@ watch(
                         <v-row>
                             <v-col class="v-col-8">
                                 <v-icon icon="mdi-alpha-c"></v-icon>
-                                Max transaction cost
+                                Max Transaction Cost
                             </v-col>
                             <v-col class="v-col-4" style="text-align: right;">
                                 <span class="px-1" style="color: #3a86c7;">0.5 TON</span>
@@ -169,6 +192,15 @@ watch(
                             </v-col>
                         </v-row>
                         <v-row class="mt-12">
+                            <v-col>
+                                <v-icon icon="mdi-wallet-outline"></v-icon>
+                                You Balance
+                            </v-col>
+                            <v-col style="text-align: right;">
+                                <span style="color: #776464;">{{ hTonBalance.balance || 0 }} hTON</span>
+                            </v-col>
+                        </v-row>
+                        <v-row>
                             <v-col>
                                 <v-icon icon="mdi-wallet-plus-outline"></v-icon>
                                 You Will Receive

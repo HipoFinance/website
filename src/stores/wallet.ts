@@ -22,6 +22,7 @@ export const useWalletStore: () => {
     sendDeposit: Function
     sendWithdraw: Function
     getTonBalance: () => Promise<bigint>
+    gethTonBalance: () => Promise<bigint>
 } = defineStore('wallet', () => {
     const testnet = true
     let tonClient: TonClient | null = null
@@ -119,13 +120,19 @@ export const useWalletStore: () => {
         return await tonClient.getBalance(Address.parseFriendly(address).address)
     }
 
+    async function gethBalance(address: string): Promise<bigint> {
+        const subAddress = await getSubWallet(Address.parseFriendly(address).address)
+        const m = await tonClient.runMethod(subAddress, 'get_balances')
+        return m.stack.readBigNumber()
+    }
+
     async function getSeqNo(address: string | undefined): Promise<number> {
         if (address == null) {
             return 0;
         }
 
-        const m1 = await tonClient.runMethod(Address.parse(address), 'seqno')
-        return m1.stack.readNumber()
+        const m = await tonClient.runMethod(Address.parse(address), 'seqno')
+        return m.stack.readNumber()
     }
 
     function sleep(ms: number) {
@@ -278,6 +285,8 @@ export const useWalletStore: () => {
     return {
         rootAddress, wallet, connectTo, disconnect, sendDeposit, sendWithdraw, getTonBalance() {
             return getBalance(wallet.address)
+        }, gethTonBalance() {
+            return gethBalance(wallet.address)
         }
     }
 })
