@@ -1,7 +1,7 @@
 import { reactive } from 'vue'
 import { defineStore } from 'pinia'
 import { TonConnect, UserRejectsError, WalletInfo } from '@tonconnect/sdk'
-import { TonClient, Address, beginCell, Slice, toNano, Cell } from 'ton'
+import { TonClient, Address, beginCell, Slice, toNano, Cell, TupleBuilder } from 'ton'
 import { getHttpEndpoint } from '@orbs-network/ton-access'
 import { toUserFriendlyAddress } from '@tonconnect/sdk'
 import { RecipientPayload } from './Root'
@@ -21,8 +21,17 @@ export const useWalletStore: () => {
     disconnect: Function
     sendDeposit: Function
     sendWithdraw: Function
+    getTonBalance: () => Promise<bigint>
 } = defineStore('wallet', () => {
     const testnet = true
+    let tonClient: TonClient | null = null
+    getHttpEndpoint({ network: testnet ? 'testnet' : 'mainnet' })
+        .then((endpoint) => {
+            tonClient = new TonClient({
+                endpoint: endpoint,
+            })
+        })
+
     /* cspell: disable-next-line */
     const rootAddress = Address.parseFriendly(
         // 'EQD5SxgI2HAWJCJVsKKdZFbdkSGX4v2tBGqRWIHXrqr6_wvJ',
@@ -107,11 +116,7 @@ export const useWalletStore: () => {
     }
 
     async function getBalance(address: string): Promise<bigint> {
-        const client = new TonClient({
-            endpoint: await getHttpEndpoint({ network: testnet ? 'testnet' : 'mainnet' }),
-        })
-
-        return await client.getBalance(Address.parseFriendly(address).address)
+        return await tonClient.getBalance(Address.parseFriendly(address).address)
     }
 
     async function getSeqNo(address: string | undefined): Promise<number> {
@@ -119,11 +124,7 @@ export const useWalletStore: () => {
             return 0;
         }
 
-        const client = new TonClient({
-            endpoint: await getHttpEndpoint({ network: testnet ? 'testnet' : 'mainnet' }),
-        })
-
-        const m1 = await client.runMethod(Address.parse(address), 'seqno')
+        const m1 = await tonClient.runMethod(Address.parse(address), 'seqno')
         return m1.stack.readNumber()
     }
 
@@ -197,6 +198,13 @@ export const useWalletStore: () => {
         return false
     }
 
+    async function getSubWallet(address: Address): Promise<Address> {
+        const t = new TupleBuilder()
+        t.writeAddress(address)
+        const m = await tonClient.runMethod(rootAddress, 'get_wallet_address', t.build())
+        return m.stack.readAddress()
+    }
+
     async function sendWithdraw(
         stakeAmount: bigint,
         queryId?: bigint,
@@ -240,7 +248,8 @@ export const useWalletStore: () => {
                 validUntil: Math.floor(Date.now() / 1000) + 300,
                 messages: [
                     {
-                        address: rootAddress.toRawString(),
+                        // address: rootAddress.toRawString(),
+                        address: (await getSubWallet(userAddress)).toRawString(),
                         amount: (stakeAmount + toNano('0.5')).toString(),
                         payload,
                     },
@@ -266,5 +275,9 @@ export const useWalletStore: () => {
         return false
     }
 
-    return { rootAddress, wallet, connectTo, disconnect, sendDeposit, sendWithdraw }
+    return {
+        rootAddress, wallet, connectTo, disconnect, sendDeposit, sendWithdraw, getTonBalance() {
+            return getBalance(wallet.address)
+        }
+    }
 })

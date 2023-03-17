@@ -34,7 +34,7 @@ function onConnect(connected: Boolean) {
     scanDialog.value = false
     walletDialog.value = false
     const l = wallet.address.length
-    btnText.value = wallet.address.substring(0, 4) + '...' + wallet.address.substring(l - 4) + ': ' + fromNano(wallet.balance).substring(0, 5)
+    btnText.value = wallet.address.substring(0, 4) + '...' + wallet.address.substring(l - 4) // + ': ' + fromNano(wallet.balance).substring(0, 5)
 }
 onConnect(wallet.connected)
 watch(

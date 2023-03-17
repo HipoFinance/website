@@ -67,7 +67,7 @@ function removeBits(c, n) {
 </script>
 
 <template>
-    <v-card>
+    <v-card class="rounded-shaped">
         <v-card-item> Contract Information </v-card-item>
         <v-card-text>
             <div><span style="color: red">Address</span>: {{ address2 }}</div>
