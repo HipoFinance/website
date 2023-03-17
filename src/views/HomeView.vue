@@ -103,10 +103,8 @@ setTimeout(() => {
         <v-container class="d-flex align-center" style="max-width: 1200px">
             <router-link :to="{ name: 'home' }">
                 <img style="margin: 8px; height: 40px;"
-                    :src="displayCode <= 2 ? '/website/icon.png' : '/website/icons/horizontal.png'" />
+                    :src="displayCode <= 2 ? '/website/favicon.png' : '/website/icons/horizontal.png'" />
             </router-link>
-            <v-chip class="rounded-pill" v-if="wallet.testnet">testnet</v-chip>
-            <v-spacer></v-spacer>
             <a href="https://github.com/StakeHipo" target="_blank" v-if="displayCode > 2">
                 <v-btn color="#FF7E73" prepend-icon="mdi-github" size="large" style="text-transform: none;">GitHub</v-btn>
             </a>
@@ -115,6 +113,8 @@ setTimeout(() => {
                 <v-btn color="#FF7E73" prepend-icon="mdi-file-document" size="large"
                     style="text-transform: none;">Docs</v-btn>
             </a>
+            <v-spacer></v-spacer>
+            <v-chip class="rounded-pill mx-2" color="red" v-if="wallet.testnet" size="large">❗️ testnet ❗️</v-chip>
             <wallet-connect :redirect-to-app="true"></wallet-connect>
         </v-container>
     </v-app-bar>
