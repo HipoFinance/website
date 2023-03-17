@@ -9,6 +9,12 @@ const { wallet, rootAddress, gethTonAddress } = useWalletStore()
 
 const tonAddStr = ref('')
 const hTonAddStr = ref('')
+if (wallet.address) {
+    tonAddStr.value = wallet.address.toString()
+    gethTonAddress().then((a) => {
+        hTonAddStr.value = a.toString()
+    })
+}
 watch(
     () => wallet.address,
     () => {

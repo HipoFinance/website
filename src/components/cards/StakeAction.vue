@@ -47,6 +47,12 @@ const tonBalance = reactive({
     loading: true,
     balance: '',
 })
+if (wallet.address) {
+    getTonBalance().then((b: bigint) => {
+        tonBalance.balance = fromNano(b)
+        tonBalance.loading = false
+    })
+}
 watch(
     () => wallet.address,
     () => {
@@ -61,6 +67,13 @@ const hTonBalance = reactive({
     loading: true,
     balance: '',
 })
+if (wallet.address) {
+    gethTonBalance().then((b: bigint) => {
+        hTonBalance.balance = fromNano(b)
+        hTonBalance.loading = false
+    })
+
+}
 watch(
     () => wallet.address,
     () => {
