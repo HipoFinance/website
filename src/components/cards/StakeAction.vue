@@ -12,7 +12,7 @@ const states = reactive({
     staking: false,
     staked: null,
     unstaking: false,
-    unstaked: null,
+    unstaked: true,
 })
 
 const amount = reactive({
@@ -227,8 +227,8 @@ watch(
                                     <template #prepend-inner>
                                         <v-img width="24" src="/website/icons/hton512.png"></v-img>
                                     </template>
-                                    <template #append-inner v-if="states.staked != null">
-                                        <div v-if="states.staked">
+                                    <template #append-inner v-if="states.unstaked != null">
+                                        <div v-if="states.unstaked">
                                             <v-icon icon="mdi-check" color="#FF7E73"></v-icon>
                                         </div>
                                         <div v-else>
