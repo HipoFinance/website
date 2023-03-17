@@ -63,8 +63,6 @@ function closeNavDraw() {
                 <img style="margin: 8px; height: 40px;"
                     :src="displayCode <= 2 ? '/website/favicon.png' : '/website/icons/horizontal.png'" />
             </router-link>
-            <v-chip class="rounded-pill" v-if="wallet.testnet">testnet</v-chip>
-            <v-spacer></v-spacer>
             <a href="https://github.com/StakeHipo" target="_blank" v-if="displayCode > 2">
                 <v-btn color="#FF7E73" prepend-icon="mdi-github" size="large" style="text-transform: none;">GitHub</v-btn>
             </a>
@@ -73,6 +71,8 @@ function closeNavDraw() {
                 <v-btn color="#FF7E73" prepend-icon="mdi-file-document" size="large"
                     style="text-transform: none;">Docs</v-btn>
             </a>
+            <v-spacer></v-spacer>
+            <v-chip class="rounded-pill mx-2" color="red" v-if="wallet.testnet" size="large">❗️ testnet ❗️</v-chip>
             <wallet-connect></wallet-connect>
         </v-container>
     </v-app-bar>
@@ -108,8 +108,7 @@ function closeNavDraw() {
             <div>
                 <a href="https://t.me/stakehipo_chat" target="_blank">
                     <v-btn class="mx-4" variant="text" color="white" style="text-transform: none;">
-                        <v-icon class="mr-1 mb-3" icon="mdi-send" size="x-large"
-                            style="transform: rotate(-40deg);"></v-icon>
+                        <v-img class="mr-1 mb-1" :width="24" src="/icons/telegram.png"></v-img>
                         Telegram
                     </v-btn>
                 </a>
