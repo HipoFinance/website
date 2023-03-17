@@ -25,9 +25,12 @@ const addStr = address.toString()
 const balance = ref(0)
 getHttpEndpoint({ network: 'testnet' }).then((endpoint) => {
     const client = new TonClient({ endpoint }) // initialize ton library
-    client.getBalance(address).then((b) => {
-        balance.value = b
+    client.runMethod(address, 'get_total_balances').then((m) => {
+        balance.value = m.stack.readBigNumber() + m.stack.readBigNumber() + m.stack.readBigNumber()
     })
+    // client.getBalance(address).then((b) => {
+    //     balance.value = b
+    // })
 })
 
 // const endpoint = await getHttpEndpoint({ network: 'testnet' }) // get the decentralized RPC endpoint

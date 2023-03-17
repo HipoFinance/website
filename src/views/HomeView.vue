@@ -1,8 +1,12 @@
 <script lang="ts" setup>
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref, watch, onMounted } from 'vue'
 import gsap from 'gsap'
 import WalletConnect from '../components/dialogs/WalletConnect.vue'
 import { useWalletStore } from '../stores/wallet'
+
+onMounted(() => {
+    enableTypeWriterAnimation()
+})
 
 const { wallet } = useWalletStore()
 

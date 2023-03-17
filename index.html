@@ -18,6 +18,8 @@
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
     <script>
+        let typeWriterIsWorking = false;
+
         var TxtType = function (el, toRotate, period) {
             this.toRotate = toRotate;
             this.el = el;
@@ -59,7 +61,12 @@
             }, delta);
         };
 
-        window.onload = function () {
+        function enableTypeWriterAnimation() {
+            if (typeWriterIsWorking) {
+                return;
+            }
+
+            typeWriterIsWorking = true;
             var elements = document.getElementsByClassName('typewrite');
             for (var i = 0; i < elements.length; i++) {
                 var toRotate = elements[i].getAttribute('data-type');
@@ -74,6 +81,8 @@
             css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
             document.body.appendChild(css);
         };
+
+        setTimeout(enableTypeWriterAnimation, 5000);
     </script>
 </body>
 
