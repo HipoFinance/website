@@ -86,7 +86,7 @@ function closeNavDraw() {
     </v-navigation-drawer>
 
     <v-main style="background-color: #efebe5" v-resize="resize">
-        <v-container class="flex align-center" style="max-width: 1200px">
+        <v-container class="flex align-center" style="max-width: 1200px;">
             <v-row class="justify-center">
                 <v-col class="v-col-12 v-col-md-5">
                     <stake-action></stake-action>
@@ -97,9 +97,7 @@ function closeNavDraw() {
                     <!-- <v-sheet rounded="lg" min-height="268"> -->
                     <!--  -->
                     <!-- </v-sheet> -->
-                    <suspense>
-                        <contract-info></contract-info>
-                    </suspense>
+                    <contract-info></contract-info>
                 </v-col>
             </v-row>
         </v-container>

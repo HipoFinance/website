@@ -23,6 +23,7 @@ export const useWalletStore: () => {
     sendWithdraw: Function
     getTonBalance: () => Promise<bigint>
     gethTonBalance: () => Promise<bigint>
+    gethTonAddress: () => Promise<Address>
 } = defineStore('wallet', () => {
     const testnet = true
     let tonClient: TonClient | null = null
@@ -287,6 +288,9 @@ export const useWalletStore: () => {
             return getBalance(wallet.address)
         }, gethTonBalance() {
             return gethBalance(wallet.address)
+        }, gethTonAddress() {
+            console.log('address', wallet.address)
+            return getSubWallet(Address.parseFriendly(wallet.address).address)
         }
     }
 })

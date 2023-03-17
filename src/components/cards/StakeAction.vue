@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, reactive, watch } from 'vue'
 import { useWalletStore } from '../../stores/wallet'
-import { Cell, fromNano, toNano } from 'ton'
+import { fromNano, toNano } from 'ton'
 import { TextDecoder } from 'util';
 
 const { wallet, sendDeposit, sendWithdraw, getTonBalance, gethTonBalance } = useWalletStore()
@@ -88,16 +88,16 @@ watch(
 </script>
 
 <template>
+    <v-tabs v-model="tab" color="#FF7E73" align-tabs="center">
+        <v-tab :value="1" class="text-h5" style="font-size: 1.2rem; text-transform: none;">Stake</v-tab>
+        <v-tab :value="2" class="text-h5" style="font-size: 1.2rem; text-transform: none;">Unstake</v-tab>
+    </v-tabs>
     <v-card class="rounded-shaped">
         <v-card-text>
-            <v-tabs v-model="tab" color="#FF7E73" align-tabs="center">
-                <v-tab :value="1" style="font-size: 1.2rem; text-transform: none;">Stake</v-tab>
-                <v-tab :value="2" style="font-size: 1.2rem; text-transform: none;">Unstake</v-tab>
-            </v-tabs>
             <v-window v-model="tab" id="staketabs">
                 <v-window-item :value="1">
                     <v-container fluid>
-                        <v-row class="justify-center mt-4 mb-8">
+                        <v-row class="justify-center mb-8">
                             Stake <span class="px-1" style="color: #3a86c7;">TON</span> and receive <span class="px-1"
                                 style="color: #776464;">hTON</span> while staking.
                         </v-row>
@@ -148,7 +148,8 @@ watch(
                                 Exchange Rate
                             </v-col>
                             <v-col style="text-align: right;">
-                                <span class="px-1" style="color: #3a86c7;">1 TON</span> = <span style="color: #776464;">1 hTON</span>
+                                <span class="px-1" style="color: #3a86c7;">1 TON</span> = <span style="color: #776464;">1
+                                    hTON</span>
                             </v-col>
                         </v-row>
                         <v-row>
@@ -164,7 +165,7 @@ watch(
                 </v-window-item>
                 <v-window-item :value="2">
                     <v-container fluid>
-                        <v-row class="justify-center mt-4 mb-8">
+                        <v-row class="justify-center mb-8">
                             Unstake <span class="px-1" style="color: #776464;">hTON</span> and receive <span class="px-1"
                                 style="color: #3a86c7;">TON</span> while unstaking.
                         </v-row>
@@ -215,7 +216,8 @@ watch(
                                 Exchange Rate
                             </v-col>
                             <v-col style="text-align: right;">
-                                <span class="px-1" style="color: #3a86c7;">1 TON</span> = <span style="color: #776464;">1 hTON</span>
+                                <span class="px-1" style="color: #3a86c7;">1 TON</span> = <span style="color: #776464;">1
+                                    hTON</span>
                             </v-col>
                         </v-row>
                         <v-row>
