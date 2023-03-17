@@ -20,6 +20,7 @@ export const useWalletStore: () => {
     connectTo: Function
     disconnect: Function
     sendDeposit: Function
+    sendWithdraw: Function
 } = defineStore('wallet', () => {
     const testnet = true
     /* cspell: disable-next-line */
@@ -201,15 +202,15 @@ export const useWalletStore: () => {
         queryId?: bigint,
         returnExcess?: Address,
         recipientPayload?: RecipientPayload,
-    ) {
+    ): Promise<Boolean> {
         if (!connector.connected) {
             console.log('Not connected')
-            return
+            return false
         }
 
         if (connector.account == null) {
             console.log('Account was null')
-            return
+            return false
         }
 
         const userAddress = Address.parseRaw(connector.account.address)
@@ -231,22 +232,39 @@ export const useWalletStore: () => {
             .toBoc()
             .toString('base64')
 
-        const result = await connector.sendTransaction({
-            validUntil: Math.floor(Date.now() / 1000) + 300,
-            messages: [
-                {
-                    address: rootAddress.toRawString(),
-                    amount: (stakeAmount + toNano('0.5')).toString(),
-                    payload,
-                },
-            ],
-        })
+        console.log('getting the seqno')
+        const seqNo = await getSeqNo(connector.account.address)
+        console.log('initial seqno', seqNo)
+        try {
+            const result = await connector.sendTransaction({
+                validUntil: Math.floor(Date.now() / 1000) + 300,
+                messages: [
+                    {
+                        address: rootAddress.toRawString(),
+                        amount: (stakeAmount + toNano('0.5')).toString(),
+                        payload,
+                    },
+                ],
+            })
+            console.log('transaction result:', result)
+            // TODO parse the boc for information.
+            // const c = Cell.fromBase64(boc)
 
-        // TODO parse the boc for information.
-        // const c = Cell.fromBase64(boc)
-
-        console.log('transaction result:', result)
+            for (let i = 0; i < 20; i++) {
+                const newSeqNo = await getSeqNo(connector.account.address)
+                console.log('new seqno', newSeqNo)
+                if (seqNo < newSeqNo) {
+                    return true
+                }
+                await sleep(3000)
+            }
+        } catch (e) {
+            if (e instanceof UserRejectsError) {
+                alert('You rejected the transaction.');
+            }
+        }
+        return false
     }
 
-    return { rootAddress, wallet, connectTo, disconnect, sendDeposit }
+    return { rootAddress, wallet, connectTo, disconnect, sendDeposit, sendWithdraw }
 })
