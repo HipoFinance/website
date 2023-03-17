@@ -30,7 +30,7 @@ async function unstake() {
     console.log(toNano(amount.unstake))
     states.unstaking = true
     states.unstaked = null
-    states.unstaked = await sendWithdraw(toNano(amount.stake))
+    states.unstaked = await sendWithdraw(toNano(amount.unstake))
     states.unstaking = false
 }
 
