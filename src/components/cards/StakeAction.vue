@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, reactive, watch } from 'vue'
-import { useWalletStore } from '../../stores/wallet'
+import { useWalletStore, hTonBalance } from '../../stores/wallet'
 import { fromNano, toNano } from 'ton'
 import { TextDecoder } from 'util';
 
@@ -63,23 +63,29 @@ watch(
     }
 )
 
-const hTonBalance = reactive({
+const hBalance = reactive({
     loading: true,
-    balance: '',
+    active: '',
+    next: '',
+    later: '',
 })
 if (wallet.address) {
-    gethTonBalance().then((b: bigint) => {
-        hTonBalance.balance = fromNano(b)
-        hTonBalance.loading = false
+    gethTonBalance().then((b: hTonBalance) => {
+        hBalance.active = fromNano(b.active)
+        hBalance.next = fromNano(b.next)
+        hBalance.later = fromNano(b.later)
+        hBalance.loading = false
     })
 
 }
 watch(
     () => wallet.address,
     () => {
-        gethTonBalance().then((b: bigint) => {
-            hTonBalance.balance = fromNano(b)
-            hTonBalance.loading = false
+        gethTonBalance().then((b: hTonBalance) => {
+            hBalance.active = fromNano(b.active)
+            hBalance.next = fromNano(b.next)
+            hBalance.later = fromNano(b.later)
+            hBalance.loading = false
         })
     }
 )
@@ -140,19 +146,37 @@ watch(
                         <v-row class="mt-12">
                             <v-col>
                                 <v-icon icon="mdi-wallet-outline"></v-icon>
-                                Your hTON Balance
+                                Your TON Balance
                             </v-col>
                             <v-col style="text-align: right;">
-                                <span style="color: #776464;">{{ hTonBalance.balance || 0 }} hTON</span>
+                                <span style="color: #3a86c7;">{{ tonBalance.balance || 0 }} TON</span>
                             </v-col>
                         </v-row>
                         <v-row>
                             <v-col>
                                 <v-icon icon="mdi-wallet-outline"></v-icon>
-                                You TON Balance
+                                Your active hTON
                             </v-col>
                             <v-col style="text-align: right;">
-                                <span style="color: #3a86c7;">{{ tonBalance.balance || 0 }} TON</span>
+                                <span style="color: #776464;">{{ hBalance.active || 0 }} hTON</span>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-icon icon="mdi-wallet-outline"></v-icon>
+                                Your next hTON
+                            </v-col>
+                            <v-col style="text-align: right;">
+                                <span style="color: #776464;">{{ hBalance.next || 0 }} hTON</span>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-icon icon="mdi-wallet-outline"></v-icon>
+                                Your later hTON
+                            </v-col>
+                            <v-col style="text-align: right;">
+                                <span style="color: #776464;">{{ hBalance.later || 0 }} hTON</span>
                             </v-col>
                         </v-row>
                         <!-- <v-row> -->
@@ -217,19 +241,37 @@ watch(
                         <v-row class="mt-12">
                             <v-col>
                                 <v-icon icon="mdi-wallet-outline"></v-icon>
-                                Your hTON Balance
+                                Your TON Balance
                             </v-col>
                             <v-col style="text-align: right;">
-                                <span style="color: #776464;">{{ hTonBalance.balance || 0 }} hTON</span>
+                                <span style="color: #3a86c7;">{{ tonBalance.balance || 0 }} TON</span>
                             </v-col>
                         </v-row>
                         <v-row>
                             <v-col>
                                 <v-icon icon="mdi-wallet-outline"></v-icon>
-                                You TON Balance
+                                Your active hTON
                             </v-col>
                             <v-col style="text-align: right;">
-                                <span style="color: #3a86c7;">{{ tonBalance.balance || 0 }} TON</span>
+                                <span style="color: #776464;">{{ hBalance.active || 0 }} hTON</span>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-icon icon="mdi-wallet-outline"></v-icon>
+                                Your next hTON
+                            </v-col>
+                            <v-col style="text-align: right;">
+                                <span style="color: #776464;">{{ hBalance.next || 0 }} hTON</span>
+                            </v-col>
+                        </v-row>
+                        <v-row>
+                            <v-col>
+                                <v-icon icon="mdi-wallet-outline"></v-icon>
+                                Your later hTON
+                            </v-col>
+                            <v-col style="text-align: right;">
+                                <span style="color: #776464;">{{ hBalance.later || 0 }} hTON</span>
                             </v-col>
                         </v-row>
                         <!-- <v-row> -->

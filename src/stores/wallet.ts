@@ -14,6 +14,12 @@ interface Wallet {
     testnet: boolean
 }
 
+export type hTonBalance = {
+    active: bigint
+    next: bigint
+    later: bigint
+}
+
 export const useWalletStore: () => {
     rootAddress: Address
     wallet: Wallet
@@ -22,7 +28,7 @@ export const useWalletStore: () => {
     sendDeposit: Function
     sendWithdraw: Function
     getTonBalance: () => Promise<bigint>
-    gethTonBalance: () => Promise<bigint>
+    gethTonBalance: () => Promise<hTonBalance>
     gethTonAddress: () => Promise<Address>
 } = defineStore('wallet', () => {
     const testnet = true
@@ -121,10 +127,15 @@ export const useWalletStore: () => {
         return await tonClient.getBalance(Address.parseFriendly(address).address)
     }
 
-    async function gethBalance(address: string): Promise<bigint> {
+    async function gethBalance(address: string): Promise<hTonBalance> {
         const subAddress = await getSubWallet(Address.parseFriendly(address).address)
         const m = await tonClient.runMethod(subAddress, 'get_balances')
-        return m.stack.readBigNumber()
+
+        return {
+            active: m.stack.readBigNumber(),
+            next: m.stack.readBigNumber(),
+            later: m.stack.readBigNumber(),
+        };
     }
 
     async function getSeqNo(address: string | undefined): Promise<number> {
