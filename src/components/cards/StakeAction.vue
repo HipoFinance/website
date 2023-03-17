@@ -129,11 +129,11 @@ watch(
                             </v-col>
                         </v-row>
                         <v-row>
-                            <v-col>
+                            <v-col class="v-col-8">
                                 <v-icon icon="mdi-alpha-c"></v-icon>
                                 Max transaction cost
                             </v-col>
-                            <v-col style="text-align: right;">
+                            <v-col class="v-col-4" style="text-align: right;">
                                 <span class="px-1" style="color: #3a86c7;">0.5 TON</span>
                             </v-col>
                         </v-row>
