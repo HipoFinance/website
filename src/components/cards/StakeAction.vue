@@ -107,6 +107,13 @@ watch(
 </script>
 
 <template>
+    <v-container>
+        <v-row class="justify-center">
+
+            <v-chip v-if="wallet.testnet" class="rounded-pill mx-2 justify-center" color="red" size="large">❗️ testnet
+                ❗️</v-chip>
+        </v-row>
+    </v-container>
     <v-tabs v-model="tab" color="#FF7E73" align-tabs="center">
         <v-tab :value="1" class="text-h5" style="font-size: 1.2rem; text-transform: none;">Stake</v-tab>
         <v-tab :value="2" class="text-h5" style="font-size: 1.2rem; text-transform: none;">Unstake</v-tab>
