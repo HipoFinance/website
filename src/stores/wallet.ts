@@ -289,7 +289,6 @@ export const useWalletStore: () => {
         }, gethTonBalance() {
             return gethBalance(wallet.address)
         }, gethTonAddress() {
-            console.log('address', wallet.address)
             return getSubWallet(Address.parseFriendly(wallet.address).address)
         }
     }
