@@ -63,18 +63,20 @@ function closeNavDraw() {
                 <img style="margin: 8px; height: 40px;"
                     :src="displayCode < 2 ? '/website/favicon.png' : '/website/icons/horizontal.png'" />
             </router-link>
-            <a href="https://github.com/StakeHipo" target="_blank">
+            <a href="https://github.com/StakeHipo" target="_blank" v-if="displayCode > 1">
                 <v-btn v-if="displayCode > 2" color="#FF7E73" prepend-icon="mdi-github" size="x-large"
                     style="text-transform: none;">GitHub</v-btn>
                 <v-btn v-else color="#FF7E73" icon="mdi-github" size="large"></v-btn>
             </a>
-            <a href="https://github.com/StakeHipo/contract/blob/main/README.md#stake-hipo-hton" target="_blank">
+            <a href="https://github.com/StakeHipo/contract/blob/main/README.md#stake-hipo-hton" target="_blank"
+                v-if="displayCode > 1">
                 <v-btn v-if="displayCode > 2" color="#FF7E73" prepend-icon="mdi-file-document" size="x-large"
                     style="text-transform: none;">Docs</v-btn>
                 <v-btn v-else color="#FF7E73" icon="mdi-file-document" size="large"></v-btn>
 
             </a>
             <v-spacer></v-spacer>
+            <v-chip v-if="wallet.testnet" class="rounded-pill mx-2" color="red" size="large">❗️ testnet ❗️</v-chip>
             <wallet-connect></wallet-connect>
         </v-container>
     </v-app-bar>
