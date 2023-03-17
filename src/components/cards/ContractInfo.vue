@@ -8,8 +8,8 @@ const endpoint = await getHttpEndpoint({ network: 'testnet' }) // get the decent
 const client = new TonClient({ endpoint }) // initialize ton library
 
 // make some query to mainnet
-const address = Address.parseFriendly('EQAzgl2-Kl34XQlN4TU2PfKjSmhiJdiAm3sBiTphrPMmZfVo').address
-const address2 = Address.parseFriendly('EQAzgl2-Kl34XQlN4TU2PfKjSmhiJdiAm3sBiTphrPMmZfVo').address.toRawString()
+const address = Address.parseFriendly('EQD5SxgI2HAWJCJVsKKdZFbdkSGX4v2tBGqRWIHXrqr6_wvJ').address
+const address2 = Address.parseFriendly('EQD5SxgI2HAWJCJVsKKdZFbdkSGX4v2tBGqRWIHXrqr6_wvJ').address.toRawString()
 const balance = ref(0)
 balance.value = await client.getBalance(address)
 
