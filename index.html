@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./dist/output.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Eczar:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <title>HIPO</title>
+  </head>
+  <body>
+    <div class="bg-white">
+      <!-- Header -->
+      <header class="max-w-7xl z-50 mx-auto px-10 lg:px-24">
+        <nav class="flex items-center mt-8 justify-between" aria-label="Global">
+          <div class="flex lg:flex-1 items-center gap-x-[16px]">
+            <a href="#" class="-m-1.5 p-1.5">
+              <span class="sr-only">Your Company</span>
+              <img
+                class="h-20 w-auto mb-6"
+                src="./images/logo_hipo2x.png"
+                alt=""
+              />
+            </a>
+            <div class="font-mono text-primaryOrange lg:text-[28px] text-2xl">
+              Hipo
+            </div>
+          </div>
+          <div class="flex lg:hidden">
+            <button
+              type="button"
+              class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+              onclick="toggleMenu()"
+            >
+              <span class="sr-only">Open main menu</span>
+              <svg
+                fill="#776464"
+                height="30"
+                viewBox="0 0 20 20"
+                width="30"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m19 11h-18c-.265216 0-.51957-.1054-.707107-.2929-.187536-.1875-.292893-.4419-.292893-.7071 0-.26522.105357-.51957.292893-.70711.187537-.18753.441891-.29289.707107-.29289h18c.2652 0 .5196.10536.7071.29289.1875.18754.2929.44189.2929.70711 0 .2652-.1054.5196-.2929.7071s-.4419.2929-.7071.2929zm0-7h-18c-.265216 0-.51957-.10536-.707107-.29289-.187536-.18754-.292893-.44189-.292893-.70711s.105357-.51957.292893-.70711c.187537-.18753.441891-.29289.707107-.29289h18c.2652 0 .5196.10536.7071.29289.1875.18754.2929.44189.2929.70711s-.1054.51957-.2929.70711c-.1875.18753-.4419.29289-.7071.29289zm0 14h-18c-.265216 0-.51957-.1054-.707107-.2929-.187536-.1875-.292893-.4419-.292893-.7071s.105357-.5196.292893-.7071c.187537-.1875.441891-.2929.707107-.2929h18c.2652 0 .5196.1054.7071.2929s.2929.4419.2929.7071-.1054.5196-.2929.7071-.4419.2929-.7071.2929z"
+                  fill="#776464"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="hidden lg:flex lg:gap-x-12">
+            <a
+              href="#HowHipoWorks"
+              class="text-lg font-normal leading-6 text-primaryBrown"
+              >How it works</a
+            >
+            <a
+              href="#WhyHipo"
+              class="text-lg font-normal leading-6 text-primaryBrown"
+              >Why Hipo?</a
+            >
+            <a
+              href="#roadmap"
+              class="text-lg font-normal leading-6 text-primaryBrown"
+              >Road Map</a
+            >
+            <!-- <a href="#" class="text-lg font-normal leading-6 text-primaryBrown"
+              >FAQ</a
+            > -->
+          </div>
+          <div class="flex-1 justify-end lg:flex hidden">
+            <div class="flex flex-col">
+              <button
+                class="flex justify-center items-center w-[219px] h-[57px] bg-primaryOrange rounded-2xl"
+              >
+                <a href="#" class="text-lg font-medium leading-6 text-[#fff]"
+                  >Connect Wallet</a
+                >
+              </button>
+              <p class="text-primaryBrown text-[12px] text-right">
+                Coming Soon ...
+              </p>
+            </div>
+          </div>
+        </nav>
+        <!-- Mobile menu, show/hide based on menu open state. -->
+        <div
+          class="lg:hidden hidden"
+          role="dialog"
+          aria-modal="true"
+          id="mobileMenu"
+        >
+          <!-- Background backdrop, show/hide based on slide-over state. -->
+          <div class="fixed inset-0 z-50"></div>
+          <div
+            class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+          >
+            <div class="flex items-center justify-between">
+              <a href="#" class="-m-1.5 p-1.5">
+                <span class="sr-only">Your Company</span>
+                <img
+                  class="h-10 w-auto"
+                  src="./images/logo_hipo2x.png"
+                  alt=""
+                />
+              </a>
+              <button
+                type="button"
+                class="-m-2.5 rounded-md p-2.5 text-gray-700"
+                onclick="toggleMenu()"
+              >
+                <span class="sr-only">Close menu</span>
+                <svg
+                  class="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div class="mt-6 flow-root">
+              <div class="-my-6 divide-y divide-gray-500/10">
+                <div class="space-y-2 py-6">
+                  <a
+                    onclick="toggleMenu()"
+                    href="#HowHipoWorks"
+                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >How it works</a
+                  >
+                  <a
+                    onclick="toggleMenu()"
+                    href="#WhyHipo"
+                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >Why Hipo?</a
+                  >
+                  <a
+                    onclick="toggleMenu()"
+                    href="#roadmap"
+                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >Road Map</a
+                  >
+                  <!-- <a
+                    onclick="toggleMenu()"
+                    href="#"
+                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >FAQ</a
+                  > -->
+                </div>
+                <div class="py-6">
+                  <a
+                    onclick="toggleMenu()"
+                    href="#"
+                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >Connect Wallet</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="isolate">
+        <!-- Hero section -->
+        <div class="relative">
+          <div
+            class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+            aria-hidden="true"
+          >
+            <!-- <div
+              class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+              style="
+                clip-path: polygon(
+                  74.1% 44.1%,
+                  100% 61.6%,
+                  97.5% 26.9%,
+                  85.5% 0.1%,
+                  80.7% 2%,
+                  72.5% 32.5%,
+                  60.2% 62.4%,
+                  52.4% 68.1%,
+                  47.5% 58.3%,
+                  45.2% 34.5%,
+                  27.5% 76.7%,
+                  0.1% 64.9%,
+                  17.9% 100%,
+                  27.6% 76.8%,
+                  76.1% 97.7%,
+                  74.1% 44.1%
+                );
+              "
+            ></div> -->
+          </div>
+          <div class="lg:py-10">
+            <div class="mx-auto max-w-7xl px-10 lg:px-24">
+              <div
+                class="mx-auto max-w-2xl text-center mb-[20px] lg:mb-[unset]"
+              >
+                <h1
+                  class="lg:text-[95px] font-bold tracking-tight text-primaryBrown text-5xl"
+                >
+                  Empowering
+                </h1>
+                <br />
+                <h1
+                  class="lg:text-[95px] font-bold tracking-tight text-primaryBrown text-5xl"
+                >
+                  Your
+                  <div
+                    class="bg-primaryBlue text-white rounded-[20px] py-0 inline-block p-2"
+                  >
+                    TON
+                  </div>
+                </h1>
+              </div>
+              <div
+                class="flex-col-reverse lg:items-[unset] lg:flex-row flex w-full lg:justify-between"
+              >
+                <div
+                  class="flex flex-col justify-center mt-20 max-w-[350px] gap-y-8"
+                >
+                  <div class="flex flex-col">
+                    <p class="text-2xl text-primaryBrown font-normal">
+                      Stake smarter,
+                    </p>
+                    <p class="text-2xl text-primaryBrown font-normal">
+                      Access liquidity easier
+                    </p>
+                  </div>
+                  <div class="flex flex-col">
+                    <p class="text-xl text-primaryBrown font-light">
+                      Decentralized, Secure, and Easy<br
+                        class="lg:inline hidden"
+                      />with Hipo
+                    </p>
+                  </div>
+                  <div
+                    class="flex flex-col max-w-[200px] self-center lg:self-start w-full"
+                  >
+                    <button
+                      disabled="true"
+                      class="flex justify-center items-center max-w-[200px] h-[57px] bg-primaryOrange rounded-2xl"
+                    >
+                      <a
+                        href=""
+                        class="text-sm font-medium leading-6 text-[#fff]"
+                        >STAKE NOW</a
+                      >
+                    </button>
+                    <p class="text-primaryBrown text-[12px] text-right">
+                      Coming Soon ...
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="flex lg:mr-14 mx-auto lg:mx-[unset] w-full justify-center lg:w-[unset] lg:justify-[unset] gap-x-3 lg:gap-x-[unset]"
+                >
+                  <div
+                    class="w-[124px] lg:w-[186px] mt-14 lg:self-end lg:-mr-10"
+                  >
+                    <img src="./images/ton.png" alt="ton icon" />
+                  </div>
+                  <div class="w-[124px] lg:w-[186px]">
+                    <img src="./images/hton.png" alt="ton icon" />
+                  </div>
+                </div>
+              </div>
+              <!-- Second Section -->
+              <div class="mt-20 flow-root sm:mt-24 text-center">
+                <div
+                  class="text-primaryBrown text-[30px] lg:text-[45px] font-bold"
+                >
+                  The decentralized solution<br class="hidden lg:inline" />
+                  for liquid staking for TON
+                </div>
+                <div
+                  class="flex lg:flex-row flex-col justify-center mt-14 items-center gap-x-10"
+                >
+                  <div class="w-[90%] lg:w-[400px]">
+                    <img src="./images/wallet.png" alt="wallet" />
+                  </div>
+                  <div
+                    class="flex flex-col gap-y-14 max-w-[380px] mt-14 lg:mt-0"
+                  >
+                    <p
+                      class="font-medium text-[25px] text-primaryBrown text-left"
+                    >
+                      Securely stake your TON and earn real-time rewards.
+                    </p>
+                    <p
+                      class="font-medium text-[25px] text-primaryBrown text-left"
+                    >
+                      Stake TON, get liquid hTONs and boost your DeFi earnings.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div
+            class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+            aria-hidden="true"
+          >
+            <div
+              class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+              style="
+                clip-path: polygon(
+                  74.1% 44.1%,
+                  100% 61.6%,
+                  97.5% 26.9%,
+                  85.5% 0.1%,
+                  80.7% 2%,
+                  72.5% 32.5%,
+                  60.2% 62.4%,
+                  52.4% 68.1%,
+                  47.5% 58.3%,
+                  45.2% 34.5%,
+                  27.5% 76.7%,
+                  0.1% 64.9%,
+                  17.9% 100%,
+                  27.6% 76.8%,
+                  76.1% 97.7%,
+                  74.1% 44.1%
+                );
+              "
+            ></div>
+          </div> -->
+        </div>
+
+        <!-- Section 3 -->
+        <div class="mx-auto max-w-7xl px-10 lg:px-24 mt-8" id="HowHipoWorks">
+          <h3 class="text-[30px] lg:text-[45px] font-medium text-primaryBrown">
+            How Hipo <span class="font-black text-primaryOrange">works?</span>
+          </h3>
+          <div class="flex flex-col mt-14 lg:px-8 lg:gap-y-20 gap-y-14">
+            <div
+              class="lg:flex-row flex-col gap-y-14 lg:gap-y-0 flex justify-between items-start"
+            >
+              <div class="flex flex-col max-w-[310px] gap-y-4 lg:gap-y-9">
+                <div class="flex items-end lg:justify-between">
+                  <div class="w-[100px]">
+                    <img src="./images/stake.png" alt="stake" />
+                  </div>
+                  <p
+                    class="ml-3 lg:ml-0 font-bold opacity-30 text-primaryBrown text-[65px] lg:text-[50px] self-end leading-10"
+                  >
+                    1
+                  </p>
+                  <p
+                    class="hidden lg:block text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                  >
+                    Stake TON
+                  </p>
+                </div>
+                <p
+                  class="block lg:hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                >
+                  Stake TON
+                </p>
+
+                <p class="text-[18px] font-normal text-primaryBrown">
+                  Stake any amount of TON on Hipo to start earning daily
+                  rewards.
+                </p>
+              </div>
+              <div class="flex flex-col max-w-[370px] gap-y-4 lg:gap-y-9">
+                <div class="flex items-end lg:justify-between">
+                  <div class="w-[100px]">
+                    <img src="./images/liquid.png" alt="liquid" />
+                  </div>
+                  <p
+                    class="ml-3 lg:ml-0 font-bold opacity-30 text-primaryBrown text-[65px] lg:text-[50px] self-end leading-10"
+                  >
+                    2
+                  </p>
+                  <p
+                    class="lg:block hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                  >
+                    Get Liquid hTON
+                  </p>
+                </div>
+                <p
+                  class="block lg:hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                >
+                  Get Liquid hTON
+                </p>
+                <p class="text-[18px] font-normal text-primaryBrown">
+                  Receive liquid hTONs. These tokens represent your stake and
+                  can be used within the DeFi ecosystem while still earning
+                  rewards.
+                </p>
+              </div>
+            </div>
+            <div
+              class="lg:flex-row flex-col gap-y-14 lg:gap-y-0 flex justify-between items-start"
+            >
+              <div class="flex flex-col max-w-[400px] gap-y-4 lg:gap-y-9">
+                <div class="flex items-end lg:justify-between lg:mt-3">
+                  <div class="w-[100px]">
+                    <img src="./images/optimize.png" alt="optimize" />
+                  </div>
+                  <p
+                    class="ml-3 lg:ml-0 font-bold opacity-30 text-primaryBrown text-[65px] lg:text-[50px] self-end leading-10"
+                  >
+                    3
+                  </p>
+                  <p
+                    class="lg:block hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                  >
+                    Optimized Rewards
+                  </p>
+                </div>
+                <p
+                  class="block lg:hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                >
+                  Optimized Rewards
+                </p>
+                <p class="text-[18px] font-normal text-primaryBrown">
+                  Your staked TON will be loaned to validators with the highest
+                  reward rates, ensuring maximum rewards for stakers.
+                </p>
+              </div>
+              <div class="flex flex-col max-w-[400px] gap-y-4 lg:gap-y-9">
+                <div class="flex items-end lg:justify-between">
+                  <div class="w-[100px]">
+                    <img src="./images/unstake.png" alt="unstake" />
+                  </div>
+                  <p
+                    class="ml-3 lg:ml-0 font-bold opacity-30 text-primaryBrown text-[65px] lg:text-[50px] self-end leading-10"
+                  >
+                    4
+                  </p>
+                  <p
+                    class="lg:block hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                  >
+                    Easy Unstaking
+                  </p>
+                </div>
+                <p
+                  class="block lg:hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                >
+                  Easy Unstaking
+                </p>
+                <p class="text-[18px] font-normal text-primaryBrown">
+                  Unstaking is hassle-free. Initiate the process, and your TON
+                  becomes available based on smart contract availability.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="mx-auto max-w-7xl px-10 mt-20 lg:px-24" id="roadmap">
+          <h3
+            class="text-[30px] text-center lg:text-left lg:text-[45px] font-medium text-primaryBrown"
+          >
+            Hipo <span class="font-black text-primaryOrange">Roadmap</span>
+          </h3>
+          <div
+            class="mx-auto mt-16 w-full sm:mt-20 lg:mt-24 flex flex-col items-center"
+          >
+            <div class="flex relative flex-col w-full items-center">
+              <!-- Vertical Line -->
+              <div
+                class="absolute left-1/2 h-full w-[10px] bg-secondaryGrey -z-10"
+              ></div>
+              <!-- Phase 1 -->
+              <div class="flex items-start justify-center mt-5 w-full">
+                <div class="lg:w-[52%] flex justify-end mb-[65px] lg:mb-0">
+                  <div
+                    class="flex items-center absolute lg:relative right-1/2 lg:right-0 translate-x-6 lg:translate-x-0"
+                  >
+                    <div
+                      class="rounded-2xl bg-primaryOrange flex justify-center items-center px-2 py-3"
+                    >
+                      <p
+                        class="text-white text-[14px] lg:text-[20px] font-bold"
+                      >
+                        Phase 1
+                      </p>
+                    </div>
+                    <div
+                      class="w-[30px] lg:w-[50px] h-[5px] bg-primaryOrange"
+                    ></div>
+                    <div
+                      class="bg-secondaryOrange w-[38px] h-[38px] rounded-full flex justify-center items-center"
+                    >
+                      <div
+                        class="bg-primaryOrange w-[25px] h-[25px] rounded-full z-20"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="block lg:hidden w-[38%]"></div>
+                <div class="hidden lg:block lg:w-[48%] relative mt-2">
+                  <div
+                    style="
+                      top: -52.5px;
+                      left: -55px;
+                      position: absolute;
+                      background-color: #efebe5;
+                      width: 240px;
+                      height: 150px;
+                      border: 0px solid rgba(100, 100, 100, 1);
+                      border-radius: 38px;
+                      transform: translate(0px, 0px) scale(0.3, 0.3)
+                        skew(35deg, 0deg);
+                    "
+                  ></div>
+                  <div
+                    class="ml-10 mb-10 w-[318px] bg-primaryGrey px-12 py-10 rounded-[30px]"
+                  >
+                    <h3
+                      class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                    >
+                      Foundation
+                    </h3>
+                    <p class="text-[18px] font-normal text-primaryBrown">
+                      Set up website infrastructure, design and create essential
+                      pages.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+              >
+                <h3
+                  class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                >
+                  Foundation
+                </h3>
+                <p class="text-[18px] font-normal text-primaryBrown">
+                  Set up website infrastructure, design and create essential
+                  pages.
+                </p>
+              </div>
+              <!-- Phase 2 -->
+              <div class="flex items-start mt-5 justify-center w-full">
+                <div class="w-[49%] lg:flex justify-end hidden relative mt-2">
+                  <div
+                    style="
+                      top: -52.5px;
+                      right: -55px;
+                      position: absolute;
+                      background-color: #efebe5;
+                      width: 240px;
+                      height: 150px;
+                      border: 0px solid rgba(100, 100, 100, 1);
+                      border-radius: 38px;
+                      transform: translate(0px, 0px) scale(0.3, 0.3)
+                        skew(-35deg, 0deg);
+                    "
+                  ></div>
+                  <div
+                    class="mr-10 mb-10 w-[414px] bg-primaryGrey px-12 py-10 rounded-[30px]"
+                  >
+                    <h3
+                      class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                    >
+                      Platform Development on Testnet
+                    </h3>
+                    <p class="text-[18px] font-normal text-primaryBrown">
+                      Develop and test the staking platform, smart contract
+                      functionality and user interfaces.
+                    </p>
+                  </div>
+                </div>
+                <div class="block lg:hidden w-[43%]"></div>
+                <div class="w-[52%] mb-[65px] lg:mb-0">
+                  <div
+                    class="flex items-center absolute lg:relative left-1/2 lg:left-0 -translate-x-4 lg:translate-x-0"
+                  >
+                    <div
+                      class="bg-secondaryOrange w-[38px] h-[38px] rounded-full flex justify-center items-center"
+                    >
+                      <div
+                        class="bg-primaryOrange w-[25px] h-[25px] rounded-full z-20"
+                      ></div>
+                    </div>
+
+                    <div
+                      class="w-[30px] lg:w-[50px] h-[5px] bg-primaryOrange"
+                    ></div>
+                    <div
+                      class="rounded-2xl bg-primaryOrange flex justify-center items-center px-2 py-3"
+                    >
+                      <p
+                        class="text-white text-[14px] lg:text-[20px] font-bold"
+                      >
+                        Phase 2
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+              >
+                <h3
+                  class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                >
+                  Platform Development on Testnet
+                </h3>
+                <p class="text-[18px] font-normal text-primaryBrown">
+                  Develop and test the staking platform, smart contract
+                  functionality and user interfaces.
+                </p>
+              </div>
+              <!-- Phase 3 -->
+              <div class="flex items-start mt-5 justify-center w-full">
+                <div class="flex justify-end w-[52%] mb-[65px] lg:mb-0">
+                  <div
+                    class="flex items-center absolute lg:relative right-1/2 lg:right-0 translate-x-6 lg:translate-x-0"
+                  >
+                    <div
+                      class="rounded-2xl bg-primaryOrange flex justify-center items-center px-2 py-3"
+                    >
+                      <p
+                        class="text-white text-[14px] lg:text-[20px] font-bold"
+                      >
+                        Phase 3
+                      </p>
+                    </div>
+                    <div
+                      class="w-[30px] lg:w-[50px] h-[5px] bg-primaryOrange"
+                    ></div>
+                    <div
+                      class="bg-secondaryOrange w-[38px] h-[38px] rounded-full flex justify-center items-center"
+                    >
+                      <div
+                        class="bg-primaryOrange w-[25px] h-[25px] rounded-full z-20"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="block lg:hidden w-[38%]"></div>
+                <div class="w-[48%] hidden lg:block relative mt-2">
+                  <div
+                    style="
+                      top: -52.5px;
+                      left: -55px;
+                      position: absolute;
+                      background-color: #efebe5;
+                      width: 240px;
+                      height: 150px;
+                      border: 0px solid rgba(100, 100, 100, 1);
+                      border-radius: 38px;
+                      transform: translate(0px, 0px) scale(0.3, 0.3)
+                        skew(35deg, 0deg);
+                    "
+                  ></div>
+                  <div
+                    class="ml-10 mb-10 w-[388px] bg-primaryGrey px-12 py-10 rounded-[30px]"
+                  >
+                    <h3
+                      class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                    >
+                      Security Audit and Bug Bounty
+                    </h3>
+                    <p class="text-[18px] font-normal text-primaryBrown">
+                      Conduct security audit and establish bug bounty program.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+              >
+                <h3
+                  class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                >
+                  Security Audit and Bug Bounty
+                </h3>
+                <p class="text-[18px] font-normal text-primaryBrown">
+                  Conduct security audit and establish bug bounty program.
+                </p>
+              </div>
+              <!-- Phase 4 -->
+              <div class="flex items-start mt-5 justify-center w-full">
+                <div class="w-[49%] lg:flex justify-end hidden relative mt-2">
+                  <div
+                    style="
+                      top: -52.5px;
+                      right: -55px;
+                      position: absolute;
+                      background-color: #efebe5;
+                      width: 240px;
+                      height: 150px;
+                      border: 0px solid rgba(100, 100, 100, 1);
+                      border-radius: 38px;
+                      transform: translate(0px, 0px) scale(0.3, 0.3)
+                        skew(-35deg, 0deg);
+                    "
+                  ></div>
+                  <div
+                    class="mr-10 mb-10 w-[357px] bg-primaryGrey px-12 py-10 rounded-[30px]"
+                  >
+                    <h3
+                      class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                    >
+                      Tokenomics and Governance
+                    </h3>
+                    <p class="text-[18px] font-normal text-primaryBrown">
+                      Publish tokenomics and governance token details.
+                    </p>
+                  </div>
+                </div>
+                <div class="block lg:hidden w-[43%]"></div>
+                <div class="w-[52%] mb-[65px] lg:mb-0">
+                  <div
+                    class="flex items-center absolute lg:relative left-1/2 lg:left-0 -translate-x-4 lg:translate-x-0"
+                  >
+                    <div
+                      class="bg-secondaryOrange w-[38px] h-[38px] rounded-full flex justify-center items-center"
+                    >
+                      <div
+                        class="bg-primaryOrange w-[25px] h-[25px] rounded-full z-20"
+                      ></div>
+                    </div>
+
+                    <div
+                      class="w-[30px] lg:w-[50px] h-[5px] bg-primaryOrange"
+                    ></div>
+                    <div
+                      class="rounded-2xl bg-primaryOrange flex justify-center items-center px-2 py-3"
+                    >
+                      <p
+                        class="text-white text-[14px] lg:text-[20px] font-bold"
+                      >
+                        Phase 4
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+              >
+                <h3
+                  class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                >
+                  Tokenomics and Governance
+                </h3>
+                <p class="text-[18px] font-normal text-primaryBrown">
+                  Publish tokenomics and governance token details.
+                </p>
+              </div>
+              <!-- Phase 5 -->
+              <div class="flex items-start mt-5 justify-center w-full">
+                <div class="flex justify-end w-[52%] mb-[65px] lg:mb-0">
+                  <div
+                    class="flex items-center absolute lg:relative right-1/2 lg:right-0 translate-x-6 lg:translate-x-0"
+                  >
+                    <div
+                      class="rounded-2xl bg-primaryOrange flex justify-center items-center px-2 py-3"
+                    >
+                      <p
+                        class="text-white text-[14px] lg:text-[20px] font-bold"
+                      >
+                        Phase 5
+                      </p>
+                    </div>
+                    <div
+                      class="w-[30px] lg:w-[50px] h-[5px] bg-primaryOrange"
+                    ></div>
+                    <div
+                      class="bg-secondaryOrange w-[38px] h-[38px] rounded-full flex justify-center items-center"
+                    >
+                      <div
+                        class="bg-primaryOrange w-[25px] h-[25px] rounded-full z-20"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="block lg:hidden w-[38%]"></div>
+                <div class="w-[48%] hidden lg:block relative mt-2">
+                  <div
+                    style="
+                      top: -52.5px;
+                      left: -55px;
+                      position: absolute;
+                      background-color: #efebe5;
+                      width: 240px;
+                      height: 150px;
+                      border: 0px solid rgba(100, 100, 100, 1);
+                      border-radius: 38px;
+                      transform: translate(0px, 0px) scale(0.3, 0.3)
+                        skew(35deg, 0deg);
+                    "
+                  ></div>
+                  <div
+                    class="ml-10 mb-10 w-[381px] bg-primaryGrey px-12 py-10 rounded-[30px]"
+                  >
+                    <h3
+                      class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                    >
+                      Mainnet Launch
+                    </h3>
+                    <p class="text-[18px] font-normal text-primaryBrown">
+                      Launch the staking platform on the TON mainnet.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+              >
+                <h3
+                  class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                >
+                  Mainnet Launch
+                </h3>
+                <p class="text-[18px] font-normal text-primaryBrown">
+                  Launch the staking platform on the TON mainnet.
+                </p>
+              </div>
+              <!-- Phase 6 -->
+              <div class="flex items-start mt-5 justify-center w-full">
+                <div class="w-[49%] lg:flex justify-end hidden relative mt-2">
+                  <div
+                    style="
+                      top: -52.5px;
+                      right: -55px;
+                      position: absolute;
+                      background-color: #efebe5;
+                      width: 240px;
+                      height: 150px;
+                      border: 0px solid rgba(100, 100, 100, 1);
+                      border-radius: 38px;
+                      transform: translate(0px, 0px) scale(0.3, 0.3)
+                        skew(-35deg, 0deg);
+                    "
+                  ></div>
+                  <div
+                    class="mr-10 mb-10 w-[357px] bg-primaryGrey px-12 py-10 rounded-[30px]"
+                  >
+                    <h3
+                      class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                    >
+                      Partnerships and Collaboration
+                    </h3>
+                    <p class="text-[18px] font-normal text-primaryBrown">
+                      Seek partnerships with other DeFi projects.
+                    </p>
+                  </div>
+                </div>
+                <div class="block lg:hidden w-[43%]"></div>
+                <div class="w-[52%] mb-[65px] lg:mb-0">
+                  <div
+                    class="flex items-center absolute lg:relative left-1/2 lg:left-0 -translate-x-4 lg:translate-x-0"
+                  >
+                    <div
+                      class="bg-secondaryOrange w-[38px] h-[38px] rounded-full flex justify-center items-center"
+                    >
+                      <div
+                        class="bg-primaryOrange w-[25px] h-[25px] rounded-full z-20"
+                      ></div>
+                    </div>
+
+                    <div
+                      class="w-[30px] lg:w-[50px] h-[5px] bg-primaryOrange"
+                    ></div>
+                    <div
+                      class="rounded-2xl bg-primaryOrange flex justify-center items-center px-2 py-3"
+                    >
+                      <p
+                        class="text-white text-[14px] lg:text-[20px] font-bold"
+                      >
+                        Phase 6
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+              >
+                <h3
+                  class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                >
+                  Partnerships and Collaboration
+                </h3>
+                <p class="text-[18px] font-normal text-primaryBrown">
+                  Seek partnerships with other DeFi projects.
+                </p>
+              </div>
+              <!-- Phase 7 -->
+              <div class="flex items-start mt-5 justify-center w-full">
+                <div class="flex justify-end w-[52%] mb-[65px] lg:mb-0">
+                  <div
+                    class="flex items-center absolute lg:relative right-1/2 lg:right-0 translate-x-6 lg:translate-x-0"
+                  >
+                    <div
+                      class="rounded-2xl bg-primaryOrange flex justify-center items-center px-2 py-3"
+                    >
+                      <p
+                        class="text-white text-[14px] lg:text-[20px] font-bold"
+                      >
+                        Phase 7
+                      </p>
+                    </div>
+                    <div
+                      class="w-[30px] lg:w-[50px] h-[5px] bg-primaryOrange"
+                    ></div>
+                    <div
+                      class="bg-secondaryOrange w-[38px] h-[38px] rounded-full flex justify-center items-center"
+                    >
+                      <div
+                        class="bg-primaryOrange w-[25px] h-[25px] rounded-full z-20"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="block lg:hidden w-[38%]"></div>
+                <div class="w-[48%] hidden lg:block relative mt-2">
+                  <div
+                    style="
+                      top: -52.5px;
+                      left: -55px;
+                      position: absolute;
+                      background-color: #efebe5;
+                      width: 240px;
+                      height: 150px;
+                      border: 0px solid rgba(100, 100, 100, 1);
+                      border-radius: 38px;
+                      transform: translate(0px, 0px) scale(0.3, 0.3)
+                        skew(35deg, 0deg);
+                    "
+                  ></div>
+                  <div
+                    class="ml-10 mb-10 w-[381px] bg-primaryGrey px-12 py-10 rounded-[30px]"
+                  >
+                    <h3
+                      class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                    >
+                      Fork "mytonctrl"
+                    </h3>
+                    <p class="text-[18px] font-normal text-primaryBrown">
+                      Fork the "mytonctrl" to enable validators to compete for
+                      loan requests.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+              >
+                <h3
+                  class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                >
+                  Fork "mytonctrl"
+                </h3>
+                <p class="text-[18px] font-normal text-primaryBrown">
+                  Fork the "mytonctrl" to enable validators to compete for loan
+                  requests.
+                </p>
+              </div>
+              <!-- Phase 8 -->
+              <div class="flex items-start mt-5 justify-center w-full">
+                <div class="w-[49%] lg:flex justify-end hidden relative mt-2">
+                  <div
+                    style="
+                      top: -52.5px;
+                      right: -55px;
+                      position: absolute;
+                      background-color: #efebe5;
+                      width: 240px;
+                      height: 150px;
+                      border: 0px solid rgba(100, 100, 100, 1);
+                      border-radius: 38px;
+                      transform: translate(0px, 0px) scale(0.3, 0.3)
+                        skew(-35deg, 0deg);
+                    "
+                  ></div>
+                  <div
+                    class="mr-10 mb-5 w-[357px] bg-primaryGrey px-12 py-10 rounded-[30px]"
+                  >
+                    <h3
+                      class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                    >
+                      Continuous Improvement
+                    </h3>
+                    <p class="text-[18px] font-normal text-primaryBrown">
+                      Gather user feedback and make ongoing updates.
+                    </p>
+                  </div>
+                </div>
+                <div class="block lg:hidden w-[43%]"></div>
+                <div class="w-[52%] mb-[65px] lg:mb-0">
+                  <div
+                    class="flex items-center absolute lg:relative left-1/2 lg:left-0 -translate-x-4 lg:translate-x-0"
+                  >
+                    <div
+                      class="bg-secondaryOrange w-[38px] h-[38px] rounded-full flex justify-center items-center"
+                    >
+                      <div
+                        class="bg-primaryOrange w-[25px] h-[25px] rounded-full z-20"
+                      ></div>
+                    </div>
+
+                    <div
+                      class="w-[30px] lg:w-[50px] h-[5px] bg-primaryOrange"
+                    ></div>
+                    <div
+                      class="rounded-2xl bg-primaryOrange flex justify-center items-center px-2 py-3"
+                    >
+                      <p
+                        class="text-white text-[14px] lg:text-[20px] font-bold"
+                      >
+                        Phase 8
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="block lg:hidden mt-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+              >
+                <h3
+                  class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
+                >
+                  Continuous Improvement
+                </h3>
+                <p class="text-[18px] font-normal text-primaryBrown">
+                  Gather user feedback and make ongoing updates.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Section 5 -->
+        <div class="mx-auto max-w-7xl px-10 lg:px-24 mt-20" id="WhyHipo">
+          <h3
+            class="text-[30px] lg:text-[45px] font-medium text-primaryBrown text-center lg:text-left"
+          >
+            <span class="font-black text-primaryOrange">Why</span> choose Hipo?
+          </h3>
+          <div class="flex flex-col mt-14 lg:px-8 lg:gap-y-20 gap-y-10">
+            <div class="flex flex-col lg:flex-row w-full gap-y-10 lg:gap-y-0">
+              <div
+                class="flex gap-x-4 items-center flex-col lg:flex-row gap-y-10 lg:gap-y-0"
+              >
+                <div
+                  class="w-[67px] min-w-[67px] h-[67px] self-start mt-2 bg-primaryBrown p-2 flex justify-center items-center rounded-full"
+                >
+                  <img
+                    src="./images/unlock.png"
+                    alt="unlock"
+                    width="21"
+                    height="27"
+                  />
+                </div>
+                <div class="flex flex-col gap-y-4 mr-10">
+                  <h3 class="font-bold text-[25px] text-primaryBrown">
+                    Unleash Liquidity
+                  </h3>
+                  <p class="font-normal text-[18px] text-primaryBrown">
+                    Trade, transfer, and dive into DeFi with hTON, the liquid
+                    counterpart to your staked TON.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex gap-x-4 items-center flex-col lg:flex-row gap-y-10 lg:gap-y-0"
+              >
+                <div
+                  class="w-[67px] min-w-[67px] h-[67px] self-start mt-2 bg-primaryBrown p-0 flex justify-center items-center rounded-full"
+                >
+                  <img
+                    src="./images/rocket-svgrepo.png"
+                    alt="rocket"
+                    width="25"
+                    height="39"
+                  />
+                </div>
+                <div class="flex flex-col gap-y-4">
+                  <h3 class="font-bold text-[25px] text-primaryBrown">
+                    Start with One TON
+                  </h3>
+                  <p class="font-normal text-[18px] text-primaryBrown">
+                    Bypass the traditional minimum stake requirement and begin
+                    your staking journey with just 1 TON.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col lg:flex-row w-full gap-y-10 lg:gap-y-0">
+              <div
+                class="flex gap-x-4 items-center flex-col lg:flex-row gap-y-10 lg:gap-y-0"
+              >
+                <div
+                  class="w-[67px] min-w-[67px] h-[67px] self-start mt-2 bg-primaryBrown p-2 flex justify-center items-center rounded-full"
+                >
+                  <img
+                    src="./images/money-dollar.png"
+                    alt="money"
+                    width="44"
+                    height="51"
+                  />
+                </div>
+                <div class="flex flex-col gap-y-4">
+                  <h3 class="font-bold text-[25px] text-primaryBrown">
+                    Optimized Rewards
+                  </h3>
+                  <p class="font-normal text-[18px] text-primaryBrown">
+                    Loaned to validators with the highest reward rates, ensuring
+                    maximum returns for your staked TON.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="flex gap-x-4 items-center flex-col lg:flex-row gap-y-10 lg:gap-y-0"
+              >
+                <div
+                  class="w-[67px] min-w-[67px] h-[67px] self-start mt-2 bg-primaryBrown p-1 flex justify-center items-center rounded-full"
+                >
+                  <img
+                    src="./images/storj-svgrepo.png"
+                    alt="rocket"
+                    height="47"
+                    width="47"
+                  />
+                </div>
+                <div class="flex flex-col gap-y-4">
+                  <h3 class="font-bold text-[25px] text-primaryBrown">
+                    Decentralized
+                  </h3>
+                  <p class="font-normal text-[18px] text-primaryBrown">
+                    Your assets are kept secure and under your control through
+                    Hipo audited smart contract on TON blockchain.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- FAQ -->
+      </main>
+
+      <!-- Footer -->
+      <div class="mt-32 bg-primaryBrown">
+        <div class="max-w-7xl mx-auto px-14 lg:px-8">
+          <footer
+            aria-labelledby="footer-heading"
+            class="relative border-t border-gray-900/10 py-4 sm:mt-56 sm:py-20"
+          >
+            <h2 id="footer-heading" class="sr-only">Footer</h2>
+            <div class="xl:grid xl:grid-cols-2 xl:gap-8">
+              <div
+                class="mt-16 grid lg:grid-cols-2 grid-cols-1 gap-8 xl:col-span-2 xl:mt-0"
+              >
+                <div class="md:grid md:grid-cols-2 md:gap-8">
+                  <div>
+                    <h3
+                      class="text-[18px] lg:text-[20px] font-bold leading-6 text-white"
+                    >
+                      Social
+                    </h3>
+                    <ul role="list" class="mt-6 space-y-4">
+                      <li>
+                        <a
+                          href="https://t.me/HipoFinance"
+                          class="text-lg font-normal leading-6 text-white hover:text-primaryGrey"
+                          >Telegram</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="https://twitter.com/hipofinance"
+                          class="text-lg font-normal leading-6 text-white hover:text-primaryGrey"
+                          >Twitter</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mt-10 md:mt-0">
+                    <h3
+                      class="text-[18px] lg:text-[20px] font-bold leading-6 text-white"
+                    >
+                      Community
+                    </h3>
+                    <ul role="list" class="mt-6 space-y-4">
+                      <li>
+                        <a
+                          href="https://t.me/hipo_chat"
+                          class="text-lg font-normal leading-6 text-white hover:text-primaryGrey"
+                          >Telegram group</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="md:grid md:grid-cols-2 md:gap-8">
+                  <div>
+                    <h3
+                      class="text-[18px] lg:text-[20px] font-bold leading-6 text-white"
+                    >
+                      Docs
+                    </h3>
+                    <ul role="list" class="mt-6 space-y-4">
+                      <li>
+                        <a
+                          href="https://github.com/HipoFinance"
+                          class="text-lg font-normal leading-6 text-white hover:text-primaryGrey"
+                          >Github</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="#"
+                          class="text-lg font-normal leading-6 text-white hover:text-primaryGrey"
+                          >Documentation</a
+                        >
+                      </li>
+                      <!-- <li>
+                        <a
+                          href="#"
+                          class="text-lg font-normal leading-6 text-white hover:text-primaryGrey"
+                          >FAQ</a
+                        >
+                      </li> -->
+                    </ul>
+                  </div>
+                  <div class="mt-10 md:mt-0">
+                    <h3
+                      class="text-[18px] lg:text-[20px] font-bold leading-6 text-white"
+                    >
+                      About
+                    </h3>
+                    <ul role="list" class="mt-6 space-y-4">
+                      <li>
+                        <a
+                          href="#roadmap"
+                          class="text-lg font-normal leading-6 text-white hover:text-primaryGrey"
+                          >Roadmap</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="#HowHipoWorks"
+                          class="text-lg font-normal leading-6 text-white hover:text-primaryGrey"
+                          >How Hipo Works?</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="#WhyHipo"
+                          class="text-lg font-normal leading-6 text-white hover:text-primaryGrey"
+                          >Why Choose Hipo?</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h2 class="font-mono mt-14 text-[24px] lg:text-[40px] text-white">
+              <a href="#">Hipo</a>
+            </h2>
+            <div class="w-full h-[5px] rounded-md bg-primaryOrange mt-5"></div>
+            <p
+              class="mt-3 text-[14px] lg:text-[20px] text-white opacity-40 text-center"
+            >
+              Copyright 2023, All Rights Reserved
+            </p>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const menu = document.querySelector("#mobileMenu");
+    function toggleMenu() {
+      if (menu.classList.contains("hidden")) {
+        menu.classList.remove("hidden");
+      } else {
+        menu.classList.add("hidden");
+      }
+    }
+  </script>
+</html>
