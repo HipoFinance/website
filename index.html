@@ -100,58 +100,69 @@
           <!-- Background backdrop, show/hide based on slide-over state. -->
           <div class="fixed inset-0 z-50"></div>
           <div
-            class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+            class="fixed inset-y-0 right-0 h-[70vh] z-50 w-full overflow-y-auto bg-primaryGrey px-[40px] py-[32px] sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
           >
             <div class="flex items-center justify-between">
-              <a href="#" class="-m-1.5 p-1.5">
-                <span class="sr-only">Your Company</span>
-                <img
-                  class="h-10 w-auto"
-                  src="./images/logo_hipo2x.png"
-                  alt=""
-                />
-              </a>
+              <div class="flex gap-x-4 items-center">
+                <a href="#" class="-m-1.5 p-1.5">
+                  <img
+                    class="h-[80px] w-auto mb-6"
+                    src="./images/logo_hipo2x.png"
+                    alt=""
+                  />
+                </a>
+                <div
+                  class="font-mono text-primaryOrange lg:text-[28px] text-2xl"
+                >
+                  Hipo
+                </div>
+              </div>
               <button
                 type="button"
-                class="-m-2.5 rounded-md p-2.5 text-gray-700"
+                class="-m-1.5 rounded-md p-2.5 text-gray-700"
                 onclick="toggleMenu()"
               >
                 <span class="sr-only">Close menu</span>
                 <svg
-                  class="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
                 >
+                  <defs>
+                    <style>
+                      .a {
+                        fill: #776464;
+                      }
+                    </style>
+                  </defs>
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
+                    class="a"
+                    d="M177.007,177.008a1.907,1.907,0,0,1,2.7,0l6.744,6.744,6.744-6.744a1.907,1.907,0,1,1,2.7,2.7l-6.744,6.744,6.744,6.744a1.907,1.907,0,1,1-2.7,2.7l-6.744-6.744L179.7,195.89a1.907,1.907,0,1,1-2.7-2.7l6.744-6.744-6.744-6.744A1.907,1.907,0,0,1,177.007,177.008Z"
+                    transform="translate(-176.448 -176.449)"
                   />
                 </svg>
               </button>
             </div>
-            <div class="mt-6 flow-root">
-              <div class="-my-6 divide-y divide-gray-500/10">
+            <div class="flow-root px-4">
+              <div class="-my-6">
                 <div class="space-y-2 py-6">
                   <a
                     onclick="toggleMenu()"
                     href="#HowHipoWorks"
-                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-normal leading-7 text-primaryBrown hover:bg-gray-50"
                     >How it works</a
                   >
                   <a
                     onclick="toggleMenu()"
                     href="#WhyHipo"
-                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-normal leading-7 text-primaryBrown hover:bg-gray-50"
                     >Why Hipo?</a
                   >
                   <a
                     onclick="toggleMenu()"
                     href="#roadmap"
-                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-normal leading-7 text-primaryBrown hover:bg-gray-50"
                     >Road Map</a
                   >
                   <!-- <a
@@ -161,13 +172,19 @@
                     >FAQ</a
                   > -->
                 </div>
-                <div class="py-6">
-                  <a
-                    onclick="toggleMenu()"
-                    href="#"
-                    class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    >Connect Wallet</a
+                <div class="flex flex-col mt-2 px-2">
+                  <button
+                    class="flex justify-center items-center w-full h-[57px] bg-primaryOrange rounded-2xl"
                   >
+                    <a
+                      href="#"
+                      class="text-lg font-medium leading-6 text-[#fff]"
+                      >Connect Wallet</a
+                    >
+                  </button>
+                  <p class="text-primaryBrown text-[12px] text-right">
+                    Coming Soon ...
+                  </p>
                 </div>
               </div>
             </div>
