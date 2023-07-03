@@ -19,8 +19,11 @@
   <body>
     <div class="bg-white">
       <!-- Header -->
-      <header class="max-w-7xl z-50 mx-auto px-10 lg:px-24">
-        <nav class="flex items-center mt-8 justify-between" aria-label="Global">
+      <header class="max-w-7xl mx-auto px-10 lg:px-24">
+        <nav
+          class="flex z-50 relative items-center mt-8 justify-between"
+          aria-label="Global"
+        >
           <div class="flex lg:flex-1 items-center gap-x-[16px]">
             <a href="#" class="-m-1.5 p-1.5">
               <span class="sr-only">Your Company</span>
@@ -90,6 +93,16 @@
             </div>
           </div>
         </nav>
+        <div
+          class="absolute inset-x-0 z-0 transform-gpu blur-2xl overflow-hidden lg:top-0 hidden lg:block"
+          aria-hidden="true"
+        >
+          <img
+            src="./images/background/1-empowering.png"
+            alt="Empowering"
+            class="w-full h-[100vh] top-0 left-0"
+          />
+        </div>
         <!-- Mobile menu, show/hide based on menu open state. -->
         <div
           class="lg:hidden hidden"
@@ -97,8 +110,6 @@
           aria-modal="true"
           id="mobileMenu"
         >
-          <!-- Background backdrop, show/hide based on slide-over state. -->
-          <div class="fixed inset-0 z-50"></div>
           <div
             class="fixed inset-y-0 right-0 h-[70vh] z-50 w-full overflow-y-auto bg-primaryGrey px-[40px] py-[32px] sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
           >
@@ -333,159 +344,154 @@
               </div>
             </div>
           </div>
-          <!-- <div
-            class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+          <div
+            class="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-2xl top-[calc(100%-53.2rem)] hidden lg:block"
             aria-hidden="true"
           >
-            <div
-              class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-              style="
-                clip-path: polygon(
-                  74.1% 44.1%,
-                  100% 61.6%,
-                  97.5% 26.9%,
-                  85.5% 0.1%,
-                  80.7% 2%,
-                  72.5% 32.5%,
-                  60.2% 62.4%,
-                  52.4% 68.1%,
-                  47.5% 58.3%,
-                  45.2% 34.5%,
-                  27.5% 76.7%,
-                  0.1% 64.9%,
-                  17.9% 100%,
-                  27.6% 76.8%,
-                  76.1% 97.7%,
-                  74.1% 44.1%
-                );
-              "
-            ></div>
-          </div> -->
-        </div>
-
-        <!-- Section 3 -->
-        <div class="mx-auto max-w-7xl px-10 lg:px-24 mt-8" id="HowHipoWorks">
-          <h3 class="text-[30px] lg:text-[45px] font-medium text-primaryBrown">
-            How Hipo <span class="font-black text-primaryOrange">works?</span>
-          </h3>
-          <div class="flex flex-col mt-14 lg:px-8 lg:gap-y-20 gap-y-14">
-            <div
-              class="lg:flex-row flex-col gap-y-14 lg:gap-y-0 flex justify-between items-start"
-            >
-              <div class="flex flex-col max-w-[310px] gap-y-4 lg:gap-y-9">
-                <div class="flex items-end lg:justify-between">
-                  <div class="w-[100px]">
-                    <img src="./images/stake.png" alt="stake" />
-                  </div>
-                  <p
-                    class="ml-3 lg:ml-0 font-bold opacity-30 text-primaryBrown text-[65px] lg:text-[50px] self-end leading-10"
-                  >
-                    1
-                  </p>
-                  <p
-                    class="hidden lg:block text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
-                  >
-                    Stake TON
-                  </p>
-                </div>
-                <p
-                  class="block lg:hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
-                >
-                  Stake TON
-                </p>
-
-                <p class="text-[18px] font-normal text-primaryBrown">
-                  Stake any amount of TON on Hipo to start earning daily
-                  rewards.
-                </p>
-              </div>
-              <div class="flex flex-col max-w-[370px] gap-y-4 lg:gap-y-9">
-                <div class="flex items-end lg:justify-between">
-                  <div class="w-[100px]">
-                    <img src="./images/liquid.png" alt="liquid" />
-                  </div>
-                  <p
-                    class="ml-3 lg:ml-0 font-bold opacity-30 text-primaryBrown text-[65px] lg:text-[50px] self-end leading-10"
-                  >
-                    2
-                  </p>
-                  <p
-                    class="lg:block hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
-                  >
-                    Get Liquid hTON
-                  </p>
-                </div>
-                <p
-                  class="block lg:hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
-                >
-                  Get Liquid hTON
-                </p>
-                <p class="text-[18px] font-normal text-primaryBrown">
-                  Receive liquid hTONs. These tokens represent your stake and
-                  can be used within the DeFi ecosystem while still earning
-                  rewards.
-                </p>
-              </div>
-            </div>
-            <div
-              class="lg:flex-row flex-col gap-y-14 lg:gap-y-0 flex justify-between items-start"
-            >
-              <div class="flex flex-col max-w-[400px] gap-y-4 lg:gap-y-9">
-                <div class="flex items-end lg:justify-between lg:mt-3">
-                  <div class="w-[100px]">
-                    <img src="./images/optimize.png" alt="optimize" />
-                  </div>
-                  <p
-                    class="ml-3 lg:ml-0 font-bold opacity-30 text-primaryBrown text-[65px] lg:text-[50px] self-end leading-10"
-                  >
-                    3
-                  </p>
-                  <p
-                    class="lg:block hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
-                  >
-                    Optimized Rewards
-                  </p>
-                </div>
-                <p
-                  class="block lg:hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
-                >
-                  Optimized Rewards
-                </p>
-                <p class="text-[18px] font-normal text-primaryBrown">
-                  Your staked TON will be loaned to validators with the highest
-                  reward rates, ensuring maximum rewards for stakers.
-                </p>
-              </div>
-              <div class="flex flex-col max-w-[400px] gap-y-4 lg:gap-y-9">
-                <div class="flex items-end lg:justify-between">
-                  <div class="w-[100px]">
-                    <img src="./images/unstake.png" alt="unstake" />
-                  </div>
-                  <p
-                    class="ml-3 lg:ml-0 font-bold opacity-30 text-primaryBrown text-[65px] lg:text-[50px] self-end leading-10"
-                  >
-                    4
-                  </p>
-                  <p
-                    class="lg:block hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
-                  >
-                    Easy Unstaking
-                  </p>
-                </div>
-                <p
-                  class="block lg:hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
-                >
-                  Easy Unstaking
-                </p>
-                <p class="text-[18px] font-normal text-primaryBrown">
-                  Unstaking is hassle-free. Initiate the process, and your TON
-                  becomes available based on smart contract availability.
-                </p>
-              </div>
-            </div>
+            <img
+              src="./images/background/2-decentralized.png"
+              alt="Decentralized"
+              class="w-full h-[100vh] top-0 left-0"
+            />
           </div>
         </div>
 
+        <!-- Section 3 -->
+        <div class="w-full relative">
+          <div class="mx-auto max-w-7xl px-10 lg:px-24 mt-8" id="HowHipoWorks">
+            <h3
+              class="text-[30px] lg:text-[45px] font-medium text-primaryBrown"
+            >
+              How Hipo <span class="font-black text-primaryOrange">works?</span>
+            </h3>
+            <div class="flex flex-col mt-14 lg:px-8 lg:gap-y-20 gap-y-14">
+              <div
+                class="lg:flex-row flex-col gap-y-14 lg:gap-y-0 flex justify-between items-start"
+              >
+                <div class="flex flex-col max-w-[310px] gap-y-4 lg:gap-y-9">
+                  <div class="flex items-end lg:justify-between">
+                    <div class="w-[100px]">
+                      <img src="./images/stake.png" alt="stake" />
+                    </div>
+                    <p
+                      class="ml-3 lg:ml-0 font-bold opacity-30 text-primaryBrown text-[65px] lg:text-[50px] self-end leading-10"
+                    >
+                      1
+                    </p>
+                    <p
+                      class="hidden lg:block text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                    >
+                      Stake TON
+                    </p>
+                  </div>
+                  <p
+                    class="block lg:hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                  >
+                    Stake TON
+                  </p>
+
+                  <p class="text-[18px] font-normal text-primaryBrown">
+                    Stake any amount of TON on Hipo to start earning daily
+                    rewards.
+                  </p>
+                </div>
+                <div class="flex flex-col max-w-[370px] gap-y-4 lg:gap-y-9">
+                  <div class="flex items-end lg:justify-between">
+                    <div class="w-[100px]">
+                      <img src="./images/liquid.png" alt="liquid" />
+                    </div>
+                    <p
+                      class="ml-3 lg:ml-0 font-bold opacity-30 text-primaryBrown text-[65px] lg:text-[50px] self-end leading-10"
+                    >
+                      2
+                    </p>
+                    <p
+                      class="lg:block hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                    >
+                      Get Liquid hTON
+                    </p>
+                  </div>
+                  <p
+                    class="block lg:hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                  >
+                    Get Liquid hTON
+                  </p>
+                  <p class="text-[18px] font-normal text-primaryBrown">
+                    Receive liquid hTONs. These tokens represent your stake and
+                    can be used within the DeFi ecosystem while still earning
+                    rewards.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="lg:flex-row flex-col gap-y-14 lg:gap-y-0 flex justify-between items-start"
+              >
+                <div class="flex flex-col max-w-[400px] gap-y-4 lg:gap-y-9">
+                  <div class="flex items-end lg:justify-between lg:mt-3">
+                    <div class="w-[100px]">
+                      <img src="./images/optimize.png" alt="optimize" />
+                    </div>
+                    <p
+                      class="ml-3 lg:ml-0 font-bold opacity-30 text-primaryBrown text-[65px] lg:text-[50px] self-end leading-10"
+                    >
+                      3
+                    </p>
+                    <p
+                      class="lg:block hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                    >
+                      Optimized Rewards
+                    </p>
+                  </div>
+                  <p
+                    class="block lg:hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                  >
+                    Optimized Rewards
+                  </p>
+                  <p class="text-[18px] font-normal text-primaryBrown">
+                    Your staked TON will be loaned to validators with the
+                    highest reward rates, ensuring maximum rewards for stakers.
+                  </p>
+                </div>
+                <div class="flex flex-col max-w-[400px] gap-y-4 lg:gap-y-9">
+                  <div class="flex items-end lg:justify-between">
+                    <div class="w-[100px]">
+                      <img src="./images/unstake.png" alt="unstake" />
+                    </div>
+                    <p
+                      class="ml-3 lg:ml-0 font-bold opacity-30 text-primaryBrown text-[65px] lg:text-[50px] self-end leading-10"
+                    >
+                      4
+                    </p>
+                    <p
+                      class="lg:block hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                    >
+                      Easy Unstaking
+                    </p>
+                  </div>
+                  <p
+                    class="block lg:hidden text-[19px] lg:text-[25px] text-primaryBrown font-semibold leading-6"
+                  >
+                    Easy Unstaking
+                  </p>
+                  <p class="text-[18px] font-normal text-primaryBrown">
+                    Unstaking is hassle-free. Initiate the process, and your TON
+                    becomes available based on smart contract availability.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="absolute inset-x-0 w-full -z-10 transform-gpu blur-2xl overflow-hidden top-[calc(100%-52.1rem)] hidden lg:block"
+            aria-hidden="true"
+          >
+            <img
+              src="./images/background/3-how-it works.png"
+              alt="how it works"
+              class="w-full h-[100vh] top-0 left-0"
+            />
+          </div>
+        </div>
         <!-- Section 4 -->
         <div class="mx-auto max-w-7xl px-10 mt-20 lg:px-24" id="roadmap">
           <h3
@@ -1253,14 +1259,15 @@
                       role="list"
                       class="mt-6 space-y-4 items-start flex flex-col"
                     >
-                      <li>
+                      <li class="flex flex-col">
                         <a
-                          href="https://github.com/HipoFinance"
+                          href="#"
                           class="text-lg font-normal leading-6 text-white hover:text-primaryGrey"
                           >Github</a
                         >
+                        <p class="text-white text-[10px]">Coming Soon ...</p>
                       </li>
-                      <li class="flex flex-col items-end">
+                      <li class="flex flex-col">
                         <a
                           href="#"
                           class="text-lg font-normal leading-6 text-white hover:text-primaryGrey"
