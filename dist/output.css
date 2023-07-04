@@ -1283,6 +1283,10 @@ video {
   font-size: 10px;
 }
 
+.text-\[10px\] {
+  font-size: 10px;
+}
+
 .text-\[12px\] {
   font-size: 12px;
 }
