@@ -919,10 +919,6 @@ video {
   max-width: 80rem;
 }
 
-.max-w-\[200px\] {
-  max-width: 200px;
-}
-
 .max-w-\[310px\] {
   max-width: 310px;
 }
@@ -1283,11 +1279,6 @@ video {
   line-height: 2rem;
 }
 
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
-}
-
 .text-\[10px\] {
   font-size: 10px;
 }
@@ -1308,6 +1299,10 @@ video {
   font-size: 19px;
 }
 
+.text-\[22px\] {
+  font-size: 22px;
+}
+
 .text-\[23px\] {
   font-size: 23px;
 }
@@ -1324,6 +1319,10 @@ video {
   font-size: 30px;
 }
 
+.text-\[50px\] {
+  font-size: 50px;
+}
+
 .text-\[65px\] {
   font-size: 65px;
 }
@@ -1336,28 +1335,6 @@ video {
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
-}
-
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
-.text-\[50px\] {
-  font-size: 50px;
-}
-
-.text-\[20px\] {
-  font-size: 20px;
-}
-
-.text-\[22px\] {
-  font-size: 22px;
 }
 
 .font-black {
@@ -1576,10 +1553,6 @@ video {
     display: block;
   }
 
-  .lg\:inline {
-    display: inline;
-  }
-
   .lg\:flex {
     display: flex;
   }
@@ -1667,9 +1640,19 @@ video {
     align-self: flex-start;
   }
 
+  .lg\:px-0 {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
   .lg\:px-24 {
     padding-left: 6rem;
     padding-right: 6rem;
+  }
+
+  .lg\:px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .lg\:px-8 {
@@ -1682,28 +1665,12 @@ video {
     padding-bottom: 2.5rem;
   }
 
-  .lg\:px-0 {
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-
-  .lg\:px-2 {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-
-  .lg\:px-10 {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-  }
-
-  .lg\:px-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
   .lg\:text-left {
     text-align: left;
+  }
+
+  .lg\:text-\[18px\] {
+    font-size: 18px;
   }
 
   .lg\:text-\[20px\] {
@@ -1716,6 +1683,10 @@ video {
 
   .lg\:text-\[28px\] {
     font-size: 28px;
+  }
+
+  .lg\:text-\[30px\] {
+    font-size: 30px;
   }
 
   .lg\:text-\[40px\] {
@@ -1732,14 +1703,6 @@ video {
 
   .lg\:text-\[95px\] {
     font-size: 95px;
-  }
-
-  .lg\:text-\[30px\] {
-    font-size: 30px;
-  }
-
-  .lg\:text-\[18px\] {
-    font-size: 18px;
   }
 }
 
