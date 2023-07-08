@@ -41,6 +41,21 @@ module.exports = {
       backgroundImage: {
         "hero-pattern": "url('./images/logo_hipo.png')",
       },
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+        fadeOut: {
+          "0%": { opacity: 1 },
+          "100%": { opacity: 0 },
+        },
+      },
+      animation: {
+        fadeIn: "fadeIn 3s cubic-bezier(0, 0, 0.2, 1) 0s 1 both",
+        fadeInMenu: "fadeIn 0.6s cubic-bezier(0, 0, 0.2, 1) 0s 1 both",
+        fadeOutMenu: "fadeOut 0.6s cubic-bezier(0, 0, 0.2, 1) 0s 1 both",
+      },
     },
   },
   plugins: [],
