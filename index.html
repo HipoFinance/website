@@ -127,13 +127,13 @@
         </div>
         <!-- Mobile menu,  show/hide based on menu open state. -->
         <div
-          class="lg:hidden hidden"
+          class="lg:hidden hidden relative z-50"
           role="dialog"
           aria-modal="true"
           id="mobileMenu"
         >
           <div
-            class="fixed inset-y-0 right-0 h-[70vh] md:h-full z-50 w-full overflow-y-auto bg-primaryGrey px-[40px] py-[32px] sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+            class="fixed inset-y-0 right-0 h-[70vh] md:h-full z-50 w-full overflow-y-auto bg-primaryGrey px-[40px] py-[24px] sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
           >
             <div class="flex items-center justify-between">
               <div class="flex gap-x-4 items-center">
@@ -321,7 +321,7 @@
               <!-- Second Section -->
               <div class="flow-root text-center">
                 <div
-                  class="flex lg:flex-row flex-col justify-center lg:mt-14 items-center"
+                  class="flex lg:flex-row flex-col justify-center lg:mt-14 items-center js-show-on-scroll"
                 >
                   <div class="hidden lg:block lg:min-w-[400px] -ml-20">
                     <img src="./images/wallet-new.png" alt="wallet" />
@@ -368,13 +368,13 @@
         <div class="w-full relative">
           <div class="mx-auto max-w-7xl px-10 lg:px-24 mt-8" id="HowHipoWorks">
             <h3
-              class="text-[30px] lg:text-[45px] font-medium text-primaryBrown"
+              class="text-[30px] lg:text-[45px] font-medium text-primaryBrown js-show-on-scroll"
             >
               How Hipo <span class="font-black text-primaryOrange">works?</span>
             </h3>
             <div class="flex flex-col mt-14 lg:px-8 lg:gap-y-20 gap-y-14">
               <div
-                class="md:flex-row flex-col gap-y-14 lg:gap-y-0 flex justify-between items-start"
+                class="md:flex-row flex-col gap-y-14 lg:gap-y-0 flex justify-between items-start js-show-on-scroll"
               >
                 <div class="flex flex-col max-w-[310px] gap-y-4 lg:gap-y-9">
                   <div class="flex items-end lg:justify-between">
@@ -431,7 +431,7 @@
                 </div>
               </div>
               <div
-                class="md:flex-row flex-col gap-y-14 lg:gap-y-0 flex justify-between items-start"
+                class="md:flex-row flex-col gap-y-14 lg:gap-y-0 flex justify-between items-start js-show-on-scroll"
               >
                 <div class="flex flex-col max-w-[400px] gap-y-4 lg:gap-y-9">
                   <div class="flex items-end lg:justify-between lg:mt-3">
@@ -502,7 +502,7 @@
         <!-- Section 4 -->
         <div class="mx-auto max-w-7xl px-10 mt-20 lg:px-24" id="roadmap">
           <h3
-            class="text-[30px] text-center lg:text-left lg:text-[45px] font-medium text-primaryBrown"
+            class="js-show-on-scroll text-[30px] text-center lg:text-left lg:text-[45px] font-medium text-primaryBrown"
           >
             Hipo <span class="font-black text-primaryOrange">Roadmap</span>
           </h3>
@@ -515,7 +515,9 @@
                 class="absolute left-1/2 h-full w-[10px] bg-secondaryGrey -z-10"
               ></div>
               <!-- Phase 1 -->
-              <div class="flex items-start justify-center mt-5 w-full">
+              <div
+                class="flex items-start justify-center mt-5 w-full js-show-on-scroll"
+              >
                 <div class="lg:w-[52%] flex justify-end mb-[65px] lg:mb-0">
                   <div
                     class="flex items-center absolute lg:relative right-1/2 lg:right-0 translate-x-6 lg:translate-x-0"
@@ -573,7 +575,7 @@
                 </div>
               </div>
               <div
-                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px] js-show-on-scroll"
               >
                 <h3
                   class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
@@ -586,7 +588,9 @@
                 </p>
               </div>
               <!-- Phase 2 -->
-              <div class="flex items-start mt-5 justify-center w-full">
+              <div
+                class="flex items-start mt-5 justify-center w-full js-show-on-scroll"
+              >
                 <div class="w-[49%] lg:flex justify-end hidden relative mt-2">
                   <div
                     style="
@@ -645,7 +649,7 @@
                 </div>
               </div>
               <div
-                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px] js-show-on-scroll"
               >
                 <h3
                   class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
@@ -658,7 +662,9 @@
                 </p>
               </div>
               <!-- Phase 3 -->
-              <div class="flex items-start mt-5 justify-center w-full">
+              <div
+                class="flex items-start mt-5 justify-center w-full js-show-on-scroll"
+              >
                 <div class="flex justify-end w-[52%] mb-[65px] lg:mb-0">
                   <div
                     class="flex items-center absolute lg:relative right-1/2 lg:right-0 translate-x-6 lg:translate-x-0"
@@ -715,7 +721,7 @@
                 </div>
               </div>
               <div
-                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px] js-show-on-scroll"
               >
                 <h3
                   class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
@@ -727,7 +733,9 @@
                 </p>
               </div>
               <!-- Phase 4 -->
-              <div class="flex items-start mt-5 justify-center w-full">
+              <div
+                class="flex items-start mt-5 justify-center w-full js-show-on-scroll"
+              >
                 <div class="w-[49%] lg:flex justify-end hidden relative mt-2">
                   <div
                     style="
@@ -785,7 +793,7 @@
                 </div>
               </div>
               <div
-                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px] js-show-on-scroll"
               >
                 <h3
                   class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
@@ -797,7 +805,9 @@
                 </p>
               </div>
               <!-- Phase 5 -->
-              <div class="flex items-start mt-5 justify-center w-full">
+              <div
+                class="flex items-start mt-5 justify-center w-full js-show-on-scroll"
+              >
                 <div class="flex justify-end w-[52%] mb-[65px] lg:mb-0">
                   <div
                     class="flex items-center absolute lg:relative right-1/2 lg:right-0 translate-x-6 lg:translate-x-0"
@@ -854,7 +864,7 @@
                 </div>
               </div>
               <div
-                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px] js-show-on-scroll"
               >
                 <h3
                   class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
@@ -866,7 +876,9 @@
                 </p>
               </div>
               <!-- Phase 6 -->
-              <div class="flex items-start mt-5 justify-center w-full">
+              <div
+                class="flex items-start mt-5 justify-center w-full js-show-on-scroll"
+              >
                 <div class="w-[49%] lg:flex justify-end hidden relative mt-2">
                   <div
                     style="
@@ -924,7 +936,7 @@
                 </div>
               </div>
               <div
-                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px] js-show-on-scroll"
               >
                 <h3
                   class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
@@ -936,7 +948,9 @@
                 </p>
               </div>
               <!-- Phase 7 -->
-              <div class="flex items-start mt-5 justify-center w-full">
+              <div
+                class="flex items-start mt-5 justify-center w-full js-show-on-scroll"
+              >
                 <div class="flex justify-end w-[52%] mb-[65px] lg:mb-0">
                   <div
                     class="flex items-center absolute lg:relative right-1/2 lg:right-0 translate-x-6 lg:translate-x-0"
@@ -994,7 +1008,7 @@
                 </div>
               </div>
               <div
-                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+                class="block lg:hidden mt-10 mb-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px] js-show-on-scroll"
               >
                 <h3
                   class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
@@ -1007,7 +1021,9 @@
                 </p>
               </div>
               <!-- Phase 8 -->
-              <div class="flex items-start mt-5 justify-center w-full">
+              <div
+                class="flex items-start mt-5 justify-center w-full js-show-on-scroll"
+              >
                 <div class="w-[49%] lg:flex justify-end hidden relative mt-2">
                   <div
                     style="
@@ -1065,7 +1081,7 @@
                 </div>
               </div>
               <div
-                class="block lg:hidden mt-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px]"
+                class="block lg:hidden mt-10 w-full bg-primaryGrey px-6 py-5 rounded-[10px] js-show-on-scroll"
               >
                 <h3
                   class="text-[18px] lg:text-[25px] font-bold text-primaryOrange mb-6"
@@ -1096,14 +1112,14 @@
           </div>
 
           <h3
-            class="text-[30px] lg:text-[45px] font-medium text-primaryBrown text-center lg:text-left"
+            class="text-[30px] lg:text-[45px] font-medium text-primaryBrown text-center lg:text-left js-show-on-scroll"
           >
             <span class="font-black text-primaryOrange">Why</span> choose Hipo?
           </h3>
           <div class="flex flex-col mt-14 lg:px-8 lg:gap-y-20 gap-y-10">
             <div class="flex flex-col md:flex-row w-full gap-y-10 lg:gap-y-0">
               <div
-                class="flex gap-x-4 items-center flex-col lg:flex-row gap-y-10 lg:gap-y-0"
+                class="flex gap-x-4 items-center flex-col lg:flex-row gap-y-10 lg:gap-y-0 js-show-on-scroll"
               >
                 <div
                   class="w-[67px] min-w-[67px] h-[67px] self-start mt-2 bg-primaryBrown p-2 flex justify-center items-center rounded-full"
@@ -1126,7 +1142,7 @@
                 </div>
               </div>
               <div
-                class="flex gap-x-4 items-center flex-col lg:flex-row gap-y-10 lg:gap-y-0"
+                class="flex gap-x-4 items-center flex-col lg:flex-row gap-y-10 lg:gap-y-0 js-show-on-scroll"
               >
                 <div
                   class="w-[67px] min-w-[67px] h-[67px] self-start mt-2 bg-primaryBrown p-0 flex justify-center items-center rounded-full"
@@ -1151,7 +1167,7 @@
             </div>
             <div class="flex flex-col md:flex-row w-full gap-y-10 lg:gap-y-0">
               <div
-                class="flex gap-x-4 items-center flex-col lg:flex-row gap-y-10 lg:gap-y-0"
+                class="flex gap-x-4 items-center flex-col lg:flex-row gap-y-10 lg:gap-y-0 js-show-on-scroll"
               >
                 <div
                   class="w-[67px] min-w-[67px] h-[67px] self-start mt-2 bg-primaryBrown p-2 flex justify-center items-center rounded-full"
@@ -1174,7 +1190,7 @@
                 </div>
               </div>
               <div
-                class="flex gap-x-4 items-center flex-col lg:flex-row gap-y-10 lg:gap-y-0"
+                class="flex gap-x-4 items-center flex-col lg:flex-row gap-y-10 lg:gap-y-0 js-show-on-scroll"
               >
                 <div
                   class="w-[67px] min-w-[67px] h-[67px] self-start mt-2 bg-primaryBrown p-1 flex justify-center items-center rounded-full"
@@ -1338,14 +1354,5 @@
       </div>
     </div>
   </body>
-  <script>
-    const menu = document.querySelector("#mobileMenu");
-    function toggleMenu() {
-      if (menu.classList.contains("hidden")) {
-        menu.classList.remove("hidden");
-      } else {
-        menu.classList.add("hidden");
-      }
-    }
-  </script>
+  <script src="scripts.js"></script>
 </html>
