@@ -1080,6 +1080,10 @@ video {
   overflow-y: auto;
 }
 
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
 .rounded-2xl {
   border-radius: 1rem;
 }
@@ -1253,6 +1257,14 @@ video {
 .py-\[24px\] {
   padding-top: 24px;
   padding-bottom: 24px;
+}
+
+.pt-20 {
+  padding-top: 5rem;
+}
+
+.pt-10 {
+  padding-top: 2.5rem;
 }
 
 .text-left {
