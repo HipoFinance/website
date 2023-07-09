@@ -52,7 +52,7 @@ module.exports = {
         },
       },
       animation: {
-        fadeIn: "fadeIn 3s cubic-bezier(0, 0, 0.2, 1) 0s 1 both",
+        fadeIn: "fadeIn 1s cubic-bezier(0, 0, 0.2, 1) 0s 1 both",
         fadeInMenu: "fadeIn 0.6s cubic-bezier(0, 0, 0.2, 1) 0s 1 both",
         fadeOutMenu: "fadeOut 0.6s cubic-bezier(0, 0, 0.2, 1) 0s 1 both",
       },
