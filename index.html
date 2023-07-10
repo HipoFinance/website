@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -127,13 +127,13 @@
         </div>
         <!-- Mobile menu,  show/hide based on menu open state. -->
         <div
-          class="lg:hidden hidden"
+          class="lg:hidden hidden relative z-50"
           role="dialog"
           aria-modal="true"
           id="mobileMenu"
         >
           <div
-            class="fixed inset-y-0 right-0 h-[70vh] md:h-full z-50 w-full overflow-y-auto bg-primaryGrey px-[40px] py-[32px] sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+            class="fixed inset-y-0 right-0 h-[70vh] md:h-full z-50 w-full overflow-y-auto bg-primaryGrey px-[40px] py-[24px] sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
           >
             <div class="flex items-center justify-between">
               <div class="flex gap-x-4 items-center">
@@ -366,7 +366,10 @@
 
         <!-- Section 3 -->
         <div class="w-full relative">
-          <div class="mx-auto max-w-7xl px-10 lg:px-24 mt-8" id="HowHipoWorks">
+          <div
+            class="mx-auto max-w-7xl pt-10 px-10 lg:px-24 mt-8"
+            id="HowHipoWorks"
+          >
             <h3
               class="text-[30px] lg:text-[45px] font-medium text-primaryBrown"
             >
@@ -500,7 +503,7 @@
           </div>
         </div>
         <!-- Section 4 -->
-        <div class="mx-auto max-w-7xl px-10 mt-20 lg:px-24" id="roadmap">
+        <div class="mx-auto max-w-7xl px-10 pt-10 mt-20 lg:px-24" id="roadmap">
           <h3
             class="text-[30px] text-center lg:text-left lg:text-[45px] font-medium text-primaryBrown"
           >
@@ -1081,7 +1084,7 @@
         </div>
         <!-- Section 5 -->
         <div
-          class="mx-auto max-w-7xl px-10 lg:px-24 mt-20 relative"
+          class="mx-auto max-w-7xl px-10 pt-10 lg:px-24 mt-20 relative"
           id="WhyHipo"
         >
           <div
@@ -1338,14 +1341,5 @@
       </div>
     </div>
   </body>
-  <script>
-    const menu = document.querySelector("#mobileMenu");
-    function toggleMenu() {
-      if (menu.classList.contains("hidden")) {
-        menu.classList.remove("hidden");
-      } else {
-        menu.classList.add("hidden");
-      }
-    }
-  </script>
+  <script src="scripts.js"></script>
 </html>
