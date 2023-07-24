@@ -588,20 +588,16 @@ video {
   top: 0px;
 }
 
+.top-\[calc\(100\%-50rem\)\] {
+  top: calc(100% - 50rem);
+}
+
 .top-\[calc\(100\%-52\.1rem\)\] {
   top: calc(100% - 52.1rem);
 }
 
 .top-\[calc\(100\%-53\.2rem\)\] {
   top: calc(100% - 53.2rem);
-}
-
-.top-\[calc\(100\%-90rem\)\] {
-  top: calc(100% - 90rem);
-}
-
-.top-\[calc\(100\%-50rem\)\] {
-  top: calc(100% - 50rem);
 }
 
 .isolate {
@@ -665,6 +661,10 @@ video {
 
 .mb-20 {
   margin-bottom: 5rem;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
 }
 
 .mb-5 {
@@ -739,8 +739,8 @@ video {
   margin-top: 2rem;
 }
 
-.mb-4 {
-  margin-bottom: 1rem;
+.mt-4 {
+  margin-top: 1rem;
 }
 
 .block {
@@ -1267,9 +1267,9 @@ video {
   padding-bottom: 24px;
 }
 
-.py-14 {
-  padding-top: 3.5rem;
-  padding-bottom: 3.5rem;
+.py-\[20px\] {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .pt-10 {
@@ -1481,22 +1481,6 @@ video {
 }
 
 @media (min-width: 768px) {
-  .md\:top-\[calc\(100\%-80rem\)\] {
-    top: calc(100% - 80rem);
-  }
-
-  .md\:top-\[calc\(100\%-85rem\)\] {
-    top: calc(100% - 85rem);
-  }
-
-  .md\:top-\[calc\(100\%-65rem\)\] {
-    top: calc(100% - 65rem);
-  }
-
-  .md\:top-\[calc\(100\%-60rem\)\] {
-    top: calc(100% - 60rem);
-  }
-
   .md\:top-\[calc\(100\%-50rem\)\] {
     top: calc(100% - 50rem);
   }
