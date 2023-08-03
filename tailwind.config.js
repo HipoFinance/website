@@ -30,6 +30,8 @@ module.exports = {
       primaryBlue: "#0088CC",
       primaryGrey: "#EFEBE5",
       secondaryGrey: "#77646433",
+      tertiaryGrey: "#776464",
+      fourthGrey: "rgba(119, 100, 100, 0.6)",
       white: "#FFFFFF",
     },
     extend: {
