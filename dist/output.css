@@ -1666,10 +1666,6 @@ video {
     width: unset;
   }
 
-  .lg\:w-\[200px\] {
-    width: 200px;
-  }
-
   .lg\:min-w-\[400px\] {
     min-width: 400px;
   }
