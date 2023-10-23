@@ -27,6 +27,7 @@ module.exports = {
       primaryBrown: "#776464",
       primaryOrange: "#FF7E73",
       secondaryOrange: "#ffbeb9",
+      tertiaryOrange: "#FFF6FF",
       primaryBlue: "#0088CC",
       primaryGrey: "#EFEBE5",
       secondaryGrey: "#77646433",
@@ -57,6 +58,9 @@ module.exports = {
         fadeIn: "fadeIn 1s cubic-bezier(0, 0, 0.2, 1) 0s 1 both",
         fadeInMenu: "fadeIn 0.2s cubic-bezier(0, 0, 0.2, 1) 0s 1 both",
         fadeOutMenu: "fadeOut 0.6s cubic-bezier(0, 0, 0.2, 1) 0s 1 both",
+      },
+      boxShadow: {
+        first: "0px 4px 8px 2px rgba(0, 0, 0, 0.2), 0 6px 20px 0 #FFF6FF",
       },
     },
   },
