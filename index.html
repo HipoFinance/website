@@ -80,6 +80,11 @@
               >How it works</a
             >
             <a
+              href="#audit"
+              class="text-lg font-normal leading-6 text-primaryBrown"
+              >Audits</a
+            >
+            <a
               href="#roadmap"
               class="text-lg font-normal leading-6 text-primaryBrown"
               >Road Map</a
@@ -89,15 +94,6 @@
               class="text-lg font-normal leading-6 text-primaryBrown"
               >Why Hipo?</a
             >
-            <a
-              href="https://docs.hipo.finance/"
-              target="_blank"
-              class="text-lg font-normal leading-6 text-primaryBrown"
-              >Docs</a
-            >
-            <!-- <a href="#" class="text-lg font-normal leading-6 text-primaryBrown"
-              >FAQ</a
-            > -->
           </div>
           <div class="flex-1 justify-end lg:flex hidden">
             <a
@@ -186,6 +182,12 @@
                   >
                   <a
                     onclick="toggleMenu()"
+                    href="#audit"
+                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-normal leading-7 text-primaryBrown hover:bg-gray-50"
+                    >Audits</a
+                  >
+                  <a
+                    onclick="toggleMenu()"
                     href="#roadmap"
                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-normal leading-7 text-primaryBrown hover:bg-gray-50"
                     >Road Map</a
@@ -196,19 +198,6 @@
                     class="-mx-3 block rounded-lg px-3 py-2 text-base font-normal leading-7 text-primaryBrown hover:bg-gray-50"
                     >Why Hipo?</a
                   >
-                  <a
-                    onclick="toggleMenu()"
-                    href="https://docs.hipo.finance/"
-                    target="_blank"
-                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-normal leading-7 text-primaryBrown hover:bg-gray-50"
-                    >Docs</a
-                  >
-                  <!-- <a
-                    onclick="toggleMenu()"
-                    href="#"
-                    class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    >FAQ</a
-                  > -->
                 </div>
                 <a
                   href="https://app.hipo.finance/"
@@ -493,7 +482,7 @@
         <!-- Security Audit -->
         <div
           class="mx-auto max-w-7xl px-8 pt-10 mt-20 lg:px-24 relative"
-          id="security-audit"
+          id="audit"
         >
           <div
             class="absolute inset-x-0 -z-10 transform-gpu overflow-hidden blur-3xl lg:top-[calc(100%-20rem)]"
@@ -522,13 +511,13 @@
             class="flex items-center justify-center gap-x-6 mt-[45px] lg:flex-row flex-col gap-y-6"
           >
             <div
-              class="w-[320px] h-[265px] bg-tertiaryOrange px-[32px] py-[37px] rounded-[20px] border-[3px] border-[#C0B5AB] border-solid"
+              class="w-[320px] h-[305px] bg-tertiaryOrange px-[32px] pt-[37px] pb-[33px] rounded-[20px] border-[3px] border-[#C0B5AB] border-solid"
             >
-              <div class="flex flex-col">
+              <div class="flex flex-col justify-between h-full">
                 <p class="text-[20px] font-semibold text-primaryBrown">
                   TonTech: Hipo Smart Contract Audit
                 </p>
-                <p class="text-[#8B807F] text-[16px]">Oct 2023</p>
+                <p class="text-[#8B807F] text-[16px] -mt-2">Oct 2023</p>
                 <div class="flex items-center gap-x-3 my-4">
                   <img
                     class="h-[50px] w-auto"
@@ -538,11 +527,12 @@
                   <p class="text-[18px] text-[#8B807F] font-medium">TonTech</p>
                 </div>
                 <a
+                  class="self-end"
                   href="https://github.com/HipoFinance/audits#2023-10-tontech-hipo-audit-report"
                   target="_blank"
                 >
                   <div class="flex items-center gap-x-2">
-                    <p class="text-primaryOrange text-[18px]">See report</p>
+                    <p class="text-primaryOrange text-[16px]">See report</p>
                     <img
                       class="h-[16px] w-auto"
                       src="./images/arrow-right.png"
@@ -553,40 +543,37 @@
               </div>
             </div>
             <div
-              class="relative w-[320px] h-[265px] bg-tertiaryOrange px-[32px] py-[37px] rounded-[20px] shadow-first"
+              class="w-[320px] h-[305px] bg-tertiaryOrange px-[32px] pt-[37px] pb-[33px] rounded-[20px] border-[3px] border-[#C0B5AB] border-solid"
             >
-              <h2
-                class="absolute left-[50%] top-[50%] ml-auto mr-auto -translate-x-[50%] -translate-y-[50%] text-[18px] font-bold"
-              >
-                Coming Soon …
-              </h2>
-              <div class="h-full w-full blur-[4px] opacity-70">
-                <div class="flex flex-col">
-                  <p class="text-[20px] font-semibold text-primaryBrown">
-                    Daniil Sedov: Hipo Smart Contract Audit
+              <div class="flex flex-col justify-between h-full">
+                <p class="text-[20px] font-semibold text-primaryBrown">
+                  Daniil Sedov: Hipo Smart Contract Audit
+                </p>
+                <p class="text-[#8B807F] text-[16px] -mt-2">Oct 2023</p>
+                <div class="flex items-center gap-x-3 my-4">
+                  <div
+                    class="h-[50px] w-[50px] bg-gradient-to-b from-[#1AC9FF] to-[#2D83EC] rounded-full flex justify-center items-center text-white text-[20px]"
+                  >
+                    DS
+                  </div>
+                  <p class="text-[18px] text-[#8B807F] font-medium">
+                    Daniil Sedov
                   </p>
-                  <p class="text-[#8B807F] text-[16px]">Oct 2023</p>
-                  <div class="flex items-center gap-x-3 my-4">
+                </div>
+                <a
+                  class="self-end"
+                  href="https://github.com/HipoFinance/audits#2023-10-daniil-sedov-hipo-audit-report"
+                  target="_blank"
+                >
+                  <div class="flex items-center gap-x-2">
+                    <p class="text-primaryOrange text-[16px]">See report</p>
                     <img
-                      class="h-[50px] w-auto"
-                      src="./images/blue-circle.png"
+                      class="h-[16px] w-auto"
+                      src="./images/arrow-right.png"
                       alt=""
                     />
-                    <p class="text-[18px] text-[#8B807F] font-medium">
-                      Daniil Sedov
-                    </p>
                   </div>
-                  <a href="#">
-                    <div class="flex items-center gap-x-2">
-                      <p class="text-primaryOrange text-[18px]">See report</p>
-                      <img
-                        class="h-[16px] w-auto"
-                        src="./images/arrow-right.png"
-                        alt=""
-                      />
-                    </div>
-                  </a>
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -751,59 +738,7 @@
                   functionality and user interfaces.
                 </p>
               </div>
-              <!-- Hipo is here desktop -->
-              <div
-                class="lg:flex hidden items-start mt-5 mb-[25px] lg:mb-[52px] justify-center w-full"
-              >
-                <div
-                  class="w-[49%] lg:flex justify-end hidden relative mt-2"
-                ></div>
-                <div class="block lg:hidden w-[43%]"></div>
-                <div class="w-[52%] mb-[65px] lg:mb-0">
-                  <div
-                    class="flex items-center absolute lg:relative left-1/2 lg:left-0 -translate-x-4 lg:translate-x-0"
-                  >
-                    <div
-                      class="bg-fourthGrey w-[38px] h-[38px] rounded-full flex justify-center items-center"
-                    >
-                      <div
-                        class="bg-tertiaryGrey w-[25px] h-[25px] rounded-full z-20"
-                      ></div>
-                    </div>
 
-                    <div
-                      class="w-[15px] lg:w-[50px] h-[5px] bg-tertiaryGrey"
-                    ></div>
-                    <div
-                      class="rounded-[50px] bg-tertiaryGrey flex justify-center items-center px-1 lg:px-[33px] py-2 lg:py-4"
-                    >
-                      <p
-                        class="text-white text-[14px] lg:text-[20px] font-bold"
-                      >
-                        Hipo is Here
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Hipo is here mobile -->
-              <div
-                class="flex lg:hidden items-start mt-5 mb-[25px] justify-center w-full"
-              >
-                <div class="mb-[65px]">
-                  <div
-                    class="flex items-center absolute left-1/2 -translate-x-[95px]"
-                  >
-                    <div
-                      class="rounded-[50px] min-w-[200px] bg-tertiaryGrey flex justify-center items-center px-[33px] py-4"
-                    >
-                      <p class="text-white text-[20px] font-bold">
-                        Hipo is Here
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
               <!-- Phase 3 -->
               <div class="flex items-start mt-5 justify-center w-full">
                 <div class="flex justify-end w-[52%] mb-[65px] lg:mb-0">
@@ -944,6 +879,59 @@
                 <p class="text-[18px] font-normal text-primaryBrown">
                   Launch the staking platform on the TON mainnet.
                 </p>
+              </div>
+              <!-- Hipo is here desktop -->
+              <div
+                class="lg:flex hidden items-start mt-5 mb-[25px] lg:mb-[52px] justify-center w-full"
+              >
+                <div
+                  class="w-[49%] lg:flex justify-end hidden relative mt-2"
+                ></div>
+                <div class="block lg:hidden w-[43%]"></div>
+                <div class="w-[52%] mb-[65px] lg:mb-0">
+                  <div
+                    class="flex items-center absolute lg:relative left-1/2 lg:left-0 -translate-x-4 lg:translate-x-0"
+                  >
+                    <div
+                      class="bg-fourthGrey w-[38px] h-[38px] rounded-full flex justify-center items-center"
+                    >
+                      <div
+                        class="bg-tertiaryGrey w-[25px] h-[25px] rounded-full z-20"
+                      ></div>
+                    </div>
+
+                    <div
+                      class="w-[15px] lg:w-[50px] h-[5px] bg-tertiaryGrey"
+                    ></div>
+                    <div
+                      class="rounded-[50px] bg-tertiaryGrey flex justify-center items-center px-1 lg:px-[33px] py-2 lg:py-4"
+                    >
+                      <p
+                        class="text-white text-[14px] lg:text-[20px] font-bold"
+                      >
+                        Hipo is Here
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Hipo is here mobile -->
+              <div
+                class="flex lg:hidden items-start mt-5 mb-[25px] justify-center w-full"
+              >
+                <div class="mb-[65px]">
+                  <div
+                    class="flex items-center absolute left-1/2 -translate-x-[95px]"
+                  >
+                    <div
+                      class="rounded-[50px] min-w-[200px] bg-tertiaryGrey flex justify-center items-center px-[33px] py-4"
+                    >
+                      <p class="text-white text-[20px] font-bold">
+                        Hipo is Here
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
               <!-- Phase 5 -->
               <div class="flex items-start mt-5 justify-center w-full">
@@ -1394,6 +1382,13 @@
                           href="#roadmap"
                           class="text-lg font-normal leading-6 text-white hover:text-primaryGrey"
                           >Roadmap</a
+                        >
+                      </li>
+                      <li>
+                        <a
+                          href="#audit"
+                          class="text-lg font-normal leading-6 text-white hover:text-primaryGrey"
+                          >Audits</a
                         >
                       </li>
                       <li>
