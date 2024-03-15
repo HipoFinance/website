@@ -1261,6 +1261,12 @@ video {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
 
+.from-\[\#1AC977\] {
+  --tw-gradient-from: #1AC977 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(26 201 119 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .from-\[\#1AC9FF\] {
   --tw-gradient-from: #1AC9FF var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(26 201 255 / 0) var(--tw-gradient-to-position);
@@ -1269,6 +1275,10 @@ video {
 
 .to-\[\#2D83EC\] {
   --tw-gradient-to: #2D83EC var(--tw-gradient-to-position);
+}
+
+.to-\[\#84C977\] {
+  --tw-gradient-to: #84C977 var(--tw-gradient-to-position);
 }
 
 .object-cover {
