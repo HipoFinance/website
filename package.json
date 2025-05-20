@@ -12,6 +12,7 @@
   "dependencies": {
     "@fontsource/eczar": "^5.1.0",
     "@fontsource/heebo": "^5.1.0",
+    "@fontsource/poppins": "^5.2.6",
     "@tailwindcss/vite": "^4.1.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
