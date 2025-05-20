@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.hipo-button-div {
+  @apply w-full text-center sm:w-auto;
+}
+
+.hipo-button-a {
+  @apply flex w-full sm:w-auto place-content-center items-center border border-purple7 rounded-xl bg-gradient-to-t from-purple7 to-purple8 px-6 py-2;
+}
+
+.hipo-button-label {
+  @apply w-full text-lg font-normal sm:w-auto;
+}

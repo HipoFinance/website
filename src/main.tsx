@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
-import "./index.css";
+import "./styles.css";
 import "@fontsource/heebo/latin-400.css";
 import "@fontsource/heebo/latin-500.css";
 import "@fontsource/heebo/latin-700.css";
