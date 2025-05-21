@@ -3,25 +3,77 @@
 @tailwind utilities;
 
 .hipo-button-div {
-    @apply w-full text-center sm:w-auto;
+    @apply w-full text-center md:w-auto;
+}
+
+.hipo-app-button-a {
+    @apply flex w-full place-content-center items-center rounded-xl border border-purple8 bg-gradient-to-t from-purple5 to-purple6 px-6 py-2 md:w-auto;
 }
 
 .hipo-button-a {
-    @apply flex w-full place-content-center items-center rounded-xl border border-purple8 bg-gradient-to-t from-purple5 to-purple6 px-6 py-2 sm:w-auto;
+    @apply flex w-full place-content-center items-center rounded-xl border border-purple8 bg-gradient-to-t from-purple5 to-purple6 px-10 py-3 md:w-auto;
 }
 
 .hipo-button-label {
-    @apply w-full text-lg font-normal sm:w-auto;
+    @apply w-full text-[24px] font-medium md:w-auto;
+}
+
+.hipo-learn-more-link-text {
+    @apply text-purple9 text-start text-[24px] font-medium;
+}
+
+.hipo-see-report-link-text {
+    @apply text-purple9 text-start text-[18px] font-medium;
 }
 
 .hipo-section-title {
-    @apply text-[55px] font-black text-purple6;
+    @apply text-center text-[55px] font-black text-purple6;
 }
 
 .hipo-section-summary {
-    @apply text-[40px] font-normal text-white;
+    @apply mb-20 text-center text-[40px] font-normal text-white;
 }
 
 .hipo-section-text {
-    @apply text-[24px] font-normal text-white;
+    @apply text-start text-[24px] font-normal text-white;
+}
+
+.hipo-how-it-works-card-bg {
+    @apply h-full rounded-2xl border border-darkblue5 bg-gradient-to-t from-darkblue4 to-darkblue3 p-2;
+}
+
+.hipo-how-it-works-card-template {
+    @apply mx-auto flex h-full w-full flex-row bg-[url(../public/dots.svg)] py-4;
+}
+
+.hipo-how-it-works-card-title {
+    @apply text-start text-[32px] font-bold text-white;
+}
+
+.hipo-how-it-works-card-text {
+    @apply text-start text-[22px] font-normal text-white;
+}
+
+.hipo-audits-card-bg {
+    @apply mx-auto h-full w-full;
+}
+
+.hipo-audits-card-template {
+    @apply mx-auto flex h-full w-full flex-col items-center gap-6 rounded-lg border border-darkblue5 bg-gradient-to-t from-darkblue4 to-darkblue3 p-8 text-start md:max-w-full;
+}
+
+.hipo-why-hipo-card-bg {
+    @apply mx-auto h-full w-full bg-[url(../public/card-bg-t.png)] bg-contain bg-no-repeat;
+}
+
+.hipo-why-hipo-card-template {
+    @apply mx-auto flex h-full w-full flex-col items-center gap-6 rounded-lg border border-darkblue5 px-16 py-8 text-start backdrop-blur-[113.5px] md:max-w-full;
+}
+
+.hipo-why-hipo-card-title {
+    @apply text-start text-[32px] font-medium text-white;
+}
+
+.hipo-why-hipo-card-text {
+    @apply text-start text-[24px] font-normal text-white;
 }
