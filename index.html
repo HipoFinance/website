@@ -33,19 +33,19 @@
 
         <div class="mx-auto min-w-[360px] bg-background bg-fixed py-8 text-center md:py-16">
             <!-- Menu -->
-            <div class="mx-auto mb-16 flex w-full flex-row items-start px-8 md:max-w-screen-xl md:px-16">
+            <div class="mx-auto mb-6 flex w-full flex-row items-center px-8 md:mb-16 md:max-w-screen-xl md:px-16">
                 <!-- Logo -->
                 <div class="flex flex-row items-center gap-2">
                     <a href="https://hipo.finance/">
-                        <img class="size-16" src="hipo.svg" />
+                        <img class="size-10 md:size-16" src="hipo.svg" />
                     </a>
                     <a href="https://hipo.finance/">
-                        <div class="font-eczar text-2xl text-white">Hipo</div>
+                        <div class="font-eczar text-xl text-white md:text-2xl">Hipo</div>
                     </a>
                 </div>
 
-                <nav class="flex grow flex-col items-end px-4 pb-2 pt-6 shadow-md">
-                    <div class="flex flex-row md:mx-auto md:text-xs lg:text-lg">
+                <nav class="flex grow flex-col items-end px-4 shadow-md">
+                    <div class="text-bold flex flex-row md:mx-auto md:text-[18px]">
                         <!-- Hamburger button (shown on mobile) -->
                         <button
                             id="menu-toggle"
@@ -69,7 +69,7 @@
                         </button>
 
                         <!-- Menu items -->
-                        <ul id="menu" class="hidden space-x-6 md:flex">
+                        <ul id="menu" class="hidden space-x-6 pb-2 pt-6 md:flex">
                             <li>
                                 <a href="#how-it-works" class="hover:text-purple-500">How it works</a>
                             </li>
@@ -167,9 +167,9 @@
                 <!-- Mobile version -->
                 <div class="md:hidden">
                     <div class="flex flex-col items-start gap-6">
-                        <div class="text-[64px] font-bold">The #1 Most Profitable Liquid Staking on TON.</div>
+                        <div class="text-[32px] font-bold">The #1 Most Profitable Liquid Staking on TON.</div>
                         <div class="mx-auto px-4">
-                            <img class="size-128" src="hipo-bank.webp" />
+                            <img class="size-64" src="hipo-bank.webp" />
                         </div>
                         <div class="text-lg">
                             Join <span class="text-purple9 font-bold">23,000+</span> TON holders earning passive income
@@ -217,7 +217,7 @@
             </div>
 
             <!-- Highlights -->
-            <div class="mx-auto mb-36 w-full min-w-[280px] px-8 text-lg font-bold md:max-w-screen-xl md:px-16">
+            <div class="hipo-section w-full min-w-[280px] text-sm font-bold md:max-w-screen-xl md:text-lg">
                 <div class="rounded-2xl border border-darkblue5 bg-gradient-to-t from-darkblue4 to-darkblue3 p-2">
                     <div class="mx-auto flex w-full flex-row bg-[url(../public/dots.svg)] py-6">
                         <div class="mx-auto flex flex-col items-center gap-4">
@@ -237,72 +237,61 @@
             </div>
 
             <!-- How Hipo works -->
-            <div
-                id="how-it-works"
-                class="mx-auto mb-36 flex flex-col items-center gap-8 px-8 text-center md:max-w-screen-xl md:px-16"
-            >
+            <div id="how-it-works" class="hipo-section flex flex-col items-center text-center">
                 <div class="hipo-section-title">How Hipo works</div>
                 <div class="hipo-section-summary">
                     <p>Stake any amount of TON and</p>
                     <p>earn more than just staking rewards!</p>
                 </div>
 
-                <div class="flex w-full flex-col items-center gap-4 px-16 md:grid md:grid-cols-2 md:grid-rows-2">
-                    <div class="hipo-how-it-works-card-bg">
-                        <div class="hipo-how-it-works-card-template">
-                            <div
-                                class="mx-auto flex w-full flex-col items-center justify-between gap-6 px-10 py-6 text-start md:max-w-full"
-                            >
+                <div class="hipo-cards-list">
+                    <div class="hipo-how-it-works-card">
+                        <div class="hipo-how-it-works-card-bg">
+                            <div class="hipo-how-it-works-card-template">
                                 <div class="hipo-how-it-works-card-title w-full">1. Stake TON</div>
                                 <div class="hipo-how-it-works-card-text w-full grow pb-4">
                                     Earn the highest staking rewards in the market with any amount of TON.
                                 </div>
                                 <div calss="w-full mx-auto">
-                                    <img class="size-28" src="ton.svg" />
+                                    <img class="size-16 md:size-28" src="ton.svg" />
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="hipo-how-it-works-card-bg">
-                        <div class="hipo-how-it-works-card-template">
-                            <div
-                                class="mx-auto flex w-full flex-col items-center justify-between gap-6 px-10 py-6 text-start md:max-w-full"
-                            >
+                    <div class="hipo-how-it-works-card">
+                        <div class="hipo-how-it-works-card-bg">
+                            <div class="hipo-how-it-works-card-template">
                                 <div class="hipo-how-it-works-card-title w-full">2. Get Liquid hTON</div>
                                 <div class="hipo-how-it-works-card-text w-full grow pb-4">
                                     Receive hTON (your liquid staked TON) with no lock-up. Use it across DeFi while
                                     still earning rewards.
                                 </div>
                                 <div calss="w-full mx-auto">
-                                    <img class="size-28" src="hton.svg" />
+                                    <img class="size-16 md:size-28" src="hton.svg" />
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="hipo-how-it-works-card-bg">
-                        <div class="hipo-how-it-works-card-template">
-                            <div
-                                class="mx-auto flex w-full flex-col items-center justify-between gap-6 px-10 py-6 text-start md:max-w-full"
-                            >
+                    <div class="hipo-how-it-works-card">
+                        <div class="hipo-how-it-works-card-bg">
+                            <div class="hipo-how-it-works-card-template">
                                 <div class="hipo-how-it-works-card-title w-full">3. Earn HPO</div>
                                 <div class="hipo-how-it-works-card-text w-full grow pb-4">
                                     By staking with Hipo, you become eligible to receive HPO, Hipo’s governance &
                                     profit-sharing token.
                                 </div>
                                 <div calss="w-full mx-auto">
-                                    <img class="size-28" src="hpo.svg" />
+                                    <img class="size-16 md:size-28" src="hpo.svg" />
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="hipo-how-it-works-card-bg">
-                        <div class="hipo-how-it-works-card-template">
-                            <div
-                                class="mx-auto flex w-full flex-col items-center justify-between gap-6 px-10 py-6 text-start md:max-w-full"
-                            >
+                    <div class="hipo-how-it-works-card">
+                        <div class="hipo-how-it-works-card-bg">
+                            <div class="hipo-how-it-works-card-template">
                                 <div class="hipo-how-it-works-card-title w-full">4. Unstake Anytime</div>
                                 <div class="hipo-how-it-works-card-text w-full grow pb-4">
                                     Unstake your TON anytime through Hipo and receive your original TON plus the earned
@@ -310,11 +299,11 @@
                                 </div>
                                 <div calss="w-full mx-auto">
                                     <div class="flex flex-row items-center gap-4 text-3xl">
-                                        <img class="size-28" src="ton.svg" />
+                                        <img class="size-16 md:size-28" src="ton.svg" />
                                         +
-                                        <div class="flex flex-row items-center gap-1">
-                                            <img class="size-16" src="ton.svg" />
-                                            <img class="size-16" src="ton.svg" />
+                                        <div class="flex flex-row items-center gap-2">
+                                            <img class="size-10 md:size-16" src="ton.svg" />
+                                            <img class="size-10 md:size-16" src="ton.svg" />
                                         </div>
                                     </div>
                                 </div>
@@ -325,22 +314,16 @@
             </div>
 
             <!-- Hipo Security Audits -->
-            <div
-                id="audits"
-                class="mx-auto mb-36 flex w-full flex-col items-center gap-8 px-8 text-center md:max-w-screen-xl md:px-36"
-            >
+            <div id="audits" class="hipo-section flex w-full flex-col items-center text-center">
                 <div class="hipo-section-title">Hipo Security Audits</div>
                 <div class="hipo-section-summary">
-                    <p>One of the most rigorously tested smart</p>
-                    <p>contracts in the TON ecosystem.</p>
+                    <p>One of the most rigorously tested smart contracts in the TON ecosystem.</p>
                 </div>
 
-                <div
-                    class="flex w-full flex-col items-center gap-4 md:grid md:max-w-screen-md md:grid-cols-2 md:grid-rows-2"
-                >
-                    <div class="hipo-audits-card-bg">
-                        <div class="hipo-audits-card-template">
-                            <div class="text-[20px]">
+                <div class="hipo-cards-list">
+                    <div class="hipo-audits-card">
+                        <div class="hipo-audits-card-bg">
+                            <div class="hipo-audits-card-template">
                                 <div class="mb-6 flex flex-row items-center gap-1 font-bold">
                                     <img class="size-4" src="quantstamp.svg" />
                                     Quantstamp
@@ -361,9 +344,9 @@
                         </div>
                     </div>
 
-                    <div class="hipo-audits-card-bg">
-                        <div class="hipo-audits-card-template">
-                            <div class="text-[20px]">
+                    <div class="hipo-audits-card">
+                        <div class="hipo-audits-card-bg">
+                            <div class="hipo-audits-card-template">
                                 <div class="mb-6 flex flex-row items-center gap-1 font-bold">
                                     <div
                                         class="flex size-6 items-center justify-center rounded-full bg-gradient-to-t from-green-900 to-green-500 text-xs font-light"
@@ -388,9 +371,9 @@
                         </div>
                     </div>
 
-                    <div class="hipo-audits-card-bg">
-                        <div class="hipo-audits-card-template">
-                            <div class="text-[20px]">
+                    <div class="hipo-audits-card">
+                        <div class="hipo-audits-card-bg">
+                            <div class="hipo-audits-card-template">
                                 <div class="mb-6 flex flex-row items-center gap-1 font-bold">
                                     <img class="size-4" src="tontech.svg" />
                                     TonTech
@@ -411,9 +394,9 @@
                         </div>
                     </div>
 
-                    <div class="hipo-audits-card-bg">
-                        <div class="hipo-audits-card-template">
-                            <div class="text-[20px]">
+                    <div class="hipo-audits-card">
+                        <div class="hipo-audits-card-bg">
+                            <div class="hipo-audits-card-template">
                                 <div class="mb-6 flex flex-row items-center gap-1 font-bold">
                                     <div
                                         class="flex size-6 items-center justify-center rounded-full bg-gradient-to-t from-blue-900 to-blue-500 text-xs font-light"
@@ -443,7 +426,7 @@
             <!-- HPO  -->
             <div
                 id="hpo"
-                class="mx-auto mb-36 flex flex-col items-center gap-8 px-8 text-center md:max-w-screen-xl md:px-16"
+                class="hipo-section flex flex-col items-center gap-8 px-8 text-center md:max-w-screen-xl md:px-16"
             >
                 <div class="hipo-section-title">HPO</div>
                 <div class="hipo-section-summary">
@@ -502,7 +485,7 @@
             </div>
 
             <!-- Hipo Club -->
-            <div id="hipo-club" class="mb-36 bg-gradient-to-t from-darkblue4 to-darkblue3">
+            <div id="hipo-club" class="hipo-section bg-gradient-to-t from-darkblue4 to-darkblue3">
                 <div
                     class="bg-top-left flex flex-col items-center gap-8 bg-[url(../public/mesh.png)] bg-contain bg-no-repeat px-8 py-16 text-center md:px-36"
                 >
@@ -541,7 +524,7 @@
             <!-- Why Hipo? -->
             <div
                 id="why-hipo"
-                class="mx-auto mb-36 flex w-full flex-col items-center gap-4 px-8 text-center md:max-w-screen-xl md:px-36"
+                class="hipo-section flex w-full flex-col items-center gap-4 px-8 text-center md:max-w-screen-xl md:px-36"
             >
                 <div class="hipo-section-title">Why Hipo?</div>
                 <div class="hipo-section-summary mb-10">
@@ -549,11 +532,11 @@
                 </div>
 
                 <div class="flex w-full flex-col items-center gap-4 md:grid md:grid-cols-2 md:grid-rows-2">
-                    <div class="hipo-why-hipo-card-bg">
-                        <div class="hipo-why-hipo-card-template">
+                    <div class="hipo-why-hipo-card">
+                        <div class="hipo-why-hipo-card-bg">
                             <div class="flex w-full flex-row items-center gap-2">
                                 <div class="hipo-why-hipo-card-title w-full">Highest APY</div>
-                                <img class="size-16" src="graph.png" />
+                                <img class="size-10 md:size-16" src="graph.png" />
                             </div>
                             <div class="hipo-why-hipo-card-text w-full pb-4">
                                 Earn the most competitive staking rewards on TON.
@@ -561,11 +544,11 @@
                         </div>
                     </div>
 
-                    <div class="hipo-why-hipo-card-bg">
-                        <div class="hipo-why-hipo-card-template">
+                    <div class="hipo-why-hipo-card">
+                        <div class="hipo-why-hipo-card-bg">
                             <div class="flex w-full flex-row items-center gap-2">
                                 <div class="hipo-why-hipo-card-title w-full">Community-Driven</div>
-                                <img class="size-16" src="heart-shine.svg" />
+                                <img class="size-10 md:size-16" src="heart-shine.svg" />
                             </div>
                             <div class="hipo-why-hipo-card-text w-full pb-4">
                                 Hipo is built with and for the community.
@@ -573,11 +556,11 @@
                         </div>
                     </div>
 
-                    <div class="hipo-why-hipo-card-bg">
-                        <div class="hipo-why-hipo-card-template">
+                    <div class="hipo-why-hipo-card">
+                        <div class="hipo-why-hipo-card-bg">
                             <div class="flex w-full flex-row items-center gap-2">
                                 <div class="hipo-why-hipo-card-title w-full">Open-Source & Audited</div>
-                                <img class="size-16" src="audit-shield.svg" />
+                                <img class="size-10 md:size-16" src="audit-shield.svg" />
                             </div>
                             <div class="hipo-why-hipo-card-text w-full pb-4">
                                 One of the most rigorously tested smart contracts on TON.
@@ -585,11 +568,11 @@
                         </div>
                     </div>
 
-                    <div class="hipo-why-hipo-card-bg">
-                        <div class="hipo-why-hipo-card-template">
+                    <div class="hipo-why-hipo-card">
+                        <div class="hipo-why-hipo-card-bg">
                             <div class="flex w-full flex-row items-center gap-2">
                                 <div class="hipo-why-hipo-card-title w-full">Truly Decentralized</div>
-                                <img class="size-16" src="decentralized.svg" />
+                                <img class="size-10 md:size-16" src="decentralized.svg" />
                             </div>
                             <div class="hipo-why-hipo-card-text w-full pb-4">
                                 Fully DeFi-native and permissionless by design.
@@ -600,9 +583,9 @@
             </div>
 
             <!-- Footer -->
-            <div class="mx-auto mb-16 px-8 md:max-w-screen-xl md:px-16">
-                <div class="mb-8 w-full px-8">
-                    <div class="h-px w-full border-t border-purple3 border-opacity-50"></div>
+            <div class="hipo-section px-4 md:max-w-screen-xl md:px-8">
+                <div class="mb-8 w-full">
+                    <div class="h-px w-full border-2 border-t border-purple6 border-opacity-50"></div>
                 </div>
 
                 <div class="mb-16 w-full px-16 text-lg md:grid md:grid-flow-col md:grid-cols-4">
@@ -624,18 +607,11 @@
                         <div class="font-bold">Docs</div>
                         <a href="https://github.com/HipoFinance" target="hipo_github">GitHub</a>
                         <a href="https://docs.hipo.finance/" target="hipo_docs">Documentation</a>
-                    </div>
-
-                    <div class="mb-12 flex w-full flex-col gap-2 text-left">
-                        <div class="font-bold">About</div>
-                        <a href="https://hipo.finance/#HowHipoWorks" target="hipo_how">How Hipo Works?</a>
-                        <a href="https://hipo.finance/#audit" target="hipo_audits">Audits</a>
-                        <a href="https://hipo.finance/#roadmap" target="hipo_roadmap">Roadmap</a>
-                        <a href="https://hipo.finance/#WhyHipo" target="hipo_why">Why Choose Hipo?</a>
+                        <a href="https://hpo.hipo.finance/" target="hipo_hpo">HPO</a>
                     </div>
                 </div>
 
-                <div class="relative mb-4 w-full px-8">
+                <div class="relative mb-4 w-full px-4">
                     <div class="absolute -top-10">
                         <div class="font-eczar text-2xl text-white">Hipo</div>
                     </div>

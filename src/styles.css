@@ -26,54 +26,70 @@
     @apply text-purple9 text-start text-[18px] font-medium;
 }
 
+.hipo-section {
+    @apply mx-auto mb-16 gap-4 px-4 md:mb-36 md:max-w-screen-xl md:gap-8 md:px-16;
+}
+
 .hipo-section-title {
-    @apply text-center text-[55px] font-black text-purple6;
+    @apply text-center text-[36px] font-black text-purple6 md:text-[55px];
 }
 
 .hipo-section-summary {
-    @apply mb-20 text-center text-[40px] font-normal text-white;
+    @apply mb-10 text-center text-[20px] font-normal text-white md:mb-20 md:text-[40px];
 }
 
 .hipo-section-text {
-    @apply text-start text-[24px] font-normal text-white;
+    @apply text-start text-[16px] font-normal text-white md:text-[24px];
 }
 
-.hipo-how-it-works-card-bg {
+.hipo-cards-list {
+    @apply flex w-full flex-col items-center gap-4 md:grid md:max-w-screen-md md:grid-cols-2 md:grid-rows-2 md:px-16;
+}
+
+.hipo-how-it-works-card {
     @apply h-full rounded-2xl border border-darkblue5 bg-gradient-to-t from-darkblue4 to-darkblue3 p-2;
 }
 
-.hipo-how-it-works-card-template {
+.hipo-how-it-works-card-bg {
     @apply mx-auto flex h-full w-full flex-row bg-[url(../public/dots.svg)] py-4;
 }
 
+.hipo-how-it-works-card-template {
+    @apply mx-auto flex w-full flex-col items-center justify-between gap-6 p-4 text-start md:max-w-full md:px-8;
+}
+
 .hipo-how-it-works-card-title {
-    @apply text-start text-[32px] font-bold text-white;
+    @apply text-start text-[24px] font-bold text-white md:text-[32px];
 }
 
 .hipo-how-it-works-card-text {
-    @apply text-start text-[22px] font-normal text-white;
+    @apply text-start text-[18px] font-normal text-white md:text-[22px];
 }
 
-.hipo-audits-card-bg {
+.hipo-audits-card {
     @apply mx-auto h-full w-full;
 }
 
-.hipo-audits-card-template {
+.hipo-audits-card-bg {
     @apply mx-auto flex h-full w-full flex-col items-center gap-6 rounded-lg border border-darkblue5 bg-gradient-to-t from-darkblue4 to-darkblue3 p-8 text-start md:max-w-full;
 }
 
-.hipo-why-hipo-card-bg {
+.hipo-audits-card-template {
+    @apply text-[20px];
+}
+
+.hipo-why-hipo-card {
     @apply mx-auto h-full w-full bg-[url(../public/card-bg-t.png)] bg-contain bg-no-repeat;
 }
 
-.hipo-why-hipo-card-template {
-    @apply mx-auto flex h-full w-full flex-col items-center gap-6 rounded-lg border border-darkblue5 px-16 py-8 text-start backdrop-blur-[113.5px] md:max-w-full;
+.hipo-why-hipo-card-bg {
+    @apply mx-auto flex h-full w-full flex-col items-center gap-6 rounded-lg border border-darkblue5 p-4 text-start backdrop-blur-[113.5px] md:max-w-full md:p-8;
 }
 
 .hipo-why-hipo-card-title {
-    @apply text-start text-[32px] font-medium text-white;
+    @apply text-start text-[24px] font-medium text-white md:text-[32px];
 }
 
 .hipo-why-hipo-card-text {
-    @apply text-start text-[24px] font-normal text-white;
+    @apply text-start text-[16px] font-normal text-white md:text-[24px];
 }
