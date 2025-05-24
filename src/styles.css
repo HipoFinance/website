@@ -11,7 +11,7 @@
 }
 
 .hipo-button-a {
-    @apply flex w-full place-content-center items-center rounded-xl border border-purple8 bg-gradient-to-t from-purple5 to-purple6 px-10 py-3 md:w-auto;
+    @apply flex w-full place-content-center items-center rounded-xl border border-purple8 bg-gradient-to-t from-purple5 to-purple6 px-4 py-3 md:w-auto md:px-10;
 }
 
 .hipo-button-label {
