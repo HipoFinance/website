@@ -27,7 +27,7 @@
 }
 
 .hipo-section {
-    @apply mx-auto mb-16 gap-4 px-4 md:mb-36 md:max-w-screen-xl md:gap-8 md:px-16;
+    @apply mx-auto mb-16 w-full max-w-[360px] gap-4 px-4 sm:max-w-screen-sm md:mb-36 md:max-w-screen-md md:gap-8 md:px-16;
 }
 
 .hipo-section-title {
@@ -42,12 +42,16 @@
     @apply text-start text-[16px] font-normal text-white md:text-[24px];
 }
 
+.hipo-card {
+    @apply mx-auto h-full w-full max-w-[360px] sm:max-w-full;
+}
+
 .hipo-cards-list {
-    @apply flex w-full flex-col items-center gap-4 md:grid md:max-w-screen-md md:grid-cols-2 md:grid-rows-2 md:px-16;
+    @apply flex w-full flex-col items-center gap-4 sm:grid sm:grid-cols-2 sm:grid-rows-2 md:max-w-screen-xl;
 }
 
 .hipo-how-it-works-card {
-    @apply h-full rounded-2xl border border-darkblue5 bg-gradient-to-t from-darkblue4 to-darkblue3 p-2;
+    @apply hipo-card rounded-2xl border border-darkblue5 bg-gradient-to-t from-darkblue4 to-darkblue3 p-2;
 }
 
 .hipo-how-it-works-card-bg {
@@ -67,7 +71,7 @@
 }
 
 .hipo-audits-card {
-    @apply mx-auto h-full w-full;
+    @apply hipo-card;
 }
 
 .hipo-audits-card-bg {
@@ -79,7 +83,7 @@
 }
 
 .hipo-why-hipo-card {
-    @apply mx-auto h-full w-full bg-[url(../public/card-bg-t.png)] bg-contain bg-no-repeat;
+    @apply hipo-card bg-[url(../public/card-bg-t.png)] bg-contain bg-no-repeat;
 }
 
 .hipo-why-hipo-card-bg {

@@ -167,7 +167,7 @@
                 class="mx-auto mb-16 flex w-full flex-col items-start gap-8 px-8 text-left md:max-w-screen-xl md:px-16"
             >
                 <!-- Mobile version -->
-                <div class="md:hidden">
+                <div class="sm:hidden">
                     <div class="flex flex-col items-start gap-6">
                         <div class="text-[32px] font-bold">The #1 Most Profitable Liquid Staking on TON.</div>
                         <div class="mx-auto px-4">
@@ -190,12 +190,12 @@
                     </div>
                 </div>
                 <!-- Desktop version -->
-                <div class="hidden md:visible md:flex md:flex-row">
+                <div class="hidden sm:visible sm:flex sm:flex-row">
                     <div class="flex w-1/2 flex-col items-start gap-6">
-                        <div class="mb-16 text-[64px] font-bold leading-tight">
+                        <div class="mb-16 text-[48px] font-bold leading-tight md:text-[64px]">
                             The #1 Most Profitable Liquid Staking on TON.
                         </div>
-                        <div class="text-[24px] font-normal">
+                        <div class="text-[20px] font-normal md:text-[24px]">
                             Join <span class="text-purple9 font-bold">23,000+</span> TON holders earning passive income
                             with Hipo.
                         </div>
@@ -222,15 +222,15 @@
             <div class="hipo-section w-full min-w-[280px] text-sm font-bold md:max-w-screen-xl md:text-lg">
                 <div class="rounded-2xl border border-darkblue5 bg-gradient-to-t from-darkblue4 to-darkblue3 p-2">
                     <div class="mx-auto flex w-full flex-row bg-[url(../public/dots.svg)] py-6">
-                        <div class="mx-auto flex flex-col items-center gap-4">
+                        <div class="mx-auto flex w-2/7 flex-col items-center gap-4">
                             <img src="shild.svg" class="size-10" />
                             <p>Audited</p>
                         </div>
-                        <div class="mx-auto flex flex-col items-center gap-4">
+                        <div class="mx-auto flex w-2/7 flex-col items-center gap-4">
                             <img src="lockup.svg" class="size-10" />
                             <p>No Lockup</p>
                         </div>
-                        <div class="mx-auto flex flex-col items-center gap-4">
+                        <div class="mx-auto flex w-2/7 flex-col items-center gap-4">
                             <img src="star-shine.svg" class="size-10" />
                             <p>Top Rewards</p>
                         </div>
@@ -434,7 +434,7 @@
                     <p>Hipo’s Governance and Profit-Sharing Token!</p>
                 </div>
                 <div class="flex flex-row flex-wrap gap-2">
-                    <div class="mx-auto mb-8 max-w-xl md:w-5/12">
+                    <div class="mx-auto mb-8 max-w-xl sm:w-5/12">
                         <div class="flex flex-auto flex-col items-center">
                             <div class="mb-4 w-full">
                                 <gecko-coin-price-chart-widget
@@ -462,7 +462,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mx-auto md:w-5/12">
+                    <div class="mx-auto sm:w-5/12">
                         <div class="flex w-full flex-col items-start gap-6 px-2 text-start">
                             <div class="hipo-section-text">
                                 Become an HPO holder for revenue-sharing and decision-making in Hipo.
@@ -495,10 +495,10 @@
                         <p>Community of Hipo Believers</p>
                     </div>
                     <div class="flex flex-row flex-wrap items-center gap-4">
-                        <div class="mx-auto mb-8 items-center md:w-5/12">
-                            <img class="mx-auto size-24 md:size-48" src="hpo.svg" />
+                        <div class="mx-auto mb-8 items-center sm:w-5/12">
+                            <img class="mx-auto size-24 sm:size-36 md:size-48" src="hpo.svg" />
                         </div>
-                        <div class="mx-auto md:w-5/12">
+                        <div class="mx-auto sm:w-5/12">
                             <div class="flex w-full flex-col items-start gap-6 px-2 text-start">
                                 <div class="hipo-section-text">
                                     Earn HPO by staking in Hipo, and become part of the Hipo community of HPO holders.
@@ -523,16 +523,13 @@
             </div>
 
             <!-- Why Hipo? -->
-            <div
-                id="why-hipo"
-                class="hipo-section flex w-full flex-col items-center gap-4 px-8 text-center md:max-w-screen-xl md:px-36"
-            >
+            <div id="why-hipo" class="hipo-section flex w-full flex-col items-center text-center">
                 <div class="hipo-section-title">Why Hipo?</div>
                 <div class="hipo-section-summary mb-10">
                     <p>Building the Future of TON Staking, Together!</p>
                 </div>
 
-                <div class="flex w-full flex-col items-center gap-4 md:grid md:grid-cols-2 md:grid-rows-2">
+                <div class="hipo-cards-list">
                     <div class="hipo-why-hipo-card">
                         <div class="hipo-why-hipo-card-bg">
                             <div class="flex w-full flex-row items-center gap-2">
@@ -585,12 +582,22 @@
 
             <!-- Footer -->
             <div class="hipo-section px-4 md:max-w-screen-xl md:px-8">
-                <div class="mb-8 w-full">
+                <div class="mb-16 w-full">
                     <div class="h-px w-full border-2 border-t border-purple6 border-opacity-50"></div>
                 </div>
 
-                <div class="mb-16 w-full px-16 text-lg md:grid md:grid-flow-col md:grid-cols-4">
-                    <div class="mb-12 flex w-full flex-col gap-2 text-left">
+                <div class="mb-16 w-full gap-4 text-lg md:flex md:flex-row md:px-16">
+                    <div class="mb-12 w-full flex-col justify-center md:w-2/5 md:px-16">
+                        <div class="mx-auto mb-8 flex w-full flex-row items-center justify-center gap-4">
+                            <img class="size-16" src="hipo.svg" />
+                            <div class="font-eczar text-[28px] text-white">HIPO</div>
+                        </div>
+                        <p class="text-start text-[18px] text-white">
+                            Hipo is an open-source liquid staking protocol with one of the most engaged communities on
+                            TON.
+                        </p>
+                    </div>
+                    <div class="mb-12 flex w-full flex-col gap-2 text-left md:w-1/5">
                         <div class="font-bold">Social</div>
                         <a href="https://t.me/HipoFinance" target="hipo_telegram">Telegram</a>
                         <a href="https://twitter.com/hipofinance" target="hipo_twitter">Twitter</a>
@@ -598,23 +605,17 @@
                         <a href="https://medium.com/@hipofinance" target="hipo_blog">Blog</a>
                     </div>
 
-                    <div class="mb-12 flex w-full flex-col gap-2 text-left">
+                    <div class="mb-12 flex w-full flex-col gap-2 text-left md:w-1/5">
                         <div class="font-bold">Community</div>
                         <a href="https://t.me/hipo_chat" target="hipo_chat">Hipo Chat</a>
                         <a href="https://t.me/Hipo_hub" target="hipo_hub">Hipo Hub</a>
                     </div>
 
-                    <div class="mb-12 flex w-full flex-col gap-2 text-left">
+                    <div class="mb-12 flex w-full flex-col gap-2 text-left md:w-1/5">
                         <div class="font-bold">Docs</div>
                         <a href="https://github.com/HipoFinance" target="hipo_github">GitHub</a>
                         <a href="https://docs.hipo.finance/" target="hipo_docs">Documentation</a>
                         <a href="https://hpo.hipo.finance/" target="hipo_hpo">HPO</a>
-                    </div>
-                </div>
-
-                <div class="relative mb-4 w-full px-4">
-                    <div class="absolute -top-10">
-                        <div class="font-eczar text-2xl text-white">Hipo</div>
                     </div>
                 </div>
 
