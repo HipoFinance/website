@@ -7,55 +7,55 @@
 }
 
 .hipo-app-button-a {
-    @apply flex w-full place-content-center items-center rounded-xl border border-purple8 bg-gradient-to-t from-purple5 to-purple6 px-6 py-2 md:w-auto;
+    @apply flex w-full place-content-center items-center rounded-xl border border-purple8 bg-gradient-to-t from-purple5 to-purple6 px-6 py-2 lg:w-auto;
 }
 
 .hipo-button-a {
-    @apply flex w-full place-content-center items-center rounded-xl border border-purple8 bg-gradient-to-t from-purple5 to-purple6 px-4 py-3 md:w-auto md:px-10;
+    @apply flex w-full place-content-center items-center rounded-xl border border-purple8 bg-gradient-to-t from-purple5 to-purple6 px-4 py-3 lg:w-auto lg:px-10;
 }
 
 .hipo-button-label {
-    @apply w-full text-[24px] font-medium md:w-auto;
+    @apply w-full text-[18px] lg:text-[24px] font-medium lg:w-auto;
 }
 
 .hipo-learn-more-link-text {
-    @apply text-purple9 text-start text-[24px] font-medium;
+    @apply text-purple9 text-start text-[18px] lg:text-[24px] font-medium;
 }
 
 .hipo-see-report-link-text {
-    @apply text-purple9 text-start text-[18px] font-medium;
+    @apply text-purple9 text-start text-[14px] lg:text-[18px] font-medium;
 }
 
 .hipo-section {
-    @apply mx-auto mb-16 w-full max-w-[360px] gap-4 px-4 sm:max-w-screen-sm md:mb-36 md:max-w-screen-md md:gap-8 md:px-16;
+    @apply mx-auto mb-16 w-full max-w-[480px] gap-4 px-4 sm:max-w-screen-sm md:max-w-screen-xl md:mb-36 md:gap-8 md:px-16;
 }
 
 .hipo-section-side-touched {
-    @apply mb-16 w-screen min-w-[360px] gap-4 md:mb-36 md:gap-8;
+    @apply mb-16 w-screen min-w-[360px] gap-4 lg:mb-36 lg:gap-8;
 }
 
 .hipo-section-title {
-    @apply text-center text-[36px] font-black text-purple6 md:text-[55px];
+    @apply text-center text-[36px] font-black text-purple6 lg:text-[55px];
 }
 
 .hipo-section-summary {
-    @apply mb-10 text-center text-[20px] font-normal text-white md:mb-20 md:text-[40px];
+    @apply mb-10 text-center text-[20px] font-normal text-white md:mb-20 lg:text-[40px];
 }
 
 .hipo-section-text {
-    @apply text-start text-[16px] font-normal text-white md:text-[24px];
-}
-
-.hipo-card {
-    @apply mx-auto h-full w-full max-w-[360px] sm:max-w-full;
+    @apply text-start text-[16px] font-normal text-white lg:text-[24px];
 }
 
 .hipo-cards-list {
-    @apply flex w-full flex-col items-center gap-4 sm:grid sm:grid-cols-2 sm:grid-rows-2 md:max-w-screen-xl;
+    @apply grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:max-w-screen-xl lg:px-16;
+}
+
+.hipo-card {
+    @apply mx-auto h-full w-full max-w-[360px] sm:max-w-none;
 }
 
 .hipo-how-it-works-card {
-    @apply hipo-card rounded-2xl border border-darkblue5 bg-gradient-to-t from-darkblue4 to-darkblue3 p-2;
+    @apply hipo-card rounded-2xl border border-darkblue5 bg-gradient-to-t from-darkblue4 to-darkblue3 p-2 transition-transform hover:scale-[1.02];
 }
 
 .hipo-how-it-works-card-bg {
@@ -63,23 +63,23 @@
 }
 
 .hipo-how-it-works-card-template {
-    @apply mx-auto flex w-full flex-col items-center justify-between gap-6 p-4 text-start md:max-w-full md:px-8;
+    @apply mx-auto flex w-full flex-col items-center justify-between gap-4 p-4 text-start md:max-w-full md:px-6;
 }
 
 .hipo-how-it-works-card-title {
-    @apply text-start text-[24px] font-bold text-white md:text-[32px];
+    @apply text-start text-[24px] font-bold text-white lg:text-[32px];
 }
 
 .hipo-how-it-works-card-text {
-    @apply text-start text-[18px] font-normal text-white md:text-[22px];
+    @apply text-start text-[18px] font-normal text-white lg:text-[22px];
 }
 
 .hipo-audits-card {
-    @apply hipo-card;
+    @apply hipo-card transition-transform hover:scale-[1.02];
 }
 
 .hipo-audits-card-bg {
-    @apply mx-auto flex h-full w-full flex-col items-center gap-6 rounded-lg border border-darkblue5 bg-gradient-to-t from-darkblue4 to-darkblue3 p-8 text-start md:max-w-full;
+    @apply mx-auto flex h-full w-full flex-col items-center gap-4 rounded-lg border border-darkblue5 bg-gradient-to-t from-darkblue4 to-darkblue3 p-6 text-start md:max-w-full;
 }
 
 .hipo-audits-card-template {
@@ -87,17 +87,17 @@
 }
 
 .hipo-why-hipo-card {
-    @apply hipo-card bg-[url(../public/card-bg-t.png)] bg-contain bg-no-repeat;
+    @apply hipo-card bg-[url(../public/card-bg-t.png)] bg-contain bg-no-repeat transition-transform hover:scale-[1.02];
 }
 
 .hipo-why-hipo-card-bg {
-    @apply mx-auto flex h-full w-full flex-col items-center gap-6 rounded-lg border border-darkblue5 p-4 text-start backdrop-blur-[113.5px] md:max-w-full md:p-8;
+    @apply mx-auto flex h-full w-full flex-col items-center gap-4 rounded-lg border border-darkblue5 p-4 text-start backdrop-blur-[113.5px] md:max-w-max md:p-6;
 }
 
 .hipo-why-hipo-card-title {
-    @apply text-start text-[24px] font-medium text-white md:text-[32px];
+    @apply text-start text-[24px] font-medium text-white lg:text-[32px];
 }
 
 .hipo-why-hipo-card-text {
-    @apply text-start text-[16px] font-normal text-white md:text-[24px];
+    @apply text-start text-[16px] font-normal text-white lg:text-[24px];
 }
