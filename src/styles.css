@@ -30,6 +30,10 @@
     @apply mx-auto mb-16 w-full max-w-[360px] gap-4 px-4 sm:max-w-screen-sm md:mb-36 md:max-w-screen-md md:gap-8 md:px-16;
 }
 
+.hipo-section-side-touched {
+    @apply mb-16 w-screen min-w-[360px] gap-4 md:mb-36 md:gap-8;
+}
+
 .hipo-section-title {
     @apply text-center text-[36px] font-black text-purple6 md:text-[55px];
 }
