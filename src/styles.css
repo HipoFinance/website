@@ -39,7 +39,7 @@
 }
 
 .hipo-section-summary {
-    @apply mb-10 text-center text-[20px] font-normal text-white md:mb-20 lg:text-[40px];
+    @apply text-center text-[20px] font-normal text-white lg:text-[40px];
 }
 
 .hipo-section-text {
@@ -100,4 +100,16 @@
 
 .hipo-why-hipo-card-text {
     @apply text-start text-[16px] font-normal text-white lg:text-[24px];
+}
+
+.hipo-footer-column {
+    @apply mb-12 flex w-full flex-col gap-2 text-left md:w-1/5;
+}
+
+.hipo-footer-group {
+    @apply font-bold py-5 text-[20px];
+}
+
+.hipo-footer-item {
+    @apply text-white text-[20px];
 }
