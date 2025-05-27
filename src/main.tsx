@@ -64,7 +64,7 @@ function updateHpoData() {
 }
 
 function formatCompact1Fraction(n: number): string {
-    return n.toLocaleString(undefined, { notation: 'compact', maximumFractionDigits: 1 })
+    return n.toLocaleString('en-US', { notation: 'compact', maximumFractionDigits: 1 })
 }
 
 createRoot(document.getElementById('root')!).render(
