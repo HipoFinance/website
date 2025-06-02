@@ -23,7 +23,7 @@
         <link href="./src/styles.css" rel="stylesheet" />
         <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     </head>
-    <body class="font-poppins bg-darkblue2 text-gray1">
+    <body class="bg-darkblue2 font-poppins text-gray1">
         <div
             id="toast"
             class="fixed left-1/2 top-4 z-50 -translate-x-1/2 transform rounded-lg bg-purple-300 px-4 py-2 text-sm font-medium text-black opacity-0 shadow-md transition-opacity duration-500"
@@ -31,8 +31,7 @@
             This is a toast message!
         </div>
 
-        <div class="mx-auto min-w-[360px] bg-background bg-fixed py-4 text-center lg:py-16 md:py-8">
-
+        <div class="mx-auto min-w-[360px] bg-background bg-fixed py-4 text-center md:py-8 lg:py-16">
             <!-- Menu -->
             <div class="mx-auto mb-10 px-8 md:mb-16 md:max-w-screen-xl md:px-16">
                 <div class="flex w-full flex-row items-center">
@@ -46,7 +45,7 @@
                         </a>
                     </div>
 
-                    <nav class="flex grow flex-col items-end shadow-md px-2">
+                    <nav class="flex grow flex-col items-end px-2 shadow-md">
                         <div class="text-bold flex flex-row md:mx-auto md:text-[18px]">
                             <!-- Hamburger button (shown on mobile) -->
                             <button
@@ -71,7 +70,7 @@
                                 </svg>
                             </button>
 
-                            <ul id="menu" class="hidden space-x-6 pb-2 pt-6 md:flex font-bold">
+                            <ul id="menu" class="hidden space-x-6 pb-2 pt-6 font-bold md:flex">
                                 <li>
                                     <a href="#how-it-works" class="hover:text-purple-500">How it works</a>
                                 </li>
@@ -164,9 +163,7 @@
             </div>
 
             <!-- Title -->
-            <div
-                class="hipo-section flex flex-col items-start gap-8 px-8 text-left md:max-w-screen-xl md:px-16"
-            >
+            <div class="hipo-section flex flex-col items-start gap-8 px-8 text-left md:max-w-screen-xl md:px-16">
                 <!-- Mobile version -->
                 <div class="sm:hidden">
                     <div class="flex flex-col items-start gap-6">
@@ -175,7 +172,7 @@
                             <img class="size-64" src="hipo-bank.webp" alt="Hipo Bank Illustration" />
                         </div>
                         <div class="text-lg">
-                            Join <span class="text-purple9 font-bold">23,000+</span> TON holders earning passive income
+                            Join <span class="font-bold text-purple9">23,000+</span> TON holders earning passive income
                             with Hipo.
                         </div>
                         <div class="hipo-button-div">
@@ -197,7 +194,7 @@
                             The #1 Most Profitable Liquid Staking on TON.
                         </div>
                         <div class="text-[20px] font-normal md:text-[24px]">
-                            Join <span class="text-purple9 font-bold">23,000+</span> TON holders earning passive income
+                            Join <span class="font-bold text-purple9">23,000+</span> TON holders earning passive income
                             with Hipo.
                         </div>
                         <div class="hipo-button-div">
@@ -582,66 +579,63 @@
             </div>
 
             <!-- Footer -->
-            <div class='hipo-section px-4 md:max-w-screen-xl md:px-8 text-start'>
+            <div class="hipo-footer text-start">
                 <div class="mb-16 w-full">
                     <div class="h-px w-full border-2 border-t border-purple6 border-opacity-50"></div>
                 </div>
 
-                <div class='mx-auto flex w-full max-w-screen-lg flex-col justify-center px-8 py-8 sm:flex sm:flex-row-reverse sm:items-start sm:px-0'>
-                    <div class='mx-auto flex flex-row flex-wrap'>
-                        <div class='mx-8 my-4'>
-                            <h3 class='font-bold text-purple9 dark:text-brown'>Social</h3>
-                            <a class='my-4 block text-sm' href='https://t.me/HipoFinance' target='hipo_telegram'>
+                <div
+                    class="mx-auto flex w-full max-w-screen-lg flex-col justify-center gap-4 py-8 sm:flex sm:flex-row-reverse sm:items-start sm:px-0"
+                >
+                    <div class="mx-auto flex flex-row flex-wrap">
+                        <div class="mx-8 my-4">
+                            <h3 class="font-bold text-purple9">Social</h3>
+                            <a class="my-4 block text-sm" href="https://t.me/HipoFinance" target="hipo_telegram">
                                 Telegram
                             </a>
-                            <a class='my-4 block text-sm' href='https://twitter.com/hipofinance' target='hipo_twitter'>
+                            <a class="my-4 block text-sm" href="https://twitter.com/hipofinance" target="hipo_twitter">
                                 Twitter
                             </a>
                             <a
-                                class='my-4 block text-sm'
-                                href='https://www.youtube.com/@HipoFinance'
-                                target='hipo_youtube'
+                                class="my-4 block text-sm"
+                                href="https://www.youtube.com/@HipoFinance"
+                                target="hipo_youtube"
                             >
                                 YouTube
                             </a>
-                            <a class='my-4 block text-sm' href='https://medium.com/@hipofinance' target='hipo_blog'>
+                            <a class="my-4 block text-sm" href="https://medium.com/@hipofinance" target="hipo_blog">
                                 Blog
                             </a>
                         </div>
-    
-                        <div class='mx-8 my-4'>
-                            <h3 class='font-bold text-purple9 dark:text-brown'>Community</h3>
-                            <a class='my-4 block text-sm' href='https://t.me/hipo_chat' target='hipo_chat'>
+
+                        <div class="mx-8 my-4">
+                            <h3 class="font-bold text-purple9">Community</h3>
+                            <a class="my-4 block text-sm" href="https://t.me/hipo_chat" target="hipo_chat">
                                 Hipo Chat
                             </a>
-                            <a class='my-4 block text-sm' href='https://t.me/Hipo_hub' target='hipo_hub'>
-                                Hipo Hub
-                            </a>
+                            <a class="my-4 block text-sm" href="https://t.me/Hipo_hub" target="hipo_hub"> Hipo Hub </a>
                         </div>
-    
-                        <div class='mx-8 my-4'>
-                            <h3 class='font-bold text-purple9 dark:text-brown'>Docs</h3>
-                            <a class='my-4 block text-sm' href='https://github.com/HipoFinance' target='hipo_github'>
+
+                        <div class="mx-8 my-4">
+                            <h3 class="font-bold text-purple9">Docs</h3>
+                            <a class="my-4 block text-sm" href="https://github.com/HipoFinance" target="hipo_github">
                                 GitHub
                             </a>
-                            <a class='my-4 block text-sm' href='https://docs.hipo.finance/' target='hipo_docs'>
+                            <a class="my-4 block text-sm" href="https://docs.hipo.finance/" target="hipo_docs">
                                 Documentation
                             </a>
-                            <a class='my-4 block text-sm' href='https://hpo.hipo.finance/' target='hipo_hpo'>
-                                HPO
-                            </a>
+                            <a class="my-4 block text-sm" href="https://hpo.hipo.finance/" target="hipo_hpo"> HPO </a>
                         </div>
                     </div>
-    
-                    <div class='mx-auto flex max-w-96 flex-col gap-4 px-8 pb-16 sm:w-1/2'>
-                        <div
-                            class='flex select-none flex-row items-center gap-8 font-eczar text-2xl dark:text-purple9'
-                        >
-                            <img src="hipo.svg" class='-mr-3 mb-2 h-16 dark:hidden' />
+
+                    <div class="mx-auto flex w-full flex-col gap-4 px-8 pb-16 sm:w-1/2 md:max-w-96">
+                        <div class="flex select-none flex-row items-center gap-8 font-eczar text-2xl">
+                            <img src="hipo.svg" class="-mr-3 mb-2 h-16" />
                             <p>Hipo</p>
                         </div>
                         <p>
-                            Hipo is an open-source liquid staking protocol with one of the most engaged communities on TON.
+                            Hipo is an open-source liquid staking protocol with one of the most engaged communities on
+                            TON.
                         </p>
                     </div>
                 </div>
