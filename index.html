@@ -582,46 +582,74 @@
             </div>
 
             <!-- Footer -->
-            <div class="hipo-section px-4 md:max-w-screen-xl md:px-8">
+            <div class='hipo-section px-4 md:max-w-screen-xl md:px-8 text-start'>
                 <div class="mb-16 w-full">
                     <div class="h-px w-full border-2 border-t border-purple6 border-opacity-50"></div>
                 </div>
 
-                <div class="mb-16 w-full gap-4 text-lg md:flex md:flex-row lg:px-16">
-                    <div class="mb-12 w-full flex-col justify-center md:w-2/5 lg:px-16">
-                        <div class="mx-auto mb-8 flex w-full flex-row items-center justify-start md:justify-center gap-4">
-                            <img class="size-16" src="hipo.svg" alt="Hipo Logo" />
-                            <div class="font-eczar text-[28px] text-white">HIPO</div>
+                <div class='mx-auto flex w-full max-w-screen-lg flex-col justify-center px-8 py-8 sm:flex sm:flex-row-reverse sm:items-start sm:px-0'>
+                    <div class='mx-auto flex flex-row flex-wrap'>
+                        <div class='mx-8 my-4'>
+                            <h3 class='font-bold text-purple9 dark:text-brown'>Social</h3>
+                            <a class='my-4 block text-sm' href='https://t.me/HipoFinance' target='hipo_telegram'>
+                                Telegram
+                            </a>
+                            <a class='my-4 block text-sm' href='https://twitter.com/hipofinance' target='hipo_twitter'>
+                                Twitter
+                            </a>
+                            <a
+                                class='my-4 block text-sm'
+                                href='https://www.youtube.com/@HipoFinance'
+                                target='hipo_youtube'
+                            >
+                                YouTube
+                            </a>
+                            <a class='my-4 block text-sm' href='https://medium.com/@hipofinance' target='hipo_blog'>
+                                Blog
+                            </a>
                         </div>
-                        <p class="text-start text-[18px] text-white">
-                            Hipo is an open-source liquid staking protocol with one of the most engaged communities on
-                            TON.
+    
+                        <div class='mx-8 my-4'>
+                            <h3 class='font-bold text-purple9 dark:text-brown'>Community</h3>
+                            <a class='my-4 block text-sm' href='https://t.me/hipo_chat' target='hipo_chat'>
+                                Hipo Chat
+                            </a>
+                            <a class='my-4 block text-sm' href='https://t.me/Hipo_hub' target='hipo_hub'>
+                                Hipo Hub
+                            </a>
+                        </div>
+    
+                        <div class='mx-8 my-4'>
+                            <h3 class='font-bold text-purple9 dark:text-brown'>Docs</h3>
+                            <a class='my-4 block text-sm' href='https://github.com/HipoFinance' target='hipo_github'>
+                                GitHub
+                            </a>
+                            <a class='my-4 block text-sm' href='https://docs.hipo.finance/' target='hipo_docs'>
+                                Documentation
+                            </a>
+                            <a class='my-4 block text-sm' href='https://hpo.hipo.finance/' target='hipo_hpo'>
+                                HPO
+                            </a>
+                        </div>
+                    </div>
+    
+                    <div class='mx-auto flex max-w-96 flex-col gap-4 px-8 pb-16 sm:w-1/2'>
+                        <div
+                            class='flex select-none flex-row items-center gap-8 font-eczar text-2xl dark:text-purple9'
+                        >
+                            <img src="hipo.svg" class='-mr-3 mb-2 h-16 dark:hidden' />
+                            <p>Hipo</p>
+                        </div>
+                        <p>
+                            Hipo is an open-source liquid staking protocol with one of the most engaged communities on TON.
                         </p>
                     </div>
-                    <div class="hipo-footer-column">
-                        <div class="hipo-footer-group">Social</div>
-                        <a class="hipo-footer-item" href="https://t.me/HipoFinance" target="hipo_telegram">Telegram</a>
-                        <a class="hipo-footer-item" href="https://twitter.com/hipofinance" target="hipo_twitter">Twitter</a>
-                        <a class="hipo-footer-item" href="https://www.youtube.com/@HipoFinance" target="hipo_youtube">YouTube</a>
-                        <a class="hipo-footer-item" href="https://medium.com/@hipofinance" target="hipo_blog">Blog</a>
-                    </div>
-
-                    <div class="hipo-footer-column">
-                        <div class="hipo-footer-group">Community</div>
-                        <a class="hipo-footer-item" href="https://t.me/hipo_chat" target="hipo_chat">Hipo Chat</a>
-                        <a class="hipo-footer-item" href="https://t.me/Hipo_hub" target="hipo_hub">Hipo Hub</a>
-                    </div>
-
-                    <div class="hipo-footer-column">
-                        <div class="hipo-footer-group">Docs</div>
-                        <a class="hipo-footer-item" href="https://github.com/HipoFinance" target="hipo_github">GitHub</a>
-                        <a class="hipo-footer-item" href="https://docs.hipo.finance/" target="hipo_docs">Documentation</a>
-                        <a class="hipo-footer-item" href="https://hpo.hipo.finance/" target="hipo_hpo">HPO</a>
-                    </div>
                 </div>
-
-                <div class="">Hipo &copy; 2025</div>
             </div>
+
+
+
+
         </div>
         <div id="root"></div>
         <script type="module" src="/src/main.tsx"></script>
