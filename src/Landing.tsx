@@ -9,7 +9,7 @@ const Landing = observer(({ model }: Props) => {
     return (
         <div className='mx-auto min-w-[360px] bg-background bg-fixed py-4 text-center md:py-8 lg:py-16'>
             {/* <!-- Title --> */}
-            <div className='hipo-section flex flex-col items-start gap-8 text-left md:max-w-screen-xl'>
+            <div className='hipo-section flex flex-col items-start gap-8 text-left md:max-w-screen-lg'>
                 {/* <!-- Mobile version --> */}
                 <div className='sm:hidden'>
                     <div className='flex flex-col items-start gap-6'>
@@ -63,7 +63,7 @@ const Landing = observer(({ model }: Props) => {
             </div>
 
             {/* <!-- Highlights --> */}
-            <div className='hipo-section w-full min-w-[280px] text-sm font-bold md:max-w-screen-xl md:text-lg'>
+            <div className='hipo-section w-full min-w-[280px] text-sm font-bold md:max-w-screen-lg md:text-lg'>
                 <div className='rounded-2xl border border-darkblue5 bg-gradient-to-t from-darkblue4 to-darkblue3 p-2'>
                     <div className='mx-auto flex w-full flex-row bg-[url(/dots.svg)] py-6'>
                         <div className='mx-auto flex w-2/7 flex-col items-center gap-4'>
@@ -83,7 +83,7 @@ const Landing = observer(({ model }: Props) => {
             </div>
 
             {/* <!-- How Hipo works --> */}
-            <div id='how-it-works' className='hipo-section flex flex-col items-center text-center'>
+            <div id='how-it-works' className='hipo-section flex flex-col items-center text-center md:max-w-screen-lg'>
                 <div className='hipo-section-title'>How Hipo works</div>
                 <div className='hipo-section-summary'>
                     <p>Stake any amount of TON and</p>
@@ -98,7 +98,7 @@ const Landing = observer(({ model }: Props) => {
                                 <div className='hipo-how-it-works-card-text w-full grow pb-4'>
                                     Deposit your TON into Hipo to earn the highest staking rewards in the market.
                                 </div>
-                                <div className='mx-auto w-full'>
+                                <div className='mx-auto'>
                                     <img className='size-16 lg:size-28' src='ton.svg' alt='TON Token Icon' />
                                 </div>
                             </div>
@@ -113,7 +113,7 @@ const Landing = observer(({ model }: Props) => {
                                     Get hTON representing your staked TON. Its value grows as staking rewards
                                     accumulate, and you can use it across DeFi.
                                 </div>
-                                <div className='mx-auto w-full'>
+                                <div className='mx-auto'>
                                     <img className='size-16 lg:size-28' src='hton.svg' alt='hTON Token Icon' />
                                 </div>
                             </div>
@@ -125,9 +125,9 @@ const Landing = observer(({ model }: Props) => {
                             <div className='hipo-how-it-works-card-template'>
                                 <div className='hipo-how-it-works-card-title w-full'>3. Earn Bonus HPO</div>
                                 <div className='hipo-how-it-works-card-text w-full grow pb-4'>
-                                    Enjoy extra rewards in HPO — Hipo's governance and profit-sharing token.
+                                    Enjoy extra rewards in HPO — Hipo&apos;s governance and profit-sharing token.
                                 </div>
-                                <div className='mx-auto w-full'>
+                                <div className='mx-auto'>
                                     <img className='size-16 lg:size-28' src='hpo.svg' alt='HPO Token Icon' />
                                 </div>
                             </div>
@@ -139,10 +139,10 @@ const Landing = observer(({ model }: Props) => {
                             <div className='hipo-how-it-works-card-template'>
                                 <div className='hipo-how-it-works-card-title w-full'>4. Unstake Anytime</div>
                                 <div className='hipo-how-it-works-card-text w-full grow pb-4'>
-                                    Return your hTON whenever you want. You'll receive TON plus your accumulated staking
-                                    rewards.
+                                    Return your hTON whenever you want. You&apos;ll receive TON plus your accumulated
+                                    staking rewards.
                                 </div>
-                                <div className='mx-auto w-full'>
+                                <div className='mx-auto'>
                                     <div className='flex flex-row items-center gap-4 text-3xl'>
                                         <img className='size-16 lg:size-28' src='ton.svg' alt='TON Token Icon' />+
                                         <div className='flex flex-row items-center gap-2'>
@@ -158,7 +158,7 @@ const Landing = observer(({ model }: Props) => {
             </div>
 
             {/* <!-- Hipo Security Audits --> */}
-            <div id='audits' className='hipo-section flex w-full flex-col items-center text-center'>
+            <div id='audits' className='hipo-section flex w-full flex-col items-center text-center md:max-w-screen-lg'>
                 <div className='hipo-section-title'>Hipo Security Audits</div>
                 <div className='hipo-section-summary'>
                     <p>One of the most rigorously tested smart contracts in the TON ecosystem.</p>
@@ -268,16 +268,13 @@ const Landing = observer(({ model }: Props) => {
             </div>
 
             {/* <!-- HPO  --> */}
-            <div
-                id='hpo'
-                className='hipo-section flex flex-col items-center gap-8 px-8 text-center md:max-w-screen-xl md:px-16'
-            >
+            <div id='hpo' className='hipo-section flex flex-col items-center gap-8 text-center md:max-w-screen-lg'>
                 <div className='hipo-section-title'>HPO</div>
                 <div className='hipo-section-summary'>
-                    <p>Hipo's Governance and Profit-Sharing Token!</p>
+                    <p>Hipo&apos;s Governance and Profit-Sharing Token!</p>
                 </div>
                 <div className='flex flex-row flex-wrap gap-2'>
-                    <div className='mx-auto mb-8 max-w-xl sm:w-5/12'>
+                    <div className='mx-auto mb-8 w-full sm:w-5/12'>
                         <div className='flex flex-auto flex-col items-center'>
                             <div className='mb-4 w-full'>
                                 <gecko-coin-price-chart-widget
