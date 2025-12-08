@@ -31,6 +31,13 @@ export default {
                 darkblue5: '#3e337d',
                 gray1: '#dedbe4',
                 background: '#02031e',
+                c1: '#b8aa9c',
+                c2: '#71665f',
+                c3: '#f4f1ed',
+                c4: '#f2ebfb',
+                c5: '#ccccff',
+                c6: '#7e22ce',
+                c7: '#0e0e0e',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

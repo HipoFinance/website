@@ -27,7 +27,7 @@
 }
 
 .hipo-section {
-    @apply mx-auto mb-16 w-full max-w-[480px] gap-4 px-4 sm:max-w-screen-sm md:mb-36 md:max-w-screen-xl md:gap-8 md:px-16;
+    @apply mx-auto mb-16 w-full max-w-screen-xl gap-4 px-4 sm:max-w-screen-sm md:mb-36 md:max-w-screen-xl md:gap-8;
 }
 
 .hipo-section-side-touched {
@@ -47,7 +47,7 @@
 }
 
 .hipo-footer {
-    @apply mx-auto mb-16 w-full gap-4 px-4 sm:max-w-screen-sm md:mb-36 md:max-w-screen-xl md:gap-8 md:px-16;
+    @apply mx-auto mb-16 w-full gap-4 px-4 sm:max-w-screen-sm md:mb-36 md:max-w-screen-xl md:gap-8;
 }
 
 .hipo-cards-list {
@@ -63,7 +63,7 @@
 }
 
 .hipo-how-it-works-card-bg {
-    @apply mx-auto flex h-full w-full flex-row bg-[url(../public/dots.svg)] py-4;
+    @apply mx-auto flex h-full w-full flex-row bg-[url(/dots.svg)] py-4;
 }
 
 .hipo-how-it-works-card-template {
@@ -91,7 +91,7 @@
 }
 
 .hipo-why-hipo-card {
-    @apply hipo-card bg-[url(../public/card-bg-t.png)] bg-contain bg-no-repeat transition-transform hover:scale-[1.02];
+    @apply hipo-card bg-[url(/card-bg-t.png)] bg-contain bg-no-repeat transition-transform hover:scale-[1.02];
 }
 
 .hipo-why-hipo-card-bg {
