@@ -274,7 +274,7 @@ const Landing = observer(({ model }: Props) => {
                     <p>Hipo&apos;s Governance and Profit-Sharing Token!</p>
                 </div>
                 <div className='flex flex-row flex-wrap gap-2'>
-                    <div className='mx-auto mb-8 w-full sm:w-5/12'>
+                    <div className='mx-auto mb-8 max-w-xl sm:w-5/12'>
                         <div className='flex flex-auto flex-col items-center'>
                             <div className='mb-4 w-full'>
                                 <gecko-coin-price-chart-widget
