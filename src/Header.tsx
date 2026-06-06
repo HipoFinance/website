@@ -16,7 +16,7 @@ const Header = observer(({ model }: Props) => {
                                 <div className='text-c7'>
                                     <div className='flex flex-col items-center gap-1 md:hidden'>
                                         <div>
-                                            💰 <b>Earn 100% of staking rewards</b>
+                                            💰 <b>Earn 100% of staking rewards</b>.
                                         </div>
                                         <div>Protocol fee is now 0%.</div>
                                     </div>
