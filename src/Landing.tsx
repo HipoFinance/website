@@ -99,7 +99,7 @@ const Landing = observer(({ model }: Props) => {
                                     Deposit your GRAM into Hipo to earn the highest staking rewards in the market.
                                 </div>
                                 <div className='mx-auto'>
-                                    <img className='size-16 lg:size-28' src='ton.svg' alt='GRAM Token Icon' />
+                                    <img className='size-16 lg:size-28' src='gram.svg' alt='GRAM Token Icon' />
                                 </div>
                             </div>
                         </div>
@@ -144,10 +144,10 @@ const Landing = observer(({ model }: Props) => {
                                 </div>
                                 <div className='mx-auto'>
                                     <div className='flex flex-row items-center gap-4 text-3xl'>
-                                        <img className='size-16 lg:size-28' src='ton.svg' alt='TON Token Icon' />+
+                                        <img className='size-16 lg:size-28' src='gram.svg' alt='TON Token Icon' />+
                                         <div className='flex flex-row items-center gap-2'>
-                                            <img className='size-10 lg:size-16' src='ton.svg' alt='TON Token Icon' />
-                                            <img className='size-10 lg:size-16' src='ton.svg' alt='TON Token Icon' />
+                                            <img className='size-10 lg:size-16' src='gram.svg' alt='TON Token Icon' />
+                                            <img className='size-10 lg:size-16' src='gram.svg' alt='TON Token Icon' />
                                         </div>
                                     </div>
                                 </div>
