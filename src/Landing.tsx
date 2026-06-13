@@ -14,7 +14,7 @@ const Landing = observer(({ model }: Props) => {
                 <div className='sm:hidden'>
                     <div className='flex flex-col items-start gap-6'>
                         <div className='text-[32px] font-bold'>
-                            <h1>The #1 Most Profitable Liquid Staking on TON.</h1>
+                            <h1>The #1 Most Profitable GRAM Staking on TON.</h1>
                         </div>
                         <div className='mx-auto px-4'>
                             <img className='size-64' src='hipo-bank.webp' alt='Hipo Bank Illustration' />
@@ -41,7 +41,7 @@ const Landing = observer(({ model }: Props) => {
                 <div className='hidden sm:visible sm:flex sm:flex-row'>
                     <div className='flex w-1/2 flex-col items-start gap-6'>
                         <div className='mb-16 text-[48px] font-bold leading-tight md:text-[64px]'>
-                            <h1>The #1 Most Profitable Liquid Staking on TON.</h1>
+                            <h1>The #1 Most Profitable GRAM Staking on TON.</h1>
                         </div>
                         <div className='text-[20px] font-normal md:text-[24px]'>
                             <h2>
