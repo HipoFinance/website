@@ -114,13 +114,13 @@ const Landing = observer(({ model }: Props) => {
                     <div className='hipo-how-it-works-card'>
                         <div className='hipo-how-it-works-card-bg'>
                             <div className='hipo-how-it-works-card-template'>
-                                <div className='hipo-how-it-works-card-title w-full'>2. Get Liquid hTON</div>
+                                <div className='hipo-how-it-works-card-title w-full'>2. Get Liquid hGRAM</div>
                                 <div className='hipo-how-it-works-card-text w-full grow pb-4'>
-                                    Get hTON representing your staked GRAM. Its value grows as staking rewards
+                                    Get hGRAM representing your staked GRAM. Its value grows as staking rewards
                                     accumulate, and you can use it across DeFi.
                                 </div>
                                 <div className='mx-auto'>
-                                    <img className='size-16 lg:size-28' src='hton.svg' alt='hTON Token Icon' />
+                                    <img className='size-16 lg:size-28' src='hgram-3d.svg' alt='hGRAM Token Icon' />
                                 </div>
                             </div>
                         </div>
@@ -145,7 +145,7 @@ const Landing = observer(({ model }: Props) => {
                             <div className='hipo-how-it-works-card-template'>
                                 <div className='hipo-how-it-works-card-title w-full'>4. Unstake Anytime</div>
                                 <div className='hipo-how-it-works-card-text w-full grow pb-4'>
-                                    Return your hTON whenever you want. You&apos;ll receive GRAM plus your accumulated
+                                    Return your hGRAM whenever you want. You&apos;ll receive GRAM plus your accumulated
                                     staking rewards.
                                 </div>
                                 <div className='mx-auto'>

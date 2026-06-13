@@ -1,6 +1,6 @@
 # Hipo - Decentralized Liquid Staking on TON
 
-Hipo is a secure and decentralized platform that allows you to earn daily staking rewards while maintaining the flexibility to use your liquid GRAM tokens in the larger DeFi ecosystem. Stake any amount of GRAM and get hTON, which can be used for trading, providing liquidity, or further compounding your rewards across various DeFi protocols. Join Hipo today and experience the benefits of decentralized GRAM liquid staking.
+Hipo is a secure and decentralized platform that allows you to earn daily staking rewards while maintaining the flexibility to use your liquid GRAM tokens in the larger DeFi ecosystem. Stake any amount of GRAM and get hGRAM, which can be used for trading, providing liquidity, or further compounding your rewards across various DeFi protocols. Join Hipo today and experience the benefits of decentralized GRAM liquid staking.
 
 ## Getting Started
 
