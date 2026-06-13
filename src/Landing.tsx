@@ -14,7 +14,7 @@ const Landing = observer(({ model }: Props) => {
                 <div className='sm:hidden'>
                     <div className='flex flex-col items-start gap-6'>
                         <div className='text-[32px] font-bold'>
-                            <h1>The #1 Most Profitable GRAM Staking on TON.</h1>
+                            <h1>The #1 Most Profitable GRAM Staking on TON</h1>
                         </div>
                         <div className='mx-auto px-4'>
                             <img className='size-64' src='hipo-bank.webp' alt='Hipo Bank Illustration' />
@@ -22,7 +22,7 @@ const Landing = observer(({ model }: Props) => {
                         <div className='text-lg'>
                             <h2>
                                 Join <span className='font-bold text-purple9'>23,000+</span> GRAM holders earning
-                                passive income with Hipo.
+                                passive income with Hipo
                             </h2>
                         </div>
                         <div className='hipo-button-div'>
@@ -41,12 +41,12 @@ const Landing = observer(({ model }: Props) => {
                 <div className='hidden sm:visible sm:flex sm:flex-row'>
                     <div className='flex w-1/2 flex-col items-start gap-6'>
                         <div className='mb-16 text-[48px] font-bold leading-tight md:text-[64px]'>
-                            <h1>The #1 Most Profitable GRAM Staking on TON.</h1>
+                            <h1>The #1 Most Profitable GRAM Staking on TON</h1>
                         </div>
                         <div className='text-[20px] font-normal md:text-[24px]'>
                             <h2>
                                 Join <span className='font-bold text-purple9'>23,000+</span> GRAM holders earning
-                                passive income with Hipo.
+                                passive income with Hipo
                             </h2>
                         </div>
                         <div className='hipo-button-div'>
@@ -167,7 +167,7 @@ const Landing = observer(({ model }: Props) => {
             <div id='audits' className='hipo-section flex w-full flex-col items-center text-center md:max-w-screen-lg'>
                 <div className='hipo-section-title'>Hipo Security Audits</div>
                 <div className='hipo-section-summary'>
-                    <p>One of the most rigorously tested smart contracts in the GRAM ecosystem.</p>
+                    <p>One of the most rigorously tested smart contracts in the GRAM ecosystem</p>
                 </div>
 
                 <div className='hipo-cards-list'>
