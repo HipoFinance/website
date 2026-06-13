@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import { Model } from './Model.ts'
+import { BrowserRouter } from 'react-router-dom'
 import './styles.css'
 import '@fontsource/heebo/latin-400.css'
 import '@fontsource/heebo/latin-500.css'
@@ -17,9 +18,11 @@ if (self === top) {
     model.init()
 
     ReactDOM.createRoot(document.querySelector('#root') ?? document.body).render(
-        <React.StrictMode>
-            <App model={model} />
-        </React.StrictMode>,
+        <BrowserRouter basename='/'>
+            <React.StrictMode>
+                <App model={model} />
+            </React.StrictMode>
+        </BrowserRouter>,
     )
 } else {
     console.error('Inside a frame')
