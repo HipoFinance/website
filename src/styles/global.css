@@ -1,0 +1,202 @@
+@import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-family-heebo: "Heebo", ui-sans-serif, system-ui;
+  --font-family-eczar: "Eczar", ui-sans-serif, system-ui;
+  --font-family-poppins: "Poppins", ui-sans-serif, system-ui;
+
+  /* Colors */
+  --color-black: #03010d;
+  --color-white: #ffffff;
+
+  --color-purple1: #6d1eb3;
+  --color-purple2: #461472;
+  --color-purple3: #dfbcfe;
+  --color-purple4: #d8d8f6;
+  --color-purple5: #4411d8;
+  --color-purple6: #7e22ce;
+  --color-purple7: #471fb7;
+  --color-purple8: #8753ff;
+  --color-purple9: #cc60fe;
+
+  --color-pink1: #e622c2;
+
+  --color-darkblue1: #170c55;
+  --color-darkblue2: #03010d;
+  --color-darkblue3: #0b0826;
+  --color-darkblue4: #1d1356;
+  --color-darkblue5: #3e337d;
+
+  --color-gray1: #dedbe4;
+
+  --color-background: #02031e;
+
+  --color-c1: #b8aa9c;
+  --color-c2: #71665f;
+  --color-c3: #f4f1ed;
+  --color-c4: #f2ebfb;
+  --color-c5: #ccccff;
+  --color-c6: #7e22ce;
+  --color-c7: #0e0e0e;
+
+  /* Widths */
+  --width-1\/7: 14.28571429%;
+  --width-2\/7: 28.57142857%;
+  --width-3\/7: 42.85714286%;
+  --width-4\/7: 57.14285714%;
+  --width-5\/7: 71.42857143%;
+  --width-6\/7: 85.71428571%;
+  --width-7\/7: 100%;
+
+  /* Rotation */
+  --rotate-30: 30deg;
+  --rotate--30: -30deg;
+
+  /* Background images */
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+}
+
+@utility hipo-button-div {
+  @apply w-full text-center md:w-auto;
+}
+
+@utility hipo-app-button-a {
+  @apply flex w-full place-content-center items-center rounded-xl border border-purple8 bg-linear-to-t from-purple5 to-purple6 px-6 py-2 lg:w-auto;
+}
+
+@utility hipo-button-a {
+  @apply flex w-full place-content-center items-center rounded-xl border border-purple8 bg-linear-to-t from-purple5 to-purple6 px-4 py-3 lg:w-auto lg:px-10;
+}
+
+@utility hipo-button-label {
+  @apply w-full text-[18px] font-medium lg:w-auto lg:text-[24px];
+}
+
+@utility hipo-learn-more-link-text {
+  @apply text-start text-[18px] font-medium text-purple9 lg:text-[24px];
+}
+
+@utility hipo-see-report-link-text {
+  @apply text-start text-[14px] font-medium text-purple9 lg:text-[18px];
+}
+
+@utility hipo-section {
+  @apply mx-auto mb-16 w-full max-w-7xl gap-4 px-4 sm:max-w-screen-sm md:mb-36 md:max-w-7xl md:gap-8;
+}
+
+@utility hipo-section-side-touched {
+  @apply mb-16 w-screen min-w-90 gap-4 lg:mb-36 lg:gap-8;
+}
+
+@utility hipo-section-title {
+  @apply text-center text-[36px] font-black text-purple6 lg:text-[55px];
+}
+
+@utility hipo-section-summary {
+  @apply text-center text-[20px] font-normal text-white lg:text-[40px];
+}
+
+@utility hipo-section-text {
+  @apply text-start text-[16px] font-normal text-white lg:text-[24px];
+}
+
+@utility hipo-footer {
+  @apply mx-auto mb-16 w-full gap-4 px-4 sm:max-w-screen-sm md:mb-36 md:max-w-5xl md:gap-8;
+}
+
+@utility hipo-cards-list {
+  @apply grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:max-w-5xl;
+}
+
+@utility hipo-card {
+  @apply mx-auto h-full w-full max-w-90 sm:max-w-none;
+}
+
+@utility hipo-how-it-works-card {
+  @apply hipo-card rounded-2xl border border-darkblue5 bg-linear-to-t from-darkblue4 to-darkblue3 p-2 transition-transform hover:scale-[1.02];
+}
+
+@utility hipo-how-it-works-card-bg {
+  @apply mx-auto flex h-full w-full flex-row bg-[url(/images/dots.svg)] py-4;
+}
+
+@utility hipo-how-it-works-card-template {
+  @apply mx-auto flex w-full flex-col items-center justify-between gap-4 p-4 text-start md:max-w-full md:px-6;
+}
+
+@utility hipo-how-it-works-card-title {
+  @apply text-start text-[24px] font-bold text-white lg:text-[32px];
+}
+
+@utility hipo-how-it-works-card-text {
+  @apply text-start text-[18px] font-normal text-white lg:text-[22px];
+}
+
+@utility hipo-audits-card {
+  @apply hipo-card transition-transform hover:scale-[1.02];
+}
+
+@utility hipo-audits-card-bg {
+  @apply mx-auto flex h-full w-full flex-col items-center gap-4 rounded-lg border border-darkblue5 bg-linear-to-t from-darkblue4 to-darkblue3 p-6 text-start md:max-w-full;
+}
+
+@utility hipo-audits-card-template {
+  @apply text-[20px] visible;
+}
+
+@utility hipo-why-hipo-card {
+  @apply hipo-card bg-[url(/images/card-bg-t.png)] bg-contain bg-no-repeat transition-transform hover:scale-[1.02];
+}
+
+@utility hipo-why-hipo-card-bg {
+  @apply mx-auto flex h-full w-fit flex-col justify-items-stretch gap-4 rounded-lg border border-darkblue5 p-4 text-start backdrop-blur-[113.5px] md:max-w-max md:p-6;
+}
+
+@utility hipo-why-hipo-card-title {
+  @apply text-start text-[24px] font-medium text-white lg:text-[32px];
+}
+
+@utility hipo-why-hipo-card-text {
+  @apply text-start text-[16px] font-normal text-white lg:text-[24px];
+}
+
+@utility hipo-footer-column {
+  @apply flex w-full flex-col gap-2 text-left md:w-1/5;
+}
+
+@utility hipo-footer-group {
+  @apply py-5 text-[20px] font-bold;
+}
+
+@utility hipo-footer-item {
+  @apply text-[20px] text-white;
+}
+
+@utility hipo-faq-header {
+  @apply mb-12;
+}
+
+@utility hipo-faq-header-title {
+  @apply text-4xl md:text-5xl font-bold text-white mb-4;
+}
+
+@utility hipo-faq-section {
+  @apply mb-12;
+}
+
+@utility hipo-faq-section-title {
+  @apply text-2xl font-semibold text-purple9 border-b border-slate-200 pb-3 mb-8;
+}
+
+@utility hipo-faq-question {
+  @apply mb-10;
+}
+
+@utility hipo-faq-question-title {
+  @apply text-xl font-normal text-white mb-4;
+}
+
+@utility hipo-faq-answer {
+  @apply pl-4 space-y-4 text-base leading-6 text-mist-400;
+}
