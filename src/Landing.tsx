@@ -346,7 +346,7 @@ const Landing = observer(({ model }: Props) => {
 
             {/* <!-- Hipo Club --> */}
             <div id='hipo-club' className='hipo-section-side-touched bg-gradient-to-t from-darkblue4 to-darkblue3'>
-                <div className='bg-top-left flex flex-col items-center gap-8 bg-[url(/mesh.png)] bg-contain bg-no-repeat px-8 py-16 text-center md:px-36'>
+                <div className='bg-top-left flex flex-col items-center gap-8 bg-[url(/images/mesh.png)] bg-contain bg-no-repeat px-8 py-16 text-center md:px-36'>
                     <div className='hipo-section-title'>Hipo Club</div>
                     <div className='hipo-section-summary'>
                         <p>Community of Hipo Believers</p>
