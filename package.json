@@ -1,5 +1,5 @@
 {
-  "name": "website-seo",
+  "name": "website",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -18,5 +18,10 @@
     "@tailwindcss/vite": "^4.3.1",
     "astro": "^6.4.7",
     "tailwindcss": "^4.3.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.4",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.8.0"
   }
 }

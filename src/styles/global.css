@@ -1,14 +1,31 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* Fonts */
-  --font-family-heebo: "Heebo", ui-sans-serif, system-ui;
-  --font-family-eczar: "Eczar", ui-sans-serif, system-ui;
-  --font-family-poppins: "Poppins", ui-sans-serif, system-ui;
+  --font-family-heebo: 'Heebo', ui-sans-serif, system-ui;
+  --font-family-eczar: 'Eczar', ui-sans-serif, system-ui;
+  --font-family-poppins: 'Poppins', ui-sans-serif, system-ui;
 
   /* Colors */
   --color-black: #03010d;
   --color-white: #ffffff;
+  --color-gray1: #dedbe4;
+  --color-orange: #ff7e73;
+  --color-brown: #776464;
+  --color-choco: #291f20;
+  --color-milky: #efebe5;
+  --color-blue: #0a88ca;
+  --color-lightblue: #d6ecf7;
+  --color-attention: #ffd2d4;
+  --color-attentiondark: #ffedef;
+
+  --color-c1: #b8aa9c;
+  --color-c2: #71665f;
+  --color-c3: #f4f1ed;
+  --color-c4: #f2ebfb;
+  --color-c5: #ccccff;
+  --color-c6: #7e22ce;
+  --color-c7: #0e0e0e;
 
   --color-purple1: #6d1eb3;
   --color-purple2: #461472;
@@ -28,17 +45,20 @@
   --color-darkblue4: #1d1356;
   --color-darkblue5: #3e337d;
 
-  --color-gray1: #dedbe4;
+  --color-dark-50: #f2f2f2;
+  --color-dark-100: #eaeaea;
+  --color-dark-200: #ffa39b;
+  --color-dark-300: #94a3b8;
+  --color-dark-400: #8b807f;
+  --color-dark-500: #776464;
+  --color-dark-600: #483637;
+  --color-dark-700: #464343;
+  --color-dark-800: #333131;
+  --color-dark-900: #2d2a2a;
+  --color-dark-950: #221f1f;
 
   --color-background: #02031e;
-
-  --color-c1: #b8aa9c;
-  --color-c2: #71665f;
-  --color-c3: #f4f1ed;
-  --color-c4: #f2ebfb;
-  --color-c5: #ccccff;
-  --color-c6: #7e22ce;
-  --color-c7: #0e0e0e;
+  --color-app-background: --color-milky;
 
   /* Widths */
   --width-1\/7: 14.28571429%;
@@ -62,11 +82,11 @@
 }
 
 @utility hipo-app-button-a {
-  @apply flex w-full place-content-center items-center rounded-xl border border-purple8 bg-linear-to-t from-purple5 to-purple6 px-6 py-2 lg:w-auto;
+  @apply border-purple8 from-purple5 to-purple6 flex w-full place-content-center items-center rounded-xl border bg-linear-to-t px-6 py-2 lg:w-auto;
 }
 
 @utility hipo-button-a {
-  @apply flex w-full place-content-center items-center rounded-xl border border-purple8 bg-linear-to-t from-purple5 to-purple6 px-4 py-3 lg:w-auto lg:px-10;
+  @apply border-purple8 from-purple5 to-purple6 flex w-full place-content-center items-center rounded-xl border bg-linear-to-t px-4 py-3 lg:w-auto lg:px-10;
 }
 
 @utility hipo-button-label {
@@ -74,11 +94,11 @@
 }
 
 @utility hipo-learn-more-link-text {
-  @apply text-start text-[18px] font-medium text-purple9 lg:text-[24px];
+  @apply text-purple9 text-start text-[18px] font-medium lg:text-[24px];
 }
 
 @utility hipo-see-report-link-text {
-  @apply text-start text-[14px] font-medium text-purple9 lg:text-[18px];
+  @apply text-purple9 text-start text-[14px] font-medium lg:text-[18px];
 }
 
 @utility hipo-section {
@@ -90,7 +110,7 @@
 }
 
 @utility hipo-section-title {
-  @apply text-center text-[36px] font-black text-purple6 lg:text-[55px];
+  @apply text-purple6 text-center text-[36px] font-black lg:text-[55px];
 }
 
 @utility hipo-section-summary {
@@ -114,7 +134,7 @@
 }
 
 @utility hipo-how-it-works-card {
-  @apply hipo-card rounded-2xl border border-darkblue5 bg-linear-to-t from-darkblue4 to-darkblue3 p-2 transition-transform hover:scale-[1.02];
+  @apply hipo-card border-darkblue5 from-darkblue4 to-darkblue3 rounded-2xl border bg-linear-to-t p-2 transition-transform hover:scale-[1.02];
 }
 
 @utility hipo-how-it-works-card-bg {
@@ -138,11 +158,11 @@
 }
 
 @utility hipo-audits-card-bg {
-  @apply mx-auto flex h-full w-full flex-col items-center gap-4 rounded-lg border border-darkblue5 bg-linear-to-t from-darkblue4 to-darkblue3 p-6 text-start md:max-w-full;
+  @apply border-darkblue5 from-darkblue4 to-darkblue3 mx-auto flex h-full w-full flex-col items-center gap-4 rounded-lg border bg-linear-to-t p-6 text-start md:max-w-full;
 }
 
 @utility hipo-audits-card-template {
-  @apply text-[20px] visible;
+  @apply visible text-[20px];
 }
 
 @utility hipo-why-hipo-card {
@@ -150,7 +170,7 @@
 }
 
 @utility hipo-why-hipo-card-bg {
-  @apply mx-auto flex h-full w-fit flex-col justify-items-stretch gap-4 rounded-lg border border-darkblue5 p-4 text-start backdrop-blur-[113.5px] md:max-w-max md:p-6;
+  @apply border-darkblue5 mx-auto flex h-full w-fit flex-col justify-items-stretch gap-4 rounded-lg border p-4 text-start backdrop-blur-[113.5px] md:max-w-max md:p-6;
 }
 
 @utility hipo-why-hipo-card-title {
@@ -178,7 +198,7 @@
 }
 
 @utility hipo-faq-header-title {
-  @apply text-4xl md:text-5xl font-bold text-white mb-4;
+  @apply mb-4 text-4xl font-bold text-white md:text-5xl;
 }
 
 @utility hipo-faq-section {
@@ -186,7 +206,7 @@
 }
 
 @utility hipo-faq-section-title {
-  @apply text-2xl font-semibold text-purple9 border-b border-slate-200 pb-3 mb-8;
+  @apply text-purple9 mb-8 border-b border-slate-200 pb-3 text-2xl font-semibold;
 }
 
 @utility hipo-faq-question {
@@ -194,9 +214,9 @@
 }
 
 @utility hipo-faq-question-title {
-  @apply text-xl font-normal text-white mb-4;
+  @apply mb-4 text-xl font-normal text-white;
 }
 
 @utility hipo-faq-answer {
-  @apply pl-4 space-y-4 text-base leading-6 text-mist-400;
+  @apply space-y-4 pl-4 text-base leading-6 text-mist-400;
 }

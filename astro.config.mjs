@@ -1,14 +1,14 @@
-import { defineConfig } from "astro/config";
-import tailwind from "@tailwindcss/vite";
+import { defineConfig } from 'astro/config'
+import tailwind from '@tailwindcss/vite'
 
 export default defineConfig({
-  site: "https://hipo.finance",
+  site: 'https://hipo.finance',
 
-  base: "/",
+  base: '/',
 
-  output: "static",
+  output: 'static',
 
   vite: {
     plugins: [tailwind()],
   },
-});
+})
