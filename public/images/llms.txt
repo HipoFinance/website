@@ -9,7 +9,7 @@ Canonical app: https://app.hipo.finance/
 Canonical docs: https://docs.hipo.finance/
 Stats dashboard: https://stats.hipo.finance/
 GitHub smart contracts: https://github.com/HipoFinance/contract
-HPO page: https://hpo.hipo.finance/
+HPO page: https://hipo.finance/hpo
 DAO voting: https://ton.vote/hipo
 
 ## Core identity
