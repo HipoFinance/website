@@ -11,13 +11,11 @@ window.addEventListener('load', () => {
 })
 
 let updateHpoData = () => {
-  console.log('=-> updateHpoData is called...........')
   let timer = setTimeout(updateHpoData, 300000)
 
   fetch('https://gauge.hipo.finance/data')
     .then((res) => res.json())
     .then((res) => {
-      console.log('=-> result=', res)
       SetMarketCap(res.ok && res.result.hpo.market.market_cap.usd > 0 ? res.result.hpo.market.market_cap.usd : -1)
 
       SetHpoVolume(res.ok && res.result.hpo.market.total_volume.usd > 0 ? res.result.hpo.market.total_volume.usd : -1)

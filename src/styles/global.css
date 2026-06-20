@@ -18,6 +18,7 @@
   --color-lightblue: #d6ecf7;
   --color-attention: #ffd2d4;
   --color-attentiondark: #ffedef;
+  --color-very-dark-navy: #02031e;
 
   --color-c1: #b8aa9c;
   --color-c2: #71665f;
@@ -57,9 +58,6 @@
   --color-dark-900: #2d2a2a;
   --color-dark-950: #221f1f;
 
-  --color-background: #02031e;
-  --color-app-background: --color-milky;
-
   /* Widths */
   --width-1\/7: 14.28571429%;
   --width-2\/7: 28.57142857%;
@@ -72,9 +70,6 @@
   /* Rotation */
   --rotate-30: 30deg;
   --rotate--30: -30deg;
-
-  /* Background images */
-  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
 }
 
 @utility hipo-button-div {
@@ -219,4 +214,48 @@
 
 @utility hipo-faq-answer {
   @apply space-y-4 pl-4 text-base leading-6 text-mist-400;
+}
+
+@utility bg-brush {
+  background-image: url('/images/brush.svg');
+}
+
+@utility bg-gradient-radial {
+  background-image: radial-gradient(var(--tw-gradient-stops));
+}
+
+@utility rotate-30 {
+  rotate: 30deg;
+}
+
+@utility -rotate-30 {
+  rotate: -30deg;
+}
+
+@utility w-1\/7 {
+  width: 14.28571429%;
+}
+
+@utility w-2\/7 {
+  width: 28.57142857%;
+}
+
+@utility w-3\/7 {
+  width: 42.85714286%;
+}
+
+@utility w-4\/7 {
+  width: 57.14285714%;
+}
+
+@utility w-5\/7 {
+  width: 71.42857143%;
+}
+
+@utility w-6\/7 {
+  width: 85.71428571%;
+}
+
+@utility w-7\/7 {
+  width: 100%;
 }

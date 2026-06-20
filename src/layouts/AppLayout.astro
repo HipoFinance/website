@@ -1,0 +1,43 @@
+---
+import '../styles/global.css'
+import SEO from '../components/SEO.astro'
+
+interface Props {
+  title: string
+  description: string
+}
+
+const { title, description } = Astro.props
+
+// @TODO: update this data based on hipo.finance/app
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: { title },
+  url: 'https://hipo.finance',
+  description: { description },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Hipo',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://hipo.finance/hipo.svg',
+    },
+  },
+}
+---
+
+<!doctype html>
+<html lang='en' class='scroll-smooth'>
+  <head>
+    <meta charset='UTF-8' />
+
+    <SEO title={title} description={description} jsonLd={jsonLd} />
+
+    <link rel='icon' href={`${import.meta.env.BASE_URL}favicon.ico`} />
+  </head>
+
+  <body class='bg-milky font-poppins text-gray1'>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,768 @@
+---
+import GeckoChart from '../components/GeckoChart.astro'
+---
+
+<landing>
+  <script src='/src/scripts/hpo-data.js'></script>
+
+  <div class='from-darkblue1 to-darkblue2 mx-auto min-w-90 bg-radial bg-fixed py-4 text-center'>
+    <div class='mx-auto flex min-w-90 flex-row items-center text-center sm:max-w-5xl'>
+      <div class='mb-16 w-full px-4 text-4xl font-bold sm:text-5xl'>
+        <span class='from-purple1 to-pink1 bg-linear-to-r bg-clip-text text-transparent'>$HPO</span>, the Governance &
+        Profit-Sharing Token of Hipo
+      </div>
+    </div>
+
+    <div class='mx-auto mb-24 flex w-full flex-col items-center justify-between gap-4 px-4 sm:max-w-5xl md:flex-row'>
+      <div class='lex flex-col justify-center gap-4 p-4 md:w-4/12'>
+        <div class='mb-12 text-left text-3xl leading-relaxed font-medium'>
+          Be Part of the
+          <div class='bg-brush inline-block bg-contain bg-bottom bg-no-repeat whitespace-nowrap'>
+            Future of GRAM Staking!
+          </div>
+        </div>
+
+        <div class='min-w-70 md:px-8'>
+          <a
+            class='from-purple1 to-purple2 flex w-full flex-row place-content-center items-center gap-4 rounded-2xl bg-radial px-12 py-4'
+            href='https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=HPO'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            <div class='text-2xl font-bold'>Buy HPO</div>
+          </a>
+        </div>
+      </div>
+      <div class='flex w-3/4 flex-row md:w-3/12 md:flex-col'>
+        <div class='mb-10 flex w-full flex-row justify-start'>
+          <img src='/images/hpo.svg' class='ml-4 size-20 -rotate-30' alt='HPO Token' />
+        </div>
+        <div class='mt-10 flex w-full flex-row justify-end'>
+          <img src='/images/hpo.svg' class='mr-4 size-20 rotate-30' alt='HPO Token' />
+        </div>
+      </div>
+
+      <div class='mx-auto w-full md:w-5/12'>
+        <div class='flex flex-auto flex-col items-center'>
+          <div class='mb-4 w-full'>
+            <GeckoChart coin='hipo-governance-token' />
+          </div>
+
+          <div class='flex w-full flex-row justify-between text-sm'>
+            <div class='flax-auto space-x-1'>
+              <span class='text-lg font-normal'>Market Cap.: </span>
+              <span id='hpoMarketCap' class='text-2xl font-bold'> </span>
+            </div>
+            <div class='flax-auto space-x-1'>
+              <span class='text-lg font-normal'>Volume: </span>
+              <span id='hpoVolume' class='text-2xl font-bold'> </span>
+            </div>
+            <div class='flax-auto space-x-1'>
+              <span class='text-lg font-normal'>Holders: </span>
+              <span id='hpoHolders' class='text-2xl font-bold'> </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='mx-auto flex min-w-90 flex-col items-center sm:max-w-5xl'>
+      <div class='mb-12 flex w-full flex-col items-center p-5'>
+        <iframe
+          class='aspect-video h-full w-full rounded-md'
+          src='https://www.youtube.com/embed/QYU-TWJK1yg'
+          title='YouTube video player'
+          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+          allowfullscreen></iframe>
+      </div>
+
+      <div class='mb-8 w-full px-4 text-2xl'>
+        <div class='mb-12 font-bold'>Build Success With Our Community Through $HPO</div>
+        <div class='mx-auto mb-4 max-w-md'>
+          We see <span class='text-pink1 font-bold'>incredible growth potential</span> and are excited to capture that value
+          alongside all Hipo community.
+        </div>
+        <div class='text-purple3 mx-auto my-8'>Shape GRAM&apos;s future with $HPO!</div>
+        <img src='/images/rocket.webp' class='mx-auto h-80 object-cover mix-blend-screen' alt='Rocket Illustration' />
+      </div>
+
+      <div class='relative z-10 mb-24 overflow-x-clip px-16'>
+        <img
+          src='/images/diamond.svg'
+          class='absolute top-8 right-2 -z-10 h-24 -rotate-12 object-contain opacity-20'
+          alt='Diamond Decoration'
+        />
+        <div class='mb-12 text-3xl font-bold'>How to Buy HPO</div>
+        <div class='mb-12 flex w-full flex-col gap-8 text-left sm:grid sm:grid-flow-row sm:grid-cols-2'>
+          <div class='flex flex-1 flex-col gap-4'>
+            <div
+              class='from-purple1 to-purple2 flex h-14 w-14 place-content-center items-center rounded-2xl bg-radial text-3xl'
+            >
+              01
+            </div>
+            <div class=''>Get a wallet supporting TON.</div>
+          </div>
+
+          <div class='flex flex-1 flex-col gap-4'>
+            <div
+              class='from-purple1 to-purple2 flex h-14 w-14 place-content-center items-center rounded-2xl bg-radial text-3xl'
+            >
+              02
+            </div>
+            <div class=''>Ensure you have enough GRAM for your desired $HPO purchase.</div>
+          </div>
+
+          <div class='flex flex-1 flex-col gap-4'>
+            <div
+              class='from-purple1 to-purple2 flex h-14 w-14 place-content-center items-center rounded-2xl bg-radial text-3xl'
+            >
+              03
+            </div>
+            <div class=''>Head to the STON.fi DEX and connect your TON wallet.</div>
+          </div>
+
+          <div class='flex flex-1 flex-col gap-4'>
+            <div
+              class='from-purple1 to-purple2 flex h-14 w-14 place-content-center items-center rounded-2xl bg-radial text-3xl'
+            >
+              04
+            </div>
+            <div class=''>Swap your GRAM for $HPO, and receive $HPO in your wallet instantly.</div>
+          </div>
+        </div>
+
+        <div class='mb-12 flex w-full flex-col items-center'>
+          <iframe
+            class='aspect-video h-full w-full rounded-md'
+            src='https://youtube.com/embed/ZHAlS4wystU?feature=share'
+            title='YouTube video player'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <div class='mb-8'>
+        <div class='text-4xl font-bold'>Tokenomics</div>
+        <img src='/images/tokenomics.svg' class='my-8 w-full' alt='HPO Tokenomics Chart' />
+      </div>
+
+      <div class='mb-32 px-8 text-2xl sm:mx-24'>
+        Each category in $HPO tokenomics is strategically designed to fuel Hipo&apos;s growth.
+        <a
+          href='https://docs.hipo.finance/hipo-tokens/hipo-governance-token-hpo'
+          class='text-purple3'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          Learn more!
+        </a>
+      </div>
+
+      <div class='mx-8 mb-32 flex flex-col gap-16'>
+        <div class='text-4xl'>Unique Opportunity for Early Investors</div>
+
+        <div class='flex max-w-200 flex-col items-start gap-8 md:grid md:grid-flow-row md:grid-cols-2'>
+          <div class='flex flex-row items-center gap-4'>
+            <div class='bg-purple1 flex h-14 w-14 place-content-center items-center rounded-2xl text-3xl'>01</div>
+            <div class='bg-brush inline-block bg-contain bg-bottom bg-no-repeat pb-2 text-left text-2xl font-bold'>
+              Proven, Not Just a Plan
+            </div>
+          </div>
+          <div class='text-left text-lg'>
+            Hipo has been live on TON mainnet since October 30, 2023, with $HPO as its governance token—a solid
+            foundation built over a year.
+          </div>
+        </div>
+
+        <div class='flex max-w-200 flex-col items-start gap-8 md:grid md:grid-flow-row md:grid-cols-2'>
+          <div class='flex flex-row items-center gap-4'>
+            <div
+              class='from-purple1 to-purple2 flex h-14 w-14 place-content-center items-center rounded-2xl bg-radial text-3xl'
+            >
+              02
+            </div>
+            <div class='bg-brush inline-block bg-contain bg-bottom bg-no-repeat pb-2 text-left text-2xl font-bold'>
+              Impressive Metrics
+            </div>
+          </div>
+          <div class='mx-auto text-left text-lg md:mx-0'>
+            <ul class='text-purple3 list-inside list-disc'>
+              <li class='py-4'>
+                <span class='text-white'>1.54M GRAM ($8.5M) TVL</span>
+              </li>
+              <li class='border-purple3 border-opacity-25 border-t py-4'>
+                <div class='inline-block align-top'>
+                  <span class='text-white'>17K Active Stakers</span>
+                  <br />
+                  <a href='https://stats.hipo.finance/' class='text-purple3 underline'> Live Hipo Stats </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class='flex max-w-200 flex-col items-start gap-8 md:grid md:grid-flow-row md:grid-cols-2'>
+          <div class='flex flex-row items-center gap-4'>
+            <div
+              class='from-purple1 to-purple2 flex h-14 w-14 place-content-center items-center rounded-2xl bg-radial text-3xl'
+            >
+              03
+            </div>
+            <div class='bg-brush inline-block bg-contain bg-bottom bg-no-repeat pb-2 text-left text-2xl font-bold'>
+              Thriving Community
+            </div>
+          </div>
+          <div class='mx-auto text-left text-lg md:mx-0'>
+            <ul class='text-purple3 list-inside list-disc'>
+              <li class='py-4'>
+                <span class='font-bold text-white'>3.1M</span>
+                <span class='text-white'>Hipo Gang Members</span>
+              </li>
+              <li class='border-purple3 border-opacity-25 border-t py-4'>
+                <span class='font-bold text-white'>1.1M</span>
+                <span class='text-white'>Telegram Subscribers</span>
+              </li>
+              <li class='border-purple3 border-opacity-25 border-t py-4'>
+                <span class='font-bold text-white'>147K</span>
+                <span class='text-white'>YouTube Subscribers</span>
+              </li>
+              <li class='border-purple3 border-opacity-25 border-t py-4'>
+                <span class='font-bold text-white'>146K</span>
+                <span class='text-white'>Twitter Followers</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class='flex max-w-200 flex-col items-start gap-8 md:grid md:grid-flow-row md:grid-cols-2'>
+          <div class='flex flex-row items-center gap-4'>
+            <div
+              class='from-purple1 to-purple2 flex h-14 w-14 place-content-center items-center rounded-2xl bg-radial text-3xl'
+            >
+              04
+            </div>
+            <div class='bg-brush inline-block bg-contain bg-bottom bg-no-repeat pb-2 text-left text-2xl font-bold'>
+              Products Built
+            </div>
+          </div>
+          <div class='mx-auto text-left text-lg md:mx-0'>
+            <ul class='text-purple3 list-inside list-disc'>
+              <li class='py-4'>
+                <span class='text-white'>Hipo v1, Hipo v2</span>
+              </li>
+              <li class='border-purple3 border-opacity-25 border-t py-4'>
+                <span class='text-white'>Hipo Telegram Mini App</span>
+              </li>
+              <li class='border-purple3 border-opacity-25 border-t py-4'>
+                <span class='text-white'>Hipo Stats</span>
+              </li>
+              <li class='border-purple3 border-opacity-25 border-t py-4'>
+                <span class='text-white'>Hipo Gang</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class='relative z-10 flex max-w-200 flex-col items-start gap-8 md:grid md:grid-flow-row md:grid-cols-2'>
+          <img
+            src='/images/diamond.svg'
+            class='absolute top-1/4 -z-10 hidden h-1/2 w-1/3 -scale-x-100 object-contain opacity-20 md:block'
+            alt='Diamond Decoration'
+          />
+          <div class='flex flex-row items-center gap-4'>
+            <div
+              class='from-purple1 to-purple2 flex h-14 w-14 place-content-center items-center rounded-2xl bg-radial text-3xl'
+            >
+              05
+            </div>
+            <div class='bg-brush inline-block bg-contain bg-bottom bg-no-repeat pb-2 text-left text-2xl font-bold'>
+              Incredible Growth Potential
+            </div>
+          </div>
+          <div class='text-left text-lg'>
+            <div class='text-purple3'>Market Opportunity</div>
+            <ul class='text-purple3 list-inside list-disc'>
+              <li class='py-4'>
+                <span class='text-white'>
+                  Only 12% of 500M stakable GRAM is in liquid staking—massive room for growth.
+                </span>
+              </li>
+            </ul>
+
+            <div class='text-purple3'>Highest APY</div>
+            <ul class='text-purple3 list-inside list-disc'>
+              <li class='py-4'>
+                <span class='text-white'>
+                  Hipo delivered top returns, and as TON decentralizes, it&apos;s poised to capture a larger share of
+                  the liquid staking market.
+                </span>
+              </li>
+            </ul>
+
+            <div class='text-purple3'>No Private Fundraising</div>
+            <ul class='text-purple3 list-inside list-disc'>
+              <li class='py-4'>
+                <span class='text-white'> Early investors buy $HPO at a modest price with room for upside. </span>
+              </li>
+            </ul>
+
+            <div class='text-purple3'>Comparable Growth Potential</div>
+            <ul class='text-purple3 list-inside list-disc'>
+              <li class='py-4'>
+                <span class='text-white'>
+                  FDV comparison with similar projects on Ethereum highlights our untapped growth potential.
+                </span>
+              </li>
+            </ul>
+
+            <div class='text-purple3'>Upcoming Milestones</div>
+            <ul class='text-purple3 list-inside list-disc'>
+              <li class='py-4'>
+                <span class='text-white'> Exciting product updates and market growth to benefit early investors. </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class='flex max-w-200 flex-col items-start gap-8 md:grid md:grid-flow-row md:grid-cols-2'>
+          <div class='flex flex-row items-center gap-4'>
+            <div
+              class='from-purple1 to-purple2 flex h-14 w-14 place-content-center items-center rounded-2xl bg-radial text-3xl'
+            >
+              06
+            </div>
+            <div class='bg-brush inline-block bg-contain bg-bottom bg-no-repeat pb-2 text-left text-2xl font-bold'>
+              TON Ecosystem
+            </div>
+          </div>
+          <div class='text-left text-lg'>
+            TON ecosystem is still quite young, as TON become more mature and growth that has a big potential, Hipo as a
+            project built on TON will grow as well.
+          </div>
+        </div>
+      </div>
+
+      <div class='mb-32 px-8'>
+        <div class='mb-16 text-4xl font-bold'>$HPO Utility</div>
+        <div class='grid grid-flow-row grid-cols-1 gap-4 sm:grid-cols-2'>
+          <div class='px4 border-purple3 rounded-3xl border text-left'>
+            <div class='flex flex-col gap-4 p-8'>
+              <div class='flex flex-row items-center gap-4'>
+                <img src='/images/money.svg' class='h-12 w-12 object-contain' alt='Money Icon' />
+                <p class='text-purple3 text-2xl font-bold'>Earn Profit Shares</p>
+              </div>
+              <p class='text-xl'>Receive periodic distributions from Hipo Protocol`&apos;`s profits.</p>
+            </div>
+          </div>
+          <div class='px4 border-purple3 rounded-3xl border text-left'>
+            <div class='flex flex-col gap-4 p-8'>
+              <div class='flex flex-row items-center gap-4'>
+                <img src='/images/hat.svg' class='h-12 w-12 object-contain' alt='Hat Icon' />
+                <p class='text-purple3 text-2xl font-bold'>Boost Hipo Gang Earnings</p>
+              </div>
+              <p class='text-xl'>Hold $HPO to earn extra in-game coins and qualify for $HPO airdrops.</p>
+            </div>
+          </div>
+          <div class='px4 border-purple3 rounded-3xl border text-left'>
+            <div class='flex flex-col gap-4 p-8'>
+              <div class='flex flex-row items-center gap-4'>
+                <img src='/images/percentage.svg' class='h-12 w-12 object-contain' alt='Percentage Icon' />
+                <p class='text-purple3 text-2xl font-bold'>Access Exclusive Offers</p>
+              </div>
+              <p class='text-xl'>Unlock special discounts, rewards, and perks within the Hipo community.</p>
+            </div>
+          </div>
+          <div class='px4 border-purple3 rounded-3xl border text-left'>
+            <div class='flex flex-col gap-4 p-8'>
+              <div class='flex flex-row items-center gap-4'>
+                <img src='/images/governance.svg' class='h-12 w-12 object-contain' alt='Governance Icon' />
+                <p class='text-purple3 text-2xl font-bold'>Participate in Governance</p>
+              </div>
+              <p class='text-xl'>Shape the future of Hipo by voting on upgrades, strategies, and key decisions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class='mb-32 px-4'>
+        <div class='my-4 text-4xl font-bold'>Partners</div>
+        <div class='mx-auto mb-8 w-2/3 text-xl leading-relaxed'>
+          Get a 5% bonus airdrop by holding
+          <div class='bg-brush mx-2 inline-block bg-contain bg-bottom bg-no-repeat font-bold whitespace-nowrap'>
+            $100 worth of $HPO
+          </div>
+          and any partner token or NFT at the snapshot!
+        </div>
+        <div class='grid grid-flow-row grid-cols-1 gap-4 sm:grid-cols-2'>
+          <div
+            class='border-purple3 border-opacity-20 flex flex-row items-center gap-4 rounded-2xl border bg-slate-300 p-4 text-black'
+          >
+            <div class='flex w-28 flex-none flex-col items-center gap-2'>
+              <img src='/images/partners/stonfi.png' class='h-12 w-12 object-contain' alt='STON.fi Logo' />
+              <div class='font-bold'>STON.fi</div>
+            </div>
+            <div class='flex-1 text-left'>
+              Hold <b class='font-bold'>$100</b> worth of <b class='font-bold'>$STON</b>.
+            </div>
+          </div>
+
+          <div
+            class='border-purple3 border-opacity-20 flex flex-row items-center gap-4 rounded-2xl border bg-slate-300 p-4 text-black'
+          >
+            <div class='flex w-28 flex-none flex-col items-center gap-2'>
+              <img src='/images/partners/tonnel.png' class='h-12 w-12 object-contain' alt='Tonnel Network Logo' />
+              <div class='font-bold'>Tonnel Network</div>
+            </div>
+            <div class='flex-1 text-left'>
+              Hold <b class='font-bold'>$100</b> worth of <b class='font-bold'>$TONNEL</b> OR at least
+              <b class='font-bold'>1 Tonnel Relayer NFT</b>.
+            </div>
+          </div>
+
+          <div
+            class='border-purple3 border-opacity-20 flex flex-row items-center gap-4 rounded-2xl border bg-slate-300 p-4 text-black'
+          >
+            <div class='flex w-28 flex-none flex-col items-center gap-2'>
+              <img src='/images/partners/xrocket.svg' class='h-12 w-12 object-contain' alt='xRocket Logo' />
+              <div class='font-bold'>xRocket</div>
+            </div>
+            <div class='flex-1 text-left'>
+              Hold <b class='font-bold'>$100</b> in <b class='font-bold'>$XROCK</b> OR at least one NFT from the <b
+                class='font-bold'>Cosmonauts</b
+              > or
+              <b class='font-bold'>WL</b> collections.
+            </div>
+          </div>
+
+          <div
+            class='border-purple3 border-opacity-20 flex flex-row items-center gap-4 rounded-2xl border bg-slate-300 p-4 text-black'
+          >
+            <div class='flex w-28 flex-none flex-col items-center gap-2'>
+              <img src='/images/partners/kingy.svg' class='h-12 w-12 object-contain' alt='Kingy Logo' />
+              <div class='font-bold'>Kingy</div>
+            </div>
+            <div class='flex-1 text-left'>
+              Hold <b class='font-bold'>$100</b> worth of <b class='font-bold'>$KINGY</b> OR one of the <b
+                class='font-bold'>48 Hipo x KINGY Heroes NFTs</b
+              >.
+            </div>
+          </div>
+
+          <div
+            class='border-purple3 border-opacity-20 flex flex-row items-center gap-4 rounded-2xl border bg-slate-300 p-4 text-black'
+          >
+            <div class='flex w-28 flex-none flex-col items-center gap-2'>
+              <img src='/images/partners/jvault.png' class='h-12 w-12 object-contain' alt='JVault Logo' />
+              <div class='font-bold'>JVault</div>
+            </div>
+            <div class='flex-1 text-left'>
+              Stake at least <b class='font-bold'>$100</b> worth <b class='font-bold'>$JVT</b>{' '}
+              on the JVault platform.
+            </div>
+          </div>
+
+          <div
+            class='border-purple3 border-opacity-20 flex flex-row items-center gap-4 rounded-2xl border bg-slate-300 p-4 text-black'
+          >
+            <div class='flex w-28 flex-none flex-col items-center gap-2'>
+              <img src='/images/partners/aqua.png' class='h-12 w-12 object-contain' alt='Aqua Logo' />
+              <div class='font-bold'>Aqua</div>
+            </div>
+            <div class='flex-1 text-left'>
+              Hold <b class='font-bold'>$100</b> worth of <b class='font-bold'>$AquaUSD</b>.
+            </div>
+          </div>
+
+          <div
+            class='border-purple3 border-opacity-20 flex flex-row items-center gap-4 rounded-2xl border bg-slate-300 p-4 text-black'
+          >
+            <div class='flex w-28 flex-none flex-col items-center gap-2'>
+              <img src='/images/partners/torch.png' class='h-12 w-12 object-contain' alt='Torch Finance Logo' />
+              <div class='font-bold'>Torch Finance</div>
+            </div>
+            <div class='flex-1 text-left'>
+              Hold <b class='font-bold'>$100</b> worth of <b class='font-bold'>$TriTon</b>.
+            </div>
+          </div>
+
+          <div
+            class='border-purple3 border-opacity-20 flex flex-row items-center gap-4 rounded-2xl border bg-slate-300 p-4 text-black'
+          >
+            <div class='flex w-28 flex-none flex-col items-center gap-2'>
+              <img src='/images/partners/tonraffles.jpg' class='h-12 w-12 object-contain' alt='Ton Raffles Logo' />
+              <div class='font-bold'>Ton Raffles</div>
+            </div>
+            <div class='flex-1 text-left'>
+              Hold <b class='font-bold'>$100</b> worth of <b class='font-bold'>$RAFF</b>.
+            </div>
+          </div>
+
+          <div
+            class='border-purple3 border-opacity-20 flex flex-row items-center gap-4 rounded-2xl border bg-slate-300 p-4 text-black'
+          >
+            <div class='flex w-28 flex-none flex-col items-center gap-2'>
+              <img src='/images/partners/web3.png' class='h-12 w-12 object-contain' alt='WEB3 Logo' />
+              <div class='font-bold'>WEB3</div>
+            </div>
+            <div class='flex-1 text-left'>
+              Hold <b class='font-bold'>$100</b> worth of <b class='font-bold'>$WEB3</b>.
+            </div>
+          </div>
+
+          <div
+            class='border-purple3 border-opacity-20 flex flex-row items-center gap-4 rounded-2xl border bg-slate-300 p-4 text-black'
+          >
+            <div class='flex w-28 flex-none flex-col items-center gap-2'>
+              <img src='/images/partners/dyor.jpg' class='h-12 w-12 object-contain' alt='DYOR Logo' />
+              <div class='font-bold'>DYOR</div>
+            </div>
+            <div class='flex-1 text-left'>
+              Hold <b class='font-bold'>$100</b> worth of <b class='font-bold'>$DYOR</b>.
+            </div>
+          </div>
+
+          <div
+            class='border-purple3 border-opacity-20 flex flex-row items-center gap-4 rounded-2xl border bg-slate-300 p-4 text-black'
+          >
+            <div class='flex w-28 flex-none flex-col items-center gap-2'>
+              <img src='/images/partners/fish.png' class='h-12 w-12 object-contain' alt='TON FISH Logo' />
+              <div class='font-bold'>TON FISH</div>
+            </div>
+            <div class='flex-1 text-left'>
+              Hold <b class='font-bold'>$100</b> worth of <b class='font-bold'>$FISH</b> or
+              <b class='font-bold'>$TPET</b>.
+            </div>
+          </div>
+
+          <div
+            class='border-purple3 border-opacity-20 flex flex-row items-center gap-4 rounded-2xl border bg-slate-300 p-4 text-black'
+          >
+            <div class='flex w-28 flex-none flex-col items-center gap-2'>
+              <img src='/images/partners/tonco.png' class='h-12 w-12 object-contain' alt='TONCO Logo' />
+              <div class='font-bold'>TONCO</div>
+            </div>
+            <div class='flex-1 text-left'>
+              Provide <b class='font-bold'>$100</b> liquidity to
+              <b class='font-bold'>GRAM/USDT</b> pool on TONCO.
+            </div>
+          </div>
+
+          <div
+            class='border-purple3 border-opacity-20 flex flex-row items-center gap-4 rounded-2xl border bg-slate-300 p-4 text-black'
+          >
+            <div class='flex w-28 flex-none flex-col items-center gap-2'>
+              <img src='/images/partners/tonhedge.jpg' class='h-12 w-12 object-contain' alt='TON Hedge Logo' />
+              <div class='font-bold'>TON Hedge</div>
+            </div>
+            <div class='flex-1 text-left'>
+              Hold <b class='font-bold'>TON Hedge Trader SBT</b>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class='mb-32 px-4'>
+        <div class='my-4 text-4xl font-bold'>Airdrop</div>
+        <div class='text-purple3 mb-16 text-xl'>First Season</div>
+        <div class='grid grid-flow-row grid-cols-2 text-left text-xl'>
+          <div class='bg-brush bg-bottom-left bg-no-repeat px-4 pb-2 font-bold'>Category</div>
+          <div class='bg-brush bg-bottom-left bg-no-repeat px-4 pb-2 font-bold'>Airdrop Distribution</div>
+
+          <div class='border-b-purple3 border-opacity-20 border-b p-4'>
+            Early Stakers
+            <br />
+            (500K & 1M GRAM TVL)
+          </div>
+          <div class='border-b-purple3 border-opacity-20 flex border-b p-4'>2 weeks after TGE, 9 Dec 2024</div>
+
+          <div class='border-b-purple3 border-opacity-20 border-b p-4'>NFT Holders</div>
+          <div class='border-b-purple3 border-opacity-20 border-b p-4'>+2 weeks, 23 Dec 2024</div>
+
+          <div class='border-b-purple3 border-opacity-20 border-b p-4'>Partners</div>
+          <div class='border-b-purple3 border-opacity-20 border-b p-4'>+2 weeks, 6 Jan 2025</div>
+
+          <div class='p-4'>Hipo Gang</div>
+          <div class='p-4'>+7 weeks, 25 Feb 2025</div>
+        </div>
+      </div>
+
+      <div class='mb-24 w-full px-8 text-left sm:px-32'>
+        <div class='my-16 text-center text-5xl font-bold'>FAQ</div>
+
+        <div class='mx-auto my-8 max-w-2xl'>
+          <div class='text-xl font-bold'>1. What is $HPO?</div>
+          <div class='text-purple3 my-4'>
+            $HPO is the governance token of Hipo Protocol, a liquid staking platform on TON. Holders of $HPO receive
+            profit shares, exclusive offers, and a voice in protocol decisions.
+          </div>
+        </div>
+        <div class='border-purple3 border-opacity-50 h-px w-full border-t'></div>
+
+        <div class='mx-auto my-8 max-w-2xl'>
+          <div class='text-xl font-bold'>2. When is the TGE?</div>
+          <div class='text-purple3 my-4'>
+            The $HPO TGE took place on <b>25th November 2024 at 12:00 PM UTC</b>.
+          </div>
+        </div>
+        <div class='border-purple3 border-opacity-50 h-px w-full border-t'></div>
+
+        <div class='mx-auto my-8 max-w-2xl'>
+          <div class='text-xl font-bold'>3. What was an ILO?</div>
+          <div class='text-purple3 my-4'>
+            An Initial Liquidity Offering (ILO) is an innovative token launch model where tokens are offered directly on
+            decentralized exchanges. It provides transparency, efficiency, and community empowerment from day one.
+          </div>
+        </div>
+        <div class='border-purple3 border-opacity-50 h-px w-full border-t'></div>
+
+        <div class='mx-auto my-8 max-w-2xl'>
+          <div class='text-xl font-bold'>4. Why is the TGE held through an ILO?</div>
+          <div class='text-purple3 my-4'>
+            <ol class='flex list-inside list-[lower-alpha] flex-col gap-4'>
+              <li>
+                Decentralized: $HPO is launched using a decentralized solution that adheres to blockchain principles.
+              </li>
+              <li>Transparent: All liquidity and transactions are tracked on-chain for full visibility.</li>
+              <li>Open to All: Participation requires only a TON-supported wallet—no KYC or complicated processes.</li>
+              <li>Low Fees: Early supporters can benefit from minimal costs, maximizing their returns.</li>
+            </ol>
+          </div>
+        </div>
+        <div class='border-purple3 border-opacity-50 h-px w-full border-t'></div>
+
+        <div class='mx-auto my-8 max-w-2xl'>
+          <div class='text-xl font-bold'>5. What is the price of $HPO?</div>
+          <div class='text-purple3 my-4'>
+            The initial price of $HPO on the DEX was $0.02. After listing, the price is determined by market demand and
+            supply. Our goal is to list at a modest price, allowing early supporters to benefit from Hipo`&apos;`s
+            long-term growth potential.
+          </div>
+        </div>
+        <div class='border-purple3 border-opacity-50 h-px w-full border-t'></div>
+
+        <div class='mx-auto my-8 max-w-2xl'>
+          <div class='text-xl font-bold'>6. What is Initial FDV?</div>
+          <div class='text-purple3 my-4 flex flex-col gap-4'>
+            <p>
+              Initial FDV (Fully Diluted Valuation) is a key metric for evaluating an IDO. It represents the theoretical
+              value of a project if all tokens were in circulation based on the token price during the IDO.
+            </p>
+            <p>
+              Calculation:
+              <br />
+              <span class='mx-8 italic'>Initial FDV=IDO Price &times; Total Token Supply</span>
+            </p>
+            <p>For Hipo:</p>
+            <ul class='list-inside list-disc'>
+              <li>Total Token Supply = 1,000,000,000 tokens</li>
+              <li>ILO Price = $0.02</li>
+              <li class='font-bold'>Initial FDV = $20,000,000</li>
+            </ul>
+          </div>
+        </div>
+        <div class='border-purple3 border-opacity-50 h-px w-full border-t'></div>
+
+        <div class='mx-auto my-8 max-w-2xl'>
+          <div class='text-xl font-bold'>7. How can FDV you make an investment decision?</div>
+          <div class='text-purple3 my-4'>
+            Compare the Initial FDV with the project`&apos;`s potential to assess if the FDV aligns with its current
+            stage. Also, compare the FDV with similar projects in other blockchains to gauge its growth potential.
+          </div>
+        </div>
+        <div class='border-purple3 border-opacity-50 h-px w-full border-t'></div>
+
+        <div class='mx-auto my-8 max-w-2xl'>
+          <div class='text-xl font-bold'>8. Why does $HPO have great growth potential for early investors?</div>
+          <div class='text-purple3 my-4'>
+            <ol class='flex list-inside list-[lower-alpha] flex-col gap-4'>
+              <li>
+                Market Opportunity: Only 12% of 500M stakable GRAM is in liquid staking, leaving vast room for growth.
+              </li>
+              <li>
+                Highest APY: Hipo has delivered top returns, and with TON&apos;s decentralization, it is positioned to
+                capture a larger market share.
+              </li>
+              <li>
+                No Private Fundraising: Early investors can acquire $HPO at a modest price, offering upside potential.
+              </li>
+              <li>
+                Comparable Growth Potential: When compared to similar projects on Ethereum, $HPO shows significant
+                untapped potential.
+              </li>
+              <li>
+                Upcoming Milestones: Key product updates and market expansion will further benefit early investors.
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class='border-purple3 border-opacity-50 h-px w-full border-t'></div>
+
+        <div class='mx-auto my-8 max-w-2xl'>
+          <div class='text-xl font-bold'>9. How can I become a $HPO holder?</div>
+          <div class='text-purple3 my-4 flex flex-col gap-4'>
+            <p>There are two main ways to become a $HPO holder:</p>
+            <ol class='flex list-inside list-[lower-alpha] flex-col gap-4'>
+              <li>
+                <b class='font-bold'>Buy $HPO</b>: You can purchase $HPO from listed markets.
+              </li>
+              <li>
+                <b class='font-bold'>Airdrops</b>: Become eligible for $HPO airdrops by participating in our ecosystem.
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class='border-purple3 border-opacity-50 h-px w-full border-t'></div>
+
+        <div class='mx-auto my-8 max-w-2xl'>
+          <div class='text-xl font-bold'>10. How can I become eligible for $HPO airdrops?</div>
+          <div class='text-purple3 my-4 flex flex-col gap-4'>
+            <p>
+              We announce Hipo airdrop plans regularly in our official channels. The two most effective ways to qualify
+              are:
+            </p>
+            <ol class='flex list-inside list-[lower-alpha] flex-col gap-4'>
+              <li>
+                <b class='font-bold'>Stake Your GRAM</b>: Stake your GRAM with Hipo to become eligible.
+              </li>
+              <li>
+                <b class='font-bold'>Join Hipo Gang</b>: Earn in-game coins, and boost your chances.
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class='border-purple3 border-opacity-50 h-px w-full border-t'></div>
+
+        <div class='mx-auto my-8 max-w-2xl'>
+          <div class='text-xl font-bold'>11. How to Buy $HPO?</div>
+          <div class='text-purple3 my-4'>
+            <ol class='flex list-inside list-[lower-alpha] flex-col gap-4'>
+              <li>Get a TON-supported Wallet.</li>
+              <li>Ensure You Have GRAM for your desired $HPO purchase.</li>
+              <li>Head to the listed DEXs and connect your TON wallet.</li>
+              <li>Swap GRAM for $HPO, and receive $HPO instantly in your wallet!</li>
+            </ol>
+          </div>
+        </div>
+        <div class='border-purple3 border-opacity-50 h-px w-full border-t'></div>
+
+        <div class='mx-auto my-8 max-w-2xl'>
+          <div class='text-xl font-bold'>12. How do you manage sell pressure after airdrops?</div>
+          <div class='text-purple3 my-4'>
+            <p>While the market determines whether holders sell or keep HPO, our approach focuses on:</p>
+            <ol class='flex list-inside list-[lower-alpha] flex-col gap-4'>
+              <li>
+                Airdropping tokens to those who bring real value to the Hipo ecosystem, attracting long-term believers.
+              </li>
+              <li>
+                Developing Hipo`&apos;`s products and market, creating long-term growth opportunities for HPO holders,
+                and ensuring that any sell pressure becomes an opportunity for committed supporters to accumulate more
+                HPO.
+              </li>
+            </ol>
+          </div>
+        </div>
+        {/* <!-- <div class='border-purple3 h-px w-full border-t border-opacity-50'></div> --> */}
+      </div>
+    </div>
+  </div>
+</landing>
