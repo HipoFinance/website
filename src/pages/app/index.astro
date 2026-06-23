@@ -1,0 +1,13 @@
+---
+import Layout from '../../layouts/AppLayout.astro'
+import AppIsland from '../../components/app/AppIsland.tsx'
+---
+
+<Layout
+  title='GRAM Staking on TON | Hipo'
+  description='Stake GRAM on TON blockchain with Hipo, the most profitable liquid staking protocol on TON. Earn the highest staking rewards while keeping your assets liquid.'
+>
+  <main class=''>
+    <AppIsland client:only='react' />
+  </main>
+</Layout>

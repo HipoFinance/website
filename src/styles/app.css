@@ -1,0 +1,92 @@
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  background:
+    radial-gradient(farthest-corner at 10% 10%, #feeae8 5%, #f4f4f4 30%, #f4f4f400 30%),
+    radial-gradient(farthest-corner at 90% 70%, #feeae8 5%, #f4f4f4 30%, #f4f4f400 30%), #f4f4f4;
+  background-attachment: fixed;
+}
+
+.dark body {
+  background: #221f1f;
+}
+
+.loading {
+  display: flex !important;
+}
+
+.tab-bar::after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  top: 0;
+  transition: left cubic-bezier(0.88, -0.35, 0.565, 1.35) 0.4s;
+  border-radius: 27.5px;
+  box-shadow: 0 2px 15px #0000001a;
+  background-color: #fff;
+  height: 100%;
+  z-index: 0;
+}
+
+.dark .tab-bar::after {
+  box-shadow: none;
+  background-color: #483637;
+}
+
+.tab-bar.stake::after {
+  left: 0;
+}
+
+.tab-bar.unstake::after {
+  left: 50%;
+}
+
+@reference "./global.css";
+#ton-connect-button [data-tc-button] {
+  box-shadow: none;
+  transform: none;
+  display: flex;
+  @apply rounded-2xl shadow-sm;
+}
+
+@theme {
+  /* colors */
+  --color-white: #ffffff;
+  --color-orange: #ff7e73;
+  --color-brown: #776464;
+  --color-choco: #291f20;
+  --color-milky: #efebe5;
+  --color-blue: #0a88ca;
+  --color-lightblue: #d6ecf7;
+  --color-attention: #ffd2d4;
+  --color-attentiondark: #ffedef;
+  --color-black: #000000;
+
+  --color-gray: var(--color-gray); /* optional: usually just use default */
+  --color-green: var(--color-green);
+
+  --color-dark-50: #f2f2f2;
+  --color-dark-100: #eaeaea;
+  --color-dark-200: #ffa39b;
+  --color-dark-300: #94a3b8;
+  --color-dark-400: #8b807f;
+  --color-dark-500: #776464;
+  --color-dark-600: #483637;
+  --color-dark-700: #464343;
+  --color-dark-800: #333131;
+  --color-dark-900: #2d2a2a;
+  --color-dark-950: #221f1f;
+
+  --color-c1: #b8aa9c;
+  --color-c2: #71665f;
+  --color-c3: #f4f1ed;
+  --color-c4: #f2ebfb;
+  --color-c5: #ccccff;
+  --color-c6: #7e22ce;
+  --color-c7: #0e0e0e;
+
+  /* fonts */
+  --font-body: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --font-logo: 'Eczar', ui-serif, Georgia, serif;
+}

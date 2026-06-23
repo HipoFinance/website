@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import '../styles/app.css'
 import SEO from '../components/SEO.astro'
 
 interface Props {
@@ -9,12 +10,11 @@ interface Props {
 
 const { title, description } = Astro.props
 
-// @TODO: update this data based on hipo.finance/app
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: { title },
-  url: 'https://hipo.finance',
+  url: 'https://hipo.finance/app',
   description: { description },
   publisher: {
     '@type': 'Organization',
@@ -35,9 +35,35 @@ const jsonLd = {
     <SEO title={title} description={description} jsonLd={jsonLd} />
 
     <link rel='icon' href={`${import.meta.env.BASE_URL}favicon.ico`} />
+
+    <script is:inline>
+      ;() => {
+        if (
+          localStorage.theme === 'dark' ||
+          (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        ) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+      }
+    </script>
   </head>
 
   <body class='bg-milky font-poppins text-gray1'>
+    <script async src='https://tganalytics.xyz/index.js' type='text/javascript' is:inline></script>
+    <script>
+      window.addEventListener('load', function () {
+        if (location.host === 'hipo.finance' && window.telegramAnalytics) {
+          window.telegramAnalytics.init({
+            token:
+              'eyJhcHBfbmFtZSI6IkhpcG9GaW5hbmNlIiwiYXBwX3VybCI6Imh0dHBzOi8vdC5tZS9IaXBvRmluYW5jZUJvdCIsImFwcF9kb21haW4iOiJodHRwczovL2FwcC5oaXBvLmZpbmFuY2UifQ==!E4pxUC4Gw7gYJ/OLjvBnyB3xdqnfZd96quHuM0hwQEY=',
+            appName: 'HipoFinance',
+          })
+        }
+      })
+    </script>
+
     <slot />
   </body>
 </html>
