@@ -134,7 +134,6 @@ export class Model {
   readonly evaaLoanUrl = 'https://app.evaa.finance/'
 
   constructor() {
-    console.log('Model created', this)
     makeObservable(this, {
       network: observable,
       tonClient: observable,
