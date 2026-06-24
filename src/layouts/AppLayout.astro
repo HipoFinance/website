@@ -37,7 +37,7 @@ const jsonLd = {
     <link rel='icon' href={`${import.meta.env.BASE_URL}favicon.ico`} />
 
     <script is:inline>
-      ;() => {
+      ;(() => {
         if (
           localStorage.theme === 'dark' ||
           (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
@@ -46,7 +46,7 @@ const jsonLd = {
         } else {
           document.documentElement.classList.remove('dark')
         }
-      }
+      })()
     </script>
   </head>
 

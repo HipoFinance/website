@@ -11,7 +11,7 @@ const Footer = observer(({ model }: Props) => {
       <div className='mx-auto flex w-full max-w-5xl flex-col justify-center px-8 py-8 sm:flex sm:flex-row-reverse sm:items-start sm:px-0'>
         <div className='mx-auto flex flex-row flex-wrap'>
           <div className='mx-8 my-4'>
-            <h3 className='text-orange dark:text-brown font-bold'>Social</h3>
+            <h3 className='text-orange font-bold'>Social</h3>
             <a className='my-4 block text-sm' href='https://t.me/HipoFinance' target='_blank' rel='noopener noreferrer'>
               Telegram Channel
             </a>
@@ -76,7 +76,7 @@ const Footer = observer(({ model }: Props) => {
           </div> */}
 
           <div className='mx-8 my-4'>
-            <h3 className='text-orange dark:text-brown font-bold'>Docs</h3>
+            <h3 className='text-orange font-bold'>Docs</h3>
             <a
               className='my-4 block text-sm'
               href='https://github.com/HipoFinance'
@@ -123,7 +123,7 @@ const Footer = observer(({ model }: Props) => {
 
         <div className='mx-auto flex max-w-96 flex-col gap-4 px-8 pb-16 sm:w-1/2'>
           <div
-            className='font-logo dark:text-orange flex flex-row items-center gap-4 text-2xl select-none'
+            className='font-logo text-orange flex flex-row items-center gap-4 text-2xl font-bold select-none'
             onClick={model.switchNetwork}
           >
             <img src='/images/app/logo.svg' className='-mr-3 -ml-4 h-20 dark:hidden' />
