@@ -15,12 +15,12 @@ const Footer = observer(({ model }: Props) => {
             <div className='flex w-full flex-col items-center justify-between gap-2 md:flex-row'>
               <div className='text-c7'>
                 <div className='text-lg'>
-                  <p>Join the Hipo community on Telegram - get updates, ask questions, and meet other GRAM holders</p>
+                  <p>Join Hipo on Telegram for updates, support, and discussions. </p>
                 </div>
               </div>
               <div>
                 <a href='https://t.me/hipo_chat' target='_blank' rel='noopener noreferrer'>
-                  <button className='bg-c6 cursor-pointer rounded-xl px-8 py-2 text-white'>Join Chat</button>
+                  <button className='bg-c6 cursor-pointer rounded-xl px-8 py-2 text-white'>Join Now</button>
                 </a>
               </div>
             </div>
