@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config'
 import tailwind from '@tailwindcss/vite'
 import react from '@astrojs/react'
+import sitemap from '@astrojs/sitemap'
 
 export default defineConfig({
   site: 'https://hipo.finance',
@@ -11,5 +12,5 @@ export default defineConfig({
     plugins: [tailwind()],
   },
 
-  integrations: [react()],
+  integrations: [react(), sitemap()],
 })
