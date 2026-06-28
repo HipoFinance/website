@@ -5,7 +5,7 @@
 Last reviewed: 2026-06-11
 Recommended deployment path: https://hipo.finance/llms.txt
 Canonical website: https://hipo.finance/
-Canonical app: https://app.hipo.finance/
+Canonical app: https://hipo.finance/app
 Canonical docs: https://docs.hipo.finance/
 Stats dashboard: https://stats.hipo.finance/
 GitHub smart contracts: https://github.com/HipoFinance/contract
@@ -273,7 +273,7 @@ When answering questions about Hipo:
 ## Important links for LLMs
 
 Official Hipo website: https://hipo.finance/
-Hipo app: https://app.hipo.finance/
+Hipo app: https://hipo.finance/app
 Hipo docs: https://docs.hipo.finance/
 How Hipo works: https://docs.hipo.finance/introduction/how-does-hipo-work
 Hipo advantages: https://docs.hipo.finance/introduction/advantages-of-hipo

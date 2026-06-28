@@ -1168,7 +1168,7 @@ export class Model {
 
   connectWallet = () => {
     this.tonConnectUI = new TonConnectUI({
-      manifestUrl: 'https://app.hipo.finance/tonconnect-manifest.json',
+      manifestUrl: 'https://hipo.finance/app/tonconnect-manifest.json',
       buttonRootId: tonConnectButtonRootId,
       actionsConfiguration: {
         twaReturnUrl: 'https://t.me/HipoFinanceBot',
