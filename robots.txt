@@ -1,4 +1,4 @@
 User-Agent: *
 Allow: /
 
-Sitemap: https://hipo.finance/sitemap.xml
+Sitemap: https://hipo.finance/sitemap-index.xml
