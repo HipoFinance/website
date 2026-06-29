@@ -10,13 +10,13 @@ const AmountAlert = observer(({ model }: Props) => {
   let message
   if (model.amountAlert === 'stake-max') {
     heading = <h1 className='text-center text-xl font-bold'>Insufficient Funds</h1>
-    message = <p className='mt-4 text-center'>You don't have enough GRAM in your wallet.</p>
+    message = <p className='mt-4 text-center'>Not enough GRAM in wallet.</p>
   } else if (model.amountAlert === 'unstake-max') {
     heading = <h1 className='text-center text-xl font-bold'>Insufficient Funds</h1>
-    message = <p className='mt-4 text-center'>You don't have enough hGRAM in your wallet.</p>
+    message = <p className='mt-4 text-center'>Not enough hGRAM in wallet.</p>
   } else if (model.amountAlert === 'instant-unstake-max') {
-    heading = <h1 className='text-center text-xl font-bold'>More Than Available Now</h1>
-    message = <p className='mt-4 text-center'>This amount is more than instantly available amount to unstake.</p>
+    heading = <h1 className='text-center text-xl font-bold'>Insufficient Liquidity</h1>
+    message = <p className='mt-4 text-center'>Not enough liquidity available for instant unstake.</p>
   }
 
   if (model.amountAlert !== 'none') {
