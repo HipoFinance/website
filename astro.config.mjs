@@ -8,6 +8,8 @@ export default defineConfig({
   base: '/',
   output: 'static',
 
+  trailingSlash: 'always',
+
   vite: {
     plugins: [tailwind()],
   },
