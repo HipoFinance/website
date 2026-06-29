@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite'
-import { useEffect } from 'react'
 import { Model } from './Model'
 
 interface Props {
@@ -94,7 +93,7 @@ const Wait = observer(({ model }: Props) => {
     return (
       <div
         className={
-          'bg-opacity-40 text-brown dark:text-dark-50 fixed top-0 left-0 z-1000 flex h-full w-full overflow-y-auto bg-black p-8'
+          'text-brown dark:text-dark-50 fixed top-0 left-0 z-1000 flex h-full w-full overflow-y-auto bg-black/40 p-8'
         }
       >
         <div className='bg-milky dark:bg-dark-700 m-auto w-96 max-w-sm rounded-3xl p-8 shadow-2xl'>

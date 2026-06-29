@@ -27,6 +27,8 @@ type UnstakeOption = 'best' | 'instant'
 
 type WaitForTransaction = 'no' | 'signed' | 'sent' | 'timeout' | 'done'
 
+type AmountAlert = 'none' | 'stake-max' | 'unstake-max' | 'instant-unstake-max'
+
 type WalletRewardsFetchState = 'init' | 'loading' | 'error' | 'done'
 
 interface WalletRewards {
@@ -101,6 +103,7 @@ export class Model {
   amount = ''
   unstakeOption: UnstakeOption = 'best'
   waitForTransaction: WaitForTransaction = 'no'
+  amountAlert: AmountAlert = 'none'
   ongoingRequests = 0
   errorMessage = ''
   holdersCount?: number
@@ -154,6 +157,7 @@ export class Model {
       amount: observable,
       unstakeOption: observable,
       waitForTransaction: observable,
+      amountAlert: observable,
       ongoingRequests: observable,
       errorMessage: observable,
       holdersCount: observable,
@@ -210,6 +214,7 @@ export class Model {
       setAmount: action,
       setAmountToMax: action,
       setWaitForTransaction: action,
+      setAmountAlert: action,
       beginRequest: action,
       endRequest: action,
       setErrorMessage: action,
@@ -474,18 +479,7 @@ export class Model {
   }
 
   get isButtonEnabled() {
-    const isAmountValid = this.isAmountValid
-    const isAmountPositive = this.isAmountPositive
-    const tonBalance = this.tonBalance
-    const htonBalance = this.walletState?.tokens
-    const haveBalance = this.isStakeTabActive ? tonBalance != null : htonBalance != null
-    const isInstantBurnable =
-      this.isStakeTabActive || this.unstakeOption === 'best' || !this.unstakeMoreThanInstantBurnable
-    if (this.isWalletConnected) {
-      return isAmountValid && isAmountPositive && haveBalance && isInstantBurnable
-    } else {
-      return true
-    }
+    return !this.isWalletConnected || this.isAmountPositive
   }
 
   get buttonLabel() {
@@ -719,6 +713,10 @@ export class Model {
 
   setWaitForTransaction = (wait: WaitForTransaction) => {
     this.waitForTransaction = wait
+  }
+
+  setAmountAlert = (amountAlert: AmountAlert) => {
+    this.amountAlert = amountAlert
   }
 
   beginRequest = () => {

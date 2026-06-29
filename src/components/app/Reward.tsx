@@ -17,7 +17,7 @@ const Referral = observer(({ model }: Props) => {
             <p className='text-center'>
               Connect your TON wallet to view your <b className='font-bold'>staking rewards</b>.
             </p>
-            <img src='/images/app/hpo-hton-ton-gift.webp' className='h-36 object-contain' />
+            <img src='/images/app/hpo-hgram-gram-gift.webp' className='h-36 object-contain' />
             <button
               className='bg-orange dark:text-dark-600 mx-auto block h-14 w-full rounded-2xl text-lg font-medium text-white sm:w-80'
               onClick={(e) => {
@@ -138,14 +138,14 @@ const Referral = observer(({ model }: Props) => {
                   <p className='text-center'>
                     Your first reward will be credited within <b className='font-bold'>36 hours</b>.
                   </p>
-                  <img src='/images/app/hpo-hton-ton-gift.webp' className='h-36 object-contain' />
+                  <img src='/images/app/hpo-hgram-gram-gift.webp' className='h-36 object-contain' />
                 </div>
               )}
 
               {model.walletRewards?.earnedRewards.length === 0 && model.htonBalance === 0n && (
                 <div className='mx-auto -mt-8 flex max-w-sm flex-col gap-8 p-8'>
                   <p className='text-center'>Start staking with Hipo for daily rewards!</p>
-                  <img src='/images/app/hpo-hton-ton-gift.webp' className='h-36 object-contain' />
+                  <img src='/images/app/hpo-hgram-gram-gift.webp' className='h-36 object-contain' />
                   <button
                     className='bg-orange dark:text-dark-600 mx-auto block h-14 w-full rounded-2xl text-lg font-medium text-white sm:w-80'
                     onClick={() => {

@@ -19,7 +19,7 @@ const Referral = observer(({ model }: Props) => {
           <p className='my-4 text-lg'>hGRAM can be traded on DEXs for other tokens.</p>
         </div>
         <div className='flex w-full flex-1 flex-col flex-wrap items-center justify-center gap-4 md:flex-row'>
-          <div className='border-dark-600 border-opacity-50 bg-milky bg-opacity-50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
+          <div className='border-dark-600 border-opacity-50 bg-milky/50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
             <img src='/images/app/dedust.png' className='mx-auto h-12' />
             <p className='m-4 font-medium'>DeDust</p>
             <a
@@ -30,7 +30,7 @@ const Referral = observer(({ model }: Props) => {
               Swap now
             </a>
           </div>
-          <div className='border-dark-600 border-opacity-50 bg-milky bg-opacity-50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
+          <div className='border-dark-600 border-opacity-50 bg-milky/50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
             <img src='/images/app/ston.png' className='mx-auto h-12' />
             <p className='m-4 font-medium'>STON.fi</p>
             <a
@@ -41,7 +41,7 @@ const Referral = observer(({ model }: Props) => {
               Swap now
             </a>
           </div>
-          <div className='border-dark-600 border-opacity-50 bg-milky bg-opacity-50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
+          <div className='border-dark-600 border-opacity-50 bg-milky/50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
             <img src='/images/app/tonco.svg' className='mx-auto h-12' />
             <p className='m-4 font-medium'>TONCO</p>
             <a
@@ -61,7 +61,7 @@ const Referral = observer(({ model }: Props) => {
           <p className='my-4 text-lg'>Use hGRAM to provide liquidity on DEXs, earning fees, and reward.</p>
         </div>
         <div className='flex w-full flex-1 flex-col flex-wrap items-center justify-center gap-4 md:flex-row'>
-          <div className='border-dark-600 border-opacity-50 bg-milky bg-opacity-50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
+          <div className='border-dark-600 border-opacity-50 bg-milky/50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
             <img src='/images/app/dedust.png' className='mx-auto h-12' />
             <p className='m-4 font-medium'>DeDust</p>
             <a
@@ -72,7 +72,7 @@ const Referral = observer(({ model }: Props) => {
               Earn now
             </a>
           </div>
-          <div className='border-dark-600 border-opacity-50 bg-milky bg-opacity-50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
+          <div className='border-dark-600 border-opacity-50 bg-milky/50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
             <img src='/images/app/ston.png' className='mx-auto h-12' />
             <p className='m-4 font-medium'>STON.fi</p>
             <a
@@ -83,7 +83,7 @@ const Referral = observer(({ model }: Props) => {
               Earn now
             </a>
           </div>
-          <div className='border-dark-600 border-opacity-50 bg-milky bg-opacity-50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
+          <div className='border-dark-600 border-opacity-50 bg-milky/50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
             <img src='/images/app/tonco.svg' className='mx-auto h-12' />
             <p className='m-4 font-medium'>TONCO</p>
             <a
@@ -103,7 +103,7 @@ const Referral = observer(({ model }: Props) => {
           <p className='my-4 text-lg'>Partner wallets supporting hGRAM and HPO.</p>
         </div>
         <div className='flex w-full flex-1 flex-col flex-wrap items-center justify-center gap-4 md:flex-row'>
-          <div className='border-dark-600 border-opacity-50 bg-milky bg-opacity-50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
+          <div className='border-dark-600 border-opacity-50 bg-milky/50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
             <img src='/images/app/tonspace.jpg' className='mx-auto h-12' />
             <p className='m-4 font-medium'>Ton Space</p>
             <a
@@ -114,7 +114,7 @@ const Referral = observer(({ model }: Props) => {
               Use Now
             </a>
           </div>
-          <div className='border-dark-600 border-opacity-50 bg-milky bg-opacity-50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
+          <div className='border-dark-600 border-opacity-50 bg-milky/50 dark:border-milky dark:border-opacity-50 dark:bg-dark-700 flex w-44 flex-none flex-col rounded-2xl border p-4 text-center shadow-md'>
             <img src='/images/app/mytonwallet.webp' className='mx-auto h-12' />
             <p className='m-4 font-medium whitespace-nowrap'>MyTonWallet</p>
             <a
@@ -134,7 +134,7 @@ const Referral = observer(({ model }: Props) => {
                     <p className='my-4 text-lg'>Use hGRAM as collateral for a loan.</p>
                 </div>
                 <div className='flex w-full flex-1 flex-col flex-wrap items-center justify-center gap-4 md:flex-row'>
-                    <div className='flex w-44 flex-none flex-col rounded-2xl border border-dark-600 border-opacity-50 bg-milky bg-opacity-50 p-4 text-center opacity-50 shadow-md dark:border-milky dark:border-opacity-50 dark:bg-dark-700'>
+                    <div className='flex w-44 flex-none flex-col rounded-2xl border border-dark-600 border-opacity-50 bg-milky/50 p-4 text-center opacity-50 shadow-md dark:border-milky dark:border-opacity-50 dark:bg-dark-700'>
                         <img src={evaa} className='mx-auto h-12' />
                         <p className='m-4 font-medium'>Evaa</p>
                         <a

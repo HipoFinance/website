@@ -9,7 +9,7 @@ const LoadingIndicator = observer(({ model }: Props) => {
   return (
     <div
       className={
-        'bg-dark-950 bg-opacity-20 dark:bg-opacity-70 pointer-events-none fixed right-5 bottom-20 z-50 w-10 rounded-full sm:bottom-2' +
+        'bg-dark-950/20 dark:bg-dark-950/70 pointer-events-none fixed right-5 bottom-20 z-50 w-10 rounded-full sm:bottom-2' +
         (model.ongoingRequests > 0 ? '' : ' hidden')
       }
     >

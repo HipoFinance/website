@@ -102,6 +102,7 @@ const StakeUnstake = observer(({ model }: Props) => {
               <img src='/images/app/gram.svg' className={'w-7' + (model.isStakeTabActive ? '' : ' hidden')} />
               <img src='/images/app/hgram.svg' className={'w-7' + (model.isStakeTabActive ? ' hidden' : '')} />
               <input
+                id='amount'
                 type='text'
                 inputMode='decimal'
                 placeholder=' Amount'
@@ -120,16 +121,16 @@ const StakeUnstake = observer(({ model }: Props) => {
                   if (e.key === 'Enter' && model.isButtonEnabled) {
                     const button = document.querySelector<HTMLInputElement>('#submit')
                     if (button != null) {
-                      button.click()
                       const target = e.target as HTMLInputElement
                       target.blur()
+                      button.click()
                     }
                   }
                 }}
               />
               <button
                 className={
-                  'bg-milky dark:text-dark-600 rounded-lg px-3 text-xs hover:bg-gray-200 focus:outline-none active:bg-gray-300' +
+                  'bg-milky dark:text-dark-600 rounded-lg px-3 text-xs hover:bg-gray-200 active:bg-gray-300' +
                   (model.isAmountValid
                     ? ''
                     : ' bg-orange hover:bg-brown! active:bg-dark-600! dark:hover:text-dark-50 text-white')
@@ -220,13 +221,21 @@ const StakeUnstake = observer(({ model }: Props) => {
             className='bg-orange dark:text-dark-600 h-14 w-full rounded-2xl text-lg font-medium text-white disabled:opacity-80'
             disabled={!model.isButtonEnabled}
             onClick={(e) => {
-              if (model.isWalletConnected) {
-                model.send()
-              } else {
-                model.connect()
-              }
+              console.log(2, model.isStakeTabActive && !model.isAmountValid)
               const target = e.target as HTMLInputElement
               target.blur()
+              if (!model.isWalletConnected) {
+                model.connect()
+              } else if (model.isStakeTabActive && !model.isAmountValid) {
+                console.log(3)
+                model.setAmountAlert('stake-max')
+              } else if (!model.isStakeTabActive && !model.isAmountValid) {
+                model.setAmountAlert('unstake-max')
+              } else if (!model.isStakeTabActive && model.unstakeOption === 'instant' && model.unstakeMoreThanInstantBurnable) {
+                model.setAmountAlert('instant-unstake-max')
+              } else {
+                model.send()
+              }
             }}
           >
             {model.buttonLabel}
@@ -252,9 +261,9 @@ const StakeUnstake = observer(({ model }: Props) => {
             </div>
             <div className='relative my-4 flex flex-row flex-wrap'>
               <p>Transaction cost</p>
-              <img src='/images/app/question.svg' className='peer ml-1 w-4 dark:hidden' />
-              <img src='/images/app/question-dark.svg' className='peer ml-1 hidden w-4 dark:block' />
-              <p className='bg-lightblue text-blue absolute top-6 left-1/3 z-10 hidden -translate-x-1/4 rounded-lg p-4 text-xs font-normal shadow-xl peer-hover:block'>
+              <img src='/images/app/question.svg' tabIndex={0} className='peer ml-1 w-4 dark:hidden' />
+              <img src='/images/app/question-dark.svg' tabIndex={0} className='peer ml-1 hidden w-4 dark:block' />
+              <p className='bg-lightblue text-blue absolute top-6 left-1/3 z-10 hidden -translate-x-1/4 rounded-lg p-4 text-xs font-normal shadow-xl peer-hover:block peer-focus:block'>
                 This fee is an average, but to ensure all cases are covered, we initially send extra gas, which is later
                 refunded to your wallet.
               </p>

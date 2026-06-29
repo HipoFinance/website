@@ -17,6 +17,7 @@ import '@fontsource/poppins/700.css'
 import '@fontsource/eczar/800.css'
 import { Model } from './Model'
 import { useRef, useEffect } from 'react'
+import AmountAlert from './AmountAlert.tsx'
 
 const App = observer(() => {
   const modelRef = useRef<Model | null>(null)
@@ -34,6 +35,7 @@ const App = observer(() => {
       <OldWalletUpgrade model={model} />
       <StakeUnstake model={model} />
       <Wait model={model} />
+      <AmountAlert model={model} />
       <Stats model={model} />
     </>
   )
