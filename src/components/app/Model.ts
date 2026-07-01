@@ -1414,17 +1414,27 @@ function formatDate(date: Date): string {
 function formatUnstakeBestRemain(time: bigint): string {
   const now = Math.floor(Date.now() / 1000)
   const diff = Number(time) - now
-  const hours = Math.max(0, Math.ceil(diff / 3600))
-  const minutes = Math.max(0, Math.ceil((diff % 3600) / 60))
+  const hours = Math.max(0, Math.floor(diff / 3600))
+  const minutes = Math.max(0, Math.floor((diff % 3600) / 60))
   let result = ''
   if (hours > 0 || minutes > 0) {
     result += 'Receive GRAM in '
   }
   if (hours > 0) {
-    result += hours + ' hours '
+    result += hours.toString()
+    if (hours === 1) {
+      result += ' hour '
+    } else {
+      result += ' hours '
+    }
   }
   if (minutes > 0) {
-    result += minutes + ' minutes'
+    result += minutes
+    if (minutes === 1) {
+      result += ' minute'
+    } else {
+      result += ' minutes'
+    }
   }
   return result
 }

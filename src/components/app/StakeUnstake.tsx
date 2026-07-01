@@ -204,7 +204,7 @@ const StakeUnstake = observer(({ model }: Props) => {
             </div>
             <div className='col-span-2 -mt-2 text-xs'>
               {model.unstakeOption === 'best' && (
-                <div className='text-left'>{model.unstakeBestRemain}</div>
+                <div className='text-left'>{model.unstakeBestRemain} &nbsp;</div>
               )}
               {model.unstakeOption === 'instant' && (
                 <div className={'text-right' + (model.unstakeMoreThanInstantBurnable ? ' text-orange' : '')}>
