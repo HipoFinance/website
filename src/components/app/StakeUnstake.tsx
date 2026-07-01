@@ -161,10 +161,7 @@ const StakeUnstake = observer(({ model }: Props) => {
                 <div className='bg-orange/10 text-orange rounded-full p-1'>
                   <Clock className='size-4' />
                 </div>
-                <p className='text-dark-800 font-medium'>
-                  Wait
-                  {model.unstakeHours && ' ' + model.unstakeHours + 'h'}
-                </p>
+                <p className='text-dark-800 font-medium'>Best</p>
                 <img
                   src='/images/app/check-orange.svg'
                   className={'ml-auto w-5' + (model.unstakeOption === 'best' ? '' : ' invisible')}
@@ -205,14 +202,15 @@ const StakeUnstake = observer(({ model }: Props) => {
                 </p>
               </div>
             </div>
-            <div
-              className={
-                'col-span-2 -mt-2 text-right text-xs' +
-                (model.unstakeOption !== 'instant' ? ' invisible' : '') +
-                (model.unstakeMoreThanInstantBurnable ? ' text-orange' : '')
-              }
-            >
-              &nbsp; {model.maxBurnableTokensFormatted}
+            <div className='col-span-2 -mt-2 text-xs'>
+              {model.unstakeOption === 'best' && (
+                <div className='text-left'>{model.unstakeBestRemain}</div>
+              )}
+              {model.unstakeOption === 'instant' && (
+                <div className={'text-right' + (model.unstakeMoreThanInstantBurnable ? ' text-orange' : '')}>
+                  {model.maxBurnableTokensFormatted}
+                </div>
+              )}
             </div>
           </div>
 

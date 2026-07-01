@@ -195,7 +195,7 @@ export class Model {
       exchangeRateFormatted: computed,
       averageStakeFeeFormatted: computed,
       averageUnstakeFeeFormatted: computed,
-      unstakeHours: computed,
+      unstakeBestRemain: computed,
       explorerHref: computed,
       apy: computed,
       apyFormatted: computed,
@@ -546,12 +546,12 @@ export class Model {
     }
   }
 
-  get unstakeHours() {
+  get unstakeBestRemain() {
     const times = this.times
     const participations = this.treasuryState?.participations
     if (times != null && participations != null) {
       const keys = participations.keys().sort()
-      return formatUnstakeHours(participations.get(keys[0] ?? 0n)?.stakeHeldUntil ?? 0n)
+      return formatUnstakeBestRemain(participations.get(keys[0] ?? 0n)?.stakeHeldUntil ?? 0n)
     }
   }
 
@@ -1411,12 +1411,22 @@ function formatDate(date: Date): string {
   })
 }
 
-function formatUnstakeHours(time: bigint): string {
-  time += 5n * 60n // add 5 minutes as a gap for better estimation
+function formatUnstakeBestRemain(time: bigint): string {
   const now = Math.floor(Date.now() / 1000)
   const diff = Number(time) - now
   const hours = Math.max(0, Math.ceil(diff / 3600))
-  return hours.toString()
+  const minutes = Math.max(0, Math.ceil((diff % 3600) / 60))
+  let result = ''
+  if (hours > 0 || minutes > 0) {
+    result += 'Receive GRAM in '
+  }
+  if (hours > 0) {
+    result += hours + ' hours '
+  }
+  if (minutes > 0) {
+    result += minutes + ' minutes'
+  }
+  return result
 }
 
 function generateRandomQueryId(): bigint {
