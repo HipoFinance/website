@@ -495,9 +495,9 @@ export class Model {
   }
 
   get swapUrl() {
-    let url = 'https://swap.coffee/dex?ft=EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w&st=GRAM'
+    let url = 'https://groypfi.io/swap/EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w/ton'
     if (this.isAmountValid && this.isAmountPositive) {
-      url += '&fa=' + this.amount
+      url += '?amount=' + this.amount
     }
     return url
   }
