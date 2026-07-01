@@ -161,7 +161,7 @@ const StakeUnstake = observer(({ model }: Props) => {
                 <div className='bg-orange/10 text-orange rounded-full p-1'>
                   <Clock className='size-4' />
                 </div>
-                <p className='text-dark-800 font-medium'>Best</p>
+                <p className='text-dark-800 font-medium'>Full</p>
                 <img
                   src='/images/app/check-orange.svg'
                   className={'ml-auto w-5' + (model.unstakeOption === 'best' ? '' : ' invisible')}
@@ -169,9 +169,9 @@ const StakeUnstake = observer(({ model }: Props) => {
               </div>
               <div className='flex items-center gap-2'>
                 <p className='text-xs'>
-                  Slower
+                  Wait until round ends
                   <br />
-                  Full rewards
+                  Maximum rewards
                 </p>
               </div>
             </div>
@@ -196,9 +196,9 @@ const StakeUnstake = observer(({ model }: Props) => {
               </div>
               <div className='flex items-center gap-2'>
                 <p className='text-xs'>
-                  Faster, lower rewards
-                  <br />
                   If liquidity is available
+                  <br />
+                  Reduced rewards
                 </p>
               </div>
             </div>
