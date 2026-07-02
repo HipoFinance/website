@@ -1,43 +1,48 @@
-# Astro Starter Kit: Minimal
+# Hipo - Decentralized Liquid Staking on TON
 
-```sh
-npm create astro@latest -- --template minimal
+Hipo is a secure and decentralized platform that allows you to earn daily staking rewards while maintaining the flexibility to use your liquid GRAM tokens in the larger DeFi ecosystem. Stake any amount of GRAM and get hGRAM, which can be used for trading, providing liquidity, or further compounding your rewards across various DeFi protocols. Join Hipo today and experience the benefits of decentralized GRAM liquid staking.
+
+## Getting Started
+
+To run the web project locally, follow these simple steps:
+
+- Clone the project repository to your local machine.
+- Navigate to the project directory.
+
+## Prerequisites
+
+- Node.js (for using npm packages)
+- Tailwind CSS
+
+## Installation
+
+1- Install Tailwind CSS by running the following command in the project directory:
+
+```bash
+npm install -D tailwindcss
+npx tailwindcss init
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Once the dependencies are installed, you can start the development server with the following command:
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+npx tailwindcss -i ./input.css -o ./dist/output.css --watch
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Open your preferred web browser and open index.html
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Project Structure
 
-Any static assets, like images, can be placed in the `public/` directory.
+The main files and directories in this project are structured as follows:
 
-## 🧞 Commands
+- index.html: The main HTML file that serves as the entry point for the web project.
+- input.css: Tailwind’s layers (precompiled css)
+- dist/output.css: The compiled Tailwind CSS file that is included in the project. You can also customize Tailwind CSS by modifying the tailwind.config.js file.
+- images/: A directory to store any additional static assets such as images.
 
-All commands are run from the root of the project, from a terminal:
+## Contributing
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Please make sure to update tests as appropriate.
