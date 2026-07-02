@@ -569,7 +569,7 @@ export class Model {
     const previousRate = this.treasuryState?.previousRate
     const currentRate = this.treasuryState?.currentRate
     if (times != null && previousRate != null && currentRate != null) {
-      const duration = 2 * Number(times.nextRoundSince - times.currentRoundSince)
+      const duration = Number(times.nextRoundSince - times.currentRoundSince)
       const year = 365 * 24 * 60 * 60
       const compoundingFrequency = year / duration
       const exchangeRateDiff = Number(currentRate - previousRate) / 1_000_000_000
