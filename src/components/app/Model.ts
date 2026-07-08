@@ -196,6 +196,7 @@ export class Model {
       averageStakeFeeFormatted: computed,
       averageUnstakeFeeFormatted: computed,
       unstakeBestRemain: computed,
+      stakeRemain: computed,
       explorerHref: computed,
       apy: computed,
       apyFormatted: computed,
@@ -551,7 +552,17 @@ export class Model {
     const participations = this.treasuryState?.participations
     if (times != null && participations != null) {
       const keys = participations.keys().sort()
-      return formatUnstakeBestRemain(participations.get(keys[0] ?? 0n)?.stakeHeldUntil ?? 0n)
+      return formatRemain(participations.get(keys[0] ?? 0n)?.stakeHeldUntil ?? 0n, 'GRAM')
+    }
+  }
+
+  get stakeRemain() {
+    const times = this.times
+    const participations = this.treasuryState?.participations
+    const instantMint = this.treasuryState?.instantMint ?? true
+    if (times != null && participations != null && !instantMint) {
+      const keys = participations.keys().sort()
+      return formatRemain(participations.get(keys[0] ?? 0n)?.stakeHeldUntil ?? 0n, 'hGRAM')
     }
   }
 
@@ -1411,14 +1422,14 @@ function formatDate(date: Date): string {
   })
 }
 
-function formatUnstakeBestRemain(time: bigint): string {
+function formatRemain(time: bigint, asset: string): string {
   const now = Math.floor(Date.now() / 1000)
   const diff = Number(time) - now
   const hours = Math.max(0, Math.floor(diff / 3600))
   const minutes = Math.max(0, Math.floor((diff % 3600) / 60))
   let result = ''
   if (hours > 0 || minutes > 0) {
-    result += 'Receive GRAM in '
+    result += 'Receive ' + asset + ' in '
   }
   if (hours > 0) {
     result += hours.toString()

@@ -214,6 +214,10 @@ const StakeUnstake = observer(({ model }: Props) => {
             </div>
           </div>
 
+          <div className={'-mt-6 mb-4 text-xs' + (model.isStakeTabActive ? '' : ' hidden')}>
+            <div className='text-left'>{model.stakeRemain} &nbsp;</div>
+          </div>
+
           <button
             id='submit'
             className='bg-orange dark:text-dark-600 h-14 w-full rounded-2xl text-lg font-medium text-white disabled:opacity-80'
