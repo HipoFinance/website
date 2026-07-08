@@ -63,7 +63,7 @@ const StakeUnstake = observer(({ model }: Props) => {
             {model.stakingInProgressDetails.map((value) => (
               <div key={(value.estimated ?? '') + value.amount} className='flex flex-row flex-wrap'>
                 <p className='font-light opacity-70'>
-                  {value.estimated == null ? 'In progress' : 'In progress, done by ' + value.estimated}
+                  {value.estimated == null ? 'Staking' : 'Staked by ' + value.estimated}
                 </p>
                 <p className='ml-auto font-medium opacity-70'>{value.amount}</p>
               </div>
@@ -79,8 +79,8 @@ const StakeUnstake = observer(({ model }: Props) => {
             <div className={'flex flex-row flex-wrap' + (model.unstakingInProgressDetails != null ? '' : ' hidden')}>
               <p className='font-light opacity-70'>
                 {model.unstakingInProgressDetails?.estimated == null
-                  ? 'In progress'
-                  : 'In progress, done by ' + model.unstakingInProgressDetails.estimated}
+                  ? 'Unstaking'
+                  : 'Unstaked by ' + model.unstakingInProgressDetails.estimated}
               </p>
               <p className='ml-auto font-medium opacity-70'>{model.unstakingInProgressFormatted}</p>
             </div>
@@ -220,7 +220,7 @@ const StakeUnstake = observer(({ model }: Props) => {
 
           <button
             id='submit'
-            className='bg-orange dark:text-dark-600 h-14 w-full rounded-2xl text-lg font-medium text-white disabled:opacity-80'
+            className='bg-orange dark:text-dark-600 h-14 w-full rounded-2xl text-lg font-medium text-white cursor-pointer disabled:cursor-not-allowed disabled:opacity-80'
             disabled={!model.isButtonEnabled}
             onClick={(e) => {
               console.log(2, model.isStakeTabActive && !model.isAmountValid)
