@@ -157,7 +157,7 @@ const StakeUnstake = observer(({ model }: Props) => {
                 model.setUnstakeOption('best')
               }}
             >
-              <div className='flex items-start gap-2'>
+              <div className='-mx-2 flex items-start gap-2'>
                 <div className='bg-orange/10 text-orange rounded-full p-1'>
                   <Clock className='size-4' />
                 </div>
@@ -184,7 +184,7 @@ const StakeUnstake = observer(({ model }: Props) => {
                 model.setUnstakeOption('instant')
               }}
             >
-              <div className='flex items-start gap-2'>
+              <div className='-mx-2 flex items-start gap-2'>
                 <div className='bg-orange/10 text-orange rounded-full p-1'>
                   <Zap className='size-4' />
                 </div>
