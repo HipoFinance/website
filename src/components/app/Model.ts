@@ -57,7 +57,7 @@ interface FragmentState {
 const updateTimesDelay = 5 * 60 * 1000
 const updateLastBlockDelay = 30 * 1000
 const retryDelay = 3 * 1000
-const waitForCompletionDelay = 3 * 1000
+const waitForCompletionDelay = 500
 const txValidUntil = 5 * 60
 
 const averageStakeFee = 15000000n
@@ -412,7 +412,7 @@ export class Model {
     }
     return {
       amount: formatNano(value) + ' hGRAM',
-      estimated: time == null ? undefined : formatDate(new Date((Number(time) + 5 * 60) * 1000)),
+      estimated: time == null ? undefined : formatRemain(time),
     }
   }
 
@@ -441,7 +441,7 @@ export class Model {
         const until = this.treasuryState?.participations.get(time)?.stakeHeldUntil ?? 0n
         result.push({
           amount: formatNano(value) + ' GRAM',
-          estimated: until === 0n ? undefined : formatDate(new Date((Number(until) + 5 * 60) * 1000)),
+          estimated: until === 0n ? undefined : formatRemain(until),
         })
       }
     }
@@ -552,7 +552,10 @@ export class Model {
     const participations = this.treasuryState?.participations
     if (times != null && participations != null) {
       const keys = participations.keys().sort()
-      return formatRemain(participations.get(keys[0] ?? 0n)?.stakeHeldUntil ?? 0n, 'GRAM')
+      const remain = formatRemain(participations.get(keys[0] ?? 0n)?.stakeHeldUntil ?? 0n)
+      if (remain !== '') {
+        return 'Receive GRAM in ' + remain
+      }
     }
   }
 
@@ -562,7 +565,17 @@ export class Model {
     const instantMint = this.treasuryState?.instantMint ?? true
     if (times != null && participations != null && !instantMint) {
       const keys = participations.keys().sort()
-      return formatRemain(participations.get(keys[0] ?? 0n)?.stakeHeldUntil ?? 0n, 'hGRAM')
+      keys.reverse()
+      for (const key of keys) {
+        const participation = participations.get(key)
+        const state = participation?.state
+        if (participation?.stakeHeldUntil != null && state != null && state > ParticipationState.Open && state < ParticipationState.Burning) {
+          const remain = formatRemain(participation.stakeHeldUntil)
+          if (remain !== '') {
+            return 'Receive hGRAM in ' + remain
+          }
+        }
+      }
     }
   }
 
@@ -1422,32 +1435,19 @@ function formatDate(date: Date): string {
   })
 }
 
-function formatRemain(time: bigint, asset: string): string {
+function formatRemain(time: bigint): string {
   const now = Math.floor(Date.now() / 1000)
   const diff = Number(time) - now
   const hours = Math.max(0, Math.floor(diff / 3600))
   const minutes = Math.max(0, Math.floor((diff % 3600) / 60))
   let result = ''
-  if (hours > 0 || minutes > 0) {
-    result += 'Receive ' + asset + ' in '
-  }
   if (hours > 0) {
-    result += hours.toString()
-    if (hours === 1) {
-      result += ' hour '
-    } else {
-      result += ' hours '
-    }
+    result += hours.toString() + 'h '
   }
   if (minutes > 0) {
-    result += minutes
-    if (minutes === 1) {
-      result += ' minute'
-    } else {
-      result += ' minutes'
-    }
+    result += minutes.toString() + 'm'
   }
-  return result
+  return result.trim()
 }
 
 function generateRandomQueryId(): bigint {
