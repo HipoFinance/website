@@ -69,7 +69,7 @@ const Referral = observer(({ model }: Props) => {
 
             <a
               className='bg-orange dark:text-dark-600 mx-auto mt-8 block h-14 w-full cursor-pointer place-content-center rounded-2xl text-center text-lg font-medium text-white sm:w-80'
-              href='https://t.me/HipoFinanceBot/join'
+              href='https://telegram.me/HipoFinanceBot/join'
             >
               {model.claimWalletRewardsLabel}
             </a>
