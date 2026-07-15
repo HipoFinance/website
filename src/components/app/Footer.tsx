@@ -19,7 +19,7 @@ const Footer = observer(({ model }: Props) => {
                 </div>
               </div>
               <div>
-                <a href='https://telegram.me/hipo_chat' target='_blank' rel='noopener noreferrer'>
+                <a href='https://t.me/hipo_chat' target='_blank' rel='noopener noreferrer'>
                   <button className='bg-c6 cursor-pointer rounded-xl px-8 py-2 text-white'>Join Now</button>
                 </a>
               </div>
@@ -35,18 +35,13 @@ const Footer = observer(({ model }: Props) => {
               <h3 className='text-orange font-bold'>Social</h3>
               <a
                 className='my-4 block text-sm'
-                href='https://telegram.me/HipoFinance'
+                href='https://t.me/HipoFinance'
                 target='_blank'
                 rel='noopener noreferrer'
               >
                 Telegram Channel
               </a>
-              <a
-                className='my-4 block text-sm'
-                href='https://telegram.me/hipo_chat'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
+              <a className='my-4 block text-sm' href='https://t.me/hipo_chat' target='_blank' rel='noopener noreferrer'>
                 Telegram Chat
               </a>
               <a
@@ -75,7 +70,7 @@ const Footer = observer(({ model }: Props) => {
               </a>
 
               {/* 
-            <a className='my-4 block text-sm' href='https://telegram.me/HipoFinance' target='hipo_telegram'>
+            <a className='my-4 block text-sm' href='https://t.me/HipoFinance' target='hipo_telegram'>
               Telegram Channel
             </a>
             <a className='my-4 block text-sm' href='https://twitter.com/hipofinance' target='hipo_twitter'>
@@ -91,10 +86,10 @@ const Footer = observer(({ model }: Props) => {
 
             {/* <div className='mx-8 my-4'>
             <h3 className='text-orange dark:text-brown font-bold'>Community</h3>
-            <a className='my-4 block text-sm' href='https://telegram.me/hipo_chat' target='hipo_chat'>
+            <a className='my-4 block text-sm' href='https://t.me/hipo_chat' target='hipo_chat'>
               Hipo Chat
             </a>
-            <a className='my-4 block text-sm' href='https://telegram.me/Hipo_hub' target='hipo_hub'>
+            <a className='my-4 block text-sm' href='https://t.me/Hipo_hub' target='hipo_hub'>
               Hipo Hub
             </a>
             <a

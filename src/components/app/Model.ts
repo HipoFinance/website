@@ -132,7 +132,7 @@ export class Model {
   readonly stonPoolUrl = 'https://app.ston.fi/pools/EQDjmQDt12Ys1-gyKZskDSIDAVQaciI3cIUpk46LCWtnKpGF'
   readonly toncoSwapUrl = 'https://app.tonco.io/#/swap?from=hTON&to=TON'
   readonly toncoPoolUrl = 'https://app.tonco.io/#/pool/EQCNtxsO6JYljVLkcJVt7hZZhkC50kMIFAZklE4zBby31RAR'
-  readonly tonspaceUrl = 'https://telegram.me/wallet?startattach'
+  readonly tonspaceUrl = 'https://t.me/wallet?startattach'
   readonly mtwUrl = 'https://mytonwallet.io/get'
   readonly evaaLoanUrl = 'https://app.evaa.finance/'
 
@@ -569,7 +569,12 @@ export class Model {
       for (const key of keys) {
         const participation = participations.get(key)
         const state = participation?.state
-        if (participation?.stakeHeldUntil != null && state != null && state > ParticipationState.Open && state < ParticipationState.Burning) {
+        if (
+          participation?.stakeHeldUntil != null &&
+          state != null &&
+          state > ParticipationState.Open &&
+          state < ParticipationState.Burning
+        ) {
           const remain = formatRemain(participation.stakeHeldUntil)
           if (remain !== '') {
             return 'Receive hGRAM in ' + remain
@@ -1193,7 +1198,7 @@ export class Model {
       manifestUrl: 'https://hipo.finance/app/tonconnect-manifest.json',
       buttonRootId: tonConnectButtonRootId,
       actionsConfiguration: {
-        twaReturnUrl: 'https://telegram.me/HipoFinanceBot',
+        twaReturnUrl: 'https://t.me/HipoFinanceBot',
       },
       uiPreferences: {
         theme: this.dark ? THEME.DARK : THEME.LIGHT,
