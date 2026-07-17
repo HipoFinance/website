@@ -601,8 +601,8 @@ export class Model {
       const duration = Number(times.nextRoundSince - times.currentRoundSince)
       const year = 365 * 24 * 60 * 60
       const compoundingFrequency = year / duration
-      const exchangeRateDiff = Number(currentRate - previousRate) / 1_000_000_000
-      const apy = Math.pow(exchangeRateDiff + 1, compoundingFrequency) - 1
+      const growth = Number(currentRate) / Number(previousRate)
+      const apy = Math.pow(growth, compoundingFrequency) - 1
       return apy
     }
   }
