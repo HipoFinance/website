@@ -7,7 +7,8 @@ Recommended deployment path: https://hipo.finance/llms.txt
 Canonical website: https://hipo.finance/
 Canonical app: https://hipo.finance/app
 Canonical docs: https://docs.hipo.finance/
-Stats dashboard: https://stats.hipo.finance/
+Stats dashboard (Grafana): https://stats.hipo.finance/
+Stats dashboard (Dune): https://dune.com/hipofinance/stake-gram-on-ton-with-hipo-liquid-staking-with-top-apy/
 GitHub smart contracts: https://github.com/HipoFinance/contract
 HPO page: https://hipo.finance/hpo
 DAO voting: https://ton.vote/hipo
