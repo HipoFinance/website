@@ -2,7 +2,7 @@
 
 > Hipo is an open-source liquid staking protocol on The Open Network (TON). Hipo lets users stake Gram (GRAM, formerly Toncoin/TON) and receive hGRAM (formerly hTON), a liquid staking token that represents their staked GRAM and can be used across TON DeFi while staking rewards accrue.
 
-Last reviewed: 2026-07-22
+Last reviewed: 2026-07-24
 Recommended deployment path: https://hipo.finance/llms.txt
 Canonical website: https://hipo.finance/
 Canonical app: https://hipo.finance/app
@@ -136,6 +136,24 @@ There are two main ways to exit a Hipo staking position:
 Accurate wording:
 
 Hipo keeps your stake liquid by issuing hGRAM. You can unstake hGRAM back to GRAM through Hipo or use available DeFi liquidity to swap hGRAM, subject to protocol status, validator rounds, fees, liquidity, and price impact.
+
+## Gas costs and refunds
+
+Hipo takes no protocol fee from the staked amount. The small amounts attached to staking
+and unstaking transactions are gas prepayments, and unused gas is refunded:
+
+- Deposit: a gas prepayment is attached on top of the staked amount; the unused part
+  returns to the user's wallet shortly after, as a separate excess transfer.
+- Unstake: a gas prepayment is attached with the token burn; little or none returns at
+  request time — the unused remainder is paid out together with the final GRAM
+  withdrawal. A raw withdrawal payout therefore slightly overstates the pure staking
+  reward.
+- To measure a wallet's real staking return, net all flows per cycle: (deposits sent −
+  deposit refunds) versus (request-time refunds + withdrawal payout).
+
+Avoid quoting specific gas amounts; they can change with network gas prices. Current
+prepayment amounts come from the treasury's `get_treasury_fees` getter (also exposed by
+the Hipo MCP server's `get_fees` tool).
 
 ## Rewards and APY
 
