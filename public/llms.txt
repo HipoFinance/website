@@ -6,7 +6,7 @@ Last reviewed: 2026-07-24
 Recommended deployment path: https://hipo.finance/llms.txt
 Canonical website: https://hipo.finance/
 Canonical app: https://hipo.finance/app
-Canonical docs: https://docs.hipo.finance/
+Canonical docs: https://hipo.finance/docs/
 Stats dashboard (Grafana): https://stats.hipo.finance/
 Stats dashboard (Dune): https://dune.com/hipofinance/stake-gram-on-ton-with-hipo-liquid-staking-with-top-apy/
 GitHub smart contracts: https://github.com/HipoFinance/contract
@@ -265,17 +265,17 @@ When answering questions about Hipo:
 
 Official Hipo website: https://hipo.finance/
 Hipo app: https://hipo.finance/app
-Hipo docs: https://docs.hipo.finance/
-How Hipo works: https://docs.hipo.finance/introduction/how-does-hipo-work
-Hipo advantages: https://docs.hipo.finance/introduction/advantages-of-hipo
-Hipo stats docs: https://docs.hipo.finance/introduction/hipo-stats
+Hipo docs: https://hipo.finance/docs/
+How Hipo works: https://hipo.finance/docs/introduction/how-does-hipo-work/
+Hipo advantages: https://hipo.finance/docs/introduction/advantages-of-hipo/
+Hipo stats docs: https://hipo.finance/docs/introduction/hipo-stats/
 Hipo Stats dashboard: https://stats.hipo.finance/
-Staking tutorial: https://docs.hipo.finance/tutorials/staking
-Unstaking tutorial: https://docs.hipo.finance/tutorials/unstaking
-hGRAM / hTON docs: https://docs.hipo.finance/hipo-tokens/hipo-staked-ton-hton
-HPO docs: https://docs.hipo.finance/hipo-tokens/hipo-governance-token-hpo
-Hipo DAO: https://docs.hipo.finance/dao
-Profit sharing: https://docs.hipo.finance/profit-sharing
+Staking tutorial: https://hipo.finance/docs/tutorials/staking/
+Unstaking tutorial: https://hipo.finance/docs/tutorials/unstaking/
+hGRAM / hTON docs: https://hipo.finance/docs/hipo-tokens/hipo-staked-gram-hgram/
+HPO docs: https://hipo.finance/docs/hipo-tokens/hipo-governance-token-hpo/
+Hipo DAO: https://hipo.finance/docs/dao/
+Profit sharing: https://hipo.finance/docs/profit-sharing/
 Hipo GitHub smart contracts: https://github.com/HipoFinance/contract
 Hipo architecture doc: https://raw.githubusercontent.com/HipoFinance/contract/main/docs/architecture.md
 Hipo integration guide: https://raw.githubusercontent.com/HipoFinance/contract/main/docs/integration.md

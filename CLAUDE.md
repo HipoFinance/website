@@ -15,13 +15,27 @@ Note: the top-level README describes an old pre-Astro setup (plain HTML + Tailwi
 
 ## What this is
 
-The website for Hipo, a decentralized liquid-staking protocol on the TON blockchain (stake GRAM, receive liquid hGRAM). It is a fully static Astro 6 site (`output: 'static'`, `trailingSlash: 'always'`) with three distinct sections:
+The website for Hipo, a decentralized liquid-staking protocol on the TON blockchain (stake GRAM, receive liquid hGRAM). It is a fully static Astro 6 site (`output: 'static'`, `trailingSlash: 'always'`) with four distinct sections:
 
 1. **Landing pages** (`/`, `/faq/`) — pure Astro components (`src/components/Landing.astro`, `FAQ.astro`, etc.) with small vanilla-JS scripts in `src/scripts/` (menu, banner).
 2. **The staking dApp** (`/app/`) — a single React island: `src/pages/app/index.astro` mounts `AppIsland` with `client:only='react'`, so everything under `src/components/app/` is client-side-only React.
 3. **HPO token page** (`/hpo/`) — Astro components; live market stats are fetched client-side from `https://gauge.hipo.finance/data` by `src/scripts/hpo-data.js`.
+4. **Documentation** (`/docs/`) — Starlight; see below.
 
-Each section has its own layout in `src/layouts/` (`LandingLayout`, `AppLayout`, `HpoLayout`), each pulling in `SEO.astro` (meta tags + JSON-LD).
+The first three sections each have their own layout in `src/layouts/` (`LandingLayout`, `AppLayout`, `HpoLayout`), each pulling in `SEO.astro` (meta tags + JSON-LD). Starlight owns its own `<head>`, so `/docs/` does **not** use `SEO.astro`.
+
+## Documentation (`/docs/`)
+
+Migrated off GitBook (`docs.hipo.finance`) — see `specs/gitbook-docs-migration.md`. Markdown in this repo is now the source of truth; edit `src/content/docs/**.md` directly.
+
+- Rendered by **`@astrojs/starlight`, pinned to `~0.40.0`** — `0.41+` requires Astro 7. Bump both together or the build breaks.
+- Content lives at `src/content/docs/<path>.md` but is served under `/docs/`: `src/content.config.ts` prefixes every entry id via `docsLoader({ generateId })`. `index.md` → `/docs/`.
+- The sidebar is declared **explicitly** in `astro.config.mjs` (not `autogenerate`) to preserve GitBook's order and emoji labels. Adding a page means adding a sidebar entry.
+- `disable404Route: true` keeps `src/pages/404.astro` as the site-wide 404.
+- Images and attachments are plain files in `public/docs/images/`, referenced by absolute path.
+- `src/styles/docs.css` themes Starlight through its CSS custom properties. It deliberately does **not** import `global.css` — Tailwind's preflight conflicts with Starlight's reset.
+- Search is Pagefind, bundled with Starlight and built automatically at the end of `npm run build`.
+- `scripts/import-gitbook-docs.mjs` is the one-time importer, kept for reference. Re-running it **wipes and regenerates** `src/content/docs/` and `public/docs/images/`, discarding hand edits.
 
 ## dApp architecture (`src/components/app/`)
 

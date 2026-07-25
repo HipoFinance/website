@@ -111,7 +111,7 @@ const Footer = observer(({ model }: Props) => {
               >
                 GitHub
               </a>
-              <a className='my-4 block text-sm' href='https://docs.hipo.finance/' target='self'>
+              <a className='my-4 block text-sm' href='/docs/' target='self'>
                 {' '}
                 Documentation{' '}
               </a>

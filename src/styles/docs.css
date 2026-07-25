@@ -1,0 +1,83 @@
+/*
+ * Brand theming for the Starlight docs section (/docs).
+ *
+ * This file is loaded only by Starlight, via `customCss` in astro.config.mjs. It deliberately does
+ * NOT import src/styles/global.css: that pulls in Tailwind's preflight, which conflicts with
+ * Starlight's own reset. Brand alignment is done through Starlight's CSS custom properties instead.
+ */
+
+@import '@fontsource/poppins/300.css';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/500.css';
+@import '@fontsource/poppins/700.css';
+@import '@fontsource/eczar/800.css';
+
+:root {
+  --sl-font: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+
+  /* Hipo orange, --color-orange in src/styles/global.css */
+  --sl-color-accent: #ff7e73;
+  --sl-color-accent-low: #5c2b27;
+  --sl-color-accent-high: #ffc4bf;
+
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #eceef2;
+  --sl-color-gray-2: #dedbe4;
+  --sl-color-gray-3: #b8aa9c;
+  --sl-color-gray-4: #776464;
+  --sl-color-gray-5: #291f20;
+  --sl-color-gray-6: #1b1b2e;
+  --sl-color-black: #02031e; /* --color-very-dark-navy */
+}
+
+/* Light theme */
+:root[data-theme='light'] {
+  --sl-color-accent: #d4453a;
+  --sl-color-accent-low: #ffd9d5;
+  --sl-color-accent-high: #7a221b;
+
+  --sl-color-white: #02031e;
+  --sl-color-gray-1: #0b0826;
+  --sl-color-gray-2: #291f20;
+  --sl-color-gray-3: #776464;
+  --sl-color-gray-4: #b8aa9c;
+  --sl-color-gray-5: #efebe5; /* --color-milky */
+  --sl-color-gray-6: #f4f1ed; /* --color-c3 */
+  --sl-color-gray-7: #f9f8f6;
+  --sl-color-black: #ffffff;
+}
+
+.site-title {
+  font-family: 'Eczar', ui-serif, serif;
+}
+
+/* Imported GitBook figures. */
+.sl-markdown-content figure {
+  margin: 1.5rem 0;
+}
+
+.sl-markdown-content figure img {
+  border-radius: 0.5rem;
+}
+
+.sl-markdown-content figcaption {
+  margin-top: 0.5rem;
+  font-size: var(--sl-text-sm);
+  color: var(--sl-color-gray-3);
+  text-align: center;
+}
+
+.sl-markdown-content figcaption:empty {
+  display: none;
+}
+
+/* YouTube embeds converted from GitBook's {% embed %} blocks. */
+.sl-markdown-content .docs-embed {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  margin: 1.5rem 0;
+  border: 0;
+  border-radius: 0.5rem;
+}
