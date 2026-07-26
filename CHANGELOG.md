@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-07-26 — [detailed report](changelog/2026-07-26-docs-link-audit.md)
+
+- Audited all 131 link references in `src/content/docs/**.md`; no dead links.
+- Switched six `http://` links to `https://`, plus three more in
+  `Landing.astro`, `Banner.astro` and `app/Header.tsx`.
+- Normalized `app.hipo.finance/#/…` to `hipo.finance/app/#/…` in six places.
+
 ## 2026-07-26 — [detailed report](changelog/2026-07-26-changelog-brevity.md)
 
 - Tightened the `CHANGELOG.md` half of the changelog convention in `CLAUDE.md`
