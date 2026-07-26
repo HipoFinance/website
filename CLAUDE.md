@@ -58,8 +58,8 @@ Tailwind CSS 4 via the `@tailwindcss/vite` plugin — there is **no `tailwind.co
 
 Each working session gets an entry. Keep both halves in sync:
 
-- `CHANGELOG.md` — a brief running log, newest first. One `## YYYY-MM-DD` heading per session, linking to its detailed report, then a few bullets.
-- `changelog/YYYY-MM-DD-<slug>.md` — the detailed report: an intro paragraph, a table of the session's commits, sections covering what changed and why, then `### Verification performed` and `### Follow-ups`.
+- `CHANGELOG.md` — **very brief**, newest first. One `## YYYY-MM-DD` heading per session, linking to its detailed report, then **3–5 one-line bullets** naming only _what_ changed. No rationale, no trade-offs, no tables, no sub-bullets. If a bullet needs a second line to make sense, it belongs in the report instead.
+- `changelog/YYYY-MM-DD-<slug>.md` — the detailed report, and the only place detail goes: an intro paragraph, a table of the session's commits, sections covering what changed and why, then `### Verification performed` and `### Follow-ups`. Length here is fine.
 
 Two sessions on the same date get two entries, distinguished by slug. Record decisions that were _declined_ or deferred too — the point of the report is the reasoning, which `git log` doesn't carry. Same convention as the `nginx` and `operation` repos.
 
