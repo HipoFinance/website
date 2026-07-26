@@ -2,7 +2,7 @@
 
 > Hipo is an open-source liquid staking protocol on The Open Network (TON). Hipo lets users stake Gram (GRAM, formerly Toncoin/TON) and receive hGRAM (formerly hTON), a liquid staking token that represents their staked GRAM and can be used across TON DeFi while staking rewards accrue.
 
-Last reviewed: 2026-07-24
+Last reviewed: 2026-07-26
 Recommended deployment path: https://hipo.finance/llms.txt
 Canonical website: https://hipo.finance/
 Canonical app: https://hipo.finance/app
@@ -126,7 +126,7 @@ There are two main ways to exit a Hipo staking position:
 1. Unstake through the Hipo app.
    - Usually the lowest-fee option.
    - May require waiting if the protocol's funds are locked in validation rounds.
-   - Older Hipo docs mention that in some cases waiting can be up to around 36 hours and FAQ materials mention an average around 30 hours.
+   - In some cases the wait can be up to 36 hours, if all of Hipo's smart contract funds are locked during the staking rewards process. A TON validation round is roughly 36 hours, and rewards are distributed each round.
 
 2. Swap hGRAM on a DEX.
    - Can be faster if enough liquidity exists.
