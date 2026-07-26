@@ -10,7 +10,7 @@ When you're ready to convert your hGRAM back into GRAM, there are two options:
 
 #### Option 1: Unstake via Hipo App
 
-Connect your wallet to the [Hipo Web App](https://hipo.finance/app/#/) or [Telegram Mini App](https://t.me/HipoFinanceBot) and select the option to unstake. This method has the lowest fees, but in some cases, you may have to wait [up to 36 hours](/faq/) if all of Hipo’s smart contract funds are locked during the staking rewards process.
+Connect your wallet to the [Hipo Web App](https://hipo.finance/app/#/) or [Telegram Mini App](https://t.me/HipoFinanceBot) and select the option to unstake. This method has the lowest fees, but in some cases, you may have to wait [up to 36 hours](/faq/#how-long-does-unstaking-take) if all of Hipo’s smart contract funds are locked during the staking rewards process.
 
 <figure><img src="/docs/images/tutorials-unstaking-1.png" alt=""><figcaption></figcaption></figure>
 

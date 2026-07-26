@@ -198,7 +198,7 @@
 }
 
 @utility hipo-faq-section {
-  @apply mb-12;
+  @apply mb-12 scroll-mt-8;
 }
 
 @utility hipo-faq-section-title {
@@ -206,11 +206,17 @@
 }
 
 @utility hipo-faq-question {
-  @apply mb-10;
+  @apply mb-10 scroll-mt-8;
 }
 
 @utility hipo-faq-question-title {
   @apply mb-4 text-xl font-normal text-white;
+}
+
+/* Permalink beside each question. Kept faintly visible rather than hover-only so it stays
+   reachable on touch devices. */
+@utility hipo-faq-anchor {
+  @apply text-purple9/40 hover:text-purple9 ml-2 align-middle no-underline transition-colors;
 }
 
 @utility hipo-faq-answer {

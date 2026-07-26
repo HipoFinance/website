@@ -135,6 +135,13 @@ retired `frequently-asked-questions` section, which has no equivalent under `/do
 them ("What APY does Hipo offer?", "How long does unstaking take?"). Left unrewritten they would
 404 once the wildcard redirect goes live.
 
+**Amended after migration:** every question and section on `/faq/` now carries a stable slug id
+derived from its text (`src/components/FAQ.astro`), so the two links above were narrowed from the
+page root to the exact answers: `/faq/#what-apy-does-hipo-offer` and
+`/faq/#how-long-does-unstaking-take`. The second answer was extended with the "up to 36 hours"
+figure so it corroborates the anchor text in `tutorials/unstaking`; that figure also appears in
+`public/llms.txt:129` and the three should be kept in agreement.
+
 ### Image extraction
 
 For each page the script fetches both `<url>.md` and `<url>`, extracts `~gitbook/image?url=…`

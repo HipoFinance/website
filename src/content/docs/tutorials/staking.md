@@ -10,7 +10,7 @@ In the "**Stake**" tab, you can:
 
 * View both your **GRAM** and **hGRAM** balances.
 * Check the **hGRAM exchange rate**, which increases as staking rewards accumulate.
-* Review the [APY](/faq/) (Annual Percentage Yield) from the last validation round.
+* Review the [APY](/faq/#what-apy-does-hipo-offer) (Annual Percentage Yield) from the last validation round.
 
 <figure><img src="/docs/images/tutorials-staking-1.png" alt=""><figcaption></figcaption></figure>
 
