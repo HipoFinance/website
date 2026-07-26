@@ -11,4 +11,4 @@ Here are the benefits of staking your GRAM tokens with Hipo:
 * **Permissionless Validator Selection**: Hipo employs a permissionless validator selection process, allowing anyone to become a validator without needing approval from a central authority. This decentralized approach enhances the network's security and resilience, fostering a more inclusive and distributed ecosystem.
 * **Optimized APY**: Hipo offers an optimized APY (Annual Percentage Yield) due to two key factors. Firstly, the protocol maintains low fees, maximizing returns for stakers. Additionally, validators propose return rates, creating an auction-like scenario for optimal selection. This ensures that stakers benefit from competitive return rates, resulting in the most optimized APY possible.
 
-Start earning staking rewards by visiting the [Hipo Finance Application](https://app.hipo.finance/#/) now.
+Start earning staking rewards by visiting the [Hipo Finance Application](https://hipo.finance/app/#/) now.

@@ -18,7 +18,7 @@ In the "**Stake**" tab, you can:
 
 #### Step 1: Choose Your Platform
 
-You can stake your GRAM using the [Hipo Web App](https://hipo.finance/app/#/), [Telegram Mini App](http://t.me/HipoFinanceBot/app), or even through [Hipo Club](http://t.me/HipoFinanceBot/join). Simply choose the platform that suits you best, and you'll be able to stake GRAM from any of these options.
+You can stake your GRAM using the [Hipo Web App](https://hipo.finance/app/#/), [Telegram Mini App](https://t.me/HipoFinanceBot/app), or even through [Hipo Club](https://t.me/HipoFinanceBot/join). Simply choose the platform that suits you best, and you'll be able to stake GRAM from any of these options.
 
 <figure><img src="/docs/images/tutorials-staking-2.png" alt=""><figcaption></figcaption></figure>
 

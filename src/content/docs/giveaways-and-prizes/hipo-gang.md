@@ -3,7 +3,7 @@ title: "Hipo Gang"
 ---
 
 :::note
-We've migrated from Hipo Gang to [Hipo Cub](http://t.me/HipoFinanceBot/join), where you can earn XP by staking GRAM in Hipo and receive rewards quarterly.
+We've migrated from Hipo Gang to [Hipo Cub](https://t.me/HipoFinanceBot/join), where you can earn XP by staking GRAM in Hipo and receive rewards quarterly.
 :::
 
 ### **What is Hipo Gang?**

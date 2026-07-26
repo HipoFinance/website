@@ -22,7 +22,7 @@ This diagram shows how Hipo rewards work and how you can maximize your earnings
 
 :::note
 All rewards are distributed every validation round (\~36 hours)\
-Fully trackable in [Hipo App](https://hipo.finance/app/#/page=reward/) & [Hipo Club](http://t.me/HipoFinanceBot/join)
+Fully trackable in [Hipo App](https://hipo.finance/app/#/page=reward/) & [Hipo Club](https://t.me/HipoFinanceBot/join)
 :::
 
 The more you participate, the more you earn, and the bigger your role in shaping Hipo’s future.
