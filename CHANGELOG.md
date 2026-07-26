@@ -1,10 +1,17 @@
 # Changelog
 
-Brief running log. Each entry links to a detailed report under `changelog/`.
+Brief running log — a few one-line bullets per session. Detail, reasoning and
+verification live in the linked report under `changelog/`.
 
 Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
+
+## 2026-07-26 — [detailed report](changelog/2026-07-26-changelog-brevity.md)
+
+- Tightened the `CHANGELOG.md` half of the changelog convention in `CLAUDE.md`
+  to 3–5 one-line bullets, no rationale.
+- Offered to retrofit the five existing entries to match; not done.
 
 ## 2026-07-26 — [detailed report](changelog/2026-07-26-faq-anchors-and-cutover-runbook.md)
 
