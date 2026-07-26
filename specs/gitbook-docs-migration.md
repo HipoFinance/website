@@ -95,7 +95,8 @@ edited by hand; the script is not a sync mechanism.
 
 **Preserve GitBook URL paths.** Every page keeps its path under `/docs/`
 (`/security/why-your-security-matters` → `/docs/security/why-your-security-matters/`), so the
-redirect is one wildcard rule plus one special case. The intro page becomes
+redirect is a short ordered set of wildcard rules (see the cutover runbook below). The intro page
+becomes
 `src/content/docs/index.md` → `/docs/`.
 
 **Emit plain `.md`, not `.mdx`.** The corpus contains `<https://…>` autolinks, `$info` and other
@@ -165,16 +166,69 @@ Emoji prefixes from GitBook (🦛, 🚰, ⚙️, …) are preserved in `sidebar.
 
 ### Redirects (outside this repo)
 
-`docs.hipo.finance` resolves through Cloudflare (`server: cloudflare`, `cf-ray` present) in front of
-GitBook. Cutover requires, in order: (1) unpublish the GitBook site from the custom domain,
-(2) point the hostname at Cloudflare-only handling, (3) add a Redirect Rule:
-
-- `docs.hipo.finance/introduction/hipo-liquid-staking-protocol` → `https://hipo.finance/docs/` (301)
-- `docs.hipo.finance/` → `https://hipo.finance/docs/` (301)
-- `docs.hipo.finance/*` → `https://hipo.finance/docs/$1/` (301)
-
 This spec defines the mapping and the acceptance check; **performing the DNS/Cloudflare change is a
 manual step outside this repository** and is not gated on the code landing.
+
+**Corrected during cutover planning.** The original draft of this section read the `server:
+cloudflare` and `cf-ray` response headers as evidence that the hostname already passed through the
+`hipo.finance` Cloudflare zone. It does not — those headers are GitBook's own Cloudflare in front of
+its hosting. In the `hipo.finance` zone the record is:
+
+```
+docs  CNAME  ae2b5f05a4-hosting.gitbook.io   (DNS-only / grey cloud)
+```
+
+DNS-only means traffic never reaches the zone's edge, so **no Redirect Rule can fire until the
+record is switched to Proxied**. That switch, not the rule creation, is the cutover moment.
+
+The zone's plan does not support regex functions in rule expressions, so `regex_replace()` is
+unavailable and the rules below use Cloudflare's wildcard pattern matching instead. Nested
+`regex_replace()` calls are rejected outright regardless of plan.
+
+#### Cutover runbook
+
+1. **Create the Redirect Rules.** Dashboard → `hipo.finance` → Rules → Redirect Rules. For each:
+   match type **Wildcard pattern**, status **301**, **Preserve query string** on. Order matters —
+   evaluation stops at the first match.
+
+   | #   | Name             | Request URL                                                            | Target URL                        |
+   | --- | ---------------- | ---------------------------------------------------------------------- | --------------------------------- |
+   | 1   | `docs intro`     | `https://docs.hipo.finance/introduction/hipo-liquid-staking-protocol*` | `https://hipo.finance/docs/`      |
+   | 2   | `docs root`      | `https://docs.hipo.finance/`                                           | `https://hipo.finance/docs/`      |
+   | 3   | `docs md`        | `https://docs.hipo.finance/*.md`                                       | `https://hipo.finance/docs/${1}/` |
+   | 4   | `docs slash`     | `https://docs.hipo.finance/*/`                                         | `https://hipo.finance/docs/${1}/` |
+   | 5   | `docs catch-all` | `https://docs.hipo.finance/*`                                          | `https://hipo.finance/docs/${1}/` |
+
+   Rules 1–2 take a static target; 3–5 use `${1}`, the wildcard capture. Rule 1 exists because that
+   page became `/docs/` itself (see "Preserve GitBook URL paths" above). Rule 3 exists because
+   GitBook serves Markdown at `<url>.md` and those return 200 today. Rule 4 exists because the site
+   sets `trailingSlash: 'always'`, so `/x/` would otherwise yield `/docs/x//`. Under a rule-count
+   limit, drop 4 then 3 — they are the low-traffic cases.
+
+2. **Enable Always Use HTTPS** (SSL/TLS → Edge Certificates). The patterns specify `https://`, so
+   plain-HTTP requests must be upgraded before they can match.
+
+3. **Flip the DNS record to Proxied** (orange cloud). Leave the CNAME target on GitBook for now: a
+   rule miss then falls through to the still-live GitBook page instead of erroring. Do not delete
+   the record — NXDOMAIN leaves nothing to redirect. Universal SSL covers `docs.hipo.finance` as a
+   first-level subdomain but takes a few minutes to issue.
+
+4. **Verify** — every path 301s and its destination resolves:
+
+   ```bash
+   for p in / /tutorials/staking /tutorials/staking/ /tutorials/staking.md \
+            /introduction/hipo-liquid-staking-protocol /brand-kit; do
+     printf "%-48s %s\n" "$p" \
+       "$(curl -sI "https://docs.hipo.finance$p" | awk 'tolower($1)~/^(http|location:)/{print $2}' | tr '\n' ' ')"
+   done
+   curl -s -o /dev/null -w '%{http_code} %{url_effective}\n' -L https://docs.hipo.finance/tutorials/staking
+   ```
+
+5. **Clean up**, only once step 4 passes: unpublish the GitBook custom domain; optionally repoint
+   the record to a proxied `A 192.0.2.1` (RFC 5737) now that no origin is contacted — after which a
+   rule miss becomes a 522 rather than stale content; purge the cache; submit
+   `https://hipo.finance/sitemap-index.xml` in Search Console. Keep the redirects for at least 12
+   months, since the 301 is what carries ranking signal across.
 
 ## Changes
 

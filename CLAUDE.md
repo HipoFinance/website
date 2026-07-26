@@ -54,6 +54,15 @@ App navigation state (active page `stake|reward|defi`, active tab, and network) 
 
 Tailwind CSS 4 via the `@tailwindcss/vite` plugin — there is **no `tailwind.config.js`**; the theme (fonts Heebo/Eczar/Poppins, brand colors like `orange`, `brown`, `milky`, `c1`–`c7`) is defined in CSS `@theme` blocks in `src/styles/global.css`. `src/styles/app.css` adds dApp-specific styles. Dark mode uses a class strategy (`@custom-variant dark` keyed off a `.dark` ancestor), toggled by inline scripts in the layouts.
 
+## Changelog
+
+Each working session gets an entry. Keep both halves in sync:
+
+- `CHANGELOG.md` — a brief running log, newest first. One `## YYYY-MM-DD` heading per session, linking to its detailed report, then a few bullets.
+- `changelog/YYYY-MM-DD-<slug>.md` — the detailed report: an intro paragraph, a table of the session's commits, sections covering what changed and why, then `### Verification performed` and `### Follow-ups`.
+
+Two sessions on the same date get two entries, distinguished by slug. Record decisions that were _declined_ or deferred too — the point of the report is the reasoning, which `git log` doesn't carry. Same convention as the `nginx` and `operation` repos.
+
 ## Other notes
 
 - `public/llms.txt` is a maintained, curated description of the protocol for LLMs — keep it in sync when protocol-level facts on the site change.
