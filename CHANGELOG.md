@@ -7,6 +7,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-07-27 — [detailed report](changelog/2026-07-27-mcp-server-docs.md)
+
+- Documented the Hipo MCP Server as a new docs page,
+  `/docs/hipo-mcp-server/`, from a read of the `HipoFinance/mcp` source.
+- Added its top-level `🤖 Hipo MCP Server` sidebar entry to `astro.config.mjs`.
+- Added the MCP server to `public/llms.txt` in three places and bumped
+  `Last reviewed`.
+
 ## 2026-07-26 — [detailed report](changelog/2026-07-26-docs-link-audit.md)
 
 - Audited all 131 link references in `src/content/docs/**.md`; no dead links.
