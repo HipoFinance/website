@@ -7,6 +7,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-07-27 — [detailed report](changelog/2026-07-27-mcp-client-setup-docs.md)
+
+- Rewrote the Claude Code connection instructions on `/docs/hipo-mcp-server/`
+  to lead with `claude mcp add` and warn that an `mcpServers` block in
+  `settings.json` is ignored.
+- Added a `-s user` example, noting `user` is a scope keyword, not a username.
+- Reframed both `mcpServers` JSON blocks as being for Claude Desktop, Cursor,
+  and other file-configured clients.
+
 ## 2026-07-27 — [detailed report](changelog/2026-07-27-mcp-server-docs.md)
 
 - Documented the Hipo MCP Server as a new docs page,
