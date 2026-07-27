@@ -151,6 +151,7 @@ const docsSidebar = [
       { label: '🔏 Privacy Policy', link: '/docs/legal-agreements/privacy-policy/' },
     ],
   },
+  { label: '🤖 Hipo MCP Server', link: '/docs/hipo-mcp-server/' },
   { label: '🎨 Brand Kit', link: '/docs/brand-kit/' },
 ]
 

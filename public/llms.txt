@@ -2,7 +2,7 @@
 
 > Hipo is an open-source liquid staking protocol on The Open Network (TON). Hipo lets users stake Gram (GRAM, formerly Toncoin/TON) and receive hGRAM (formerly hTON), a liquid staking token that represents their staked GRAM and can be used across TON DeFi while staking rewards accrue.
 
-Last reviewed: 2026-07-26
+Last reviewed: 2026-07-27
 Recommended deployment path: https://hipo.finance/llms.txt
 Canonical website: https://hipo.finance/
 Canonical app: https://hipo.finance/app
@@ -10,6 +10,7 @@ Canonical docs: https://hipo.finance/docs/
 Stats dashboard (Grafana): https://stats.hipo.finance/
 Stats dashboard (Dune): https://dune.com/hipofinance/stake-gram-on-ton-with-hipo-liquid-staking-with-top-apy/
 GitHub smart contracts: https://github.com/HipoFinance/contract
+MCP server (live protocol data for AI clients): https://mcp.hipo.finance/mcp
 HPO page: https://hipo.finance/hpo
 DAO voting: https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv
 
@@ -191,6 +192,14 @@ Technical documentation (markdown, AI-readable):
 - Full TL-B message schemas: https://raw.githubusercontent.com/HipoFinance/contract/main/contracts/schema.tlb
 - Message-flow diagrams (one image per protocol flow): https://github.com/HipoFinance/contract/tree/main/graphs/img
 
+Hipo runs a public MCP (Model Context Protocol) server so AI clients can read live protocol state instead of relying on training data: https://mcp.hipo.finance/mcp
+
+- It is read-only: it holds no keys, signs nothing, and cannot move funds.
+- Tools: exchange rate and recent APY, treasury state, validation-round timing, gas fees, per-wallet staking status, reward history, round participations, loan info, and max punishment. All numbers come from contract getters.
+- It also serves the technical documents listed above as MCP resources.
+- Source and self-hosting instructions: https://github.com/HipoFinance/mcp — npm package `@hipo-finance/mcp`, MIT licensed.
+- User-facing page: https://hipo.finance/docs/hipo-mcp-server/
+
 Current mainnet contract addresses (the contract repository README is the source of truth; the parent address can change on protocol upgrades):
 
 - Treasury (main protocol contract, receives deposits): `EQCLyZHP4Xe8fpchQz76O-_RmUhaVc_9BAoGyJrwJrcbz2eZ`
@@ -277,6 +286,8 @@ HPO docs: https://hipo.finance/docs/hipo-tokens/hipo-governance-token-hpo/
 Hipo DAO: https://hipo.finance/docs/dao/
 Profit sharing: https://hipo.finance/docs/profit-sharing/
 Hipo GitHub smart contracts: https://github.com/HipoFinance/contract
+Hipo MCP server docs: https://hipo.finance/docs/hipo-mcp-server/
+Hipo MCP server endpoint: https://mcp.hipo.finance/mcp
 Hipo architecture doc: https://raw.githubusercontent.com/HipoFinance/contract/main/docs/architecture.md
 Hipo integration guide: https://raw.githubusercontent.com/HipoFinance/contract/main/docs/integration.md
 TON official website: https://ton.org/
