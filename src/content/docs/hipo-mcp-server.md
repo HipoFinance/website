@@ -5,7 +5,7 @@ description: "Connect Claude, Cursor, or any MCP-capable AI client to Hipo's doc
 
 ### What is the Hipo MCP Server?
 
-The Hipo MCP Server is a small open-source service that lets AI assistants read Hipo. It speaks the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP), an open standard for connecting AI clients to external data, so any MCP-capable client — Claude, Claude Code, Cursor, and others — can look up Hipo's documentation and query live on-chain numbers instead of guessing from memory.
+The Hipo MCP Server is a small, open-source service that allows AI assistants to access Hipo-related data, including information about GRAM staking and other topics. It speaks the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP), an open standard for connecting AI clients to external data, so any MCP-capable client — Claude, Claude Code, Cursor, and others — can look up Hipo's documentation and query live on-chain numbers instead of guessing from memory.
 
 Once connected, your assistant can answer questions like:
 
@@ -88,7 +88,7 @@ These are the questions the server can answer. Your AI client picks the right on
 | `get_round_timing`   | Validation round timing: current and next round boundaries, the election participation window, and how long stakes stay frozen                   |
 | `get_fees`           | Current gas fees for deposit, unstake, and loan requests                                                                                         |
 | `get_wallet_status`  | A given address's hGRAM balance, its value in GRAM, and any pending stakes or unstakes                                                           |
-| `get_reward_history` | A given address's historical staking rewards per round, including Hipo Club level and HPO rewards                                                |
+| `get_reward_history` | A given address's historical GRAM staking rewards per round, including Hipo Club level and HPO rewards                                           |
 | `get_participation`  | Hipo's participation in a validation round: state, loan counts, totals, and stake release time                                                   |
 | `get_loan_info`      | A borrower's per-round loan contract: address, deployment state, balance, and parties                                                            |
 | `get_max_punishment` | The maximum punishment the protocol can apply for a given validator stake                                                                        |
