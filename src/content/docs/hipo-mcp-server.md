@@ -35,7 +35,15 @@ In [Claude Code](https://claude.com/claude-code), one command is enough:
 claude mcp add --transport http hipo https://mcp.hipo.finance/mcp
 ```
 
-Clients that are configured with a JSON file (Claude Desktop, Cursor, and most others) take an entry like this:
+That registers the server for the current project. To reach it from every project instead, pass `-s user` — `user` is a literal scope keyword here, not a placeholder for your own username:
+
+```sh
+claude mcp add -s user --transport http hipo https://mcp.hipo.finance/mcp
+```
+
+Either way, use the command rather than hand-editing a configuration file: Claude Code keeps its MCP servers in its own config, and an `mcpServers` block dropped into `settings.json` is ignored. Run `claude mcp list` to confirm the server is connected, and restart Claude Code afterwards — servers are connected at startup, so a newly added one is not available in a session that is already running.
+
+Other clients are configured with a JSON file (Claude Desktop, Cursor, and most others) and take an entry like this:
 
 ```json
 {
@@ -56,7 +64,7 @@ If you would rather run the server yourself, it is published on npm as [`@hipo-f
 claude mcp add hipo -- npx -y @hipo-finance/mcp
 ```
 
-Or, as a JSON configuration entry:
+The same advice applies here — add it with the command, not by editing a file by hand. For other clients, the JSON configuration entry is:
 
 ```json
 {
