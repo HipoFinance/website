@@ -7,6 +7,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-07-28 — [detailed report](changelog/2026-07-28-faq-accuracy-pass.md)
+
+- Dropped the hand-added `src/content/docs/faq/faq.md`; `/faq/` stays the only
+  FAQ.
+- Corrected `FAQ.astro` on reward accrual, deferred minting, unstaking timing,
+  fees, audits, minimum stake and support links.
+- Added a question on how long minting takes; fixed eight live typos.
+- Fixed the validation round length in `public/llms.txt` and
+  `introduction/hipo-rewards.md` — a round is ~18 hours, not 36.
+
 ## 2026-07-27 — [detailed report](changelog/2026-07-27-mcp-client-setup-docs.md)
 
 - Rewrote the Claude Code connection instructions on `/docs/hipo-mcp-server/`
