@@ -127,7 +127,7 @@ There are two main ways to exit a Hipo staking position:
 1. Unstake through the Hipo app.
    - Usually the lowest-fee option.
    - May require waiting if the protocol's funds are locked in validation rounds.
-   - In some cases the wait can be up to 36 hours, if all of Hipo's smart contract funds are locked during the staking rewards process. A TON validation round is roughly 36 hours, and rewards are distributed each round.
+   - In some cases the wait can be up to 36 hours, if all of Hipo's smart contract funds are locked during the staking rewards process. A TON validation round is roughly 18 hours, and stakes stay frozen for about 9 hours after a round ends before they can be recovered; Hipo spreads its stake across consecutive rounds, so the worst-case wait spans more than one round. Rewards are distributed each round.
 
 2. Swap hGRAM on a DEX.
    - Can be faster if enough liquidity exists.

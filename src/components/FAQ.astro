@@ -156,8 +156,26 @@
           </h3>
           <div class='hipo-faq-answer'>
             <p>
-              Connect your wallet, enter how muchf GRAM you want to stake, and confirm the transaction. After staking,
+              Connect your wallet, enter how much GRAM you want to stake, and confirm the transaction. After staking,
               you will receive hGRAM in your wallet.
+            </p>
+          </div>
+        </div>
+
+        <div class='hipo-faq-question' id='how-long-does-it-take-to-receive-hgram'>
+          <h3 class='hipo-faq-question-title'>
+            How long does it take to receive hGRAM?<a
+              class='hipo-faq-anchor'
+              href='#how-long-does-it-take-to-receive-hgram'
+              aria-label='Link to: How long does it take to receive hGRAM?'>#</a
+            >
+          </h3>
+          <div class='hipo-faq-answer'>
+            <p>Usually within moments of your transaction being confirmed.</p>
+            <p>
+              At times the protocol mints hGRAM at the end of the current validation round instead of immediately. When
+              that happens, your deposit is held until the round is committed and the app shows how long is left. Your
+              GRAM is never at risk while it waits.
             </p>
           </div>
         </div>
@@ -171,9 +189,9 @@
             >
           </h3>
           <div class='hipo-faq-answer'>
-            <p>There is no fixed minimum amount from Hipo.</p>
+            <p>Hipo does not enforce a large minimum. You can stake as little as 1 GRAM.</p>
             <p>
-              You only need enough GRAM to cover the amount you want to stake plus small TON network transaction fee.
+              You only need enough GRAM to cover the amount you want to stake plus a small TON network transaction fee.
             </p>
           </div>
         </div>
@@ -188,8 +206,13 @@
           </h3>
           <div class='hipo-faq-answer'>
             <p>
-              Not instantly. Your rewards start after your staked GRAM becomes active in the staking process. After
-              that, rewards are automatically reflected in the value of your hGRAM.
+              Not instantly. Your rewards start after your staked GRAM becomes active in a validation round. After that,
+              rewards are automatically reflected in the value of your hGRAM.
+            </p>
+            <p>
+              Rewards arrive round by round rather than continuously. A TON validation round lasts roughly 18 hours, and
+              stakes stay frozen for about 9 more hours afterwards so any complaints can be resolved. The exchange rate
+              updates once a round has finished and its rewards have been recovered.
             </p>
           </div>
         </div>
@@ -236,6 +259,18 @@
               You do not receive separate reward payments. Instead, rewards are automatically included in the value of
               hGRAM. Over time, your hGRAM is designed to become redeemable for more GRAM.
             </p>
+            <p>
+              The amount of hGRAM in your wallet never changes on its own. What changes is how much GRAM each hGRAM is
+              worth, so there is no balance to watch grow and nothing to claim.
+            </p>
+            <p>When a validation round is settled, its rewards are split in this order:</p>
+            <ol class='list-decimal pl-6'>
+              <li>The borrowing validator receives the share agreed when it won the loan.</li>
+              <li>The protocol share, if any, is taken.</li>
+              <li>
+                Everything left returns to Hipo's treasury, which raises the hGRAM exchange rate for every holder.
+              </li>
+            </ol>
           </div>
         </div>
 
@@ -250,7 +285,7 @@
           <div class='hipo-faq-answer'>
             <p>
               No. There is nothing to claim manually. Rewards are automatically reflected in the value of hGRAM. Over
-              time, your hGRAM is designed to become redeemable for mroe GRAM.
+              time, your hGRAM is designed to become redeemable for more GRAM.
             </p>
           </div>
         </div>
@@ -296,7 +331,7 @@
           </h3>
           <div class='hipo-faq-answer'>
             <p>
-              hGRAM is the token you receive when you stake GRAM with Hipo. Think of hGRAM as a receipt for yoru staked
+              hGRAM is the token you receive when you stake GRAM with Hipo. Think of hGRAM as a receipt for your staked
               GRAM. It shows how much of the staking pool belongs to you.
             </p>
           </div>
@@ -313,7 +348,7 @@
           <div class='hipo-faq-answer'>
             <p>
               You receive hGRAM so your staked GRAM can stay useful. While your GRAM is earning staking rewards, you can
-              still hold, send, or use hGRAM in supprted TON apps.
+              still hold, send, or use hGRAM in supported TON apps.
             </p>
           </div>
         </div>
@@ -328,8 +363,8 @@
           </h3>
           <div class='hipo-faq-answer'>
             <p>
-              Yes. but you do not receive separate reward payments. Instead, staking rewards are reflecting in the value
-              of hGRAM. Ver time, hGRAM is designed to become redeemable for more GRAM as rewards are added.
+              Yes, but you do not receive separate reward payments. Instead, staking rewards are reflected in the value
+              of hGRAM. Over time, hGRAM is designed to become redeemable for more GRAM as rewards are added.
             </p>
           </div>
         </div>
@@ -393,7 +428,7 @@
           <div class='hipo-faq-answer'>
             <p>
               No. At the beginning, hGRAM may be close to 1 GRAM. Over time, as staking rewards are earned, 1 hGRAM can
-              become redeemable for mroe than 1 GRAM.
+              become redeemable for more than 1 GRAM.
             </p>
           </div>
         </div>
@@ -444,13 +479,27 @@
           </h3>
           <div class='hipo-faq-answer'>
             <p>
-              Standard unstaking is not always instant. It depends on TON staking cycle and network conditions, so there
-              may be a waiting period before your GRAM is returned.
+              Standard unstaking is not always instant. It depends on the TON staking cycle and network conditions, so
+              there may be a waiting period before your GRAM is returned.
             </p>
             <p>
-              In some cases you may have to wait up to 36 hours, if all of Hipo’s smart contract funds are locked during
-              the staking rewards process.
+              If Hipo is holding enough free GRAM when you unstake, you can be paid out within about a minute. In some
+              cases you may have to wait up to 36 hours, if all of Hipo’s smart contract funds are locked during the
+              staking rewards process.
             </p>
+            <p>
+              The wait comes from TON's validation cycle rather than from a fixed Hipo lock-up: a round runs for roughly
+              18 hours, and stakes stay frozen for about 9 more hours afterwards before they can be recovered. Hipo
+              spreads its stake across consecutive rounds, so how long you wait depends on which round your GRAM has to
+              come out of.
+            </p>
+            <p>
+              In practice that means a recovery window opens roughly every 18 hours, when one of those rounds releases
+              its stake. If your request has to wait for a window, it lands somewhere in that cycle, so a typical wait
+              is around 9 hours and a single-round wait tops out near 18. The 36-hour figure is the worst case, where a
+              request just misses one window and has to wait for the one after it.
+            </p>
+            <p>Most unstakes never reach that point, because Hipo can usually cover them from funds already on hand.</p>
           </div>
         </div>
 
@@ -497,7 +546,7 @@
           <div class='hipo-faq-answer'>
             <p>
               Rewards continue until your unstaking request is complete. Once the unstaking process is complete and your
-              GRAM is returned, that GRAM is no longer earning sstaking rewards through Hipo.
+              GRAM is returned, that GRAM is no longer earning staking rewards through Hipo.
             </p>
           </div>
         </div>
@@ -512,8 +561,12 @@
           </h3>
           <div class='hipo-faq-answer'>
             <p>
-              Any fees are shown in the app before you confirm. You may also need to pay a small TON network transaction
-              fee.
+              Hipo does not charge a fee for unstaking. You pay a small TON network gas fee, which the app shows before
+              you confirm.
+            </p>
+            <p>
+              Part of that gas is a prepayment: whatever is left over is returned together with your final GRAM payout,
+              not at the moment you request the unstake.
             </p>
           </div>
         </div>
@@ -531,7 +584,7 @@
           <div class='hipo-faq-answer'>
             <p>
               Hipo is built to be transparent and security-focused. Staking and unstaking happen through on-chain smart
-              contracts, so there process can be verified on TON Blockchain.
+              contracts, so the whole process can be verified on the TON blockchain.
             </p>
           </div>
         </div>
@@ -545,7 +598,16 @@
             >
           </h3>
           <div class='hipo-faq-answer'>
-            <p>Hipo publishes security audits and related reports when available.</p>
+            <p>
+              Yes. Hipo's smart contracts have been audited by Quantstamp in April 2025 and by ProgramCrafter in March
+              2024. Every report is published in full at
+              <a
+                class='underline'
+                href='https://github.com/HipoFinance/audits'
+                target='_blank'
+                rel='noopener noreferrer'>github.com/HipoFinance/audits</a
+              >, along with any later reviews.
+            </p>
           </div>
         </div>
 
@@ -592,8 +654,14 @@
           </h3>
           <div class='hipo-faq-answer'>
             <p>
-              You can verify Hipo transactions on TON blockchain explorers. This means staking, unstaking, and other
-              on-chain actions can be checked publicly on TON blockchain.
+              You can verify Hipo transactions on any TON blockchain explorer, such as
+              <a class='underline' href='https://tonviewer.com/' target='_blank' rel='noopener noreferrer'
+                >tonviewer.com</a
+              >. Staking, unstaking, and every other on-chain action can be checked publicly.
+            </p>
+            <p>
+              The Hipo app links straight to the treasury contract on an explorer, so you can inspect the contract
+              holding the staked GRAM without having to look up its address.
             </p>
           </div>
         </div>
@@ -724,6 +792,11 @@
           </h3>
           <div class='hipo-faq-answer'>
             <p>If a validator underperforms, their collateral may be used according to Hipo’s protocol rules.</p>
+            <p>
+              A validator borrowing GRAM from Hipo has to put up the potential penalty and that round's reward before it
+              can take part. The intent is that a slashing penalty is paid out of the validator's own collateral rather
+              than out of staked GRAM.
+            </p>
             <p>This helps protect stakers and encourages validators to operate reliably.</p>
           </div>
         </div>
@@ -992,7 +1065,12 @@
             >
           </h3>
           <div class='hipo-faq-answer'>
-            <p>Any applicable protocol fees are transparently displayed within the app.</p>
+            <p>Hipo does not take a cut of the GRAM you stake. You receive hGRAM for the full amount.</p>
+            <p>
+              What you do pay is a small TON network gas fee, attached on top of your deposit rather than deducted from
+              it. Any unused gas is returned to your wallet shortly afterwards. The app shows the exact amount before
+              you confirm.
+            </p>
           </div>
         </div>
 
@@ -1005,7 +1083,15 @@
             >
           </h3>
           <div class='hipo-faq-answer'>
-            <p>Protocol fees, if any, are disclosed before staking or unstaking operations.</p>
+            <p>
+              No. Hipo charges no management or subscription fee, and nothing is skimmed from your rewards as they
+              accrue.
+            </p>
+            <p>
+              The protocol does have a governance fee that Hipo's governance can set on validation rewards. It is
+              currently 0%, so validation rewards pass through to hGRAM holders in full. Any change would go through
+              governance and is visible on-chain.
+            </p>
           </div>
         </div>
 
@@ -1018,7 +1104,14 @@
             >
           </h3>
           <div class='hipo-faq-answer'>
-            <p>Current fees are available directly within the Hipo application.</p>
+            <p>
+              The Hipo app shows the exact gas fee for each action before you confirm it, so you always see the current
+              figure rather than an estimate published here.
+            </p>
+            <p>
+              Gas fees are set by the TON network and move with it. They are typically a fraction of a GRAM for staking
+              and unstaking.
+            </p>
           </div>
         </div>
       </div>
@@ -1037,7 +1130,11 @@
             >
           </h3>
           <div class='hipo-faq-answer'>
-            <p>Hipo supports major TON wallets compatible with the protocol.</p>
+            <p>
+              Hipo connects through TON Connect, so any TON wallet that supports it will work. The connect dialog lists
+              the wallets available to you.
+            </p>
+            <p>You can also stake from the Hipo Telegram Mini App if you prefer to stay inside Telegram.</p>
           </div>
         </div>
 
@@ -1063,7 +1160,23 @@
             >
           </h3>
           <div class='hipo-faq-answer'>
-            <p>You can contact the community and team through Hipo's official support channels.</p>
+            <p>
+              The quickest route is
+              <a class='underline' href='https://t.me/hipo_chat' target='_blank' rel='noopener noreferrer'>Hipo Chat</a>
+              on Telegram, where community members and moderators answer questions.
+            </p>
+            <p>
+              For announcements, follow
+              <a class='underline' href='https://t.me/HipoFinance' target='_blank' rel='noopener noreferrer'
+                >the Hipo channel</a
+              >
+              on Telegram or
+              <a class='underline' href='https://x.com/hipofinance' target='_blank' rel='noopener noreferrer'
+                >@hipofinance</a
+              >
+              on X.
+            </p>
+            <p>Hipo will never ask for your seed phrase or private keys. Nobody from the team ever needs them.</p>
           </div>
         </div>
 
@@ -1077,8 +1190,17 @@
           </h3>
           <div class='hipo-faq-answer'>
             <p>
-              Visit Hipo's documentation, social channels, and community resources to learn more about liquid staking on
-              TON.
+              The <a class='underline' href='/docs/'>Hipo documentation</a> covers the protocol in depth, and
+              <a class='underline' href='https://stats.hipo.finance/' target='_blank' rel='noopener noreferrer'
+                >stats.hipo.finance</a
+              >
+              tracks live protocol numbers.
+            </p>
+            <p>
+              The contracts are open source at
+              <a class='underline' href='https://github.com/HipoFinance' target='_blank' rel='noopener noreferrer'
+                >github.com/HipoFinance</a
+              >.
             </p>
           </div>
         </div>
