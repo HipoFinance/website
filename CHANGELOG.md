@@ -7,6 +7,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-07-29 — [detailed report](changelog/2026-07-29-unstake-options-docs.md)
+
+- Documented the Full and Instant unstake options across `FAQ.astro`, both
+  unstaking docs pages, and `public/llms.txt`.
+- Added a FAQ question comparing the two and rewrote the four existing
+  unstaking answers around them.
+- Stopped presenting a DEX swap as the way to get GRAM immediately; it is now
+  the fallback when Instant cannot cover the amount.
+
 ## 2026-07-28 — [detailed report](changelog/2026-07-28-faq-accuracy-pass.md)
 
 - Dropped the hand-added `src/content/docs/faq/faq.md`; `/faq/` stays the only
