@@ -463,8 +463,36 @@
           </h3>
           <div class='hipo-faq-answer'>
             <p>
-              To unstake, open Hipo and choose how much hGRAM you want to redeem. After unstaking process is complete,
+              To unstake, open Hipo and choose how much hGRAM you want to redeem. You then pick how you want it
+              processed — <b>Full</b> or <b>Instant</b> — and confirm the transaction in your wallet. When the unstake completes,
               you receive GRAM back in your wallet.
+            </p>
+          </div>
+        </div>
+
+        <div class='hipo-faq-question' id='what-is-the-difference-between-full-and-instant-unstaking'>
+          <h3 class='hipo-faq-question-title'>
+            What is the difference between Full and Instant unstaking?<a
+              class='hipo-faq-anchor'
+              href='#what-is-the-difference-between-full-and-instant-unstaking'
+              aria-label='Link to: What is the difference between Full and Instant unstaking?'>#</a
+            >
+          </h3>
+          <div class='hipo-faq-answer'>
+            <p>They are the two ways Hipo can process an unstake, and you choose between them before confirming.</p>
+            <ul class='list-disc pl-6'>
+              <li>
+                <b>Full</b> waits until the current validation round ends. Because your GRAM keeps earning until then, this
+                gives you the better exchange rate — the maximum rewards available on your hGRAM. It always goes through.
+              </li>
+              <li>
+                <b>Instant</b> is processed straight away, at a slightly lower rate. It only succeeds if Hipo is holding enough
+                free GRAM at that moment to cover it.
+              </li>
+            </ul>
+            <p>
+              Full is the default. Choose Instant when getting your GRAM now matters more than the last slice of
+              rewards.
             </p>
           </div>
         </div>
@@ -478,28 +506,26 @@
             >
           </h3>
           <div class='hipo-faq-answer'>
+            <p>That depends on which of the two options you pick.</p>
             <p>
-              Standard unstaking is not always instant. It depends on the TON staking cycle and network conditions, so
-              there may be a waiting period before your GRAM is returned.
+              <b>Instant</b> is what its name says: if it succeeds, your GRAM arrives within about a minute. If Hipo is not
+              holding enough free GRAM at that moment, the option is unavailable and you use Full instead.
             </p>
             <p>
-              If Hipo is holding enough free GRAM when you unstake, you can be paid out within about a minute. In some
-              cases you may have to wait up to 36 hours, if all of Hipo’s smart contract funds are locked during the
-              staking rewards process.
+              <b>Full</b> is settled after the current validation round ends, so there is a wait. The app shows you how long
+              is left before your GRAM arrives.
             </p>
             <p>
-              The wait comes from TON's validation cycle rather than from a fixed Hipo lock-up: a round runs for roughly
-              18 hours, and stakes stay frozen for about 9 more hours afterwards before they can be recovered. Hipo
-              spreads its stake across consecutive rounds, so how long you wait depends on which round your GRAM has to
-              come out of.
+              That wait comes from TON's validation cycle rather than from a fixed Hipo lock-up: a round runs for
+              roughly 18 hours, and stakes stay frozen for about 9 more hours afterwards before they can be recovered.
+              Hipo spreads its stake across consecutive rounds, so a recovery window opens roughly every 18 hours.
             </p>
             <p>
-              In practice that means a recovery window opens roughly every 18 hours, when one of those rounds releases
-              its stake. If your request has to wait for a window, it lands somewhere in that cycle, so a typical wait
-              is around 9 hours and a single-round wait tops out near 18. The 36-hour figure is the worst case, where a
-              request just misses one window and has to wait for the one after it.
+              A Full unstake lands somewhere in that cycle, so a typical wait is around 9 hours and a single-round wait
+              tops out near 18. In some cases you may have to wait up to 36 hours, if all of Hipo’s smart contract funds
+              are locked during the staking rewards process — that is the worst case, where a request just misses one
+              window and has to wait for the one after it.
             </p>
-            <p>Most unstakes never reach that point, because Hipo can usually cover them from funds already on hand.</p>
           </div>
         </div>
 
@@ -513,8 +539,12 @@
           </h3>
           <div class='hipo-faq-answer'>
             <p>
-              Yes, when enough liquidity is available. Instant unstaking lets you receive GRAM faster, without waiting
-              for the full standard unstaking process.
+              Yes. Instant is one of the two options you can choose when you unstake, and it is handled by Hipo itself —
+              you do not need a DEX or any third party to get GRAM quickly.
+            </p>
+            <p>
+              It is processed right away rather than at the end of the round, at a slightly lower exchange rate than
+              Full, and it succeeds as long as Hipo is holding enough free GRAM to cover your request.
             </p>
           </div>
         </div>
@@ -529,8 +559,14 @@
           </h3>
           <div class='hipo-faq-answer'>
             <p>
-              Instant unstaking requires available GRAM liquidity. During periods of high demand, instant unstaking may
-              not be available, and you may need to use standard unstaking instead.
+              Instant unstaking pays you out of the GRAM Hipo is holding free at that moment, so it is limited by how
+              much of it there is. Most of the staked GRAM is committed to validation rounds and cannot be released
+              early.
+            </p>
+            <p>
+              The app shows the largest amount you can unstake instantly right now, and warns you if you enter more than
+              that. During periods of high demand the limit can be low, or Instant may be unavailable altogether — in
+              which case you can unstake a smaller amount instantly, or use Full for the whole balance.
             </p>
           </div>
         </div>
@@ -545,8 +581,15 @@
           </h3>
           <div class='hipo-faq-answer'>
             <p>
-              Rewards continue until your unstaking request is complete. Once the unstaking process is complete and your
-              GRAM is returned, that GRAM is no longer earning staking rewards through Hipo.
+              With Full, yes. Your GRAM keeps earning until the round it is committed to ends, which is why Full returns
+              more GRAM than Instant for the same hGRAM.
+            </p>
+            <p>
+              With Instant there is no waiting period to earn through — you are paid out at once, at the rate that
+              applies then.
+            </p>
+            <p>
+              Either way, once your GRAM is back in your wallet it is no longer earning staking rewards through Hipo.
             </p>
           </div>
         </div>

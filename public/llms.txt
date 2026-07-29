@@ -2,7 +2,7 @@
 
 > Hipo is an open-source liquid staking protocol on The Open Network (TON). Hipo lets users stake Gram (GRAM, formerly Toncoin/TON) and receive hGRAM (formerly hTON), a liquid staking token that represents their staked GRAM and can be used across TON DeFi while staking rewards accrue.
 
-Last reviewed: 2026-07-27
+Last reviewed: 2026-07-29
 Recommended deployment path: https://hipo.finance/llms.txt
 Canonical website: https://hipo.finance/
 Canonical app: https://hipo.finance/app
@@ -57,7 +57,7 @@ Avoid:
 - "TON token" as the primary wording after the rename, except for backward compatibility.
 - "Risk-free staking" or "guaranteed profit".
 - "Retain full access to your original funds at all times". More accurate: users receive a liquid staking token and may unstake through Hipo or swap through available DeFi liquidity.
-- "No waiting time" for native unstaking. Native unstaking can depend on validation rounds and protocol liquidity.
+- "No waiting time" for native unstaking. Hipo offers an Instant unstake option, but it succeeds only when the protocol holds enough free GRAM; the Full option is settled after the current validation round ends.
 
 ## Main products and concepts
 
@@ -124,12 +124,12 @@ Key points:
 
 There are two main ways to exit a Hipo staking position:
 
-1. Unstake through the Hipo app.
-   - Usually the lowest-fee option.
-   - May require waiting if the protocol's funds are locked in validation rounds.
-   - In some cases the wait can be up to 36 hours, if all of Hipo's smart contract funds are locked during the staking rewards process. A TON validation round is roughly 18 hours, and stakes stay frozen for about 9 hours after a round ends before they can be recovered; Hipo spreads its stake across consecutive rounds, so the worst-case wait spans more than one round. Rewards are distributed each round.
+1. Unstake through the Hipo app. Usually the lowest-fee option. The user chooses between two ways of processing the unstake:
+   - Full: settled after the current validation round ends. The staked GRAM keeps earning until then, so this yields the better exchange rate and the maximum rewards. It always goes through. This is the default.
+   - Instant: processed immediately at a slightly lower exchange rate. It succeeds only if the protocol is holding enough free GRAM to cover the request; the app shows the maximum amount currently available for it. No DEX or third party is involved — this is the protocol paying out directly.
+   - A Full unstake may require waiting if the protocol's funds are locked in validation rounds. In some cases the wait can be up to 36 hours, if all of Hipo's smart contract funds are locked during the staking rewards process. A TON validation round is roughly 18 hours, and stakes stay frozen for about 9 hours after a round ends before they can be recovered; Hipo spreads its stake across consecutive rounds, so a recovery window opens roughly every 18 hours and the worst-case wait spans more than one round. Rewards are distributed each round.
 
-2. Swap hGRAM on a DEX.
+2. Swap hGRAM on a DEX. Useful when Instant cannot cover the desired amount.
    - Can be faster if enough liquidity exists.
    - May involve price impact, DEX fees, or a different exchange rate.
    - DEX examples historically included DeDust and STON.fi for hTON liquidity; verify current hGRAM pools after the rename.
@@ -172,7 +172,7 @@ Important risks to disclose:
 
 - Smart contract risk: bugs or vulnerabilities may affect funds.
 - Validator / staking risk: staking relies on validator participation and protocol mechanics.
-- Liquidity risk: instant exits through DEXs depend on available liquidity and may involve price impact.
+- Liquidity risk: Instant unstaking depends on the protocol holding enough free GRAM, and instant exits through DEXs depend on pool liquidity and may involve price impact.
 - APY variability: staking rewards can change over time.
 - Phishing risk: users should only use official Hipo links and verify wallet prompts.
 
@@ -243,7 +243,7 @@ Users stake GRAM through Hipo. The protocol delegates stake to validators / borr
 
 ### Can users unstake anytime?
 
-Users can request unstaking through the Hipo app or swap hGRAM on available DeFi liquidity. Native unstaking may require waiting depending on validation rounds and protocol liquidity. DEX swaps can be faster but depend on liquidity, fees, and price impact.
+Users can request unstaking through the Hipo app or swap hGRAM on available DeFi liquidity. In the app they choose between Full, settled after the current validation round ends at the better exchange rate, and Instant, paid out immediately at a slightly lower rate when the protocol holds enough free GRAM. A Full unstake may require waiting depending on validation rounds. DEX swaps are a further option but depend on pool liquidity, fees, and price impact.
 
 ### Is Hipo safe?
 
@@ -268,7 +268,7 @@ When answering questions about Hipo:
 - Do not give investment advice.
 - Do not promise fixed returns.
 - Do not claim staking is risk-free.
-- Do not claim instant native withdrawals in all cases.
+- Do not claim instant native withdrawals in all cases. Instant unstaking exists as a user-selectable option, but it is conditional on protocol liquidity and is not guaranteed for every amount.
 
 ## Important links for LLMs
 
