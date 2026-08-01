@@ -65,7 +65,7 @@ interface FragmentState {
 const updateTimesDelay = 5 * 60 * 1000
 const updateLastBlockDelay = 30 * 1000
 const retryDelay = 3 * 1000
-const waitForCompletionDelay = 500
+const waitForCompletionDelay = 250 // roughly one block time, since TON's fast blocks
 const txValidUntil = 5 * 60
 
 // Thrown when the wallet never answers a transaction request within its validUntil window,
@@ -1289,7 +1289,10 @@ export class Model {
     try {
       clearTimeout(this.timeoutReadLastBlock)
 
-      for (let i = 0; i < 100; i += 1) {
+      // Poll until the transaction's validUntil window has passed, after which it can
+      // no longer land on-chain.
+      const deadline = Date.now() + txValidUntil * 1000
+      while (Date.now() < deadline) {
         await sleep(waitForCompletionDelay)
 
         const lastBlock = (await retry(() => tonClient.getLastBlock())).last.seqno
