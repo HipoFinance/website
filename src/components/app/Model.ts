@@ -211,6 +211,7 @@ export class Model {
       stakeRemain: computed,
       explorerHref: computed,
       treasuryAddressFormatted: computed,
+      connectedAddressShort: computed,
       multisigComment: computed,
       multisigTransferAmount: computed,
       multisigTransferAmountFormatted: computed,
@@ -638,6 +639,15 @@ export class Model {
     if (amount != null) {
       return formatNano(amount) + ' GRAM'
     }
+  }
+
+  get connectedAddressShort() {
+    const address = this.address
+    if (address == null) {
+      return ''
+    }
+    const friendly = address.toString({ testOnly: !this.isMainnet })
+    return friendly.slice(0, 4) + '…' + friendly.slice(-4)
   }
 
   get multisigDeepLink() {

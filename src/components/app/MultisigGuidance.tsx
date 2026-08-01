@@ -36,7 +36,8 @@ const MultisigGuidance = observer(({ model }: Props) => {
   const hint = model.multisigHint && (
     <div className='bg-blue fixed bottom-20 left-6 flex max-w-screen-sm items-start rounded-2xl p-3 text-white drop-shadow sm:bottom-2'>
       <p className='mx-1 text-sm'>
-        Using a multisig or cold wallet that can’t sign dapp transactions? You can stake with a plain transfer.{' '}
+        Using a multisig or cold wallet that can’t sign dapp transactions? You can{' '}
+        {model.isStakeTabActive ? 'stake' : 'unstake'} with a plain transfer.{' '}
         <button className='cursor-pointer font-medium underline' onClick={model.openMultisigGuidance}>
           Show instructions
         </button>
@@ -89,12 +90,18 @@ const MultisigGuidance = observer(({ model }: Props) => {
           <CopyField label='Treasury address' value={model.treasuryAddressFormatted} />
           <CopyField label='Text comment' value={model.multisigComment} />
           {model.multisigDeepLink != null && (
-            <a
-              className='bg-orange dark:text-dark-600 mt-6 block h-14 w-full rounded-2xl text-center text-lg leading-14 font-medium text-white'
-              href={model.multisigDeepLink}
-            >
-              Open in wallet app
-            </a>
+            <>
+              <a
+                className='bg-orange dark:text-dark-600 mt-6 block h-14 w-full rounded-2xl text-center text-lg leading-14 font-medium text-white'
+                href={model.multisigDeepLink}
+              >
+                Open in wallet app
+              </a>
+              <p className='mt-2 text-xs font-light'>
+                The transfer is sent from whichever wallet is currently selected in your wallet app — make sure your
+                multisig ({model.connectedAddressShort}) is selected before confirming.
+              </p>
+            </>
           )}
           <button
             className='border-orange text-orange mt-4 h-14 w-full cursor-pointer rounded-2xl border text-lg font-medium'
