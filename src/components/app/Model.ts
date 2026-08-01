@@ -1,5 +1,12 @@
 import { type Network } from '@orbs-network/ton-access'
-import { TonConnectUI, THEME, CHAIN, type SendTransactionRequest } from '@tonconnect/ui'
+import {
+  TonConnectUI,
+  THEME,
+  CHAIN,
+  WalletNotConnectedError,
+  type SendTransactionRequest,
+  type SendTransactionResponse,
+} from '@tonconnect/ui'
 import { action, autorun, computed, makeObservable, observable, runInAction } from 'mobx'
 import { Address, Dictionary, type OpenedContract, TonClient4, beginCell, fromNano, toNano } from '@ton/ton'
 import {
@@ -60,6 +67,11 @@ const updateLastBlockDelay = 30 * 1000
 const retryDelay = 3 * 1000
 const waitForCompletionDelay = 500
 const txValidUntil = 5 * 60
+
+// Thrown when the wallet never answers a transaction request within its validUntil window,
+// which happens when the wallet has silently dropped this dapp's session (e.g. after the
+// same wallet connected to Hipo from another device or browser).
+class StaleSessionError extends Error {}
 
 const averageStakeFee = 15000000n
 const averageUnstakeFee = 42000000n
@@ -1140,6 +1152,39 @@ export class Model {
     }
   }
 
+  // The wallet keeps only one session per dapp, so connecting to Hipo from another device
+  // or browser silently drops this one while the UI still shows the wallet as connected.
+  // A request over a dropped session never gets an answer, so bound every request by its
+  // validUntil window and drop the stale session when the wallet stays silent.
+  guardedSendTransaction = async (tx: SendTransactionRequest): Promise<SendTransactionResponse> => {
+    const tonConnectUI = this.tonConnectUI
+    if (tonConnectUI == null) {
+      throw new WalletNotConnectedError()
+    }
+
+    let timer: ReturnType<typeof setTimeout> | undefined = undefined
+    const timeout = new Promise<never>((_, reject) => {
+      timer = setTimeout(() => {
+        reject(new StaleSessionError())
+      }, txValidUntil * 1000)
+    })
+
+    const send = tonConnectUI.sendTransaction(tx)
+
+    try {
+      return await Promise.race([send, timeout])
+    } catch (e) {
+      send.catch(() => undefined)
+      if (e instanceof StaleSessionError || e instanceof WalletNotConnectedError) {
+        void tonConnectUI.disconnect()
+        this.setErrorMessage('Wallet connection expired, please reconnect your wallet', 10000)
+      }
+      throw e
+    } finally {
+      clearTimeout(timer)
+    }
+  }
+
   upgradeOldWallet = () => {
     if (
       this.address != null &&
@@ -1170,7 +1215,7 @@ export class Model {
           },
         ],
       }
-      void this.tonConnectUI.sendTransaction(tx).then(
+      void this.guardedSendTransaction(tx).then(
         () =>
           this.waitForCompletion(queryId).then(() => {
             runInAction(() => {
@@ -1179,8 +1224,10 @@ export class Model {
               this.newWalletTokens = undefined
             })
           }),
-        () => {
-          this.showMultisigHint()
+        (e: unknown) => {
+          if (!(e instanceof StaleSessionError) && !(e instanceof WalletNotConnectedError)) {
+            this.showMultisigHint()
+          }
         },
       )
     }
@@ -1214,13 +1261,15 @@ export class Model {
         from: this.address.toRawString(),
         messages: [message],
       }
-      void this.tonConnectUI.sendTransaction(tx).then(
+      void this.guardedSendTransaction(tx).then(
         () =>
           this.waitForCompletion(queryId).then(() => {
             this.setAmount('')
           }),
-        () => {
-          this.showMultisigHint()
+        (e: unknown) => {
+          if (!(e instanceof StaleSessionError) && !(e instanceof WalletNotConnectedError)) {
+            this.showMultisigHint()
+          }
         },
       )
     }
