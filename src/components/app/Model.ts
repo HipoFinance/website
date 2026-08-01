@@ -1331,6 +1331,8 @@ export class Model {
           }
         }
       }
+
+      this.setWaitForTransaction('timeout')
     } catch {
       this.setWaitForTransaction('timeout')
     } finally {
