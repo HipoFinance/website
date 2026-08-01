@@ -18,6 +18,7 @@ import '@fontsource/eczar/800.css'
 import { Model } from './Model'
 import { useRef, useEffect } from 'react'
 import AmountAlert from './AmountAlert.tsx'
+import MultisigGuidance from './MultisigGuidance.tsx'
 
 const App = observer(() => {
   const modelRef = useRef<Model | null>(null)
@@ -36,6 +37,7 @@ const App = observer(() => {
       <StakeUnstake model={model} />
       <Wait model={model} />
       <AmountAlert model={model} />
+      <MultisigGuidance model={model} />
       <Stats model={model} />
     </>
   )

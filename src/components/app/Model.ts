@@ -13,6 +13,7 @@ import {
   maxAmountToStake,
   opUnstakeTokens,
   treasuryAddresses,
+  feeStake,
   feeUnstake,
   createDepositMessage,
   createUnstakeMessage,
@@ -68,6 +69,10 @@ const oldTreasuryAddresses: Record<Network, Address> = {
   testnet: Address.parse('kQAjvBlA6Gt0BZhvM9_PgBDVv1_EkRuMYZ3XxdaXlKRyCeaI'),
 }
 
+// multisig-contract-v2 code hashes (base64, as returned by TonClient4), computed from the
+// v2.0 build artifact; the same hash is registered as the multisig interface in tonkeeper/tongo
+const multisigCodeHashes = ['09FNqaYn8Ow1MzQYKXYq+SuVQLIb8DZl+sCcK0bqu6w=']
+
 const defaultNetwork: Network = 'mainnet'
 const defaultActivePage: ActivePage = 'stake'
 const defaultActiveTab: ActiveTab = 'stake'
@@ -106,6 +111,9 @@ export class Model {
   amountAlert: AmountAlert = 'none'
   ongoingRequests = 0
   errorMessage = ''
+  isMultisig = false
+  showMultisigGuidance = false
+  multisigHint = false
   holdersCount?: number
   walletRewardsFetchState: WalletRewardsFetchState = 'init'
   walletRewards?: WalletRewards
@@ -121,6 +129,7 @@ export class Model {
   timeoutSwitchNetwork?: ReturnType<typeof setTimeout>
   timeoutErrorMessage?: ReturnType<typeof setTimeout>
   timeoutHipoGauge?: ReturnType<typeof setTimeout>
+  timeoutMultisigHint?: ReturnType<typeof setTimeout>
 
   isBannerClosed = false
 
@@ -160,6 +169,9 @@ export class Model {
       amountAlert: observable,
       ongoingRequests: observable,
       errorMessage: observable,
+      isMultisig: observable,
+      showMultisigGuidance: observable,
+      multisigHint: observable,
       holdersCount: observable,
       walletRewardsFetchState: observable,
       walletRewards: observable,
@@ -198,6 +210,11 @@ export class Model {
       unstakeBestRemain: computed,
       stakeRemain: computed,
       explorerHref: computed,
+      treasuryAddressFormatted: computed,
+      multisigComment: computed,
+      multisigTransferAmount: computed,
+      multisigTransferAmountFormatted: computed,
+      multisigDeepLink: computed,
       apy: computed,
       apyFormatted: computed,
       protocolFee: computed,
@@ -219,6 +236,10 @@ export class Model {
       beginRequest: action,
       endRequest: action,
       setErrorMessage: action,
+      openMultisigGuidance: action,
+      closeMultisigGuidance: action,
+      showMultisigHint: action,
+      hideMultisigHint: action,
       setWalletRewardsFetchState: action,
       loadWalletRewards: action,
       closeBanner: action,
@@ -593,6 +614,45 @@ export class Model {
     return (this.isMainnet ? 'https://tonviewer.com/' : 'https://testnet.tonviewer.com/') + address
   }
 
+  get treasuryAddressFormatted() {
+    const treasuryAddress = treasuryAddresses.get(this.network)
+    return treasuryAddress?.toString({ testOnly: !this.isMainnet }) ?? ''
+  }
+
+  get multisigComment() {
+    return this.isStakeTabActive ? 'd' : 'w'
+  }
+
+  get multisigTransferAmount() {
+    if (this.isStakeTabActive) {
+      if (this.isAmountValid && this.isAmountPositive && this.amountInNano != null) {
+        return this.amountInNano + feeStake
+      }
+      return undefined
+    }
+    return feeUnstake
+  }
+
+  get multisigTransferAmountFormatted() {
+    const amount = this.multisigTransferAmount
+    if (amount != null) {
+      return formatNano(amount) + ' GRAM'
+    }
+  }
+
+  get multisigDeepLink() {
+    const address = this.treasuryAddressFormatted
+    if (address === '') {
+      return undefined
+    }
+    let link = 'ton://transfer/' + address + '?text=' + this.multisigComment
+    const amount = this.multisigTransferAmount
+    if (amount != null) {
+      link = 'ton://transfer/' + address + '?amount=' + amount.toString() + '&text=' + this.multisigComment
+    }
+    return link
+  }
+
   get apy() {
     const times = this.times
     const previousRate = this.treasuryState?.previousRate
@@ -696,6 +756,9 @@ export class Model {
   setAddress = (address?: Address) => {
     this.address = address
     this.tonBalance = undefined
+    this.isMultisig = false
+    this.showMultisigGuidance = false
+    this.multisigHint = false
     this.walletAddress = undefined
     this.wallet = undefined
     this.walletState = undefined
@@ -764,6 +827,28 @@ export class Model {
         this.setErrorMessage('', 0)
       }, delay)
     }
+  }
+
+  openMultisigGuidance = () => {
+    this.multisigHint = false
+    this.showMultisigGuidance = true
+  }
+
+  closeMultisigGuidance = () => {
+    this.showMultisigGuidance = false
+  }
+
+  showMultisigHint = () => {
+    this.multisigHint = true
+    clearTimeout(this.timeoutMultisigHint)
+    this.timeoutMultisigHint = setTimeout(() => {
+      this.hideMultisigHint()
+    }, 15000)
+  }
+
+  hideMultisigHint = () => {
+    this.multisigHint = false
+    clearTimeout(this.timeoutMultisigHint)
   }
 
   setWalletRewardsFetchState = (state: WalletRewardsFetchState) => {
@@ -904,12 +989,13 @@ export class Model {
 
       const readMaxBurnableTokens = retry(treasury.getMaxBurnableTokens)
 
-      const readTonBalance =
+      const readAccountInfo =
         address == null
           ? Promise.resolve(undefined)
-          : retry(() => tonClient.getAccountLite(lastBlock, address)).then((value) =>
-              BigInt(value.account.balance.coins),
-            )
+          : retry(() => tonClient.getAccountLite(lastBlock, address)).then((value) => ({
+              tonBalance: BigInt(value.account.balance.coins),
+              codeHash: value.account.state.type === 'active' ? value.account.state.codeHash : undefined,
+            }))
 
       const lastParent = this.treasuryState?.parent
       const readWallet: Promise<[Address, OpenedContract<Wallet>, typeof this.walletState] | undefined> =
@@ -933,10 +1019,10 @@ export class Model {
       const parallel: [
         Promise<TreasuryConfig>,
         Promise<bigint>,
-        Promise<bigint | undefined>,
+        Promise<{ tonBalance: bigint; codeHash: string | undefined } | undefined>,
         Promise<[Address, OpenedContract<Wallet>, typeof this.walletState] | undefined>,
-      ] = [readTreasuryState, readMaxBurnableTokens, readTonBalance, readWallet]
-      const [treasuryState, maxBurnableTokens, tonBalance, hton] = await Promise.all(parallel)
+      ] = [readTreasuryState, readMaxBurnableTokens, readAccountInfo, readWallet]
+      const [treasuryState, maxBurnableTokens, accountInfo, hton] = await Promise.all(parallel)
       let [walletAddress, wallet, walletState] = hton ?? []
 
       if (walletAddress == null && address != null && treasuryState.parent != null) {
@@ -961,7 +1047,8 @@ export class Model {
       }
 
       runInAction(() => {
-        this.tonBalance = tonBalance
+        this.tonBalance = accountInfo?.tonBalance
+        this.isMultisig = accountInfo?.codeHash != null && multisigCodeHashes.includes(accountInfo.codeHash)
         this.treasury = treasury
         this.treasuryState = treasuryState
         this.maxBurnableTokens = maxBurnableTokens
@@ -1073,14 +1160,19 @@ export class Model {
           },
         ],
       }
-      void this.tonConnectUI
-        .sendTransaction(tx)
-        .then(() => this.waitForCompletion(queryId))
-        .then(() => {
-          this.oldWalletAddress = undefined
-          this.oldWalletTokens = undefined
-          this.newWalletTokens = undefined
-        })
+      void this.tonConnectUI.sendTransaction(tx).then(
+        () =>
+          this.waitForCompletion(queryId).then(() => {
+            runInAction(() => {
+              this.oldWalletAddress = undefined
+              this.oldWalletTokens = undefined
+              this.newWalletTokens = undefined
+            })
+          }),
+        () => {
+          this.showMultisigHint()
+        },
+      )
     }
   }
 
@@ -1095,6 +1187,11 @@ export class Model {
       this.tonConnectUI != null &&
       this.tonBalance != null
     ) {
+      if (this.isMultisig) {
+        this.openMultisigGuidance()
+        return
+      }
+
       const queryId = generateRandomQueryId()
 
       const message = this.isStakeTabActive
@@ -1107,12 +1204,15 @@ export class Model {
         from: this.address.toRawString(),
         messages: [message],
       }
-      void this.tonConnectUI
-        .sendTransaction(tx)
-        .then(() => this.waitForCompletion(queryId))
-        .then(() => {
-          this.setAmount('')
-        })
+      void this.tonConnectUI.sendTransaction(tx).then(
+        () =>
+          this.waitForCompletion(queryId).then(() => {
+            this.setAmount('')
+          }),
+        () => {
+          this.showMultisigHint()
+        },
+      )
     }
   }
 
