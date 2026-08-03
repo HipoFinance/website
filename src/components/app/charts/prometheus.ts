@@ -1,12 +1,14 @@
 import type { StatsRange } from '../Model'
 
-// The reverse proxy in front of the internal Prometheus is pending (see
-// specs/app-stats-charts.md). Until it exists this host is unreachable and every chart shows its
-// quiet in-card error state — by design, nothing else on the page is affected.
+// This code runs in the visitor's browser, so the base must be a public HTTPS URL — never a
+// swarm-internal name like prometheus1. The route is an nginx path-mount on the gauge host that
+// proxies only /api/v1/query_range to the internal prometheus1/prometheus2 pair (see
+// specs/app-stats-charts.md and specs/metrics-proxy-nginx.conf). Until it is deployed every
+// chart shows its quiet in-card error state — by design, nothing else on the page is affected.
 // For local testing against a tunnelled or mock Prometheus, override at dev/build time:
 //   PUBLIC_PROM_BASE=http://localhost:9090 npm run dev
 export const PROM_BASE =
-  (import.meta.env.PUBLIC_PROM_BASE as string | undefined) ?? 'https://gauge.hipo.finance/metrics'
+  (import.meta.env.PUBLIC_PROM_BASE as string | undefined) ?? 'https://gauge.hipo.finance/prometheus'
 
 // Single fixed query string across every range (only start/end/step vary) so a reverse-proxy
 // allowlist and cache can match on it verbatim. `by (__name__)` keeps the metric name as the

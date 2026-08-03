@@ -71,8 +71,13 @@ and skipping URL persistence of the range.
 ## Pending infra (maintainer)
 
 The query API is not exposed yet; the app targets
-`https://gauge.hipo.finance/metrics/api/v1/query_range` (path-mounted beside
-the existing exporter route). The reverse-proxy spec is
+`https://gauge.hipo.finance/prometheus/api/v1/query_range` — an nginx
+path-mount on the gauge host proxying to the internal
+`prometheus1`/`prometheus2` pair. (Settled after some back-and-forth: the
+base must be public HTTPS because the fetch runs in visitors' browsers, so
+swarm-internal names can't work; and `/metrics` is the exporter's scrape
+endpoint — snapshot only, no history — so the mount got its own
+`/prometheus` prefix.) The reverse-proxy spec is
 in `specs/app-stats-charts.md`, and a ready-to-adapt nginx config
 (`prometheus1` + `prometheus2` backup upstream, exact-query and step
 allowlists, CORS, 5m cache, rate limit) is at

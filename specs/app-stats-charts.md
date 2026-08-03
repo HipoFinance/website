@@ -1,7 +1,7 @@
 # Time-series charts on the Stats page
 
 **Status:** implemented — pending the reverse-proxy exposure of the
-Prometheus query API at `gauge.hipo.finance/metrics/api/v1/query_range`
+Prometheus query API at `gauge.hipo.finance/prometheus/api/v1/query_range`
 (see below), until which every chart shows its in-card error state by design
 
 ## Goal
@@ -18,13 +18,17 @@ proxy (spec below). Until then the endpoint is unreachable and the charts show
 their error state — everything else on the page is unaffected by design.
 
 - Base URL: single constant `PROM_BASE` in `src/components/app/charts/prometheus.ts`:
-  `https://gauge.hipo.finance/metrics` — the query API is to be path-mounted
-  there (the app calls `<base>/api/v1/query_range`), overridable at dev/build time via
-  `PUBLIC_PROM_BASE` (e.g. `PUBLIC_PROM_BASE=http://localhost:9090 npm run dev`)
-  for testing against a tunnelled or mock Prometheus.
-  Note: `gauge.hipo.finance/metrics` is the *scrape* endpoint — current values
-  in text exposition format, no history, no CORS — it cannot feed the charts;
-  only the Prometheus server's query API can.
+  `https://gauge.hipo.finance/prometheus` — the query API path-mounted on the
+  gauge host (the app calls `<base>/api/v1/query_range`), overridable at
+  dev/build time via `PUBLIC_PROM_BASE`
+  (e.g. `PUBLIC_PROM_BASE=http://localhost:9090 npm run dev`) for testing
+  against a tunnelled or mock Prometheus.
+  The base must be public HTTPS: the fetch runs in the visitor's browser, so a
+  swarm-internal name (`http://prometheus1`) can never work — no public DNS,
+  and mixed content is blocked on an https page. Note also that
+  `gauge.hipo.finance/metrics` is the *scrape* endpoint — current values in
+  text exposition format, no history, no CORS — it cannot feed the charts;
+  only the Prometheus server's query API can, via the proxy route.
 - Endpoint: `GET {PROM_BASE}/api/v1/query_range?query=…&start=…&end=…&step=…`.
   GET with no custom headers → CORS simple request, no preflight. Never POST.
 - **One query string, fixed across all ranges** (only start/end/step vary):
@@ -227,16 +231,16 @@ observable; fetching, chart state and errors live in the page-scoped store.
 
 A ready-to-adapt nginx config implementing everything below is at
 `specs/metrics-proxy-nginx.conf` (upstream `prometheus1` + `prometheus2`
-backup, exact-query and step allowlists, CORS, cache, rate limit). It is
-written for a dedicated host; with the chosen path-mount under
-`gauge.hipo.finance/metrics`, adapt the location to
-`location = /metrics/api/v1/query_range` with a
-`rewrite ^/metrics(/.*)$ $1 break;` before `proxy_pass`, and keep the
-existing exporter route (`location = /metrics`, exact match) separate — the
-allowlists, CORS, cache and rate-limit blocks carry over unchanged.
+backup, exact-query and step allowlists, CORS, cache, rate limit), written
+for the chosen mount: `location = /prometheus/api/v1/query_range` inside the
+existing `gauge.hipo.finance` server block, with a rewrite stripping the
+`/prometheus` prefix before `proxy_pass`. The exporter route
+(`location = /metrics`) is unrelated and stays as-is. The nginx service must
+be attached to the monitor overlay network so `prometheus1`/`prometheus2`
+resolve.
 
-The original recommendation (a dedicated host, e.g. `metrics.hipo.finance`,
-HTTPS + HSTS) still applies where feasible — never
+A dedicated host (e.g. `metrics.hipo.finance`, HTTPS + HSTS) remains a fine
+alternative — either way, never
 path-mounted under `hipo.finance` (keeps cookies out of scope, independently
 firewallable).
 
