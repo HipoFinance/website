@@ -1727,7 +1727,7 @@ export interface TokenStats {
   change24h?: string
   isChangePositive: boolean
   marketCap?: string
-  volume24h?: string
+  totalVolume?: string
   supply?: string
   holders?: string
 }
@@ -1767,7 +1767,7 @@ function formatTokenStats(token?: HipoGaugeToken): TokenStats | undefined {
     change24h: change != null ? formatSignedPercent(change) : undefined,
     isChangePositive: (change ?? 0) >= 0,
     marketCap: market?.market_cap?.usd != null ? formatUsdCompact(market.market_cap.usd) : undefined,
-    volume24h: market?.total_volume?.usd != null ? formatUsdCompact(market.total_volume.usd) : undefined,
+    totalVolume: market?.total_volume?.usd != null ? formatUsdCompact(market.total_volume.usd) : undefined,
     supply: market?.circulating_supply != null ? formatCompact1Fraction(market.circulating_supply) : undefined,
     holders: token.holders_count != null ? formatCompact1Fraction(token.holders_count) : undefined,
   }

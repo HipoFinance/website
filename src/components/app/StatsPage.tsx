@@ -69,7 +69,7 @@ const Section = ({ title, stats, showSupply, showHolders }: SectionProps) => (
       <Row label='Price' value={stats.price} />
       <Row label='24h change' value={stats.change24h} accent={stats.isChangePositive ? 'up' : 'down'} />
       <Row label='Market cap' value={stats.marketCap} />
-      <Row label='24h volume' value={stats.volume24h} />
+      <Row label='Total volume' value={stats.totalVolume} />
       {showHolders && <Row label='Holders' value={stats.holders} />}
       {showSupply && <Row label='Circulating supply' value={stats.supply} />}
     </div>
