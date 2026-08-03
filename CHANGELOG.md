@@ -7,6 +7,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-03 — [detailed report](changelog/2026-08-03-stats-page-layout.md)
+
+- Rearranged the Stats page: last-value cards first, history charts after.
+- Rebuilt the protocol figures as a row of tiles in one full-width card.
+- Restyled section headers as highlighted centered bars, with the range
+  selector moved down beside the charts it controls.
+- Moved the More Stats and TON Explorer links to the page's top-right corner.
+- Fixed the Community-Driven card width workaround on the landing page.
+
 ## 2026-08-02 — [detailed report](changelog/2026-08-02-stats-charts.md)
 
 - Restored the stashed Stats tab page (nav entry, routing, gauge-fed figures).

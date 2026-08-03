@@ -1,6 +1,6 @@
 # 2026-08-02 — Stats page: restore from stash, add Prometheus history charts
 
-Two pieces of work in one session. First, the Stats *figures* page designed in
+Two pieces of work in one session. First, the Stats _figures_ page designed in
 `specs/app-stats-page.md` — whose tracked-file edits existed only in a git
 stash (`stash@{0}`, cut from `4b4d36c`) while the spec claimed "implemented" —
 was restored: `git stash apply` merged cleanly over the six newer
@@ -10,9 +10,13 @@ Hipo Prometheus, per the new `specs/app-stats-charts.md`.
 
 ## Commits
 
-| Commit | Description |
-| ------ | ----------- |
-| —      | (uncommitted at time of writing; single logical change) |
+Committed the following morning (2026-08-03):
+
+| Commit    | Description                                                       |
+| --------- | ----------------------------------------------------------------- |
+| `e235b46` | Add Stats page with Prometheus history charts                     |
+| `f651f05` | Mount the Prometheus query route at gauge.hipo.finance/prometheus |
+| `dfeffc6` | Hide upstream CORS headers in the Prometheus proxy template       |
 
 ## What changed
 
@@ -85,7 +89,7 @@ allowlists, CORS, 5m cache, rate limit) is at
 error state and nothing else on the page is affected.
 
 Clarified during the session: `gauge.hipo.finance/metrics` — initially
-offered as the data source — is the *scrape* endpoint (current values, text
+offered as the data source — is the _scrape_ endpoint (current values, text
 exposition format, no history, no CORS) and cannot feed the charts; only the
 Prometheus query API can. Since Prometheus lives on the swarm-internal
 `monitor` network with no published ports, the spec now carries a
