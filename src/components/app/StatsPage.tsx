@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 // TokenStats is an interface, so it must be a type-only import: a value import compiles but has
 // no runtime binding, which breaks island hydration in dev.
 import { formatCompact1Fraction, formatUsdPrice, type Model, type StatsRange, type TokenStats } from './Model'
-import Stats from './Stats.tsx'
 import { ChartsStore } from './charts/ChartsStore'
 import LineChart, { type ChartSeriesInput } from './charts/LineChart'
 import RangeSelector from './charts/RangeSelector'
@@ -18,6 +17,32 @@ interface RowProps {
   value?: string
   accent?: 'up' | 'down'
 }
+
+const SectionHeading = ({ title }: { title: string }) => (
+  <div className='mx-auto mt-8 max-w-5xl px-4'>
+    <p className='bg-c1/30 dark:bg-dark-700 rounded-xl py-2 text-center text-lg font-bold'>{title}</p>
+  </div>
+)
+
+interface TileProps {
+  label: string
+  tooltip: string
+  value?: string
+}
+
+const Tile = ({ label, tooltip, value }: TileProps) => (
+  <div className='my-4 flex flex-col items-center gap-2'>
+    <div className='relative flex flex-row items-center'>
+      <p>{label}</p>
+      <img src='/images/app/question.svg' tabIndex={0} className='peer ml-1 w-4 dark:hidden' />
+      <img src='/images/app/question-dark.svg' tabIndex={0} className='peer ml-1 hidden w-4 dark:block' />
+      <p className='bg-lightblue text-blue absolute top-6 left-1/2 z-10 hidden w-52 -translate-x-1/2 rounded-lg p-4 text-xs font-normal shadow-xl peer-hover:block peer-focus:block'>
+        {tooltip}
+      </p>
+    </div>
+    <p className='text-xl font-bold'>{value}</p>
+  </div>
+)
 
 const Row = ({ label, value, accent }: RowProps) => (
   <div className='my-4 flex flex-row'>
@@ -37,7 +62,7 @@ interface SectionProps {
 
 const Section = ({ title, stats, showSupply, showHolders }: SectionProps) => (
   <div className='mx-auto w-full max-w-lg text-sm font-medium'>
-    <div className='mx-auto flex max-w-lg flex-row items-center px-4'>
+    <div className='mx-auto mt-6 flex max-w-lg flex-row items-center justify-start px-4 lg:justify-center'>
       <p className='text-lg font-bold'>{title}</p>
     </div>
     <div className='dark:bg-dark-800 m-4 rounded-2xl bg-white p-6 shadow-sm'>
@@ -125,11 +150,20 @@ const StatsPage = observer(({ model }: Props) => {
 
   return (
     <div className='font-body text-brown dark:text-dark-50 mx-auto w-full max-w-5xl p-4 pb-32'>
-      <p className='px-8 pt-4 text-center text-3xl font-bold'>Statistics</p>
+      <div className='relative mt-4'>
+        <p className='px-8 text-center text-3xl font-bold'>Statistics</p>
+        <div className='absolute inset-y-0 right-4 flex flex-col items-end justify-center gap-3 text-xs font-light'>
+          <a href='https://stats.hipo.finance' target='hipo_stats' className='text-blue'>
+            More Stats
+          </a>
+          <a href={model.explorerHref} target='hipo_explorer' className='text-blue'>
+            TON Explorer
+          </a>
+        </div>
+      </div>
       <p className='mt-2 mb-4 px-8 text-center'>Live protocol and market figures.</p>
 
-      <div className='mx-auto mb-4 flex max-w-3xl flex-row flex-wrap items-center justify-between gap-4 px-4'>
-        <RangeSelector value={model.statsRange} onChange={model.setStatsRange} />
+      <div className='mx-auto mb-4 flex max-w-5xl flex-row justify-end px-4'>
         <button
           className='border-c1 dark:border-c2 flex cursor-pointer flex-row items-center gap-2 rounded-xl border px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-60'
           disabled={model.isGaugeRefreshing}
@@ -143,74 +177,100 @@ const StatsPage = observer(({ model }: Props) => {
         </button>
       </div>
 
-      <div className='mx-auto max-w-3xl px-4'>
-        <p className='text-lg font-bold'>Protocol</p>
-      </div>
+      <SectionHeading title='Protocol' />
 
-      <Stats model={model} />
-
-      {model.isMainnet && (
-        <div className='mx-auto max-w-3xl'>
-          <LineChart
-            title='APY'
-            series={apySeries}
-            status={chartsStore.status}
-            domainStart={chartsStore.domainStart}
-            domainEnd={chartsStore.domainEnd}
-            maxGapSeconds={chartsStore.maxGapSeconds}
-            stepped
-            valueFormat={formatApy}
-            deltaUnit='pp'
-            rangeLabel={chartsStore.rangeLabel}
-            xTickFormat={xTickFormat}
-            tooltipTimeFormat={formatTooltipTime}
-            hoveredTs={chartsStore.hoveredTs}
-            onHover={chartsStore.setHoveredTs}
-            onRetry={chartsStore.retry}
-          />
-          <LineChart
-            title='Staked'
-            series={stakedSeries}
-            status={chartsStore.status}
-            domainStart={chartsStore.domainStart}
-            domainEnd={chartsStore.domainEnd}
-            maxGapSeconds={chartsStore.maxGapSeconds}
-            valueFormat={formatStakedValue}
-            axisFormat={formatCompactCount}
-            deltaUnit='%'
-            rangeLabel={chartsStore.rangeLabel}
-            xTickFormat={xTickFormat}
-            tooltipTimeFormat={formatTooltipTime}
-            hoveredTs={chartsStore.hoveredTs}
-            onHover={chartsStore.setHoveredTs}
-            onRetry={chartsStore.retry}
-          />
-          <LineChart
-            title='hGRAM holders'
-            series={holdersSeries}
-            status={chartsStore.status}
-            domainStart={chartsStore.domainStart}
-            domainEnd={chartsStore.domainEnd}
-            maxGapSeconds={chartsStore.maxGapSeconds}
-            valueFormat={formatCompactCount}
-            deltaUnit='%'
-            rangeLabel={chartsStore.rangeLabel}
-            xTickFormat={xTickFormat}
-            tooltipTimeFormat={formatTooltipTime}
-            hoveredTs={chartsStore.hoveredTs}
-            onHover={chartsStore.setHoveredTs}
-            onRetry={chartsStore.retry}
-          />
+      <div className='mx-auto max-w-5xl text-sm font-medium'>
+        <div className='dark:bg-dark-800 m-4 rounded-2xl bg-white p-6 shadow-sm'>
+          <div className={'grid grid-cols-1 ' + (model.isMainnet ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}>
+            <Tile
+              label='APY'
+              tooltip='Your yearly earnings based on recent staking rewards.'
+              value={model.statsApyFormatted}
+            />
+            <Tile label='Staked' tooltip='Total GRAM currently staked in Hipo.' value={model.statsStakedFormatted} />
+            {/* Holders comes only from the gauge, which serves mainnet — there is no contract
+                getter to fall back to, so the tile is dropped rather than shown as mainnet data
+                under a testnet badge. */}
+            {model.isMainnet && (
+              <Tile
+                label='Holders'
+                tooltip='The number of wallets holding the hGRAM token.'
+                value={model.statsHoldersFormatted}
+              />
+            )}
+          </div>
         </div>
-      )}
+      </div>
 
       {model.isMainnet && (
         <>
-          <div className='mx-auto mt-8 max-w-3xl px-4'>
-            <p className='text-lg font-bold'>Market</p>
+          <SectionHeading title='Market' />
+
+          {/* 3-across only from lg — at md the thirds are ~245px and the label/value pairs
+              inside the cards end up nearly touching. */}
+          <div className='grid grid-cols-1 lg:grid-cols-3'>
+            {model.hgramStats != null && <Section title='hGRAM' stats={model.hgramStats} showSupply showHolders />}
+            {model.hpoStats != null && <Section title='HPO' stats={model.hpoStats} showHolders />}
+            {model.gramStats != null && <Section title='GRAM' stats={model.gramStats} />}
           </div>
 
-          <div className='mx-auto max-w-3xl'>
+          <SectionHeading title='History' />
+
+          <div className='mx-auto mt-4 flex max-w-5xl flex-row justify-center px-4'>
+            <RangeSelector value={model.statsRange} onChange={model.setStatsRange} />
+          </div>
+
+          <div className='mx-auto max-w-5xl'>
+            <LineChart
+              title='APY'
+              series={apySeries}
+              status={chartsStore.status}
+              domainStart={chartsStore.domainStart}
+              domainEnd={chartsStore.domainEnd}
+              maxGapSeconds={chartsStore.maxGapSeconds}
+              stepped
+              valueFormat={formatApy}
+              deltaUnit='pp'
+              rangeLabel={chartsStore.rangeLabel}
+              xTickFormat={xTickFormat}
+              tooltipTimeFormat={formatTooltipTime}
+              hoveredTs={chartsStore.hoveredTs}
+              onHover={chartsStore.setHoveredTs}
+              onRetry={chartsStore.retry}
+            />
+            <LineChart
+              title='Staked'
+              series={stakedSeries}
+              status={chartsStore.status}
+              domainStart={chartsStore.domainStart}
+              domainEnd={chartsStore.domainEnd}
+              maxGapSeconds={chartsStore.maxGapSeconds}
+              valueFormat={formatStakedValue}
+              axisFormat={formatCompactCount}
+              deltaUnit='%'
+              rangeLabel={chartsStore.rangeLabel}
+              xTickFormat={xTickFormat}
+              tooltipTimeFormat={formatTooltipTime}
+              hoveredTs={chartsStore.hoveredTs}
+              onHover={chartsStore.setHoveredTs}
+              onRetry={chartsStore.retry}
+            />
+            <LineChart
+              title='hGRAM holders'
+              series={holdersSeries}
+              status={chartsStore.status}
+              domainStart={chartsStore.domainStart}
+              domainEnd={chartsStore.domainEnd}
+              maxGapSeconds={chartsStore.maxGapSeconds}
+              valueFormat={formatCompactCount}
+              deltaUnit='%'
+              rangeLabel={chartsStore.rangeLabel}
+              xTickFormat={xTickFormat}
+              tooltipTimeFormat={formatTooltipTime}
+              hoveredTs={chartsStore.hoveredTs}
+              onHover={chartsStore.setHoveredTs}
+              onRetry={chartsStore.retry}
+            />
             <LineChart
               title='hGRAM & GRAM price'
               series={priceSeries}
@@ -243,14 +303,6 @@ const StatsPage = observer(({ model }: Props) => {
               onHover={chartsStore.setHoveredTs}
               onRetry={chartsStore.retry}
             />
-          </div>
-
-          {/* 3-across only from lg — at md the thirds are ~245px and the label/value pairs
-              inside the cards end up nearly touching. */}
-          <div className='mt-8 grid grid-cols-1 lg:grid-cols-3'>
-            {model.hgramStats != null && <Section title='hGRAM' stats={model.hgramStats} showSupply showHolders />}
-            {model.hpoStats != null && <Section title='HPO' stats={model.hpoStats} showHolders />}
-            {model.gramStats != null && <Section title='GRAM' stats={model.gramStats} />}
           </div>
         </>
       )}
