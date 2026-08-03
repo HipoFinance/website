@@ -5,6 +5,7 @@ import OldWalletUpgrade from './OldWalletUpgrade.tsx'
 import StakeUnstake from './StakeUnstake.tsx'
 import Defi from './Defi.tsx'
 import Reward from './Reward.tsx'
+import StatsPage from './StatsPage.tsx'
 import Wait from './Wait.tsx'
 import Stats from './Stats.tsx'
 import Footer from './Footer.tsx'
@@ -46,6 +47,8 @@ const App = observer(() => {
     page = <Defi model={model} />
   } else if (model.activePage === 'reward') {
     page = <Reward model={model} />
+  } else if (model.activePage === 'stats') {
+    page = <StatsPage model={model} />
   }
 
   return (

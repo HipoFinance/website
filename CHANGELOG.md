@@ -7,6 +7,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-02 — [detailed report](changelog/2026-08-02-stats-charts.md)
+
+- Restored the stashed Stats tab page (nav entry, routing, gauge-fed figures).
+- Added five hand-rolled SVG history charts fed by Prometheus `query_range`
+  with a 24h–1y range selector persisted in the URL hash.
+- Charts are mainnet-only, degrade to in-card errors while
+  `metrics.hipo.finance` is not yet exposed, and re-theme via CSS variables.
+- Wrote `specs/app-stats-charts.md` plus `specs/metrics-proxy-nginx.conf`, and
+  added a `PUBLIC_PROM_BASE` override with a swarm tunnel recipe for
+  pre-launch testing.
+
 ## 2026-07-29 — [detailed report](changelog/2026-07-29-unstake-options-docs.md)
 
 - Documented the Full and Instant unstake options across `FAQ.astro`, both

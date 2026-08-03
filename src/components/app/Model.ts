@@ -27,9 +27,11 @@ import {
 } from '@hipo-finance/sdk'
 import { OldTreasury } from './OldTreasury'
 
-type ActivePage = 'stake' | 'reward' | 'defi'
+type ActivePage = 'stake' | 'reward' | 'stats' | 'defi'
 
 type ActiveTab = 'stake' | 'unstake'
+
+export type StatsRange = '24h' | '7d' | '30d' | '90d' | '1y'
 
 type UnstakeOption = 'best' | 'instant'
 
@@ -60,8 +62,58 @@ interface FragmentState {
   network?: Network
   activePage?: ActivePage
   activeTab?: ActiveTab
+  statsRange?: StatsRange
 }
 
+// Every field is optional on purpose — a missing market figure must degrade to a placeholder,
+// never reject the response and blank the holders count with it.
+interface HipoGaugeMarket {
+  current_price?: { usd?: number }
+  market_cap?: { usd?: number }
+  total_volume?: { usd?: number }
+  total_supply?: number
+  circulating_supply?: number
+  price_change_percentage_24h?: number
+}
+
+interface HipoGaugeToken {
+  holders_count?: number
+  market?: HipoGaugeMarket
+}
+
+interface HipoGaugeTreasury {
+  current_tvl?: number
+  current_apy?: number
+}
+
+// Wire shape of https://gauge.hipo.finance/data. This is the only place the pre-rename names
+// appear: the endpoint still calls GRAM `ton` and hGRAM `hton`. toHipoGauge maps them so no
+// other code has to know that.
+interface HipoGaugeResponse {
+  treasury?: HipoGaugeTreasury
+  ton?: HipoGaugeToken
+  hton?: HipoGaugeToken
+  hpo?: HipoGaugeToken
+}
+
+interface HipoGauge {
+  treasury?: HipoGaugeTreasury
+  gram?: HipoGaugeToken
+  hgram?: HipoGaugeToken
+  hpo?: HipoGaugeToken
+}
+
+function toHipoGauge(response: HipoGaugeResponse): HipoGauge {
+  return {
+    treasury: response.treasury,
+    gram: response.ton,
+    hgram: response.hton,
+    hpo: response.hpo,
+  }
+}
+
+const updateHipoGaugeDelay = 5 * 60 * 1000
+const retryHipoGaugeDelay = 5 * 1000
 const updateTimesDelay = 5 * 60 * 1000
 const updateLastBlockDelay = 30 * 1000
 const retryDelay = 3 * 1000
@@ -88,6 +140,7 @@ const multisigCodeHashes = ['09FNqaYn8Ow1MzQYKXYq+SuVQLIb8DZl+sCcK0bqu6w=']
 const defaultNetwork: Network = 'mainnet'
 const defaultActivePage: ActivePage = 'stake'
 const defaultActiveTab: ActiveTab = 'stake'
+const defaultStatsRange: StatsRange = '30d'
 
 const tonConnectButtonRootId = 'ton-connect-button'
 
@@ -117,6 +170,7 @@ export class Model {
   newWalletTokens?: bigint
   activePage: ActivePage = defaultActivePage
   activeTab: ActiveTab = defaultActiveTab
+  statsRange: StatsRange = defaultStatsRange
   amount = ''
   unstakeOption: UnstakeOption = 'best'
   waitForTransaction: WaitForTransaction = 'no'
@@ -127,6 +181,8 @@ export class Model {
   showMultisigGuidance = false
   multisigHint = false
   holdersCount?: number
+  gauge?: HipoGauge
+  isGaugeRefreshing = false
   walletRewardsFetchState: WalletRewardsFetchState = 'init'
   walletRewards?: WalletRewards
 
@@ -185,9 +241,12 @@ export class Model {
       showMultisigGuidance: observable,
       multisigHint: observable,
       holdersCount: observable,
+      gauge: observable,
+      isGaugeRefreshing: observable,
       walletRewardsFetchState: observable,
       walletRewards: observable,
       isBannerClosed: observable,
+      statsRange: observable,
 
       isWalletConnected: computed,
       isMainnet: computed,
@@ -235,6 +294,14 @@ export class Model {
       holdersCountFormatted: computed,
       claimWalletRewardsLabel: computed,
 
+      useGauge: computed,
+      statsApyFormatted: computed,
+      statsStakedFormatted: computed,
+      statsHoldersFormatted: computed,
+      hgramStats: computed,
+      hpoStats: computed,
+      gramStats: computed,
+
       setNetwork: action,
       setTonClient: action,
       setAddress: action,
@@ -256,6 +323,7 @@ export class Model {
       setWalletRewardsFetchState: action,
       loadWalletRewards: action,
       closeBanner: action,
+      setStatsRange: action,
     })
   }
 
@@ -277,6 +345,7 @@ export class Model {
         this.setActivePage(fragmentState.activePage ?? defaultActivePage)
         this.setActiveTab(fragmentState.activeTab ?? defaultActiveTab)
         this.setNetwork(fragmentState.network ?? defaultNetwork)
+        this.setStatsRange(fragmentState.statsRange ?? defaultStatsRange)
       })
       this.writeFragmentState()
     }
@@ -720,6 +789,49 @@ export class Model {
     }
   }
 
+  // The gauge serves mainnet figures and takes no network parameter, so on testnet its numbers
+  // would contradict the testnet badge. Fall back to the contract there, and whenever the gauge
+  // has not answered yet. `gauge` is never cleared on failure, so a failed refresh keeps the last
+  // good values rather than flipping the panel mid-session.
+  get useGauge() {
+    return this.isMainnet && this.gauge != null
+  }
+
+  get statsApyFormatted() {
+    const apy = this.gauge?.treasury?.current_apy
+    if (this.useGauge && apy != null) {
+      return formatPercent(apy / 100)
+    }
+    return this.apyFormatted
+  }
+
+  get statsStakedFormatted() {
+    const tvl = this.gauge?.treasury?.current_tvl
+    if (this.useGauge && tvl != null) {
+      return formatNano(tvl, 0) + ' GRAM'
+    }
+    return this.currentlyStaked
+  }
+
+  // Holders has no contract equivalent — the treasury has no getter for it — so unlike APY and
+  // Staked it cannot fall back. Stats.tsx hides the row on testnet; here it degrades to a dash.
+  get statsHoldersFormatted() {
+    const holders = this.useGauge ? this.gauge?.hgram?.holders_count : undefined
+    return holders != null ? formatCompact1Fraction(holders) : '—'
+  }
+
+  get hgramStats() {
+    return this.useGauge ? formatTokenStats(this.gauge?.hgram) : undefined
+  }
+
+  get hpoStats() {
+    return this.useGauge ? formatTokenStats(this.gauge?.hpo) : undefined
+  }
+
+  get gramStats() {
+    return this.useGauge ? formatTokenStats(this.gauge?.gram) : undefined
+  }
+
   get claimWalletRewardsLabel() {
     const rewards = this.walletRewards
     if (rewards == null) {
@@ -802,6 +914,10 @@ export class Model {
       this.controlBackgroundJobs()
       window.scrollTo(0, 0)
     }
+  }
+
+  setStatsRange = (statsRange: StatsRange) => {
+    this.statsRange = statsRange
   }
 
   setActiveTab = (activeTab: ActiveTab) => {
@@ -1496,13 +1612,18 @@ export class Model {
           }
         }
         if (key === 'page') {
-          if (value === 'stake' || value === 'reward' || value === 'defi') {
+          if (value === 'stake' || value === 'reward' || value === 'stats' || value === 'defi') {
             fragmentState.activePage = value
           }
         }
         if (key === 'tab') {
           if (value === 'stake' || value === 'unstake') {
             fragmentState.activeTab = value
+          }
+        }
+        if (key === 'range') {
+          if (value === '24h' || value === '7d' || value === '30d' || value === '90d' || value === '1y') {
+            fragmentState.statsRange = value
           }
         }
       }
@@ -1521,26 +1642,49 @@ export class Model {
     if (this.activeTab !== defaultActiveTab) {
       hash += '/tab=' + this.activeTab
     }
+    if (this.statsRange !== defaultStatsRange) {
+      hash += '/range=' + this.statsRange
+    }
     hash += '/'
     window.location.hash = hash
   }
 
+  // Also the refresh button's handler. clearTimeout on entry means a manual call cancels the
+  // pending automatic refresh and restarts the countdown, which is exactly the behaviour wanted.
   loadHipoGauge = () => {
+    if (this.isGaugeRefreshing) {
+      return
+    }
     clearTimeout(this.timeoutHipoGauge)
+    runInAction(() => {
+      this.isGaugeRefreshing = true
+    })
     fetch('https://gauge.hipo.finance/data')
       .then((res) => res.json())
-      .then((res: { ok: boolean; result: { hton: { holders_count: number } } }) => {
-        if (res.ok && res.result.hton.holders_count >= 0) {
+      .then((res: { ok: boolean; result: HipoGaugeResponse }) => {
+        // Guard unchanged from before this endpoint fed anything but the holders count: a
+        // response without it is still treated as invalid, and every other field is optional.
+        const holdersCount = res.result?.hton?.holders_count
+        if (res.ok && holdersCount != null && holdersCount >= 0) {
           runInAction(() => {
-            this.holdersCount = res.result.hton.holders_count
+            this.holdersCount = holdersCount
+            this.gauge = toHipoGauge(res.result)
+            this.isGaugeRefreshing = false
           })
+          clearTimeout(this.timeoutHipoGauge)
+          this.timeoutHipoGauge = setTimeout(this.loadHipoGauge, updateHipoGaugeDelay)
         } else {
           throw new Error('invalid response')
         }
       })
       .catch(() => {
+        // Deliberately does not clear `gauge`: the last good figures stay on screen instead of
+        // the panel flipping to contract values mid-session.
+        runInAction(() => {
+          this.isGaugeRefreshing = false
+        })
         clearTimeout(this.timeoutHipoGauge)
-        this.timeoutHipoGauge = setTimeout(this.loadHipoGauge, 5000)
+        this.timeoutHipoGauge = setTimeout(this.loadHipoGauge, retryHipoGaugeDelay)
       })
   }
 
@@ -1576,6 +1720,57 @@ export class Model {
 
 export function formatCompact1Fraction(n: number): string {
   return n.toLocaleString(undefined, { notation: 'compact', maximumFractionDigits: 1 })
+}
+
+export interface TokenStats {
+  price?: string
+  change24h?: string
+  isChangePositive: boolean
+  marketCap?: string
+  volume24h?: string
+  supply?: string
+  holders?: string
+}
+
+// HPO trades around $0.002, so a fixed 2-decimal price would render it as $0.00. Significant
+// digits keep it short without losing the leading zeros. Exported so the charts on StatsPage
+// format prices identically.
+export function formatUsdPrice(n: number): string {
+  if (n < 1) {
+    return '$' + n.toLocaleString(undefined, { maximumSignificantDigits: 4 })
+  }
+  return '$' + n.toLocaleString(undefined, { maximumFractionDigits: 2 })
+}
+
+function formatUsdCompact(n: number): string {
+  return '$' + formatCompact1Fraction(n)
+}
+
+function formatSignedPercent(n: number): string {
+  return (n / 100).toLocaleString(undefined, {
+    style: 'percent',
+    maximumFractionDigits: 2,
+    signDisplay: 'exceptZero',
+  })
+}
+
+// Every field is optional: a partial gauge response must render what it has rather than blank the
+// whole section.
+function formatTokenStats(token?: HipoGaugeToken): TokenStats | undefined {
+  if (token == null) {
+    return undefined
+  }
+  const market = token.market
+  const change = market?.price_change_percentage_24h
+  return {
+    price: market?.current_price?.usd != null ? formatUsdPrice(market.current_price.usd) : undefined,
+    change24h: change != null ? formatSignedPercent(change) : undefined,
+    isChangePositive: (change ?? 0) >= 0,
+    marketCap: market?.market_cap?.usd != null ? formatUsdCompact(market.market_cap.usd) : undefined,
+    volume24h: market?.total_volume?.usd != null ? formatUsdCompact(market.total_volume.usd) : undefined,
+    supply: market?.circulating_supply != null ? formatCompact1Fraction(market.circulating_supply) : undefined,
+    holders: token.holders_count != null ? formatCompact1Fraction(token.holders_count) : undefined,
+  }
 }
 
 function formatCompact2Fraction(n: number): string {

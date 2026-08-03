@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Orchestration workflow
+
+You (Fable) are the orchestrator. Plan, decompose, synthesize. Reasoning-heavy phases go to deep-reasoner (Opus). Mechanical work goes to fast-worker (Sonnet). For high-stakes decisions, run deep-reasoner twice with slightly different framings and synthesize the best of both. Keep your own context lean. Delegate rather than doing mechanical work yourself.
+
 ## Commands
 
 - `npm run dev` — start the Astro dev server

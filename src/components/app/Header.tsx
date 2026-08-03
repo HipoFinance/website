@@ -119,6 +119,38 @@ const Header = observer(({ model }: Props) => {
           <li
             className={
               'flex-1 cursor-pointer pt-3 text-center whitespace-nowrap sm:ml-4 sm:flex-none sm:pt-0' +
+              (model.activePage === 'stats' ? ' text-dark-600' : ' text-brown')
+            }
+            onClick={() => {
+              model.setActivePage('stats')
+            }}
+          >
+            <div className='flex flex-col items-center sm:flex-row sm:pl-2'>
+              <img
+                src='/images/app/page-stats-brown.svg'
+                className={'h-4 dark:hidden!' + (model.activePage !== 'stats' ? ' block' : ' hidden')}
+              />
+              <img
+                src='/images/app/page-stats-white.svg'
+                className={'hidden h-4' + (model.activePage !== 'stats' ? ' dark:block!' : ' sm:dark:block!')}
+              />
+              <img
+                src='/images/app/page-stats-orange.svg'
+                className={'h-4 sm:hidden' + (model.activePage === 'stats' ? ' block' : ' hidden')}
+              />
+              <img
+                src='/images/app/page-stats-black.svg'
+                className={'hidden h-4' + (model.activePage === 'stats' ? ' sm:block dark:hidden!' : '')}
+              />
+              <span className='p-2 dark:text-white'>Stats</span>
+            </div>
+            <div
+              className={'bg-orange mt-1 hidden h-1 rounded-full' + (model.activePage === 'stats' ? ' sm:block!' : '')}
+            ></div>
+          </li>
+          <li
+            className={
+              'flex-1 cursor-pointer pt-3 text-center whitespace-nowrap sm:ml-4 sm:flex-none sm:pt-0' +
               (model.activePage === 'defi' ? ' text-dark-600' : ' text-brown')
             }
             onClick={() => {

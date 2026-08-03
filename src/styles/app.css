@@ -1,6 +1,21 @@
 @import 'tailwindcss';
 @custom-variant dark (&:where(.dark, .dark *));
 
+:root {
+  --chart-hgram: #e2564b; /* also APY/Staked/Holders — protocol = hGRAM hue */
+  --chart-gram: #0a88ca;
+  --chart-hpo: #7e22ce;
+  --chart-grid: rgba(119, 100, 100, 0.1);
+  --chart-ink: #71665f;
+}
+.dark {
+  --chart-hgram: #e2665a;
+  --chart-gram: #3b9ad6;
+  --chart-hpo: #a06ce0;
+  --chart-grid: rgba(255, 255, 255, 0.08);
+  --chart-ink: #b8aa9c;
+}
+
 body {
   background:
     radial-gradient(farthest-corner at 10% 10%, #feeae8 5%, #f4f4f4 30%, #f4f4f400 30%),
