@@ -166,7 +166,7 @@
 }
 
 @utility hipo-why-hipo-card-bg {
-  @apply border-darkblue5 mx-auto flex h-full w-fit flex-col justify-items-stretch gap-4 rounded-lg border p-4 text-start backdrop-blur-[113.5px] md:max-w-max md:p-6;
+  @apply border-darkblue5 flex h-full w-full flex-col gap-4 rounded-lg border p-4 text-start backdrop-blur-[113.5px] md:p-6;
 }
 
 @utility hipo-why-hipo-card-title {
