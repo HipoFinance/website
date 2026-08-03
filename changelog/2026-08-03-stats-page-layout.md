@@ -13,6 +13,7 @@ first, history charts after, with several styling passes iterated on feedback.
 | `d19da43` | Fix the workaround used for Community-Driven card's width |
 | `046043a` | Arrange the hGRAM card data                               |
 | `9e1bec3` | Rearrange the Stats page layout                           |
+| `cee252a` | Rename the 24h volume figure to total volume              |
 
 ## What changed
 
@@ -45,6 +46,11 @@ first, history charts after, with several styling passes iterated on feedback.
   (the 3-across breakpoint), with `mt-6` to breathe below the previous card.
   The first iteration had the alignment the other way around
   (centered-on-mobile); the maintainer reversed it.
+- **"24h volume" → "Total volume"** (`cee252a`): the gauge's `total_volume`
+  figure is lifetime volume, not a 24-hour window, so the row label and the
+  `TokenStats.volume24h` field (now `totalVolume`) were mislabeled. The
+  neighboring "24h change" really is 24h (`price_change_percentage_24h`) and
+  kept its name, as did the plain "Volume" labels on the HPO/landing pages.
 - **hGRAM card row order** (`046043a`, pre-conversation): Holders moved above
   Circulating supply so the shared rows line up across the three token cards.
 - **Landing page** (`d19da43`, pre-conversation): the Community-Driven card's
@@ -55,8 +61,13 @@ first, history charts after, with several styling passes iterated on feedback.
 ### Verification performed
 
 `npm run build` after every step (44 pages, clean) and `prettier --write` on
-touched files (no reformats needed). No browser pass this session — the
-changes are Tailwind-class-level and were reviewed in the diff.
+touched files (no reformats needed). The layout changes had no browser pass —
+they are Tailwind-class-level and were reviewed in the diff. The volume rename
+was verified end-to-end after the maintainer saw "—" values: headless Chrome
+(scratchpad `playwright-core`, installed Chrome) against a fresh dev server
+showed the gauge fetch returning 200 and all three cards rendering real
+totals — the dashes were stale Vite HMR state (the page's MobX store still
+held objects with the old `volume24h` field) and clear on a hard reload.
 
 ### Follow-ups
 
