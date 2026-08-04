@@ -7,6 +7,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-04 — [detailed report](changelog/2026-08-04-stats-feedback-round.md)
+
+- Removed the Stats page Refresh button; data now refreshes on page open.
+- Removed the Stats page TON Explorer link.
+- Moved the More Stats link below the last chart, centered.
+- Pointed the Stake page's More Stats at the Stats tab instead of the
+  external stats site.
+- Restyled section headings as a centered line instead of a highlighted bar.
+
 ## 2026-08-04 — [detailed report](changelog/2026-08-04-stats-links-placement.md)
 
 - Moved the More Stats and TON Explorer links below the Refresh button.
