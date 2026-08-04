@@ -150,20 +150,10 @@ const StatsPage = observer(({ model }: Props) => {
 
   return (
     <div className='font-body text-brown dark:text-dark-50 mx-auto w-full max-w-5xl p-4 pb-32'>
-      <div className='relative mt-4'>
-        <p className='px-8 text-center text-3xl font-bold'>Statistics</p>
-        <div className='absolute inset-y-0 right-4 flex flex-col items-end justify-center gap-3 text-xs font-light'>
-          <a href='https://stats.hipo.finance' target='hipo_stats' className='text-blue'>
-            More Stats
-          </a>
-          <a href={model.explorerHref} target='hipo_explorer' className='text-blue'>
-            TON Explorer
-          </a>
-        </div>
-      </div>
+      <p className='mt-4 px-8 text-center text-3xl font-bold'>Statistics</p>
       <p className='mt-2 mb-4 px-8 text-center'>Live protocol and market figures.</p>
 
-      <div className='mx-auto mb-4 flex max-w-5xl flex-row justify-end px-4'>
+      <div className='mx-auto mt-8 mb-4 flex max-w-5xl flex-col items-end gap-3 px-4 sm:mt-0'>
         <button
           className='border-c1 dark:border-c2 flex cursor-pointer flex-row items-center gap-2 rounded-xl border px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-60'
           disabled={model.isGaugeRefreshing}
@@ -175,6 +165,14 @@ const StatsPage = observer(({ model }: Props) => {
           <RefreshCw className={'size-4' + (model.isGaugeRefreshing ? ' animate-spin' : '')} />
           {model.isGaugeRefreshing ? 'Refreshing…' : 'Refresh'}
         </button>
+        <div className='flex flex-col items-end gap-3 text-xs font-light'>
+          <a href='https://stats.hipo.finance' target='hipo_stats' className='text-blue'>
+            More Stats
+          </a>
+          <a href={model.explorerHref} target='hipo_explorer' className='text-blue'>
+            TON Explorer
+          </a>
+        </div>
       </div>
 
       <SectionHeading title='Protocol' />
