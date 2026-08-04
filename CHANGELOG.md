@@ -7,6 +7,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-04 — [detailed report](changelog/2026-08-04-stats-links-placement.md)
+
+- Moved the More Stats and TON Explorer links below the Refresh button.
+- Added extra space above the Refresh button on thin screens.
+
 ## 2026-08-03 — [detailed report](changelog/2026-08-03-stats-page-layout.md)
 
 - Rearranged the Stats page: last-value cards first, history charts after,
