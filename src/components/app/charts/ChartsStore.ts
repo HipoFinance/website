@@ -36,8 +36,12 @@ export class ChartsStore {
     this.disposeReaction = reaction(
       () => [this.model.statsRange, this.model.isMainnet] as const,
       () => this.load(),
-      { fireImmediately: true },
     )
+
+    // Opening the Stats page constructs a fresh store, so this first load busts the module-level
+    // cache: every visit shows fresh data. Range switches (the reaction above) still use the
+    // cache to keep toggling back and forth cheap.
+    this.load({ bustCache: true })
 
     this.refreshTimer = setInterval(() => {
       if (this.model.isMainnet && !document.hidden) {
@@ -108,11 +112,6 @@ export class ChartsStore {
   }
 
   retry = () => {
-    this.load({ bustCache: true })
-  }
-
-  // Also called by the Stats page Refresh button, alongside model.loadHipoGauge().
-  refresh = () => {
     this.load({ bustCache: true })
   }
 

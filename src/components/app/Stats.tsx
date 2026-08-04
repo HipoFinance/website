@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite'
-import { useEffect } from 'react'
 import { Model } from './Model'
 
 interface Props {
@@ -60,11 +59,14 @@ const Stats = observer(({ model }: Props) => {
             </div>
           )}
           <div className='my-4 flex flex-row justify-center'>
-            <p>
-              <a href='https://stats.hipo.finance' className='text-blue' target='hipo_stats'>
-                More Stats
-              </a>
-            </p>
+            <button
+              className='text-blue cursor-pointer'
+              onClick={() => {
+                model.setActivePage('stats')
+              }}
+            >
+              More Stats
+            </button>
           </div>
         </div>
       </div>

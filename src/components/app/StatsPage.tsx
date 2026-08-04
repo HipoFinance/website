@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite'
-import { RefreshCw } from 'lucide-react'
 import { useEffect, useState } from 'react'
 // TokenStats is an interface, so it must be a type-only import: a value import compiles but has
 // no runtime binding, which breaks island hydration in dev.
@@ -19,8 +18,10 @@ interface RowProps {
 }
 
 const SectionHeading = ({ title }: { title: string }) => (
-  <div className='mx-auto mt-8 max-w-5xl px-4'>
-    <p className='bg-c1/30 dark:bg-dark-700 rounded-xl py-2 text-center text-lg font-bold'>{title}</p>
+  <div className='mx-auto mt-8 flex max-w-5xl flex-row items-center gap-4 px-4'>
+    <div className='bg-c1 dark:bg-c2 h-px grow' />
+    <p className='text-lg font-bold'>{title}</p>
+    <div className='bg-c1 dark:bg-c2 h-px grow' />
   </div>
 )
 
@@ -109,9 +110,12 @@ function formatTooltipTime(ts: number): string {
 const StatsPage = observer(({ model }: Props) => {
   const [chartsStore] = useState(() => new ChartsStore(model))
 
+  // Opening the page refreshes the gauge figures; the charts store busts its cache on creation,
+  // so both data sources are fresh on every visit without a manual Refresh button.
   useEffect(() => {
+    model.loadHipoGauge()
     return () => chartsStore.dispose()
-  }, [chartsStore])
+  }, [model, chartsStore])
 
   const range = model.statsRange
   const xTickFormat = (ts: number) => formatXTick(range, ts)
@@ -151,29 +155,7 @@ const StatsPage = observer(({ model }: Props) => {
   return (
     <div className='font-body text-brown dark:text-dark-50 mx-auto w-full max-w-5xl p-4 pb-32'>
       <p className='mt-4 px-8 text-center text-3xl font-bold'>Statistics</p>
-      <p className='mt-2 mb-4 px-8 text-center'>Live protocol and market figures.</p>
-
-      <div className='mx-auto mt-8 mb-4 flex max-w-5xl flex-col items-end gap-3 px-4 sm:mt-0'>
-        <button
-          className='border-c1 dark:border-c2 flex cursor-pointer flex-row items-center gap-2 rounded-xl border px-4 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-60'
-          disabled={model.isGaugeRefreshing}
-          onClick={() => {
-            model.loadHipoGauge()
-            chartsStore.refresh()
-          }}
-        >
-          <RefreshCw className={'size-4' + (model.isGaugeRefreshing ? ' animate-spin' : '')} />
-          {model.isGaugeRefreshing ? 'Refreshing…' : 'Refresh'}
-        </button>
-        <div className='flex flex-col items-end gap-3 text-xs font-light'>
-          <a href='https://stats.hipo.finance' target='hipo_stats' className='text-blue'>
-            More Stats
-          </a>
-          <a href={model.explorerHref} target='hipo_explorer' className='text-blue'>
-            TON Explorer
-          </a>
-        </div>
-      </div>
+      <p className='mt-2 mb-4 px-2 text-center'>Live protocol and market figures.</p>
 
       <SectionHeading title='Protocol' />
 
@@ -314,6 +296,12 @@ const StatsPage = observer(({ model }: Props) => {
           contract.
         </p>
       )}
+
+      <div className='mt-8 flex flex-row justify-center'>
+        <a href='https://stats.hipo.finance' target='hipo_stats' className='text-blue text-sm'>
+          More Stats
+        </a>
+      </div>
     </div>
   )
 })
