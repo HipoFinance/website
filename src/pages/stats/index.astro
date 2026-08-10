@@ -1,0 +1,58 @@
+---
+import Layout from '../../layouts/AppLayout.astro'
+
+const title = 'Protocol Statistics | Hipo'
+const description =
+  'Live Hipo protocol and market statistics: APY, total staked GRAM, hGRAM holders, token prices, and historical charts.'
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: title,
+  description,
+  url: 'https://hipo.finance/stats/',
+  isPartOf: { '@type': 'WebSite', name: 'Hipo', url: 'https://hipo.finance/' },
+}
+---
+
+<Layout title={title} description={description} jsonLd={jsonLd}>
+  <section class='font-body text-brown dark:text-dark-50 mx-auto w-full max-w-3xl px-4 pt-8 pb-24'>
+    <h1 class='mb-6 text-center text-3xl font-bold'>Hipo Protocol Statistics</h1>
+
+    <div class='dark:bg-dark-800 mb-6 rounded-2xl bg-white p-6 shadow-sm'>
+      <h2 class='mb-2 text-xl font-bold'>Protocol metrics</h2>
+      <ul class='list-disc space-y-1 pl-5 leading-relaxed'>
+        <li><strong>APY</strong> — yearly earnings implied by recent staking rewards.</li>
+        <li><strong>Staked</strong> — total GRAM currently staked in Hipo.</li>
+        <li><strong>Holders</strong> — the number of wallets holding hGRAM.</li>
+      </ul>
+    </div>
+
+    <div class='dark:bg-dark-800 mb-6 rounded-2xl bg-white p-6 shadow-sm'>
+      <h2 class='mb-2 text-xl font-bold'>Market data</h2>
+      <p class='leading-relaxed'>
+        Price, 24-hour change, market cap, and trading volume for hGRAM, HPO, and GRAM, alongside circulating supply and
+        holder counts where available.
+      </p>
+    </div>
+
+    <div class='dark:bg-dark-800 mb-6 rounded-2xl bg-white p-6 shadow-sm'>
+      <h2 class='mb-2 text-xl font-bold'>History charts</h2>
+      <p class='leading-relaxed'>
+        APY, total staked GRAM, hGRAM holder count, hGRAM and GRAM price, and HPO price, each plotted over selectable
+        time ranges so you can see how the protocol has trended.
+      </p>
+    </div>
+
+    <div class='dark:bg-dark-800 rounded-2xl bg-white p-6 shadow-sm'>
+      <h2 class='mb-2 text-xl font-bold'>Deeper data</h2>
+      <p class='leading-relaxed'>
+        For a broader public dashboard beyond what's shown here, see
+        <a class='text-blue underline' href='https://stats.hipo.finance/' target='_blank' rel='noopener noreferrer'
+          >Hipo Stats</a
+        >, or read what each metric means in the
+        <a class='text-blue underline' href='/docs/introduction/hipo-stats/'>docs</a>.
+      </p>
+    </div>
+  </section>
+</Layout>

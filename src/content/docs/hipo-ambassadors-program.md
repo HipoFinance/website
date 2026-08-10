@@ -65,7 +65,7 @@ As a Hipo Ambassador, you're a representative of our community. We expect you to
 To be an effective ambassador, we recommend:
 
 - Check Out Hipo's [Website](https://hipo.finance/), [Stats](https://stats.hipo.finance/), and [Documentation](/docs/).
-- Use the [Hipo App](https://hipo.finance/app/#/).
+- Use the [Hipo App](/stake/).
 - Join Our [Telegram](https://t.me/HipoFinance) and [Twitter](https://x.com/hipofinance/) Communities.
 
 Stay informed and connected to contribute effectively and help us grow!

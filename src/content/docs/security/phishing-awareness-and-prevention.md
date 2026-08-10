@@ -1,5 +1,5 @@
 ---
-title: "Phishing Awareness and Prevention"
+title: 'Phishing Awareness and Prevention'
 ---
 
 #### What is Phishing?
@@ -34,27 +34,27 @@ Scammers often create a sense of urgency or excitement. Beware of messages offer
 
 Never share your wallet’s secret phrase or other sensitive data with anyone or any service.
 
-***
+---
 
 #### Tips to Protect Against Phishing
 
-* Avoid suspicious links and always verify the sender before clicking.
-* Enable Two-Factor Authentication (2FA) for email and social accounts.
-* Never share your wallet’s secret phrase with anyone or any service.
-* Double-check URLs to ensure you’re accessing Hipo’s official apps.
-* Verify with Hipo’s official channels if you have doubts.
-* Stay informed about the latest scams and online security practices.
-* Be wary of messages that pressure you to act quickly or promise rewards.
+- Avoid suspicious links and always verify the sender before clicking.
+- Enable Two-Factor Authentication (2FA) for email and social accounts.
+- Never share your wallet’s secret phrase with anyone or any service.
+- Double-check URLs to ensure you’re accessing Hipo’s official apps.
+- Verify with Hipo’s official channels if you have doubts.
+- Stay informed about the latest scams and online security practices.
+- Be wary of messages that pressure you to act quickly or promise rewards.
 
 #### Official Hipo Channels
 
-* **Website:** [hipo.finance](https://hipo.finance)
-* **Webapp:** [hipo.finance/app](https://hipo.finance/app/#/)
-* **Telegram Channel:** [@hipofinance](https://t.me/hipofinance)
-* **Telegram Bot:** [@hipofinancebot](https://t.me/hipofinancebot)
-* **Twitter (X):** [x.com/hipofinance](https://x.com/hipofinance)
+- **Website:** [hipo.finance](https://hipo.finance)
+- **Webapp:** [hipo.finance/stake](/stake/)
+- **Telegram Channel:** [@hipofinance](https://t.me/hipofinance)
+- **Telegram Bot:** [@hipofinancebot](https://t.me/hipofinancebot)
+- **Twitter (X):** [x.com/hipofinance](https://x.com/hipofinance)
 
-***
+---
 
 ### Phishing Examples and How to Handle Them
 
@@ -68,9 +68,9 @@ Never share your wallet’s secret phrase or other sensitive data with anyone or
 
 **Solutions:**
 
-* Hipo admins will *never* DM you first or ask for sensitive information or money.
-* Verify the website address to ensure it’s legitimate.
-* Never share your wallet’s secret phrase with anyone or any service.
+- Hipo admins will _never_ DM you first or ask for sensitive information or money.
+- Verify the website address to ensure it’s legitimate.
+- Never share your wallet’s secret phrase with anyone or any service.
 
 **Example 2: Exclusive Investment Opportunity**
 
@@ -80,10 +80,10 @@ Never share your wallet’s secret phrase or other sensitive data with anyone or
 
 **Solutions:**
 
-* Be cautious of unknown messages or requests for sensitive information, even from trusted contacts, as their accounts could be compromised.
-* Avoid acting on such offers without thorough verification.
+- Be cautious of unknown messages or requests for sensitive information, even from trusted contacts, as their accounts could be compromised.
+- Avoid acting on such offers without thorough verification.
 
-***
+---
 
 #### Stay Vigilant
 

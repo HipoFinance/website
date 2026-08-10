@@ -24,7 +24,7 @@ const StakeUnstake = observer(({ model }: Props) => {
           <li
             className='z-1 m-1 inline-block w-36 cursor-pointer rounded-full py-1 text-center'
             onClick={() => {
-              model.setActiveTab('stake')
+              model.navigateToTab('stake')
             }}
           >
             Stake
@@ -32,7 +32,7 @@ const StakeUnstake = observer(({ model }: Props) => {
           <li
             className='z-1 m-1 inline-block w-36 cursor-pointer rounded-full py-1 text-center'
             onClick={() => {
-              model.setActiveTab('unstake')
+              model.navigateToTab('unstake')
             }}
           >
             Unstake
@@ -62,7 +62,7 @@ const StakeUnstake = observer(({ model }: Props) => {
 
             {model.stakingInProgressDetails.map((value) => (
               <div key={(value.estimated ?? '') + value.amount} className='flex flex-row flex-wrap'>
-                <p className='font-light opacity-70 text-sm'>
+                <p className='text-sm font-light opacity-70'>
                   {value.estimated == null ? 'Staking' : 'Staking starts in ' + value.estimated}
                 </p>
                 <p className='ml-auto font-medium opacity-70'>{value.amount}</p>
@@ -77,7 +77,7 @@ const StakeUnstake = observer(({ model }: Props) => {
             </div>
 
             <div className={'flex flex-row flex-wrap' + (model.unstakingInProgressDetails != null ? '' : ' hidden')}>
-              <p className='font-light opacity-70 text-sm'>
+              <p className='text-sm font-light opacity-70'>
                 {model.unstakingInProgressDetails?.estimated == null
                   ? 'Unstaking'
                   : 'Unstaking in ' + model.unstakingInProgressDetails.estimated}
@@ -203,9 +203,7 @@ const StakeUnstake = observer(({ model }: Props) => {
               </div>
             </div>
             <div className='col-span-2 -mt-2 text-xs'>
-              {model.unstakeOption === 'best' && (
-                <div className='text-left'>{model.unstakeBestRemain} &nbsp;</div>
-              )}
+              {model.unstakeOption === 'best' && <div className='text-left'>{model.unstakeBestRemain} &nbsp;</div>}
               {model.unstakeOption === 'instant' && (
                 <div className={'text-right' + (model.unstakeMoreThanInstantBurnable ? ' text-orange' : '')}>
                   {model.maxBurnableTokensFormatted}
@@ -220,7 +218,7 @@ const StakeUnstake = observer(({ model }: Props) => {
 
           <button
             id='submit'
-            className='bg-orange dark:text-dark-600 h-14 w-full rounded-2xl text-lg font-medium text-white cursor-pointer disabled:cursor-not-allowed disabled:opacity-80'
+            className='bg-orange dark:text-dark-600 h-14 w-full cursor-pointer rounded-2xl text-lg font-medium text-white disabled:cursor-not-allowed disabled:opacity-80'
             disabled={!model.isButtonEnabled}
             onClick={(e) => {
               const target = e.target as HTMLInputElement
@@ -231,7 +229,11 @@ const StakeUnstake = observer(({ model }: Props) => {
                 model.setAmountAlert('stake-max')
               } else if (!model.isStakeTabActive && !model.isAmountValid) {
                 model.setAmountAlert('unstake-max')
-              } else if (!model.isStakeTabActive && model.unstakeOption === 'instant' && model.unstakeMoreThanInstantBurnable) {
+              } else if (
+                !model.isStakeTabActive &&
+                model.unstakeOption === 'instant' &&
+                model.unstakeMoreThanInstantBurnable
+              ) {
                 model.setAmountAlert('instant-unstake-max')
               } else {
                 model.send()

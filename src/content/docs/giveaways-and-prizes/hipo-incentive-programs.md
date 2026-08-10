@@ -1,8 +1,8 @@
 ---
-title: "Hipo Incentive Programs"
+title: 'Hipo Incentive Programs'
 ---
 
-Hipo’s incentive programs are structured to encourage active participation and long-term commitment from the community. 
+Hipo’s incentive programs are structured to encourage active participation and long-term commitment from the community.
 
 These initiatives are designed to attract users who contribute to the protocol’s development, fostering a self-sustaining ecosystem. By aligning incentives with engagement, Hipo aims to build a community that supports the protocol’s growth while ensuring the stability and long-term success of the platform.
 
@@ -10,11 +10,11 @@ These initiatives are designed to attract users who contribute to the protocol�
 
 The [staking airdrop plan](/docs/giveaways-and-prizes/tvl-milestone-rewards/) is structured to distribute rewards as Hipo’s Total Value Locked (TVL) reaches key milestones. At each milestone, **1% of the total HPO supply** is allocated to stakers and referrers:
 
-* **500K GRAM TVL – ****Completed!**
-* **1M GRAM TVL – ****Completed!** 
-* **Upcoming Milestones:** 2M, 3M, 4M, and 5M GRAM TVL
+- **500K GRAM TVL – \*\***Completed!\*\*
+- **1M GRAM TVL – \*\***Completed!\*\*
+- **Upcoming Milestones:** 2M, 3M, 4M, and 5M GRAM TVL
 
-> ### [Start Your Investment Now](https://hipo.finance/app/#/)!
+> ### [Start Your Investment Now](/stake/)!
 
 ### 2. Liquidity Provider Reward Program
 
@@ -22,20 +22,20 @@ The [staking airdrop plan](/docs/giveaways-and-prizes/tvl-milestone-rewards/) is
 
 The [$1M reward program](/docs/giveaways-and-prizes/hipo-usd1-000-000-rewards-program/) is designed to incentivize liquidity provision within the Hipo ecosystem, supporting deeper market liquidity and long-term stability. With a total reward pool of $1,000,000, participants earn rewards by contributing to designated liquidity pools:
 
-* **hGRAM/GRAM**
-* **HPO/hGRAM**
-* **HPO/GRAM**
+- **hGRAM/GRAM**
+- **HPO/hGRAM**
+- **HPO/GRAM**
 
 #### **Program Objectives**
 
-* Maintain **hGRAM/GRAM** as the most profitable GRAM-staked pool.
-* Establish **HPO/hGRAM** and **HPO/GRAM** as leading liquidity pools within the TON ecosystem.
+- Maintain **hGRAM/GRAM** as the most profitable GRAM-staked pool.
+- Establish **HPO/hGRAM** and **HPO/GRAM** as leading liquidity pools within the TON ecosystem.
 
 ### 3. NFT-Based Incentives
 
 **2,795,379 HPO tokens have been successfully distributed to Hipo NFT holders**.
 
-Hipo [NFTs](/docs/giveaways-and-prizes/hipo-nfts/) are designed to provide specific benefits within the ecosystem. Holders receive governance rights, priority access to incentives, and eligibility for additional airdrop distributions. 
+Hipo [NFTs](/docs/giveaways-and-prizes/hipo-nfts/) are designed to provide specific benefits within the ecosystem. Holders receive governance rights, priority access to incentives, and eligibility for additional airdrop distributions.
 
 These NFTs are issued to early adopters and active contributors who support the protocol’s long-term development.
 
@@ -59,9 +59,9 @@ As the program evolves, the focus remains on fostering a dedicated community of 
 
 The [ambassadors program](/docs/hipo-ambassadors-program/) encourages community-driven growth by rewarding individuals who contribute through content creation, event hosting, and community support. Key objectives include:
 
-* Expanding awareness of Hipo and its ecosystem.
-* Educating users about DeFi through accurate and engaging content.
-* Strengthening community engagement through various initiatives.
+- Expanding awareness of Hipo and its ecosystem.
+- Educating users about DeFi through accurate and engaging content.
+- Strengthening community engagement through various initiatives.
 
 ### **7. Hipo Club**
 
@@ -77,6 +77,6 @@ Hipo Club promotes a culture of responsibility—members must stay within their 
 
 Hipo’s incentive mechanisms are structured to promote sustainable growth rather than short-term speculation. The reward distribution model prioritizes:
 
-* **Long-Term Participation** – Programs are designed to engage users who contribute to the ecosystem’s stability.
-* **Decentralized Growth** – Incentives are allocated to a broad range of participants, reinforcing community-driven expansion.
-* **Economic Sustainability** – Reward structures are optimized to balance incentives with the protocol’s overall health, preventing excessive inflation.
+- **Long-Term Participation** – Programs are designed to engage users who contribute to the ecosystem’s stability.
+- **Decentralized Growth** – Incentives are allocated to a broad range of participants, reinforcing community-driven expansion.
+- **Economic Sustainability** – Reward structures are optimized to balance incentives with the protocol’s overall health, preventing excessive inflation.

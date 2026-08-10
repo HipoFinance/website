@@ -1,30 +1,35 @@
 ---
+import { ClientRouter } from 'astro:transitions'
 import '../styles/global.css'
 import '../styles/app.css'
 import SEO from '../components/SEO.astro'
+import AppIsland from '../components/app/AppIsland.tsx'
 
 interface Props {
   title: string
   description: string
+  jsonLd?: Record<string, any>
 }
 
-const { title, description } = Astro.props
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: { title },
-  url: 'https://hipo.finance/app',
-  description: { description },
-  publisher: {
-    '@type': 'Organization',
-    name: 'Hipo',
-    logo: {
-      '@type': 'ImageObject',
-      url: 'https://hipo.finance/hipo.svg',
+const {
+  title,
+  description,
+  jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: title,
+    url: Astro.url.href,
+    description,
+    publisher: {
+      '@type': 'Organization',
+      name: 'Hipo',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://hipo.finance/hipo.svg',
+      },
     },
   },
-}
+} = Astro.props
 ---
 
 <!doctype html>
@@ -34,18 +39,25 @@ const jsonLd = {
 
     <SEO title={title} description={description} jsonLd={jsonLd} />
 
+    <ClientRouter />
+
     <link rel='icon' href={`${import.meta.env.BASE_URL}favicon.ico`} />
 
     <script is:inline>
       ;(() => {
-        if (
-          localStorage.theme === 'dark' ||
-          (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-        ) {
-          document.documentElement.classList.add('dark')
-        } else {
-          document.documentElement.classList.remove('dark')
+        const applyTheme = () => {
+          if (
+            localStorage.theme === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          ) {
+            document.documentElement.classList.add('dark')
+          } else {
+            document.documentElement.classList.remove('dark')
+          }
         }
+        applyTheme()
+        // The ClientRouter swap resets <html> attributes and does not re-run this script.
+        document.addEventListener('astro:after-swap', applyTheme)
       })()
     </script>
   </head>
@@ -64,6 +76,21 @@ const jsonLd = {
       })
     </script>
 
+    <main>
+      <AppIsland client:only='react' transition:persist='app-island' />
+    </main>
+
     <slot />
+
+    <nav aria-label='Hipo app pages' class='font-body text-brown dark:text-dark-50 mx-auto w-full max-w-3xl px-4 pb-12'>
+      <ul class='flex flex-wrap justify-center gap-x-6 gap-y-2'>
+        <li><a class='underline' href='/stake/'>Stake</a></li>
+        <li><a class='underline' href='/unstake/'>Unstake</a></li>
+        <li><a class='underline' href='/rewards/'>Rewards</a></li>
+        <li><a class='underline' href='/stats/'>Stats</a></li>
+        <li><a class='underline' href='/defi/'>DeFi</a></li>
+        <li><a class='underline' href='/docs/'>Docs</a></li>
+      </ul>
+    </nav>
   </body>
 </html>

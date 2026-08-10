@@ -1,4 +1,4 @@
-import { type Network } from '@orbs-network/ton-access'
+import { navigate } from 'astro:transitions/client'
 import {
   TonConnectUI,
   THEME,
@@ -56,13 +56,6 @@ interface EarnedReward {
   stakeReward: number
   tonReward: number
   hpoReward: number
-}
-
-interface FragmentState {
-  network?: Network
-  activePage?: ActivePage
-  activeTab?: ActiveTab
-  statsRange?: StatsRange
 }
 
 // Every field is optional on purpose — a missing market figure must degrade to a placeholder,
@@ -128,24 +121,116 @@ class StaleSessionError extends Error {}
 const averageStakeFee = 15000000n
 const averageUnstakeFee = 42000000n
 
-const oldTreasuryAddresses: Record<Network, Address> = {
-  mainnet: Address.parse('EQBNo5qAG8I8J6IxGaz15SfQVB-kX98YhKV_mT36Xo5vYxUa'),
-  testnet: Address.parse('kQAjvBlA6Gt0BZhvM9_PgBDVv1_EkRuMYZ3XxdaXlKRyCeaI'),
-}
+const treasuryAddress = treasuryAddresses.get('mainnet')
+
+const oldTreasuryAddress = Address.parse('EQBNo5qAG8I8J6IxGaz15SfQVB-kX98YhKV_mT36Xo5vYxUa')
 
 // multisig-contract-v2 code hashes (base64, as returned by TonClient4), computed from the
 // v2.0 build artifact; the same hash is registered as the multisig interface in tonkeeper/tongo
 const multisigCodeHashes = ['09FNqaYn8Ow1MzQYKXYq+SuVQLIb8DZl+sCcK0bqu6w=']
 
-const defaultNetwork: Network = 'mainnet'
 const defaultActivePage: ActivePage = 'stake'
 const defaultActiveTab: ActiveTab = 'stake'
 const defaultStatsRange: StatsRange = '30d'
 
+interface Route {
+  path: string
+  activePage: ActivePage
+  activeTab?: ActiveTab
+}
+
+// location.pathname is the single source of truth for app navigation. The island is mounted on
+// these five pages only, so an unknown pathname keeps the defaults instead of guessing.
+const routes: Route[] = [
+  { path: '/stake/', activePage: 'stake', activeTab: 'stake' },
+  { path: '/unstake/', activePage: 'stake', activeTab: 'unstake' },
+  { path: '/rewards/', activePage: 'reward' },
+  { path: '/stats/', activePage: 'stats' },
+  { path: '/defi/', activePage: 'defi' },
+]
+
+function normalizePath(pathname: string): string {
+  return pathname.replace(/\/+$/, '') + '/'
+}
+
+function routeForPathname(pathname: string): Route | undefined {
+  const path = normalizePath(pathname)
+  return routes.find((route) => route.path === path)
+}
+
+// A route without an activeTab keeps whichever tab is current, so returning to the stake page
+// lands on the tab the user left it on, as the old #/tab= fragment did.
+function routeForState(activePage: ActivePage, activeTab: ActiveTab): Route {
+  return (
+    routes.find((route) => route.activePage === activePage && (route.activeTab ?? activeTab) === activeTab) ?? routes[0]
+  )
+}
+
 const tonConnectButtonRootId = 'ton-connect-button'
 
+// Both roots are rendered by the island (App.tsx / Header.tsx) so that TonConnect's own DOM
+// lives inside the persisted element. Left to itself TonConnect appends div#tc-widget-root to
+// document.body, which the ClientRouter replaces wholesale on every navigation, taking the
+// wallet and transaction modals with it.
+const tonConnectWidgetRootId = 'ton-connect-widget-root'
+
+// Same problem one level up: TonConnect injects its stylesheet into <head> at runtime (goober),
+// and the ClientRouter drops every head element the incoming document does not also carry.
+// Handing those styles to the incoming document keeps them, node identity included, so goober
+// keeps writing to a live stylesheet.
+function keepRuntimeStyles(event: Event) {
+  const newDocument = (event as Event & { newDocument?: Document }).newDocument
+  if (newDocument == null) {
+    return
+  }
+  document.head.querySelectorAll('style#_goober').forEach((style) => {
+    newDocument.head.appendChild(style)
+  })
+
+  // TonConnect also mounts Solid portals (the connected-address dropdown, notification toasts)
+  // directly under document.body — outside both roots above — so the swap would orphan them.
+  // Adopt them into the incoming body, node identity intact, to keep their reactivity working.
+  Array.from(document.body.children).forEach((el) => {
+    if (el.tagName === 'DIV' && el.querySelector('[data-tc-dropdown-container], [data-tc-list-notifications]')) {
+      newDocument.body.appendChild(el)
+    }
+  })
+
+  // Carry TonConnect's input-modality marker onto the incoming body so its focus-ring
+  // suppression (body.tc-using-mouse) holds across the swap itself.
+  if (document.body.classList.contains('tc-using-mouse')) {
+    newDocument.body.classList.add('tc-using-mouse')
+  }
+
+  // TonConnect's portal cleanup captured the body it originally mounted into and will call
+  // removeChild on it (e.g. on disconnect) even though the portal now lives elsewhere. The old
+  // body is abandoned after the swap, so make its removeChild forgiving instead of throwing.
+  const oldBody = document.body
+  const removeChild = oldBody.removeChild.bind(oldBody)
+  oldBody.removeChild = (<T extends Node>(node: T): T => {
+    try {
+      return removeChild(node) as T
+    } catch {
+      node.parentNode?.removeChild(node)
+      return node
+    }
+  }) as typeof oldBody.removeChild
+}
+
+// TonConnect suppresses its focus ring for mouse users by toggling 'tc-using-mouse' on the
+// body (its own :focus-visible stand-in), but it binds those listeners to the body element
+// that existed when it initialized — the ClientRouter replaces the body, so the tracking dies
+// after the first navigation and every click paints the ring. Mirror the same toggling at the
+// document level, which is never swapped.
+function trackInputModality(event: Event) {
+  if (event.type === 'mousedown') {
+    document.body.classList.add('tc-using-mouse')
+  } else if ((event as KeyboardEvent).key === 'Tab') {
+    document.body.classList.remove('tc-using-mouse')
+  }
+}
+
 const errorMessageTonAccess = 'Unable to access blockchain'
-const errorMessageNetworkMismatch = 'Your wallet must be on '
 
 const cookieBannerClosed = 'banner.closed'
 
@@ -154,7 +239,6 @@ export class Model {
   loading = false
 
   // observed state
-  network: Network = defaultNetwork
   tonClient?: TonClient4
   address?: Address
   tonBalance?: bigint
@@ -190,11 +274,9 @@ export class Model {
   dark = false
   tonConnectUI?: TonConnectUI
   lastBlock = 0
-  switchNetworkCounter = 0
   timeoutConnectTonAccess?: ReturnType<typeof setTimeout>
   timeoutReadTimes?: ReturnType<typeof setTimeout>
   timeoutReadLastBlock?: ReturnType<typeof setTimeout>
-  timeoutSwitchNetwork?: ReturnType<typeof setTimeout>
   timeoutErrorMessage?: ReturnType<typeof setTimeout>
   timeoutHipoGauge?: ReturnType<typeof setTimeout>
   timeoutMultisigHint?: ReturnType<typeof setTimeout>
@@ -215,7 +297,6 @@ export class Model {
 
   constructor() {
     makeObservable(this, {
-      network: observable,
       tonClient: observable,
       address: observable,
       tonBalance: observable,
@@ -249,7 +330,6 @@ export class Model {
       statsRange: observable,
 
       isWalletConnected: computed,
-      isMainnet: computed,
       isStakeTabActive: computed,
       tonBalanceFormatted: computed,
       htonBalance: computed,
@@ -302,12 +382,12 @@ export class Model {
       hpoStats: computed,
       gramStats: computed,
 
-      setNetwork: action,
       setTonClient: action,
       setAddress: action,
       setTimes: action,
       setActivePage: action,
       setActiveTab: action,
+      applyPathState: action,
       setUnstakeOption: action,
       setAmount: action,
       setAmountToMax: action,
@@ -339,17 +419,14 @@ export class Model {
     document.onvisibilitychange = this.controlBackgroundJobs
     this.controlBackgroundJobs()
 
-    window.onhashchange = () => {
-      const fragmentState = this.readFragmentState()
-      runInAction(() => {
-        this.setActivePage(fragmentState.activePage ?? defaultActivePage)
-        this.setActiveTab(fragmentState.activeTab ?? defaultActiveTab)
-        this.setNetwork(fragmentState.network ?? defaultNetwork)
-        this.setStatsRange(fragmentState.statsRange ?? defaultStatsRange)
-      })
-      this.writeFragmentState()
-    }
-    window.dispatchEvent(new HashChangeEvent('hashchange'))
+    // The ClientRouter fires astro:page-load for the initial load, for every in-app navigation,
+    // and for browser back/forward, so this one listener covers all three. Adding the same
+    // function twice is a no-op, and init() itself runs only once per Model.
+    document.addEventListener('astro:page-load', this.applyPathState)
+    document.addEventListener('astro:before-swap', keepRuntimeStyles)
+    document.addEventListener('mousedown', trackInputModality)
+    document.addEventListener('keydown', trackInputModality)
+    this.applyPathState()
 
     const value = getCookie(cookieBannerClosed)
     this.isBannerClosed = value === 'closed'
@@ -370,10 +447,6 @@ export class Model {
     })
 
     autorun(() => {
-      this.writeFragmentState()
-    })
-
-    autorun(() => {
       const walletAddress = this.walletAddress
       const activePage = this.activePage
       const walletRewardsFetchState = this.walletRewardsFetchState
@@ -388,10 +461,6 @@ export class Model {
 
   get isWalletConnected() {
     return this.address != null
-  }
-
-  get isMainnet() {
-    return this.network === 'mainnet'
   }
 
   get isStakeTabActive() {
@@ -688,17 +757,11 @@ export class Model {
   }
 
   get explorerHref() {
-    const treasuryAddress = treasuryAddresses.get(this.network)
-    let address = ''
-    if (treasuryAddress != null) {
-      address = treasuryAddress.toString({ testOnly: !this.isMainnet })
-    }
-    return (this.isMainnet ? 'https://tonviewer.com/' : 'https://testnet.tonviewer.com/') + address
+    return 'https://tonviewer.com/' + this.treasuryAddressFormatted
   }
 
   get treasuryAddressFormatted() {
-    const treasuryAddress = treasuryAddresses.get(this.network)
-    return treasuryAddress?.toString({ testOnly: !this.isMainnet }) ?? ''
+    return treasuryAddress?.toString() ?? ''
   }
 
   get multisigComment() {
@@ -727,7 +790,7 @@ export class Model {
     if (address == null) {
       return ''
     }
-    const friendly = address.toString({ testOnly: !this.isMainnet })
+    const friendly = address.toString()
     return friendly.slice(0, 4) + '…' + friendly.slice(-4)
   }
 
@@ -789,12 +852,11 @@ export class Model {
     }
   }
 
-  // The gauge serves mainnet figures and takes no network parameter, so on testnet its numbers
-  // would contradict the testnet badge. Fall back to the contract there, and whenever the gauge
-  // has not answered yet. `gauge` is never cleared on failure, so a failed refresh keeps the last
-  // good values rather than flipping the panel mid-session.
+  // Fall back to the contract whenever the gauge has not answered yet. `gauge` is never cleared
+  // on failure, so a failed refresh keeps the last good values rather than flipping the panel
+  // mid-session.
   get useGauge() {
-    return this.isMainnet && this.gauge != null
+    return this.gauge != null
   }
 
   get statsApyFormatted() {
@@ -814,7 +876,7 @@ export class Model {
   }
 
   // Holders has no contract equivalent — the treasury has no getter for it — so unlike APY and
-  // Staked it cannot fall back. Stats.tsx hides the row on testnet; here it degrades to a dash.
+  // Staked it cannot fall back; it degrades to a dash until the gauge answers.
   get statsHoldersFormatted() {
     const holders = this.useGauge ? this.gauge?.hgram?.holders_count : undefined
     return holders != null ? formatCompact1Fraction(holders) : '—'
@@ -859,30 +921,6 @@ export class Model {
     this.loading = v
   }
 
-  setNetwork = (network: Network) => {
-    if (this.network !== network) {
-      this.network = network
-      this.tonClient = undefined
-      this.setAddress(undefined)
-      this.tonBalance = undefined
-      this.treasury = undefined
-      this.treasuryState = undefined
-      this.times = undefined
-      this.walletAddress = undefined
-      this.wallet = undefined
-      this.walletState = undefined
-      this.amount = ''
-      this.errorMessage = ''
-      clearTimeout(this.timeoutConnectTonAccess)
-      clearTimeout(this.timeoutReadTimes)
-      clearTimeout(this.timeoutReadLastBlock)
-      clearTimeout(this.timeoutErrorMessage)
-      if (this.tonConnectUI?.connected === true) {
-        void this.tonConnectUI.disconnect()
-      }
-    }
-  }
-
   setTonClient = (endpoint: string) => {
     this.tonClient = new TonClient4({ endpoint, timeout: 5 * 1_000 })
   }
@@ -908,11 +946,12 @@ export class Model {
     this.times = times
   }
 
+  // No scrollTo here anymore: a page switch is a real navigation now, so the ClientRouter scrolls
+  // to the top going forward and restores the previous position on back/forward.
   setActivePage = (activePage: ActivePage) => {
     if (this.activePage !== activePage) {
       this.activePage = activePage
       this.controlBackgroundJobs()
-      window.scrollTo(0, 0)
     }
   }
 
@@ -925,6 +964,37 @@ export class Model {
       this.activeTab = activeTab
       this.amount = ''
     }
+  }
+
+  // Reads the state back out of the URL, never the other way around: every in-app page switch
+  // goes through navigate(), and this runs on the astro:page-load it produces. The equality
+  // guards in setActivePage/setActiveTab keep it a no-op when nothing changed.
+  applyPathState = () => {
+    const route = routeForPathname(window.location.pathname)
+    if (route == null) {
+      return
+    }
+    this.setActivePage(route.activePage)
+    if (route.activeTab != null) {
+      this.setActiveTab(route.activeTab)
+    }
+  }
+
+  navigateToPage = (activePage: ActivePage) => {
+    this.navigateToPath(routeForState(activePage, this.activeTab).path)
+  }
+
+  navigateToTab = (activeTab: ActiveTab) => {
+    this.navigateToPath(routeForState('stake', activeTab).path)
+  }
+
+  // navigate() falls back to a full page load when no ClientRouter is present, so this works
+  // even if the island is ever mounted on a page without view transitions.
+  navigateToPath = (path: string) => {
+    if (normalizePath(window.location.pathname) === path) {
+      return
+    }
+    void navigate(path)
   }
 
   setUnstakeOption = (unstakeOption: UnstakeOption) => {
@@ -1048,7 +1118,6 @@ export class Model {
   }
 
   connectTonAccess = () => {
-    const network = this.network
     clearTimeout(this.timeoutConnectTonAccess)
     // TonAccess is not working anymore
     // getHttpV4Endpoint({ network })
@@ -1060,16 +1129,11 @@ export class Model {
     //     })
 
     // Switch to fixed endpoint
-    if (network === 'mainnet') {
-      this.setTonClient('https://mainnet-v4.tonhubapi.com')
-    } else {
-      this.setTonClient('https://testnet-v4.tonhubapi.com')
-    }
+    this.setTonClient('https://mainnet-v4.tonhubapi.com')
   }
 
   readTimes = () => {
     const tonClient = this.tonClient
-    const treasuryAddress = treasuryAddresses.get(this.network)
     clearTimeout(this.timeoutReadTimes)
     if (document.hidden) {
       return
@@ -1093,7 +1157,6 @@ export class Model {
   readLastBlock = async () => {
     const tonClient = this.tonClient
     const address = this.address
-    const treasuryAddress = treasuryAddresses.get(this.network)
     clearTimeout(this.timeoutReadLastBlock)
     if (document.hidden) {
       return
@@ -1208,7 +1271,6 @@ export class Model {
 
   readOldWallet = async (tonClient: TonClient4, lastBlock: number, treasuryState: TreasuryConfig) => {
     const address = this.address
-    const oldTreasuryAddress = oldTreasuryAddresses[this.network]
 
     const readOldWallet: Promise<[Address | undefined, bigint | undefined, bigint | undefined]> =
       address == null || this.oldWalletAddress != null
@@ -1313,7 +1375,7 @@ export class Model {
 
       const tx: SendTransactionRequest = {
         validUntil: Math.floor(Date.now() / 1000) + txValidUntil,
-        network: this.isMainnet ? CHAIN.MAINNET : CHAIN.TESTNET,
+        network: CHAIN.MAINNET,
         from: this.address.toRawString(),
         messages: [
           {
@@ -1373,7 +1435,7 @@ export class Model {
 
       const tx: SendTransactionRequest = {
         validUntil: Math.floor(Date.now() / 1000) + txValidUntil,
-        network: this.isMainnet ? CHAIN.MAINNET : CHAIN.TESTNET,
+        network: CHAIN.MAINNET,
         from: this.address.toRawString(),
         messages: [message],
       }
@@ -1460,7 +1522,10 @@ export class Model {
   }
 
   initTonConnect = () => {
-    if (document.getElementById(tonConnectButtonRootId) != null) {
+    if (
+      document.getElementById(tonConnectButtonRootId) != null &&
+      document.getElementById(tonConnectWidgetRootId) != null
+    ) {
       this.connectWallet()
     } else {
       setTimeout(this.initTonConnect, 10)
@@ -1475,8 +1540,9 @@ export class Model {
 
   connectWallet = () => {
     this.tonConnectUI = new TonConnectUI({
-      manifestUrl: 'https://hipo.finance/app/tonconnect-manifest.json',
+      manifestUrl: 'https://hipo.finance/tonconnect-manifest.json',
       buttonRootId: tonConnectButtonRootId,
+      widgetRootId: tonConnectWidgetRootId,
       actionsConfiguration: {
         twaReturnUrl: 'https://t.me/HipoFinanceBot',
       },
@@ -1545,23 +1611,7 @@ export class Model {
       },
     })
     this.tonConnectUI.onStatusChange((wallet) => {
-      if (wallet != null) {
-        const chain = wallet.account.chain
-        if (
-          (chain === CHAIN.MAINNET && this.network === 'mainnet') ||
-          (chain === CHAIN.TESTNET && this.network === 'testnet')
-        ) {
-          this.setAddress(Address.parseRaw(wallet.account.address))
-        } else {
-          void this.tonConnectUI?.disconnect()
-          runInAction(() => {
-            this.setAddress(undefined)
-            this.setErrorMessage(errorMessageNetworkMismatch + (this.isMainnet ? 'MainNet' : 'TestNet'), 10000)
-          })
-        }
-      } else {
-        this.setAddress(undefined)
-      }
+      this.setAddress(wallet == null ? undefined : Address.parseRaw(wallet.account.address))
     })
   }
 
@@ -1581,72 +1631,6 @@ export class Model {
         },
       }
     }
-  }
-
-  switchNetwork = () => {
-    this.switchNetworkCounter += 1
-    clearTimeout(this.timeoutSwitchNetwork)
-    if (this.switchNetworkCounter >= 5) {
-      this.switchNetworkCounter = 0
-      if (confirm(`Switch network to ${this.isMainnet ? 'TestNet' : 'MainNet'}?`)) {
-        this.setNetwork(this.isMainnet ? 'testnet' : 'mainnet')
-        window.scrollTo(0, 0)
-      }
-    } else {
-      this.timeoutSwitchNetwork = setTimeout(() => {
-        this.switchNetworkCounter = 0
-      }, 1000)
-    }
-  }
-
-  readFragmentState = (): FragmentState => {
-    const fragmentState: FragmentState = {}
-    if (window.location.hash.startsWith('#')) {
-      const fragment = window.location.hash.substring(1)
-      const pairs = fragment.split('/')
-      for (const pair of pairs) {
-        const [key, value] = pair.split('=', 2)
-        if (key === 'network') {
-          if (value === 'mainnet' || value === 'testnet') {
-            fragmentState.network = value
-          }
-        }
-        if (key === 'page') {
-          if (value === 'stake' || value === 'reward' || value === 'stats' || value === 'defi') {
-            fragmentState.activePage = value
-          }
-        }
-        if (key === 'tab') {
-          if (value === 'stake' || value === 'unstake') {
-            fragmentState.activeTab = value
-          }
-        }
-        if (key === 'range') {
-          if (value === '24h' || value === '7d' || value === '30d' || value === '90d' || value === '1y') {
-            fragmentState.statsRange = value
-          }
-        }
-      }
-    }
-    return fragmentState
-  }
-
-  writeFragmentState = () => {
-    let hash = ''
-    if (this.network !== defaultNetwork) {
-      hash += '/network=' + this.network
-    }
-    if (this.activePage !== defaultActivePage) {
-      hash += '/page=' + this.activePage
-    }
-    if (this.activeTab !== defaultActiveTab) {
-      hash += '/tab=' + this.activeTab
-    }
-    if (this.statsRange !== defaultStatsRange) {
-      hash += '/range=' + this.statsRange
-    }
-    hash += '/'
-    window.location.hash = hash
   }
 
   // Also the refresh button's handler. clearTimeout on entry means a manual call cancels the

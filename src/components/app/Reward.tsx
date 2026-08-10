@@ -149,8 +149,7 @@ const Referral = observer(({ model }: Props) => {
                   <button
                     className='bg-orange dark:text-dark-600 mx-auto block h-14 w-full rounded-2xl text-lg font-medium text-white sm:w-80'
                     onClick={() => {
-                      model.setActivePage('stake')
-                      model.setActiveTab('stake')
+                      model.navigateToTab('stake')
                     }}
                   >
                     Stake Now

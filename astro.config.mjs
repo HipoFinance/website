@@ -168,7 +168,10 @@ export default defineConfig({
 
   integrations: [
     react(),
-    sitemap(),
+    sitemap({
+      // /app/ is a legacy redirect stub (noindex); it has no content of its own to index.
+      filter: (page) => !page.startsWith('https://hipo.finance/app/'),
+    }),
     starlight({
       title: 'Hipo Docs',
       description: 'Documentation for Hipo, the liquid staking protocol on TON. Stake GRAM, receive hGRAM.',

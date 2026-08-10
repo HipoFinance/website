@@ -1,13 +1,50 @@
 ---
-import Layout from '../../layouts/AppLayout.astro'
-import AppIsland from '../../components/app/AppIsland.tsx'
+// Legacy entry point. The app used to live entirely at /app/ with its sections and tabs encoded
+// in the URL hash (#/page=<stake|reward|stats|defi>/tab=<stake|unstake>). It now lives at
+// path-based pages (/stake/, /unstake/, /rewards/, /stats/, /defi/); this stub parses the old
+// hash format and redirects. Deliberately not built on AppLayout/LandingLayout: it renders once,
+// client-side only, and must stay tiny and noindex.
+import '../../styles/global.css'
 ---
 
-<Layout
-  title='GRAM Staking on TON | Hipo'
-  description='Stake GRAM on TON blockchain with Hipo, the most profitable liquid staking protocol on TON. Earn the highest staking rewards while keeping your assets liquid.'
->
-  <main class=''>
-    <AppIsland client:only='react' />
-  </main>
-</Layout>
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Redirecting… | Hipo</title>
+    <meta name='robots' content='noindex' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+  </head>
+
+  <body
+    class='bg-milky font-poppins text-gray1 flex min-h-screen flex-col items-center justify-center gap-4 text-center'
+  >
+    <p>Redirecting…</p>
+    <p><a class='text-blue underline' href='/stake/'>Continue to the Hipo app</a></p>
+
+    <script is:inline>
+      ;(() => {
+        var hash = location.hash.replace(/^#\/?/, '')
+        var segments = hash.split('/').filter(Boolean)
+        var page = null
+        var tab = null
+
+        segments.forEach(function (segment) {
+          var pageMatch = segment.match(/^page=(.+)$/)
+          var tabMatch = segment.match(/^tab=(.+)$/)
+          if (pageMatch) page = pageMatch[1]
+          if (tabMatch) tab = tabMatch[1]
+          // network=... segments are intentionally ignored; testnet support is removed.
+        })
+
+        var target = '/stake/'
+        if (page === 'reward') target = '/rewards/'
+        else if (page === 'stats') target = '/stats/'
+        else if (page === 'defi') target = '/defi/'
+        else if (tab === 'unstake') target = '/unstake/'
+
+        location.replace(target)
+      })()
+    </script>
+  </body>
+</html>

@@ -161,141 +161,122 @@ const StatsPage = observer(({ model }: Props) => {
 
       <div className='mx-auto max-w-5xl text-sm font-medium'>
         <div className='dark:bg-dark-800 m-4 rounded-2xl bg-white p-6 shadow-sm'>
-          <div className={'grid grid-cols-1 ' + (model.isMainnet ? 'sm:grid-cols-3' : 'sm:grid-cols-2')}>
+          <div className='grid grid-cols-1 sm:grid-cols-3'>
             <Tile
               label='APY'
               tooltip='Your yearly earnings based on recent staking rewards.'
               value={model.statsApyFormatted}
             />
             <Tile label='Staked' tooltip='Total GRAM currently staked in Hipo.' value={model.statsStakedFormatted} />
-            {/* Holders comes only from the gauge, which serves mainnet — there is no contract
-                getter to fall back to, so the tile is dropped rather than shown as mainnet data
-                under a testnet badge. */}
-            {model.isMainnet && (
-              <Tile
-                label='Holders'
-                tooltip='The number of wallets holding the hGRAM token.'
-                value={model.statsHoldersFormatted}
-              />
-            )}
+            <Tile
+              label='Holders'
+              tooltip='The number of wallets holding the hGRAM token.'
+              value={model.statsHoldersFormatted}
+            />
           </div>
         </div>
       </div>
 
-      {model.isMainnet && (
-        <>
-          <SectionHeading title='Market' />
+      <SectionHeading title='Market' />
 
-          {/* 3-across only from lg — at md the thirds are ~245px and the label/value pairs
-              inside the cards end up nearly touching. */}
-          <div className='grid grid-cols-1 lg:grid-cols-3'>
-            {model.hgramStats != null && <Section title='hGRAM' stats={model.hgramStats} showSupply showHolders />}
-            {model.hpoStats != null && <Section title='HPO' stats={model.hpoStats} showHolders />}
-            {model.gramStats != null && <Section title='GRAM' stats={model.gramStats} />}
-          </div>
+      {/* 3-across only from lg — at md the thirds are ~245px and the label/value pairs
+          inside the cards end up nearly touching. */}
+      <div className='grid grid-cols-1 lg:grid-cols-3'>
+        {model.hgramStats != null && <Section title='hGRAM' stats={model.hgramStats} showSupply showHolders />}
+        {model.hpoStats != null && <Section title='HPO' stats={model.hpoStats} showHolders />}
+        {model.gramStats != null && <Section title='GRAM' stats={model.gramStats} />}
+      </div>
 
-          <SectionHeading title='History' />
+      <SectionHeading title='History' />
 
-          <div className='mx-auto mt-4 flex max-w-5xl flex-row justify-center px-4'>
-            <RangeSelector value={model.statsRange} onChange={model.setStatsRange} />
-          </div>
+      <div className='mx-auto mt-4 flex max-w-5xl flex-row justify-center px-4'>
+        <RangeSelector value={model.statsRange} onChange={model.setStatsRange} />
+      </div>
 
-          <div className='mx-auto max-w-5xl'>
-            <LineChart
-              title='APY'
-              series={apySeries}
-              status={chartsStore.status}
-              domainStart={chartsStore.domainStart}
-              domainEnd={chartsStore.domainEnd}
-              maxGapSeconds={chartsStore.maxGapSeconds}
-              stepped
-              valueFormat={formatApy}
-              deltaUnit='pp'
-              rangeLabel={chartsStore.rangeLabel}
-              xTickFormat={xTickFormat}
-              tooltipTimeFormat={formatTooltipTime}
-              hoveredTs={chartsStore.hoveredTs}
-              onHover={chartsStore.setHoveredTs}
-              onRetry={chartsStore.retry}
-            />
-            <LineChart
-              title='Staked'
-              series={stakedSeries}
-              status={chartsStore.status}
-              domainStart={chartsStore.domainStart}
-              domainEnd={chartsStore.domainEnd}
-              maxGapSeconds={chartsStore.maxGapSeconds}
-              valueFormat={formatStakedValue}
-              axisFormat={formatCompactCount}
-              deltaUnit='%'
-              rangeLabel={chartsStore.rangeLabel}
-              xTickFormat={xTickFormat}
-              tooltipTimeFormat={formatTooltipTime}
-              hoveredTs={chartsStore.hoveredTs}
-              onHover={chartsStore.setHoveredTs}
-              onRetry={chartsStore.retry}
-            />
-            <LineChart
-              title='hGRAM holders'
-              series={holdersSeries}
-              status={chartsStore.status}
-              domainStart={chartsStore.domainStart}
-              domainEnd={chartsStore.domainEnd}
-              maxGapSeconds={chartsStore.maxGapSeconds}
-              valueFormat={formatCompactCount}
-              deltaUnit='%'
-              rangeLabel={chartsStore.rangeLabel}
-              xTickFormat={xTickFormat}
-              tooltipTimeFormat={formatTooltipTime}
-              hoveredTs={chartsStore.hoveredTs}
-              onHover={chartsStore.setHoveredTs}
-              onRetry={chartsStore.retry}
-            />
-            <LineChart
-              title='hGRAM & GRAM price'
-              series={priceSeries}
-              status={chartsStore.status}
-              domainStart={chartsStore.domainStart}
-              domainEnd={chartsStore.domainEnd}
-              maxGapSeconds={chartsStore.maxGapSeconds}
-              valueFormat={formatUsdPrice}
-              deltaUnit='%'
-              rangeLabel={chartsStore.rangeLabel}
-              xTickFormat={xTickFormat}
-              tooltipTimeFormat={formatTooltipTime}
-              hoveredTs={chartsStore.hoveredTs}
-              onHover={chartsStore.setHoveredTs}
-              onRetry={chartsStore.retry}
-            />
-            <LineChart
-              title='HPO price'
-              series={hpoSeries}
-              status={chartsStore.status}
-              domainStart={chartsStore.domainStart}
-              domainEnd={chartsStore.domainEnd}
-              maxGapSeconds={chartsStore.maxGapSeconds}
-              valueFormat={formatUsdPrice}
-              deltaUnit='%'
-              rangeLabel={chartsStore.rangeLabel}
-              xTickFormat={xTickFormat}
-              tooltipTimeFormat={formatTooltipTime}
-              hoveredTs={chartsStore.hoveredTs}
-              onHover={chartsStore.setHoveredTs}
-              onRetry={chartsStore.retry}
-            />
-          </div>
-        </>
-      )}
-
-      {/* The gauge endpoint takes no network parameter and serves mainnet figures, so there is
-          nothing truthful to show here on testnet — same reason charts are mainnet-only, since
-          Prometheus only scrapes the mainnet gauge. */}
-      {!model.isMainnet && (
-        <p className='mx-auto max-w-lg px-8 text-center text-sm'>
-          Market data and history charts are available on mainnet only. The figures above are read from the testnet
-          contract.
-        </p>
-      )}
+      <div className='mx-auto max-w-5xl'>
+        <LineChart
+          title='APY'
+          series={apySeries}
+          status={chartsStore.status}
+          domainStart={chartsStore.domainStart}
+          domainEnd={chartsStore.domainEnd}
+          maxGapSeconds={chartsStore.maxGapSeconds}
+          stepped
+          valueFormat={formatApy}
+          deltaUnit='pp'
+          rangeLabel={chartsStore.rangeLabel}
+          xTickFormat={xTickFormat}
+          tooltipTimeFormat={formatTooltipTime}
+          hoveredTs={chartsStore.hoveredTs}
+          onHover={chartsStore.setHoveredTs}
+          onRetry={chartsStore.retry}
+        />
+        <LineChart
+          title='Staked'
+          series={stakedSeries}
+          status={chartsStore.status}
+          domainStart={chartsStore.domainStart}
+          domainEnd={chartsStore.domainEnd}
+          maxGapSeconds={chartsStore.maxGapSeconds}
+          valueFormat={formatStakedValue}
+          axisFormat={formatCompactCount}
+          deltaUnit='%'
+          rangeLabel={chartsStore.rangeLabel}
+          xTickFormat={xTickFormat}
+          tooltipTimeFormat={formatTooltipTime}
+          hoveredTs={chartsStore.hoveredTs}
+          onHover={chartsStore.setHoveredTs}
+          onRetry={chartsStore.retry}
+        />
+        <LineChart
+          title='hGRAM holders'
+          series={holdersSeries}
+          status={chartsStore.status}
+          domainStart={chartsStore.domainStart}
+          domainEnd={chartsStore.domainEnd}
+          maxGapSeconds={chartsStore.maxGapSeconds}
+          valueFormat={formatCompactCount}
+          deltaUnit='%'
+          rangeLabel={chartsStore.rangeLabel}
+          xTickFormat={xTickFormat}
+          tooltipTimeFormat={formatTooltipTime}
+          hoveredTs={chartsStore.hoveredTs}
+          onHover={chartsStore.setHoveredTs}
+          onRetry={chartsStore.retry}
+        />
+        <LineChart
+          title='hGRAM & GRAM price'
+          series={priceSeries}
+          status={chartsStore.status}
+          domainStart={chartsStore.domainStart}
+          domainEnd={chartsStore.domainEnd}
+          maxGapSeconds={chartsStore.maxGapSeconds}
+          valueFormat={formatUsdPrice}
+          deltaUnit='%'
+          rangeLabel={chartsStore.rangeLabel}
+          xTickFormat={xTickFormat}
+          tooltipTimeFormat={formatTooltipTime}
+          hoveredTs={chartsStore.hoveredTs}
+          onHover={chartsStore.setHoveredTs}
+          onRetry={chartsStore.retry}
+        />
+        <LineChart
+          title='HPO price'
+          series={hpoSeries}
+          status={chartsStore.status}
+          domainStart={chartsStore.domainStart}
+          domainEnd={chartsStore.domainEnd}
+          maxGapSeconds={chartsStore.maxGapSeconds}
+          valueFormat={formatUsdPrice}
+          deltaUnit='%'
+          rangeLabel={chartsStore.rangeLabel}
+          xTickFormat={xTickFormat}
+          tooltipTimeFormat={formatTooltipTime}
+          hoveredTs={chartsStore.hoveredTs}
+          onHover={chartsStore.setHoveredTs}
+          onRetry={chartsStore.retry}
+        />
+      </div>
 
       <div className='mt-8 flex flex-row justify-center'>
         <a href='https://stats.hipo.finance' target='hipo_stats' className='text-blue text-sm'>

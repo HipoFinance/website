@@ -1,0 +1,92 @@
+---
+import Layout from '../../layouts/AppLayout.astro'
+
+const title = 'Stake GRAM on TON | Hipo'
+const description =
+  'Stake GRAM and receive hGRAM, a liquid staking token on TON. Keep your stake liquid while it earns staking rewards through Hipo.'
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      name: title,
+      description,
+      url: 'https://hipo.finance/stake/',
+      isPartOf: { '@type': 'WebSite', name: 'Hipo', url: 'https://hipo.finance/' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Is there a minimum amount to stake?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No. Hipo lets you stake any amount of GRAM, even less than 1 GRAM.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Can I unstake later?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes, at any time. hGRAM carries no lockup, and unstaking is available from the Unstake page.',
+          },
+        },
+      ],
+    },
+  ],
+}
+---
+
+<Layout title={title} description={description} jsonLd={jsonLd}>
+  <section class='font-body text-brown dark:text-dark-50 mx-auto w-full max-w-3xl px-4 pt-8 pb-24'>
+    <h1 class='mb-6 text-center text-3xl font-bold'>Stake GRAM, Receive hGRAM</h1>
+
+    <div class='dark:bg-dark-800 mb-6 rounded-2xl bg-white p-6 shadow-sm'>
+      <h2 class='mb-2 text-xl font-bold'>What is liquid staking on Hipo?</h2>
+      <p class='leading-relaxed'>
+        Hipo is a liquid staking protocol on TON. Staking normally locks up your tokens and requires running or trusting
+        validator infrastructure. Hipo removes both constraints: your GRAM is delegated to validators through the Hipo
+        smart contract, and in return you receive <strong>hGRAM</strong>, a liquid token that represents your staked
+        GRAM. You can hold, transfer, or use hGRAM across TON DeFi while your original stake keeps earning in the
+        background.
+      </p>
+    </div>
+
+    <div class='dark:bg-dark-800 mb-6 rounded-2xl bg-white p-6 shadow-sm'>
+      <h2 class='mb-2 text-xl font-bold'>How staking GRAM into hGRAM works</h2>
+      <ol class='list-decimal space-y-2 pl-5 leading-relaxed'>
+        <li>Connect a TON-compatible wallet using the app above.</li>
+        <li>Enter the amount of GRAM you want to stake — any amount works.</li>
+        <li>Confirm the transaction in your wallet.</li>
+      </ol>
+      <p class='mt-3 leading-relaxed'>
+        hGRAM is minted to your wallet right away, representing your staked GRAM. After each validation round, staking
+        rewards are folded directly into the hGRAM exchange rate against GRAM, so hGRAM gradually becomes redeemable for
+        more GRAM over time — there is no separate rewards claim.
+      </p>
+    </div>
+
+    <div class='dark:bg-dark-800 mb-6 rounded-2xl bg-white p-6 shadow-sm'>
+      <h2 class='mb-2 text-xl font-bold'>Current rewards rate</h2>
+      <p class='leading-relaxed'>
+        Staking APY changes over time with network conditions, so we don't quote a fixed number here. The live figure
+        and its history are on the <a class='text-blue underline' href='/stats/'>Stats page</a>, and on the public
+        <a class='text-blue underline' href='https://stats.hipo.finance/' target='_blank' rel='noopener noreferrer'>
+          Hipo Stats dashboard</a
+        >.
+      </p>
+    </div>
+
+    <div class='dark:bg-dark-800 rounded-2xl bg-white p-6 shadow-sm'>
+      <h2 class='mb-2 text-xl font-bold'>Learn more</h2>
+      <p class='leading-relaxed'>
+        Read the full walkthrough in the
+        <a class='text-blue underline' href='/docs/introduction/how-does-hipo-work/'>docs</a>, or browse the
+        <a class='text-blue underline' href='/docs/'>Hipo documentation</a> for details on validators, fees, and rewards.
+      </p>
+    </div>
+  </section>
+</Layout>

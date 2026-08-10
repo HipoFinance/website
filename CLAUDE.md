@@ -22,7 +22,7 @@ Note: the top-level README describes an old pre-Astro setup (plain HTML + Tailwi
 The website for Hipo, a decentralized liquid-staking protocol on the TON blockchain (stake GRAM, receive liquid hGRAM). It is a fully static Astro 6 site (`output: 'static'`, `trailingSlash: 'always'`) with four distinct sections:
 
 1. **Landing pages** (`/`, `/faq/`) — pure Astro components (`src/components/Landing.astro`, `FAQ.astro`, etc.) with small vanilla-JS scripts in `src/scripts/` (menu, banner).
-2. **The staking dApp** (`/app/`) — a single React island: `src/pages/app/index.astro` mounts `AppIsland` with `client:only='react'`, so everything under `src/components/app/` is client-side-only React.
+2. **The staking dApp** (`/stake/`, `/unstake/`, `/rewards/`, `/stats/`, `/defi/`) — five Astro pages sharing one React island: `AppLayout.astro` mounts `AppIsland` with `client:only='react'` and `transition:persist`, plus Astro's `<ClientRouter />`, so in-app navigation swaps each page's static SEO copy while the island (wallet, polling) survives. Everything under `src/components/app/` is client-side-only React. `/app/` is a legacy stub that maps old `#/page=…/tab=…` links to the new URLs (see `specs/site-structure-redesign.md`).
 3. **HPO token page** (`/hpo/`) — Astro components; live market stats are fetched client-side from `https://gauge.hipo.finance/data` by `src/scripts/hpo-data.js`.
 4. **Documentation** (`/docs/`) — Starlight; see below.
 
@@ -45,12 +45,12 @@ Migrated off GitBook (`docs.hipo.finance`) — see `specs/gitbook-docs-migration
 
 All state and blockchain logic lives in one MobX store: **`Model.ts` (~1500 lines)**. React components are thin `mobx-react-lite` observers of it. The Model handles:
 
-- **Wallet connection** via `@tonconnect/ui` (`TonConnectUI`), including Telegram Mini App support (`@twa-dev/sdk`).
-- **Blockchain access** via `@orbs-network/ton-access` + `TonClient4`, polling the last block every 30s and re-deriving contract state from it via MobX `autorun`s.
+- **Wallet connection** via `@tonconnect/ui` (`TonConnectUI`); the manifest lives at `/tonconnect-manifest.json` (a legacy copy stays at `/app/tonconnect-manifest.json` for old sessions). TonConnect's widget root and stylesheet are kept alive across view transitions by an `astro:before-swap` handler in the island.
+- **Blockchain access** via `TonClient4` against a fixed mainnet v4 endpoint (ton-access is dead — see the comment in `Model.setTonClient`'s caller), polling the last block every 30s and re-deriving contract state from it via MobX `autorun`s. Mainnet only; testnet support was removed 2026-08-10.
 - **Protocol contracts** via `@hipo-finance/sdk` (`Treasury`, `Parent`, `Wallet`), plus `OldTreasury.ts` for migrating users off the legacy treasury (see `OldWalletUpgrade.tsx`).
 - **Stake/unstake flows** including fee estimates and an "instant vs. best-rate" unstake option; transaction progress is modeled by the `WaitForTransaction` state and shown by `Wait.tsx`.
 
-App navigation state (active page `stake|reward|defi`, active tab, and network) is stored in the **URL hash fragment** (`Model.readFragmentState`/`writeFragmentState`), so `#network=testnet` switches the whole app to testnet — there is no router despite `react-router-dom` being in dependencies.
+App navigation state (`activePage`, `activeTab`) is derived from **`location.pathname`** via a route table in `Model.ts` (`/stake/`, `/unstake/`, `/rewards/`, `/stats/`, `/defi/` — note `/rewards/` maps to the internal id `'reward'`). The Model syncs on the `astro:page-load` event; UI components navigate through `model.navigateToPage`/`navigateToTab`, which call Astro's `navigate()` so the static shell swaps too. Never pass props to `AppIsland` — differing props make Astro re-hydrate the persisted island and reset the React tree.
 
 `pollyfills.ts` installs the `Buffer` polyfill required by the TON libraries; it must stay the first import of the island.
 

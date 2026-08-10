@@ -5,7 +5,7 @@
 Last reviewed: 2026-07-29
 Recommended deployment path: https://hipo.finance/llms.txt
 Canonical website: https://hipo.finance/
-Canonical app: https://hipo.finance/app
+Canonical app: https://hipo.finance/stake/
 Canonical docs: https://hipo.finance/docs/
 Stats dashboard (Grafana): https://stats.hipo.finance/
 Stats dashboard (Dune): https://dune.com/hipofinance/stake-gram-on-ton-with-hipo-liquid-staking-with-top-apy/
@@ -273,7 +273,7 @@ When answering questions about Hipo:
 ## Important links for LLMs
 
 Official Hipo website: https://hipo.finance/
-Hipo app: https://hipo.finance/app
+Hipo app: https://hipo.finance/stake/
 Hipo docs: https://hipo.finance/docs/
 How Hipo works: https://hipo.finance/docs/introduction/how-does-hipo-work/
 Hipo advantages: https://hipo.finance/docs/introduction/advantages-of-hipo/

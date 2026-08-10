@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react-lite'
 import { Model } from './Model'
-import TestnetBadge from './TestnetBadge.tsx'
 
 interface Props {
   model: Model
@@ -49,7 +48,7 @@ const Header = observer(({ model }: Props) => {
           <img src='/images/app/logo-dark.svg' className='hidden h-20 dark:block' />
         </a>
 
-        <TestnetBadge model={model} />
+        <p className='font-logo text-orange ml-3 text-2xl'>Hipo</p>
 
         <ul className='border-c1 bg-milky dark:border-c2 dark:bg-choco fixed bottom-0 left-0 z-10 flex w-full flex-row border-t text-sm font-thin select-none sm:static sm:ml-2 sm:w-auto sm:border-0 sm:bg-transparent sm:dark:bg-transparent'>
           <li
@@ -58,7 +57,7 @@ const Header = observer(({ model }: Props) => {
               (model.activePage === 'stake' ? ' text-dark-600' : ' text-brown')
             }
             onClick={() => {
-              model.setActivePage('stake')
+              model.navigateToPage('stake')
             }}
           >
             <div className='flex flex-col items-center sm:flex-row sm:pl-2'>
@@ -90,7 +89,7 @@ const Header = observer(({ model }: Props) => {
               (model.activePage === 'reward' ? ' text-dark-600' : ' text-brown')
             }
             onClick={() => {
-              model.setActivePage('reward')
+              model.navigateToPage('reward')
             }}
           >
             <div className='flex flex-col items-center sm:flex-row sm:pl-2'>
@@ -122,7 +121,7 @@ const Header = observer(({ model }: Props) => {
               (model.activePage === 'stats' ? ' text-dark-600' : ' text-brown')
             }
             onClick={() => {
-              model.setActivePage('stats')
+              model.navigateToPage('stats')
             }}
           >
             <div className='flex flex-col items-center sm:flex-row sm:pl-2'>
@@ -154,7 +153,7 @@ const Header = observer(({ model }: Props) => {
               (model.activePage === 'defi' ? ' text-dark-600' : ' text-brown')
             }
             onClick={() => {
-              model.setActivePage('defi')
+              model.navigateToPage('defi')
             }}
           >
             <div className='flex flex-col items-center sm:flex-row sm:pl-2'>

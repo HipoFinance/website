@@ -1,0 +1,93 @@
+---
+import Layout from '../../layouts/AppLayout.astro'
+
+const title = 'Unstake hGRAM on TON | Hipo'
+const description =
+  'Unstake hGRAM back to GRAM through Hipo. Compare the Full and Instant options and their trade-offs before you exit.'
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      name: title,
+      description,
+      url: 'https://hipo.finance/unstake/',
+      isPartOf: { '@type': 'WebSite', name: 'Hipo', url: 'https://hipo.finance/' },
+    },
+    {
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Which unstake option should I choose?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'If you need GRAM right away and your amount is within the currently available instant liquidity, choose Instant. Otherwise, Full gives you the better exchange rate.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Are there other ways to exit hGRAM?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. hGRAM can also be swapped for GRAM or other tokens on TON DEXs, subject to available liquidity, fees, and price impact.',
+          },
+        },
+      ],
+    },
+  ],
+}
+---
+
+<Layout title={title} description={description} jsonLd={jsonLd}>
+  <section class='font-body text-brown dark:text-dark-50 mx-auto w-full max-w-3xl px-4 pt-8 pb-24'>
+    <h1 class='mb-6 text-center text-3xl font-bold'>Unstake hGRAM Back to GRAM</h1>
+
+    <div class='dark:bg-dark-800 mb-6 rounded-2xl bg-white p-6 shadow-sm'>
+      <h2 class='mb-2 text-xl font-bold'>How unstaking works</h2>
+      <p class='leading-relaxed'>
+        hGRAM carries no lockup, so you can unstake whenever you choose. Enter the amount of hGRAM you want to unstake
+        in the app above, pick how you want it processed, and confirm the transaction in your wallet. You receive GRAM
+        back, including any rewards accrued while you held hGRAM.
+      </p>
+    </div>
+
+    <div class='dark:bg-dark-800 mb-6 rounded-2xl bg-white p-6 shadow-sm'>
+      <h2 class='mb-2 text-xl font-bold'>Full vs. Instant: the trade-off</h2>
+      <div class='grid gap-4 sm:grid-cols-2'>
+        <div class='border-c1 dark:border-c2 rounded-xl border p-4'>
+          <h3 class='mb-1 font-bold'>Full</h3>
+          <p class='leading-relaxed'>
+            Settled after the current validation round ends, at the better exchange rate — your GRAM keeps earning until
+            settlement completes.
+          </p>
+        </div>
+        <div class='border-c1 dark:border-c2 rounded-xl border p-4'>
+          <h3 class='mb-1 font-bold'>Instant</h3>
+          <p class='leading-relaxed'>
+            Paid out immediately at a slightly lower rate. It succeeds only if Hipo currently holds enough free GRAM to
+            cover it; the app shows the maximum amount available instantly at any moment.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class='dark:bg-dark-800 mb-6 rounded-2xl bg-white p-6 shadow-sm'>
+      <h2 class='mb-2 text-xl font-bold'>Other ways to exit</h2>
+      <p class='leading-relaxed'>
+        hGRAM is also a regular TON token, so it can be swapped directly on DEX liquidity outside of Hipo. See the
+        <a class='text-blue underline' href='/defi/'>DeFi page</a> for the integrations Hipo lists. Swap fees and price impact
+        apply, and results depend on available pool liquidity.
+      </p>
+    </div>
+
+    <div class='dark:bg-dark-800 rounded-2xl bg-white p-6 shadow-sm'>
+      <h2 class='mb-2 text-xl font-bold'>Learn more</h2>
+      <p class='leading-relaxed'>
+        Read the full breakdown, including how to unstake without the app, in the
+        <a class='text-blue underline' href='/docs/introduction/how-does-hipo-work/unstaking/'>docs</a>.
+      </p>
+    </div>
+  </section>
+</Layout>

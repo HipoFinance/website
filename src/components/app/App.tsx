@@ -36,7 +36,6 @@ const App = observer(() => {
     <>
       <OldWalletUpgrade model={model} />
       <StakeUnstake model={model} />
-      <Wait model={model} />
       <AmountAlert model={model} />
       <MultisigGuidance model={model} />
       <Stats model={model} />
@@ -55,9 +54,16 @@ const App = observer(() => {
     <>
       <Header model={model} />
       {page}
-      <Footer model={model} />
+      {/* Rendered outside the active page so a pending transaction's modal survives a page
+          switch, including browser back/forward, instead of unmounting with the stake widget. */}
+      <Wait model={model} />
+      <Footer />
       <LoadingIndicator model={model} />
       <ErrorDisplay model={model} />
+      {/* TonConnect renders its modals here (see tonConnectWidgetRootId in Model.ts). It has to
+          be inside the island: its default root is appended to document.body, which the
+          ClientRouter replaces on every navigation. */}
+      <div id='ton-connect-widget-root'></div>
     </>
   )
 })

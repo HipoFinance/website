@@ -1,11 +1,4 @@
-import { observer } from 'mobx-react-lite'
-import { Model } from './Model'
-
-interface Props {
-  model: Model
-}
-
-const Footer = observer(({ model }: Props) => {
+const Footer = () => {
   return (
     <div className='bg-milky font-body text-brown dark:bg-dark-900 dark:text-dark-50 mt-auto'>
       {/* <!-- Call to Action Banner --> */}
@@ -135,10 +128,7 @@ const Footer = observer(({ model }: Props) => {
           </div>
 
           <div className='mx-auto flex max-w-96 flex-col gap-4 px-8 pb-16 sm:w-1/2'>
-            <div
-              className='font-logo text-orange flex flex-row items-center gap-4 text-2xl font-bold select-none'
-              onClick={model.switchNetwork}
-            >
+            <div className='font-logo text-orange flex flex-row items-center gap-4 text-2xl font-bold select-none'>
               <img src='/images/app/logo.svg' className='-mr-3 -ml-4 h-20 dark:hidden' />
               <img src='/images/app/logo-dark.svg' className='-mr-3 -ml-4 hidden h-20 dark:block' />
               <p>Hipo</p>
@@ -149,6 +139,6 @@ const Footer = observer(({ model }: Props) => {
       </div>
     </div>
   )
-})
+}
 
 export default Footer

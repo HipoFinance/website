@@ -34,7 +34,7 @@ export class ChartsStore {
     })
 
     this.disposeReaction = reaction(
-      () => [this.model.statsRange, this.model.isMainnet] as const,
+      () => this.model.statsRange,
       () => this.load(),
     )
 
@@ -44,7 +44,7 @@ export class ChartsStore {
     this.load({ bustCache: true })
 
     this.refreshTimer = setInterval(() => {
-      if (this.model.isMainnet && !document.hidden) {
+      if (!document.hidden) {
         this.load()
       }
     }, autoRefreshDelay)
@@ -69,9 +69,6 @@ export class ChartsStore {
   }
 
   load = (opts: { bustCache?: boolean } = {}) => {
-    if (!this.model.isMainnet) {
-      return
-    }
     const range = this.model.statsRange
     const seq = ++this.seq
 
