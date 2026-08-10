@@ -7,6 +7,21 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-10 — [detailed report](changelog/2026-08-10-site-structure-implementation.md)
+
+- Replaced `/app/` with prerendered `/stake/`, `/unstake/`, `/rewards/`,
+  `/stats/`, `/defi/` pages, each with crawlable SEO copy.
+- Rewrote app navigation from hash fragments to pathnames, with Astro
+  `ClientRouter` and a persisted island.
+- Removed testnet support entirely.
+- Moved the TonConnect manifest to the site root; `/app/` is now a redirect stub.
+- Dropped `react-router-dom`, `@orbs-network/ton-access`, and `@twa-dev/sdk`.
+
+## 2026-08-10 — [detailed report](changelog/2026-08-10-site-structure-spec.md)
+
+- Wrote `specs/site-structure-redesign.md`: dissolve `/app/` into prerendered
+  `/stake/`, `/unstake/`, `/rewards/`, `/stats/`, `/defi/` pages.
+
 ## 2026-08-04 — [detailed report](changelog/2026-08-04-stats-feedback-round.md)
 
 - Removed the Stats page Refresh button; data now refreshes on page open.
