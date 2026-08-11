@@ -96,6 +96,10 @@ function formatStakedValue(v: number): string {
   return formatCompact1Fraction(v) + ' GRAM'
 }
 
+function formatRateValue(v: number): string {
+  return v.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 })
+}
+
 function formatXTick(range: StatsRange, ts: number): string {
   const date = new Date(ts * 1000)
   if (range === '24h') {
@@ -129,6 +133,7 @@ const StatsPage = observer(({ model }: Props) => {
 
   const stakedPoints: ChartPoint[] = chartsStore.series?.hipo_treasury_total_coins ?? []
   const holdersPoints: ChartPoint[] = chartsStore.series?.hipo_hton_holders_count ?? []
+  const ratePoints: ChartPoint[] = chartsStore.series?.hipo_treasury_hton_rate ?? []
   const hasHistory = chartsStore.status === 'done' || chartsStore.status === 'refreshing'
 
   const apySeries: ChartSeriesInput[] = [
@@ -138,6 +143,7 @@ const StatsPage = observer(({ model }: Props) => {
   const holdersSeries: ChartSeriesInput[] = [
     { key: 'holders', name: 'hGRAM holders', color: inkColor, points: holdersPoints },
   ]
+  const rateSeries: ChartSeriesInput[] = [{ key: 'rate', name: 'hGRAM / GRAM', color: accentColor, points: ratePoints }]
   const priceSeries: ChartSeriesInput[] = [
     { key: 'hgram', name: 'hGRAM', color: accentColor, points: chartsStore.series?.hipo_hton_current_price ?? [] },
     { key: 'gram', name: 'GRAM', color: inkColor, points: chartsStore.series?.hipo_ton_current_price ?? [] },
@@ -183,6 +189,7 @@ const StatsPage = observer(({ model }: Props) => {
           value={model.statsRateFormatted}
           label='hGRAM / GRAM rate'
           caption='only goes up'
+          delta={hasHistory ? computeDelta(ratePoints, '%') : undefined}
           rangeLabel={chartsStore.rangeLabel}
         />
       </div>
@@ -239,6 +246,23 @@ const StatsPage = observer(({ model }: Props) => {
           domainEnd={chartsStore.domainEnd}
           maxGapSeconds={chartsStore.maxGapSeconds}
           valueFormat={formatCompactCount}
+          deltaUnit='%'
+          rangeLabel={chartsStore.rangeLabel}
+          xTickFormat={xTickFormat}
+          tooltipTimeFormat={formatTooltipTime}
+          hoveredTs={chartsStore.hoveredTs}
+          onHover={chartsStore.setHoveredTs}
+          onRetry={chartsStore.retry}
+        />
+        <LineChart
+          title='hGRAM / GRAM rate'
+          series={rateSeries}
+          areaFill={accentAreaFill}
+          status={chartsStore.status}
+          domainStart={chartsStore.domainStart}
+          domainEnd={chartsStore.domainEnd}
+          maxGapSeconds={chartsStore.maxGapSeconds}
+          valueFormat={formatRateValue}
           deltaUnit='%'
           rangeLabel={chartsStore.rangeLabel}
           xTickFormat={xTickFormat}
