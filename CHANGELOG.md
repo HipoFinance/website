@@ -7,6 +7,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-11 — [detailed report](changelog/2026-08-11-warm-dark-redesign.md)
+
+- Implemented the "Warm Dark" visual redesign across landing, FAQ, HPO,
+  docs, and the staking app.
+- Site is now single-theme dark; the light mode and theme toggles are gone.
+- Replaced TonConnect's button widget with a custom header wallet button.
+- Restyled the Stats page into the design's card/chart language, keeping all data.
+- Added Fredoka, dropped Poppins/Eczar, and swept all legacy palette tokens,
+  `hipo-*` utilities, and `GeckoChart.astro`.
+
 ## 2026-08-10 — [detailed report](changelog/2026-08-10-site-structure-implementation.md)
 
 - Replaced `/app/` with prerendered `/stake/`, `/unstake/`, `/rewards/`,
