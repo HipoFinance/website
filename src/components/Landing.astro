@@ -10,7 +10,9 @@
         class='border-border bg-surface text-text-muted flex w-fit items-center gap-2 rounded-full border px-3.5 py-[7px] text-sm font-medium'
       >
         <span class='bg-positive inline-block size-2 rounded-full'></span>
-        Live APY <strong id='heroApy' class='text-text'>4.8%</strong> · Protocol fee 0%
+        <!-- "Protocol fee 0%" is static copy, not gauge data: it's a governance parameter and the
+        gauge exposes no fee field. Live-wiring waits on the gauge adding one. -->
+        Live APY <strong id='heroApy' class='text-text'>—</strong> · Protocol fee 0%
       </div>
 
       <h1
@@ -20,7 +22,8 @@
       </h1>
 
       <p class='text-text-muted max-w-[460px] text-[17px] leading-[1.6] lg:text-[19px]'>
-        Join 23,000+ GRAM holders earning passive income with Hipo — liquid, audited, and community-owned.
+        Join <span id='heroHolders'>thousands of</span> GRAM holders earning passive income with Hipo — liquid, audited, and
+        community-owned.
       </p>
 
       <div class='flex flex-wrap items-center gap-3.5'>
@@ -68,17 +71,19 @@
   <!-- Stats row -->
   <section class='mx-auto grid w-full max-w-[1280px] grid-cols-2 gap-4 px-6 pt-2 pb-12 md:px-12 lg:grid-cols-4'>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
-      <div id='statStaked' class='font-fredoka text-text text-[30px] font-semibold'>1.54M</div>
-      <div class='text-text-muted text-sm'>GRAM staked (<span id='statStakedUsd'>$8.5M</span> TVL)</div>
+      <div id='statStaked' class='font-fredoka text-text text-[30px] font-semibold'>—</div>
+      <div class='text-text-muted text-sm'>GRAM staked (<span id='statStakedUsd'>—</span> TVL)</div>
     </div>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
-      <div id='statApy' class='font-fredoka text-accent text-[30px] font-semibold'>4.8%</div>
+      <div id='statApy' class='font-fredoka text-accent text-[30px] font-semibold'>—</div>
       <div class='text-text-muted text-sm'>APY, last round</div>
     </div>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
-      <div id='statHolders' class='font-fredoka text-text text-[30px] font-semibold'>23,000+</div>
+      <div id='statHolders' class='font-fredoka text-text text-[30px] font-semibold'>—</div>
       <div class='text-text-muted text-sm'>GRAM holders staking</div>
     </div>
+    <!-- Static by design: the gauge exposes no protocol-fee field, and the fee is a governance
+    parameter rather than market data. -->
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
       <div class='font-fredoka text-text text-[30px] font-semibold'>0%</div>
       <div class='text-text-muted text-sm'>Protocol fee</div>
@@ -223,15 +228,15 @@
 
         <div class='flex flex-wrap gap-7 py-1.5'>
           <div>
-            <div id='hpoMarketCap' class='font-fredoka text-text text-2xl font-semibold'>$4.2M</div>
+            <div id='hpoMarketCap' class='font-fredoka text-text text-2xl font-semibold'>—</div>
             <div class='text-text-muted text-[13px]'>Market cap</div>
           </div>
           <div>
-            <div id='hpoVolume' class='font-fredoka text-text text-2xl font-semibold'>$310K</div>
+            <div id='hpoVolume' class='font-fredoka text-text text-2xl font-semibold'>—</div>
             <div class='text-text-muted text-[13px]'>Volume, 24h</div>
           </div>
           <div>
-            <div id='hpoHolders' class='font-fredoka text-text text-2xl font-semibold'>31K</div>
+            <div id='hpoHolders' class='font-fredoka text-text text-2xl font-semibold'>—</div>
             <div class='text-text-muted text-[13px]'>Holders</div>
           </div>
         </div>

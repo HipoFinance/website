@@ -896,7 +896,7 @@ export class Model {
     if (this.holdersCount != null) {
       return formatCompact1Fraction(this.holdersCount)
     } else {
-      return '-'
+      return '—'
     }
   }
 

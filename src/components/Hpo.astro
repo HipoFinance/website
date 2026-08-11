@@ -4,6 +4,7 @@
 ---
 
 <script src='/src/scripts/hpo-data.js'></script>
+<script src='/src/scripts/hpo-sparkline.ts'></script>
 
 <main class='mx-auto w-full max-w-[1280px] px-6 sm:px-12'>
   <!-- Hero -->
@@ -46,28 +47,23 @@
         </span>
       </div>
 
-      <svg viewBox='0 0 400 120' class='h-[120px] w-full' preserveAspectRatio='none'>
-        <polyline
-          points='0,90 30,84 60,88 90,72 120,76 150,60 180,66 210,50 240,56 270,42 300,48 330,34 360,40 400,26'
-          fill='none'
-          stroke='var(--color-accent)'
-          stroke-width='2.5'></polyline>
-        <polygon
-          points='0,90 30,84 60,88 90,72 120,76 150,60 180,66 210,50 240,56 270,42 300,48 330,34 360,40 400,26 400,120 0,120'
-          fill='rgba(255,126,115,.12)'></polygon>
-      </svg>
+      <!-- Filled by hpo-sparkline.ts from 30 days of the hipo_hpo_current_price Prometheus series
+      (the same allowlisted combined query the Stats page charts use). The height is reserved by
+      the viewBox/class regardless of data; no line or fill is drawn until real points arrive, and
+      none is drawn on failure either — never a fake shape. -->
+      <svg id='hpoSparkline' viewBox='0 0 400 120' class='h-[120px] w-full' preserveAspectRatio='none'></svg>
 
       <div class='flex justify-between gap-3'>
         <div>
-          <div id='hpoMarketCap' class='font-fredoka text-[22px] font-semibold'>&nbsp;</div>
+          <div id='hpoMarketCap' class='font-fredoka text-[22px] font-semibold'>—</div>
           <div class='text-text-muted text-[13px]'>Market cap</div>
         </div>
         <div>
-          <div id='hpoVolume' class='font-fredoka text-[22px] font-semibold'>&nbsp;</div>
+          <div id='hpoVolume' class='font-fredoka text-[22px] font-semibold'>—</div>
           <div class='text-text-muted text-[13px]'>Volume, 24h</div>
         </div>
         <div>
-          <div id='hpoHolders' class='font-fredoka text-[22px] font-semibold'>&nbsp;</div>
+          <div id='hpoHolders' class='font-fredoka text-[22px] font-semibold'>—</div>
           <div class='text-text-muted text-[13px]'>Holders</div>
         </div>
       </div>
@@ -172,9 +168,12 @@
       <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
         <div class='font-fredoka text-accent text-[19px] font-semibold'>Impressive metrics</div>
         <div class='flex flex-col gap-2 text-[15px] leading-[1.5]'>
-          <span><strong class='text-text font-bold'>1.54M GRAM</strong> ($8.5M) TVL</span>
           <span>
-            <strong class='text-text font-bold'>17K</strong> active stakers ·
+            <strong class='text-text font-bold'><span id='hpoTvlGram'>—</span> GRAM</strong>
+            (<span id='hpoTvlUsd'>—</span>) TVL
+          </span>
+          <span>
+            <strong id='hpoStakers' class='text-text font-bold'>—</strong> active stakers ·
             <a href='https://stats.hipo.finance/' target='_blank' rel='noopener noreferrer' class='text-accent'>
               live stats
             </a>

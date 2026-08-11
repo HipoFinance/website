@@ -1,29 +1,20 @@
-// Fetches https://gauge.hipo.finance/data once on load and fills in the live numbers on the
-// landing page: the hero APY pill, the stats row, and the HPO panel stats (#hpoMarketCap
-// #hpoVolume #hpoHolders — same ids hpo-data.js fills on the HPO page). The design numbers are
-// left in the markup as placeholders and only overwritten when the fetch succeeds.
+// Fetches https://gauge.hipo.finance/data once, immediately on evaluation (this module script is
+// deferred by the browser, so the DOM is already parsed by the time it runs — no need to wait for
+// window 'load', which would also block on images), and fills in the live numbers on the landing
+// page: the hero APY pill, the hero holders count, the stats row, and the HPO panel stats
+// (#hpoMarketCap #hpoVolume #hpoHolders — same ids hpo-data.js fills on the HPO page). Every value
+// starts as an em dash ("—") in the markup and is only overwritten when the fetch succeeds — a
+// failed or slow fetch must never leave a fake/stale number on screen.
 
-let elHeroApy
-let elStatStaked
-let elStatStakedUsd
-let elStatApy
-let elStatHolders
-let elHpoMarketCap
-let elHpoVolume
-let elHpoHolders
-
-window.addEventListener('load', () => {
-  elHeroApy = document.getElementById('heroApy')
-  elStatStaked = document.getElementById('statStaked')
-  elStatStakedUsd = document.getElementById('statStakedUsd')
-  elStatApy = document.getElementById('statApy')
-  elStatHolders = document.getElementById('statHolders')
-  elHpoMarketCap = document.getElementById('hpoMarketCap')
-  elHpoVolume = document.getElementById('hpoVolume')
-  elHpoHolders = document.getElementById('hpoHolders')
-
-  updateLandingData()
-})
+let elHeroApy = document.getElementById('heroApy')
+let elHeroHolders = document.getElementById('heroHolders')
+let elStatStaked = document.getElementById('statStaked')
+let elStatStakedUsd = document.getElementById('statStakedUsd')
+let elStatApy = document.getElementById('statApy')
+let elStatHolders = document.getElementById('statHolders')
+let elHpoMarketCap = document.getElementById('hpoMarketCap')
+let elHpoVolume = document.getElementById('hpoVolume')
+let elHpoHolders = document.getElementById('hpoHolders')
 
 let updateLandingData = () => {
   fetch('https://gauge.hipo.finance/data')
@@ -54,7 +45,9 @@ let updateLandingData = () => {
 
       const holders = result.hton?.holders_count
       if (holders != null && holders > 0) {
-        SetText(elStatHolders, FormatHolders(holders))
+        const holdersText = FormatHolders(holders)
+        SetText(elStatHolders, holdersText)
+        SetText(elHeroHolders, holdersText)
       }
 
       const hpoMarketCap = result.hpo?.market?.market_cap?.usd
@@ -97,3 +90,5 @@ let FormatHolders = (n) => {
   const rounded = Math.floor(n / 1000) * 1000
   return rounded.toLocaleString('en-US') + '+'
 }
+
+updateLandingData()
