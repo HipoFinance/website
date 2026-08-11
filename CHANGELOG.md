@@ -7,6 +7,22 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-11 — [detailed report](changelog/2026-08-11-hton-rate-chart.md)
+
+- Added an hGRAM/GRAM rate history chart to the Stats page from the newly
+  allowlisted `hipo_treasury_hton_rate` metric.
+- The rate stat card now shows a range delta computed from that history.
+- Synced `specs/metrics-proxy-nginx.conf` with the deployed two-query allowlist.
+
+## 2026-08-11 — [detailed report](changelog/2026-08-11-live-data-loading.md)
+
+- All landing and HPO page numbers now show an em dash until live gauge
+  data loads; no baked-in placeholder values remain.
+- Replaced the HPO page's fake sparkline with real 30-day HPO price
+  history from the allowlisted Prometheus query.
+- Fixed a bug where a failed gauge response wrote `$-1`-style values.
+- Pointed the Telegram bot's Hipo App button at `/stake/` (HipoGang/app repo).
+
 ## 2026-08-11 — [detailed report](changelog/2026-08-11-telegram-mini-app.md)
 
 - Added the Telegram Mini App compact chrome per the redesign mockup,
