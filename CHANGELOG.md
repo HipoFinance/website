@@ -7,6 +7,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-11 — [detailed report](changelog/2026-08-11-telegram-mini-app.md)
+
+- Added the Telegram Mini App compact chrome per the redesign mockup,
+  active only inside the Telegram webview (`?tma=1` to preview).
+- Fixed the Stats hGRAM/GRAM rate card to show only the protocol rate,
+  never the USD-quote ratio; block polling now also runs on `/stats/`.
+- Re-added `@twa-dev/sdk`, lazy-loaded only when Telegram is detected.
+
 ## 2026-08-11 — [detailed report](changelog/2026-08-11-warm-dark-redesign.md)
 
 - Implemented the "Warm Dark" visual redesign across landing, FAQ, HPO,
