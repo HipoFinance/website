@@ -1,6 +1,6 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { type Model } from '../Model'
-import { bustCache, queryRange, stepFor, type SeriesMap } from './prometheus'
+import { bustCache, queryRange, RANGE_LABELS, stepFor, type SeriesMap } from './prometheus'
 
 export type ChartFetchStatus = 'loading' | 'refreshing' | 'error' | 'empty' | 'done'
 
@@ -61,7 +61,7 @@ export class ChartsStore {
   }
 
   get rangeLabel(): string {
-    return this.model.statsRange
+    return RANGE_LABELS[this.model.statsRange]
   }
 
   setHoveredTs = (ts: number | null) => {

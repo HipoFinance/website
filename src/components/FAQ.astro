@@ -3,1267 +3,1230 @@
 ---
 
 <faq>
-  <div class='font-body dark:text-dark-50 min-h-screen'>
-    <!-- Landing Page  -->
-    <div class='bg-very-dark-navy mx-auto max-w-5xl min-w-90 bg-fixed px-4 py-4 md:py-8 lg:py-16'>
-      <div class='hipo-faq-header'>
-        <h1 class='hipo-faq-header-title'>Frequently Asked Questions</h1>
-      </div>
+  <div
+    class='mx-auto grid w-full max-w-[1180px] grid-cols-1 gap-8 px-6 pt-10 pb-20 md:px-12 lg:grid-cols-[220px_1fr] lg:items-start lg:gap-14'
+  >
+    <nav class='flex flex-row flex-wrap gap-1 text-[15px] font-medium lg:sticky lg:top-8 lg:flex-col'>
+      <span
+        class='text-text-faint hidden w-full px-3 pb-2 text-[13px] font-semibold tracking-[.08em] uppercase lg:block'
+      >
+        Sections
+      </span>
+      <a href='#general' class='bg-surface text-text rounded-[10px] px-3 py-2'>General</a>
+      <a href='#staking' class='text-text-muted hover:bg-surface hover:text-text rounded-[10px] px-3 py-2'>Staking</a>
+      <a href='#hgram' class='text-text-muted hover:bg-surface hover:text-text rounded-[10px] px-3 py-2'>hGRAM</a>
+      <a href='#unstaking' class='text-text-muted hover:bg-surface hover:text-text rounded-[10px] px-3 py-2'>
+        Unstaking
+      </a>
+      <a href='#security' class='text-text-muted hover:bg-surface hover:text-text rounded-[10px] px-3 py-2'>
+        Security
+      </a>
+      <a
+        href='#validators-and-staking-marketplace'
+        class='text-text-muted hover:bg-surface hover:text-text rounded-[10px] px-3 py-2'
+      >
+        Validators & Marketplace
+      </a>
+      <a href='#hpo-token' class='text-text-muted hover:bg-surface hover:text-text rounded-[10px] px-3 py-2'>
+        HPO Token
+      </a>
+      <a
+        href='#ton-and-liquid-staking'
+        class='text-text-muted hover:bg-surface hover:text-text rounded-[10px] px-3 py-2'
+      >
+        TON & Liquid Staking
+      </a>
+      <a href='#fees' class='text-text-muted hover:bg-surface hover:text-text rounded-[10px] px-3 py-2'>Fees</a>
+      <a href='#support' class='text-text-muted hover:bg-surface hover:text-text rounded-[10px] px-3 py-2'> Support </a>
+    </nav>
 
-      <div class='hipo-faq-section' id='general'>
-        <h2 class='hipo-faq-section-title'>
-          General<a class='hipo-faq-anchor' href='#general' aria-label='Link to section: General'>#</a>
-        </h2>
+    <div class='flex min-w-0 flex-col gap-2'>
+      <h1 class='font-fredoka text-text mb-6 text-[32px] font-semibold sm:text-[44px]'>Frequently asked questions</h1>
 
-        <div class='hipo-faq-question' id='what-is-hipo'>
-          <h3 class='hipo-faq-question-title'>
-            What is Hipo?<a class='hipo-faq-anchor' href='#what-is-hipo' aria-label='Link to: What is Hipo?'>#</a>
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Hipo lets you stake GRAM on TON and still keep your money flexible.</p>
-            <p>
-              When you stake GRAM with Hipo, you receive hGRAM in return. hGRAM represents your staked GRAM, but you can
-              still use it, hold it, or trade it while your GRAM continues earning staking rewards.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='what-is-liquid-staking'>
-          <h3 class='hipo-faq-question-title'>
-            What is liquid staking?<a
-              class='hipo-faq-anchor'
-              href='#what-is-liquid-staking'
-              aria-label='Link to: What is liquid staking?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Normally, when you stake crypto, your tokens are locked and harder to use.</p>
-            <p>
-              Liquid staking solves this by giving you a new token while your GRAM is staked. Hipo gives you hGRAM. Over
-              time, hGRAM becomes more valuable and you can redeem it for your GRAM plus rewards. So when you unstake,
-              you may receive more GRAM than you originally staked.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='how-does-hipo-work'>
-          <h3 class='hipo-faq-question-title'>
-            How does Hipo work?<a
-              class='hipo-faq-anchor'
-              href='#how-does-hipo-work'
-              aria-label='Link to: How does Hipo work?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>When you stake GRAM with Hipo, Hipo gives you hGRAM in return.</p>
-            <p>
-              Think of hGRAM as a receipt for your staked GRAM. While your GRAM is earning staking rewards, you can hold
-              it, use it, or trade it.
-            </p>
-            <p>Over time, hGRAM is designed to become redeemable for more GRAM as rewards are added.</p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='what-happens-behind-the-scenes'>
-          <h3 class='hipo-faq-question-title'>
-            What happens behind the scenes?<a
-              class='hipo-faq-anchor'
-              href='#what-happens-behind-the-scenes'
-              aria-label='Link to: What happens behind the scenes?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Behind the scenes, Hipo combines users’ staked GRAM and delegates it to TON validators. These validators
-              help secure the network and generate staking rewards, which are reflected in the value of hGRAM over time.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='why-should-i-use-hipo'>
-          <h3 class='hipo-faq-question-title'>
-            Why should I use Hipo?<a
-              class='hipo-faq-anchor'
-              href='#why-should-i-use-hipo'
-              aria-label='Link to: Why should I use Hipo?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Hipo lets you earn staking rewards on your GRAM while still keeping your funds flexible.</p>
-            <p>
-              When you stake GRAM, you receive hGRAM. You can hold it, use, or trade hGRAM while your staked GRAM
-              continues earning rewards.
-            </p>
-            <p>Key benefits:</p>
-            <ul class='list-disc pl-6'>
-              <li>Earn staking rewards without fully locking your GRAM.</li>
-              <li>Keep flexibility through hGRAM.</li>
-              <li>Unstake when you want to get GRAM back.</li>
-              <li>Use a transparent, on-chain staking system.</li>
-              <li>Hipo is built with open-source smart contracts and security-focused infrastructure.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='how-does-hipo-choose-validators'>
-          <h3 class='hipo-faq-question-title'>
-            How does Hipo choose validators?<a
-              class='hipo-faq-anchor'
-              href='#how-does-hipo-choose-validators'
-              aria-label='Link to: How does Hipo choose validators?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Behind the scenes, Hipo uses a permissionless validator marketplace. Validators can participate openly and
-              the system helps direct stake toward competitive validators.
-            </p>
-            <p>
-              This helps avoid relying on one centralized validator and supports decentralization in the TON ecosystem.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='is-hipo-non-custodial'>
-          <h3 class='hipo-faq-question-title'>
-            Is Hipo non-custodial?<a
-              class='hipo-faq-anchor'
-              href='#is-hipo-non-custodial'
-              aria-label='Link to: Is Hipo non-custodial?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Yes. Hipo works through smart contracts on-chain. You connect your own wallet, stake GRAM through Hipo,
-              and receive hGRAM in return. Staking and unstaking are handled transparently by smart contracts.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class='hipo-faq-section' id='staking'>
-        <h2 class='hipo-faq-section-title'>
-          Staking<a class='hipo-faq-anchor' href='#staking' aria-label='Link to section: Staking'>#</a>
-        </h2>
-
-        <div class='hipo-faq-question' id='how-do-i-stake-gram'>
-          <h3 class='hipo-faq-question-title'>
-            How do I stake GRAM?<a
-              class='hipo-faq-anchor'
-              href='#how-do-i-stake-gram'
-              aria-label='Link to: How do I stake GRAM?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Connect your wallet, enter how much GRAM you want to stake, and confirm the transaction. After staking,
-              you will receive hGRAM in your wallet.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='how-long-does-it-take-to-receive-hgram'>
-          <h3 class='hipo-faq-question-title'>
-            How long does it take to receive hGRAM?<a
-              class='hipo-faq-anchor'
-              href='#how-long-does-it-take-to-receive-hgram'
-              aria-label='Link to: How long does it take to receive hGRAM?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Usually within moments of your transaction being confirmed.</p>
-            <p>
-              At times the protocol mints hGRAM at the end of the current validation round instead of immediately. When
-              that happens, your deposit is held until the round is committed and the app shows how long is left. Your
-              GRAM is never at risk while it waits.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='what-is-the-minimum-amount-required-to-stake'>
-          <h3 class='hipo-faq-question-title'>
-            What is the minimum amount required to stake?<a
-              class='hipo-faq-anchor'
-              href='#what-is-the-minimum-amount-required-to-stake'
-              aria-label='Link to: What is the minimum amount required to stake?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Hipo does not enforce a large minimum. You can stake as little as 1 GRAM.</p>
-            <p>
-              You only need enough GRAM to cover the amount you want to stake plus a small TON network transaction fee.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='do-i-receive-rewards-immediately'>
-          <h3 class='hipo-faq-question-title'>
-            Do I receive rewards immediately?<a
-              class='hipo-faq-anchor'
-              href='#do-i-receive-rewards-immediately'
-              aria-label='Link to: Do I receive rewards immediately?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Not instantly. Your rewards start after your staked GRAM becomes active in a validation round. After that,
-              rewards are automatically reflected in the value of your hGRAM.
-            </p>
-            <p>
-              Rewards arrive round by round rather than continuously. A TON validation round lasts roughly 18 hours, and
-              stakes stay frozen for about 9 more hours afterwards so any complaints can be resolved. The exchange rate
-              updates once a round has finished and its rewards have been recovered.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='what-apy-does-hipo-offer'>
-          <h3 class='hipo-faq-question-title'>
-            What APY does Hipo offer?<a
-              class='hipo-faq-anchor'
-              href='#what-apy-does-hipo-offer'
-              aria-label='Link to: What APY does Hipo offer?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>APY means the estimated yearly reward rate.</p>
-            <p>
-              Hipo’s APY can change over time depending on staking rewards and TON network conditions. You can always
-              see the current APY inside the Hipo app or Hipo’s website.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='is-apy-fixed'>
-          <h3 class='hipo-faq-question-title'>
-            Is APY fixed?<a class='hipo-faq-anchor' href='#is-apy-fixed' aria-label='Link to: Is APY fixed?'>#</a>
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              No. APY is not fixed. Staking rewards can go up or down depending on the TON network and validator
-              performance.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='how-are-staking-rewards-distributed'>
-          <h3 class='hipo-faq-question-title'>
-            How are staking rewards distributed?<a
-              class='hipo-faq-anchor'
-              href='#how-are-staking-rewards-distributed'
-              aria-label='Link to: How are staking rewards distributed?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              You do not receive separate reward payments. Instead, rewards are automatically included in the value of
-              hGRAM. Over time, your hGRAM is designed to become redeemable for more GRAM.
-            </p>
-            <p>
-              The amount of hGRAM in your wallet never changes on its own. What changes is how much GRAM each hGRAM is
-              worth, so there is no balance to watch grow and nothing to claim.
-            </p>
-            <p>When a validation round is settled, its rewards are split in this order:</p>
-            <ol class='list-decimal pl-6'>
-              <li>The borrowing validator receives the share agreed when it won the loan.</li>
-              <li>The protocol share, if any, is taken.</li>
-              <li>
-                Everything left returns to Hipo's treasury, which raises the hGRAM exchange rate for every holder.
-              </li>
-            </ol>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='do-i-need-to-claim-rewards'>
-          <h3 class='hipo-faq-question-title'>
-            Do I need to claim rewards?<a
-              class='hipo-faq-anchor'
-              href='#do-i-need-to-claim-rewards'
-              aria-label='Link to: Do I need to claim rewards?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              No. There is nothing to claim manually. Rewards are automatically reflected in the value of hGRAM. Over
-              time, your hGRAM is designed to become redeemable for more GRAM.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='can-i-stake-more-after-my-initial-deposit'>
-          <h3 class='hipo-faq-question-title'>
-            Can I stake more after my initial deposit?<a
-              class='hipo-faq-anchor'
-              href='#can-i-stake-more-after-my-initial-deposit'
-              aria-label='Link to: Can I stake more after my initial deposit?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Yes. You can stake more GRAM at any time. When you add more GRAM, you receive more hGRAM in return.</p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='can-i-stake-directly-from-my-wallet'>
-          <h3 class='hipo-faq-question-title'>
-            Can I stake directly from my wallet?<a
-              class='hipo-faq-anchor'
-              href='#can-i-stake-directly-from-my-wallet'
-              aria-label='Link to: Can I stake directly from my wallet?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Yes. Connect a supported TON wallet, choose how much GRAM you want to stake, and confirm the transaction
-              in your wallet. After the transaction is complete, you receive hGRAM back in your wallet.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question'>
-          <h3 class='hipo-faq-question-title'>Can I stake with a multisig or cold wallet?</h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Yes. Wallets that can’t sign dapp transactions, such as multisig wallets, can stake with a plain transfer:
-              send the amount of GRAM you want to stake, plus 0.1 GRAM for fees, to the Hipo treasury contract with the
-              text comment “d”. Unused fees are refunded, and hGRAM is sent back to the same address.
-            </p>
-            <p>
-              To unstake, send 0.1 GRAM to the treasury with the text comment “w”. This unstakes your entire hGRAM
-              balance. When you connect a multisig wallet in the Hipo app, it shows these instructions with the treasury
-              address ready to copy.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class='hipo-faq-section' id='hgram'>
-        <h2 class='hipo-faq-section-title'>
-          hGRAM<a class='hipo-faq-anchor' href='#hgram' aria-label='Link to section: hGRAM'>#</a>
-        </h2>
-
-        <div class='hipo-faq-question' id='what-is-hgram'>
-          <h3 class='hipo-faq-question-title'>
-            What is hGRAM?<a class='hipo-faq-anchor' href='#what-is-hgram' aria-label='Link to: What is hGRAM?'>#</a>
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              hGRAM is the token you receive when you stake GRAM with Hipo. Think of hGRAM as a receipt for your staked
-              GRAM. It shows how much of the staking pool belongs to you.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='why-do-i-receive-hgram'>
-          <h3 class='hipo-faq-question-title'>
-            Why do I receive hGRAM?<a
-              class='hipo-faq-anchor'
-              href='#why-do-i-receive-hgram'
-              aria-label='Link to: Why do I receive hGRAM?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              You receive hGRAM so your staked GRAM can stay useful. While your GRAM is earning staking rewards, you can
-              still hold, send, or use hGRAM in supported TON apps.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='does-hgram-earn-rewards'>
-          <h3 class='hipo-faq-question-title'>
-            Does hGRAM earn rewards?<a
-              class='hipo-faq-anchor'
-              href='#does-hgram-earn-rewards'
-              aria-label='Link to: Does hGRAM earn rewards?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Yes, but you do not receive separate reward payments. Instead, staking rewards are reflected in the value
-              of hGRAM. Over time, hGRAM is designed to become redeemable for more GRAM as rewards are added.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='can-i-transfer-hgram'>
-          <h3 class='hipo-faq-question-title'>
-            Can I transfer hGRAM?<a
-              class='hipo-faq-anchor'
-              href='#can-i-transfer-hgram'
-              aria-label='Link to: Can I transfer hGRAM?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Yes. You can send hGRAM to another wallet. You may also be able to trade it in supported TON apps,
-              depending on where hGRAM is available.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='can-i-use-hgram-in-defi'>
-          <h3 class='hipo-faq-question-title'>
-            Can I use hGRAM in DeFi?<a
-              class='hipo-faq-anchor'
-              href='#can-i-use-hgram-in-defi'
-              aria-label='Link to: Can I use hGRAM in DeFi?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Yes, where supported. Some TON DeFi apps may allow you to use hGRAM for things like trading or liquidity.
-              Availability depends on each app, so always check whether hGRAM is supported before using it.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='how-is-the-value-of-hgram-determined'>
-          <h3 class='hipo-faq-question-title'>
-            How is the value of hGRAM determined?<a
-              class='hipo-faq-anchor'
-              href='#how-is-the-value-of-hgram-determined'
-              aria-label='Link to: How is the value of hGRAM determined?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              hGRAM has a value compared to GRAM. As staking rewards are added, 1 hGRAM is designed to become redeemable
-              for more GRAM over time.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='is-1-hgram-always-equal-to-1-gram'>
-          <h3 class='hipo-faq-question-title'>
-            Is 1 hGRAM always equal to 1 GRAM?<a
-              class='hipo-faq-anchor'
-              href='#is-1-hgram-always-equal-to-1-gram'
-              aria-label='Link to: Is 1 hGRAM always equal to 1 GRAM?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              No. At the beginning, hGRAM may be close to 1 GRAM. Over time, as staking rewards are earned, 1 hGRAM can
-              become redeemable for more than 1 GRAM.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='can-i-sell-hgram'>
-          <h3 class='hipo-faq-question-title'>
-            Can I sell hGRAM?<a class='hipo-faq-anchor' href='#can-i-sell-hgram' aria-label='Link to: Can I sell hGRAM?'
-              >#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Yes, if hGRAM is supported by an exchange, swap app, or liquidity pool. You can also unstake hGRAM through
-              Hipo to receive GRAM back.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class='hipo-faq-section' id='unstaking'>
-        <h2 class='hipo-faq-section-title'>
-          Unstaking<a class='hipo-faq-anchor' href='#unstaking' aria-label='Link to section: Unstaking'>#</a>
-        </h2>
-
-        <div class='hipo-faq-question' id='how-do-i-unstake-my-gram'>
-          <h3 class='hipo-faq-question-title'>
-            How do I unstake my GRAM?<a
-              class='hipo-faq-anchor'
-              href='#how-do-i-unstake-my-gram'
-              aria-label='Link to: How do I unstake my GRAM?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              To unstake, open Hipo and choose how much hGRAM you want to redeem. You then pick how you want it
-              processed — <b>Full</b> or <b>Instant</b> — and confirm the transaction in your wallet. When the unstake completes,
-              you receive GRAM back in your wallet.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='what-is-the-difference-between-full-and-instant-unstaking'>
-          <h3 class='hipo-faq-question-title'>
-            What is the difference between Full and Instant unstaking?<a
-              class='hipo-faq-anchor'
-              href='#what-is-the-difference-between-full-and-instant-unstaking'
-              aria-label='Link to: What is the difference between Full and Instant unstaking?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>They are the two ways Hipo can process an unstake, and you choose between them before confirming.</p>
-            <ul class='list-disc pl-6'>
-              <li>
-                <b>Full</b> waits until the current validation round ends. Because your GRAM keeps earning until then, this
-                gives you the better exchange rate — the maximum rewards available on your hGRAM. It always goes through.
-              </li>
-              <li>
-                <b>Instant</b> is processed straight away, at a slightly lower rate. It only succeeds if Hipo is holding enough
-                free GRAM at that moment to cover it.
-              </li>
-            </ul>
-            <p>
-              Full is the default. Choose Instant when getting your GRAM now matters more than the last slice of
-              rewards.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='how-long-does-unstaking-take'>
-          <h3 class='hipo-faq-question-title'>
-            How long does unstaking take?<a
-              class='hipo-faq-anchor'
-              href='#how-long-does-unstaking-take'
-              aria-label='Link to: How long does unstaking take?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>That depends on which of the two options you pick.</p>
-            <p>
-              <b>Instant</b> is what its name says: if it succeeds, your GRAM arrives within about a minute. If Hipo is not
-              holding enough free GRAM at that moment, the option is unavailable and you use Full instead.
-            </p>
-            <p>
-              <b>Full</b> is settled after the current validation round ends, so there is a wait. The app shows you how long
-              is left before your GRAM arrives.
-            </p>
-            <p>
-              That wait comes from TON's validation cycle rather than from a fixed Hipo lock-up: a round runs for
-              roughly 18 hours, and stakes stay frozen for about 9 more hours afterwards before they can be recovered.
-              Hipo spreads its stake across consecutive rounds, so a recovery window opens roughly every 18 hours.
-            </p>
-            <p>
-              A Full unstake lands somewhere in that cycle, so a typical wait is around 9 hours and a single-round wait
-              tops out near 18. In some cases you may have to wait up to 36 hours, if all of Hipo’s smart contract funds
-              are locked during the staking rewards process — that is the worst case, where a request just misses one
-              window and has to wait for the one after it.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='does-hipo-support-instant-unstaking'>
-          <h3 class='hipo-faq-question-title'>
-            Does Hipo support instant unstaking?<a
-              class='hipo-faq-anchor'
-              href='#does-hipo-support-instant-unstaking'
-              aria-label='Link to: Does Hipo support instant unstaking?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Yes. Instant is one of the two options you can choose when you unstake, and it is handled by Hipo itself —
-              you do not need a DEX or any third party to get GRAM quickly.
-            </p>
-            <p>
-              It is processed right away rather than at the end of the round, at a slightly lower exchange rate than
-              Full, and it succeeds as long as Hipo is holding enough free GRAM to cover your request.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='why-is-instant-unstaking-sometimes-unavailable'>
-          <h3 class='hipo-faq-question-title'>
-            Why is instant unstaking sometimes unavailable?<a
-              class='hipo-faq-anchor'
-              href='#why-is-instant-unstaking-sometimes-unavailable'
-              aria-label='Link to: Why is instant unstaking sometimes unavailable?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Instant unstaking pays you out of the GRAM Hipo is holding free at that moment, so it is limited by how
-              much of it there is. Most of the staked GRAM is committed to validation rounds and cannot be released
-              early.
-            </p>
-            <p>
-              The app shows the largest amount you can unstake instantly right now, and warns you if you enter more than
-              that. During periods of high demand the limit can be low, or Instant may be unavailable altogether — in
-              which case you can unstake a smaller amount instantly, or use Full for the whole balance.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='will-i-continue-earning-rewards-while-waiting-for-unstaking'>
-          <h3 class='hipo-faq-question-title'>
-            Will I continue earning rewards while waiting for unstaking?<a
-              class='hipo-faq-anchor'
-              href='#will-i-continue-earning-rewards-while-waiting-for-unstaking'
-              aria-label='Link to: Will I continue earning rewards while waiting for unstaking?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              With Full, yes. Your GRAM keeps earning until the round it is committed to ends, which is why Full returns
-              more GRAM than Instant for the same hGRAM.
-            </p>
-            <p>
-              With Instant there is no waiting period to earn through — you are paid out at once, at the rate that
-              applies then.
-            </p>
-            <p>
-              Either way, once your GRAM is back in your wallet it is no longer earning staking rewards through Hipo.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='are-there-any-unstaking-fees'>
-          <h3 class='hipo-faq-question-title'>
-            Are there any unstaking fees?<a
-              class='hipo-faq-anchor'
-              href='#are-there-any-unstaking-fees'
-              aria-label='Link to: Are there any unstaking fees?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Hipo does not charge a fee for unstaking. You pay a small TON network gas fee, which the app shows before
-              you confirm.
-            </p>
-            <p>
-              Part of that gas is a prepayment: whatever is left over is returned together with your final GRAM payout,
-              not at the moment you request the unstake.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class='hipo-faq-section' id='security'>
-        <h2 class='hipo-faq-section-title'>
-          Security<a class='hipo-faq-anchor' href='#security' aria-label='Link to section: Security'>#</a>
-        </h2>
-
-        <div class='hipo-faq-question' id='is-hipo-safe'>
-          <h3 class='hipo-faq-question-title'>
-            Is Hipo safe?<a class='hipo-faq-anchor' href='#is-hipo-safe' aria-label='Link to: Is Hipo safe?'>#</a>
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Hipo is built to be transparent and security-focused. Staking and unstaking happen through on-chain smart
-              contracts, so the whole process can be verified on the TON blockchain.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='has-hipo-been-audited'>
-          <h3 class='hipo-faq-question-title'>
-            Has Hipo been audited?<a
-              class='hipo-faq-anchor'
-              href='#has-hipo-been-audited'
-              aria-label='Link to: Has Hipo been audited?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Yes. Hipo's smart contracts have been audited by Quantstamp in April 2025 and by ProgramCrafter in March
-              2024. Every report is published in full at
-              <a
-                class='underline'
-                href='https://github.com/HipoFinance/audits'
-                target='_blank'
-                rel='noopener noreferrer'>github.com/HipoFinance/audits</a
-              >, along with any later reviews.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='what-risks-should-i-consider'>
-          <h3 class='hipo-faq-question-title'>
-            What risks should I consider?<a
-              class='hipo-faq-anchor'
-              href='#what-risks-should-i-consider'
-              aria-label='Link to: What risks should I consider?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              DeFi is not risk-free. Possible risks include smart contract bugs, validator performance issues, limited
-              liquidity for instant unstaking, changes in staking rewards, and broader TON network issues.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='can-i-lose-my-funds'>
-          <h3 class='hipo-faq-question-title'>
-            Can I lose my funds?<a
-              class='hipo-faq-anchor'
-              href='#can-i-lose-my-funds'
-              aria-label='Link to: Can I lose my funds?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Hipo is designed with security in mind, but no DeFi or staking protocol is completely risk-free. Possible
-              risks include smart contract bugs, TON network issues, validator performance problems, or limited
-              liquidity for instant unstaking.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='where-can-i-verify-hipo-transactions'>
-          <h3 class='hipo-faq-question-title'>
-            Where can I verify Hipo transactions?<a
-              class='hipo-faq-anchor'
-              href='#where-can-i-verify-hipo-transactions'
-              aria-label='Link to: Where can I verify Hipo transactions?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              You can verify Hipo transactions on any TON blockchain explorer, such as
-              <a class='underline' href='https://tonviewer.com/' target='_blank' rel='noopener noreferrer'
-                >tonviewer.com</a
-              >. Staking, unstaking, and every other on-chain action can be checked publicly.
-            </p>
-            <p>
-              The Hipo app links straight to the treasury contract on an explorer, so you can inspect the contract
-              holding the staked GRAM without having to look up its address.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class='hipo-faq-section' id='validators-and-staking-marketplace'>
-        <h2 class='hipo-faq-section-title'>
-          Validators & Staking Marketplace<a
-            class='hipo-faq-anchor'
-            href='#validators-and-staking-marketplace'
-            aria-label='Link to section: Validators & Staking Marketplace'>#</a
+      <section id='general' class='scroll-mt-6 pb-6'>
+        <h2 class='font-fredoka text-accent mb-4 text-2xl font-semibold sm:text-[26px]'>General</h2>
+        <div class='flex flex-col gap-3'>
+          <details
+            id='what-is-hipo'
+            open
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
           >
-        </h2>
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>What is Hipo?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>Hipo lets you stake GRAM on TON and still keep your money flexible.</p>
+              <p>
+                When you stake GRAM with Hipo, you receive hGRAM in return. hGRAM represents your staked GRAM, but you
+                can still use it, hold it, or trade it while your GRAM continues earning staking rewards.
+              </p>
+            </div>
+          </details>
 
-        <div class='hipo-faq-question' id='how-does-hipo-select-validators'>
-          <h3 class='hipo-faq-question-title'>
-            How does Hipo select validators?<a
-              class='hipo-faq-anchor'
-              href='#how-does-hipo-select-validators'
-              aria-label='Link to: How does Hipo select validators?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Validators are TON network participants that help secure the network and generate staking rewards.</p>
-            <p>
-              Behind the scenes, Hipo uses an on-chain validator marketplace. Eligible validators can compete to receive
-              staked GRAM by offering competitive reward terms.
-            </p>
-            <p>
-              This helps make validator selection more transparent and less dependent on a manually chosen validator
-              list.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='can-any-validator-participate-in-hipo'>
-          <h3 class='hipo-faq-question-title'>
-            Can any validator participate in Hipo?<a
-              class='hipo-faq-anchor'
-              href='#can-any-validator-participate-in-hipo'
-              aria-label='Link to: Can any validator participate in Hipo?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Yes, if they meet Hipo’s protocol requirements.</p>
-            <p>
-              Eligible validators can participate through Hipo’s smart contracts without needing manual approval from a
-              centralized team.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='what-makes-hipo-different-from-traditional-staking-protocols'>
-          <h3 class='hipo-faq-question-title'>
-            What makes Hipo different from traditional staking protocols?<a
-              class='hipo-faq-anchor'
-              href='#what-makes-hipo-different-from-traditional-staking-protocols'
-              aria-label='Link to: What makes Hipo different from traditional staking protocols?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Some staking systems rely on a fixed set of validators chosen by the protocol team.</p>
-            <p>
-              Hipo uses a permissionless validator marketplace instead. This means validator selection happens more
-              transparently on-chain, and validators can compete for stake allocation.
-            </p>
-            <p>This can help support decentralization in the TON ecosystem.</p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='how-does-the-validator-auction-work'>
-          <h3 class='hipo-faq-question-title'>
-            How does the validator auction work?<a
-              class='hipo-faq-anchor'
-              href='#how-does-the-validator-auction-work'
-              aria-label='Link to: How does the validator auction work?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Validators can apply to receive staked GRAM through Hipo’s on-chain system.</p>
-            <p>
-              They compete by offering reward terms and providing collateral. Hipo then automatically directs stake
-              toward competitive validators during each staking round.
-            </p>
-            <p>This helps make validator selection more transparent and less dependent on manual decisions.</p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='why-can-hipo-offer-competitive-staking-rewards'>
-          <h3 class='hipo-faq-question-title'>
-            Why can Hipo offer competitive staking rewards?<a
-              class='hipo-faq-anchor'
-              href='#why-can-hipo-offer-competitive-staking-rewards'
-              aria-label='Link to: Why can Hipo offer competitive staking rewards?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Because validators compete to receive stake.</p>
-            <p>
-              When validators compete, Hipo can direct stake toward validators offering strong reward terms while still
-              requiring them to provide collateral.
-            </p>
-            <p>This helps create a more open and market-based staking system.</p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='what-collateral-do-validators-provide'>
-          <h3 class='hipo-faq-question-title'>
-            What collateral do validators provide?<a
-              class='hipo-faq-anchor'
-              href='#what-collateral-do-validators-provide'
-              aria-label='Link to: What collateral do validators provide?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Collateral is extra value that validators commit when they participate.</p>
-            <p>It helps protect stakers if a validator performs poorly or fails to meet expected performance.</p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='what-happens-if-a-validator-underperforms'>
-          <h3 class='hipo-faq-question-title'>
-            What happens if a validator underperforms?<a
-              class='hipo-faq-anchor'
-              href='#what-happens-if-a-validator-underperforms'
-              aria-label='Link to: What happens if a validator underperforms?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>If a validator underperforms, their collateral may be used according to Hipo’s protocol rules.</p>
-            <p>
-              A validator borrowing GRAM from Hipo has to put up the potential penalty and that round's reward before it
-              can take part. The intent is that a slashing penalty is paid out of the validator's own collateral rather
-              than out of staked GRAM.
-            </p>
-            <p>This helps protect stakers and encourages validators to operate reliably.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class='hipo-faq-section' id='hpo-token'>
-        <h2 class='hipo-faq-section-title'>
-          HPO Token<a class='hipo-faq-anchor' href='#hpo-token' aria-label='Link to section: HPO Token'>#</a>
-        </h2>
-
-        <div class='hipo-faq-question' id='what-is-hpo'>
-          <h3 class='hipo-faq-question-title'>
-            What is HPO?<a class='hipo-faq-anchor' href='#what-is-hpo' aria-label='Link to: What is HPO?'>#</a>
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>HPO is the governance and revenue-sharing token of the Hipo ecosystem.</p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='what-benefits-do-hpo-holders-receive'>
-          <h3 class='hipo-faq-question-title'>
-            What benefits do HPO holders receive?<a
-              class='hipo-faq-anchor'
-              href='#what-benefits-do-hpo-holders-receive'
-              aria-label='Link to: What benefits do HPO holders receive?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              HPO holders can participate in governance, receive ecosystem incentives, and earn protocol revenue through
-              Hipo Club.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='does-hpo-generate-revenue-for-holders'>
-          <h3 class='hipo-faq-question-title'>
-            Does HPO generate revenue for holders?<a
-              class='hipo-faq-anchor'
-              href='#does-hpo-generate-revenue-for-holders'
-              aria-label='Link to: Does HPO generate revenue for holders?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Yes. Hipo protocol revenue is distributed to HPO holders through Hipo Club according to the protocol's
-              tokenomics and governance rules.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='what-is-hipo-club'>
-          <h3 class='hipo-faq-question-title'>
-            What is Hipo Club?<a
-              class='hipo-faq-anchor'
-              href='#what-is-hipo-club'
-              aria-label='Link to: What is Hipo Club?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Hipo Club is Hipo's community rewards program that distributes HPO and protocol-generated revenue to
-              long-term ecosystem participants and HPO holders.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='how-is-protocol-revenue-generated'>
-          <h3 class='hipo-faq-question-title'>
-            How is protocol revenue generated?<a
-              class='hipo-faq-anchor'
-              href='#how-is-protocol-revenue-generated'
-              aria-label='Link to: How is protocol revenue generated?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Protocol revenue is generated from Hipo's staking operations and ecosystem services. A portion of this
-              revenue is distributed to HPO holders through Hipo Club.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='why-was-hpo-created'>
-          <h3 class='hipo-faq-question-title'>
-            Why was HPO created?<a
-              class='hipo-faq-anchor'
-              href='#why-was-hpo-created'
-              aria-label='Link to: Why was HPO created?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              HPO aligns the interests of users, stakers, validators, and the broader Hipo ecosystem by combining
-              governance rights with participation in protocol growth.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class='hipo-faq-section' id='ton-and-liquid-staking'>
-        <h2 class='hipo-faq-section-title'>
-          TON & Liquid Staking<a
-            class='hipo-faq-anchor'
-            href='#ton-and-liquid-staking'
-            aria-label='Link to section: TON & Liquid Staking'>#</a
+          <details
+            id='what-is-liquid-staking'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
           >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>What is liquid staking?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>Normally, when you stake crypto, your tokens are locked and harder to use.</p>
+              <p>
+                Liquid staking solves this by giving you a new token while your GRAM is staked. Hipo gives you hGRAM.
+                Over time, hGRAM becomes more valuable and you can redeem it for your GRAM plus rewards. So when you
+                unstake, you may receive more GRAM than you originally staked.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='how-does-hipo-work'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>How does Hipo work?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>When you stake GRAM with Hipo, Hipo gives you hGRAM in return.</p>
+              <p class='mb-2.5'>
+                Think of hGRAM as a receipt for your staked GRAM. While your GRAM is earning staking rewards, you can
+                hold it, use it, or trade it.
+              </p>
+              <p>Over time, hGRAM is designed to become redeemable for more GRAM as rewards are added.</p>
+            </div>
+          </details>
+
+          <details
+            id='what-happens-behind-the-scenes'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              What happens behind the scenes?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Behind the scenes, Hipo combines users’ staked GRAM and delegates it to TON validators. These validators
+                help secure the network and generate staking rewards, which are reflected in the value of hGRAM over
+                time.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='why-should-i-use-hipo'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Why should I use Hipo?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                Hipo lets you earn staking rewards on your GRAM while still keeping your funds flexible.
+              </p>
+              <p class='mb-2.5'>
+                When you stake GRAM, you receive hGRAM. You can hold it, use, or trade hGRAM while your staked GRAM
+                continues earning rewards.
+              </p>
+              <p class='mb-2.5'>Key benefits:</p>
+              <ul class='list-disc pl-6'>
+                <li>Earn staking rewards without fully locking your GRAM.</li>
+                <li>Keep flexibility through hGRAM.</li>
+                <li>Unstake when you want to get GRAM back.</li>
+                <li>Use a transparent, on-chain staking system.</li>
+                <li>Hipo is built with open-source smart contracts and security-focused infrastructure.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details
+            id='how-does-hipo-choose-validators'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              How does Hipo choose validators?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                Behind the scenes, Hipo uses a permissionless validator marketplace. Validators can participate openly
+                and the system helps direct stake toward competitive validators.
+              </p>
+              <p>
+                This helps avoid relying on one centralized validator and supports decentralization in the TON
+                ecosystem.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='is-hipo-non-custodial'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Is Hipo non-custodial?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Yes. Hipo works through smart contracts on-chain. You connect your own wallet, stake GRAM through Hipo,
+                and receive hGRAM in return. Staking and unstaking are handled transparently by smart contracts.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section id='staking' class='scroll-mt-6 pb-6'>
+        <h2 class='font-fredoka text-accent mb-4 text-2xl font-semibold sm:text-[26px]'>Staking</h2>
+        <div class='flex flex-col gap-3'>
+          <details
+            id='how-do-i-stake-gram'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>How do I stake GRAM?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Connect your wallet, enter how much GRAM you want to stake, and confirm the transaction. After staking,
+                you will receive hGRAM in your wallet.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='how-long-does-it-take-to-receive-hgram'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              How long does it take to receive hGRAM?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>Usually within moments of your transaction being confirmed.</p>
+              <p>
+                At times the protocol mints hGRAM at the end of the current validation round instead of immediately.
+                When that happens, your deposit is held until the round is committed and the app shows how long is left.
+                Your GRAM is never at risk while it waits.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='what-is-the-minimum-amount-required-to-stake'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              What is the minimum amount required to stake?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>Hipo does not enforce a large minimum. You can stake as little as 1 GRAM.</p>
+              <p>
+                You only need enough GRAM to cover the amount you want to stake plus a small TON network transaction
+                fee.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='do-i-receive-rewards-immediately'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Do I receive rewards immediately?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                Not instantly. Your rewards start after your staked GRAM becomes active in a validation round. After
+                that, rewards are automatically reflected in the value of your hGRAM.
+              </p>
+              <p>
+                Rewards arrive round by round rather than continuously. A TON validation round lasts roughly 18 hours,
+                and stakes stay frozen for about 9 more hours afterwards so any complaints can be resolved. The exchange
+                rate updates once a round has finished and its rewards have been recovered.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='what-apy-does-hipo-offer'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>What APY does Hipo offer?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>APY means the estimated yearly reward rate.</p>
+              <p>
+                Hipo’s APY can change over time depending on staking rewards and TON network conditions. You can always
+                see the current APY inside the Hipo app or Hipo’s website.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='is-apy-fixed'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Is APY fixed?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                No. APY is not fixed. Staking rewards can go up or down depending on the TON network and validator
+                performance.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='how-are-staking-rewards-distributed'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              How are staking rewards distributed?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                You do not receive separate reward payments. Instead, rewards are automatically included in the value of
+                hGRAM. Over time, your hGRAM is designed to become redeemable for more GRAM.
+              </p>
+              <p class='mb-2.5'>
+                The amount of hGRAM in your wallet never changes on its own. What changes is how much GRAM each hGRAM is
+                worth, so there is no balance to watch grow and nothing to claim.
+              </p>
+              <p class='mb-2.5'>When a validation round is settled, its rewards are split in this order:</p>
+              <ol class='list-decimal pl-6'>
+                <li>The borrowing validator receives the share agreed when it won the loan.</li>
+                <li>The protocol share, if any, is taken.</li>
+                <li>
+                  Everything left returns to Hipo's treasury, which raises the hGRAM exchange rate for every holder.
+                </li>
+              </ol>
+            </div>
+          </details>
+
+          <details
+            id='do-i-need-to-claim-rewards'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Do I need to claim rewards?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                No. There is nothing to claim manually. Rewards are automatically reflected in the value of hGRAM. Over
+                time, your hGRAM is designed to become redeemable for more GRAM.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='can-i-stake-more-after-my-initial-deposit'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Can I stake more after my initial deposit?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>Yes. You can stake more GRAM at any time. When you add more GRAM, you receive more hGRAM in return.</p>
+            </div>
+          </details>
+
+          <details
+            id='can-i-stake-directly-from-my-wallet'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Can I stake directly from my wallet?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Yes. Connect a supported TON wallet, choose how much GRAM you want to stake, and confirm the transaction
+                in your wallet. After the transaction is complete, you receive hGRAM back in your wallet.
+              </p>
+            </div>
+          </details>
+
+          <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Can I stake with a multisig or cold wallet?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                Yes. Wallets that can’t sign dapp transactions, such as multisig wallets, can stake with a plain
+                transfer: send the amount of GRAM you want to stake, plus 0.1 GRAM for fees, to the Hipo treasury
+                contract with the text comment “d”. Unused fees are refunded, and hGRAM is sent back to the same
+                address.
+              </p>
+              <p>
+                To unstake, send 0.1 GRAM to the treasury with the text comment “w”. This unstakes your entire hGRAM
+                balance. When you connect a multisig wallet in the Hipo app, it shows these instructions with the
+                treasury address ready to copy.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section id='hgram' class='scroll-mt-6 pb-6'>
+        <h2 class='font-fredoka text-accent mb-4 text-2xl font-semibold sm:text-[26px]'>hGRAM</h2>
+        <div class='flex flex-col gap-3'>
+          <details
+            id='what-is-hgram'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>What is hGRAM?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                hGRAM is the token you receive when you stake GRAM with Hipo. Think of hGRAM as a receipt for your
+                staked GRAM. It shows how much of the staking pool belongs to you.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='why-do-i-receive-hgram'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Why do I receive hGRAM?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                You receive hGRAM so your staked GRAM can stay useful. While your GRAM is earning staking rewards, you
+                can still hold, send, or use hGRAM in supported TON apps.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='does-hgram-earn-rewards'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Does hGRAM earn rewards?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Yes, but you do not receive separate reward payments. Instead, staking rewards are reflected in the
+                value of hGRAM. Over time, hGRAM is designed to become redeemable for more GRAM as rewards are added.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='can-i-transfer-hgram'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Can I transfer hGRAM?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Yes. You can send hGRAM to another wallet. You may also be able to trade it in supported TON apps,
+                depending on where hGRAM is available.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='can-i-use-hgram-in-defi'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Can I use hGRAM in DeFi?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Yes, where supported. Some TON DeFi apps may allow you to use hGRAM for things like trading or
+                liquidity. Availability depends on each app, so always check whether hGRAM is supported before using it.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='how-is-the-value-of-hgram-determined'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              How is the value of hGRAM determined?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                hGRAM has a value compared to GRAM. As staking rewards are added, 1 hGRAM is designed to become
+                redeemable for more GRAM over time.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='is-1-hgram-always-equal-to-1-gram'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Is 1 hGRAM always equal to 1 GRAM?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                No. At the beginning, hGRAM may be close to 1 GRAM. Over time, as staking rewards are earned, 1 hGRAM
+                can become redeemable for more than 1 GRAM.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='can-i-sell-hgram'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Can I sell hGRAM?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Yes, if hGRAM is supported by an exchange, swap app, or liquidity pool. You can also unstake hGRAM
+                through Hipo to receive GRAM back.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section id='unstaking' class='scroll-mt-6 pb-6'>
+        <h2 class='font-fredoka text-accent mb-4 text-2xl font-semibold sm:text-[26px]'>Unstaking</h2>
+        <div class='flex flex-col gap-3'>
+          <details
+            id='how-do-i-unstake-my-gram'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>How do I unstake my GRAM?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                To unstake, open Hipo and choose how much hGRAM you want to redeem. You then pick how you want it
+                processed — <b>Full</b> or <b>Instant</b> — and confirm the transaction in your wallet. When the unstake completes,
+                you receive GRAM back in your wallet.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='what-is-the-difference-between-full-and-instant-unstaking'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              What is the difference between Full and Instant unstaking?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                They are the two ways Hipo can process an unstake, and you choose between them before confirming.
+              </p>
+              <ul class='mb-2.5 list-disc pl-6'>
+                <li>
+                  <b>Full</b> waits until the current validation round ends. Because your GRAM keeps earning until then, this
+                  gives you the better exchange rate — the maximum rewards available on your hGRAM. It always goes through.
+                </li>
+                <li>
+                  <b>Instant</b> is processed straight away, at a slightly lower rate. It only succeeds if Hipo is holding
+                  enough free GRAM at that moment to cover it.
+                </li>
+              </ul>
+              <p>
+                Full is the default. Choose Instant when getting your GRAM now matters more than the last slice of
+                rewards.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='how-long-does-unstaking-take'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>How long does unstaking take?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>That depends on which of the two options you pick.</p>
+              <p class='mb-2.5'>
+                <b>Instant</b> is what its name says: if it succeeds, your GRAM arrives within about a minute. If Hipo is
+                not holding enough free GRAM at that moment, the option is unavailable and you use Full instead.
+              </p>
+              <p class='mb-2.5'>
+                <b>Full</b> is settled after the current validation round ends, so there is a wait. The app shows you how
+                long is left before your GRAM arrives.
+              </p>
+              <p class='mb-2.5'>
+                That wait comes from TON's validation cycle rather than from a fixed Hipo lock-up: a round runs for
+                roughly 18 hours, and stakes stay frozen for about 9 more hours afterwards before they can be recovered.
+                Hipo spreads its stake across consecutive rounds, so a recovery window opens roughly every 18 hours.
+              </p>
+              <p>
+                A Full unstake lands somewhere in that cycle, so a typical wait is around 9 hours and a single-round
+                wait tops out near 18. In some cases you may have to wait up to 36 hours, if all of Hipo’s smart
+                contract funds are locked during the staking rewards process — that is the worst case, where a request
+                just misses one window and has to wait for the one after it.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='does-hipo-support-instant-unstaking'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Does Hipo support instant unstaking?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                Yes. Instant is one of the two options you can choose when you unstake, and it is handled by Hipo itself
+                — you do not need a DEX or any third party to get GRAM quickly.
+              </p>
+              <p>
+                It is processed right away rather than at the end of the round, at a slightly lower exchange rate than
+                Full, and it succeeds as long as Hipo is holding enough free GRAM to cover your request.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='why-is-instant-unstaking-sometimes-unavailable'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Why is instant unstaking sometimes unavailable?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                Instant unstaking pays you out of the GRAM Hipo is holding free at that moment, so it is limited by how
+                much of it there is. Most of the staked GRAM is committed to validation rounds and cannot be released
+                early.
+              </p>
+              <p>
+                The app shows the largest amount you can unstake instantly right now, and warns you if you enter more
+                than that. During periods of high demand the limit can be low, or Instant may be unavailable altogether
+                — in which case you can unstake a smaller amount instantly, or use Full for the whole balance.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='will-i-continue-earning-rewards-while-waiting-for-unstaking'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Will I continue earning rewards while waiting for unstaking?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                With Full, yes. Your GRAM keeps earning until the round it is committed to ends, which is why Full
+                returns more GRAM than Instant for the same hGRAM.
+              </p>
+              <p class='mb-2.5'>
+                With Instant there is no waiting period to earn through — you are paid out at once, at the rate that
+                applies then.
+              </p>
+              <p>
+                Either way, once your GRAM is back in your wallet it is no longer earning staking rewards through Hipo.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='are-there-any-unstaking-fees'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Are there any unstaking fees?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                Hipo does not charge a fee for unstaking. You pay a small TON network gas fee, which the app shows
+                before you confirm.
+              </p>
+              <p>
+                Part of that gas is a prepayment: whatever is left over is returned together with your final GRAM
+                payout, not at the moment you request the unstake.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section id='security' class='scroll-mt-6 pb-6'>
+        <h2 class='font-fredoka text-accent mb-4 text-2xl font-semibold sm:text-[26px]'>Security</h2>
+        <div class='flex flex-col gap-3'>
+          <details
+            id='is-hipo-safe'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Is Hipo safe?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Hipo is built to be transparent and security-focused. Staking and unstaking happen through on-chain
+                smart contracts, so the whole process can be verified on the TON blockchain.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='has-hipo-been-audited'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Has Hipo been audited?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Yes. Hipo's smart contracts have been audited by Quantstamp in April 2025 and by ProgramCrafter in March
+                2024. Every report is published in full at
+                <a
+                  href='https://github.com/HipoFinance/audits'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  class='text-accent hover:text-accent-hover'
+                >
+                  github.com/HipoFinance/audits
+                </a>
+                , along with any later reviews.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='what-risks-should-i-consider'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>What risks should I consider?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                DeFi is not risk-free. Possible risks include smart contract bugs, validator performance issues, limited
+                liquidity for instant unstaking, changes in staking rewards, and broader TON network issues.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='can-i-lose-my-funds'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Can I lose my funds?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Hipo is designed with security in mind, but no DeFi or staking protocol is completely risk-free.
+                Possible risks include smart contract bugs, TON network issues, validator performance problems, or
+                limited liquidity for instant unstaking.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='where-can-i-verify-hipo-transactions'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Where can I verify Hipo transactions?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                You can verify Hipo transactions on any TON blockchain explorer, such as
+                <a
+                  href='https://tonviewer.com/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  class='text-accent hover:text-accent-hover'
+                >
+                  tonviewer.com
+                </a>
+                . Staking, unstaking, and every other on-chain action can be checked publicly.
+              </p>
+              <p>
+                The Hipo app links straight to the treasury contract on an explorer, so you can inspect the contract
+                holding the staked GRAM without having to look up its address.
+              </p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section id='validators-and-staking-marketplace' class='scroll-mt-6 pb-6'>
+        <h2 class='font-fredoka text-accent mb-4 text-2xl font-semibold sm:text-[26px]'>
+          Validators & Staking Marketplace
         </h2>
+        <div class='flex flex-col gap-3'>
+          <details
+            id='how-does-hipo-select-validators'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              How does Hipo select validators?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                Validators are TON network participants that help secure the network and generate staking rewards.
+              </p>
+              <p class='mb-2.5'>
+                Behind the scenes, Hipo uses an on-chain validator marketplace. Eligible validators can compete to
+                receive staked GRAM by offering competitive reward terms.
+              </p>
+              <p>
+                This helps make validator selection more transparent and less dependent on a manually chosen validator
+                list.
+              </p>
+            </div>
+          </details>
 
-        <div class='hipo-faq-question' id='what-is-gram-staking'>
-          <h3 class='hipo-faq-question-title'>
-            What is GRAM staking?<a
-              class='hipo-faq-anchor'
-              href='#what-is-gram-staking'
-              aria-label='Link to: What is GRAM staking?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>GRAM staking means using your GRAM to help support the TON network and earn staking rewards.</p>
-            <p>
-              Behind the scenes, staked GRAM is used by validators, which are network participants that help keep TON
-              running securely.
-            </p>
-          </div>
+          <details
+            id='can-any-validator-participate-in-hipo'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Can any validator participate in Hipo?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>Yes, if they meet Hipo’s protocol requirements.</p>
+              <p>
+                Eligible validators can participate through Hipo’s smart contracts without needing manual approval from
+                a centralized team.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='what-makes-hipo-different-from-traditional-staking-protocols'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              What makes Hipo different from traditional staking protocols?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>Some staking systems rely on a fixed set of validators chosen by the protocol team.</p>
+              <p class='mb-2.5'>
+                Hipo uses a permissionless validator marketplace instead. This means validator selection happens more
+                transparently on-chain, and validators can compete for stake allocation.
+              </p>
+              <p>This can help support decentralization in the TON ecosystem.</p>
+            </div>
+          </details>
+
+          <details
+            id='how-does-the-validator-auction-work'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              How does the validator auction work?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>Validators can apply to receive staked GRAM through Hipo’s on-chain system.</p>
+              <p class='mb-2.5'>
+                They compete by offering reward terms and providing collateral. Hipo then automatically directs stake
+                toward competitive validators during each staking round.
+              </p>
+              <p>This helps make validator selection more transparent and less dependent on manual decisions.</p>
+            </div>
+          </details>
+
+          <details
+            id='why-can-hipo-offer-competitive-staking-rewards'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Why can Hipo offer competitive staking rewards?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>Because validators compete to receive stake.</p>
+              <p class='mb-2.5'>
+                When validators compete, Hipo can direct stake toward validators offering strong reward terms while
+                still requiring them to provide collateral.
+              </p>
+              <p>This helps create a more open and market-based staking system.</p>
+            </div>
+          </details>
+
+          <details
+            id='what-collateral-do-validators-provide'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              What collateral do validators provide?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>Collateral is extra value that validators commit when they participate.</p>
+              <p>It helps protect stakers if a validator performs poorly or fails to meet expected performance.</p>
+            </div>
+          </details>
+
+          <details
+            id='what-happens-if-a-validator-underperforms'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              What happens if a validator underperforms?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                If a validator underperforms, their collateral may be used according to Hipo’s protocol rules.
+              </p>
+              <p class='mb-2.5'>
+                A validator borrowing GRAM from Hipo has to put up the potential penalty and that round's reward before
+                it can take part. The intent is that a slashing penalty is paid out of the validator's own collateral
+                rather than out of staked GRAM.
+              </p>
+              <p>This helps protect stakers and encourages validators to operate reliably.</p>
+            </div>
+          </details>
         </div>
+      </section>
 
-        <div class='hipo-faq-question' id='what-is-the-difference-between-staking-and-liquid-staking'>
-          <h3 class='hipo-faq-question-title'>
-            What is the difference between staking and liquid staking?<a
-              class='hipo-faq-anchor'
-              href='#what-is-the-difference-between-staking-and-liquid-staking'
-              aria-label='Link to: What is the difference between staking and liquid staking?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>With regular staking, your tokens may be locked while they earn rewards.</p>
-            <p>
-              With liquid staking, you receive another token while your GRAM is staked. In Hipo, that token is hGRAM.
-            </p>
-            <p>
-              You can hold, send, or use hGRAM in supported TON apps while your staked GRAM continues earning rewards.
-            </p>
-          </div>
+      <section id='hpo-token' class='scroll-mt-6 pb-6'>
+        <h2 class='font-fredoka text-accent mb-4 text-2xl font-semibold sm:text-[26px]'>HPO Token</h2>
+        <div class='flex flex-col gap-3'>
+          <details id='what-is-hpo' class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>What is HPO?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>HPO is the governance and revenue-sharing token of the Hipo ecosystem.</p>
+            </div>
+          </details>
+
+          <details
+            id='what-benefits-do-hpo-holders-receive'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              What benefits do HPO holders receive?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                HPO holders can participate in governance, receive ecosystem incentives, and earn protocol revenue
+                through Hipo Club.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='does-hpo-generate-revenue-for-holders'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Does HPO generate revenue for holders?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Yes. Hipo protocol revenue is distributed to HPO holders through Hipo Club according to the protocol's
+                tokenomics and governance rules.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='what-is-hipo-club'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>What is Hipo Club?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Hipo Club is Hipo's community rewards program that distributes HPO and protocol-generated revenue to
+                long-term ecosystem participants and HPO holders.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='how-is-protocol-revenue-generated'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              How is protocol revenue generated?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Protocol revenue is generated from Hipo's staking operations and ecosystem services. A portion of this
+                revenue is distributed to HPO holders through Hipo Club.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='why-was-hpo-created'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Why was HPO created?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                HPO aligns the interests of users, stakers, validators, and the broader Hipo ecosystem by combining
+                governance rights with participation in protocol growth.
+              </p>
+            </div>
+          </details>
         </div>
+      </section>
 
-        <div class='hipo-faq-question' id='what-is-a-liquid-staking-token-lst'>
-          <h3 class='hipo-faq-question-title'>
-            What is a liquid staking token (LST)?<a
-              class='hipo-faq-anchor'
-              href='#what-is-a-liquid-staking-token-lst'
-              aria-label='Link to: What is a liquid staking token (LST)?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>A liquid staking token is a token you receive after staking.</p>
-            <p>In Hipo, hGRAM represents your staked GRAM. It also reflects the staking rewards earned over time.</p>
-          </div>
+      <section id='ton-and-liquid-staking' class='scroll-mt-6 pb-6'>
+        <h2 class='font-fredoka text-accent mb-4 text-2xl font-semibold sm:text-[26px]'>TON & Liquid Staking</h2>
+        <div class='flex flex-col gap-3'>
+          <details
+            id='what-is-gram-staking'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>What is GRAM staking?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                GRAM staking means using your GRAM to help support the TON network and earn staking rewards.
+              </p>
+              <p>
+                Behind the scenes, staked GRAM is used by validators, which are network participants that help keep TON
+                running securely.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='what-is-the-difference-between-staking-and-liquid-staking'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              What is the difference between staking and liquid staking?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>With regular staking, your tokens may be locked while they earn rewards.</p>
+              <p class='mb-2.5'>
+                With liquid staking, you receive another token while your GRAM is staked. In Hipo, that token is hGRAM.
+              </p>
+              <p>
+                You can hold, send, or use hGRAM in supported TON apps while your staked GRAM continues earning rewards.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='what-is-a-liquid-staking-token-lst'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              What is a liquid staking token (LST)?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>A liquid staking token is a token you receive after staking.</p>
+              <p>In Hipo, hGRAM represents your staked GRAM. It also reflects the staking rewards earned over time.</p>
+            </div>
+          </details>
+
+          <details
+            id='can-i-earn-rewards-and-use-defi-at-the-same-time'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Can I earn rewards and use DeFi at the same time?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>Yes, where supported.</p>
+              <p class='mb-2.5'>
+                Liquid staking lets your GRAM keep earning staking rewards while you use hGRAM in supported TON DeFi
+                apps.
+              </p>
+              <p>Using hGRAM in DeFi may involve extra risks, so always check how each app works before using it.</p>
+            </div>
+          </details>
+
+          <details
+            id='what-affects-staking-apy'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>What affects staking APY?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>APY means the estimated yearly reward rate.</p>
+              <p>
+                Staking APY can change over time. It may depend on TON network rewards, validator performance, how much
+                GRAM is being staked, and Hipo’s protocol rules.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='why-does-apy-change-over-time'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Why does APY change over time?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>As network conditions and staking participation change, staking rewards naturally fluctuate.</p>
+            </div>
+          </details>
+
+          <details
+            id='is-liquid-staking-better-than-traditional-staking'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Is liquid staking better than traditional staking?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Liquid staking provides additional flexibility by allowing users to maintain liquidity while earning
+                rewards.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='can-institutions-use-hipo'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Can institutions use Hipo?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>Yes. Both individual users and institutions can use Hipo to access liquid staking on TON.</p>
+            </div>
+          </details>
+
+          <details
+            id='why-does-hipo-often-offer-higher-apy-than-other-staking-protocols-on-ton'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Why does Hipo often offer higher APY than other staking protocols on TON?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Hipo uses a permissionless validator marketplace where validators compete for stake allocation. This
+                competitive mechanism helps secure attractive reward rates for stakers while supporting decentralization
+                and efficient validator participation.
+              </p>
+            </div>
+          </details>
         </div>
+      </section>
 
-        <div class='hipo-faq-question' id='can-i-earn-rewards-and-use-defi-at-the-same-time'>
-          <h3 class='hipo-faq-question-title'>
-            Can I earn rewards and use DeFi at the same time?<a
-              class='hipo-faq-anchor'
-              href='#can-i-earn-rewards-and-use-defi-at-the-same-time'
-              aria-label='Link to: Can I earn rewards and use DeFi at the same time?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Yes, where supported.</p>
-            <p>
-              Liquid staking lets your GRAM keep earning staking rewards while you use hGRAM in supported TON DeFi apps.
-            </p>
-            <p>Using hGRAM in DeFi may involve extra risks, so always check how each app works before using it.</p>
-          </div>
+      <section id='fees' class='scroll-mt-6 pb-6'>
+        <h2 class='font-fredoka text-accent mb-4 text-2xl font-semibold sm:text-[26px]'>Fees</h2>
+        <div class='flex flex-col gap-3'>
+          <details
+            id='does-hipo-charge-a-staking-fee'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Does Hipo charge a staking fee?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                Hipo does not take a cut of the GRAM you stake. You receive hGRAM for the full amount.
+              </p>
+              <p>
+                What you do pay is a small TON network gas fee, attached on top of your deposit rather than deducted
+                from it. Any unused gas is returned to your wallet shortly afterwards. The app shows the exact amount
+                before you confirm.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='does-hipo-charge-a-management-fee'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Does Hipo charge a management fee?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                No. Hipo charges no management or subscription fee, and nothing is skimmed from your rewards as they
+                accrue.
+              </p>
+              <p>
+                The protocol does have a governance fee that Hipo's governance can set on validation rewards. It is
+                currently 0%, so validation rewards pass through to hGRAM holders in full. Any change would go through
+                governance and is visible on-chain.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='where-can-i-see-current-fees'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Where can I see current fees?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                The Hipo app shows the exact gas fee for each action before you confirm it, so you always see the
+                current figure rather than an estimate published here.
+              </p>
+              <p>
+                Gas fees are set by the TON network and move with it. They are typically a fraction of a GRAM for
+                staking and unstaking.
+              </p>
+            </div>
+          </details>
         </div>
+      </section>
 
-        <div class='hipo-faq-question' id='what-affects-staking-apy'>
-          <h3 class='hipo-faq-question-title'>
-            What affects staking APY?<a
-              class='hipo-faq-anchor'
-              href='#what-affects-staking-apy'
-              aria-label='Link to: What affects staking APY?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>APY means the estimated yearly reward rate.</p>
-            <p>
-              Staking APY can change over time. It may depend on TON network rewards, validator performance, how much
-              GRAM is being staked, and Hipo’s protocol rules.
-            </p>
-          </div>
+      <section id='support' class='scroll-mt-6 pb-6'>
+        <h2 class='font-fredoka text-accent mb-4 text-2xl font-semibold sm:text-[26px]'>Support</h2>
+        <div class='flex flex-col gap-3'>
+          <details
+            id='which-wallets-are-supported'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Which wallets are supported?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                Hipo connects through TON Connect, so any TON wallet that supports it will work. The connect dialog
+                lists the wallets available to you.
+              </p>
+              <p>You can also stake from the Hipo Telegram Mini App if you prefer to stay inside Telegram.</p>
+            </div>
+          </details>
+
+          <details
+            id='what-should-i-do-if-a-transaction-is-pending'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              What should I do if a transaction is pending?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p>
+                Wait for network confirmation and check the transaction status through your wallet or a TON explorer.
+              </p>
+            </div>
+          </details>
+
+          <details
+            id='where-can-i-get-support'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>Where can I get support?</summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                The quickest route is
+                <a
+                  href='https://t.me/hipo_chat'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  class='text-accent hover:text-accent-hover'
+                >
+                  Hipo Chat
+                </a>
+                on Telegram, where community members and moderators answer questions.
+              </p>
+              <p class='mb-2.5'>
+                For announcements, follow
+                <a
+                  href='https://t.me/HipoFinance'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  class='text-accent hover:text-accent-hover'
+                >
+                  the Hipo channel
+                </a>
+                on Telegram or
+                <a
+                  href='https://x.com/hipofinance'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  class='text-accent hover:text-accent-hover'
+                >
+                  @hipofinance
+                </a>
+                on X.
+              </p>
+              <p>Hipo will never ask for your seed phrase or private keys. Nobody from the team ever needs them.</p>
+            </div>
+          </details>
+
+          <details
+            id='where-can-i-learn-more-about-hipo'
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              Where can I learn more about Hipo?
+            </summary>
+            <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
+              <p class='mb-2.5'>
+                The <a href='/docs/' class='text-accent hover:text-accent-hover'>Hipo documentation</a> covers the protocol
+                in depth, and
+                <a
+                  href='https://stats.hipo.finance/'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  class='text-accent hover:text-accent-hover'
+                >
+                  stats.hipo.finance
+                </a>
+                tracks live protocol numbers.
+              </p>
+              <p>
+                The contracts are open source at
+                <a
+                  href='https://github.com/HipoFinance'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  class='text-accent hover:text-accent-hover'
+                >
+                  github.com/HipoFinance
+                </a>
+                .
+              </p>
+            </div>
+          </details>
         </div>
-
-        <div class='hipo-faq-question' id='why-does-apy-change-over-time'>
-          <h3 class='hipo-faq-question-title'>
-            Why does APY change over time?<a
-              class='hipo-faq-anchor'
-              href='#why-does-apy-change-over-time'
-              aria-label='Link to: Why does APY change over time?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>As network conditions and staking participation change, staking rewards naturally fluctuate.</p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='is-liquid-staking-better-than-traditional-staking'>
-          <h3 class='hipo-faq-question-title'>
-            Is liquid staking better than traditional staking?<a
-              class='hipo-faq-anchor'
-              href='#is-liquid-staking-better-than-traditional-staking'
-              aria-label='Link to: Is liquid staking better than traditional staking?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Liquid staking provides additional flexibility by allowing users to maintain liquidity while earning
-              rewards.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='can-institutions-use-hipo'>
-          <h3 class='hipo-faq-question-title'>
-            Can institutions use Hipo?<a
-              class='hipo-faq-anchor'
-              href='#can-institutions-use-hipo'
-              aria-label='Link to: Can institutions use Hipo?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Yes. Both individual users and institutions can use Hipo to access liquid staking on TON.</p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='why-does-hipo-often-offer-higher-apy-than-other-staking-protocols-on-ton'>
-          <h3 class='hipo-faq-question-title'>
-            Why does Hipo often offer higher APY than other staking protocols on TON?
-            <a
-              class='hipo-faq-anchor'
-              href='#why-does-hipo-often-offer-higher-apy-than-other-staking-protocols-on-ton'
-              aria-label='Link to: Why does Hipo often offer higher APY than other staking protocols on TON?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Hipo uses a permissionless validator marketplace where validators compete for stake allocation. This
-              competitive mechanism helps secure attractive reward rates for stakers while supporting decentralization
-              and efficient validator participation.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class='hipo-faq-section' id='fees'>
-        <h2 class='hipo-faq-section-title'>
-          Fees<a class='hipo-faq-anchor' href='#fees' aria-label='Link to section: Fees'>#</a>
-        </h2>
-
-        <div class='hipo-faq-question' id='does-hipo-charge-a-staking-fee'>
-          <h3 class='hipo-faq-question-title'>
-            Does Hipo charge a staking fee?<a
-              class='hipo-faq-anchor'
-              href='#does-hipo-charge-a-staking-fee'
-              aria-label='Link to: Does Hipo charge a staking fee?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Hipo does not take a cut of the GRAM you stake. You receive hGRAM for the full amount.</p>
-            <p>
-              What you do pay is a small TON network gas fee, attached on top of your deposit rather than deducted from
-              it. Any unused gas is returned to your wallet shortly afterwards. The app shows the exact amount before
-              you confirm.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='does-hipo-charge-a-management-fee'>
-          <h3 class='hipo-faq-question-title'>
-            Does Hipo charge a management fee?<a
-              class='hipo-faq-anchor'
-              href='#does-hipo-charge-a-management-fee'
-              aria-label='Link to: Does Hipo charge a management fee?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              No. Hipo charges no management or subscription fee, and nothing is skimmed from your rewards as they
-              accrue.
-            </p>
-            <p>
-              The protocol does have a governance fee that Hipo's governance can set on validation rewards. It is
-              currently 0%, so validation rewards pass through to hGRAM holders in full. Any change would go through
-              governance and is visible on-chain.
-            </p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='where-can-i-see-current-fees'>
-          <h3 class='hipo-faq-question-title'>
-            Where can I see current fees?<a
-              class='hipo-faq-anchor'
-              href='#where-can-i-see-current-fees'
-              aria-label='Link to: Where can I see current fees?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              The Hipo app shows the exact gas fee for each action before you confirm it, so you always see the current
-              figure rather than an estimate published here.
-            </p>
-            <p>
-              Gas fees are set by the TON network and move with it. They are typically a fraction of a GRAM for staking
-              and unstaking.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class='hipo-faq-section' id='support'>
-        <h2 class='hipo-faq-section-title'>
-          Support<a class='hipo-faq-anchor' href='#support' aria-label='Link to section: Support'>#</a>
-        </h2>
-
-        <div class='hipo-faq-question' id='which-wallets-are-supported'>
-          <h3 class='hipo-faq-question-title'>
-            Which wallets are supported?<a
-              class='hipo-faq-anchor'
-              href='#which-wallets-are-supported'
-              aria-label='Link to: Which wallets are supported?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              Hipo connects through TON Connect, so any TON wallet that supports it will work. The connect dialog lists
-              the wallets available to you.
-            </p>
-            <p>You can also stake from the Hipo Telegram Mini App if you prefer to stay inside Telegram.</p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='what-should-i-do-if-a-transaction-is-pending'>
-          <h3 class='hipo-faq-question-title'>
-            What should I do if a transaction is pending?<a
-              class='hipo-faq-anchor'
-              href='#what-should-i-do-if-a-transaction-is-pending'
-              aria-label='Link to: What should I do if a transaction is pending?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>Wait for network confirmation and check the transaction status through your wallet or a TON explorer.</p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='where-can-i-get-support'>
-          <h3 class='hipo-faq-question-title'>
-            Where can I get support?<a
-              class='hipo-faq-anchor'
-              href='#where-can-i-get-support'
-              aria-label='Link to: Where can I get support?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              The quickest route is
-              <a class='underline' href='https://t.me/hipo_chat' target='_blank' rel='noopener noreferrer'>Hipo Chat</a>
-              on Telegram, where community members and moderators answer questions.
-            </p>
-            <p>
-              For announcements, follow
-              <a class='underline' href='https://t.me/HipoFinance' target='_blank' rel='noopener noreferrer'
-                >the Hipo channel</a
-              >
-              on Telegram or
-              <a class='underline' href='https://x.com/hipofinance' target='_blank' rel='noopener noreferrer'
-                >@hipofinance</a
-              >
-              on X.
-            </p>
-            <p>Hipo will never ask for your seed phrase or private keys. Nobody from the team ever needs them.</p>
-          </div>
-        </div>
-
-        <div class='hipo-faq-question' id='where-can-i-learn-more-about-hipo'>
-          <h3 class='hipo-faq-question-title'>
-            Where can I learn more about Hipo?<a
-              class='hipo-faq-anchor'
-              href='#where-can-i-learn-more-about-hipo'
-              aria-label='Link to: Where can I learn more about Hipo?'>#</a
-            >
-          </h3>
-          <div class='hipo-faq-answer'>
-            <p>
-              The <a class='underline' href='/docs/'>Hipo documentation</a> covers the protocol in depth, and
-              <a class='underline' href='https://stats.hipo.finance/' target='_blank' rel='noopener noreferrer'
-                >stats.hipo.finance</a
-              >
-              tracks live protocol numbers.
-            </p>
-            <p>
-              The contracts are open source at
-              <a class='underline' href='https://github.com/HipoFinance' target='_blank' rel='noopener noreferrer'
-                >github.com/HipoFinance</a
-              >.
-            </p>
-          </div>
-        </div>
-      </div>
+      </section>
     </div>
   </div>
 </faq>

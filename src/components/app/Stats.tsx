@@ -5,64 +5,55 @@ interface Props {
   model: Model
 }
 
+interface TileProps {
+  label: string
+  tooltip: string
+  value?: string
+  accent?: boolean
+}
+
+// Compact echo of the Stats page's cards, shown under the stake form. The explanatory copy that
+// used to sit behind a question-mark bubble is carried by the title attribute here; the full
+// tooltips live on the Stats page.
+const Tile = ({ label, tooltip, value, accent }: TileProps) => (
+  <div className='border-border bg-surface rounded-[20px] border px-5 py-4'>
+    <p className={'font-fredoka text-2xl font-semibold ' + (accent === true ? 'text-accent' : 'text-text')}>
+      {value ?? '—'}
+    </p>
+    <p className='text-text-muted text-sm' title={tooltip}>
+      {label}
+    </p>
+  </div>
+)
+
 const Stats = observer(({ model }: Props) => {
   return (
-    <div className='font-body text-brown dark:text-dark-50 mx-auto mb-16 w-full max-w-5xl'>
-      <div className='mx-auto flex max-w-lg flex-row items-center px-4'>
-        <p className='text-lg font-bold'>Hipo statistics</p>
-        <a href={model.explorerHref} target='hipo_explorer' className='text-blue ml-auto text-xs font-light'>
-          TON Explorer
-        </a>
-      </div>
+    <div className='font-body text-text mx-auto w-full max-w-[1120px] px-6 pb-12'>
+      <div className='mx-auto w-full max-w-[480px]'>
+        <div className='grid grid-cols-1 gap-3 sm:grid-cols-3'>
+          <Tile
+            label='APY, last round'
+            tooltip='Your yearly earnings based on recent staking rewards.'
+            value={model.statsApyFormatted}
+            accent
+          />
+          <Tile label='GRAM staked' tooltip='Total GRAM currently staked in Hipo.' value={model.statsStakedCompact} />
+          <Tile
+            label='hGRAM holders'
+            tooltip='The number of wallets holding the hGRAM token.'
+            value={model.statsHoldersFormatted}
+          />
+        </div>
 
-      <div className='mx-auto max-w-lg text-sm font-medium'>
-        <div className='dark:bg-dark-800 m-4 rounded-2xl bg-white p-8 shadow-sm'>
-          <div className='relative my-4 flex flex-row'>
-            <p>APY</p>
-            <img src='/images/app/question.svg' tabIndex={0} className='peer ml-1 w-4 dark:hidden' />
-            <img src='/images/app/question-dark.svg' tabIndex={0} className='peer ml-1 hidden w-4 dark:block' />
-            <p className='bg-lightblue text-blue absolute top-6 left-1/3 z-10 hidden -translate-x-1/4 rounded-lg p-4 text-xs font-normal shadow-xl peer-hover:block peer-focus:block'>
-              Your yearly earnings based on recent staking rewards.
-            </p>
-            <p className='ml-auto'>{model.statsApyFormatted}</p>
-          </div>
-          {/* <div className='relative my-4 flex flex-row'>
-                        <p>Protocol fee</p>
-                        <img src='/images/app/question.svg' tabIndex={0} className='peer ml-1 w-4 dark:hidden' />
-                        <img src='/images/app/question-dark.svg' tabIndex={0} className='peer ml-1 hidden w-4 dark:block' />
-                        <p className='absolute left-1/3 top-6 z-10 hidden -translate-x-1/4 rounded-lg bg-lightblue p-4 text-xs font-normal text-blue shadow-xl peer-hover:block peer-focus:block'>
-                            This fee is subtracted from generated validator rewards, NOT your staked amount.
-                        </p>
-                        <p className='ml-auto'>{model.protocolFee}</p>
-                    </div> */}
-          <div className='relative my-4 flex flex-row'>
-            <p>Staked</p>
-            <img src='/images/app/question.svg' tabIndex={0} className='peer ml-1 w-4 dark:hidden' />
-            <img src='/images/app/question-dark.svg' tabIndex={0} className='peer ml-1 hidden w-4 dark:block' />
-            <p className='bg-lightblue text-blue absolute top-6 left-1/3 z-10 hidden -translate-x-1/4 rounded-lg p-4 text-xs font-normal shadow-xl peer-hover:block peer-focus:block'>
-              Total GRAM currently staked in Hipo.
-            </p>
-            <p className='ml-auto'>{model.statsStakedFormatted}</p>
-          </div>
-          <div className='relative my-4 flex flex-row'>
-            <p>Holders</p>
-            <img src='/images/app/question.svg' tabIndex={0} className='peer ml-1 w-4 dark:hidden' />
-            <img src='/images/app/question-dark.svg' tabIndex={0} className='peer ml-1 hidden w-4 dark:block' />
-            <p className='bg-lightblue text-blue absolute top-6 left-1/3 z-10 hidden -translate-x-1/4 rounded-lg p-4 text-xs font-normal shadow-xl peer-hover:block peer-focus:block'>
-              The number of wallets holding the hGRAM token.
-            </p>
-            <p className='ml-auto'>{model.statsHoldersFormatted}</p>
-          </div>
-          <div className='my-4 flex flex-row justify-center'>
-            <button
-              className='text-blue cursor-pointer'
-              onClick={() => {
-                model.navigateToPage('stats')
-              }}
-            >
-              More Stats
-            </button>
-          </div>
+        <div className='mt-4 flex flex-row justify-center'>
+          <button
+            className='text-text-faint hover:text-accent cursor-pointer text-[13px]'
+            onClick={() => {
+              model.navigateToPage('stats')
+            }}
+          >
+            More stats →
+          </button>
         </div>
       </div>
     </div>

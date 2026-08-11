@@ -40,6 +40,17 @@ export interface QueryRangeResult {
 
 export const STATS_RANGES: StatsRange[] = ['24h', '7d', '30d', '90d', '1y']
 
+// Display labels for the range switcher and the chart captions. The design asks for
+// 1W / 1M / 1Y / All; these are the same shorthand over the ranges the store actually supports.
+// There is deliberately no "All" — see the RANGE_CONFIG note below.
+export const RANGE_LABELS: Record<StatsRange, string> = {
+  '24h': '24H',
+  '7d': '1W',
+  '30d': '1M',
+  '90d': '3M',
+  '1y': '1Y',
+}
+
 interface RangeConfig {
   span: number
   step: number

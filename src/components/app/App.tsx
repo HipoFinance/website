@@ -8,14 +8,14 @@ import Reward from './Reward.tsx'
 import StatsPage from './StatsPage.tsx'
 import Wait from './Wait.tsx'
 import Stats from './Stats.tsx'
-import Footer from './Footer.tsx'
 import LoadingIndicator from './LoadingIndicator.tsx'
 import ErrorDisplay from './ErrorDisplay.tsx'
-import '@fontsource/poppins/300.css'
-import '@fontsource/poppins/400.css'
-import '@fontsource/poppins/500.css'
-import '@fontsource/poppins/700.css'
-import '@fontsource/eczar/800.css'
+// Heebo is the redesign's body face (--font-body in app.css); Fredoka, the display face, comes
+// from @fontsource-variable/fredoka, imported once in global.css.
+import '@fontsource/heebo/300.css'
+import '@fontsource/heebo/400.css'
+import '@fontsource/heebo/500.css'
+import '@fontsource/heebo/700.css'
 import { Model } from './Model'
 import { useRef, useEffect } from 'react'
 import AmountAlert from './AmountAlert.tsx'
@@ -51,20 +51,19 @@ const App = observer(() => {
   }
 
   return (
-    <>
+    <div className='flex min-h-screen flex-col'>
       <Header model={model} />
       {page}
       {/* Rendered outside the active page so a pending transaction's modal survives a page
           switch, including browser back/forward, instead of unmounting with the stake widget. */}
       <Wait model={model} />
-      <Footer />
       <LoadingIndicator model={model} />
       <ErrorDisplay model={model} />
       {/* TonConnect renders its modals here (see tonConnectWidgetRootId in Model.ts). It has to
           be inside the island: its default root is appended to document.body, which the
           ClientRouter replaces on every navigation. */}
       <div id='ton-connect-widget-root'></div>
-    </>
+    </div>
   )
 })
 

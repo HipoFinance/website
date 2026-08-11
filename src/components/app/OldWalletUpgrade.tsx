@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react-lite'
-import { useEffect } from 'react'
 import { Model } from './Model'
 
 interface Props {
@@ -10,24 +9,25 @@ const OldWalletUpgrade = observer(({ model }: Props) => {
   return (
     <div
       className={
-        'font-body text-brown mx-auto flex w-full max-w-5xl flex-col items-center overflow-hidden transition-all duration-700 motion-reduce:transition-none' +
+        'font-body text-text mx-auto flex w-full max-w-[1120px] flex-col items-center overflow-hidden px-6 transition-all duration-700 motion-reduce:transition-none' +
         (model.oldWalletTokens != null && model.oldWalletTokens > 0n ? ' max-h-[100rem]' : ' max-h-0')
       }
     >
-      <div className='bg-attention dark:bg-attentiondark m-4 flex max-w-2xl flex-col items-center rounded-2xl p-4 shadow-sm'>
-        <h3 className='my-4 text-xl font-bold'>Upgrade to Hipo Version 2</h3>
-        <p className='max-w-xl px-4 py-2'>
+      <div className='border-accent bg-surface mt-6 flex max-w-2xl flex-col items-center rounded-[20px] border p-6 text-center'>
+        <h2 className='font-fredoka mb-3 text-xl font-semibold'>Upgrade to Hipo version 2</h2>
+        <p className='text-text-muted max-w-xl py-1 text-sm'>
           Press &quot;Upgrade&quot; below to switch automatically from the old to the new version.
         </p>
-        <p className='max-w-xl px-4 py-2'>
-          You have <b>{model.oldWalletTokensFormatted}</b> in the old version. After the upgrade, you&apos;ll get{' '}
-          <b>{model.newWalletTokensFormatted}</b> in the new version.
+        <p className='text-text-muted max-w-xl py-1 text-sm'>
+          You have <b className='text-text font-medium'>{model.oldWalletTokensFormatted}</b> in the old version. After
+          the upgrade, you&apos;ll get <b className='text-text font-medium'>{model.newWalletTokensFormatted}</b> in the
+          new version.
         </p>
-        <p className='max-w-xl px-4 py-2'>
+        <p className='text-text-muted max-w-xl py-1 text-sm'>
           After confirming, it may take a few minutes to receive the new hGRAM. Don&apos;t worry!
         </p>
         <button
-          className='bg-orange dark:text-dark-600 my-4 rounded-2xl px-16 py-2 text-lg font-medium text-white'
+          className='bg-accent text-on-accent hover:bg-accent-hover mt-5 cursor-pointer rounded-2xl px-16 py-3 text-lg font-semibold'
           onClick={model.upgradeOldWallet}
         >
           Upgrade

@@ -6,10 +6,45 @@ import { formatCompact1Fraction, formatUsdPrice, type Model, type StatsRange, ty
 import { ChartsStore } from './charts/ChartsStore'
 import LineChart, { type ChartSeriesInput } from './charts/LineChart'
 import RangeSelector from './charts/RangeSelector'
+import { computeDelta, type Delta } from './charts/delta'
+import type { ChartPoint } from './charts/prometheus'
 
 interface Props {
   model: Model
 }
+
+// Line colors come from the @theme tokens so the charts stay in step with the rest of the app.
+const accentColor = 'var(--color-accent)'
+const positiveColor = 'var(--color-positive)'
+const inkColor = 'var(--color-text)'
+const accentAreaFill = 'rgba(255,126,115,.12)'
+
+interface StatCardProps {
+  value?: string
+  label: string
+  caption?: string
+  accent?: boolean
+  delta?: Delta
+  rangeLabel: string
+}
+
+// A delta is rendered only when it could actually be computed from the history already fetched
+// for the selected range; otherwise the line is omitted rather than invented.
+const StatCard = ({ value, label, caption, accent, delta, rangeLabel }: StatCardProps) => (
+  <div className='border-border bg-surface rounded-[20px] border px-6 py-5'>
+    <div className={'font-fredoka text-[30px] font-semibold ' + (accent === true ? 'text-accent' : 'text-text')}>
+      {value ?? '—'}
+    </div>
+    <div className='text-text-muted text-sm'>{label}</div>
+    {delta != null && delta.direction !== 'flat' ? (
+      <div className={'pt-1 text-[13px] font-medium ' + (delta.direction === 'up' ? 'text-positive' : 'text-accent')}>
+        {(delta.direction === 'up' ? '▲ ' : '▼ ') + delta.text} over {rangeLabel}
+      </div>
+    ) : (
+      caption != null && <div className='text-text-faint pt-1 text-[13px] font-medium'>{caption}</div>
+    )}
+  </div>
+)
 
 interface RowProps {
   label: string
@@ -17,38 +52,14 @@ interface RowProps {
   accent?: 'up' | 'down'
 }
 
-const SectionHeading = ({ title }: { title: string }) => (
-  <div className='mx-auto mt-8 flex max-w-5xl flex-row items-center gap-4 px-4'>
-    <div className='bg-c1 dark:bg-c2 h-px grow' />
-    <p className='text-lg font-bold'>{title}</p>
-    <div className='bg-c1 dark:bg-c2 h-px grow' />
-  </div>
-)
-
-interface TileProps {
-  label: string
-  tooltip: string
-  value?: string
-}
-
-const Tile = ({ label, tooltip, value }: TileProps) => (
-  <div className='my-4 flex flex-col items-center gap-2'>
-    <div className='relative flex flex-row items-center'>
-      <p>{label}</p>
-      <img src='/images/app/question.svg' tabIndex={0} className='peer ml-1 w-4 dark:hidden' />
-      <img src='/images/app/question-dark.svg' tabIndex={0} className='peer ml-1 hidden w-4 dark:block' />
-      <p className='bg-lightblue text-blue absolute top-6 left-1/2 z-10 hidden w-52 -translate-x-1/2 rounded-lg p-4 text-xs font-normal shadow-xl peer-hover:block peer-focus:block'>
-        {tooltip}
-      </p>
-    </div>
-    <p className='text-xl font-bold'>{value}</p>
-  </div>
-)
-
 const Row = ({ label, value, accent }: RowProps) => (
-  <div className='my-4 flex flex-row'>
+  <div className='flex flex-row'>
     <p>{label}</p>
-    <p className={'ml-auto' + (accent === 'up' ? ' text-green-600' : '') + (accent === 'down' ? ' text-orange' : '')}>
+    <p
+      className={
+        'ml-auto font-medium ' + (accent === 'up' ? 'text-positive' : accent === 'down' ? 'text-accent' : 'text-text')
+      }
+    >
       {value ?? '—'}
     </p>
   </div>
@@ -62,18 +73,14 @@ interface SectionProps {
 }
 
 const Section = ({ title, stats, showSupply, showHolders }: SectionProps) => (
-  <div className='mx-auto w-full max-w-lg text-sm font-medium'>
-    <div className='mx-auto mt-6 flex max-w-lg flex-row items-center justify-start px-4 lg:justify-center'>
-      <p className='text-lg font-bold'>{title}</p>
-    </div>
-    <div className='dark:bg-dark-800 m-4 rounded-2xl bg-white p-6 shadow-sm'>
-      <Row label='Price' value={stats.price} />
-      <Row label='24h change' value={stats.change24h} accent={stats.isChangePositive ? 'up' : 'down'} />
-      <Row label='Market cap' value={stats.marketCap} />
-      <Row label='Total volume' value={stats.totalVolume} />
-      {showHolders && <Row label='Holders' value={stats.holders} />}
-      {showSupply && <Row label='Circulating supply' value={stats.supply} />}
-    </div>
+  <div className='border-border bg-surface text-text-muted flex flex-col gap-2.5 rounded-[20px] border p-6 text-sm'>
+    <p className='font-fredoka text-text pb-1 text-[18px] font-semibold'>{title}</p>
+    <Row label='Price' value={stats.price} />
+    <Row label='24h change' value={stats.change24h} accent={stats.isChangePositive ? 'up' : 'down'} />
+    <Row label='Market cap' value={stats.marketCap} />
+    <Row label='Total volume' value={stats.totalVolume} />
+    {showHolders === true && <Row label='Holders' value={stats.holders} />}
+    {showSupply === true && <Row label='Circulating supply' value={stats.supply} />}
   </div>
 )
 
@@ -120,82 +127,95 @@ const StatsPage = observer(({ model }: Props) => {
   const range = model.statsRange
   const xTickFormat = (ts: number) => formatXTick(range, ts)
 
+  const stakedPoints: ChartPoint[] = chartsStore.series?.hipo_treasury_total_coins ?? []
+  const holdersPoints: ChartPoint[] = chartsStore.series?.hipo_hton_holders_count ?? []
+  const hasHistory = chartsStore.status === 'done' || chartsStore.status === 'refreshing'
+
   const apySeries: ChartSeriesInput[] = [
-    { key: 'apy', name: 'APY', color: 'var(--chart-hgram)', points: chartsStore.series?.hipo_treasury_apy ?? [] },
+    { key: 'apy', name: 'APY', color: positiveColor, points: chartsStore.series?.hipo_treasury_apy ?? [] },
   ]
-  const stakedSeries: ChartSeriesInput[] = [
-    {
-      key: 'staked',
-      name: 'Staked',
-      color: 'var(--chart-hgram)',
-      points: chartsStore.series?.hipo_treasury_total_coins ?? [],
-    },
-  ]
+  const stakedSeries: ChartSeriesInput[] = [{ key: 'staked', name: 'Staked', color: accentColor, points: stakedPoints }]
   const holdersSeries: ChartSeriesInput[] = [
-    {
-      key: 'holders',
-      name: 'hGRAM holders',
-      color: 'var(--chart-hgram)',
-      points: chartsStore.series?.hipo_hton_holders_count ?? [],
-    },
+    { key: 'holders', name: 'hGRAM holders', color: inkColor, points: holdersPoints },
   ]
   const priceSeries: ChartSeriesInput[] = [
-    {
-      key: 'hgram',
-      name: 'hGRAM',
-      color: 'var(--chart-hgram)',
-      points: chartsStore.series?.hipo_hton_current_price ?? [],
-    },
-    { key: 'gram', name: 'GRAM', color: 'var(--chart-gram)', points: chartsStore.series?.hipo_ton_current_price ?? [] },
+    { key: 'hgram', name: 'hGRAM', color: accentColor, points: chartsStore.series?.hipo_hton_current_price ?? [] },
+    { key: 'gram', name: 'GRAM', color: inkColor, points: chartsStore.series?.hipo_ton_current_price ?? [] },
   ]
   const hpoSeries: ChartSeriesInput[] = [
-    { key: 'hpo', name: 'HPO', color: 'var(--chart-hpo)', points: chartsStore.series?.hipo_hpo_current_price ?? [] },
+    { key: 'hpo', name: 'HPO', color: positiveColor, points: chartsStore.series?.hipo_hpo_current_price ?? [] },
   ]
 
+  const tvlLabel =
+    model.statsTvlUsdFormatted != null ? 'GRAM staked (TVL) · ' + model.statsTvlUsdFormatted : 'GRAM staked (TVL)'
+
   return (
-    <div className='font-body text-brown dark:text-dark-50 mx-auto w-full max-w-5xl p-4 pb-32'>
-      <p className='mt-4 px-8 text-center text-3xl font-bold'>Statistics</p>
-      <p className='mt-2 mb-4 px-2 text-center'>Live protocol and market figures.</p>
-
-      <SectionHeading title='Protocol' />
-
-      <div className='mx-auto max-w-5xl text-sm font-medium'>
-        <div className='dark:bg-dark-800 m-4 rounded-2xl bg-white p-6 shadow-sm'>
-          <div className='grid grid-cols-1 sm:grid-cols-3'>
-            <Tile
-              label='APY'
-              tooltip='Your yearly earnings based on recent staking rewards.'
-              value={model.statsApyFormatted}
-            />
-            <Tile label='Staked' tooltip='Total GRAM currently staked in Hipo.' value={model.statsStakedFormatted} />
-            <Tile
-              label='Holders'
-              tooltip='The number of wallets holding the hGRAM token.'
-              value={model.statsHoldersFormatted}
-            />
-          </div>
+    <div className='font-body text-text mx-auto w-full max-w-[1180px] px-6 pt-6 pb-8 sm:px-12'>
+      <div className='flex flex-row flex-wrap items-baseline justify-between gap-3 pb-7'>
+        <div>
+          <h1 className='font-fredoka mb-1.5 text-3xl font-semibold sm:text-[44px]'>Hipo stats</h1>
+          <p className='text-text-muted text-base'>Live protocol metrics, straight from the chain.</p>
         </div>
-      </div>
-
-      <SectionHeading title='Market' />
-
-      {/* 3-across only from lg — at md the thirds are ~245px and the label/value pairs
-          inside the cards end up nearly touching. */}
-      <div className='grid grid-cols-1 lg:grid-cols-3'>
-        {model.hgramStats != null && <Section title='hGRAM' stats={model.hgramStats} showSupply showHolders />}
-        {model.hpoStats != null && <Section title='HPO' stats={model.hpoStats} showHolders />}
-        {model.gramStats != null && <Section title='GRAM' stats={model.gramStats} />}
-      </div>
-
-      <SectionHeading title='History' />
-
-      <div className='mx-auto mt-4 flex max-w-5xl flex-row justify-center px-4'>
         <RangeSelector value={model.statsRange} onChange={model.setStatsRange} />
       </div>
 
-      <div className='mx-auto max-w-5xl'>
+      <div className='grid grid-cols-1 gap-4 pb-6 sm:grid-cols-2 lg:grid-cols-4'>
+        <StatCard
+          value={model.statsStakedCompact}
+          label={tvlLabel}
+          delta={hasHistory ? computeDelta(stakedPoints, '%') : undefined}
+          rangeLabel={chartsStore.rangeLabel}
+        />
+        <StatCard
+          value={model.statsApyFormatted}
+          label='APY, last round'
+          caption={model.protocolFee != null ? 'Protocol fee ' + model.protocolFee : undefined}
+          accent
+          rangeLabel={chartsStore.rangeLabel}
+        />
+        <StatCard
+          value={model.statsHoldersFormatted}
+          label='Active stakers'
+          delta={hasHistory ? computeDelta(holdersPoints, '%') : undefined}
+          rangeLabel={chartsStore.rangeLabel}
+        />
+        <StatCard
+          value={model.statsRateFormatted}
+          label='hGRAM / GRAM rate'
+          caption='only goes up'
+          rangeLabel={chartsStore.rangeLabel}
+        />
+      </div>
+
+      {(model.hgramStats != null || model.hpoStats != null || model.gramStats != null) && (
+        <div className='grid grid-cols-1 gap-4 pb-6 sm:grid-cols-2 lg:grid-cols-3'>
+          {model.hgramStats != null && <Section title='hGRAM' stats={model.hgramStats} showSupply showHolders />}
+          {model.hpoStats != null && <Section title='HPO' stats={model.hpoStats} showHolders />}
+          {model.gramStats != null && <Section title='GRAM' stats={model.gramStats} />}
+        </div>
+      )}
+
+      <div className='grid grid-cols-1 gap-4 lg:grid-cols-2'>
         <LineChart
-          title='APY'
+          title='Total value locked'
+          series={stakedSeries}
+          areaFill={accentAreaFill}
+          status={chartsStore.status}
+          domainStart={chartsStore.domainStart}
+          domainEnd={chartsStore.domainEnd}
+          maxGapSeconds={chartsStore.maxGapSeconds}
+          valueFormat={formatStakedValue}
+          axisFormat={formatCompactCount}
+          deltaUnit='%'
+          rangeLabel={chartsStore.rangeLabel}
+          xTickFormat={xTickFormat}
+          tooltipTimeFormat={formatTooltipTime}
+          hoveredTs={chartsStore.hoveredTs}
+          onHover={chartsStore.setHoveredTs}
+          onRetry={chartsStore.retry}
+        />
+        <LineChart
+          title='APY per round'
           series={apySeries}
           status={chartsStore.status}
           domainStart={chartsStore.domainStart}
@@ -212,24 +232,7 @@ const StatsPage = observer(({ model }: Props) => {
           onRetry={chartsStore.retry}
         />
         <LineChart
-          title='Staked'
-          series={stakedSeries}
-          status={chartsStore.status}
-          domainStart={chartsStore.domainStart}
-          domainEnd={chartsStore.domainEnd}
-          maxGapSeconds={chartsStore.maxGapSeconds}
-          valueFormat={formatStakedValue}
-          axisFormat={formatCompactCount}
-          deltaUnit='%'
-          rangeLabel={chartsStore.rangeLabel}
-          xTickFormat={xTickFormat}
-          tooltipTimeFormat={formatTooltipTime}
-          hoveredTs={chartsStore.hoveredTs}
-          onHover={chartsStore.setHoveredTs}
-          onRetry={chartsStore.retry}
-        />
-        <LineChart
-          title='hGRAM holders'
+          title='Active stakers'
           series={holdersSeries}
           status={chartsStore.status}
           domainStart={chartsStore.domainStart}
@@ -278,9 +281,21 @@ const StatsPage = observer(({ model }: Props) => {
         />
       </div>
 
-      <div className='mt-8 flex flex-row justify-center'>
-        <a href='https://stats.hipo.finance' target='hipo_stats' className='text-blue text-sm'>
-          More Stats
+      <div className='text-text-faint flex flex-row flex-wrap gap-x-6 gap-y-2 pt-6 text-sm'>
+        <span>Data refreshes every 5 minutes.</span>
+        <a className='text-accent hover:text-accent-hover' href={model.explorerHref} target='hipo_explorer'>
+          Treasury on explorer →
+        </a>
+        <a
+          className='text-accent hover:text-accent-hover'
+          href='https://github.com/HipoFinance'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          Source on GitHub →
+        </a>
+        <a className='text-accent hover:text-accent-hover' href='https://stats.hipo.finance' target='hipo_stats'>
+          More stats →
         </a>
       </div>
     </div>

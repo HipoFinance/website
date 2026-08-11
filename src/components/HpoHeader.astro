@@ -1,24 +1,28 @@
 ---
-const siteUrl = new URL(import.meta.env.BASE_URL, Astro.site)
+// Warm Dark header for the HPO page. Mirrors the nav pattern in the design handoff
+// (HPO.dc.html), with the "HPO" item active in coral. Owned by src/pages/hpo/index.astro only.
 ---
 
-<header>
-  <div class='from-darkblue1 to-darkblue2 mx-auto min-w-90 bg-radial bg-fixed py-4 text-center'>
-    <div class='font-body dark:text-dark-50 bg-very-dark-navy mx-auto w-full max-w-5xl'>
-      <div class='font-body text-brown dark:text-dark-50 mx-auto w-full'>
-        <div class='from-darkblue1 to-darkblue2 min-w-90 bg-radial bg-fixed text-center'>
-          <div class='mx-auto flex min-w-90 flex-row items-center sm:max-w-5xl'>
-            <div class='mb-4 flex w-full flex-row items-center gap-4 px-4 py-4 md:py-8 lg:py-16'>
-              <a href='https://hipo.finance/'>
-                <img src='/images/hipo.svg' class='h-16 w-16' alt='Hipo Logo' />
-              </a>
-              <a href='https://hipo.finance/'>
-                <div class='font-eczar text-2xl text-white'>Hipo</div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<header class='mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-6 py-5 sm:px-12'>
+  <a href='/' class='flex items-center gap-2.5'>
+    <span class='bg-text inline-flex size-9 items-center justify-center rounded-full'>
+      <img src='/images/hipo.svg' class='size-6' alt='Hipo' />
+    </span>
+    <span class='font-fredoka text-2xl font-semibold'>Hipo</span>
+  </a>
+
+  <nav class='text-text-muted hidden items-center gap-8 text-[15px] font-medium md:flex'>
+    <a href='/' class='hover:text-accent'>Home</a>
+    <a href='/hpo/' class='text-accent'>HPO</a>
+    <a href='/docs/' class='hover:text-accent'>Docs</a>
+    <a href='/faq/' class='hover:text-accent'>FAQ</a>
+    <a href='https://stats.hipo.finance/' target='_blank' rel='noopener noreferrer' class='hover:text-accent'>Stats</a>
+  </nav>
+
+  <a
+    href='/stake/'
+    class='bg-accent text-on-accent hover:bg-accent-hover rounded-full px-6 py-2.5 text-[15px] font-semibold'
+  >
+    Open app
+  </a>
 </header>

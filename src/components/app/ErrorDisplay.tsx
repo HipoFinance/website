@@ -9,12 +9,11 @@ const ErrorDisplay = observer(({ model }: Props) => {
   return (
     <div
       className={
-        'bg-orange dark:text-dark-600 fixed bottom-20 left-6 flex max-w-screen-sm rounded-2xl p-2 text-white drop-shadow sm:bottom-2' +
+        'font-body bg-accent text-on-accent fixed bottom-20 left-6 z-50 flex max-w-screen-sm rounded-2xl p-2 drop-shadow sm:bottom-2' +
         (model.errorMessage === '' ? ' hidden' : '')
       }
     >
-      <img src='/images/app/error.svg' className='h-6 dark:hidden' />
-      <img src='/images/app/error-dark.svg' className='hidden h-6 dark:block' />
+      <img src='/images/app/error.svg' alt='' className='h-6' />
       <p className='mx-1'>{model.errorMessage}</p>
     </div>
   )

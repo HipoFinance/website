@@ -36,7 +36,14 @@ const jsonLd = {
     <link rel='icon' href={`${import.meta.env.BASE_URL}favicon.ico`} />
   </head>
 
-  <body class='bg-very-dark-navy font-poppins text-gray1'>
+  <body class='bg-bg font-body text-text'>
     <slot />
   </body>
 </html>
+
+<style is:global>
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+</style>

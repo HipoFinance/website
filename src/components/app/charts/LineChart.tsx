@@ -2,6 +2,7 @@ import { RefreshCw } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { KeyboardEvent, PointerEvent, TouchEvent } from 'react'
 import type { ChartPoint } from './prometheus'
+import { computeDelta } from './delta'
 
 // Presentational only — no Model import, so it stays swappable for a real chart library later
 // (see specs/app-stats-charts.md) without dragging the dApp store along.
@@ -23,6 +24,8 @@ export interface LineChartProps {
   domainEnd: number
   maxGapSeconds: number
   stepped?: boolean
+  // Fill under the first series, per the design's TVL card. Omitted elsewhere.
+  areaFill?: string
   valueFormat: (v: number) => string
   axisFormat?: (v: number) => string
   deltaUnit: 'pp' | '%'
@@ -37,11 +40,6 @@ export interface LineChartProps {
 interface Size {
   width: number
   height: number
-}
-
-interface Delta {
-  text: string
-  direction: 'up' | 'down' | 'flat'
 }
 
 const padding = { top: 12, right: 60, bottom: 24, left: 4 }
@@ -115,6 +113,50 @@ function buildPath(
   return d.trim()
 }
 
+// Area under the line, built per contiguous run so a data gap leaves a hole in the fill instead
+// of a wedge spanning it. Each run is closed down to the plot's baseline.
+function buildAreaPath(
+  points: ChartPoint[],
+  xScale: (t: number) => number,
+  yScale: (v: number) => number,
+  stepped: boolean,
+  maxGapSeconds: number,
+  baseline: number,
+): string {
+  let d = ''
+  let run: ChartPoint[] = []
+
+  const flush = () => {
+    if (run.length < 2) {
+      run = []
+      return
+    }
+    const firstX = xScale(run[0].t)
+    d += `M${firstX.toFixed(2)},${baseline.toFixed(2)} L${firstX.toFixed(2)},${yScale(run[0].v).toFixed(2)} `
+    for (let i = 1; i < run.length; i++) {
+      const x = xScale(run[i].t)
+      const y = yScale(run[i].v)
+      d += stepped ? `H${x.toFixed(2)} V${y.toFixed(2)} ` : `L${x.toFixed(2)},${y.toFixed(2)} `
+    }
+    d += `L${xScale(run[run.length - 1].t).toFixed(2)},${baseline.toFixed(2)} Z `
+    run = []
+  }
+
+  for (const p of points) {
+    if (!Number.isFinite(p.v)) {
+      continue
+    }
+    const prev = run[run.length - 1]
+    if (prev != null && p.t - prev.t > maxGapSeconds) {
+      flush()
+    }
+    run.push(p)
+  }
+  flush()
+
+  return d.trim()
+}
+
 function nearestPoint(points: ChartPoint[], ts: number): ChartPoint | undefined {
   const finite = points.filter((p) => Number.isFinite(p.v))
   if (finite.length === 0) {
@@ -137,30 +179,6 @@ function nearestPoint(points: ChartPoint[], ts: number): ChartPoint | undefined 
   return best
 }
 
-function computeDelta(points: ChartPoint[], unit: 'pp' | '%'): Delta | undefined {
-  const finite = points.filter((p) => Number.isFinite(p.v))
-  if (finite.length < 2) {
-    return undefined
-  }
-  const first = finite[0]
-  const last = finite[finite.length - 1]
-  if (unit === 'pp') {
-    const diff = last.v - first.v
-    return {
-      text: (diff >= 0 ? '+' : '') + diff.toFixed(1) + ' pp',
-      direction: diff > 0 ? 'up' : diff < 0 ? 'down' : 'flat',
-    }
-  }
-  if (first.v === 0) {
-    return undefined
-  }
-  const pct = ((last.v - first.v) / Math.abs(first.v)) * 100
-  return {
-    text: (pct >= 0 ? '+' : '') + pct.toFixed(1) + '%',
-    direction: pct > 0 ? 'up' : pct < 0 ? 'down' : 'flat',
-  }
-}
-
 const LineChart = ({
   title,
   series,
@@ -169,6 +187,7 @@ const LineChart = ({
   domainEnd,
   maxGapSeconds,
   stepped = false,
+  areaFill,
   valueFormat,
   axisFormat,
   deltaUnit,
@@ -370,26 +389,26 @@ const LineChart = ({
   const showChart = status === 'done' || status === 'refreshing'
 
   return (
-    <div className='dark:bg-dark-800 m-4 rounded-2xl bg-white p-6 shadow-sm'>
-      <div className='flex flex-row items-center'>
-        <p className='text-lg font-bold'>{title}</p>
-        {status === 'refreshing' && <RefreshCw className='text-c1 dark:text-dark-400 ml-2 size-4 animate-spin' />}
+    <div className='border-border bg-surface text-text rounded-[20px] border p-6'>
+      <div className='flex flex-row items-baseline'>
+        <p className='font-fredoka text-[18px] font-semibold'>{title}</p>
+        {status === 'refreshing' && <RefreshCw className='text-text-faint ml-2 size-4 animate-spin' />}
         {series.length === 1 &&
           (() => {
             const delta = computeDelta(series[0].points, deltaUnit)
             if (delta == null) {
-              return null
+              return <p className='text-text-faint ml-auto text-[13px]'>{rangeLabel}</p>
             }
             return (
-              <p className='ml-auto text-sm'>
+              <p className='ml-auto text-[13px]'>
                 <span
                   className={
-                    delta.direction === 'up' ? 'text-green-600' : delta.direction === 'down' ? 'text-orange' : ''
+                    delta.direction === 'up' ? 'text-positive' : delta.direction === 'down' ? 'text-accent' : ''
                   }
                 >
                   {delta.text}
                 </span>{' '}
-                <span className='text-c1 dark:text-dark-400 font-normal'>over {rangeLabel}</span>
+                <span className='text-text-faint font-normal'>· {rangeLabel}</span>
               </p>
             )
           })()}
@@ -400,11 +419,11 @@ const LineChart = ({
           {series.map((s) => {
             const delta = computeDelta(s.points, deltaUnit)
             return (
-              <div key={s.key} className='flex flex-row items-center gap-1.5'>
+              <div key={s.key} className='text-text-muted flex flex-row items-center gap-1.5'>
                 <span className='inline-block h-0.5 w-3' style={{ backgroundColor: s.color }} />
                 <span>{s.name}</span>
                 {delta != null && (
-                  <span className={delta.direction === 'up' ? 'text-green-600' : 'text-orange'}>{delta.text}</span>
+                  <span className={delta.direction === 'up' ? 'text-positive' : 'text-accent'}>{delta.text}</span>
                 )}
               </div>
             )
@@ -412,15 +431,15 @@ const LineChart = ({
         </div>
       )}
 
-      <div ref={containerRef} className='relative mt-3 h-[224px] sm:h-[264px]'>
-        {status === 'loading' && <div className='bg-c3 dark:bg-dark-700 absolute inset-0 animate-pulse rounded-xl' />}
+      <div ref={containerRef} className='relative mt-3 h-[200px] sm:h-[220px]'>
+        {status === 'loading' && <div className='bg-surface-deep absolute inset-0 animate-pulse rounded-xl' />}
 
         {status === 'error' && (
-          <div className='text-c2 dark:text-dark-300 flex h-full flex-col items-center justify-center gap-2 text-sm'>
+          <div className='text-text-muted flex h-full flex-col items-center justify-center gap-2 text-sm'>
             <p>Couldn&apos;t load history</p>
             <button
               type='button'
-              className='border-c1 dark:border-c2 cursor-pointer rounded-lg border px-3 py-1'
+              className='border-border hover:text-accent cursor-pointer rounded-lg border px-3 py-1'
               onClick={onRetry}
             >
               Retry
@@ -429,9 +448,7 @@ const LineChart = ({
         )}
 
         {status === 'empty' && (
-          <div className='text-c2 dark:text-dark-300 flex h-full items-center justify-center text-sm'>
-            No data for this range
-          </div>
+          <div className='text-text-muted flex h-full items-center justify-center text-sm'>No data for this range</div>
         )}
 
         {showChart && size.width > 0 && (
@@ -476,7 +493,7 @@ const LineChart = ({
                       x={size.width - padding.right + 6}
                       y={y}
                       dy='0.32em'
-                      fontSize={11}
+                      fontSize={12}
                       className='tabular-nums'
                       fill='var(--chart-ink)'
                     >
@@ -492,7 +509,7 @@ const LineChart = ({
                 key={t}
                 x={clamp(xScale(t), padding.left + 16, size.width - padding.right - 16)}
                 y={size.height - 6}
-                fontSize={11}
+                fontSize={12}
                 textAnchor='middle'
                 className='tabular-nums'
                 fill='var(--chart-ink)'
@@ -501,13 +518,28 @@ const LineChart = ({
               </text>
             ))}
 
+            {areaFill != null && series[0] != null && (
+              <path
+                d={buildAreaPath(
+                  series[0].points,
+                  xScale,
+                  yScale,
+                  stepped,
+                  maxGapSeconds,
+                  size.height - padding.bottom,
+                )}
+                fill={areaFill}
+                stroke='none'
+              />
+            )}
+
             {series.map((s) => (
               <path
                 key={s.key}
                 d={buildPath(s.points, xScale, yScale, stepped, maxGapSeconds)}
                 fill='none'
                 stroke={s.color}
-                strokeWidth={2}
+                strokeWidth={2.5}
                 strokeLinejoin='round'
               />
             ))}
@@ -522,13 +554,13 @@ const LineChart = ({
               const y = yScale(last.v)
               return (
                 <g key={s.key + '-last'}>
-                  <circle cx={x} cy={y} r={5} className='dark:fill-dark-800 fill-white' />
+                  <circle cx={x} cy={y} r={5} className='fill-surface' />
                   <circle cx={x} cy={y} r={3} fill={s.color} />
                   <text
                     x={Math.min(x + 8, size.width - padding.right + 6)}
                     y={y}
                     dy='0.32em'
-                    fontSize={11}
+                    fontSize={12}
                     className='tabular-nums'
                     fill='var(--chart-ink)'
                   >
@@ -558,7 +590,7 @@ const LineChart = ({
                   const y = yScale(near.v)
                   return (
                     <g key={s.key + '-hover'}>
-                      <circle cx={x} cy={y} r={5} className='dark:fill-dark-800 fill-white' />
+                      <circle cx={x} cy={y} r={5} className='fill-surface' />
                       <circle cx={x} cy={y} r={3} fill={s.color} />
                     </g>
                   )
@@ -573,7 +605,7 @@ const LineChart = ({
             once would be noise. */}
         {showChart && showHairline && size.width > 0 && (pointerPos != null || focused) && (
           <div
-            className='dark:bg-dark-700 border-c1 dark:border-c2 pointer-events-none absolute z-10 rounded-lg border bg-white px-3 py-2 text-xs shadow-xl'
+            className='border-border bg-surface-deep text-text pointer-events-none absolute z-10 rounded-xl border px-3 py-2 text-xs shadow-xl'
             style={{
               left: clamp(pointerPos?.x ?? hairlineX, 72, size.width - 72),
               top: pointerKind === 'touch' ? clamp((pointerPos?.y ?? 0) - 48, 0, size.height - 24) : padding.top,
@@ -598,8 +630,8 @@ const LineChart = ({
         )}
       </div>
 
-      <details className='mt-2 text-xs'>
-        <summary className='text-c2 dark:text-dark-300 cursor-pointer'>Show table</summary>
+      <details className='text-text-muted mt-2 text-xs'>
+        <summary className='text-text-faint hover:text-accent cursor-pointer'>Show table</summary>
         <div className='mt-2 max-h-64 overflow-auto'>
           <table className='w-full text-left tabular-nums'>
             <thead>

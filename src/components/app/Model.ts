@@ -166,10 +166,12 @@ function routeForState(activePage: ActivePage, activeTab: ActiveTab): Route {
   )
 }
 
-const tonConnectButtonRootId = 'ton-connect-button'
-
-// Both roots are rendered by the island (App.tsx / Header.tsx) so that TonConnect's own DOM
-// lives inside the persisted element. Left to itself TonConnect appends div#tc-widget-root to
+// TonConnect's own connect-button widget is no longer rendered: the header draws a custom
+// button from Model state instead (see Header.tsx), driven by openModal()/disconnect(). So no
+// `buttonRootId` is passed to TonConnectUI and there is no #ton-connect-button root anymore.
+//
+// The widget root still is rendered by the island (App.tsx) so that TonConnect's own DOM lives
+// inside the persisted element. Left to itself TonConnect appends div#tc-widget-root to
 // document.body, which the ClientRouter replaces wholesale on every navigation, taking the
 // wallet and transaction modals with it.
 const tonConnectWidgetRootId = 'ton-connect-widget-root'
@@ -187,9 +189,15 @@ function keepRuntimeStyles(event: Event) {
     newDocument.head.appendChild(style)
   })
 
-  // TonConnect also mounts Solid portals (the connected-address dropdown, notification toasts)
-  // directly under document.body — outside both roots above — so the swap would orphan them.
-  // Adopt them into the incoming body, node identity intact, to keep their reactivity working.
+  // TonConnect also mounts Solid portals (notification toasts, and — when its own connect
+  // button widget is rendered — the connected-address dropdown) directly under document.body,
+  // outside the widget root above, so the swap would orphan them. Adopt them into the incoming
+  // body, node identity intact, to keep their reactivity working.
+  //
+  // Since the button widget was replaced by the header's own button, the dropdown portal is not
+  // expected to appear at all; the selector is kept because matching nothing costs nothing,
+  // while dropping it would silently orphan the portal if TonConnect ever reintroduces one.
+  // The toast selector is load-bearing and must stay: toasts still portal to document.body.
   Array.from(document.body.children).forEach((el) => {
     if (el.tagName === 'DIV' && el.querySelector('[data-tc-dropdown-container], [data-tc-list-notifications]')) {
       newDocument.body.appendChild(el)
@@ -221,7 +229,8 @@ function keepRuntimeStyles(event: Event) {
 // body (its own :focus-visible stand-in), but it binds those listeners to the body element
 // that existed when it initialized — the ClientRouter replaces the body, so the tracking dies
 // after the first navigation and every click paints the ring. Mirror the same toggling at the
-// document level, which is never swapped.
+// document level, which is never swapped. Still needed after the connect button was replaced:
+// the wallet modal and the notification toasts are TonConnect's own UI and use the same rule.
 function trackInputModality(event: Event) {
   if (event.type === 'mousedown') {
     document.body.classList.add('tc-using-mouse')
@@ -271,7 +280,6 @@ export class Model {
   walletRewards?: WalletRewards
 
   // unobserved state
-  dark = false
   tonConnectUI?: TonConnectUI
   lastBlock = 0
   timeoutConnectTonAccess?: ReturnType<typeof setTimeout>
@@ -378,6 +386,9 @@ export class Model {
       statsApyFormatted: computed,
       statsStakedFormatted: computed,
       statsHoldersFormatted: computed,
+      statsStakedCompact: computed,
+      statsTvlUsdFormatted: computed,
+      statsRateFormatted: computed,
       hgramStats: computed,
       hpoStats: computed,
       gramStats: computed,
@@ -411,10 +422,6 @@ export class Model {
     if (this.initialized) {
       return
     }
-
-    this.dark =
-      localStorage.theme === 'dark' ||
-      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
 
     document.onvisibilitychange = this.controlBackgroundJobs
     this.controlBackgroundJobs()
@@ -880,6 +887,44 @@ export class Model {
   get statsHoldersFormatted() {
     const holders = this.useGauge ? this.gauge?.hgram?.holders_count : undefined
     return holders != null ? formatCompact1Fraction(holders) : '—'
+  }
+
+  // Same figure as statsStakedFormatted, abbreviated for the Stats page's headline card
+  // ("1.54M" rather than "1,540,000 GRAM"), with the unit carried by the card's label.
+  get statsStakedCompact() {
+    const tvl = this.gauge?.treasury?.current_tvl
+    if (this.useGauge && tvl != null) {
+      return formatCompact1Fraction(tvl / 1000000000)
+    }
+    if (this.treasuryState != null) {
+      return formatCompact1Fraction(Number(this.treasuryState.totalCoins) / 1000000000)
+    }
+  }
+
+  // TVL in dollars. The gauge has no USD field for the treasury, so this is staked GRAM priced
+  // at the GRAM quote from the same response — both numbers come from one fetch, so they are
+  // always consistent with each other. Undefined (and therefore omitted) if either is missing.
+  get statsTvlUsdFormatted() {
+    const tvl = this.gauge?.treasury?.current_tvl
+    const price = this.gauge?.gram?.market?.current_price?.usd
+    if (this.useGauge && tvl != null && price != null) {
+      return formatUsdCompact((tvl / 1000000000) * price)
+    }
+  }
+
+  // hGRAM/GRAM rate as a bare number for the Stats page card. Prefers the gauge (the quotes
+  // ratio) because the block poller is paused on every page but /stake/, so treasuryState is
+  // usually unavailable here; falls back to the contract rate when it has been read.
+  get statsRateFormatted() {
+    const hgram = this.gauge?.hgram?.market?.current_price?.usd
+    const gram = this.gauge?.gram?.market?.current_price?.usd
+    if (this.useGauge && hgram != null && gram != null && gram > 0) {
+      return formatRate(hgram / gram)
+    }
+    const state = this.treasuryState
+    if (state != null) {
+      return formatRate(Number(state.totalCoins) / Number(state.totalTokens) || 1)
+    }
   }
 
   get hgramStats() {
@@ -1522,10 +1567,7 @@ export class Model {
   }
 
   initTonConnect = () => {
-    if (
-      document.getElementById(tonConnectButtonRootId) != null &&
-      document.getElementById(tonConnectWidgetRootId) != null
-    ) {
+    if (document.getElementById(tonConnectWidgetRootId) != null) {
       this.connectWallet()
     } else {
       setTimeout(this.initTonConnect, 10)
@@ -1538,74 +1580,54 @@ export class Model {
     }
   }
 
+  // Drives the header's custom wallet pill. TonConnect's own button widget (which used to own
+  // this action through its dropdown) is no longer rendered.
+  disconnect = () => {
+    if (this.tonConnectUI != null) {
+      void this.tonConnectUI.disconnect()
+    }
+  }
+
   connectWallet = () => {
     this.tonConnectUI = new TonConnectUI({
       manifestUrl: 'https://hipo.finance/tonconnect-manifest.json',
-      buttonRootId: tonConnectButtonRootId,
+      // No buttonRootId on purpose: the header renders its own wallet button.
       widgetRootId: tonConnectWidgetRootId,
       actionsConfiguration: {
         twaReturnUrl: 'https://t.me/HipoFinanceBot',
       },
+      // Single warm-dark theme, so only the dark colors set is supplied and the theme is fixed.
       uiPreferences: {
-        theme: this.dark ? THEME.DARK : THEME.LIGHT,
+        theme: THEME.DARK,
         colorsSet: {
-          [THEME.LIGHT]: {
-            connectButton: {
-              background: '#ff7e73',
-              foreground: '#fff',
-            },
-            background: {
-              primary: '#efebe5',
-              secondary: '#fff',
-              qr: '#fff',
-              tint: '#fff',
-              segment: '#fff',
-            },
-            text: {
-              primary: '#776464',
-              secondary: '#776464',
-            },
-            icon: {
-              primary: '#776464',
-              secondary: '#776464',
-              tertiary: '#776464',
-              success: '#4bb543',
-              error: '#e00',
-            },
-            constant: {
-              black: '#776464',
-              white: '#fff',
-            },
-            accent: '#ff7e73',
-          },
           [THEME.DARK]: {
             connectButton: {
               background: '#ff7e73',
-              foreground: '#483637',
+              foreground: '#291f20',
             },
             background: {
-              primary: '#464343', // dialog/connected-button background
-              secondary: '#8b807f', // menu item hover background
-              qr: '#eaeaea',
-              tint: '#8b807f',
-              segment: '#464343',
+              primary: '#2b2423', // dialog background
+              secondary: '#3d3331', // menu item hover background
+              qr: '#f5efe8',
+              tint: '#3d3331',
+              segment: '#2b2423',
             },
             text: {
-              primary: '#f2f2f2', // dialog/connected-button text
-              secondary: '#ffedef', // dialog subtitle
+              primary: '#f5efe8', // dialog text
+              secondary: '#c2b5ac', // dialog subtitle
             },
             icon: {
-              primary: '#f2f2f2', // browser extension icon
-              secondary: '#ffedef', // dialog close
-              tertiary: '#f2f2f2', // loading indicator in connect button
-              success: '#4bb543', // success notification color
-              error: '#f00', // error notification color
+              primary: '#f5efe8', // browser extension icon
+              secondary: '#c2b5ac', // dialog close
+              tertiary: '#f5efe8', // loading indicator
+              success: '#4ade80', // success notification color
+              error: '#ff7e73', // error notification color
             },
             constant: {
-              black: '#333131', // qrcode color
-              white: '#333131', // ton connect footer
+              black: '#201b1a', // qrcode color
+              white: '#201b1a', // ton connect footer
             },
-            accent: '#ff7e73', // orange
+            accent: '#ff7e73', // coral
           },
         },
       },
@@ -1613,24 +1635,6 @@ export class Model {
     this.tonConnectUI.onStatusChange((wallet) => {
       this.setAddress(wallet == null ? undefined : Address.parseRaw(wallet.account.address))
     })
-  }
-
-  setDark = (dark: boolean) => {
-    this.dark = dark
-    if (dark) {
-      localStorage.theme = 'dark'
-      document.documentElement.classList.add('dark')
-    } else {
-      localStorage.theme = 'light'
-      document.documentElement.classList.remove('dark')
-    }
-    if (this.tonConnectUI != null) {
-      this.tonConnectUI.uiOptions = {
-        uiPreferences: {
-          theme: dark ? THEME.DARK : THEME.LIGHT,
-        },
-      }
-    }
   }
 
   // Also the refresh button's handler. clearTimeout on entry means a manual call cancels the
@@ -1728,6 +1732,10 @@ export function formatUsdPrice(n: number): string {
 
 function formatUsdCompact(n: number): string {
   return '$' + formatCompact1Fraction(n)
+}
+
+function formatRate(n: number): string {
+  return n.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 })
 }
 
 function formatSignedPercent(n: number): string {

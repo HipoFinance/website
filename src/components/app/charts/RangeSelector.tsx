@@ -1,5 +1,5 @@
 import { type StatsRange } from '../Model'
-import { STATS_RANGES } from './prometheus'
+import { RANGE_LABELS, STATS_RANGES } from './prometheus'
 
 interface Props {
   value: StatsRange
@@ -8,7 +8,7 @@ interface Props {
 
 const RangeSelector = ({ value, onChange }: Props) => (
   <div
-    className='border-c1 dark:border-c2 inline-flex flex-row rounded-xl border p-1 text-sm'
+    className='border-border bg-surface inline-flex flex-row gap-1.5 rounded-full border p-1 text-[13px] font-semibold'
     role='group'
     aria-label='Chart range'
   >
@@ -18,12 +18,12 @@ const RangeSelector = ({ value, onChange }: Props) => (
         type='button'
         aria-pressed={range === value}
         className={
-          'cursor-pointer rounded-lg px-3 py-1 ' +
-          (range === value ? 'bg-orange text-white' : 'text-brown dark:text-dark-50')
+          'cursor-pointer rounded-full px-3.5 py-1.5 ' +
+          (range === value ? 'bg-accent text-on-accent' : 'text-text-muted hover:text-accent')
         }
         onClick={() => onChange(range)}
       >
-        {range}
+        {RANGE_LABELS[range]}
       </button>
     ))}
   </div>

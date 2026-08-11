@@ -1,54 +1,172 @@
 /*
- * Brand theming for the Starlight docs section (/docs).
+ * Warm Dark theming for the Starlight docs section (/docs). See specs/design handoff (Docs.dc.html)
+ * and the changelog entry for 2026-08-11.
  *
  * This file is loaded only by Starlight, via `customCss` in astro.config.mjs. It deliberately does
  * NOT import src/styles/global.css: that pulls in Tailwind's preflight, which conflicts with
  * Starlight's own reset. Brand alignment is done through Starlight's CSS custom properties instead.
+ *
+ * The site is single-theme (dark only, forced by src/components/starlight/ThemeProvider.astro), so
+ * unlike the previous version of this file there is no `:root[data-theme='light']` block — only one
+ * palette is defined, ever.
+ *
+ * Raw color values below mirror the Warm Dark tokens in src/styles/global.css `@theme` (kept as
+ * plain custom properties here, not Tailwind, since this file can't import that stylesheet). Keep
+ * the two in sync by hand if the palette changes.
  */
 
-@import '@fontsource/poppins/300.css';
-@import '@fontsource/poppins/400.css';
-@import '@fontsource/poppins/500.css';
-@import '@fontsource/poppins/700.css';
-@import '@fontsource/eczar/800.css';
+@import '@fontsource-variable/fredoka';
+@import '@fontsource/heebo/300.css';
+@import '@fontsource/heebo/400.css';
+@import '@fontsource/heebo/500.css';
+@import '@fontsource/heebo/700.css';
 
 :root {
-  --sl-font: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  /* Warm Dark palette (see src/styles/global.css @theme). */
+  --hipo-bg: #201b1a;
+  --hipo-bg-nav: #241f1e;
+  --hipo-surface: #2b2423;
+  --hipo-surface-deep: #171312;
+  --hipo-border: #3d3331;
+  --hipo-text: #f5efe8;
+  --hipo-text-muted: #c2b5ac;
+  --hipo-text-faint: #8d7f76;
+  --hipo-body: #d9cfc6;
+  --hipo-accent: #ff7e73;
+  --hipo-accent-hover: #ff958c;
+  --hipo-accent-high: #ffc4bf;
+  --hipo-accent-tint: rgba(255, 126, 115, 0.14);
+  --hipo-on-accent: #291f20;
 
-  /* Hipo orange, --color-orange in src/styles/global.css */
-  --sl-color-accent: #ff7e73;
-  --sl-color-accent-low: #5c2b27;
-  --sl-color-accent-high: #ffc4bf;
+  --sl-font: 'Heebo', ui-sans-serif, system-ui, sans-serif;
 
-  --sl-color-white: #ffffff;
-  --sl-color-gray-1: #eceef2;
-  --sl-color-gray-2: #dedbe4;
-  --sl-color-gray-3: #b8aa9c;
-  --sl-color-gray-4: #776464;
-  --sl-color-gray-5: #291f20;
-  --sl-color-gray-6: #1b1b2e;
-  --sl-color-black: #02031e; /* --color-very-dark-navy */
+  /* Fixed heading sizes per the design (h1 40px, h3 24px), regardless of Starlight's own
+     viewport-based type scale below 50rem/72rem. */
+  --sl-text-h1: 2.5rem;
+  --sl-text-h3: 1.5rem;
+
+  /* Docs layout: 260px sidebar / 760px article / 200px "On this page" (see README layout §). */
+  --sl-sidebar-width: 16.25rem;
+  --sl-content-width: 47.5rem;
+
+  /* Starlight semantic tokens, remapped to the Warm Dark palette. */
+  --sl-color-white: var(--hipo-text);
+  --sl-color-black: var(--hipo-bg);
+  --sl-color-bg: var(--hipo-bg);
+  --sl-color-bg-nav: var(--hipo-bg-nav);
+  --sl-color-bg-sidebar: var(--hipo-bg);
+  --sl-color-bg-inline-code: var(--hipo-surface-deep);
+  --sl-color-bg-accent: var(--hipo-accent);
+  --sl-color-text: var(--hipo-body);
+  --sl-color-text-accent: var(--hipo-accent);
+  --sl-color-text-invert: var(--hipo-on-accent);
+  --sl-color-hairline: var(--hipo-border);
+  --sl-color-hairline-light: var(--hipo-border);
+  --sl-color-hairline-shade: var(--hipo-border);
+  --sl-color-backdrop-overlay: rgba(23, 19, 18, 0.72);
+
+  --sl-color-gray-1: var(--hipo-text);
+  --sl-color-gray-2: var(--hipo-text-muted);
+  --sl-color-gray-3: var(--hipo-text-faint);
+  --sl-color-gray-4: var(--hipo-text-faint);
+  --sl-color-gray-5: var(--hipo-border);
+  --sl-color-gray-6: var(--hipo-surface);
+  --sl-color-gray-7: var(--hipo-surface-deep);
+
+  --sl-color-accent-low: var(--hipo-accent-tint);
+  --sl-color-accent: var(--hipo-accent);
+  --sl-color-accent-high: var(--hipo-accent-high);
 }
 
-/* Light theme */
-:root[data-theme='light'] {
-  --sl-color-accent: #d4453a;
-  --sl-color-accent-low: #ffd9d5;
-  --sl-color-accent-high: #7a221b;
-
-  --sl-color-white: #02031e;
-  --sl-color-gray-1: #0b0826;
-  --sl-color-gray-2: #291f20;
-  --sl-color-gray-3: #776464;
-  --sl-color-gray-4: #b8aa9c;
-  --sl-color-gray-5: #efebe5; /* --color-milky */
-  --sl-color-gray-6: #f4f1ed; /* --color-c3 */
-  --sl-color-gray-7: #f9f8f6;
-  --sl-color-black: #ffffff;
+@media (min-width: 72rem) {
+  :root {
+    /* 56px article padding (design layout §), up from Starlight's default 1.5rem/24px. */
+    --sl-content-pad-x: 3.5rem;
+  }
 }
 
 .site-title {
-  font-family: 'Eczar', ui-serif, serif;
+  font-family: 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
+  font-weight: 600;
+}
+
+::selection {
+  background: var(--hipo-accent);
+  color: var(--hipo-on-accent);
+}
+
+a:hover {
+  color: var(--hipo-accent);
+}
+
+/* Article headings use Fredoka; body text stays Heebo. */
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
+  font-family: 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
+}
+
+.sl-markdown-content strong:not(:where(.not-content *)),
+.sl-markdown-content b:not(:where(.not-content *)) {
+  color: var(--hipo-text);
+}
+
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+  color: var(--hipo-accent);
+}
+
+/* Search field styled as a deep well, per the design (desktop only — mobile keeps the icon-only
+   button). */
+@media (min-width: 50rem) {
+  button[data-open-modal] {
+    background-color: var(--hipo-surface-deep);
+    border-color: var(--hipo-border);
+    border-radius: 10px;
+    color: var(--hipo-text-faint);
+  }
+  button[data-open-modal]:hover {
+    border-color: var(--hipo-accent);
+    color: var(--hipo-text);
+  }
+}
+
+/* Sidebar: uppercase, faint group labels; coral-on-tint active pill (8px radius) instead of
+   Starlight's default solid-fill pill. Scoped to #starlight__sidebar so it can't collide with the
+   "On this page" ToC, which uses a different `aria-current` value. */
+#starlight__sidebar .group-label .large {
+  font: 600 12px var(--sl-font);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--hipo-text-faint);
+}
+
+#starlight__sidebar a {
+  border-radius: 8px;
+  font-size: 14.5px;
+}
+
+#starlight__sidebar a[aria-current='page'],
+#starlight__sidebar a[aria-current='page']:hover,
+#starlight__sidebar a[aria-current='page']:focus {
+  background-color: var(--hipo-accent-tint);
+  color: var(--hipo-accent);
+  font-weight: 500;
+}
+
+/* "On this page" ToC: coral active item (color already comes from --sl-color-text-accent above). */
+.right-sidebar-panel a[aria-current='true'] {
+  font-weight: 500;
+}
+
+/* Prev/next pagination cards: faint label, coral title, flat (no shadow). */
+.pagination-links a {
+  color: var(--hipo-text-faint);
+  border-radius: 12px;
+  box-shadow: none;
+}
+.pagination-links a:hover {
+  border-color: var(--hipo-accent);
+}
+.pagination-links .link-title {
+  color: var(--hipo-accent);
 }
 
 /* Imported GitBook figures. */
@@ -78,6 +196,6 @@
   aspect-ratio: 16 / 9;
   height: auto;
   margin: 1.5rem 0;
-  border: 0;
-  border-radius: 0.5rem;
+  border: 1px solid var(--hipo-border);
+  border-radius: 16px;
 }

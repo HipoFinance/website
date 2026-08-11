@@ -1,409 +1,312 @@
----
-import GeckoChart from '../components/GeckoChart.astro'
----
-
 <landing>
-  <script src='/src/scripts/hpo-data.js'></script>
+  <script src='/src/scripts/landing-data.js'></script>
 
-  <div class='font-body dark:text-dark-50'>
-    <!-- Landing Page  -->
-    <div class='bg-very-dark-navy mx-auto min-w-90 bg-fixed py-4 text-center md:py-8 lg:py-16'>
-      <!-- Title -->
-      <div class='hipo-section flex flex-col items-start gap-8 text-left md:max-w-5xl'>
-        <!-- Mobile version -->
-        <div class='sm:hidden'>
-          <div class='flex flex-col items-start gap-6'>
-            <div class='text-[32px] font-bold'>
-              <h1>The #1 Most Profitable GRAM Staking on TON</h1>
-            </div>
-            <div class='mx-auto px-4'>
-              <img class='size-64' src='/images/hipo-bank.webp' alt='Hipo Bank Illustration' />
-            </div>
-            <div class='text-lg'>
-              <h2>
-                Join
-                <span class='text-purple9 font-bold'>23,000+</span> GRAM holders earning passive income with Hipo
-              </h2>
-            </div>
-            <div class='hipo-button-div'>
-              <a class='hipo-button-a' href='/stake/' target='_blank' rel='noopener noreferrer'>
-                <div class='hipo-button-label'>Stake Now</div>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Desktop version -->
-        <div class='hidden sm:visible sm:flex sm:flex-row'>
-          <div class='flex w-1/2 flex-col items-start gap-6'>
-            <div class='mb-16 text-[48px] leading-tight font-bold md:text-[64px]'>
-              <div>The #1 Most Profitable GRAM Staking on TON</div>
-            </div>
-            <div class='text-[20px] font-normal md:text-[24px]'>
-              <h2>
-                Join
-                <span class='text-purple9 font-bold'>23,000+</span> GRAM holders earning passive income with Hipo
-              </h2>
-            </div>
-            <div class='hipo-button-div'>
-              <a class='hipo-button-a' href='/stake/' target='_blank' rel='noopener noreferrer'>
-                <div class='hipo-button-label'>Stake Now</div>
-              </a>
-            </div>
-          </div>
-          <div class='w-1/2'>
-            <div class='mx-auto px-4'>
-              <img class='size-full' src='/images/hipo-bank.webp' alt='Hipo Bank Illustration' />
-            </div>
-          </div>
-        </div>
+  <!-- Hero -->
+  <section
+    class='mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-6 py-12 md:px-12 lg:grid-cols-[1.1fr_1fr]'
+  >
+    <div class='flex flex-col gap-[22px]'>
+      <div
+        class='border-border bg-surface text-text-muted flex w-fit items-center gap-2 rounded-full border px-3.5 py-[7px] text-sm font-medium'
+      >
+        <span class='bg-positive inline-block size-2 rounded-full'></span>
+        Live APY <strong id='heroApy' class='text-text'>4.8%</strong> · Protocol fee 0%
       </div>
 
-      <!-- Highlights -->
-      <div class='hipo-section w-full min-w-70 text-sm font-bold md:max-w-5xl md:text-lg'>
-        <div class='border-darkblue5 from-darkblue4 to-darkblue3 rounded-2xl border bg-linear-to-t p-2'>
-          <div class='mx-auto flex w-full flex-row bg-[url(/images/dots.svg)] py-6'>
-            <div class='mx-auto flex w-2/7 flex-col items-center gap-4'>
-              <img src='/images/shild.svg' class='size-10' alt='Security Shield Icon' />
-              <p>Audited</p>
-            </div>
-            <div class='mx-auto flex w-2/7 flex-col items-center gap-4'>
-              <img src='/images/lockup.svg' class='size-10' alt='No Lockup Icon' />
-              <p>No Lockup</p>
-            </div>
-            <div class='mx-auto flex w-2/7 flex-col items-center gap-4'>
-              <img src='/images/star-shine.svg' class='size-10' alt='Top Rewards Icon' />
-              <p>Top Rewards</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <h1
+        class='font-fredoka text-text text-[36px] leading-[1.1] font-semibold tracking-[-0.5px] sm:text-[48px] lg:text-[60px] lg:leading-[1.08]'
+      >
+        The #1 most profitable <span class='text-accent'>GRAM staking</span> on TON
+      </h1>
 
-      <!-- How Hipo works -->
-      <div id='how-it-works' class='hipo-section flex flex-col items-center text-center md:max-w-5xl'>
-        <h3 class='hipo-section-title'>How Hipo works</h3>
-        <div class='hipo-section-summary'>
-          <p>Stake any amount of GRAM and</p>
-          <p>earn more than just staking rewards!</p>
-        </div>
+      <p class='text-text-muted max-w-[460px] text-[17px] leading-[1.6] lg:text-[19px]'>
+        Join 23,000+ GRAM holders earning passive income with Hipo — liquid, audited, and community-owned.
+      </p>
 
-        <div class='hipo-cards-list'>
-          <div class='hipo-how-it-works-card'>
-            <div class='hipo-how-it-works-card-bg'>
-              <div class='hipo-how-it-works-card-template'>
-                <div class='hipo-how-it-works-card-title w-full'>1. Stake GRAM</div>
-                <div class='hipo-how-it-works-card-text w-full grow pb-4'>
-                  Deposit your GRAM into Hipo to earn the highest staking rewards in the market.
-                </div>
-                <div class='mx-auto'>
-                  <img class='size-16 lg:size-28' src='/images/gram-3d.svg' alt='GRAM Token Icon' />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class='hipo-how-it-works-card'>
-            <div class='hipo-how-it-works-card-bg'>
-              <div class='hipo-how-it-works-card-template'>
-                <div class='hipo-how-it-works-card-title w-full'>2. Get Liquid hGRAM</div>
-                <div class='hipo-how-it-works-card-text w-full grow pb-4'>
-                  Get hGRAM representing your staked GRAM. Its value grows as staking rewards accumulate, and you can
-                  use it across DeFi.
-                </div>
-                <div class='mx-auto'>
-                  <img class='size-16 lg:size-28' src='/images/hgram-3d.svg' alt='hGRAM Token Icon' />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class='hipo-how-it-works-card'>
-            <div class='hipo-how-it-works-card-bg'>
-              <div class='hipo-how-it-works-card-template'>
-                <div class='hipo-how-it-works-card-title w-full'>3. Earn Bonus HPO</div>
-                <div class='hipo-how-it-works-card-text w-full grow pb-4'>
-                  Enjoy extra rewards in HPO — Hipo&apos;s governance and profit-sharing token.
-                </div>
-                <div class='mx-auto'>
-                  <img class='size-16 lg:size-28' src='/images/hpo.svg' alt='HPO Token Icon' />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class='hipo-how-it-works-card'>
-            <div class='hipo-how-it-works-card-bg'>
-              <div class='hipo-how-it-works-card-template'>
-                <div class='hipo-how-it-works-card-title w-full'>4. Unstake Anytime</div>
-                <div class='hipo-how-it-works-card-text w-full grow pb-4'>
-                  Return your hGRAM whenever you want. You&apos;ll receive GRAM plus your accumulated staking rewards.
-                </div>
-                <div class='mx-auto'>
-                  <div class='flex flex-row items-center gap-4 text-3xl'>
-                    <img class='size-16 lg:size-28' src='/images/gram-3d.svg' alt='TON Token Icon' />+
-                    <div class='flex flex-row items-center gap-2'>
-                      <img class='size-10 lg:size-16' src='/images/gram-3d.svg' alt='TON Token Icon' />
-                      <img class='size-10 lg:size-16' src='/images/gram-3d.svg' alt='TON Token Icon' />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hipo Security Audits -->
-      <div id='audits' class='hipo-section flex w-full flex-col items-center text-center md:max-w-5xl'>
-        <h3 class='hipo-section-title'>Hipo Security Audits</h3>
-        <div class='hipo-section-summary'>
-          <p>One of the most rigorously tested smart contracts in the GRAM ecosystem</p>
-        </div>
-
-        <div class='hipo-cards-list'>
-          <div class='hipo-audits-card'>
-            <div class='hipo-audits-card-bg'>
-              <div class='hipo-audits-card-template'>
-                <div class='mb-6 flex flex-row items-center gap-1 font-bold'>
-                  <img class='size-4' src='/images/quantstamp.svg' alt='Quantstamp Logo' />
-                  Quantstamp
-                </div>
-                <div class='mb-8 flex flex-col gap-4 text-start'>
-                  <div>Hipo v2 Smart Contract Audit</div>
-                  <div class='text-[18px] text-white/50'>Apr 2025</div>
-                </div>
-                <div class='hipo-see-report-link-text'>
-                  <a
-                    href='https://github.com/HipoFinance/audits?tab=readme-ov-file#2025-04-quantstamp-hipo-audit-report'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    See Report →
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class='hipo-audits-card'>
-            <div class='hipo-audits-card-bg'>
-              <div class='hipo-audits-card-template'>
-                <div class='mb-6 flex flex-row items-center gap-1 font-bold'>
-                  <div
-                    class='flex size-6 items-center justify-center rounded-full bg-linear-to-t from-green-900 to-green-500 text-xs font-light'
-                  >
-                    ET
-                  </div>
-                  Ender Ting
-                </div>
-                <div class='mb-8 flex flex-col gap-4 text-start'>
-                  <div>Hipo v2 Smart Contract Audit</div>
-                  <div class='text-[18px] text-white/50'>March 2024</div>
-                </div>
-                <div class='hipo-see-report-link-text'>
-                  <a
-                    href='https://github.com/HipoFinance/audits?tab=readme-ov-file#2024-03-programcrafter-hipo-audit-report'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    See Report →
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class='hipo-audits-card'>
-            <div class='hipo-audits-card-bg'>
-              <div class='hipo-audits-card-template'>
-                <div class='mb-6 flex flex-row items-center gap-1 font-bold'>
-                  <img class='size-4' src='/images/tontech.svg' alt='TonTech Logo' />
-                  TonTech
-                </div>
-                <div class='mb-8 flex flex-col gap-4 text-start'>
-                  <div>Hipo v1 Smart Contract Audit</div>
-                  <div class='text-[18px] text-white/50'>Oct 2023</div>
-                </div>
-                <div class='hipo-see-report-link-text'>
-                  <a
-                    href='https://github.com/HipoFinance/audits#2023-10-tontech-hipo-audit-report'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    See Report →
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class='hipo-audits-card'>
-            <div class='hipo-audits-card-bg'>
-              <div class='hipo-audits-card-template'>
-                <div class='mb-6 flex flex-row items-center gap-1 font-bold'>
-                  <div
-                    class='flex size-6 items-center justify-center rounded-full bg-linear-to-t from-blue-900 to-blue-500 text-xs font-light'
-                  >
-                    DS
-                  </div>
-                  Daniil Sedov
-                </div>
-                <div class='mb-8 flex flex-col gap-4 text-start'>
-                  <div>Hipo v1 Smart Contract Audit</div>
-                  <div class='text-[18px] text-white/50'>Oct 2023</div>
-                </div>
-                <div class='hipo-see-report-link-text'>
-                  <a
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    href='https://github.com/HipoFinance/audits#2023-10-daniil-sedov-hipo-audit-report'
-                  >
-                    See Report →
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- HPO  -->
-      <div id='hpo' class='hipo-section flex flex-col items-center gap-8 text-center md:max-w-5xl'>
-        <h3 class='hipo-section-title'>HPO</h3>
-        <div class='hipo-section-summary'>
-          <p>Hipo&apos;s Governance and Profit-Sharing Token!</p>
-        </div>
-        <div class='flex flex-row flex-wrap gap-2'>
-          <div class='mx-auto mb-8 max-w-xl sm:w-5/12'>
-            <div class='flex flex-auto flex-col items-center'>
-              <div class='mb-4 w-full'>
-                <GeckoChart coin='hipo-governance-token' />
-              </div>
-              <div class='flex w-full flex-row justify-between gap-2 text-sm'>
-                <div class='flax-auto space-x-1'>
-                  <span class='font-normal'>Market Cap.:</span>
-                  <span id='hpoMarketCap' class='text-xl font-bold'> </span>
-                </div>
-                <div class='flax-auto space-x-1'>
-                  <span class='font-normal'>Volume:</span>
-                  <span id='hpoVolume' class='text-xl font-bold'> </span>
-                </div>
-                <div class='flax-auto space-x-1'>
-                  <span class='font-normal'>Holders:</span>
-                  <span id='hpoHolders' class='text-xl font-bold'> </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class='mx-auto sm:w-5/12'>
-            <div class='flex w-full flex-col items-start gap-6 px-2 text-start'>
-              <div class='hipo-section-text'>Become an HPO holder for revenue-sharing and decision-making in Hipo.</div>
-              <div class='hipo-learn-more-link-text'>
-                <a href='https://hipo.finance/hpo'>Learn More</a>
-              </div>
-              <div class='hipo-button-div'>
-                <a
-                  class='hipo-button-a'
-                  href='https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=HPO'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <div class='hipo-button-label'>Buy HPO</div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hipo Club -->
-      <div id='hipo-club' class='hipo-section-side-touched from-darkblue4 to-darkblue3 bg-linear-to-t'>
-        <div
-          class='flex flex-col items-center gap-8 bg-[url(/images/mesh.png)] bg-contain bg-top-left bg-no-repeat px-8 py-16 text-center md:px-36'
+      <div class='flex flex-wrap items-center gap-3.5'>
+        <a
+          href='/stake/'
+          class='bg-accent text-on-accent hover:bg-accent-hover rounded-full px-8 py-[15px] text-[17px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
         >
-          <h3 class='hipo-section-title'>Hipo Club</h3>
-          <div class='hipo-section-summary'>
-            <p>Community of Hipo Believers</p>
-          </div>
-          <div class='flex flex-row flex-wrap items-center gap-4'>
-            <div class='mx-auto mb-8 items-center sm:w-5/12'>
-              <img class='mx-auto size-24 sm:size-36 md:size-48' src='/images/hpo.svg' alt='Hipo Logo' />
-            </div>
-            <div class='mx-auto sm:w-5/12'>
-              <div class='flex w-full flex-col items-start gap-6 px-2 text-start'>
-                <div class='hipo-section-text'>
-                  Earn HPO by staking in Hipo, and become part of the Hipo community of HPO holders.
-                </div>
-                <div class='hipo-learn-more-link-text'>
-                  <a href='/docs/giveaways-and-prizes/hipo-club/'>Learn More</a>
-                </div>
-                <div class='hipo-button-div'>
-                  <a
-                    class='hipo-button-a'
-                    href='https://t.me/HipoFinanceBot/join'
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    <div class='hipo-button-label'>Join Hipo Club</div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          Stake now
+        </a>
+        <a href='#how-it-works' class='text-text hover:text-accent px-5 py-[15px] text-[17px] font-medium'>
+          How it works →
+        </a>
       </div>
 
-      <!-- Why Hipo? -->
-      <div id='why-hipo' class='hipo-section flex w-full flex-col items-center text-center'>
-        <h3 class='hipo-section-title'>Why Hipo?</h3>
-        <div class='hipo-section-summary mb-10'>
-          <p>Building the Future of GRAM Staking, Together!</p>
+      <div class='text-text-muted flex flex-wrap gap-6 pt-1.5 text-sm font-medium'>
+        <span class='flex items-center gap-2'>
+          <img src='/images/shild.svg' alt='' class='size-[18px]' />
+          Audited ×4
+        </span>
+        <span class='flex items-center gap-2'>
+          <img src='/images/lockup.svg' alt='' class='size-[18px]' />
+          No lockup
+        </span>
+        <span class='flex items-center gap-2'>
+          <img src='/images/star-shine.svg' alt='' class='size-[18px]' />
+          Top rewards
+        </span>
+      </div>
+    </div>
+
+    <div class='relative flex justify-center'>
+      <div
+        class='absolute inset-[8%_6%] rounded-full'
+        style='background: radial-gradient(closest-side, rgba(255,126,115,.28), rgba(255,126,115,0));'
+      >
+      </div>
+      <img
+        src='/images/hipo-bank.webp'
+        alt='Hipo piggy bank'
+        class='relative w-[420px] max-w-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.45)]'
+      />
+    </div>
+  </section>
+
+  <!-- Stats row -->
+  <section class='mx-auto grid w-full max-w-[1280px] grid-cols-2 gap-4 px-6 pt-2 pb-12 md:px-12 lg:grid-cols-4'>
+    <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
+      <div id='statStaked' class='font-fredoka text-text text-[30px] font-semibold'>1.54M</div>
+      <div class='text-text-muted text-sm'>GRAM staked (<span id='statStakedUsd'>$8.5M</span> TVL)</div>
+    </div>
+    <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
+      <div id='statApy' class='font-fredoka text-accent text-[30px] font-semibold'>4.8%</div>
+      <div class='text-text-muted text-sm'>APY, last round</div>
+    </div>
+    <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
+      <div id='statHolders' class='font-fredoka text-text text-[30px] font-semibold'>23,000+</div>
+      <div class='text-text-muted text-sm'>GRAM holders staking</div>
+    </div>
+    <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
+      <div class='font-fredoka text-text text-[30px] font-semibold'>0%</div>
+      <div class='text-text-muted text-sm'>Protocol fee</div>
+    </div>
+  </section>
+
+  <!-- How Hipo works -->
+  <section id='how-it-works' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
+    <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>How Hipo works</h2>
+    <p class='text-text-muted mb-7 text-lg'>Stake any amount of GRAM and earn more than just staking rewards.</p>
+
+    <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
+        <img src='/images/gram-3d.svg' alt='GRAM' class='size-[52px]' />
+        <div class='font-fredoka text-text text-xl font-semibold'>1 · Stake GRAM</div>
+        <div class='text-text-muted text-[15px] leading-[1.55]'>
+          Deposit your GRAM into Hipo to earn the highest staking rewards in the market.
         </div>
-
-        <div class='hipo-cards-list'>
-          <div class='hipo-why-hipo-card'>
-            <div class='hipo-why-hipo-card-bg'>
-              <div class='flex w-full flex-row items-center gap-2'>
-                <div class='hipo-why-hipo-card-title w-full'>Highest APY</div>
-                <img class='size-10 md:size-16' src='/images/graph.png' alt='Growth Graph Icon' />
-              </div>
-              <div class='hipo-why-hipo-card-text w-full pb-4'>Earn the most competitive staking rewards on GRAM.</div>
-            </div>
-          </div>
-
-          <div class='hipo-why-hipo-card'>
-            <div class='hipo-why-hipo-card-bg'>
-              <div class='flex w-full flex-row items-center gap-2'>
-                <div class='hipo-why-hipo-card-title w-full'>Community-Driven</div>
-                <img class='size-10 md:size-16' src='/images/heart-shine.svg' alt='Community Heart Icon' />
-              </div>
-              <div class='hipo-why-hipo-card-text w-full pb-4'>Hipo is built with and for the community.</div>
-            </div>
-          </div>
-
-          <div class='hipo-why-hipo-card'>
-            <div class='hipo-why-hipo-card-bg'>
-              <div class='flex w-full flex-row items-center gap-2'>
-                <div class='hipo-why-hipo-card-title w-full'>Open-Source & Audited</div>
-                <img class='size-10 md:size-16' src='/images/audit-shield.svg' alt='Audit Shield Icon' />
-              </div>
-              <div class='hipo-why-hipo-card-text w-full pb-4'>
-                One of the most rigorously tested smart contracts on TON.
-              </div>
-            </div>
-          </div>
-
-          <div class='hipo-why-hipo-card'>
-            <div class='hipo-why-hipo-card-bg'>
-              <div class='flex w-full flex-row items-center gap-2'>
-                <div class='hipo-why-hipo-card-title w-full'>Truly Decentralized</div>
-                <img class='size-10 md:size-16' src='/images/decentralized.svg' alt='Decentralized Icon' />
-              </div>
-              <div class='hipo-why-hipo-card-text w-full pb-4'>Fully DeFi-native and permissionless by design.</div>
-            </div>
-          </div>
+      </div>
+      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
+        <img src='/images/hgram-3d.svg' alt='hGRAM' class='size-[52px]' />
+        <div class='font-fredoka text-text text-xl font-semibold'>2 · Get liquid hGRAM</div>
+        <div class='text-text-muted text-[15px] leading-[1.55]'>
+          Get hGRAM representing your staked GRAM. Its value grows as rewards accumulate, and it works across TON DeFi.
+        </div>
+      </div>
+      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
+        <img src='/hpo.png' alt='HPO' class='size-[52px]' />
+        <div class='font-fredoka text-text text-xl font-semibold'>3 · Earn bonus HPO</div>
+        <div class='text-text-muted text-[15px] leading-[1.55]'>
+          Enjoy extra rewards in HPO — Hipo's governance and profit-sharing token.
+        </div>
+      </div>
+      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
+        <img src='/images/gram.svg' alt='Unstake' class='size-[52px]' />
+        <div class='font-fredoka text-text text-xl font-semibold'>4 · Unstake anytime</div>
+        <div class='text-text-muted text-[15px] leading-[1.55]'>
+          Return your hGRAM whenever you want. You'll receive GRAM plus your accumulated staking rewards.
         </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Security audits -->
+  <section id='audits' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
+    <div class='flex flex-wrap items-baseline justify-between gap-2'>
+      <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>Hipo security audits</h2>
+      <a
+        href='https://github.com/HipoFinance/audits'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='text-accent hover:text-accent-hover text-[15px] font-medium'
+      >
+        All reports →
+      </a>
+    </div>
+    <p class='text-text-muted mb-7 text-lg'>One of the most rigorously tested smart contracts in the GRAM ecosystem.</p>
+
+    <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+      <a
+        href='https://github.com/HipoFinance/audits?tab=readme-ov-file#2025-04-quantstamp-hipo-audit-report'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
+      >
+        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
+          <span class='bg-text flex size-[26px] items-center justify-center rounded-full'>
+            <img src='/images/quantstamp.svg' alt='' class='h-4' />
+          </span>
+          Quantstamp
+        </span>
+        <span class='text-text-muted text-[15px]'>Hipo v2 smart contract audit</span>
+        <span class='text-text-faint text-[13px]'>Apr 2025</span>
+      </a>
+
+      <a
+        href='https://github.com/HipoFinance/audits?tab=readme-ov-file#2024-03-programcrafter-hipo-audit-report'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
+      >
+        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
+          <span
+            class='flex size-[26px] items-center justify-center rounded-full bg-gradient-to-t from-green-900 to-green-500 text-[11px] font-light'
+          >
+            ET
+          </span>
+          Ender Ting
+        </span>
+        <span class='text-text-muted text-[15px]'>Hipo v2 smart contract audit</span>
+        <span class='text-text-faint text-[13px]'>March 2024</span>
+      </a>
+
+      <a
+        href='https://github.com/HipoFinance/audits#2023-10-tontech-hipo-audit-report'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
+      >
+        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
+          <span class='bg-text flex size-[26px] items-center justify-center rounded-full'>
+            <img src='/images/tontech.svg' alt='' class='h-4' />
+          </span>
+          TonTech
+        </span>
+        <span class='text-text-muted text-[15px]'>Hipo v1 smart contract audit</span>
+        <span class='text-text-faint text-[13px]'>Oct 2023</span>
+      </a>
+
+      <a
+        href='https://github.com/HipoFinance/audits#2023-10-daniil-sedov-hipo-audit-report'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
+      >
+        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
+          <span
+            class='flex size-[26px] items-center justify-center rounded-full bg-gradient-to-t from-blue-900 to-blue-500 text-[11px] font-light'
+          >
+            DS
+          </span>
+          Daniil Sedov
+        </span>
+        <span class='text-text-muted text-[15px]'>Hipo v1 smart contract audit</span>
+        <span class='text-text-faint text-[13px]'>Oct 2023</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- HPO panel -->
+  <section id='hpo' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
+    <div
+      class='border-border bg-surface grid grid-cols-1 items-center gap-10 rounded-[28px] border p-8 lg:grid-cols-2 lg:p-12'
+    >
+      <div class='flex flex-col items-start gap-4'>
+        <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>
+          HPO — governance & profit-sharing
+        </h2>
+        <p class='text-text-muted text-[17px] leading-[1.6]'>
+          Become an HPO holder for revenue-sharing and decision-making in Hipo.
+        </p>
+
+        <div class='flex flex-wrap gap-7 py-1.5'>
+          <div>
+            <div id='hpoMarketCap' class='font-fredoka text-text text-2xl font-semibold'>$4.2M</div>
+            <div class='text-text-muted text-[13px]'>Market cap</div>
+          </div>
+          <div>
+            <div id='hpoVolume' class='font-fredoka text-text text-2xl font-semibold'>$310K</div>
+            <div class='text-text-muted text-[13px]'>Volume, 24h</div>
+          </div>
+          <div>
+            <div id='hpoHolders' class='font-fredoka text-text text-2xl font-semibold'>31K</div>
+            <div class='text-text-muted text-[13px]'>Holders</div>
+          </div>
+        </div>
+
+        <div class='flex flex-wrap items-center gap-3.5'>
+          <a
+            href='https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=HPO'
+            target='_blank'
+            rel='noopener noreferrer'
+            class='bg-accent text-on-accent hover:bg-accent-hover rounded-full px-7 py-[13px] text-base font-semibold'
+          >
+            Buy HPO
+          </a>
+          <a href='/hpo/' class='text-accent hover:text-accent-hover text-base font-medium'>Learn more →</a>
+        </div>
+      </div>
+
+      <div class='flex justify-center'>
+        <img src='/hpo.png' alt='HPO token' class='w-[220px] drop-shadow-[0_16px_32px_rgba(0,0,0,0.4)]' />
+      </div>
+    </div>
+  </section>
+
+  <!-- Hipo Club -->
+  <section id='hipo-club' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
+    <div
+      class='border-border flex flex-col items-center justify-between gap-10 rounded-[28px] border p-8 lg:flex-row lg:p-12'
+      style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
+    >
+      <div class='flex max-w-[560px] flex-col items-center gap-2.5 text-center lg:items-start lg:text-left'>
+        <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>Hipo Club</h2>
+        <p class='text-text-muted text-[17px] leading-[1.6]'>
+          Community of Hipo believers. Earn HPO by staking in Hipo, and become part of the Hipo community of HPO
+          holders. <a href='/docs/' class='text-accent hover:text-accent-hover'>Learn more</a>
+        </p>
+      </div>
+      <a
+        href='https://t.me/HipoFinanceBot/join'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='bg-accent text-on-accent hover:bg-accent-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold'
+      >
+        Join Hipo Club
+      </a>
+    </div>
+  </section>
+
+  <!-- Why Hipo -->
+  <section id='why-hipo' class='mx-auto w-full max-w-[1280px] px-6 pt-12 pb-18 md:px-12'>
+    <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>Why Hipo?</h2>
+    <p class='text-text-muted mb-7 text-lg'>Building the future of GRAM staking, together.</p>
+
+    <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
+        <img src='/images/graph.png' alt='' class='size-11 self-start object-contain' />
+        <div class='font-fredoka text-text text-[19px] font-semibold'>Highest APY</div>
+        <div class='text-text-muted text-[15px] leading-[1.55]'>Earn the most competitive staking rewards on GRAM.</div>
+      </div>
+      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
+        <img src='/images/heart-shine.svg' alt='' class='size-11 self-start' />
+        <div class='font-fredoka text-text text-[19px] font-semibold'>Community-driven</div>
+        <div class='text-text-muted text-[15px] leading-[1.55]'>Hipo is built with and for the community.</div>
+      </div>
+      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
+        <img src='/images/audit-shield.svg' alt='' class='size-11 self-start' />
+        <div class='font-fredoka text-text text-[19px] font-semibold'>Open-source & audited</div>
+        <div class='text-text-muted text-[15px] leading-[1.55]'>
+          One of the most rigorously tested smart contracts on TON.
+        </div>
+      </div>
+      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
+        <img src='/images/decentralized.svg' alt='' class='size-11 self-start' />
+        <div class='font-fredoka text-text text-[19px] font-semibold'>Truly decentralized</div>
+        <div class='text-text-muted text-[15px] leading-[1.55]'>Fully DeFi-native and permissionless by design.</div>
+      </div>
+    </div>
+  </section>
 </landing>

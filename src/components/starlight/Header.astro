@@ -1,0 +1,89 @@
+---
+// Warm Dark docs header (Docs.dc.html): adds FAQ / Stats / Open app links, which Starlight's
+// config has no built-in slot for. Based on @astrojs/starlight's default Header.astro (~0.40),
+// with SocialIcons/ThemeSelect/LanguageSelect dropped from the desktop bar to match the design —
+// they remain reachable from the mobile menu footer (MobileMenuFooter.astro, untouched).
+// Wired in astro.config.mjs via `starlight({ components: { Header: ... } })`.
+import config from 'virtual:starlight/user-config'
+import Search from 'virtual:starlight/components/Search'
+import SiteTitle from 'virtual:starlight/components/SiteTitle'
+
+const shouldRenderSearch = config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro'
+---
+
+<div class='header'>
+  <div class='title-wrapper sl-flex'>
+    <SiteTitle />
+  </div>
+  <div class='sl-flex print:hidden'>
+    {shouldRenderSearch && <Search />}
+  </div>
+  <nav class='sl-hidden md:sl-flex hipo-links print:hidden' aria-label='Site'>
+    <a href='/faq/'>FAQ</a>
+    <a href='https://stats.hipo.finance/' target='_blank' rel='noopener noreferrer'>Stats</a>
+    <a href='/stake/' class='cta'>Open app</a>
+  </nav>
+</div>
+
+<style>
+  @layer starlight.core {
+    .header {
+      display: flex;
+      gap: var(--sl-nav-gap);
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+    }
+
+    .title-wrapper {
+      /* Prevent long titles overflowing and covering the search and nav on narrow viewports. */
+      overflow: clip;
+      /* Avoid clipping focus ring around link inside title wrapper. */
+      padding: 0.25rem;
+      margin: -0.25rem;
+      min-width: 0;
+    }
+
+    @media (min-width: 50rem) {
+      :global(:root[data-has-sidebar]) {
+        --__sidebar-pad: calc(2 * var(--sl-nav-pad-x));
+      }
+      :global(:root:not([data-has-toc])) {
+        --__toc-width: 0rem;
+      }
+      .header {
+        --__sidebar-width: max(0rem, var(--sl-content-inline-start, 0rem) - var(--sl-nav-pad-x));
+        --__main-column-fr: calc(
+          (
+              100% + var(--__sidebar-pad, 0rem) - var(--__toc-width, var(--sl-sidebar-width)) -
+                (2 * var(--__toc-width, var(--sl-nav-pad-x))) - var(--sl-content-inline-start, 0rem) -
+                var(--sl-content-width)
+            ) /
+            2
+        );
+        display: grid;
+        grid-template-columns:
+          minmax(calc(var(--__sidebar-width) + max(0rem, var(--__main-column-fr) - var(--sl-nav-gap))), auto)
+          1fr
+          auto;
+        align-content: center;
+      }
+    }
+  }
+
+  .hipo-links {
+    gap: 22px;
+    align-items: center;
+    font: 500 14px var(--sl-font);
+    color: var(--sl-color-gray-2);
+  }
+  .hipo-links a {
+    color: inherit;
+  }
+  .hipo-links a:hover {
+    color: var(--sl-color-accent);
+  }
+  .hipo-links a.cta {
+    color: var(--sl-color-accent);
+  }
+</style>

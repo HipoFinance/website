@@ -180,6 +180,16 @@ export default defineConfig({
       // src/pages/404.astro already serves the whole site.
       disable404Route: true,
       customCss: ['./src/styles/docs.css'],
+      components: {
+        // Warm Dark is single-theme (dark-only); these two remove Starlight's theme switcher and
+        // pin the docs section to dark regardless of system preference. See the components for
+        // details.
+        ThemeProvider: './src/components/starlight/ThemeProvider.astro',
+        ThemeSelect: './src/components/starlight/ThemeSelect.astro',
+        // Adds the FAQ / Stats / Open app links from the design (Docs.dc.html); no config option
+        // exists for extra header links in @astrojs/starlight ~0.40.
+        Header: './src/components/starlight/Header.astro',
+      },
       // Imported GitBook pages use h3/h4 for their section headings.
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 4 },
       social: [

@@ -4,6 +4,7 @@ import '../styles/global.css'
 import '../styles/app.css'
 import SEO from '../components/SEO.astro'
 import AppIsland from '../components/app/AppIsland.tsx'
+import AppFooter from '../components/AppFooter.astro'
 
 interface Props {
   title: string
@@ -43,26 +44,13 @@ const {
 
     <link rel='icon' href={`${import.meta.env.BASE_URL}favicon.ico`} />
 
-    <script is:inline>
-      ;(() => {
-        const applyTheme = () => {
-          if (
-            localStorage.theme === 'dark' ||
-            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-          ) {
-            document.documentElement.classList.add('dark')
-          } else {
-            document.documentElement.classList.remove('dark')
-          }
-        }
-        applyTheme()
-        // The ClientRouter swap resets <html> attributes and does not re-run this script.
-        document.addEventListener('astro:after-swap', applyTheme)
-      })()
-    </script>
+    <meta name='theme-color' content='#201b1a' />
+    <meta name='color-scheme' content='dark' />
   </head>
 
-  <body class='bg-milky font-poppins text-gray1'>
+  <!-- Single warm-dark theme: no toggle and no theme bootstrap script anymore, so nothing here
+       depends on the `.dark` class. -->
+  <body class='bg-bg text-text font-body'>
     <script async src='https://tganalytics.xyz/index.js' type='text/javascript' is:inline></script>
     <script>
       window.addEventListener('load', function () {
@@ -82,15 +70,20 @@ const {
 
     <slot />
 
-    <nav aria-label='Hipo app pages' class='font-body text-brown dark:text-dark-50 mx-auto w-full max-w-3xl px-4 pb-12'>
+    <nav
+      aria-label='Hipo app pages'
+      class='font-body text-text-faint mx-auto w-full max-w-3xl px-4 pb-12 text-[13px] max-sm:pb-28'
+    >
       <ul class='flex flex-wrap justify-center gap-x-6 gap-y-2'>
-        <li><a class='underline' href='/stake/'>Stake</a></li>
-        <li><a class='underline' href='/unstake/'>Unstake</a></li>
-        <li><a class='underline' href='/rewards/'>Rewards</a></li>
-        <li><a class='underline' href='/stats/'>Stats</a></li>
-        <li><a class='underline' href='/defi/'>DeFi</a></li>
-        <li><a class='underline' href='/docs/'>Docs</a></li>
+        <li><a class='hover:text-accent' href='/stake/'>Stake</a></li>
+        <li><a class='hover:text-accent' href='/unstake/'>Unstake</a></li>
+        <li><a class='hover:text-accent' href='/rewards/'>Rewards</a></li>
+        <li><a class='hover:text-accent' href='/stats/'>Stats</a></li>
+        <li><a class='hover:text-accent' href='/defi/'>DeFi</a></li>
+        <li><a class='hover:text-accent' href='/docs/'>Docs</a></li>
       </ul>
     </nav>
+
+    <AppFooter />
   </body>
 </html>

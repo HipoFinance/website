@@ -6,23 +6,33 @@ import '../styles/global.css'
 <html lang='en' class='scroll-smooth'>
   <head>
     <meta charset='UTF-8' />
+    <title>Page not found | Hipo</title>
+    <meta name='robots' content='noindex' />
+    <link rel='icon' href={`${import.meta.env.BASE_URL}favicon.ico`} />
   </head>
 
-  <body class='bg-darkblue2 font-poppins text-gray1'>
-    <div class='mx-auto max-w-md min-w-90 bg-fixed py-4 text-center md:py-8 lg:py-16'>
-      <div class='mb-4 text-7xl font-bold'>404</div>
+  <body class='bg-bg font-body text-text flex min-h-screen items-center justify-center px-6'>
+    <div class='w-full max-w-sm text-center'>
+      <div class='font-fredoka text-accent text-6xl font-semibold'>404</div>
 
-      <h1 class='mb-2 text-xl font-semibold'>Page not found</h1>
+      <h1 class='font-fredoka text-text mt-4 text-xl font-semibold'>Page not found</h1>
 
-      <p class='mb-6 text-white/60'>The page you’re looking for doesn’t exist or has been moved.</p>
+      <p class='text-text-muted mt-2 text-[15px]'>The page you're looking for doesn't exist or has been moved.</p>
 
-      <div class='mx-auto rounded-2xl border border-white/10 bg-white/5 p-4'>
-        <p class='mb-2 text-sm text-white/70'>Need support?</p>
+      <a
+        href='/'
+        class='bg-accent text-on-accent hover:bg-accent-hover mt-6 inline-block rounded-full px-6 py-3 text-[15px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)]'
+      >
+        Back to home
+      </a>
+
+      <div class='border-border bg-surface mt-8 rounded-2xl border p-4'>
+        <p class='text-text-muted mb-2 text-sm'>Need support?</p>
         <a
           href='https://t.me/hipo_chat'
           target='_blank'
           rel='noreferrer'
-          class='text-sm text-indigo-400 hover:text-indigo-300'
+          class='text-accent hover:text-accent-hover text-sm'
         >
           Hipo Chat
         </a>
@@ -30,3 +40,10 @@ import '../styles/global.css'
     </div>
   </body>
 </html>
+
+<style is:global>
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+</style>

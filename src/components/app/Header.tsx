@@ -5,199 +5,101 @@ interface Props {
   model: Model
 }
 
+type Page = 'stake' | 'reward' | 'stats' | 'defi'
+
+const pages: { page: Page; label: string }[] = [
+  { page: 'stake', label: 'Stake' },
+  { page: 'reward', label: 'Reward' },
+  { page: 'stats', label: 'Stats' },
+  { page: 'defi', label: 'DeFi' },
+]
+
 const Header = observer(({ model }: Props) => {
   return (
-    <div className='font-body text-brown dark:text-dark-50 mx-auto w-full max-w-5xl'>
+    <div className='font-body text-text mx-auto w-full max-w-[1120px]'>
       {!model.isBannerClosed && (
-        <div className='fixed top-0 right-0 left-0 z-50 mx-auto max-w-5xl'>
-          <div className='w-fiull border-c6 bg-c4 relative mx-4 my-4 flex flex-col-reverse items-start justify-items-end gap-0 rounded-2xl border px-4 py-2 md:flex-row md:items-center md:justify-between md:gap-4'>
-            <div className='flex w-full flex-col items-center justify-between gap-2 md:flex-row'>
-              <div className='text-c7'>
-                <div className='flex flex-col items-center gap-1 md:hidden'>
-                  <div>
-                    💰 <b>Earn 100% of staking rewards</b>.
-                  </div>
-                  <div>Protocol fee is now 0%.</div>
-                </div>
-                <div className='max-md:hidden'>
-                  💰 <b>Earn 100% of staking rewards</b>. Protocol fee is now 0%.
-                </div>
-              </div>
-              <div>
-                <a href='https://t.me/HipoFinanceBot/join' target='_blank' rel='noopener noreferrer'>
-                  <button className='bg-c6 rounded-xl px-8 py-2 text-white'>Earn Now</button>
-                </a>
-              </div>
-            </div>
-            <div className='absolute top-0 right-0 flex w-full flex-row justify-end md:static md:w-fit'>
-              <button
-                className='text-c6 p-3 text-xs font-bold md:py-2'
-                onClick={() => {
-                  model.closeBanner()
-                }}
-              >
-                ✕
-              </button>
-            </div>
+        <div className='bg-accent text-on-accent relative'>
+          <div className='mx-auto flex max-w-[1120px] flex-row items-center justify-center gap-3 px-10 py-2.5 text-sm max-sm:pr-10'>
+            <p className='text-center'>
+              💰 <b className='font-bold'>Earn 100% of staking rewards</b>. Protocol fee is now 0%.
+            </p>
+            <a
+              href='https://t.me/HipoFinanceBot/join'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='shrink-0 font-semibold underline underline-offset-2'
+            >
+              Earn now
+            </a>
           </div>
+          <button
+            aria-label='Dismiss announcement'
+            className='absolute top-0 right-0 flex h-full min-h-11 w-11 cursor-pointer items-center justify-center text-sm font-bold'
+            onClick={() => {
+              model.closeBanner()
+            }}
+          >
+            ✕
+          </button>
         </div>
       )}
-      <div className={'mx-4 flex flex-row items-center pt-4' + (!model.isBannerClosed ? ' mt-40 md:mt-16' : '')}>
-        <a href='https://hipo.finance' className='-mr-3 -ml-4'>
-          <img src='/images/app/logo.svg' className='h-20 dark:hidden' />
-          <img src='/images/app/logo-dark.svg' className='hidden h-20 dark:block' />
+
+      <div className='flex flex-row items-center gap-4 px-5 py-4 sm:gap-7 sm:px-10'>
+        <a href='/' className='flex flex-none flex-row items-center gap-2.5'>
+          <span className='bg-text flex h-[34px] w-[34px] items-center justify-center rounded-full'>
+            <img src='/images/hipo.svg' alt='Hipo' className='h-[23px] w-[23px]' />
+          </span>
+          <span className='font-fredoka text-[22px] font-semibold'>Hipo</span>
         </a>
 
-        <p className='font-logo text-orange ml-3 text-2xl'>Hipo</p>
+        {/* Bottom bar on phones, inline pill nav from sm — the same pattern as before, restyled. */}
+        <nav
+          aria-label='App sections'
+          className='border-border bg-surface-deep fixed right-0 bottom-0 left-0 z-10 flex w-full flex-row border-t select-none sm:static sm:w-auto sm:gap-1.5 sm:border-0 sm:bg-transparent'
+        >
+          {pages.map(({ page, label }) => {
+            const active = model.activePage === page
+            return (
+              <button
+                key={page}
+                type='button'
+                aria-current={active ? 'page' : undefined}
+                className={
+                  'min-h-12 flex-1 cursor-pointer text-center text-[15px] font-medium sm:min-h-0 sm:flex-none sm:rounded-full sm:px-4 sm:py-2 ' +
+                  (active
+                    ? 'text-accent sm:border-border sm:bg-surface sm:text-text sm:border'
+                    : 'text-text-muted hover:text-accent')
+                }
+                onClick={() => {
+                  model.navigateToPage(page)
+                }}
+              >
+                {label}
+              </button>
+            )
+          })}
+        </nav>
 
-        <ul className='border-c1 bg-milky dark:border-c2 dark:bg-choco fixed bottom-0 left-0 z-10 flex w-full flex-row border-t text-sm font-thin select-none sm:static sm:ml-2 sm:w-auto sm:border-0 sm:bg-transparent sm:dark:bg-transparent'>
-          <li
-            className={
-              'flex-1 cursor-pointer pt-3 text-center whitespace-nowrap sm:ml-4 sm:flex-none sm:pt-0' +
-              (model.activePage === 'stake' ? ' text-dark-600' : ' text-brown')
-            }
-            onClick={() => {
-              model.navigateToPage('stake')
-            }}
-          >
-            <div className='flex flex-col items-center sm:flex-row sm:pl-2'>
-              <img
-                src='/images/app/page-stake-brown.svg'
-                className={'h-4 dark:hidden!' + (model.activePage !== 'stake' ? ' block' : ' hidden')}
-              />
-              <img
-                src='/images/app/page-stake-white.svg'
-                className={'hidden h-4' + (model.activePage !== 'stake' ? ' dark:block!' : ' sm:dark:block!')}
-              />
-              <img
-                src='/images/app/page-stake-orange.svg'
-                className={'h-4 sm:hidden' + (model.activePage === 'stake' ? ' block' : ' hidden')}
-              />
-              <img
-                src='/images/app/page-stake-black.svg'
-                className={'hidden h-4' + (model.activePage === 'stake' ? ' sm:block dark:hidden!' : '')}
-              />
-              <span className='p-2 dark:text-white'>Stake</span>
-            </div>
-            <div
-              className={'bg-orange mt-1 hidden h-1 rounded-full' + (model.activePage === 'stake' ? ' sm:block!' : '')}
-            ></div>
-          </li>
-          <li
-            className={
-              'flex-1 cursor-pointer pt-3 text-center whitespace-nowrap sm:ml-4 sm:flex-none sm:pt-0' +
-              (model.activePage === 'reward' ? ' text-dark-600' : ' text-brown')
-            }
-            onClick={() => {
-              model.navigateToPage('reward')
-            }}
-          >
-            <div className='flex flex-col items-center sm:flex-row sm:pl-2'>
-              <img
-                src='/images/app/page-reward-brown.svg'
-                className={'h-4 dark:hidden!' + (model.activePage !== 'reward' ? ' block' : ' hidden')}
-              />
-              <img
-                src='/images/app/page-reward-white.svg'
-                className={'hidden h-4' + (model.activePage !== 'reward' ? ' dark:block!' : ' sm:dark:block!')}
-              />
-              <img
-                src='/images/app/page-reward-orange.svg'
-                className={'h-4 sm:hidden' + (model.activePage === 'reward' ? ' block' : ' hidden')}
-              />
-              <img
-                src='/images/app/page-reward-black.svg'
-                className={'hidden h-4' + (model.activePage === 'reward' ? ' sm:block dark:hidden!' : '')}
-              />
-              <span className='p-2 dark:text-white'>Reward</span>
-            </div>
-            <div
-              className={'bg-orange mt-1 hidden h-1 rounded-full' + (model.activePage === 'reward' ? ' sm:block!' : '')}
-            ></div>
-          </li>
-          <li
-            className={
-              'flex-1 cursor-pointer pt-3 text-center whitespace-nowrap sm:ml-4 sm:flex-none sm:pt-0' +
-              (model.activePage === 'stats' ? ' text-dark-600' : ' text-brown')
-            }
-            onClick={() => {
-              model.navigateToPage('stats')
-            }}
-          >
-            <div className='flex flex-col items-center sm:flex-row sm:pl-2'>
-              <img
-                src='/images/app/page-stats-brown.svg'
-                className={'h-4 dark:hidden!' + (model.activePage !== 'stats' ? ' block' : ' hidden')}
-              />
-              <img
-                src='/images/app/page-stats-white.svg'
-                className={'hidden h-4' + (model.activePage !== 'stats' ? ' dark:block!' : ' sm:dark:block!')}
-              />
-              <img
-                src='/images/app/page-stats-orange.svg'
-                className={'h-4 sm:hidden' + (model.activePage === 'stats' ? ' block' : ' hidden')}
-              />
-              <img
-                src='/images/app/page-stats-black.svg'
-                className={'hidden h-4' + (model.activePage === 'stats' ? ' sm:block dark:hidden!' : '')}
-              />
-              <span className='p-2 dark:text-white'>Stats</span>
-            </div>
-            <div
-              className={'bg-orange mt-1 hidden h-1 rounded-full' + (model.activePage === 'stats' ? ' sm:block!' : '')}
-            ></div>
-          </li>
-          <li
-            className={
-              'flex-1 cursor-pointer pt-3 text-center whitespace-nowrap sm:ml-4 sm:flex-none sm:pt-0' +
-              (model.activePage === 'defi' ? ' text-dark-600' : ' text-brown')
-            }
-            onClick={() => {
-              model.navigateToPage('defi')
-            }}
-          >
-            <div className='flex flex-col items-center sm:flex-row sm:pl-2'>
-              <img
-                src='/images/app/page-defi-brown.svg'
-                className={'h-4 dark:hidden!' + (model.activePage !== 'defi' ? ' block' : ' hidden')}
-              />
-              <img
-                src='/images/app/page-defi-white.svg'
-                className={'hidden h-4' + (model.activePage !== 'defi' ? ' dark:block!' : ' sm:dark:block!')}
-              />
-              <img
-                src='/images/app/page-defi-orange.svg'
-                className={'h-4 sm:hidden' + (model.activePage === 'defi' ? ' block' : ' hidden')}
-              />
-              <img
-                src='/images/app/page-defi-black.svg'
-                className={'hidden h-4' + (model.activePage === 'defi' ? ' sm:block dark:hidden!' : '')}
-              />
-              <span className='p-2 dark:text-white'>DeFi</span>
-            </div>
-            <div
-              className={'bg-orange mt-1 hidden h-1 rounded-full' + (model.activePage === 'defi' ? ' sm:block!' : '')}
-            ></div>
-          </li>
-        </ul>
-
-        <div className='ml-auto'>
-          <img
-            src='/images/app/theme.svg'
-            onClick={() => {
-              model.setDark(true)
-            }}
-            className='mr-3 block h-4 cursor-pointer dark:hidden'
-          />
-          <img
-            src='/images/app/theme-dark.svg'
-            onClick={() => {
-              model.setDark(false)
-            }}
-            className='mr-2 hidden h-6 cursor-pointer dark:block'
-          />
+        <div className='ml-auto flex flex-none flex-row items-center'>
+          {model.isWalletConnected ? (
+            <button
+              type='button'
+              title='Disconnect wallet'
+              className='border-border bg-surface text-text-muted hover:text-accent min-h-11 cursor-pointer rounded-full border px-5 py-2.5 text-sm font-medium'
+              onClick={model.disconnect}
+            >
+              <span className='max-sm:hidden'>{model.connectedAddressShort} · </span>Disconnect
+            </button>
+          ) : (
+            <button
+              type='button'
+              className='bg-accent text-on-accent hover:bg-accent-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold'
+              onClick={model.connect}
+            >
+              Connect wallet
+            </button>
+          )}
         </div>
-        <div id='ton-connect-button' className='min-w-max'></div>
       </div>
     </div>
   )

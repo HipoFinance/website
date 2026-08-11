@@ -41,12 +41,12 @@ const jsonLd = {
 ---
 
 <Layout title={title} description={description} jsonLd={jsonLd}>
-  <section class='font-body text-brown dark:text-dark-50 mx-auto w-full max-w-3xl px-4 pt-8 pb-24'>
-    <h1 class='mb-6 text-center text-3xl font-bold'>Track Your Hipo Staking Rewards</h1>
+  <section class='font-body text-text mx-auto w-full max-w-3xl px-4 pt-8 pb-24'>
+    <h1 class='font-fredoka mb-6 text-center text-3xl font-semibold'>Track Your Hipo Staking Rewards</h1>
 
-    <div class='dark:bg-dark-800 mb-6 rounded-2xl bg-white p-6 shadow-sm'>
-      <h2 class='mb-2 text-xl font-bold'>How rewards accrue</h2>
-      <p class='leading-relaxed'>
+    <div class='border-border bg-surface mb-6 rounded-[20px] border p-6'>
+      <h2 class='font-fredoka mb-2 text-xl font-semibold'>How rewards accrue</h2>
+      <p class='text-text-muted leading-relaxed'>
         Hipo distributes staking rewards every validation round, roughly every 18 hours. Rewards are not paid out as
         separate transfers — they are reflected directly in the exchange rate between hGRAM and GRAM, so each hGRAM
         gradually becomes redeemable for more GRAM. Whoever holds hGRAM at settlement time benefits from that round's
@@ -54,30 +54,31 @@ const jsonLd = {
       </p>
     </div>
 
-    <div class='dark:bg-dark-800 mb-6 rounded-2xl bg-white p-6 shadow-sm'>
-      <h2 class='mb-2 text-xl font-bold'>What the app shows you</h2>
-      <p class='leading-relaxed'>
+    <div class='border-border bg-surface mb-6 rounded-[20px] border p-6'>
+      <h2 class='font-fredoka mb-2 text-xl font-semibold'>What the app shows you</h2>
+      <p class='text-text-muted leading-relaxed'>
         Connect your wallet in the app above to see your current hGRAM balance and its value in GRAM, a projection of
         rewards after a year at recent rates, and your reward multiplier based on your Hipo Club level.
       </p>
     </div>
 
-    <div class='dark:bg-dark-800 mb-6 rounded-2xl bg-white p-6 shadow-sm'>
-      <h2 class='mb-2 text-xl font-bold'>Base and boosted rewards</h2>
-      <p class='leading-relaxed'>
+    <div class='border-border bg-surface mb-6 rounded-[20px] border p-6'>
+      <h2 class='font-fredoka mb-2 text-xl font-semibold'>Base and boosted rewards</h2>
+      <p class='text-text-muted leading-relaxed'>
         Base rewards come from efficient GRAM staking and are reflected in hGRAM's price growth against GRAM. Holding
         HPO, Hipo's governance token, can boost your rewards further depending on your Hipo Club level, and also gives
         you a share of protocol revenue. Rates vary over time — see the
-        <a class='text-blue underline' href='/stats/'>Stats page</a> for current and historical figures.
+        <a class='text-accent hover:text-accent-hover underline' href='/stats/'>Stats page</a> for current and historical
+        figures.
       </p>
     </div>
 
-    <div class='dark:bg-dark-800 rounded-2xl bg-white p-6 shadow-sm'>
-      <h2 class='mb-2 text-xl font-bold'>Learn more</h2>
-      <p class='leading-relaxed'>
+    <div class='border-border bg-surface rounded-[20px] border p-6'>
+      <h2 class='font-fredoka mb-2 text-xl font-semibold'>Learn more</h2>
+      <p class='text-text-muted leading-relaxed'>
         Read more about how rewards work in the
-        <a class='text-blue underline' href='/docs/introduction/hipo-rewards/'>docs</a>, or
-        <a class='text-blue underline' href='/stake/'>stake GRAM</a> to start earning.
+        <a class='text-accent hover:text-accent-hover underline' href='/docs/introduction/hipo-rewards/'>docs</a>, or
+        <a class='text-accent hover:text-accent-hover underline' href='/stake/'>stake GRAM</a> to start earning.
       </p>
     </div>
   </section>

@@ -1,0 +1,10 @@
+---
+// Warm Dark is the only theme this site ships, so the docs section is pinned to it
+// unconditionally instead of reading `prefers-color-scheme` / `localStorage` like Starlight's
+// default ThemeProvider does. Paired with the empty ThemeSelect.astro override (no picker to
+// change it) and wired in astro.config.mjs via `starlight({ components: { ThemeProvider, ... } })`.
+---
+
+<script is:inline>
+  document.documentElement.dataset.theme = 'dark'
+</script>

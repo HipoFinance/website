@@ -45,7 +45,7 @@ Migrated off GitBook (`docs.hipo.finance`) — see `specs/gitbook-docs-migration
 
 All state and blockchain logic lives in one MobX store: **`Model.ts` (~1500 lines)**. React components are thin `mobx-react-lite` observers of it. The Model handles:
 
-- **Wallet connection** via `@tonconnect/ui` (`TonConnectUI`); the manifest lives at `/tonconnect-manifest.json` (a legacy copy stays at `/app/tonconnect-manifest.json` for old sessions). TonConnect's widget root and stylesheet are kept alive across view transitions by an `astro:before-swap` handler in the island.
+- **Wallet connection** via `@tonconnect/ui` (`TonConnectUI`); the manifest lives at `/tonconnect-manifest.json` (a legacy copy stays at `/app/tonconnect-manifest.json` for old sessions). The header's connect/disconnect button is **our own React component** (`tonConnectUI.openModal()` / `Model.disconnect`) — TonConnect's button widget is not rendered (`buttonRootId` unset). TonConnect's modal root, stylesheet, toast portals, and focus-ring modality class are kept alive across view transitions by handlers in `Model.ts` (`keepRuntimeStyles`, `trackInputModality`) — re-verify those when bumping `@tonconnect/ui`.
 - **Blockchain access** via `TonClient4` against a fixed mainnet v4 endpoint (ton-access is dead — see the comment in `Model.setTonClient`'s caller), polling the last block every 30s and re-deriving contract state from it via MobX `autorun`s. Mainnet only; testnet support was removed 2026-08-10.
 - **Protocol contracts** via `@hipo-finance/sdk` (`Treasury`, `Parent`, `Wallet`), plus `OldTreasury.ts` for migrating users off the legacy treasury (see `OldWalletUpgrade.tsx`).
 - **Stake/unstake flows** including fee estimates and an "instant vs. best-rate" unstake option; transaction progress is modeled by the `WaitForTransaction` state and shown by `Wait.tsx`.
@@ -56,7 +56,7 @@ App navigation state (`activePage`, `activeTab`) is derived from **`location.pat
 
 ## Styling
 
-Tailwind CSS 4 via the `@tailwindcss/vite` plugin — there is **no `tailwind.config.js`**; the theme (fonts Heebo/Eczar/Poppins, brand colors like `orange`, `brown`, `milky`, `c1`–`c7`) is defined in CSS `@theme` blocks in `src/styles/global.css`. `src/styles/app.css` adds dApp-specific styles. Dark mode uses a class strategy (`@custom-variant dark` keyed off a `.dark` ancestor), toggled by inline scripts in the layouts.
+Tailwind CSS 4 via the `@tailwindcss/vite` plugin — there is **no `tailwind.config.js`**; the theme is defined in CSS `@theme` blocks in `src/styles/global.css`. Since the 2026-08 "Warm Dark" redesign the site is **single-theme dark** — there is no light mode and no theme toggle anywhere (docs included: Starlight is forced dark via component overrides in `src/components/starlight/`). New markup uses the Warm Dark tokens (`bg-bg`, `bg-surface`, `bg-surface-deep`, `border-border`, `text-text`/`-muted`/`-faint`, `bg-accent`, `text-positive`, …) and the two faces `font-body` (Heebo) and `font-fredoka` (display); the legacy palette tokens and `hipo-*` utilities below them are dead code kept only until fully swept. `src/styles/app.css` is a **separate Tailwind compilation** for the dApp (own `@theme`; duplicates the font tokens deliberately). The design source of truth is the handoff bundle recreated in `specs`/changelog 2026-08-11; primary CTA style is the coral pill with the hard offset shadow `shadow-[0_6px_0_var(--color-accent-shadow)]`.
 
 ## Changelog
 
