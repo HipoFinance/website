@@ -26,6 +26,7 @@ import {
   createUnstakeMessage,
 } from '@hipo-finance/sdk'
 import { OldTreasury } from './OldTreasury'
+import { detectTmaMode, initTelegramChrome, tmaClass, type TmaMode } from './tma/telegram'
 
 type ActivePage = 'stake' | 'reward' | 'stats' | 'defi'
 
@@ -210,6 +211,13 @@ function keepRuntimeStyles(event: Event) {
     newDocument.body.classList.add('tc-using-mouse')
   }
 
+  // Same idea for the Telegram Mini App marker, one level up: the swap copies <html>'s attributes
+  // from the incoming document wholesale, so writing the class there — rather than re-adding it
+  // afterwards — is what keeps the static shell hidden without a flash mid-navigation.
+  if (document.documentElement.classList.contains(tmaClass)) {
+    newDocument.documentElement.classList.add(tmaClass)
+  }
+
   // TonConnect's portal cleanup captured the body it originally mounted into and will call
   // removeChild on it (e.g. on disconnect) even though the portal now lives elsewhere. The old
   // body is abandoned after the swap, so make its removeChild forgiving instead of throwing.
@@ -291,6 +299,13 @@ export class Model {
 
   isBannerClosed = false
 
+  // Telegram Mini App chrome. Detected synchronously here — the Model is constructed during the
+  // island's first render — so the compact chrome is what gets painted inside Telegram, and the
+  // desktop chrome is never rendered there at all. See tma/telegram.ts for the two detection
+  // tiers; `isTelegram` is observable only so a tier-2 disagreement can revoke it.
+  readonly tmaMode: TmaMode = detectTmaMode()
+  isTelegram = this.tmaMode !== 'off'
+
   // readonly numberParser = new NumberParser(navigator.language)
 
   readonly dedustSwapUrl = 'https://dedust.io/swap/hTON/TON'
@@ -336,6 +351,7 @@ export class Model {
       walletRewards: observable,
       isBannerClosed: observable,
       statsRange: observable,
+      isTelegram: observable,
 
       isWalletConnected: computed,
       isStakeTabActive: computed,
@@ -362,6 +378,8 @@ export class Model {
       buttonLabel: computed,
       swapUrl: computed,
       youWillReceive: computed,
+      youWillReceiveAmount: computed,
+      youWillReceiveToken: computed,
       exchangeRate: computed,
       exchangeRateFormatted: computed,
       averageStakeFeeFormatted: computed,
@@ -415,6 +433,7 @@ export class Model {
       loadWalletRewards: action,
       closeBanner: action,
       setStatsRange: action,
+      setTelegram: action,
     })
   }
 
@@ -434,6 +453,14 @@ export class Model {
     document.addEventListener('mousedown', trackInputModality)
     document.addEventListener('keydown', trackInputModality)
     this.applyPathState()
+
+    if (this.isTelegram) {
+      void initTelegramChrome(this.tmaMode).then((confirmed) => {
+        if (!confirmed) {
+          this.setTelegram(false)
+        }
+      })
+    }
 
     const value = getCookie(cookieBannerClosed)
     this.isBannerClosed = value === 'closed'
@@ -682,17 +709,31 @@ export class Model {
     return url
   }
 
-  get youWillReceive() {
+  // Undefined until the exchange rate is known, and an empty string while there is no valid
+  // positive amount to convert — the mini app renders that case as a plain 0, the desktop form as
+  // the bare token name (see youWillReceive).
+  get youWillReceiveAmount() {
     const rate = this.exchangeRate
     const nano = this.amountInNano
-    const isStakeTabActive = this.isStakeTabActive
     if (rate == null) {
       return
     } else if (nano == null || !this.isAmountValid || !this.isAmountPositive) {
-      return isStakeTabActive ? 'hGRAM' : 'GRAM'
+      return ''
     } else {
-      return `~ ${formatNano(Number(nano) * rate)} ${isStakeTabActive ? 'hGRAM' : 'GRAM'}`
+      return formatNano(Number(nano) * rate)
     }
+  }
+
+  get youWillReceiveToken() {
+    return this.isStakeTabActive ? 'hGRAM' : 'GRAM'
+  }
+
+  get youWillReceive() {
+    const amount = this.youWillReceiveAmount
+    if (amount == null) {
+      return
+    }
+    return amount === '' ? this.youWillReceiveToken : `~ ${amount} ${this.youWillReceiveToken}`
   }
 
   get exchangeRate() {
@@ -912,15 +953,16 @@ export class Model {
     }
   }
 
-  // hGRAM/GRAM rate as a bare number for the Stats page card. Prefers the gauge (the quotes
-  // ratio) because the block poller is paused on every page but /stake/, so treasuryState is
-  // usually unavailable here; falls back to the contract rate when it has been read.
+  // The protocol rate — how much GRAM one hGRAM redeems for — straight from treasury state, the
+  // same source as the stake form's "Exchange rate" row.
+  //
+  // It is deliberately NOT the ratio of the gauge's two USD quotes, which this used to prefer: that
+  // ratio is a market price, it trades below 1 (it read 0.9627 on the live card), and it flatly
+  // contradicts both the real rate and the card's "only goes up" caption. There is no fallback on
+  // purpose — until the block poller has read the treasury this is undefined, and the card renders
+  // a dash rather than a number that is not the rate. controlBackgroundJobs keeps that poller
+  // running on the Stats page for exactly this reason.
   get statsRateFormatted() {
-    const hgram = this.gauge?.hgram?.market?.current_price?.usd
-    const gram = this.gauge?.gram?.market?.current_price?.usd
-    if (this.useGauge && hgram != null && gram != null && gram > 0) {
-      return formatRate(hgram / gram)
-    }
     const state = this.treasuryState
     if (state != null) {
       return formatRate(Number(state.totalCoins) / Number(state.totalTokens) || 1)
@@ -1002,6 +1044,11 @@ export class Model {
 
   setStatsRange = (statsRange: StatsRange) => {
     this.statsRange = statsRange
+  }
+
+  // Only ever called to revoke: the launch parameters said Telegram, the SDK then said otherwise.
+  setTelegram = (isTelegram: boolean) => {
+    this.isTelegram = isTelegram
   }
 
   setActiveTab = (activeTab: ActiveTab) => {
@@ -1367,8 +1414,10 @@ export class Model {
     void this.readLastBlock()
   }
 
+  // The block poller feeds the stake form and — since the rate card must show the protocol rate or
+  // nothing at all (see statsRateFormatted) — the Stats page too. Every other page pauses it.
   controlBackgroundJobs = () => {
-    if (!document.hidden && this.activePage === 'stake') {
+    if (!document.hidden && (this.activePage === 'stake' || this.activePage === 'stats')) {
       this.resume()
     } else {
       this.pause()

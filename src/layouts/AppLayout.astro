@@ -46,6 +46,42 @@ const {
 
     <meta name='theme-color' content='#201b1a' />
     <meta name='color-scheme' content='dark' />
+
+    <!-- Telegram Mini App: marks <html> before the first paint so the static shell below never
+         flashes inside Telegram while the island loads. This is a deliberate duplicate of
+         probeTmaMode() in src/components/app/tma/telegram.ts — keep the two in sync; the island
+         reads window.__hipoTma and only re-probes if this script did not run. Nothing else here
+         depends on Telegram: outside it the script sets 'off' and stops. -->
+    <script is:inline>
+      ;(function () {
+        var mode = 'off'
+        try {
+          var override = new URLSearchParams(window.location.search).get('tma')
+          var remembered = window.sessionStorage.getItem('hipo.tma')
+          var initParams = window.sessionStorage.getItem('__telegram__initParams')
+          if (override === '1') {
+            window.sessionStorage.setItem('hipo.tma', 'forced')
+            mode = 'forced'
+          } else if (override === '0') {
+            window.sessionStorage.removeItem('hipo.tma')
+          } else if (remembered === 'forced' || remembered === 'telegram') {
+            mode = remembered
+          } else if (
+            window.location.hash.indexOf('tgWebAppPlatform=') >= 0 ||
+            window.location.hash.indexOf('tgWebAppData=') >= 0 ||
+            (initParams !== null && initParams.indexOf('tgWebAppPlatform') >= 0)
+          ) {
+            mode = 'telegram'
+          }
+        } catch (e) {
+          mode = 'off'
+        }
+        window.__hipoTma = mode
+        if (mode !== 'off') {
+          document.documentElement.classList.add('tma')
+        }
+      })()
+    </script>
   </head>
 
   <!-- Single warm-dark theme: no toggle and no theme bootstrap script anymore, so nothing here
@@ -68,11 +104,15 @@ const {
       <AppIsland client:only='react' transition:persist='app-island' />
     </main>
 
-    <slot />
+    <!-- data-tma-hide: the three wrappers below are the static shell around the island. They are
+         hidden wholesale in Telegram Mini App mode (see .tma rules in src/styles/app.css); the
+         attribute is the only hook that CSS needs, and it does nothing outside that mode. -->
+    <div data-tma-hide><slot /></div>
 
     <nav
       aria-label='Hipo app pages'
       class='font-body text-text-faint mx-auto w-full max-w-3xl px-4 pb-12 text-[13px] max-sm:pb-28'
+      data-tma-hide
     >
       <ul class='flex flex-wrap justify-center gap-x-6 gap-y-2'>
         <li><a class='hover:text-accent' href='/stake/'>Stake</a></li>
@@ -84,6 +124,6 @@ const {
       </ul>
     </nav>
 
-    <AppFooter />
+    <div data-tma-hide><AppFooter /></div>
   </body>
 </html>

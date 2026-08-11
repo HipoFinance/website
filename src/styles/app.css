@@ -18,6 +18,35 @@
   display: flex !important;
 }
 
+/* Telegram Mini App mode. The class is put on <html> by the inline probe in AppLayout.astro (before
+   the first paint) and re-applied by the island on every ClientRouter swap; see
+   src/components/app/tma/telegram.ts. Nothing below matches without it, so the ordinary web app is
+   untouched. */
+
+/* Everything the Astro shell renders around the island — the per-page SEO copy, the cross-link nav
+   and the footer — is out of place in a mini app, and it is markup the island cannot reach. */
+html.tma [data-tma-hide] {
+  display: none !important;
+}
+
+/* The shell scrolls internally instead of the document: a mini app that scrolls its document also
+   drags Telegram's sheet around. */
+html.tma,
+html.tma body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* --tg-viewport-stable-height is maintained by telegram-web-app.js and, unlike the plain viewport
+   height, does not shrink when the keyboard opens — so the bottom tab row keeps its place while an
+   amount is being typed. The fallback covers both the moments before the SDK chunk has loaded and
+   the ?tma=1 browser preview, where the var is never set. */
+.tma-shell {
+  height: var(--tg-viewport-stable-height, 100dvh);
+  background: var(--color-bg);
+}
+
 @theme {
   /* Warm Dark tokens are declared in global.css; these two are app-scoped font utilities.
      Declaring them here as well as in global.css is deliberate: this stylesheet is compiled

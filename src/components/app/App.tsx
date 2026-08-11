@@ -20,6 +20,7 @@ import { Model } from './Model'
 import { useRef, useEffect } from 'react'
 import AmountAlert from './AmountAlert.tsx'
 import MultisigGuidance from './MultisigGuidance.tsx'
+import TmaApp from './tma/TmaApp.tsx'
 
 const App = observer(() => {
   const modelRef = useRef<Model | null>(null)
@@ -50,10 +51,27 @@ const App = observer(() => {
     page = <StatsPage model={model} />
   }
 
-  return (
+  // Inside the Telegram webview the whole desktop chrome is replaced by the compact one; outside
+  // it this branch is never taken and the app renders exactly as before. TmaApp is imported
+  // statically rather than lazily on purpose: it is a few KB of markup next to this island's
+  // megabyte of TON libraries, and lazy-loading it would put a chunk fetch in front of the mini
+  // app's first paint, which is the case that matters most.
+  //
+  // The overlays and the TonConnect root below are shared by both chromes rather than duplicated
+  // inside each, so that a late chrome switch (tier-2 detection revoking a false positive, see
+  // tma/telegram.ts) can never remount the element TonConnect has already mounted into.
+  const chrome = model.isTelegram ? (
+    <TmaApp model={model} />
+  ) : (
     <div className='flex min-h-screen flex-col'>
       <Header model={model} />
       {page}
+    </div>
+  )
+
+  return (
+    <>
+      {chrome}
       {/* Rendered outside the active page so a pending transaction's modal survives a page
           switch, including browser back/forward, instead of unmounting with the stake widget. */}
       <Wait model={model} />
@@ -63,7 +81,7 @@ const App = observer(() => {
           be inside the island: its default root is appended to document.body, which the
           ClientRouter replaces on every navigation. */}
       <div id='ton-connect-widget-root'></div>
-    </div>
+    </>
   )
 })
 
