@@ -33,6 +33,22 @@ const App = observer(() => {
     model.init()
   }, [model])
 
+  // The static shell renders a loading placeholder (AppLayout's [data-app-loading]) so slow
+  // connections see that an app is coming; drop it as soon as this island is live, and again
+  // after every ClientRouter navigation, since each swapped-in page carries a fresh copy.
+  useEffect(() => {
+    const clear = () => {
+      document.querySelectorAll('[data-app-loading]').forEach((el) => {
+        el.remove()
+      })
+    }
+    clear()
+    document.addEventListener('astro:page-load', clear)
+    return () => {
+      document.removeEventListener('astro:page-load', clear)
+    }
+  }, [])
+
   let page = (
     <>
       <OldWalletUpgrade model={model} />

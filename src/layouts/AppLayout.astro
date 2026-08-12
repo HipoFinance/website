@@ -105,6 +105,13 @@ const {
 
     <main>
       <AppIsland client:only='react' transition:persist='app-island' />
+      <!-- Removed by App.tsx the moment the island hydrates (and again after every ClientRouter
+           swap). On slow connections this is what tells the user an app is coming, instead of the
+           bare SEO copy below reading as the whole page. -->
+      <div data-app-loading class='flex min-h-[55vh] flex-col items-center justify-center gap-4'>
+        <div class='border-border border-t-accent size-10 animate-spin rounded-full border-4'></div>
+        <p class='text-text-muted font-body text-sm'>Loading the Hipo app…</p>
+      </div>
     </main>
 
     <!-- data-tma-hide: the three wrappers below are the static shell around the island. They are
