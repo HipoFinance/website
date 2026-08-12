@@ -15,12 +15,13 @@ export const PROM_BASE =
 // series key and dedups an HA scrape pair. Metric names use the pre-rename tokens: `hton` =
 // hGRAM, `ton` = GRAM.
 const QUERY =
-  'max by (__name__) ({__name__=~"hipo_treasury_apy|hipo_treasury_total_coins|hipo_treasury_hton_rate|hipo_hton_holders_count|hipo_hton_current_price|hipo_hpo_current_price|hipo_ton_current_price"})'
+  'max by (__name__) ({__name__=~"hipo_treasury_apy|hipo_treasury_total_coins|hipo_treasury_hton_rate|hipo_treasury_protocol_fee|hipo_hton_holders_count|hipo_hton_current_price|hipo_hpo_current_price|hipo_ton_current_price"})'
 
 export type MetricName =
   | 'hipo_treasury_apy'
   | 'hipo_treasury_total_coins'
   | 'hipo_treasury_hton_rate'
+  | 'hipo_treasury_protocol_fee'
   | 'hipo_hton_holders_count'
   | 'hipo_hton_current_price'
   | 'hipo_ton_current_price'
