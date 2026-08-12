@@ -13,8 +13,11 @@ let elStakers = document.getElementById('hpoStakers')
 let elBurned = document.getElementById('hpoBurned')
 
 // "Burned so far" on the tokenomics card: 1B HPO were minted; burns shrink the on-chain total
-// supply, so the difference IS the burned amount — a real number, not marketing copy. tonapi is
-// only queried on the HPO page (the element exists nowhere else) and a failure leaves the dash.
+// supply, so the difference IS the burned amount — a real number, not marketing copy. Read via
+// the TON v4 API's get_jetton_data run (same API the dApp's TonClient4 speaks; block-keyed and
+// CDN-cached, unlike tonapi's free tier which 429s under load). Only queried on the HPO page
+// (the element exists nowhere else); a failure leaves the dash.
+const TON_V4 = 'https://mainnet-v4.tonhubapi.com'
 const HPO_JETTON = 'EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM'
 const HPO_MINTED = 1000000000
 
@@ -22,10 +25,14 @@ let updateBurned = () => {
   if (elBurned == null) {
     return
   }
-  fetch('https://tonapi.io/v2/jettons/' + HPO_JETTON)
+  fetch(TON_V4 + '/block/latest')
+    .then((res) => res.json())
+    .then((res) => fetch(TON_V4 + '/block/' + res.last.seqno + '/' + HPO_JETTON + '/run/get_jetton_data'))
     .then((res) => res.json())
     .then((res) => {
-      const supply = Number(res.total_supply) / 1000000000
+      // get_jetton_data's first stack item is the total supply in nano.
+      const item = res.exitCode === 0 ? res.result?.[0] : undefined
+      const supply = item?.type === 'int' ? Number(item.value) / 1000000000 : NaN
       if (Number.isFinite(supply) && supply > 0 && supply <= HPO_MINTED) {
         SetText(elBurned, FormatCompact1Fraction(HPO_MINTED - supply))
       }
