@@ -7,10 +7,12 @@
 // failed or slow fetch must never leave a fake/stale number on screen.
 
 let elHeroApy = document.getElementById('heroApy')
+let elHeroFee = document.getElementById('heroFee')
 let elHeroHolders = document.getElementById('heroHolders')
 let elStatStaked = document.getElementById('statStaked')
 let elStatStakedUsd = document.getElementById('statStakedUsd')
 let elStatApy = document.getElementById('statApy')
+let elStatFee = document.getElementById('statFee')
 let elStatHolders = document.getElementById('statHolders')
 let elHpoMarketCap = document.getElementById('hpoMarketCap')
 let elHpoVolume = document.getElementById('hpoVolume')
@@ -30,6 +32,14 @@ let updateLandingData = () => {
         const apyText = FormatPercent(apy)
         SetText(elHeroApy, apyText)
         SetText(elStatApy, apyText)
+      }
+
+      // Percent like current_apy (GovernanceFee/65535*100); 0 is a real value, so no > 0 guard.
+      const fee = result.treasury?.protocol_fee
+      if (fee != null) {
+        const feeText = FormatPercent(fee)
+        SetText(elHeroFee, feeText)
+        SetText(elStatFee, feeText)
       }
 
       const stakedNano = result.treasury?.current_tvl
