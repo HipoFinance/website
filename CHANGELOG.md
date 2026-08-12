@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-12 — [detailed report](changelog/2026-08-12-allowlist-403-hotfix.md)
+
+- Matched the Prometheus allowlist's new 8-metric query (with
+  `hipo_treasury_protocol_fee`), fixing the 403s that blanked all charts.
+- Synced `specs/metrics-proxy-nginx.conf` with the deployed single-entry map.
+- Moved the burned-HPO lookup off rate-limited tonapi onto the TON v4 API.
+
 ## 2026-08-12 — [detailed report](changelog/2026-08-12-team-feedback-round.md)
 
 - De-jargoned the copy: Staking fee, Yearly rewards, decision-making token,
