@@ -249,8 +249,6 @@ function trackInputModality(event: Event) {
 
 const errorMessageTonAccess = 'Unable to access blockchain'
 
-const cookieBannerClosed = 'banner.closed'
-
 export class Model {
   initialized = false
   loading = false
@@ -296,8 +294,6 @@ export class Model {
   timeoutErrorMessage?: ReturnType<typeof setTimeout>
   timeoutHipoGauge?: ReturnType<typeof setTimeout>
   timeoutMultisigHint?: ReturnType<typeof setTimeout>
-
-  isBannerClosed = false
 
   // Telegram Mini App chrome. Detected synchronously here — the Model is constructed during the
   // island's first render — so the compact chrome is what gets painted inside Telegram, and the
@@ -349,7 +345,6 @@ export class Model {
       isGaugeRefreshing: observable,
       walletRewardsFetchState: observable,
       walletRewards: observable,
-      isBannerClosed: observable,
       statsRange: observable,
       isTelegram: observable,
 
@@ -431,7 +426,6 @@ export class Model {
       hideMultisigHint: action,
       setWalletRewardsFetchState: action,
       loadWalletRewards: action,
-      closeBanner: action,
       setStatsRange: action,
       setTelegram: action,
     })
@@ -461,9 +455,6 @@ export class Model {
         }
       })
     }
-
-    const value = getCookie(cookieBannerClosed)
-    this.isBannerClosed = value === 'closed'
 
     this.initTonConnect()
     this.loadHipoGauge()
@@ -1724,11 +1715,6 @@ export class Model {
         this.timeoutHipoGauge = setTimeout(this.loadHipoGauge, retryHipoGaugeDelay)
       })
   }
-
-  closeBanner() {
-    this.isBannerClosed = true
-    setCookie(cookieBannerClosed, 'closed', 24)
-  }
 }
 
 // class NumberParser {
@@ -1863,20 +1849,6 @@ function generateRandomQueryId(): bigint {
 
 function sleep(ms: number) {
   return new Promise((r) => setTimeout(r, ms))
-}
-
-function setCookie(name: string, value: string, hours: number) {
-  const d = new Date()
-  d.setTime(d.getTime() + hours * 60 * 60 * 1000)
-  document.cookie = `${name}=${value};expires=${d.toUTCString()}; path=/; SameSite=Lax; Secure`
-}
-
-function getCookie(name: string): string | null {
-  const cookie = document.cookie
-  const regexp = new RegExp('(^| )' + name + '=([^;]+)')
-  const match = regexp.exec(cookie)
-
-  return match ? match[2] : null
 }
 
 function retry<T>(fn: () => Promise<T>, retries = 10): Promise<T> {

@@ -1,15 +1,18 @@
 ---
 import BaseLayout from '../layouts/LandingLayout.astro'
 import FAQ from '../components/FAQ.astro'
-import Header from '../components/LandingHeader.astro'
-import Footer from '../components/LandingFooter.astro'
+import Header from '../components/SiteHeader.astro'
+import Footer from '../components/SiteFooter.astro'
+import Banner from '../components/Banner.astro'
 ---
 
 <BaseLayout
   title='FAQ | GRAM Staking on TON | Hipo'
   description='Stake GRAM on TON blockchain with Hipo, the most profitable liquid staking protocol on TON. Earn the highest staking rewards while keeping your assets liquid.'
 >
-  <Header page='faq' />
+  <Banner />
+
+  <Header active='faq' />
 
   <main class=''>
     <FAQ />

@@ -4,7 +4,8 @@ import '../styles/global.css'
 import '../styles/app.css'
 import SEO from '../components/SEO.astro'
 import AppIsland from '../components/app/AppIsland.tsx'
-import AppFooter from '../components/AppFooter.astro'
+import SiteFooter from '../components/SiteFooter.astro'
+import Banner from '../components/Banner.astro'
 
 interface Props {
   title: string
@@ -100,6 +101,8 @@ const {
       })
     </script>
 
+    <div data-tma-hide><Banner /></div>
+
     <main>
       <AppIsland client:only='react' transition:persist='app-island' />
     </main>
@@ -111,7 +114,7 @@ const {
 
     <nav
       aria-label='Hipo app pages'
-      class='font-body text-text-faint mx-auto w-full max-w-3xl px-4 pb-12 text-[13px] max-sm:pb-28'
+      class='font-body text-text-faint mx-auto w-full max-w-3xl px-4 pb-12 text-[13px] max-lg:pb-28'
       data-tma-hide
     >
       <ul class='flex flex-wrap justify-center gap-x-6 gap-y-2'>
@@ -124,6 +127,6 @@ const {
       </ul>
     </nav>
 
-    <div data-tma-hide><AppFooter /></div>
+    <div data-tma-hide><SiteFooter app /></div>
   </body>
 </html>

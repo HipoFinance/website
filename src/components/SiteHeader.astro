@@ -1,0 +1,78 @@
+---
+// The one global header for every non-docs static page (home, FAQ, HPO). The app pages render
+// the same bar from React (src/components/app/Header.tsx) so the wallet button can live in it —
+// keep the nav items and classes in sync between the two. One flat menu carries every site and
+// app destination, so the menu never changes between pages; `active` colors the current page's
+// item in coral. Eight items need room, so the inline nav shows from lg and the hamburger
+// covers everything below that.
+interface Props {
+  active?: 'home' | 'hpo' | 'faq'
+}
+
+const { active } = Astro.props
+
+const items = [
+  { key: 'home', href: '/', label: 'Home' },
+  { key: 'hpo', href: '/hpo/', label: 'HPO' },
+  { key: 'docs', href: '/docs/', label: 'Docs' },
+  { key: 'faq', href: '/faq/', label: 'FAQ' },
+  { key: 'stake', href: '/stake/', label: 'Stake' },
+  { key: 'rewards', href: '/rewards/', label: 'Rewards' },
+  { key: 'stats', href: '/stats/', label: 'Stats' },
+  { key: 'defi', href: '/defi/', label: 'DeFi' },
+]
+---
+
+<header>
+  <script src='/src/scripts/landing-menu.js'></script>
+
+  <div class='mx-auto flex w-full max-w-[1280px] items-center justify-between px-6 py-5 md:px-12'>
+    <a href='/' class='flex items-center gap-2.5'>
+      <img src='/images/hipo.svg' alt='Hipo' class='size-9' />
+      <span class='font-fredoka text-text text-2xl font-semibold'>Hipo</span>
+    </a>
+
+    <nav class='text-text-muted hidden items-center gap-6 text-[15px] font-medium lg:flex'>
+      {
+        items.map(({ key, href, label }) => (
+          <a href={href} class={key === active ? 'text-accent' : 'hover:text-accent'}>
+            {label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class='flex items-center gap-4'>
+      <a
+        href='/stake/'
+        class='bg-accent text-on-accent hover:bg-accent-hover hidden rounded-full px-6 py-[11px] text-[15px] font-semibold lg:inline-block'
+      >
+        Open app
+      </a>
+
+      <button id='menu-button' class='text-text lg:hidden' title='Toggle mobile menu' aria-label='Toggle mobile menu'>
+        <svg class='size-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+          <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 12h16M4 18h16'></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id='mobile-menu' class='hidden px-6 pb-6 lg:hidden'>
+    <nav class='text-text-muted flex flex-col gap-1 text-[15px] font-medium'>
+      {
+        items.map(({ key, href, label }) => (
+          <a
+            href={href}
+            class={`hover:bg-surface hover:text-accent rounded-lg px-3 py-2.5 ${key === active ? 'text-accent' : ''}`}
+          >
+            {label}
+          </a>
+        ))
+      }
+      <a href='/stake/' class='bg-accent text-on-accent mt-2 rounded-full px-6 py-2.5 text-center font-semibold'>
+        Open app
+      </a>
+    </nav>
+  </div>
+</header>

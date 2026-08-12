@@ -1,15 +1,18 @@
 ---
 import Layout from '../../layouts/HpoLayout.astro'
 import Hpo from '../../components/Hpo.astro'
-import Header from '../../components/HpoHeader.astro'
-import Footer from '../../components/HpoFooter.astro'
+import Header from '../../components/SiteHeader.astro'
+import Footer from '../../components/SiteFooter.astro'
+import Banner from '../../components/Banner.astro'
 ---
 
 <Layout
   title='$HPO — Governance & Profit-Sharing Token | Hipo'
   description='$HPO is the governance and profit-sharing token of Hipo, the most profitable liquid staking protocol on TON. Buy HPO and shape the future of GRAM staking.'
 >
-  <Header />
+  <Banner />
+
+  <Header active='hpo' />
   <Hpo />
   <Footer />
 </Layout>

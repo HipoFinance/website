@@ -1,3 +1,4 @@
+import { useState, type MouseEvent } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Model } from './Model'
 
@@ -7,6 +8,7 @@ interface Props {
 
 type Page = 'stake' | 'reward' | 'stats' | 'defi'
 
+// The app pages reachable from the mobile bottom tab bar.
 const pages: { page: Page; label: string }[] = [
   { page: 'stake', label: 'Stake' },
   { page: 'reward', label: 'Reward' },
@@ -14,73 +16,55 @@ const pages: { page: Page; label: string }[] = [
   { page: 'defi', label: 'DeFi' },
 ]
 
-const Header = observer(({ model }: Props) => {
-  return (
-    <div className='font-body text-text mx-auto w-full max-w-[1120px]'>
-      {!model.isBannerClosed && (
-        <div className='bg-accent text-on-accent relative'>
-          <div className='mx-auto flex max-w-[1120px] flex-row items-center justify-center gap-3 px-10 py-2.5 text-sm max-sm:pr-10'>
-            <p className='text-center'>
-              💰 <b className='font-bold'>Earn 100% of staking rewards</b>. Protocol fee is now 0%.
-            </p>
-            <a
-              href='https://t.me/HipoFinanceBot/join'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='shrink-0 font-semibold underline underline-offset-2'
-            >
-              Earn now
-            </a>
-          </div>
-          <button
-            aria-label='Dismiss announcement'
-            className='absolute top-0 right-0 flex h-full min-h-11 w-11 cursor-pointer items-center justify-center text-sm font-bold'
-            onClick={() => {
-              model.closeBanner()
-            }}
-          >
-            ✕
-          </button>
-        </div>
-      )}
+// Keep in sync with src/components/SiteHeader.astro — same items in the same order with the same
+// classes, so the one flat menu reads identically on the static pages and the app pages. Links
+// with an appPage stay inside the app's own navigation instead of a full page load.
+const siteLinks: { href: string; label: string; appPage?: Page }[] = [
+  { href: '/', label: 'Home' },
+  { href: '/hpo/', label: 'HPO' },
+  { href: '/docs/', label: 'Docs' },
+  { href: '/faq/', label: 'FAQ' },
+  { href: '/stake/', label: 'Stake', appPage: 'stake' },
+  { href: '/rewards/', label: 'Rewards', appPage: 'reward' },
+  { href: '/stats/', label: 'Stats', appPage: 'stats' },
+  { href: '/defi/', label: 'DeFi', appPage: 'defi' },
+]
 
-      <div className='flex flex-row items-center gap-4 px-5 py-4 sm:gap-7 sm:px-10'>
-        <a href='/' className='flex flex-none flex-row items-center gap-2.5'>
-          <span className='bg-text flex h-[34px] w-[34px] items-center justify-center rounded-full'>
-            <img src='/images/hipo.svg' alt='Hipo' className='h-[23px] w-[23px]' />
-          </span>
-          <span className='font-fredoka text-[22px] font-semibold'>Hipo</span>
+const Header = observer(({ model }: Props) => {
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const isActive = (appPage?: Page) => appPage != null && model.activePage === appPage
+
+  const siteLinkClick = (appPage?: Page) => (e: MouseEvent) => {
+    setMenuOpen(false)
+    if (appPage != null) {
+      e.preventDefault()
+      model.navigateToPage(appPage)
+    }
+  }
+
+  return (
+    <div className='font-body text-text w-full'>
+      <div className='mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-6 py-5 md:px-12'>
+        <a href='/' className='flex flex-none items-center gap-2.5'>
+          <img src='/images/hipo.svg' alt='Hipo' className='size-9' />
+          <span className='font-fredoka text-2xl font-semibold'>Hipo</span>
         </a>
 
-        {/* Bottom bar on phones, inline pill nav from sm — the same pattern as before, restyled. */}
-        <nav
-          aria-label='App sections'
-          className='border-border bg-surface-deep fixed right-0 bottom-0 left-0 z-10 flex w-full flex-row border-t select-none sm:static sm:w-auto sm:gap-1.5 sm:border-0 sm:bg-transparent'
-        >
-          {pages.map(({ page, label }) => {
-            const active = model.activePage === page
-            return (
-              <button
-                key={page}
-                type='button'
-                aria-current={active ? 'page' : undefined}
-                className={
-                  'min-h-12 flex-1 cursor-pointer text-center text-[15px] font-medium sm:min-h-0 sm:flex-none sm:rounded-full sm:px-4 sm:py-2 ' +
-                  (active
-                    ? 'text-accent sm:border-border sm:bg-surface sm:text-text sm:border'
-                    : 'text-text-muted hover:text-accent')
-                }
-                onClick={() => {
-                  model.navigateToPage(page)
-                }}
-              >
-                {label}
-              </button>
-            )
-          })}
+        <nav aria-label='Site' className='text-text-muted hidden items-center gap-6 text-[15px] font-medium lg:flex'>
+          {siteLinks.map(({ href, label, appPage }) => (
+            <a
+              key={href}
+              href={href}
+              className={isActive(appPage) ? 'text-accent' : 'hover:text-accent'}
+              onClick={siteLinkClick(appPage)}
+            >
+              {label}
+            </a>
+          ))}
         </nav>
 
-        <div className='ml-auto flex flex-none flex-row items-center'>
+        <div className='flex flex-none items-center gap-4'>
           {model.isWalletConnected ? (
             <button
               type='button'
@@ -99,8 +83,65 @@ const Header = observer(({ model }: Props) => {
               Connect wallet
             </button>
           )}
+
+          <button
+            type='button'
+            className='text-text cursor-pointer lg:hidden'
+            title='Toggle mobile menu'
+            aria-label='Toggle mobile menu'
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <svg className='size-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M4 6h16M4 12h16M4 18h16' />
+            </svg>
+          </button>
         </div>
       </div>
+
+      {menuOpen && (
+        <div className='px-6 pb-4 lg:hidden'>
+          <nav aria-label='Site' className='text-text-muted flex flex-col gap-1 text-[15px] font-medium'>
+            {siteLinks.map(({ href, label, appPage }) => (
+              <a
+                key={href}
+                href={href}
+                className={`hover:bg-surface hover:text-accent rounded-lg px-3 py-2.5 ${
+                  isActive(appPage) ? 'text-accent' : ''
+                }`}
+                onClick={siteLinkClick(appPage)}
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      )}
+
+      {/* Bottom tab bar: the app pages within thumb's reach whenever the inline menu is hidden. */}
+      <nav
+        aria-label='App sections'
+        className='border-border bg-surface-deep fixed right-0 bottom-0 left-0 z-10 flex w-full flex-row border-t select-none lg:hidden'
+      >
+        {pages.map(({ page, label }) => {
+          const active = model.activePage === page
+          return (
+            <button
+              key={page}
+              type='button'
+              aria-current={active ? 'page' : undefined}
+              className={
+                'min-h-12 flex-1 cursor-pointer text-center text-[15px] font-medium ' +
+                (active ? 'text-accent' : 'text-text-muted hover:text-accent')
+              }
+              onClick={() => {
+                model.navigateToPage(page)
+              }}
+            >
+              {label}
+            </button>
+          )
+        })}
+      </nav>
     </div>
   )
 })
