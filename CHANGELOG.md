@@ -7,6 +7,18 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-12 — [detailed report](changelog/2026-08-12-site-chrome-unification.md)
+
+- Wired the now-live gauge protocol fee into the landing page; swapped the
+  hero mascot for the new 3D render, hidden on mobile.
+- Unified one flat header menu, one footer, and one global announcement
+  banner across all non-docs pages; logo everywhere without the filled disk.
+- Refreshed the HPO page: burn-focused "built to get scarcer" section,
+  rewritten FAQ, unbacked stats removed.
+- Fixed the landing Hipo Club card's icon and docs link.
+- Wrote `specs/ton-v4-read-endpoint.md` (self-hosted TON v4 read endpoint);
+  implementation pending review.
+
 ## 2026-08-11 — [detailed report](changelog/2026-08-11-hton-rate-chart.md)
 
 - Added an hGRAM/GRAM rate history chart to the Stats page from the newly
