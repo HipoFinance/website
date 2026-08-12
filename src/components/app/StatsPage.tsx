@@ -26,11 +26,14 @@ interface StatCardProps {
   accent?: boolean
   delta?: Delta
   rangeLabel: string
+  exact?: string
 }
 
 // A delta is rendered only when it could actually be computed from the history already fetched
-// for the selected range; otherwise the line is omitted rather than invented.
-const StatCard = ({ value, label, caption, accent, delta, rangeLabel }: StatCardProps) => (
+// for the selected range; otherwise the line is omitted rather than invented. `exact` is an
+// always-shown selectable line under everything else — the precise figure behind the compact
+// headline, there to be copied.
+const StatCard = ({ value, label, caption, accent, delta, rangeLabel, exact }: StatCardProps) => (
   <div className='border-border bg-surface rounded-[20px] border px-6 py-5'>
     <div className={'font-fredoka text-[30px] font-semibold ' + (accent === true ? 'text-accent' : 'text-text')}>
       {value ?? '—'}
@@ -43,6 +46,7 @@ const StatCard = ({ value, label, caption, accent, delta, rangeLabel }: StatCard
     ) : (
       caption != null && <div className='text-text-faint pt-1 text-[13px] font-medium'>{caption}</div>
     )}
+    {exact != null && <div className='text-text-faint pt-1 text-[13px]'>exactly {exact}</div>}
   </div>
 )
 
@@ -171,11 +175,12 @@ const StatsPage = observer(({ model }: Props) => {
           label={tvlLabel}
           delta={hasHistory ? computeDelta(stakedPoints, '%') : undefined}
           rangeLabel={chartsStore.rangeLabel}
+          exact={model.statsStakedExact != null ? model.statsStakedExact + ' GRAM' : undefined}
         />
         <StatCard
           value={model.statsApyFormatted}
           label='APY, last round'
-          caption={model.protocolFee != null ? 'Protocol fee ' + model.protocolFee : undefined}
+          caption={model.protocolFee != null ? 'Staking fee ' + model.protocolFee : undefined}
           accent
           rangeLabel={chartsStore.rangeLabel}
         />

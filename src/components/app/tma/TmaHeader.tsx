@@ -24,10 +24,10 @@ const TmaHeader = observer(({ model }: Props) => {
 
       <div className='min-w-0'>
         <div className='font-fredoka truncate text-[17px] leading-tight font-semibold'>{title}</div>
-        {/* statsApyFormatted prefers the gauge, so the subline fills without waiting for the
-            slower on-chain treasury state (which protocolFee still needs). */}
+        {/* statsApyFormatted falls back to the gauge while the slower on-chain treasury state
+            (which protocolFee still needs) is loading, so the subline fills fast either way. */}
         <div className='text-text-muted truncate text-xs'>
-          APY {model.statsApyFormatted ?? '—'} · fee {model.protocolFee ?? '—'}
+          Rewards {model.statsApyFormatted ?? '—'} · fee {model.protocolFee ?? '—'}
         </div>
       </div>
 

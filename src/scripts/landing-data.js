@@ -47,6 +47,12 @@ let updateLandingData = () => {
         const staked = stakedNano / 1000000000
         SetText(elStatStaked, FormatCompact2Fraction(staked))
 
+        // The compact figure is what renders; the exact amount rides along as a hover tooltip
+        // (the Stats page shows it as selectable text for copying).
+        const exact = staked.toLocaleString('en-US', { maximumFractionDigits: 0 }) + ' GRAM'
+        SetTitle(elStatStaked, exact)
+        SetTitle(elStatStakedUsd, exact)
+
         const gramPrice = result.ton?.market?.current_price?.usd
         if (gramPrice != null && gramPrice > 0) {
           SetText(elStatStakedUsd, '$' + FormatCompact1Fraction(staked * gramPrice))
@@ -84,6 +90,12 @@ let SetText = (el, text) => {
   }
 }
 
+let SetTitle = (el, text) => {
+  if (el != null) {
+    el.title = text
+  }
+}
+
 let FormatPercent = (n) => {
   return (n / 100).toLocaleString(undefined, { style: 'percent', maximumFractionDigits: 2 })
 }
@@ -97,8 +109,8 @@ let FormatCompact2Fraction = (n) => {
 }
 
 let FormatHolders = (n) => {
-  const rounded = Math.floor(n / 1000) * 1000
-  return rounded.toLocaleString('en-US') + '+'
+  // The real count, not a rounded "23,000+" — team feedback prefers exact numbers.
+  return n.toLocaleString('en-US')
 }
 
 updateLandingData()

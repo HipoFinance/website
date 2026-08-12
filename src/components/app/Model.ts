@@ -400,6 +400,7 @@ export class Model {
       statsStakedFormatted: computed,
       statsHoldersFormatted: computed,
       statsStakedCompact: computed,
+      statsStakedExact: computed,
       statsTvlUsdFormatted: computed,
       statsRateFormatted: computed,
       hgramStats: computed,
@@ -898,20 +899,28 @@ export class Model {
     return this.gauge != null
   }
 
+  // The stats getters below prefer the on-chain treasury state and fall back to the gauge, not
+  // the other way around: the gauge lags the chain, and the displayed figure should be the
+  // contract's. The gauge still fills the first paint (it answers before the block poller has
+  // read the treasury), then the on-chain value takes over when it arrives.
   get statsApyFormatted() {
+    if (this.apyFormatted != null) {
+      return this.apyFormatted
+    }
     const apy = this.gauge?.treasury?.current_apy
     if (this.useGauge && apy != null) {
       return formatPercent(apy / 100)
     }
-    return this.apyFormatted
   }
 
   get statsStakedFormatted() {
+    if (this.currentlyStaked != null) {
+      return this.currentlyStaked
+    }
     const tvl = this.gauge?.treasury?.current_tvl
     if (this.useGauge && tvl != null) {
       return formatNano(tvl, 0) + ' GRAM'
     }
-    return this.currentlyStaked
   }
 
   // Holders has no contract equivalent — the treasury has no getter for it — so unlike APY and
@@ -924,22 +933,40 @@ export class Model {
   // Same figure as statsStakedFormatted, abbreviated for the Stats page's headline card
   // ("1.54M" rather than "1,540,000 GRAM"), with the unit carried by the card's label.
   get statsStakedCompact() {
+    if (this.treasuryState != null) {
+      return formatCompact1Fraction(Number(this.treasuryState.totalCoins) / 1000000000)
+    }
     const tvl = this.gauge?.treasury?.current_tvl
     if (this.useGauge && tvl != null) {
       return formatCompact1Fraction(tvl / 1000000000)
     }
+  }
+
+  // The same figure to the full GRAM ("8,285,160"), shown as selectable text on the staked card —
+  // the team copies the exact number from here when talking to the community.
+  get statsStakedExact() {
     if (this.treasuryState != null) {
-      return formatCompact1Fraction(Number(this.treasuryState.totalCoins) / 1000000000)
+      return (Number(this.treasuryState.totalCoins) / 1000000000).toLocaleString('en-US', { maximumFractionDigits: 0 })
+    }
+    const tvl = this.gauge?.treasury?.current_tvl
+    if (this.useGauge && tvl != null) {
+      return (tvl / 1000000000).toLocaleString('en-US', { maximumFractionDigits: 0 })
     }
   }
 
-  // TVL in dollars. The gauge has no USD field for the treasury, so this is staked GRAM priced
-  // at the GRAM quote from the same response — both numbers come from one fetch, so they are
-  // always consistent with each other. Undefined (and therefore omitted) if either is missing.
+  // TVL in dollars: staked GRAM priced at the gauge's GRAM quote. The GRAM amount prefers the
+  // on-chain treasury state like the getters above; the price can only come from the gauge, so
+  // this stays undefined (and the label omits it) until the gauge has answered.
   get statsTvlUsdFormatted() {
-    const tvl = this.gauge?.treasury?.current_tvl
     const price = this.gauge?.gram?.market?.current_price?.usd
-    if (this.useGauge && tvl != null && price != null) {
+    if (!this.useGauge || price == null) {
+      return undefined
+    }
+    if (this.treasuryState != null) {
+      return formatUsdCompact((Number(this.treasuryState.totalCoins) / 1000000000) * price)
+    }
+    const tvl = this.gauge?.treasury?.current_tvl
+    if (tvl != null) {
       return formatUsdCompact((tvl / 1000000000) * price)
     }
   }
