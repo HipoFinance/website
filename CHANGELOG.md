@@ -7,6 +7,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-12 — [detailed report](changelog/2026-08-12-team-feedback-round.md)
+
+- De-jargoned the copy: Staking fee, Yearly rewards, decision-making token,
+  no more `$HPO`; landing stats go fiat-first with exact counts.
+- Added an app loading indicator, tab-bar icons, a compact DeFi page, and
+  Telegram help lines; TMA rewards button moved above the fold.
+- Added a live "Burned so far" figure and a copyable exact staked amount;
+  Stats page now prefers on-chain values over the gauge.
+
 ## 2026-08-12 — [detailed report](changelog/2026-08-12-site-chrome-unification.md)
 
 - Wired the now-live gauge protocol fee into the landing page; swapped the
