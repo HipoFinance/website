@@ -1,6 +1,29 @@
 ---
 // HPO token page content. Recreates design/HPO.dc.html in the Warm Dark tokens defined in
 // src/styles/global.css. Owned by src/pages/hpo/index.astro only.
+
+// The HPO allocation per docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/ — percentages of
+// the 1B minted, so they always sum to 100 regardless of burns. Rendered as an inline SVG donut
+// (replacing the old static Google-Sheets export) so hpo-data.js can layer the live burned share
+// on top: an ember arc inside the ring plus a count-up in the hole, revealed on scroll.
+const tokenomics = [
+  { label: 'Community', pct: 30, color: '#ff7e73' },
+  { label: 'Liquidity', pct: 20, color: '#6fc7b2' },
+  { label: 'Team', pct: 20, color: '#7ea6e0' },
+  { label: 'Marketing', pct: 15, color: '#b795e0' },
+  { label: 'Treasury', pct: 13, color: '#9ab87c' },
+  { label: 'Advisers', pct: 2, color: '#8d7f76' },
+]
+// Donut slice geometry via pathLength=100: each circle draws pct units minus a small gap,
+// dashoffset walks the start point clockwise from 12 o'clock (25 = the top of an SVG circle).
+const GAP = 1.2
+let sliceStart = 0
+const slices = tokenomics.map((t) => {
+  const start = sliceStart
+  sliceStart += t.pct
+  return { ...t, dasharray: `${t.pct - GAP} ${100 - t.pct + GAP}`, dashoffset: 25 - start - GAP / 2 }
+})
+const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pct}%`).join(', ')
 ---
 
 <script src='/src/scripts/hpo-data.js'></script>
@@ -150,13 +173,59 @@
       <div>
         <h2 class='font-fredoka mb-5 text-[40px] font-semibold'>Tokenomics</h2>
         <div class='border-border bg-surface rounded-[20px] border p-6'>
-          <img src='/images/tokenomics.svg' class='w-full' alt='HPO tokenomics chart' />
-          <!-- Live from the on-chain jetton supply (see hpo-data.js): 1B minted minus the current
-          total supply. Stays an em dash if the lookup fails — never a hardcoded number. -->
-          <p class='mt-3 text-[15px]'>
-            🔥 Burned so far: <strong class='text-text font-bold'><span id='hpoBurned'>—</span> HPO</strong>
-          </p>
-          <p class='text-text-muted mt-3 text-[15px] leading-[1.55]'>
+          <div class='flex flex-col items-center gap-7 sm:flex-row'>
+            <div id='hpoTokenomicsChart' class='relative w-full max-w-[250px] shrink-0'>
+              <svg viewBox='0 0 240 240' role='img' aria-label={chartLabel}>
+                {
+                  slices.map((s) => (
+                    <circle
+                      cx='120'
+                      cy='120'
+                      r='88'
+                      fill='none'
+                      stroke={s.color}
+                      stroke-width='33'
+                      pathLength='100'
+                      stroke-dasharray={s.dasharray}
+                      stroke-dashoffset={s.dashoffset}
+                    />
+                  ))
+                }
+                <!-- The live burned share of the 1B minted, swept in by hpo-data.js once the
+                on-chain figure arrives and the chart is scrolled into view. -->
+                <circle
+                  id='hpoBurnArc'
+                  cx='120'
+                  cy='120'
+                  r='62'
+                  fill='none'
+                  stroke='#ffb03a'
+                  stroke-width='7'
+                  stroke-linecap='round'
+                  pathLength='100'
+                  stroke-dasharray='0 100'
+                  stroke-dashoffset='25'></circle>
+              </svg>
+              <!-- Counted up from zero by hpo-data.js (on-chain jetton supply: 1B minted minus the
+              current total). Stays an em dash if the lookup fails — never a hardcoded number. -->
+              <div class='absolute inset-0 flex flex-col items-center justify-center gap-0.5 text-center'>
+                <div class='font-fredoka text-[21px] font-semibold'>🔥 <span id='hpoBurned'>—</span></div>
+                <div class='text-text-muted text-[13px]'>HPO burned so far</div>
+              </div>
+            </div>
+            <ul class='w-full space-y-2.5 text-[15px]'>
+              {
+                slices.map((s) => (
+                  <li class='flex items-center gap-2.5'>
+                    <span class='inline-block size-3 shrink-0 rounded-full' style={`background:${s.color}`} />
+                    <span>{s.label}</span>
+                    <span class='text-text-muted ml-auto'>{s.pct}%</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          <p class='text-text-muted mt-5 text-[15px] leading-[1.55]'>
             Each category in HPO tokenomics is strategically designed to fuel Hipo's growth.
             <a href='/docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/' class='text-accent'>Learn more</a>
           </p>
@@ -438,3 +507,17 @@
     </div>
   </section>
 </main>
+
+<style>
+  /* The tokenomics burn arc: hpo-data.js only sets stroke-dasharray, this transition turns that
+     into the attention-grabbing sweep. The ember glow separates it from the allocation ring. */
+  #hpoBurnArc {
+    filter: drop-shadow(0 0 5px rgba(255, 176, 58, 0.55));
+    transition: stroke-dasharray 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #hpoBurnArc {
+      transition: none;
+    }
+  }
+</style>

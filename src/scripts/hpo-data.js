@@ -11,15 +11,59 @@ let elTvlGram = document.getElementById('hpoTvlGram')
 let elTvlUsd = document.getElementById('hpoTvlUsd')
 let elStakers = document.getElementById('hpoStakers')
 let elBurned = document.getElementById('hpoBurned')
+let elBurnArc = document.getElementById('hpoBurnArc')
+let elBurnChart = document.getElementById('hpoTokenomicsChart')
 
-// "Burned so far" on the tokenomics card: 1B HPO were minted; burns shrink the on-chain total
-// supply, so the difference IS the burned amount — a real number, not marketing copy. Read via
-// the TON v4 API's get_jetton_data run (same API the dApp's TonClient4 speaks; block-keyed and
-// CDN-cached, unlike tonapi's free tier which 429s under load). Only queried on the HPO page
-// (the element exists nowhere else); a failure leaves the dash.
+// "Burned so far" in the middle of the tokenomics donut: 1B HPO were minted; burns shrink the
+// on-chain total supply, so the difference IS the burned amount — a real number, not marketing
+// copy. Read via the TON v4 API's get_jetton_data run (same API the dApp's TonClient4 speaks;
+// block-keyed and CDN-cached, unlike tonapi's free tier which 429s under load). Only queried on
+// the HPO page (the element exists nowhere else); a failure leaves the dash and a flat arc.
 const TON_V4 = 'https://mainnet-v4.tonhubapi.com'
 const HPO_JETTON = 'EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM'
 const HPO_MINTED = 1000000000
+
+// Sweep the ember arc to the burned share of the minted supply (the CSS transition in Hpo.astro
+// animates the dasharray change) and count the exact figure up from zero. Deferred until the
+// chart scrolls into view so the animation is actually seen, and skipped entirely for
+// reduced-motion users, who get the final number at once.
+let revealBurned = (burned) => {
+  const run = () => {
+    if (elBurnArc != null) {
+      const pct = (burned / HPO_MINTED) * 100
+      elBurnArc.setAttribute('stroke-dasharray', pct + ' ' + (100 - pct))
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      SetText(elBurned, burned.toLocaleString('en-US'))
+      return
+    }
+    const duration = 1400
+    const t0 = performance.now()
+    const tick = (now) => {
+      const p = Math.min((now - t0) / duration, 1)
+      const eased = 1 - Math.pow(1 - p, 3)
+      SetText(elBurned, Math.round(burned * eased).toLocaleString('en-US'))
+      if (p < 1) {
+        requestAnimationFrame(tick)
+      }
+    }
+    requestAnimationFrame(tick)
+  }
+  if (elBurnChart != null && typeof IntersectionObserver === 'function') {
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          io.disconnect()
+          run()
+        }
+      },
+      { threshold: 0.4 },
+    )
+    io.observe(elBurnChart)
+  } else {
+    run()
+  }
+}
 
 let updateBurned = () => {
   if (elBurned == null) {
@@ -34,7 +78,7 @@ let updateBurned = () => {
       const item = res.exitCode === 0 ? res.result?.[0] : undefined
       const supply = item?.type === 'int' ? Number(item.value) / 1000000000 : NaN
       if (Number.isFinite(supply) && supply > 0 && supply <= HPO_MINTED) {
-        SetText(elBurned, FormatCompact1Fraction(HPO_MINTED - supply))
+        revealBurned(Math.round(HPO_MINTED - supply))
       }
     })
     .catch(() => {})
