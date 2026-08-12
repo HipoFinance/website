@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite'
+import { Coins, Gift, ChartLine, ArrowLeftRight, type LucideIcon } from 'lucide-react'
 import { Model } from '../Model'
 
 interface Props {
@@ -7,11 +8,11 @@ interface Props {
 
 type Page = 'stake' | 'reward' | 'stats' | 'defi'
 
-const pages: { page: Page; label: string }[] = [
-  { page: 'stake', label: 'Stake' },
-  { page: 'reward', label: 'Reward' },
-  { page: 'stats', label: 'Stats' },
-  { page: 'defi', label: 'DeFi' },
+const pages: { page: Page; label: string; icon: LucideIcon }[] = [
+  { page: 'stake', label: 'Stake', icon: Coins },
+  { page: 'reward', label: 'Reward', icon: Gift },
+  { page: 'stats', label: 'Stats', icon: ChartLine },
+  { page: 'defi', label: 'DeFi', icon: ArrowLeftRight },
 ]
 
 // Last row of the shell's flex column rather than a fixed overlay: the shell is exactly one
@@ -23,26 +24,24 @@ const TmaTabs = observer(({ model }: Props) => {
       aria-label='App sections'
       className='border-border bg-surface-deep flex shrink-0 flex-row border-t pb-[env(safe-area-inset-bottom)] select-none'
     >
-      {pages.map(({ page, label }) => {
+      {pages.map(({ page, label, icon: Icon }) => {
         const active = model.activePage === page
         return (
           <button
             key={page}
             type='button'
-            // The active marker is a second, text-less span, so the label is spelled out here
-            // rather than left to name-from-contents.
             aria-label={label}
             aria-current={active ? 'page' : undefined}
             className={
-              'flex min-h-11 flex-1 cursor-pointer flex-col items-center justify-center gap-1 py-1.5 text-xs ' +
+              'flex min-h-11 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs ' +
               (active ? 'text-accent font-medium' : 'text-text-faint')
             }
             onClick={() => {
               model.navigateToPage(page)
             }}
           >
+            <Icon className='size-[18px]' aria-hidden='true' />
             <span>{label}</span>
-            <span className={'h-1 w-1 rounded-full ' + (active ? 'bg-accent' : 'bg-transparent')}></span>
           </button>
         )
       })}

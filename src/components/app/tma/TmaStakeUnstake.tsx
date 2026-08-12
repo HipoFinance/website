@@ -186,12 +186,12 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
           <span className='text-text ml-auto font-medium'>{model.exchangeRateFormatted ?? '—'}</span>
         </div>
         <div className='flex flex-row flex-wrap gap-x-2'>
-          <span>APY, last round</span>
+          <span>Yearly rewards, last round</span>
           <span className='text-positive ml-auto font-semibold'>{model.apyFormatted ?? '—'}</span>
         </div>
       </div>
 
-      <div className='mt-auto pt-2'>
+      <div className='mt-auto flex flex-col gap-2.5 pt-2'>
         <button
           id='submit'
           className='bg-accent text-on-accent w-full cursor-pointer rounded-[14px] py-[15px] text-[17px] font-semibold disabled:cursor-not-allowed disabled:opacity-60'
@@ -214,6 +214,13 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
         >
           {model.buttonLabel}
         </button>
+        <p className='text-text-faint text-center text-[11.5px]'>
+          Questions?{' '}
+          <a className='text-accent' href='https://t.me/hipo_chat' target='_blank' rel='noopener noreferrer'>
+            Ask us on Telegram
+          </a>{' '}
+          — a real person replies.
+        </p>
       </div>
     </div>
   )

@@ -17,6 +17,20 @@ const Reward = observer(({ model }: Props) => {
   const coefficients = rewards?.rewardCoefficients ?? [1]
   const level = rewards?.clubLevel ?? 0
 
+  // In the mini app the claim button renders above the detail rows instead of below them — on a
+  // phone viewport a bottom placement lands under the fold and gets missed.
+  const tma = model.isTelegram
+  const claimCta = (
+    <a
+      className='bg-accent text-on-accent hover:bg-accent-hover block h-14 w-full rounded-2xl text-center text-[17px] leading-14 font-semibold'
+      href='https://t.me/HipoFinanceBot/join'
+      target='_blank'
+      rel='noopener noreferrer'
+    >
+      {model.claimWalletRewardsLabel}
+    </a>
+  )
+
   return (
     <div className='font-body text-text mx-auto flex w-full max-w-[1120px] flex-col items-center px-6 pt-10 pb-8'>
       <div className='pb-7 text-center'>
@@ -38,6 +52,8 @@ const Reward = observer(({ model }: Props) => {
 
           {model.isWalletConnected ? (
             <>
+              {tma && claimCta}
+
               <div className='text-text-muted flex flex-col gap-2.5 text-sm'>
                 <Row label='Your staked balance' value={model.htonBalanceFormatted} />
                 <Row label='Value in GRAM' value={model.htonBalanceInTon} />
@@ -56,14 +72,7 @@ const Reward = observer(({ model }: Props) => {
                 </p>
               )}
 
-              <a
-                className='bg-accent text-on-accent hover:bg-accent-hover block h-14 w-full rounded-2xl text-center text-[17px] leading-14 font-semibold'
-                href='https://t.me/HipoFinanceBot/join'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                {model.claimWalletRewardsLabel}
-              </a>
+              {!tma && claimCta}
             </>
           ) : (
             <>
@@ -71,7 +80,7 @@ const Reward = observer(({ model }: Props) => {
                 Connect your TON wallet to view your <b className='text-text font-medium'>staking rewards</b> and your
                 Hipo Club reward rate.
               </p>
-              <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />
+              {!tma && <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />}
               <button
                 className='bg-accent text-on-accent hover:bg-accent-hover h-14 w-full cursor-pointer rounded-2xl text-[17px] font-semibold'
                 onClick={(e) => {
@@ -82,6 +91,7 @@ const Reward = observer(({ model }: Props) => {
               >
                 Connect wallet
               </button>
+              {tma && <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />}
             </>
           )}
         </div>

@@ -1,5 +1,6 @@
 import { useState, type MouseEvent } from 'react'
 import { observer } from 'mobx-react-lite'
+import { Coins, Gift, ChartLine, ArrowLeftRight, type LucideIcon } from 'lucide-react'
 import { Model } from './Model'
 
 interface Props {
@@ -8,12 +9,12 @@ interface Props {
 
 type Page = 'stake' | 'reward' | 'stats' | 'defi'
 
-// The app pages reachable from the mobile bottom tab bar.
-const pages: { page: Page; label: string }[] = [
-  { page: 'stake', label: 'Stake' },
-  { page: 'reward', label: 'Reward' },
-  { page: 'stats', label: 'Stats' },
-  { page: 'defi', label: 'DeFi' },
+// The app pages reachable from the mobile bottom tab bar. Same icons as the mini app's TmaTabs.
+const pages: { page: Page; label: string; icon: LucideIcon }[] = [
+  { page: 'stake', label: 'Stake', icon: Coins },
+  { page: 'reward', label: 'Reward', icon: Gift },
+  { page: 'stats', label: 'Stats', icon: ChartLine },
+  { page: 'defi', label: 'DeFi', icon: ArrowLeftRight },
 ]
 
 // Keep in sync with src/components/SiteHeader.astro — same items in the same order with the same
@@ -122,22 +123,24 @@ const Header = observer(({ model }: Props) => {
         aria-label='App sections'
         className='border-border bg-surface-deep fixed right-0 bottom-0 left-0 z-10 flex w-full flex-row border-t select-none lg:hidden'
       >
-        {pages.map(({ page, label }) => {
+        {pages.map(({ page, label, icon: Icon }) => {
           const active = model.activePage === page
           return (
             <button
               key={page}
               type='button'
+              aria-label={label}
               aria-current={active ? 'page' : undefined}
               className={
-                'min-h-12 flex-1 cursor-pointer text-center text-[15px] font-medium ' +
+                'flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-medium ' +
                 (active ? 'text-accent' : 'text-text-muted hover:text-accent')
               }
               onClick={() => {
                 model.navigateToPage(page)
               }}
             >
-              {label}
+              <Icon className='size-[18px]' aria-hidden='true' />
+              <span>{label}</span>
             </button>
           )
         })}

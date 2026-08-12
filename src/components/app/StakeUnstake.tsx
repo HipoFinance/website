@@ -50,15 +50,16 @@ const StakeUnstake = observer(({ model }: Props) => {
       </div>
 
       <div className='flex w-full max-w-[480px] flex-col'>
-        {/* Balances panel: revealed by the same 700ms max-height transition as before, and tucked
-            14px under the form card so the card's rounded top overlaps it. */}
+        {/* Balances panel: revealed by the same 700ms max-height transition as before. Inset on
+            both sides and tucked 18px under the form card, so the darker strip reads as a drawer
+            sliding out from behind the card rather than a separate stacked box. */}
         <div
           className={
             'overflow-hidden transition-all duration-700 motion-reduce:transition-none' +
             (model.isWalletConnected ? ' max-h-80' : ' max-h-0')
           }
         >
-          <div className='border-border bg-surface-deep text-text-muted -mb-3.5 rounded-t-[20px] border border-b-0 px-[26px] pt-[18px] pb-[30px] text-sm'>
+          <div className='border-border bg-surface-deep text-text-muted mx-3.5 -mb-[18px] rounded-t-[16px] border border-b-0 px-[22px] pt-4 pb-[34px] text-sm'>
             <div className='flex flex-row flex-wrap pb-2'>
               <p className='font-light'>GRAM balance</p>
               <p className='text-text ml-auto font-medium'>{model.tonBalanceFormatted}</p>
@@ -247,7 +248,7 @@ const StakeUnstake = observer(({ model }: Props) => {
                 target='hipo_swap'
                 className='text-text-faint hover:text-accent ml-auto flex flex-row items-center gap-1 text-sm'
               >
-                <span>Swap on DEX</span>
+                <span>Swap on exchange</span>
                 <ArrowRight className='h-4 w-4' />
               </a>
             </div>
@@ -263,7 +264,7 @@ const StakeUnstake = observer(({ model }: Props) => {
               <p className='text-text ml-auto font-medium'>{model.exchangeRateFormatted}</p>
             </div>
             <div className='flex flex-row flex-wrap'>
-              <p>APY, last round</p>
+              <p>Yearly rewards, last round</p>
               <p className='text-positive ml-auto font-semibold'>{model.apyFormatted}</p>
             </div>
             <div className='relative flex flex-row flex-wrap'>
@@ -280,7 +281,21 @@ const StakeUnstake = observer(({ model }: Props) => {
           </div>
         </div>
 
-        <div className='text-text-faint flex flex-row flex-wrap justify-center gap-x-6 gap-y-2 pt-5 text-[13px]'>
+        {/* Reassurance at the money moment: a human to reach before committing funds. */}
+        <p className='text-text-faint pt-5 text-center text-[13px]'>
+          Questions or something unclear?{' '}
+          <a
+            className='text-accent hover:text-accent-hover'
+            href='https://t.me/hipo_chat'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            Ask us on Telegram
+          </a>{' '}
+          — a real person replies.
+        </p>
+
+        <div className='text-text-faint flex flex-row flex-wrap justify-center gap-x-6 gap-y-2 pt-3 text-[13px]'>
           <a className='hover:text-accent' href='/docs/'>
             Docs
           </a>
