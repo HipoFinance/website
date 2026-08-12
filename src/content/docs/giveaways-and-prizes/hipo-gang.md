@@ -14,22 +14,22 @@ We've migrated from Hipo Gang to [Hipo Cub](https://t.me/HipoFinanceBot/join), w
 
 ### Why is Hipo Gang the next big airdrop on TON?
 
-Mini Telegram apps have shown their potential for mass adoption with Notcoin and Hamster Kombat. Building on this success, we have decided to airdrop $HPO, our governance token, as the first live DeFi project on TON via this innovative method.
+Mini Telegram apps have shown their potential for mass adoption with Notcoin and Hamster Kombat. Building on this success, we have decided to airdrop HPO, our governance token, as the first live DeFi project on TON via this innovative method.
 
-Hipo Gang is not just a game. Players will learn about DeFi while earning $HPO. Holders of $HPO can trade it, hold it to earn a share of the protocol's profit, and participate in governance voting.
+Hipo Gang is not just a game. Players will learn about DeFi while earning HPO. Holders of HPO can trade it, hold it to earn a share of the protocol's profit, and participate in governance voting.
 
 ### Why Did We Launch Hipo Gang?
 
 * **Innovative Engagement**: Combines gaming with DeFi to attract and engage users.
 * **Wider Adoption**: Lowers entry barriers to DeFi.
-* **Rewarding Participation**: Users earn real value with $HPO tokens.
+* **Rewarding Participation**: Users earn real value with HPO tokens.
 * **Educational Outreach**: Helps users understand DeFi in a fun, practical way.
 
 ### How to Get Started?
 
 1. **Join the Game**: Access Hipo Gang through our platform.
 2. **Complete Tasks**: Engage in tasks, tap to earn coins, and invite friends.
-3. **Earn $HPO**: Collect coins and convert them to $HPO tokens.
+3. **Earn HPO**: Collect coins and convert them to HPO tokens.
 
 :::note
 For more information, visit the [Hipo Gang official website.](https://hipogang.io/)

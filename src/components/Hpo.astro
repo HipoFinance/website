@@ -11,7 +11,7 @@
   <section class='grid items-center gap-12 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:py-16'>
     <div class='flex flex-col items-start gap-[22px]'>
       <h1 class='font-fredoka text-[40px] leading-[1.1] font-semibold sm:text-[54px]'>
-        <span class='text-accent'>$HPO</span>, the governance &amp; profit-sharing token of Hipo
+        <span class='text-accent'>HPO</span>, the decision-making &amp; profit-sharing token of Hipo
       </h1>
       <p class='text-text-muted max-w-[480px] text-[19px] leading-[1.6]'>
         Be part of the future of GRAM staking. Hold HPO for revenue-sharing and decision-making in the Hipo protocol.
@@ -70,9 +70,9 @@
     </div>
   </section>
 
-  <!-- $HPO utility -->
+  <!-- HPO utility -->
   <section class='py-6'>
-    <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>$HPO utility</h2>
+    <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>HPO utility</h2>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
       <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
         <img src='/images/money.svg' class='size-11' alt='' />
@@ -85,7 +85,7 @@
         <img src='/images/hat.svg' class='size-11' alt='' />
         <div class='font-fredoka text-[19px] font-semibold'>Boost Hipo Gang earnings</div>
         <p class='text-text-muted text-[15px] leading-[1.55]'>
-          Hold $HPO to earn extra in-game coins and qualify for $HPO airdrops.
+          Hold HPO to earn extra in-game coins and qualify for HPO airdrops.
         </p>
       </div>
       <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
@@ -97,7 +97,7 @@
       </div>
       <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
         <img src='/images/governance.svg' class='size-11' alt='' />
-        <div class='font-fredoka text-[19px] font-semibold'>Participate in governance</div>
+        <div class='font-fredoka text-[19px] font-semibold'>Vote on key decisions</div>
         <p class='text-text-muted text-[15px] leading-[1.55]'>
           Shape the future of Hipo by voting on upgrades, strategies, and key decisions.
         </p>
@@ -125,7 +125,7 @@
             >
               02
             </span>
-            <span class='text-[16px] leading-[1.5]'>Ensure you have enough GRAM for your desired $HPO purchase.</span>
+            <span class='text-[16px] leading-[1.5]'>Ensure you have enough GRAM for your desired HPO purchase.</span>
           </div>
           <div class='border-border grid grid-cols-[56px_1fr] items-center gap-[18px] border-b py-[18px]'>
             <span
@@ -133,7 +133,7 @@
             >
               03
             </span>
-            <span class='text-[16px] leading-[1.5]'>Head to the STON.fi DEX and connect your TON wallet.</span>
+            <span class='text-[16px] leading-[1.5]'>Head to the STON.fi exchange and connect your TON wallet.</span>
           </div>
           <div class='grid grid-cols-[56px_1fr] items-center gap-[18px] py-[18px]'>
             <span
@@ -142,7 +142,7 @@
               04
             </span>
             <span class='text-[16px] leading-[1.5]'>
-              Swap your GRAM for $HPO, and receive $HPO in your wallet instantly.
+              Swap your GRAM for HPO, and receive HPO in your wallet instantly.
             </span>
           </div>
         </div>
@@ -151,8 +151,13 @@
         <h2 class='font-fredoka mb-5 text-[40px] font-semibold'>Tokenomics</h2>
         <div class='border-border bg-surface rounded-[20px] border p-6'>
           <img src='/images/tokenomics.svg' class='w-full' alt='HPO tokenomics chart' />
+          <!-- Live from the on-chain jetton supply (see hpo-data.js): 1B minted minus the current
+          total supply. Stays an em dash if the lookup fails — never a hardcoded number. -->
+          <p class='mt-3 text-[15px]'>
+            🔥 Burned so far: <strong class='text-text font-bold'><span id='hpoBurned'>—</span> HPO</strong>
+          </p>
           <p class='text-text-muted mt-3 text-[15px] leading-[1.55]'>
-            Each category in $HPO tokenomics is strategically designed to fuel Hipo's growth.
+            Each category in HPO tokenomics is strategically designed to fuel Hipo's growth.
             <a href='/docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/' class='text-accent'>Learn more</a>
           </p>
         </div>
@@ -162,7 +167,7 @@
 
   <!-- A shrinking supply -->
   <section class='py-12'>
-    <h2 class='font-fredoka mb-2 text-[40px] font-semibold'>$HPO is built to get scarcer</h2>
+    <h2 class='font-fredoka mb-2 text-[40px] font-semibold'>HPO is built to get scarcer</h2>
     <p class='text-text-muted mb-7 text-[18px]'>A fixed supply with real burns behind it — not promises.</p>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
       <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
@@ -271,15 +276,15 @@
     <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>FAQ</h2>
     <div class='flex flex-col gap-4'>
       <details open class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>1. What is $HPO?</summary>
+        <summary class='text-text cursor-pointer text-[17px] font-medium'>1. What is HPO?</summary>
         <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
-          $HPO is the governance token of Hipo Protocol, a liquid staking platform on TON. Holders of $HPO receive
-          profit shares, exclusive offers, and a voice in protocol decisions.
+          HPO is the decision-making and profit-sharing token of Hipo, a liquid staking platform on TON. Holders of HPO
+          receive profit shares, exclusive offers, and a voice in Hipo's key decisions.
         </div>
       </details>
 
       <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>2. What makes $HPO valuable?</summary>
+        <summary class='text-text cursor-pointer text-[17px] font-medium'>2. What makes HPO valuable?</summary>
         <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
           <ol class='flex list-inside list-[lower-alpha] flex-col gap-2.5'>
             <li>
@@ -297,7 +302,7 @@
 
       <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
         <summary class='text-text cursor-pointer text-[17px] font-medium'>
-          3. Is the $HPO supply fixed? What gets burned?
+          3. Is the HPO supply fixed? What gets burned?
         </summary>
         <div class='text-text-muted flex flex-col gap-2.5 pt-3 text-[15px] leading-[1.6]'>
           <p>
@@ -320,22 +325,22 @@
       </details>
 
       <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>4. When did $HPO launch?</summary>
+        <summary class='text-text cursor-pointer text-[17px] font-medium'>4. When did HPO launch?</summary>
         <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
-          The $HPO TGE took place on <strong class='text-text font-bold'>25th November 2024</strong> through an Initial Liquidity
+          The HPO TGE took place on <strong class='text-text font-bold'>25th November 2024</strong> through an Initial Liquidity
           Offering (ILO) — a launch directly on a decentralized exchange, open to anyone with a TON wallet, with no private
           fundraising round. The initial DEX price was $0.02; since listing, the price is determined by the market.
         </div>
       </details>
 
       <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>5. How can I become a $HPO holder?</summary>
+        <summary class='text-text cursor-pointer text-[17px] font-medium'>5. How can I become a HPO holder?</summary>
         <div class='text-text-muted flex flex-col gap-2.5 pt-3 text-[15px] leading-[1.6]'>
-          <p>There are two main ways to become a $HPO holder:</p>
+          <p>There are two main ways to become a HPO holder:</p>
           <ol class='flex list-inside list-[lower-alpha] flex-col gap-2.5'>
-            <li><strong class='text-text font-bold'>Buy $HPO</strong>: You can purchase $HPO from listed markets.</li>
+            <li><strong class='text-text font-bold'>Buy HPO</strong>: You can purchase HPO from listed markets.</li>
             <li>
-              <strong class='text-text font-bold'>Airdrops</strong>: Become eligible for $HPO airdrops by participating
+              <strong class='text-text font-bold'>Airdrops</strong>: Become eligible for HPO airdrops by participating
               in our ecosystem.
             </li>
           </ol>
@@ -343,7 +348,7 @@
       </details>
 
       <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>6. How do I earn $HPO by staking?</summary>
+        <summary class='text-text cursor-pointer text-[17px] font-medium'>6. How do I earn HPO by staking?</summary>
         <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
           Join <a href='/docs/giveaways-and-prizes/hipo-club/' class='text-accent'>Hipo Club</a>: hGRAM holders earn HPO
           directly after every validation round, with the amount depending on how much hGRAM you hold and your club
@@ -354,7 +359,7 @@
 
       <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
         <summary class='text-text cursor-pointer text-[17px] font-medium'>
-          7. How can I become eligible for $HPO airdrops?
+          7. How can I become eligible for HPO airdrops?
         </summary>
         <div class='text-text-muted flex flex-col gap-2.5 pt-3 text-[15px] leading-[1.6]'>
           <p>
@@ -374,13 +379,13 @@
       </details>
 
       <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>8. How to Buy $HPO?</summary>
+        <summary class='text-text cursor-pointer text-[17px] font-medium'>8. How to Buy HPO?</summary>
         <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
           <ol class='flex list-inside list-[lower-alpha] flex-col gap-2.5'>
             <li>Get a TON-supported Wallet.</li>
-            <li>Ensure You Have GRAM for your desired $HPO purchase.</li>
-            <li>Head to the listed DEXs and connect your TON wallet.</li>
-            <li>Swap GRAM for $HPO, and receive $HPO instantly in your wallet!</li>
+            <li>Ensure You Have GRAM for your desired HPO purchase.</li>
+            <li>Head to the listed exchanges and connect your TON wallet.</li>
+            <li>Swap GRAM for HPO, and receive HPO instantly in your wallet!</li>
           </ol>
         </div>
       </details>
@@ -416,10 +421,10 @@
       style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%)'
     >
       <div class='flex max-w-[620px] flex-col gap-2.5'>
-        <h2 class='font-fredoka text-[32px] font-semibold'>Build success with our community through $HPO</h2>
+        <h2 class='font-fredoka text-[32px] font-semibold'>Build success with our community through HPO</h2>
         <p class='text-text-muted text-[16px] leading-[1.6]'>
           We see incredible growth potential and are excited to capture that value alongside the whole Hipo community.
-          Shape GRAM's future with $HPO.
+          Shape GRAM's future with HPO.
         </p>
       </div>
       <a

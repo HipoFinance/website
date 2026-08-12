@@ -10,7 +10,7 @@
         class='border-border bg-surface text-text-muted flex w-fit items-center gap-2 rounded-full border px-3.5 py-[7px] text-sm font-medium'
       >
         <span class='bg-positive inline-block size-2 rounded-full'></span>
-        Live APY <strong id='heroApy' class='text-text'>—</strong> · Protocol fee <span id='heroFee'>—</span>
+        Yearly rewards <strong id='heroApy' class='text-text'>—</strong> · Staking fee <span id='heroFee'>—</span>
       </div>
 
       <h1
@@ -69,12 +69,12 @@
   <!-- Stats row -->
   <section class='mx-auto grid w-full max-w-[1280px] grid-cols-2 gap-4 px-6 pt-2 pb-12 md:px-12 lg:grid-cols-4'>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
-      <div id='statStaked' class='font-fredoka text-text text-[30px] font-semibold'>—</div>
-      <div class='text-text-muted text-sm'>GRAM staked (<span id='statStakedUsd'>—</span> TVL)</div>
+      <div id='statStakedUsd' class='font-fredoka text-text text-[30px] font-semibold'>—</div>
+      <div class='text-text-muted text-sm'>staked, worth <span id='statStaked'>—</span> GRAM</div>
     </div>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
       <div id='statApy' class='font-fredoka text-accent text-[30px] font-semibold'>—</div>
-      <div class='text-text-muted text-sm'>APY, last round</div>
+      <div class='text-text-muted text-sm'>Yearly rewards, last round</div>
     </div>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
       <div id='statHolders' class='font-fredoka text-text text-[30px] font-semibold'>—</div>
@@ -82,7 +82,7 @@
     </div>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
       <div id='statFee' class='font-fredoka text-text text-[30px] font-semibold'>—</div>
-      <div class='text-text-muted text-sm'>Protocol fee</div>
+      <div class='text-text-muted text-sm'>Staking fee</div>
     </div>
   </section>
 
@@ -108,9 +108,10 @@
       </div>
       <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
         <img src='/hpo.png' alt='HPO' class='size-[52px]' />
-        <div class='font-fredoka text-text text-xl font-semibold'>3 · Earn bonus HPO</div>
+        <div class='font-fredoka text-text text-xl font-semibold'>3 · Earn free HPO</div>
         <div class='text-text-muted text-[15px] leading-[1.55]'>
-          Enjoy extra rewards in HPO — Hipo's governance and profit-sharing token.
+          Stakers also earn HPO through Hipo Club — both come free with staking, nothing extra to pay.
+          <a href='#hipo-club' class='text-accent hover:text-accent-hover'>Meet Hipo Club →</a>
         </div>
       </div>
       <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
@@ -209,6 +210,33 @@
     </div>
   </section>
 
+  <!-- Hipo Club -->
+  <section id='hipo-club' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
+    <div
+      class='border-border flex flex-col items-center justify-between gap-10 rounded-[28px] border p-8 lg:flex-row lg:p-12'
+      style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
+    >
+      <div class='flex max-w-[560px] flex-col items-center gap-2.5 text-center lg:items-start lg:text-left'>
+        <img src='/images/star-shine.svg' alt='' class='size-11' />
+        <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>Hipo Club</h2>
+        <p class='text-text-muted text-[17px] leading-[1.6]'>
+          Community of Hipo believers. Earn HPO by staking in Hipo, and become part of the Hipo community of HPO
+          holders. <a href='/docs/giveaways-and-prizes/hipo-club/' class='text-accent hover:text-accent-hover'
+            >Learn more</a
+          >
+        </p>
+      </div>
+      <a
+        href='https://t.me/HipoFinanceBot/join'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='bg-accent text-on-accent hover:bg-accent-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold'
+      >
+        Join Hipo Club
+      </a>
+    </div>
+  </section>
+
   <!-- HPO panel -->
   <section id='hpo' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
     <div
@@ -216,7 +244,7 @@
     >
       <div class='flex flex-col items-start gap-4'>
         <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>
-          HPO — governance & profit-sharing
+          HPO — decision-making & profit-sharing token
         </h2>
         <p class='text-text-muted text-[17px] leading-[1.6]'>
           Become an HPO holder for revenue-sharing and decision-making in Hipo.
@@ -253,33 +281,6 @@
       <div class='flex justify-center'>
         <img src='/hpo.png' alt='HPO token' class='w-[220px] drop-shadow-[0_16px_32px_rgba(0,0,0,0.4)]' />
       </div>
-    </div>
-  </section>
-
-  <!-- Hipo Club -->
-  <section id='hipo-club' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
-    <div
-      class='border-border flex flex-col items-center justify-between gap-10 rounded-[28px] border p-8 lg:flex-row lg:p-12'
-      style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
-    >
-      <div class='flex max-w-[560px] flex-col items-center gap-2.5 text-center lg:items-start lg:text-left'>
-        <img src='/images/star-shine.svg' alt='' class='size-11' />
-        <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>Hipo Club</h2>
-        <p class='text-text-muted text-[17px] leading-[1.6]'>
-          Community of Hipo believers. Earn HPO by staking in Hipo, and become part of the Hipo community of HPO
-          holders. <a href='/docs/giveaways-and-prizes/hipo-club/' class='text-accent hover:text-accent-hover'
-            >Learn more</a
-          >
-        </p>
-      </div>
-      <a
-        href='https://t.me/HipoFinanceBot/join'
-        target='_blank'
-        rel='noopener noreferrer'
-        class='bg-accent text-on-accent hover:bg-accent-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold'
-      >
-        Join Hipo Club
-      </a>
     </div>
   </section>
 

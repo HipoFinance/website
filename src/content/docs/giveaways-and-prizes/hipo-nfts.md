@@ -3,7 +3,7 @@ title: "Hipo NFTs"
 ---
 
 :::tip
-**2,795,379 $HPO tokens (\~$80K)** **were successfully airdropped to our NFT holders on December 23, 2024.**
+**2,795,379 HPO tokens (\~$80K)** **were successfully airdropped to our NFT holders on December 23, 2024.**
 :::
 
 ### What are Hipo NFTs?

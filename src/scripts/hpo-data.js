@@ -10,6 +10,28 @@ let elHpoHolders = document.getElementById('hpoHolders')
 let elTvlGram = document.getElementById('hpoTvlGram')
 let elTvlUsd = document.getElementById('hpoTvlUsd')
 let elStakers = document.getElementById('hpoStakers')
+let elBurned = document.getElementById('hpoBurned')
+
+// "Burned so far" on the tokenomics card: 1B HPO were minted; burns shrink the on-chain total
+// supply, so the difference IS the burned amount — a real number, not marketing copy. tonapi is
+// only queried on the HPO page (the element exists nowhere else) and a failure leaves the dash.
+const HPO_JETTON = 'EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM'
+const HPO_MINTED = 1000000000
+
+let updateBurned = () => {
+  if (elBurned == null) {
+    return
+  }
+  fetch('https://tonapi.io/v2/jettons/' + HPO_JETTON)
+    .then((res) => res.json())
+    .then((res) => {
+      const supply = Number(res.total_supply) / 1000000000
+      if (Number.isFinite(supply) && supply > 0 && supply <= HPO_MINTED) {
+        SetText(elBurned, FormatCompact1Fraction(HPO_MINTED - supply))
+      }
+    })
+    .catch(() => {})
+}
 
 let updateHpoData = () => {
   let timer = setTimeout(updateHpoData, 300000)
@@ -80,3 +102,4 @@ let FormatCompact2Fraction = (n) => {
 }
 
 updateHpoData()
+updateBurned()

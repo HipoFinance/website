@@ -3,7 +3,7 @@ title: "Tokenomics"
 ---
 
 :::note
-Explore the $HPO page: [hpo.hipo.finance](https://hpo.hipo.finance/)
+Explore the HPO page: [hpo.hipo.finance](https://hpo.hipo.finance/)
 :::
 
 * **Token Name**: Hipo Governance Token
@@ -27,7 +27,7 @@ Explore the $HPO page: [hpo.hipo.finance](https://hpo.hipo.finance/)
 * 2%: Advisers
 * 13%: Treasury
 
-<figure><img src="/docs/images/hipo-tokens-hipo-governance-token-hpo-tokenomics-1.jpg" alt=""><figcaption><p>The Distribution Chart of $HPO Token</p></figcaption></figure>
+<figure><img src="/docs/images/hipo-tokens-hipo-governance-token-hpo-tokenomics-1.jpg" alt=""><figcaption><p>The Distribution Chart of HPO Token</p></figcaption></figure>
 
 ### Token Vesting
 
@@ -37,6 +37,6 @@ Explore the $HPO page: [hpo.hipo.finance](https://hpo.hipo.finance/)
 **Vesting Update — October 27, 2025**
 
 To further strengthen our community-first approach, we’ve updated the **Team Segment** as follows:\
-▪️ ![▪️](https://abs-0.twimg.com/emoji/v2/svg/25aa.svg)The release duration will be **extended from 24 to 48 months**.\
-▪️  ![▪️](https://abs-0.twimg.com/emoji/v2/svg/25aa.svg)90% of the tokens scheduled for release in the first 12 months will be burned.
+- The release duration will be **extended from 24 to 48 months**.
+- **90% of the tokens** scheduled for release in the first 12 months will be burned.
 :::

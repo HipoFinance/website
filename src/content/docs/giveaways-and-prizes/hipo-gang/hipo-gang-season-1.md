@@ -14,7 +14,7 @@ We've migrated from Hipo Gang to [Hipo Cub](https://t.me/HipoFinanceBot/join), w
   * 5.22M in-game Shells purchased in just 3 weeks since Tug of War launched!
 * 🧾 **NFT Minting:** 3,551 members minted their [**Season 1 NFT**](https://getgems.io/collection/EQCMuDtUnGlix1Z6oO_CBMyhRw3JAGxa87fbKkwUyQ5CcuL_)
 * 🗳️ **DAO Decision:**
-  * **Airdrop Allocation:** [13,800,000 $HPO](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv/proposal/EQCBsHZ1BvFvpE6mZtIEQZZ076e2jul29tV4qmDV3iS2oUJR) from the community segment.
+  * **Airdrop Allocation:** [13,800,000 HPO](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv/proposal/EQCBsHZ1BvFvpE6mZtIEQZZ076e2jul29tV4qmDV3iS2oUJR) from the community segment.
   * **Distribution Model:** [Model 3](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv/proposal/EQDL-XbvAgCxVzpCXDPcndC77hzw_1MOfpYQQz5JAHOT3PxE), selected for its structured reward allocation.
   * **Claiming Fee:** A [40% discount](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv/proposal/EQC8M6IkqeWqL2wurLI9PGrPdnKPDP8A9iX97gQhlFACX6JA), determining the entry level for recipients within Hipo Club.
 

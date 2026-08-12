@@ -3,7 +3,7 @@ title: "Hipo Governance Token (HPO)"
 ---
 
 :::note
-Explore the $HPO page: [hpo.hipo.finance](https://hpo.hipo.finance/)
+Explore the HPO page: [hpo.hipo.finance](https://hpo.hipo.finance/)
 :::
 
 ## What is HPO Token?
