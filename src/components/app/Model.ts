@@ -114,6 +114,28 @@ const retryDelay = 3 * 1000
 const waitForCompletionDelay = 250 // roughly one block time, since TON's fast blocks
 const txValidUntil = 5 * 60
 
+// Reads go to Hipo's own v4 gateway first and fall back to the public one automatically; see
+// specs/ton-v4-read-endpoint.md. CORS on the primary is production-origin-only, so a localhost dev
+// browser fails over to the public endpoint on its own, with no configuration.
+const primaryEndpoint = 'https://v4.hipo.finance'
+const fallbackEndpoint = 'https://mainnet-v4.tonhubapi.com'
+
+// Forces one endpoint and disables failover, for testing a single endpoint through a tunnel or a
+// mock: PUBLIC_TON_V4_ENDPOINT=http://localhost:3000 npm run dev
+const forcedEndpoint = import.meta.env.PUBLIC_TON_V4_ENDPOINT as string | undefined
+
+const tonClientTimeout = 5 * 1000
+const endpointFailureThreshold = 3
+const endpointProbeDelay = 60 * 1000
+
+// A desynced liteserver keeps answering 200 with an old block, which no amount of retrying fixes,
+// so a stale last block counts as the endpoint being down.
+const staleBlockAge = 10 * 60 * 1000
+
+function isStaleBlock(now: number): boolean {
+  return Date.now() - now * 1000 > staleBlockAge
+}
+
 // Thrown when the wallet never answers a transaction request within its validUntil window,
 // which happens when the wallet has silently dropped this dapp's session (e.g. after the
 // same wallet connected to Hipo from another device or browser).
@@ -288,7 +310,11 @@ export class Model {
   // unobserved state
   tonConnectUI?: TonConnectUI
   lastBlock = 0
-  timeoutConnectTonAccess?: ReturnType<typeof setTimeout>
+  // Endpoint state is deliberately not observable — nothing renders it — and in-memory only, so a
+  // fresh page load always starts on the primary.
+  tonEndpoint = ''
+  tonEndpointFailures = 0
+  timeoutEndpointProbe?: ReturnType<typeof setTimeout>
   timeoutReadTimes?: ReturnType<typeof setTimeout>
   timeoutReadLastBlock?: ReturnType<typeof setTimeout>
   timeoutErrorMessage?: ReturnType<typeof setTimeout>
@@ -461,7 +487,7 @@ export class Model {
     this.loadHipoGauge()
 
     autorun(() => {
-      this.connectTonAccess()
+      this.connectTonEndpoint()
     })
 
     autorun(() => {
@@ -1027,7 +1053,7 @@ export class Model {
   }
 
   setTonClient = (endpoint: string) => {
-    this.tonClient = new TonClient4({ endpoint, timeout: 5 * 1_000 })
+    this.tonClient = new TonClient4({ endpoint, timeout: tonClientTimeout })
   }
 
   setAddress = (address?: Address) => {
@@ -1227,19 +1253,67 @@ export class Model {
     }
   }
 
-  connectTonAccess = () => {
-    clearTimeout(this.timeoutConnectTonAccess)
-    // TonAccess is not working anymore
-    // getHttpV4Endpoint({ network })
-    //     .then(this.setTonClient)
-    //     .catch((e) => {
-    //         console.error(e)
-    //         this.setErrorMessage(errorMessageTonAccess, retryDelay - 500)
-    //         this.timeoutConnectTonAccess = setTimeout(this.connectTonAccess, retryDelay)
-    //     })
+  // TonAccess is dead, so the endpoint is picked here instead of discovered: primary first, with
+  // automatic failover to the public one. Runs once, from an autorun with no observable inputs.
+  connectTonEndpoint = () => {
+    this.switchTonEndpoint(forcedEndpoint ?? primaryEndpoint)
+  }
 
-    // Switch to fixed endpoint
-    this.setTonClient('https://mainnet-v4.tonhubapi.com')
+  // A swap is just a new TonClient4 — cheap and stateless — and the polling autoruns restart
+  // themselves off the observable client. lastBlock resets because the "older block" guard below
+  // compares against a seqno the previous endpoint reported, and the two are minutes apart at
+  // worst; without the reset a swap-back to a slightly lagging primary would fail every read.
+  switchTonEndpoint = (endpoint: string) => {
+    if (this.tonEndpoint === endpoint) {
+      return
+    }
+    this.tonEndpoint = endpoint
+    this.tonEndpointFailures = 0
+    this.lastBlock = 0
+    this.setTonClient(endpoint)
+  }
+
+  // Called after retry() has already exhausted its attempts, so only whole failed read cycles
+  // count, and only consecutive ones — every successful read zeroes the counter.
+  countTonEndpointFailure = () => {
+    this.tonEndpointFailures += 1
+    if (this.tonEndpointFailures >= endpointFailureThreshold) {
+      this.failOverTonEndpoint()
+    }
+  }
+
+  // Returns whether it swapped, so a caller mid-read can abandon its cycle: the swap has already
+  // restarted the read on the other endpoint.
+  failOverTonEndpoint = (): boolean => {
+    if (forcedEndpoint != null || this.tonEndpoint !== primaryEndpoint) {
+      return false
+    }
+    this.switchTonEndpoint(fallbackEndpoint)
+    this.scheduleTonEndpointProbe()
+    return true
+  }
+
+  scheduleTonEndpointProbe = () => {
+    clearTimeout(this.timeoutEndpointProbe)
+    this.timeoutEndpointProbe = setTimeout(() => void this.probeTonEndpoint(), endpointProbeDelay)
+  }
+
+  // Probes through a throwaway client of its own — a single GET /block/latest, no retry() — so it
+  // can never disturb the reads in flight on the active one.
+  probeTonEndpoint = async () => {
+    if (this.tonEndpoint !== fallbackEndpoint) {
+      return
+    }
+    try {
+      const client = new TonClient4({ endpoint: primaryEndpoint, timeout: tonClientTimeout })
+      const lastBlock = await client.getLastBlock()
+      if (isStaleBlock(lastBlock.now)) {
+        throw new Error('stale block')
+      }
+      this.switchTonEndpoint(primaryEndpoint)
+    } catch {
+      this.scheduleTonEndpointProbe()
+    }
   }
 
   readTimes = () => {
@@ -1257,10 +1331,16 @@ export class Model {
 
     const openedTreasury = tonClient.open(Treasury.createFromAddress(treasuryAddress))
     retry(openedTreasury.getTimes)
-      .then(this.setTimes)
+      .then((times) => {
+        this.tonEndpointFailures = 0
+        this.setTimes(times)
+      })
+      // The endpoint hook goes last: a failover restarts this read on the new endpoint, and its
+      // fresh timer must be the one that survives.
       .catch(() => {
         clearTimeout(this.timeoutReadTimes)
         this.timeoutReadTimes = setTimeout(this.readTimes, retryDelay)
+        this.countTonEndpointFailure()
       })
   }
 
@@ -1290,7 +1370,15 @@ export class Model {
 
     try {
       this.beginRequest()
-      const lastBlock = (await retry(() => tonClient.getLastBlock())).last.seqno
+      const lastBlockInfo = await retry(() => tonClient.getLastBlock())
+      // Up but stale is the failure an HTTP status can't show, and retrying never clears it, so it
+      // swaps at once instead of waiting out the threshold. Nothing to do if the swap is refused
+      // (already on the fallback, or overridden): a stale block still reads correctly.
+      if (isStaleBlock(lastBlockInfo.now) && this.failOverTonEndpoint()) {
+        return
+      }
+      this.tonEndpointFailures = 0
+      const lastBlock = lastBlockInfo.last.seqno
       if (lastBlock < this.lastBlock) {
         throw new Error('older block')
       }
@@ -1374,6 +1462,8 @@ export class Model {
       this.setErrorMessage(errorMessageTonAccess, retryDelay - 500)
       clearTimeout(this.timeoutReadLastBlock)
       this.timeoutReadLastBlock = setTimeout(() => void this.readLastBlock(), retryDelay)
+      // Last, so that a failover's restarted read owns the timer, not this retry.
+      this.countTonEndpointFailure()
     } finally {
       this.endRequest()
     }
@@ -1425,11 +1515,17 @@ export class Model {
   pause = () => {
     clearTimeout(this.timeoutReadTimes)
     clearTimeout(this.timeoutReadLastBlock)
+    clearTimeout(this.timeoutEndpointProbe)
   }
 
+  // Re-arming the probe here is what keeps it a single self-scheduling chain: paused with the rest
+  // of the polling, and never duplicated by a page swap or a visibility change.
   resume = () => {
     this.readTimes()
     void this.readLastBlock()
+    if (this.tonEndpoint === fallbackEndpoint) {
+      this.scheduleTonEndpointProbe()
+    }
   }
 
   // The block poller feeds the stake form and — since the rate card must show the protocol rate or
