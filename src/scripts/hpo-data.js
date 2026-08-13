@@ -16,12 +16,26 @@ let elBurnChart = document.getElementById('hpoTokenomicsChart')
 
 // "Burned so far" in the middle of the tokenomics donut: 1B HPO were minted; burns shrink the
 // on-chain total supply, so the difference IS the burned amount — a real number, not marketing
-// copy. Read via the TON v4 API's get_jetton_data run (same API the dApp's TonClient4 speaks;
-// block-keyed and CDN-cached, unlike tonapi's free tier which 429s under load). Only queried on
-// the HPO page (the element exists nowhere else); a failure leaves the dash and a flat arc.
-const TON_V4 = 'https://mainnet-v4.tonhubapi.com'
+// copy. Read via the TON v4 API's get_jetton_data run (same API the dApp's TonClient4 speaks),
+// preferring Hipo's own endpoint like the app does (specs/ton-v4-read-endpoint.md), with the
+// public one as a per-call fallback — which is also what keeps localhost dev working, since the
+// primary's CORS is production-origin-only. Only queried on the HPO page (the element exists
+// nowhere else); both endpoints failing leaves the dash and a flat arc.
+const TON_V4 = 'https://v4.hipo.finance'
+const TON_V4_FALLBACK = 'https://mainnet-v4.tonhubapi.com'
 const HPO_JETTON = 'EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM'
 const HPO_MINTED = 1000000000
+
+let fetchV4 = (path) => {
+  return fetch(TON_V4 + path)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error('v4 primary: ' + res.status)
+      }
+      return res
+    })
+    .catch(() => fetch(TON_V4_FALLBACK + path))
+}
 
 // Sweep the ember arc to the burned share of the minted supply (the CSS transition in Hpo.astro
 // animates the dasharray change) and count the exact figure up from zero. Deferred until the
@@ -69,9 +83,9 @@ let updateBurned = () => {
   if (elBurned == null) {
     return
   }
-  fetch(TON_V4 + '/block/latest')
+  fetchV4('/block/latest')
     .then((res) => res.json())
-    .then((res) => fetch(TON_V4 + '/block/' + res.last.seqno + '/' + HPO_JETTON + '/run/get_jetton_data'))
+    .then((res) => fetchV4('/block/' + res.last.seqno + '/' + HPO_JETTON + '/run/get_jetton_data'))
     .then((res) => res.json())
     .then((res) => {
       // get_jetton_data's first stack item is the total supply in nano.
