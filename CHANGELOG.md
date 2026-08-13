@@ -7,6 +7,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-13 — [detailed report](changelog/2026-08-13-ton-v4-endpoint-implementation.md)
+
+- Client now reads from `v4.hipo.finance` first, failing over to the public
+  TON v4 endpoint after 3 failed read cycles or a stale last block.
+- Added a 60s recovery probe on a throwaway client to swap back to the
+  primary without disturbing in-flight reads.
+- Deployed the nginx vhost (HipoGang `nginx`/`operation` repos) restricted
+  to Hipo's own liteserver, with CORS locked to hipo.finance.
+- Fixed the default vhost proxying unmatched hostnames to Grafana's login;
+  added `specs/ton-v4-nginx.conf`.
+
 ## 2026-08-13 — [detailed report](changelog/2026-08-13-tokenomics-donut-chart.md)
 
 - Replaced the HPO page's static tokenomics image with an inline SVG donut
