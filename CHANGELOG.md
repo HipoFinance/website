@@ -7,6 +7,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-13 — [detailed report](changelog/2026-08-13-v4-followups.md)
+
+- `hpo-data.js`'s burned-HPO lookup now reads `v4.hipo.finance` first, with
+  the public endpoint as a per-call fallback (also what keeps localhost dev
+  working).
+- nginx and operation follow-ups landed in their own repos: `make test`
+  fixed, TON v4 staleness alerting added.
+- Declined giving `gauge.hipo.finance/data` the same `expires off` cache
+  treatment as the v4 vhost — the gauge service sets no `Cache-Control` of
+  its own yet.
+
 ## 2026-08-13 — [detailed report](changelog/2026-08-13-ton-v4-endpoint-implementation.md)
 
 - Client now reads from `v4.hipo.finance` first, failing over to the public
