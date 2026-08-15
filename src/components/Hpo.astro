@@ -129,7 +129,7 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
   </section>
 
   <!-- How to buy / Tokenomics -->
-  <section class='py-12'>
+  <section id='tokenomics' class='py-12'>
     <div class='grid items-start gap-12 lg:grid-cols-2'>
       <div>
         <h2 class='font-fredoka mb-5 text-[40px] font-semibold'>How to buy HPO</h2>
@@ -156,7 +156,10 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
             >
               03
             </span>
-            <span class='text-[16px] leading-[1.5]'>Head to the STON.fi exchange and connect your TON wallet.</span>
+            <span class='text-[16px] leading-[1.5]'>
+              Head to your favorite DEX or aggregator — STON.fi, DeDust, TONCO, GroypFi, or swap.coffee — and connect
+              your TON wallet.
+            </span>
           </div>
           <div class='grid grid-cols-[56px_1fr] items-center gap-[18px] py-[18px]'>
             <span
