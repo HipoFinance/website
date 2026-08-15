@@ -7,6 +7,19 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-15 — [detailed report](changelog/2026-08-15-community-and-aggregators.md)
+
+- Added an Aggregators section (GroypFi, swap.coffee) to the dApp's DeFi
+  page and the `/defi/` SEO prose.
+- "How to buy HPO" step 03 now names STON.fi, DeDust, TONCO, GroypFi, and
+  swap.coffee instead of STON.fi alone.
+- New "Hipo Community" section on the landing page above Hipo Club, linking
+  to `t.me/hipo_chat`; hero badge row removed.
+- Tokenomics docs gained a "Burned So Far" section linking to the live
+  counter at `/hpo/#tokenomics`; swept the last `hpo.hipo.finance` docs
+  links over to `/hpo/`.
+- Replaced the home-page mascot with the new 3D piggy-bank render.
+
 ## 2026-08-13 — [detailed report](changelog/2026-08-13-v4-followups.md)
 
 - `hpo-data.js`'s burned-HPO lookup now reads `v4.hipo.finance` first, with
