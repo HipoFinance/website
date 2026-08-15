@@ -336,6 +336,8 @@ export class Model {
   readonly stonPoolUrl = 'https://app.ston.fi/pools/EQDjmQDt12Ys1-gyKZskDSIDAVQaciI3cIUpk46LCWtnKpGF'
   readonly toncoSwapUrl = 'https://app.tonco.io/#/swap?from=hTON&to=TON'
   readonly toncoPoolUrl = 'https://app.tonco.io/#/pool/EQCNtxsO6JYljVLkcJVt7hZZhkC50kMIFAZklE4zBby31RAR'
+  readonly groypfiSwapUrl = 'https://groypfi.io/swap/ton/EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w'
+  readonly swapCoffeeSwapUrl = 'https://swap.coffee/dex?ft=GRAM&st=EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w'
   readonly tonspaceUrl = 'https://t.me/wallet?startattach'
   readonly mtwUrl = 'https://mytonwallet.io/get'
   readonly evaaLoanUrl = 'https://app.evaa.finance/'

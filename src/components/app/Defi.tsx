@@ -25,6 +25,7 @@ const Row = ({ logo, name, round, actions }: RowProps) => (
           className='bg-accent text-on-accent hover:bg-accent-hover rounded-full px-3.5 py-1.5 text-[13px] font-semibold'
           href={href}
           target={target}
+          rel='noopener noreferrer'
         >
           {label}
         </a>
@@ -79,6 +80,21 @@ const Defi = observer(({ model }: Props) => {
               { label: 'Swap', href: model.toncoSwapUrl, target: 'hipo_tonco' },
               { label: 'Earn', href: model.toncoPoolUrl, target: 'hipo_tonco' },
             ]}
+          />
+        </Section>
+
+        <Section title='Aggregators' description='Route your swap across multiple DEXs at once for the best price.'>
+          <Row
+            logo='/images/app/groypfi.png'
+            name='GroypFi'
+            round
+            actions={[{ label: 'Swap', href: model.groypfiSwapUrl, target: 'hipo_groypfi' }]}
+          />
+          <Row
+            logo='/images/app/swapcoffee.png'
+            name='swap.coffee'
+            round
+            actions={[{ label: 'Swap', href: model.swapCoffeeSwapUrl, target: 'hipo_swapcoffee' }]}
           />
         </Section>
 
