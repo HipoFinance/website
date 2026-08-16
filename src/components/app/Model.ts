@@ -48,6 +48,8 @@ interface WalletRewards {
   htonHpoRewardRate: number
   hpoSumRewards: number
   htonSumRewards: number
+  stakeSumRewards?: number
+  stakeRewardsSince?: Date
   earnedRewards: EarnedReward[]
 }
 
@@ -422,6 +424,8 @@ export class Model {
       currentlyStaked: computed,
       holdersCountFormatted: computed,
       claimWalletRewardsLabel: computed,
+      totalEarnedFormatted: computed,
+      totalEarnedSinceFormatted: computed,
 
       useGauge: computed,
       statsApyFormatted: computed,
@@ -1050,6 +1054,25 @@ export class Model {
     return 'Claim Rewards'
   }
 
+  // stake_sum_rewards comes back in the same unit as each earned_rewards[].stake_reward — already
+  // in whole GRAM, not nano — so this is formatted like the other *_sum_rewards totals rather than
+  // through formatNano. Absent, null, or zero (the field is new and may not have deployed on the
+  // backend yet) all degrade to undefined, which hides the row entirely.
+  get totalEarnedFormatted() {
+    const total = this.walletRewards?.stakeSumRewards
+    if (total != null && total > 0.01) {
+      return formatCompact2Fraction(total) + ' GRAM'
+    }
+  }
+
+  // Same date formatting as the visible (non-title) reward.time in Reward.tsx's per-round rows.
+  get totalEarnedSinceFormatted() {
+    const since = this.walletRewards?.stakeRewardsSince
+    if (this.totalEarnedFormatted != null && since != null) {
+      return since.toLocaleString(navigator.language, { month: 'long', day: '2-digit' })
+    }
+  }
+
   setLoading(v: boolean) {
     this.loading = v
   }
@@ -1230,8 +1253,11 @@ export class Model {
         clubLevel: rewards.club_level,
         rewardCoefficients: rewards.reward_coefficients,
         htonHpoRewardRate: rewards.hton_hpo_reward_rate,
-        hpoSumRewards: +rewards.hpo_sum_rewars,
+        hpoSumRewards: +rewards.hpo_sum_rewards,
         htonSumRewards: +rewards.hton_sum_rewards,
+        stakeSumRewards: rewards.stake_sum_rewards != null ? +rewards.stake_sum_rewards : undefined,
+        stakeRewardsSince:
+          rewards.stake_rewards_since != null ? new Date(+rewards.stake_rewards_since * 1_000) : undefined,
         earnedRewards: rewards.earned_rewards
           .filter((reward: any) => +reward.ton_reward > 0 || +reward.hpo_reward > 0)
           .map((reward: any) => ({
