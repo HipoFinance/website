@@ -15,6 +15,8 @@ here — `git log` remains the complete record.
   O(1) per wallet, seeded from the stored 10-round history.
 - Fixed `Model.ts` reading the typo'd `hpo_sum_rewars` wire key, which made
   `hpoSumRewards` NaN and suppressed the HPO claim-label variants.
+- Follow-on: "Total HPO earned" row backed by a lifetime per-wallet
+  `hton_total_rewards` counter in HipoGang/app.
 
 ## 2026-08-15 — [detailed report](changelog/2026-08-15-community-and-aggregators.md)
 

@@ -12,7 +12,9 @@ report covers both halves since the design only makes sense as a whole.
 | Commit    | Description                                                                       |
 | --------- | --------------------------------------------------------------------------------- |
 | `2fb417a` | Show a Total earned figure on the rewards page (+ `hpo_sum_rewars` typo fix)      |
+| `96c46f8` | Show a Total HPO earned figure on the rewards page                                |
 | `b835c85` | (HipoGang/app) Accumulate lifetime stake rewards per wallet and expose them in wallet-rewards |
+| `071fb6f` | (HipoGang/app) Track lifetime HPO earned per wallet and expose it in wallet-rewards |
 
 ## The options considered
 
@@ -84,6 +86,22 @@ deliberately consistent).
   the "Claim N HPO / M GRAM" label variants could never render. Fixed to the
   real key.
 
+## Follow-on in the same session: lifetime HPO counter
+
+After verifying the GRAM total live, Behrang asked for the HPO twin. Same
+design, one counter: the per-wallet lifetime `hton_total_rewards` field
+(reusing the name of the existing user-level lifetime counter for the same
+quantity — HPO earned for holding hGRAM, reward coefficient applied), seeded
+from the stored history's `hpo_reward` entries and incremented with the exact
+expression the history rows are built from. Seeding gates on the field's own
+absence, not `stake_rewards_since`, since wallets may already be stake-seeded
+by the time this deploys — a wallet in fallback briefly reports an HPO total
+covering the rolling 10-round window while its stake total covers more; they
+converge once seeded (≤ one round cycle). Frontend adds a "Total HPO earned"
+row sharing the "Since <date>" caption, which now shows when either total is
+visible. Unlike `hton_sum_rewards` (claimable, reset on claim), this counter
+never resets.
+
 ## Declined / deferred
 
 - **Full historical backfill** (archival reconstruction per wallet) —
@@ -108,6 +126,13 @@ deliberately consistent).
   unrelated vet failure in `newquizlist.go`, confirmed present on `main`).
 - `npm run build` clean (49 pages, Pagefind index built); `prettier` reports
   both touched files conformant.
+- After the first backend deploy: live-probed `/wallet-rewards` and confirmed
+  the fallback total equals the history-array sum to the last digit, `since`
+  equals the oldest entry, and the array is newest-first (validating the
+  oldest-is-last assumption in both seed paths). Behrang confirmed the row
+  renders in the app. For the HPO twin, verified the HMGET field indexes on
+  both call sites and coefficient consistency across history rows, seed, and
+  increment.
 
 ### Follow-ups
 
