@@ -866,7 +866,8 @@ export class Model {
     if (address == null) {
       return ''
     }
-    const friendly = address.toString()
+    // Unbounceable (UQ…), the customary form for wallet addresses.
+    const friendly = address.toString({ bounceable: false })
     return friendly.slice(0, 4) + '…' + friendly.slice(-4)
   }
 

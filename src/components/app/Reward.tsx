@@ -23,7 +23,7 @@ const Reward = observer(({ model }: Props) => {
   const claimCta = (
     <div className='flex flex-col gap-2'>
       {model.claimableRewardsFormatted != null && (
-        <p className='text-text-faint text-[12.5px]'>{model.claimableRewardsFormatted}</p>
+        <p className='text-text-faint text-center text-[12.5px]'>{model.claimableRewardsFormatted}</p>
       )}
       <a
         className='bg-accent text-on-accent hover:bg-accent-hover block h-14 w-full rounded-2xl text-center text-[17px] leading-14 font-semibold'
