@@ -17,6 +17,7 @@ report covers both halves since the design only makes sense as a whole.
 | `071fb6f` | (HipoGang/app) Track lifetime HPO earned per wallet and expose it in wallet-rewards |
 | `e6efde1` | Rename the mobile rewards tab to Rewards                                          |
 | `15c279b` | Polish the rewards page and keep it hydrated across TonConnect re-emits           |
+| `097220f` | Center the claimable-rewards caption and show the wallet address unbounceable     |
 
 ## The options considered
 
@@ -116,7 +117,10 @@ HPO earned"; the claim CTA is a static "Claim Rewards" button with the
 claimable amounts moved to a muted caption above it (the old
 `claimWalletRewardsLabel` filled the button on mobile — replaced by
 `claimableRewardsFormatted`); the mobile tab bar says "Rewards" (fixed in
-`Header.tsx` and the duplicate array in `tma/TmaTabs.tsx`). Review caught
+`Header.tsx` and the duplicate array in `tma/TmaTabs.tsx`); after live
+review, the claim caption was centered and `connectedAddressShort` switched
+to the unbounceable (`UQ…`) form customary for wallet addresses. Review
+caught
 that `stake_rewards_since: 0` (no history) would have rendered as "Earned
 since January 01" 1970 once the caption stopped being gated on the totals —
 0 is now treated as "no date".
