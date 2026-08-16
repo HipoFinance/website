@@ -10,7 +10,7 @@ type Page = 'stake' | 'reward' | 'stats' | 'defi'
 
 const pages: { page: Page; label: string; icon: LucideIcon }[] = [
   { page: 'stake', label: 'Stake', icon: Coins },
-  { page: 'reward', label: 'Reward', icon: Gift },
+  { page: 'reward', label: 'Rewards', icon: Gift },
   { page: 'stats', label: 'Stats', icon: ChartLine },
   { page: 'defi', label: 'DeFi', icon: ArrowLeftRight },
 ]
