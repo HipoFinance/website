@@ -21,14 +21,19 @@ const Reward = observer(({ model }: Props) => {
   // phone viewport a bottom placement lands under the fold and gets missed.
   const tma = model.isTelegram
   const claimCta = (
-    <a
-      className='bg-accent text-on-accent hover:bg-accent-hover block h-14 w-full rounded-2xl text-center text-[17px] leading-14 font-semibold'
-      href='https://t.me/HipoFinanceBot/join'
-      target='_blank'
-      rel='noopener noreferrer'
-    >
-      {model.claimWalletRewardsLabel}
-    </a>
+    <div className='flex flex-col gap-2'>
+      {model.claimableRewardsFormatted != null && (
+        <p className='text-text-faint text-[12.5px]'>{model.claimableRewardsFormatted}</p>
+      )}
+      <a
+        className='bg-accent text-on-accent hover:bg-accent-hover block h-14 w-full rounded-2xl text-center text-[17px] leading-14 font-semibold'
+        href='https://t.me/HipoFinanceBot/join'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
+        Claim Rewards
+      </a>
+    </div>
   )
 
   return (
@@ -57,19 +62,15 @@ const Reward = observer(({ model }: Props) => {
               <div className='text-text-muted flex flex-col gap-2.5 text-sm'>
                 <Row label='Your staked balance' value={model.htonBalanceFormatted} />
                 <Row label='Value in GRAM' value={model.htonBalanceInTon} />
-                {(model.totalEarnedFormatted != null || model.totalHpoEarnedFormatted != null) && (
-                  <>
-                    {model.totalEarnedFormatted != null && (
-                      <Row label='Total earned' value={model.totalEarnedFormatted} />
-                    )}
-                    {model.totalHpoEarnedFormatted != null && (
-                      <Row label='Total HPO earned' value={model.totalHpoEarnedFormatted} />
-                    )}
-                    {model.totalEarnedSinceFormatted != null && (
-                      <p className='text-text-faint -mt-1.5 text-[12.5px]'>Since {model.totalEarnedSinceFormatted}</p>
-                    )}
-                  </>
-                )}
+                <div className='flex flex-col gap-2.5'>
+                  {model.totalEarnedSinceFormatted != null && (
+                    <p className='text-text-faint text-[12.5px]'>Earned since {model.totalEarnedSinceFormatted}</p>
+                  )}
+                  <div className='flex flex-col gap-2.5 pl-3'>
+                    <Row label='Total GRAM earned' value={model.totalEarnedFormatted} />
+                    <Row label='Total HPO earned' value={model.totalHpoEarnedFormatted} />
+                  </div>
+                </div>
                 <Row label='Rewards after a year' value={model.profitAfterOneYear} />
                 <Row
                   label='Reward rate'
@@ -108,6 +109,13 @@ const Reward = observer(({ model }: Props) => {
             </>
           )}
         </div>
+
+        {model.isWalletConnected && rewards == null && model.walletRewardsFetchState === 'error' && (
+          <div className='border-border bg-surface flex flex-col rounded-[20px] border p-7'>
+            <h2 className='font-fredoka mb-4 text-xl font-semibold'>Recent rewards</h2>
+            <p className='text-text-muted mt-4 text-center text-sm'>Oops! Please try again a little later.</p>
+          </div>
+        )}
 
         {model.isWalletConnected && rewards != null && (
           <div className='border-border bg-surface flex flex-col rounded-[20px] border p-7'>

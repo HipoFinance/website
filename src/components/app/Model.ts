@@ -111,6 +111,7 @@ function toHipoGauge(response: HipoGaugeResponse): HipoGauge {
 
 const updateHipoGaugeDelay = 5 * 60 * 1000
 const retryHipoGaugeDelay = 5 * 1000
+const retryWalletRewardsDelay = 5 * 1000
 const updateTimesDelay = 5 * 60 * 1000
 const updateLastBlockDelay = 30 * 1000
 const retryDelay = 3 * 1000
@@ -323,6 +324,7 @@ export class Model {
   timeoutErrorMessage?: ReturnType<typeof setTimeout>
   timeoutHipoGauge?: ReturnType<typeof setTimeout>
   timeoutMultisigHint?: ReturnType<typeof setTimeout>
+  timeoutWalletRewards?: ReturnType<typeof setTimeout>
 
   // Telegram Mini App chrome. Detected synchronously here — the Model is constructed during the
   // island's first render — so the compact chrome is what gets painted inside Telegram, and the
@@ -424,7 +426,7 @@ export class Model {
       protocolFee: computed,
       currentlyStaked: computed,
       holdersCountFormatted: computed,
-      claimWalletRewardsLabel: computed,
+      claimableRewardsFormatted: computed,
       totalEarnedFormatted: computed,
       totalHpoEarnedFormatted: computed,
       totalEarnedSinceFormatted: computed,
@@ -1033,14 +1035,17 @@ export class Model {
     return this.useGauge ? formatTokenStats(this.gauge?.gram) : undefined
   }
 
-  get claimWalletRewardsLabel() {
+  // The claim button's label itself is now static ("Claim Rewards" — see Reward.tsx); this feeds
+  // the muted caption shown above the button instead, so a long amount no longer stretches the
+  // button on mobile. Same GRAM-only / HPO-only / both-with-"+" branching as before, undefined
+  // (no caption) when nothing clears the 0.01 dust threshold.
+  get claimableRewardsFormatted() {
     const rewards = this.walletRewards
     if (rewards == null) {
-      return 'Claim Rewards'
+      return undefined
     }
     if (rewards.hpoSumRewards > 0.01 && rewards.htonSumRewards > 0.01) {
       return (
-        'Claim ' +
         formatCompact2Fraction(rewards.hpoSumRewards) +
         ' GRAM + ' +
         formatCompact2Fraction(rewards.htonSumRewards) +
@@ -1048,40 +1053,42 @@ export class Model {
       )
     }
     if (rewards.hpoSumRewards > 0.01) {
-      return 'Claim ' + formatCompact2Fraction(rewards.hpoSumRewards) + ' GRAM'
+      return formatCompact2Fraction(rewards.hpoSumRewards) + ' GRAM'
     }
     if (rewards.htonSumRewards > 0.01) {
-      return 'Claim ' + formatCompact2Fraction(rewards.htonSumRewards) + ' HPO'
+      return formatCompact2Fraction(rewards.htonSumRewards) + ' HPO'
     }
-    return 'Claim Rewards'
+    return undefined
   }
 
   // stake_sum_rewards comes back in the same unit as each earned_rewards[].stake_reward — already
   // in whole GRAM, not nano — so this is formatted like the other *_sum_rewards totals rather than
-  // through formatNano. Absent, null, or zero (the field is new and may not have deployed on the
-  // backend yet) all degrade to undefined, which hides the row entirely.
+  // through formatNano. The backend always sends this once wallet rewards have loaded, so undefined
+  // here means only "not loaded yet" (Row then shows its placeholder) — zero and dust format like
+  // any other amount rather than hiding the row.
   get totalEarnedFormatted() {
-    const total = this.walletRewards?.stakeSumRewards
-    if (total != null && total > 0.01) {
-      return formatCompact2Fraction(total) + ' GRAM'
+    if (this.walletRewards == null) {
+      return undefined
     }
+    return formatCompact2Fraction(this.walletRewards.stakeSumRewards ?? 0) + ' GRAM'
   }
 
   // hton_total_rewards is the wallet's LIFETIME HPO earned for holding hGRAM, reward coefficient
   // already applied, in the same unit as earned_rewards[].hpo_reward — whole HPO, not nano. Unlike
-  // hton_sum_rewards (the claimable counter, which resets on claim), this one never resets. Absent,
-  // null, or zero all degrade to undefined, which hides the row entirely.
+  // hton_sum_rewards (the claimable counter, which resets on claim), this one never resets. As with
+  // totalEarnedFormatted, undefined means only "not loaded yet"; zero and dust are shown as-is.
   get totalHpoEarnedFormatted() {
-    const total = this.walletRewards?.htonTotalRewards
-    if (total != null && total > 0.01) {
-      return formatCompact2Fraction(total) + ' HPO'
+    if (this.walletRewards == null) {
+      return undefined
     }
+    return formatCompact2Fraction(this.walletRewards.htonTotalRewards ?? 0) + ' HPO'
   }
 
   // Same date formatting as the visible (non-title) reward.time in Reward.tsx's per-round rows.
+  // Stays undefined until the date itself is known, independent of the two totals above.
   get totalEarnedSinceFormatted() {
     const since = this.walletRewards?.stakeRewardsSince
-    if ((this.totalEarnedFormatted != null || this.totalHpoEarnedFormatted != null) && since != null) {
+    if (since != null) {
       return since.toLocaleString(navigator.language, { month: 'long', day: '2-digit' })
     }
   }
@@ -1094,7 +1101,16 @@ export class Model {
     this.tonClient = new TonClient4({ endpoint, timeout: tonClientTimeout })
   }
 
+  // TonConnect re-emits onStatusChange for the SAME account — connection restore, bridge
+  // reconnect, the injected wallet re-sending `connect` on unlock. Those are not wallet changes,
+  // and treating them as one wiped every wallet-derived value below (balances, walletAddress, and
+  // walletRewards) mid-session, leaving /rewards/ back at its unhydrated state.
   setAddress = (address?: Address) => {
+    const unchanged = this.address == null ? address == null : address != null && this.address.equals(address)
+    if (unchanged) {
+      return
+    }
+    clearTimeout(this.timeoutWalletRewards)
     this.address = address
     this.tonBalance = undefined
     this.isMultisig = false
@@ -1270,7 +1286,8 @@ export class Model {
         htonSumRewards: +rewards.hton_sum_rewards,
         stakeSumRewards: rewards.stake_sum_rewards != null ? +rewards.stake_sum_rewards : undefined,
         stakeRewardsSince:
-          rewards.stake_rewards_since != null ? new Date(+rewards.stake_rewards_since * 1_000) : undefined,
+          // 0 means "no history yet" on the wire, not the epoch.
+          +rewards.stake_rewards_since > 0 ? new Date(+rewards.stake_rewards_since * 1_000) : undefined,
         htonTotalRewards: rewards.hton_total_rewards != null ? +rewards.hton_total_rewards : undefined,
         earnedRewards: rewards.earned_rewards
           .filter((reward: any) => +reward.ton_reward > 0 || +reward.hpo_reward > 0)
@@ -1289,7 +1306,14 @@ export class Model {
 
       this.setWalletRewardsFetchState('done')
     } catch {
+      // The endpoint has no caching and briefly 503s during a backend deploy, so 'error' must not
+      // be terminal. Dropping back to 'init' re-arms the autorun above, which refetches; any data
+      // already on screen stays on screen meanwhile (this catch never clears walletRewards).
       this.setWalletRewardsFetchState('error')
+      clearTimeout(this.timeoutWalletRewards)
+      this.timeoutWalletRewards = setTimeout(() => {
+        this.setWalletRewardsFetchState('init')
+      }, retryWalletRewardsDelay)
     } finally {
       this.endRequest()
     }
