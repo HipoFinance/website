@@ -57,9 +57,14 @@ const Reward = observer(({ model }: Props) => {
               <div className='text-text-muted flex flex-col gap-2.5 text-sm'>
                 <Row label='Your staked balance' value={model.htonBalanceFormatted} />
                 <Row label='Value in GRAM' value={model.htonBalanceInTon} />
-                {model.totalEarnedFormatted != null && (
+                {(model.totalEarnedFormatted != null || model.totalHpoEarnedFormatted != null) && (
                   <>
-                    <Row label='Total earned' value={model.totalEarnedFormatted} />
+                    {model.totalEarnedFormatted != null && (
+                      <Row label='Total earned' value={model.totalEarnedFormatted} />
+                    )}
+                    {model.totalHpoEarnedFormatted != null && (
+                      <Row label='Total HPO earned' value={model.totalHpoEarnedFormatted} />
+                    )}
                     {model.totalEarnedSinceFormatted != null && (
                       <p className='text-text-faint -mt-1.5 text-[12.5px]'>Since {model.totalEarnedSinceFormatted}</p>
                     )}

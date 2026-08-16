@@ -50,6 +50,7 @@ interface WalletRewards {
   htonSumRewards: number
   stakeSumRewards?: number
   stakeRewardsSince?: Date
+  htonTotalRewards?: number
   earnedRewards: EarnedReward[]
 }
 
@@ -425,6 +426,7 @@ export class Model {
       holdersCountFormatted: computed,
       claimWalletRewardsLabel: computed,
       totalEarnedFormatted: computed,
+      totalHpoEarnedFormatted: computed,
       totalEarnedSinceFormatted: computed,
 
       useGauge: computed,
@@ -1065,10 +1067,21 @@ export class Model {
     }
   }
 
+  // hton_total_rewards is the wallet's LIFETIME HPO earned for holding hGRAM, reward coefficient
+  // already applied, in the same unit as earned_rewards[].hpo_reward — whole HPO, not nano. Unlike
+  // hton_sum_rewards (the claimable counter, which resets on claim), this one never resets. Absent,
+  // null, or zero all degrade to undefined, which hides the row entirely.
+  get totalHpoEarnedFormatted() {
+    const total = this.walletRewards?.htonTotalRewards
+    if (total != null && total > 0.01) {
+      return formatCompact2Fraction(total) + ' HPO'
+    }
+  }
+
   // Same date formatting as the visible (non-title) reward.time in Reward.tsx's per-round rows.
   get totalEarnedSinceFormatted() {
     const since = this.walletRewards?.stakeRewardsSince
-    if (this.totalEarnedFormatted != null && since != null) {
+    if ((this.totalEarnedFormatted != null || this.totalHpoEarnedFormatted != null) && since != null) {
       return since.toLocaleString(navigator.language, { month: 'long', day: '2-digit' })
     }
   }
@@ -1258,6 +1271,7 @@ export class Model {
         stakeSumRewards: rewards.stake_sum_rewards != null ? +rewards.stake_sum_rewards : undefined,
         stakeRewardsSince:
           rewards.stake_rewards_since != null ? new Date(+rewards.stake_rewards_since * 1_000) : undefined,
+        htonTotalRewards: rewards.hton_total_rewards != null ? +rewards.hton_total_rewards : undefined,
         earnedRewards: rewards.earned_rewards
           .filter((reward: any) => +reward.ton_reward > 0 || +reward.hpo_reward > 0)
           .map((reward: any) => ({
