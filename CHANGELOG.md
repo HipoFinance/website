@@ -7,6 +7,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-16 — [detailed report](changelog/2026-08-16-total-earned-rewards.md)
+
+- "Total earned" row (with "Since <date>" caption) on the rewards page,
+  fed by new `stake_sum_rewards` / `stake_rewards_since` API fields.
+- Backend accumulator added in HipoGang/app (`jobs.go` + `/wallet-rewards`),
+  O(1) per wallet, seeded from the stored 10-round history.
+- Fixed `Model.ts` reading the typo'd `hpo_sum_rewars` wire key, which made
+  `hpoSumRewards` NaN and suppressed the HPO claim-label variants.
+
 ## 2026-08-15 — [detailed report](changelog/2026-08-15-community-and-aggregators.md)
 
 - Added an Aggregators section (GroypFi, swap.coffee) to the dApp's DeFi
