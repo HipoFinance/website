@@ -17,6 +17,10 @@ here — `git log` remains the complete record.
   `hpoSumRewards` NaN and suppressed the HPO claim-label variants.
 - Follow-on: "Total HPO earned" row backed by a lifetime per-wallet
   `hton_total_rewards` counter in HipoGang/app.
+- Rewards-page polish: always-rendered total rows under an "Earned since"
+  caption, static Claim button with amounts above it, "Rewards" tab label.
+- Fixed the page reverting to its unhydrated state when TonConnect
+  re-emits status for the same account; rewards fetch errors now retry.
 
 ## 2026-08-15 — [detailed report](changelog/2026-08-15-community-and-aggregators.md)
 

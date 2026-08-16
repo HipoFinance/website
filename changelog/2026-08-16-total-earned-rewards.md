@@ -15,6 +15,8 @@ report covers both halves since the design only makes sense as a whole.
 | `96c46f8` | Show a Total HPO earned figure on the rewards page                                |
 | `b835c85` | (HipoGang/app) Accumulate lifetime stake rewards per wallet and expose them in wallet-rewards |
 | `071fb6f` | (HipoGang/app) Track lifetime HPO earned per wallet and expose it in wallet-rewards |
+| `e6efde1` | Rename the mobile rewards tab to Rewards                                          |
+| `15c279b` | Polish the rewards page and keep it hydrated across TonConnect re-emits           |
 
 ## The options considered
 
@@ -102,6 +104,39 @@ row sharing the "Since <date>" caption, which now shows when either total is
 visible. Unlike `hton_sum_rewards` (claimable, reset on claim), this counter
 never resets.
 
+## Third round: display polish and the un-hydration bug
+
+Behrang's feedback after using the live feature, plus one bug he observed.
+
+Display changes: the total rows now render from first paint with the card's
+existing loading idiom (`Row` shows an em dash for undefined) instead of
+popping in when the API responds; they sit indented under a shared muted
+"Earned since <date>" caption; labels pair as "Total GRAM earned" / "Total
+HPO earned"; the claim CTA is a static "Claim Rewards" button with the
+claimable amounts moved to a muted caption above it (the old
+`claimWalletRewardsLabel` filled the button on mobile — replaced by
+`claimableRewardsFormatted`); the mobile tab bar says "Rewards" (fixed in
+`Header.tsx` and the duplicate array in `tma/TmaTabs.tsx`). Review caught
+that `stake_rewards_since: 0` (no history) would have rendered as "Earned
+since January 01" 1970 once the caption stopped being gated on the totals —
+0 is now treated as "no date".
+
+The bug ("values load, then disappear and the page reverts to init"): root
+cause is that TonConnect re-emits `onStatusChange` for the **same** account
+on connection restore, bridge reconnect, or wallet unlock — typically while
+the tab is hidden because the user switched to their wallet app — and
+`Model.setAddress` treated every emission as a wallet change, wiping all
+wallet-derived state (balances, `walletAddress`, `walletRewards`). Recovery
+was fragile: on `/rewards/` block polling is paused so `walletAddress` was
+never re-derived, one failed refetch parked `walletRewardsFetchState` in a
+terminal `error`, and the error message was nested inside the
+`rewards != null` block so it could never render without data. Fixes:
+`setAddress` early-returns on an unchanged address (connects, disconnects,
+and real switches still wipe); a failed fetch retries after 5 s via
+`timeoutWalletRewards` (mirroring `loadHipoGauge`'s pattern; last-good data
+stays on screen since the catch never cleared it); and a standalone error
+card renders when the first fetch fails with no data.
+
 ## Declined / deferred
 
 - **Full historical backfill** (archival reconstruction per wallet) —
@@ -143,4 +178,9 @@ never resets.
   jobs process; before that the API fallback covers reads.
 - Decide whether a bounded per-user chart (monthly rollups) is worth the
   extra ~12 floats/wallet/year.
+- Latent weakness (out of the critical path since the `setAddress` fix):
+  `readLastBlock`/`readTimes` bail on `document.hidden` without re-arming
+  their timers, and on `/rewards/`/`/defi/` `controlBackgroundJobs` only
+  ever pauses — once broken there, the poll chain never restarts until the
+  user visits `/stake/` or `/stats/` or reloads.
 - `public/llms.txt` untouched — no protocol-level facts changed.
