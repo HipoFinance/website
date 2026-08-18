@@ -7,6 +7,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-18 — [detailed report](changelog/2026-08-18-ready-to-burn-sdk-bump.md)
+
+- Updated `@hipo-finance/sdk` to 4.3.0 for the treasury's new
+  `ready_to_burn` participation state (inserted at 6, `burning` moved to 7).
+- Fixes `stakeRemain` skipping a round that had settled but was still
+  holding its bills; no source change was needed, only the corrected enum.
+- Declined a suggested edit to `Model.ts:824` that would have pinned that
+  off-by-one in place under a correct-looking constant.
+
 ## 2026-08-16 — [detailed report](changelog/2026-08-16-total-earned-rewards.md)
 
 - "Total earned" row (with "Since <date>" caption) on the rewards page,
