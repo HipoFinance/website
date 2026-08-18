@@ -74,8 +74,9 @@ never interpret it), `dune`, `DefiLlama-Adapters`, `yield-server`,
 
 ### Follow-ups
 
-- Redeploy so the corrected `stakeRemain` ships. Not urgent while
-  `instant_mint` is `true`.
+- No deploy step is pending: pushing to `main` runs `deploy.yml`, so the
+  corrected `stakeRemain` shipped with this commit. It stays dormant until
+  `instant_mint` goes back to `false`.
 - The orphaned-bill bug at `treasury.fc:951-953` is still open: a round whose
   loan requests are all rejected has its participation deleted outright, so any
   deposit or unstake bill already minted against it can never burn. Unlike the
