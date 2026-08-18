@@ -11,7 +11,7 @@ real misreading of on-chain state, so it is recorded here.
 
 | Commit    | Description                                              |
 | --------- | -------------------------------------------------------- |
-| `e044f57` | Update the SDK for the ready_to_burn participation state |
+| `79922b3` | Update the SDK for the ready_to_burn participation state |
 
 ## Why a lockfile bump is a behaviour change
 
