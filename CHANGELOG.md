@@ -7,6 +7,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-19 — [detailed report](changelog/2026-08-19-dune-dashboard-docs.md)
+
+- Added a "Hipo on Dune" docs page describing the Dune dashboard and how it
+  complements Hipo Stats.
+- Added its sidebar entry after Hipo Stats and a cross-link from the Hipo
+  Stats docs page.
+- Listed the new docs page in `public/llms.txt`.
+
 ## 2026-08-18 — [detailed report](changelog/2026-08-18-ready-to-burn-sdk-bump.md)
 
 - Updated `@hipo-finance/sdk` to 4.3.0 for the treasury's new
@@ -101,7 +109,6 @@ here — `git log` remains the complete record.
 - Fixed the landing Hipo Club card's icon and docs link.
 - Wrote `specs/ton-v4-read-endpoint.md` (self-hosted TON v4 read endpoint);
   implementation pending review.
-
 ## 2026-08-11 — [detailed report](changelog/2026-08-11-hton-rate-chart.md)
 
 - Added an hGRAM/GRAM rate history chart to the Stats page from the newly

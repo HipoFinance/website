@@ -279,6 +279,7 @@ How Hipo works: https://hipo.finance/docs/introduction/how-does-hipo-work/
 Hipo advantages: https://hipo.finance/docs/introduction/advantages-of-hipo/
 Hipo stats docs: https://hipo.finance/docs/introduction/hipo-stats/
 Hipo Stats dashboard: https://stats.hipo.finance/
+Hipo Dune dashboard docs: https://hipo.finance/docs/introduction/hipo-on-dune/
 Staking tutorial: https://hipo.finance/docs/tutorials/staking/
 Unstaking tutorial: https://hipo.finance/docs/tutorials/unstaking/
 hGRAM / hTON docs: https://hipo.finance/docs/hipo-tokens/hipo-staked-gram-hgram/

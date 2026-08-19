@@ -31,6 +31,7 @@ const docsSidebar = [
       { label: '🔥 Advantages of Hipo', link: '/docs/introduction/advantages-of-hipo/' },
       { label: '🎁 Hipo Rewards', link: '/docs/introduction/hipo-rewards/' },
       { label: '📈 Hipo Stats', link: '/docs/introduction/hipo-stats/' },
+      { label: '📊 Hipo on Dune', link: '/docs/introduction/hipo-on-dune/' },
     ],
   },
   {
