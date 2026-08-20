@@ -20,8 +20,11 @@ audience with lower-to-mid crypto/blockchain knowledge, per the request.
   addition to Hipo Stats (quick everyday numbers vs. blockchain-native
   analytics: protocol activity, wallet/holder trends, token flows, DeFi
   metrics, ecosystem comparisons, and independently verifiable transparency),
-  and how it can be shared or forked on Dune. The dashboard link is a raw
-  `<a target="_blank" rel="noopener">` so it opens in a new tab.
+  and how it can be shared or forked on Dune. The sharing section also links
+  the open-source [HipoFinance/dune](https://github.com/HipoFinance/dune)
+  repository that holds the dashboard's queries. External links (dashboard,
+  repo) are raw `<a target="_blank" rel="noopener">` so they open in a new
+  tab.
 - **`astro.config.mjs`** — sidebar entry `📊 Hipo on Dune` added to the
   Introduction group, directly after `📈 Hipo Stats` (the sidebar is explicit,
   so every new page needs an entry).

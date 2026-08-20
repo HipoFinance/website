@@ -21,7 +21,7 @@ Because Dune reads directly from the public blockchain, it's also a transparency
 
 ### Sharing and Building on It
 
-One of the best parts of Dune is that it's built for sharing. You can send a link to the dashboard or any single chart to anyone, embed charts in articles or posts, and — if you're into data — even copy ("fork") our queries on Dune to build your own custom analysis of Hipo.
+One of the best parts of Dune is that it's built for sharing. You can send a link to the dashboard or any single chart to anyone, embed charts in articles or posts, and — if you're into data — even copy ("fork") our queries on Dune to build your own custom analysis of Hipo. The queries and charts behind the dashboard are open source, too: we maintain them in our <a href="https://github.com/HipoFinance/dune" target="_blank" rel="noopener">HipoFinance/dune</a> repository on GitHub, so you can review how every number is calculated or suggest improvements there.
 
 If there's a chart or metric you'd like us to add, let us know on our social channels. Community feedback shapes what we track.
 
