@@ -26,7 +26,6 @@
   --color-text: #f5efe8;
   --color-text-muted: #c2b5ac;
   --color-text-faint: #8d7f76;
-  --color-body-strong: #d9cfc6;
 
   /* Coral plays two roles and they diverge in light mode.
      As a FOREGROUND (links, the hero highlight, the APY stat, hover states) it has to earn its
@@ -74,7 +73,6 @@
     --color-text: #291f20;
     --color-text-muted: #6f6058;
     /* --color-text-faint keeps #8d7f76: it reads as a faint label on both grounds. */
-    --color-body-strong: #3f342f;
 
     --color-accent: #e0574b;
     --color-accent-hover: #c9483c;

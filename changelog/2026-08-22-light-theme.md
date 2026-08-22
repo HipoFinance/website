@@ -271,21 +271,33 @@ blockchain" toast). Those two surfaces are unverified in light mode.
 
 ## Follow-ups
 
-- **Check the two surfaces the sandbox could not reach**: the HPO sparkline and
-  donut on `/hpo/`, and the charts on `/stats/`, both of which need live data
-  to say anything about how the coral washes and gridlines read on white.
-- The HPO donut's pastel segments were tuned for a dark ground; several of them
-  (`#6fc7b2`, `#9ab87c`) are light enough to lose definition on white. Worth a
-  design pass if the light theme sticks.
-- The `.12`-alpha coral washes (chart area fills, Hipo Club / Community panel
-  gradients, the sparkline polygon) are near-invisible on cream. They read as
-  intentional restraint rather than as a bug, but a slightly higher alpha for
-  light mode would be an easy improvement.
+Three of these were closed after the deploy, once the live site made the
+data-backed surfaces reachable (the sandbox could not reach
+`gauge.hipo.finance` or the TON endpoint during the build):
+
+- ~~Check the HPO sparkline and donut, and the `/stats/` charts.~~ Done against
+  https://hipo.finance in both schemes. All read correctly on cream.
+- ~~The HPO donut's pastel segments may lose definition on white.~~ They do not
+  — all six stay distinct against `#ffffff`. The concern was unfounded. The one
+  element that _is_ faint on white is the small amber burn arc (`#ffb03a`), but
+  it is a two-degree tick and no more prominent in dark mode.
+- ~~The `.12`-alpha coral washes are near-invisible on cream.~~ Overstated:
+  subtle but clearly present under the TVL chart and the HPO sparkline. Raising
+  the alpha in light mode is a taste call, not a fix.
+
+Three more were closed in the same round of review:
+
+- ~~`--color-body-strong` is dead weight.~~ Deleted from both palettes; it had
+  no reference anywhere in `src/`.
+- ~~The carousel is scoped to below `sm` rather than every width, as the
+  handoff has it.~~ Confirmed as the wanted behaviour; the handoff's universal
+  version is not being adopted.
+- ~~Compare later work against `home-light.html` rather than this changelog.~~
+  Moot: the light theme now covers every page, so the home-only handoff is no
+  longer the reference.
+
+Still open:
+
 - Decide whether `https://t.me/HipoFinanceBot/join` should also be shortened in
-  the five other places listed above. It was left as-is deliberately, not
-  missed.
-- `--color-body-strong` is declared in both palettes but used nowhere. It is
-  dead weight either way; deleting it is a separate cleanup.
-- The design handoff calls the light theme "the approved light-theme version of
-  the home page" — if `home-light.html` is later extended to the other pages,
-  compare against it rather than against this changelog.
+  the five other places listed above (`Reward.tsx:30` plus four docs pages). It
+  was left as-is deliberately, not missed.
