@@ -205,6 +205,37 @@ Rewards** button (`Reward.tsx:30`, a different CTA), and four docs pages
 `/join` is wrong rather than merely redundant, those want the same edit — see
 Follow-ups.
 
+### Telegram write access
+
+The `/join` removal from the Hipo Club button was reverted: the goal behind it
+was being able to message those users, and dropping the mini-app path was the
+wrong lever for that. `Telegram.WebApp.requestWriteAccess()` (Bot API 6.9) is
+the right one — it shows Telegram's native "allow this bot to message you"
+prompt — so the direct link is back and the permission is asked for instead.
+
+Two limits shaped where the call could actually go:
+
+- **It is a mini-app runtime method, not something a link can carry.**
+  `Telegram.WebApp` only exists while the page is running inside a Telegram
+  webview. The "Join Hipo Club" button on hipo.finance, the docs links and the
+  Claim Rewards button in the web app are ordinary links that _navigate to_
+  Telegram; there is no `WebApp` object at click time. Asking for write access
+  "on the links" is therefore not implementable — the ask has to happen inside
+  whichever mini app the user lands in.
+- **Each mini app must ask for itself.** The call added here is in
+  `tma/telegram.ts`, which is the staking mini app this repo serves. The docs
+  distinguish `t.me/HipoFinanceBot/app` ("Telegram Mini App") from
+  `t.me/HipoFinanceBot/join` ("Hipo Club"), and there is no Hipo Club code in
+  this repository — so users arriving through the Hipo Club link need the same
+  call added in _that_ codebase. See Follow-ups.
+
+The call sits last in `initTelegramChrome`, after the chrome is settled, and is
+skipped when `initDataUnsafe.user.allow_write_to_pm` is already true — users who
+started the bot are reachable already and re-asking would spend a popup for
+nothing. That field is real but absent from `@twa-dev/types`, hence the cast.
+`requestWriteAccess` throws `WebAppWriteAccessRequested` on a second call in the
+same session, which the existing `guard()` swallows.
+
 ## Decisions
 
 - **Scope: whole site.** Home-only was the literal request; it was widened
@@ -298,6 +329,17 @@ Three more were closed in the same round of review:
 
 Still open:
 
-- Decide whether `https://t.me/HipoFinanceBot/join` should also be shortened in
-  the five other places listed above (`Reward.tsx:30` plus four docs pages). It
-  was left as-is deliberately, not missed.
+- ~~Decide whether `/join` should be shortened elsewhere.~~ Resolved the other
+  way: the link is back to `/join` everywhere, with write access requested from
+  inside the mini app instead.
+- **Add `requestWriteAccess()` to the Hipo Club mini app** (`.../join`), which
+  is not in this repository. Without it, users who reach Telegram through the
+  Hipo Club button are still unreachable by the bot — this repo's call only
+  covers people who open the staking mini app.
+- **Decide when the prompt should fire.** It is on mini-app open right now,
+  which maximises coverage but is the moment users are least invested; moving
+  it to a point of intent would convert better. Moving it is a one-line change.
+- Verify the premise end to end with a test account: confirm that a user who
+  reaches the bot only through a direct mini-app link is genuinely unmessageable
+  until the prompt is accepted. That is the documented behaviour, but it was not
+  testable from here — it needs the bot token.

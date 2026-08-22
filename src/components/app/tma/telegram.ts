@@ -203,5 +203,24 @@ export async function initTelegramChrome(mode: TmaMode): Promise<boolean> {
     })
   }
 
+  // 6.9: ask to be allowed to message this user. Telegram only lets the bot write to someone who
+  // has started it in a private chat or granted write access explicitly, and a user who arrived
+  // through a direct mini-app link (t.me/HipoFinanceBot/app) has usually done neither — so without
+  // this prompt they are unreachable. Fired last, after the chrome is settled, and only once per
+  // webview session: requestWriteAccess throws WebAppWriteAccessRequested on a second call, which
+  // guard() swallows.
+  //
+  // Users who already started the bot carry allow_write_to_pm, and re-asking them would spend a
+  // popup for nothing. The field is real (Telegram sends it in initData) but missing from
+  // @twa-dev/types, hence the cast.
+  const user = WebApp.initDataUnsafe.user as
+    | (typeof WebApp.initDataUnsafe.user & { allow_write_to_pm?: boolean })
+    | undefined
+  if (atLeast('6.9') && user?.allow_write_to_pm !== true) {
+    guard('requestWriteAccess', () => {
+      WebApp.requestWriteAccess()
+    })
+  }
+
   return true
 }
