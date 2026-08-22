@@ -240,24 +240,22 @@ same session, which the existing `guard()` swallows.
 ### A closing CTA card on "How Hipo works"
 
 Feedback on the new carousel: it ends on "4 · Unstake anytime" and leaves the
-reader with nowhere to go. A fifth card now closes the row — deliberately _not_
-a step 5, just the call to action:
+reader with nowhere to go. A panel now closes the section — deliberately _not_ a
+step 5, just the call to action:
 
 > **Start Staking GRAM** — Start earning rewards and bonuses with as low as
 > 1 GRAM. → **Stake now** (`/stake/`)
 
-It shares the carousel's card shell (`snap-start`, `rounded-[20px]`, the same
-border) so it scrolls as the last slide on a phone, but drops `bg-surface` for
-the coral gradient the Hipo Community and Hipo Club panels use, which is what
-marks it as a CTA rather than a step. The button is the primary coral pill with
-the hard offset shadow, the same one the hero uses.
+It sits **outside** the scroll container, as a sibling of the grid rather than a
+fifth cell. Putting it inside was the first attempt and was corrected on review:
+below `sm` that made it a fifth slide, which buries the primary CTA behind four
+swipes and reads as a step despite the styling. Outside, it is full-width at
+every breakpoint and always visible once the section is on screen.
 
-From `sm` up it does not become a fifth column: it spans the full row
-(`sm:col-span-2 lg:col-span-4`) and switches to the horizontal
-text-left/button-right layout of the other two panels. Widening the grid to
-`lg:grid-cols-5` was the alternative and was rejected — five columns inside
-`max-w-[1280px]` leaves each step card about 224px wide, and step 2's copy
-would have run to ten very narrow lines.
+Styling marks it as a CTA rather than a step: the coral gradient the Hipo
+Community and Hipo Club panels use instead of `bg-surface`, and the primary
+coral pill with the hard offset shadow, the same button as the hero. It stacks
+on a phone and switches to the panels' text-left/button-right row from `sm` up.
 
 ## Decisions
 
