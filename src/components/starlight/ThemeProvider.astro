@@ -1,10 +1,21 @@
 ---
-// Warm Dark is the only theme this site ships, so the docs section is pinned to it
-// unconditionally instead of reading `prefers-color-scheme` / `localStorage` like Starlight's
-// default ThemeProvider does. Paired with the empty ThemeSelect.astro override (no picker to
-// change it) and wired in astro.config.mjs via `starlight({ components: { ThemeProvider, ... } })`.
+// The site has no theme picker: `prefers-color-scheme` is the only input (see the palette blocks
+// in src/styles/global.css and src/styles/docs.css). Starlight keys its own light/dark styles —
+// including the code-block themes and the two-scheme logo — off `data-theme`, so this bridges the
+// media query to that attribute instead of reading localStorage like Starlight's default
+// ThemeProvider does. Paired with the empty ThemeSelect.astro override (nothing to pick) and
+// wired in astro.config.mjs via `starlight({ components: { ThemeProvider, ... } })`.
+//
+// Inline and in <head> so the attribute is set before the first paint.
 ---
 
 <script is:inline>
-  document.documentElement.dataset.theme = 'dark'
+  ;(function () {
+    var query = window.matchMedia('(prefers-color-scheme: light)')
+    var apply = function () {
+      document.documentElement.dataset.theme = query.matches ? 'light' : 'dark'
+    }
+    apply()
+    query.addEventListener('change', apply)
+  })()
 </script>

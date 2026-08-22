@@ -1,12 +1,19 @@
 @import 'tailwindcss';
 
-/* Chart palette for the Warm Dark redesign. The app is single-theme now, so there is no
-   `.dark` override block anymore — these are the only values. Kept as CSS variables (rather
-   than inlined in LineChart) so gridline/label colors stay tweakable in one place; the line
-   colors themselves are passed per series from StatsPage using the @theme tokens. */
+/* Chart palette for the Warm Dark redesign. Kept as CSS variables (rather than inlined in
+   LineChart) so gridline/label colors stay tweakable in one place; the line colors themselves
+   are passed per series from StatsPage using the @theme tokens. The gridline color tracks
+   --color-border across the two schemes; --chart-ink is the faint label color, which reads on
+   both grounds and so is declared once. */
 :root {
   --chart-grid: #3d3331;
   --chart-ink: #8d7f76;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --chart-grid: #e7dccf;
+  }
 }
 
 ::selection {

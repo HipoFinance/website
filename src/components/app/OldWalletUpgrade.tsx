@@ -27,7 +27,7 @@ const OldWalletUpgrade = observer(({ model }: Props) => {
           After confirming, it may take a few minutes to receive the new hGRAM. Don&apos;t worry!
         </p>
         <button
-          className='bg-accent text-on-accent hover:bg-accent-hover mt-5 cursor-pointer rounded-2xl px-16 py-3 text-lg font-semibold'
+          className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover mt-5 cursor-pointer rounded-2xl px-16 py-3 text-lg font-semibold'
           onClick={model.upgradeOldWallet}
         >
           Upgrade

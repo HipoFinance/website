@@ -1,18 +1,18 @@
 /*
- * Warm Dark theming for the Starlight docs section (/docs). See specs/design handoff (Docs.dc.html)
- * and the changelog entry for 2026-08-11.
+ * Hipo theming for the Starlight docs section (/docs). See specs/design handoff (Docs.dc.html)
+ * and the changelog entries for 2026-08-11 (Warm Dark) and 2026-08-22 (light theme).
  *
  * This file is loaded only by Starlight, via `customCss` in astro.config.mjs. It deliberately does
  * NOT import src/styles/global.css: that pulls in Tailwind's preflight, which conflicts with
  * Starlight's own reset. Brand alignment is done through Starlight's CSS custom properties instead.
  *
- * The site is single-theme (dark only, forced by src/components/starlight/ThemeProvider.astro), so
- * unlike the previous version of this file there is no `:root[data-theme='light']` block — only one
- * palette is defined, ever.
+ * Two palettes, selected by `data-theme` on <html>, which src/components/starlight/ThemeProvider.astro
+ * sets from `prefers-color-scheme`. There is still no theme picker (ThemeSelect.astro renders
+ * nothing) — the OS setting is the only input.
  *
- * Raw color values below mirror the Warm Dark tokens in src/styles/global.css `@theme` (kept as
- * plain custom properties here, not Tailwind, since this file can't import that stylesheet). Keep
- * the two in sync by hand if the palette changes.
+ * Raw color values below mirror the tokens in src/styles/global.css `@theme` and its light-scheme
+ * override (kept as plain custom properties here, not Tailwind, since this file can't import that
+ * stylesheet). Keep the two in sync by hand if the palette changes.
  */
 
 @import '@fontsource-variable/fredoka';
@@ -37,6 +37,12 @@
   --hipo-accent-high: #ffc4bf;
   --hipo-accent-tint: rgba(255, 126, 115, 0.14);
   --hipo-on-accent: #291f20;
+  --hipo-overlay: rgba(23, 19, 18, 0.72);
+  /* Coral as a solid fill under --hipo-on-accent text. Brand-constant, so it is declared once
+     and never re-declared for the light scheme — see the note in src/styles/global.css. */
+  --hipo-accent-fill: #ff7e73;
+
+  color-scheme: dark;
 
   --sl-font: 'Heebo', ui-sans-serif, system-ui, sans-serif;
 
@@ -49,21 +55,29 @@
   --sl-sidebar-width: 16.25rem;
   --sl-content-width: 47.5rem;
 
-  /* Starlight semantic tokens, remapped to the Warm Dark palette. */
+  /* (Starlight semantic tokens are mapped below, at a selector that also matches
+     [data-theme='light'] — see the note there.) */
+}
+
+/* Starlight declares its stock light palette at `:root[data-theme='light']`, which outranks a bare
+   `:root`. Mapping at both selectors means these point at the --hipo-* primitives above whichever
+   scheme is active, and the primitives are the only thing that changes between the two. */
+:root,
+:root[data-theme='light'] {
   --sl-color-white: var(--hipo-text);
   --sl-color-black: var(--hipo-bg);
   --sl-color-bg: var(--hipo-bg);
   --sl-color-bg-nav: var(--hipo-bg-nav);
   --sl-color-bg-sidebar: var(--hipo-bg);
   --sl-color-bg-inline-code: var(--hipo-surface-deep);
-  --sl-color-bg-accent: var(--hipo-accent);
+  --sl-color-bg-accent: var(--hipo-accent-fill);
   --sl-color-text: var(--hipo-body);
   --sl-color-text-accent: var(--hipo-accent);
   --sl-color-text-invert: var(--hipo-on-accent);
   --sl-color-hairline: var(--hipo-border);
   --sl-color-hairline-light: var(--hipo-border);
   --sl-color-hairline-shade: var(--hipo-border);
-  --sl-color-backdrop-overlay: rgba(23, 19, 18, 0.72);
+  --sl-color-backdrop-overlay: var(--hipo-overlay);
 
   --sl-color-gray-1: var(--hipo-text);
   --sl-color-gray-2: var(--hipo-text-muted);
@@ -76,6 +90,30 @@
   --sl-color-accent-low: var(--hipo-accent-tint);
   --sl-color-accent: var(--hipo-accent);
   --sl-color-accent-high: var(--hipo-accent-high);
+}
+
+/* Light palette. Accent darkens to keep its contrast on cream; --hipo-accent-high inverts from
+   "lighter than accent" to "darker than accent", since Starlight uses it as the high-contrast
+   accent for text on --sl-color-accent-low. --hipo-text-faint is unchanged: it reads as a faint
+   label on both grounds. */
+:root[data-theme='light'] {
+  --hipo-bg: #faf6ef;
+  --hipo-bg-nav: #fbf8f2;
+  --hipo-surface: #ffffff;
+  --hipo-surface-deep: #f1e9de;
+  --hipo-border: #e7dccf;
+  --hipo-text: #291f20;
+  --hipo-text-muted: #6f6058;
+  --hipo-text-faint: #8d7f76;
+  --hipo-body: #3f342f;
+  --hipo-accent: #e0574b;
+  --hipo-accent-hover: #c9483c;
+  --hipo-accent-high: #a83a2f;
+  --hipo-accent-tint: rgba(224, 87, 75, 0.1);
+  --hipo-on-accent: #291f20;
+  --hipo-overlay: rgba(41, 31, 32, 0.5);
+
+  color-scheme: light;
 }
 
 @media (min-width: 72rem) {
@@ -91,7 +129,7 @@
 }
 
 ::selection {
-  background: var(--hipo-accent);
+  background: var(--hipo-accent-fill);
   color: var(--hipo-on-accent);
 }
 

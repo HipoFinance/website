@@ -15,7 +15,7 @@ const CopyField = ({ label, value }: { label: string; value: string }) => {
       <div className='border-border bg-surface-deep mt-1 flex flex-row items-center rounded-xl border p-2'>
         <p className='min-w-0 flex-1 text-sm break-all'>{value}</p>
         <button
-          className='bg-border text-text-muted ml-2 shrink-0 cursor-pointer rounded-lg p-2 hover:bg-[#4a3f3c]'
+          className='bg-border text-text-muted hover:bg-border-strong ml-2 shrink-0 cursor-pointer rounded-lg p-2'
           onClick={() => {
             void navigator.clipboard.writeText(value).then(() => {
               setCopied(true)
@@ -94,7 +94,7 @@ const MultisigGuidance = observer(({ model }: Props) => {
           {model.multisigDeepLink != null && (
             <>
               <a
-                className='bg-accent text-on-accent hover:bg-accent-hover mt-6 block h-14 w-full rounded-2xl text-center text-lg leading-14 font-semibold'
+                className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover mt-6 block h-14 w-full rounded-2xl text-center text-lg leading-14 font-semibold'
                 href={model.multisigDeepLink}
               >
                 Open in wallet app
@@ -106,7 +106,7 @@ const MultisigGuidance = observer(({ model }: Props) => {
             </>
           )}
           <button
-            className='border-accent text-accent hover:bg-accent hover:text-on-accent mt-4 h-14 w-full cursor-pointer rounded-2xl border text-lg font-semibold'
+            className='border-accent text-accent hover:bg-accent-fill hover:text-on-accent mt-4 h-14 w-full cursor-pointer rounded-2xl border text-lg font-semibold'
             onClick={model.closeMultisigGuidance}
             onKeyDown={(e) => {
               if (e.key == 'Escape') {

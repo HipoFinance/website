@@ -22,7 +22,7 @@ const Row = ({ logo, name, round, actions }: RowProps) => (
       {actions.map(({ label, href, target }) => (
         <a
           key={label}
-          className='bg-accent text-on-accent hover:bg-accent-hover rounded-full px-3.5 py-1.5 text-[13px] font-semibold'
+          className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover rounded-full px-3.5 py-1.5 text-[13px] font-semibold'
           href={href}
           target={target}
           rel='noopener noreferrer'

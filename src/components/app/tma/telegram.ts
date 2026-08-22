@@ -170,22 +170,30 @@ export async function initTelegramChrome(mode: TmaMode): Promise<boolean> {
   guard('expand', () => {
     WebApp.expand()
   })
+  // The chrome Telegram paints around the mini app has to match whichever palette the page is
+  // rendering (src/styles/global.css): --color-surface-deep for the bars, --color-bg behind the
+  // content. Telegram gives no callback for a theme change mid-session, so this is read once at
+  // startup, which is when the mini app is (re)opened anyway.
+  const light = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: light)').matches
+  const barColor = light ? '#f1e9de' : '#171312'
+  const backgroundColor = light ? '#faf6ef' : '#201b1a'
+
   // Hex colors for setHeaderColor arrived in Bot API 6.9; setBackgroundColor took them from 6.1.
   // Below those versions Telegram keeps the user's theme colors, which is an acceptable fallback.
   if (atLeast('6.9')) {
     guard('setHeaderColor', () => {
-      WebApp.setHeaderColor('#171312')
+      WebApp.setHeaderColor(barColor)
     })
   }
   if (atLeast('6.1')) {
     guard('setBackgroundColor', () => {
-      WebApp.setBackgroundColor('#201b1a')
+      WebApp.setBackgroundColor(backgroundColor)
     })
   }
   // 7.10: the strip behind the home indicator, which sits under our own bottom tab row.
   if (atLeast('7.10')) {
     guard('setBottomBarColor', () => {
-      WebApp.setBottomBarColor('#171312')
+      WebApp.setBottomBarColor(barColor)
     })
   }
   // 7.7: without this, dragging the scrollable form downwards closes the mini app.

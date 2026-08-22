@@ -195,6 +195,16 @@ function routeForState(activePage: ActivePage, activeTab: ActiveTab): Route {
 
 // TonConnect's own connect-button widget is no longer rendered: the header draws a custom
 // button from Model state instead (see Header.tsx), driven by openModal()/disconnect(). So no
+// TonConnect's UI takes one fixed theme, so the site's `prefers-color-scheme` rule is translated
+// into THEME.DARK / THEME.LIGHT here and kept in sync by Model.syncTonConnectTheme. matchMedia is
+// guarded because this module is also imported in environments without it.
+const tonConnectThemeQuery = () =>
+  typeof window === 'undefined' || typeof window.matchMedia !== 'function'
+    ? undefined
+    : window.matchMedia('(prefers-color-scheme: light)')
+
+const preferredTonConnectTheme = () => (tonConnectThemeQuery()?.matches === true ? THEME.LIGHT : THEME.DARK)
+
 // `buttonRootId` is passed to TonConnectUI and there is no #ton-connect-button root anymore.
 //
 // The widget root still is rendered by the island (App.tsx) so that TonConnect's own DOM lives
@@ -1826,9 +1836,11 @@ export class Model {
       actionsConfiguration: {
         twaReturnUrl: 'https://t.me/HipoFinanceBot',
       },
-      // Single warm-dark theme, so only the dark colors set is supplied and the theme is fixed.
+      // Both palettes are supplied and the active one follows the OS setting, like the rest of
+      // the site (src/styles/global.css). TonConnect has no "system" theme of its own, so the
+      // media query is read here and re-applied on change via uiOptions.
       uiPreferences: {
-        theme: THEME.DARK,
+        theme: preferredTonConnectTheme(),
         colorsSet: {
           [THEME.DARK]: {
             connectButton: {
@@ -1859,12 +1871,52 @@ export class Model {
             },
             accent: '#ff7e73', // coral
           },
+          [THEME.LIGHT]: {
+            // connectButton and `accent` are the coral fill with dark text on it, so they are the
+            // brand coral here too; everything that is a page surface or a piece of text flips.
+            connectButton: {
+              background: '#ff7e73',
+              foreground: '#291f20',
+            },
+            background: {
+              primary: '#ffffff', // dialog background
+              secondary: '#faf6ef', // menu item hover background
+              qr: '#ffffff',
+              tint: '#f1e9de',
+              segment: '#ffffff',
+            },
+            text: {
+              primary: '#291f20', // dialog text
+              secondary: '#6f6058', // dialog subtitle
+            },
+            icon: {
+              primary: '#291f20', // browser extension icon
+              secondary: '#6f6058', // dialog close
+              tertiary: '#291f20', // loading indicator
+              success: '#16a34a', // success notification color
+              error: '#e0574b', // error notification color
+            },
+            constant: {
+              black: '#291f20', // qrcode color
+              white: '#ffffff', // ton connect footer
+            },
+            accent: '#ff7e73', // coral
+          },
         },
       },
     })
     this.tonConnectUI.onStatusChange((wallet) => {
       this.setAddress(wallet == null ? undefined : Address.parseRaw(wallet.account.address))
     })
+    // The modal is long-lived (it survives ClientRouter swaps, see keepRuntimeStyles), so a
+    // scheme change while the app is open has to be pushed into it.
+    tonConnectThemeQuery()?.addEventListener('change', this.syncTonConnectTheme)
+  }
+
+  syncTonConnectTheme = () => {
+    if (this.tonConnectUI != null) {
+      this.tonConnectUI.uiOptions = { uiPreferences: { theme: preferredTonConnectTheme() } }
+    }
   }
 
   // Also the refresh button's handler. clearTimeout on entry means a manual call cancels the

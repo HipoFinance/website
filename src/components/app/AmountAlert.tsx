@@ -27,7 +27,7 @@ const AmountAlert = observer(({ model }: Props) => {
           <h1 className='font-fredoka text-center text-xl font-semibold'>{heading}</h1>
           <p className='text-text-muted mt-4 text-center text-sm'>{message}</p>
           <button
-            className='bg-accent text-on-accent hover:bg-accent-hover mt-6 h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold'
+            className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover mt-6 h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold'
             onClick={() => {
               model.setAmountAlert('none')
               const amountEl = document.querySelector<HTMLInputElement>('#amount')

@@ -27,7 +27,7 @@
       <div class='flex flex-wrap items-center gap-3.5'>
         <a
           href='/stake/'
-          class='bg-accent text-on-accent hover:bg-accent-hover rounded-full px-8 py-[15px] text-[17px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
+          class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover rounded-full px-8 py-[15px] text-[17px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
         >
           Stake now
         </a>
@@ -40,13 +40,13 @@
     <div class='relative hidden justify-center lg:flex'>
       <div
         class='absolute inset-[8%_6%] rounded-full'
-        style='background: radial-gradient(closest-side, rgba(255,126,115,.28), rgba(255,126,115,0));'
+        style='background: radial-gradient(closest-side, var(--hero-glow), rgba(255,126,115,0));'
       >
       </div>
       <img
         src='/images/hipo-bank.webp'
         alt='Hipo piggy bank'
-        class='relative w-[420px] max-w-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.45)]'
+        class='relative w-[420px] max-w-full drop-shadow-[0_20px_40px_var(--art-shadow)]'
       />
     </div>
   </section>
@@ -76,22 +76,30 @@
     <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>How Hipo works</h2>
     <p class='text-text-muted mb-7 text-lg'>Stake any amount of GRAM and earn more than just staking rewards.</p>
 
-    <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
+    <!-- Below sm the four steps are a snapping horizontal carousel rather than a four-deep stack
+         (design handoff, Home.dc.html). The negative margin cancels the section's px-6 so cards can
+         bleed to the screen edge while the first one still lines up with the heading, and
+         scroll-p-6 puts the snapped card back on that line. Card width is min(260px, 78vw), which
+         always leaves the next card peeking as the scroll affordance — that peek is why the
+         scrollbar can be hidden. From sm up this reverts to the plain responsive grid. -->
+    <div
+      class='-mx-6 grid snap-x snap-mandatory scroll-p-6 [scrollbar-width:none] auto-cols-[minmax(min(260px,78vw),1fr)] grid-flow-col gap-4 overflow-x-auto px-6 pb-2 sm:mx-0 sm:grid-flow-row sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden'
+    >
+      <div class='border-border bg-surface flex snap-start flex-col gap-3 rounded-[20px] border p-6'>
         <img src='/images/gram-3d.svg' alt='GRAM' class='size-[52px]' />
         <div class='font-fredoka text-text text-xl font-semibold'>1 · Stake GRAM</div>
         <div class='text-text-muted text-[15px] leading-[1.55]'>
           Deposit your GRAM into Hipo to earn the highest staking rewards in the market.
         </div>
       </div>
-      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
+      <div class='border-border bg-surface flex snap-start flex-col gap-3 rounded-[20px] border p-6'>
         <img src='/images/hgram-3d.svg' alt='hGRAM' class='size-[52px]' />
         <div class='font-fredoka text-text text-xl font-semibold'>2 · Get liquid hGRAM</div>
         <div class='text-text-muted text-[15px] leading-[1.55]'>
           Get hGRAM representing your staked GRAM. Its value grows as rewards accumulate, and it works across TON DeFi.
         </div>
       </div>
-      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
+      <div class='border-border bg-surface flex snap-start flex-col gap-3 rounded-[20px] border p-6'>
         <img src='/hpo.png' alt='HPO' class='size-[52px]' />
         <div class='font-fredoka text-text text-xl font-semibold'>3 · Earn free HPO</div>
         <div class='text-text-muted text-[15px] leading-[1.55]'>
@@ -99,99 +107,13 @@
           <a href='#hipo-club' class='text-accent hover:text-accent-hover'>Meet Hipo Club →</a>
         </div>
       </div>
-      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
+      <div class='border-border bg-surface flex snap-start flex-col gap-3 rounded-[20px] border p-6'>
         <img src='/images/gram.svg' alt='Unstake' class='size-[52px]' />
         <div class='font-fredoka text-text text-xl font-semibold'>4 · Unstake anytime</div>
         <div class='text-text-muted text-[15px] leading-[1.55]'>
           Return your hGRAM whenever you want. You'll receive GRAM plus your accumulated staking rewards.
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Security audits -->
-  <section id='audits' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
-    <div class='flex flex-wrap items-baseline justify-between gap-2'>
-      <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>Hipo security audits</h2>
-      <a
-        href='https://github.com/HipoFinance/audits'
-        target='_blank'
-        rel='noopener noreferrer'
-        class='text-accent hover:text-accent-hover text-[15px] font-medium'
-      >
-        All reports →
-      </a>
-    </div>
-    <p class='text-text-muted mb-7 text-lg'>One of the most rigorously tested smart contracts in the GRAM ecosystem.</p>
-
-    <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-      <a
-        href='https://github.com/HipoFinance/audits?tab=readme-ov-file#2025-04-quantstamp-hipo-audit-report'
-        target='_blank'
-        rel='noopener noreferrer'
-        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
-      >
-        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
-          <span class='bg-text flex size-[26px] items-center justify-center rounded-full'>
-            <img src='/images/quantstamp.svg' alt='' class='h-4' />
-          </span>
-          Quantstamp
-        </span>
-        <span class='text-text-muted text-[15px]'>Hipo v2 smart contract audit</span>
-        <span class='text-text-faint text-[13px]'>Apr 2025</span>
-      </a>
-
-      <a
-        href='https://github.com/HipoFinance/audits?tab=readme-ov-file#2024-03-programcrafter-hipo-audit-report'
-        target='_blank'
-        rel='noopener noreferrer'
-        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
-      >
-        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
-          <span
-            class='flex size-[26px] items-center justify-center rounded-full bg-gradient-to-t from-green-900 to-green-500 text-[11px] font-light'
-          >
-            ET
-          </span>
-          Ender Ting
-        </span>
-        <span class='text-text-muted text-[15px]'>Hipo v2 smart contract audit</span>
-        <span class='text-text-faint text-[13px]'>March 2024</span>
-      </a>
-
-      <a
-        href='https://github.com/HipoFinance/audits#2023-10-tontech-hipo-audit-report'
-        target='_blank'
-        rel='noopener noreferrer'
-        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
-      >
-        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
-          <span class='bg-text flex size-[26px] items-center justify-center rounded-full'>
-            <img src='/images/tontech.svg' alt='' class='h-4' />
-          </span>
-          TonTech
-        </span>
-        <span class='text-text-muted text-[15px]'>Hipo v1 smart contract audit</span>
-        <span class='text-text-faint text-[13px]'>Oct 2023</span>
-      </a>
-
-      <a
-        href='https://github.com/HipoFinance/audits#2023-10-daniil-sedov-hipo-audit-report'
-        target='_blank'
-        rel='noopener noreferrer'
-        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
-      >
-        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
-          <span
-            class='flex size-[26px] items-center justify-center rounded-full bg-gradient-to-t from-blue-900 to-blue-500 text-[11px] font-light'
-          >
-            DS
-          </span>
-          Daniil Sedov
-        </span>
-        <span class='text-text-muted text-[15px]'>Hipo v1 smart contract audit</span>
-        <span class='text-text-faint text-[13px]'>Oct 2023</span>
-      </a>
     </div>
   </section>
 
@@ -213,7 +135,7 @@
         href='https://t.me/hipo_chat'
         target='_blank'
         rel='noopener noreferrer'
-        class='bg-accent text-on-accent hover:bg-accent-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold'
+        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold'
       >
         Join Hipo Community
       </a>
@@ -237,10 +159,10 @@
         </p>
       </div>
       <a
-        href='https://t.me/HipoFinanceBot/join'
+        href='https://t.me/HipoFinanceBot'
         target='_blank'
         rel='noopener noreferrer'
-        class='bg-accent text-on-accent hover:bg-accent-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold'
+        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold'
       >
         Join Hipo Club
       </a>
@@ -280,7 +202,7 @@
             href='https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=HPO'
             target='_blank'
             rel='noopener noreferrer'
-            class='bg-accent text-on-accent hover:bg-accent-hover rounded-full px-7 py-[13px] text-base font-semibold'
+            class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover rounded-full px-7 py-[13px] text-base font-semibold'
           >
             Buy HPO
           </a>
@@ -289,13 +211,13 @@
       </div>
 
       <div class='flex justify-center'>
-        <img src='/hpo.png' alt='HPO token' class='w-[220px] drop-shadow-[0_16px_32px_rgba(0,0,0,0.4)]' />
+        <img src='/hpo.png' alt='HPO token' class='w-[220px] drop-shadow-[0_16px_32px_var(--art-shadow-soft)]' />
       </div>
     </div>
   </section>
 
   <!-- Why Hipo -->
-  <section id='why-hipo' class='mx-auto w-full max-w-[1280px] px-6 pt-12 pb-18 md:px-12'>
+  <section id='why-hipo' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
     <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>Why Hipo?</h2>
     <p class='text-text-muted mb-7 text-lg'>Building the future of GRAM staking, together.</p>
 
@@ -322,6 +244,91 @@
         <div class='font-fredoka text-text text-[19px] font-semibold'>Truly decentralized</div>
         <div class='text-text-muted text-[15px] leading-[1.55]'>Fully DeFi-native and permissionless by design.</div>
       </div>
+    </div>
+  </section>
+  <!-- Security audits -->
+  <section id='audits' class='mx-auto w-full max-w-[1280px] px-6 pt-12 pb-18 md:px-12'>
+    <div class='flex flex-wrap items-baseline justify-between gap-2'>
+      <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>Hipo security audits</h2>
+      <a
+        href='https://github.com/HipoFinance/audits'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='text-accent hover:text-accent-hover text-[15px] font-medium'
+      >
+        All reports →
+      </a>
+    </div>
+    <p class='text-text-muted mb-7 text-lg'>One of the most rigorously tested smart contracts in the GRAM ecosystem.</p>
+
+    <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+      <a
+        href='https://github.com/HipoFinance/audits?tab=readme-ov-file#2025-04-quantstamp-hipo-audit-report'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
+      >
+        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
+          <span class='bg-mark-chip flex size-[26px] items-center justify-center rounded-full'>
+            <img src='/images/quantstamp.svg' alt='' class='h-4' />
+          </span>
+          Quantstamp
+        </span>
+        <span class='text-text-muted text-[15px]'>Hipo v2 smart contract audit</span>
+        <span class='text-text-faint text-[13px]'>Apr 2025</span>
+      </a>
+
+      <a
+        href='https://github.com/HipoFinance/audits?tab=readme-ov-file#2024-03-programcrafter-hipo-audit-report'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
+      >
+        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
+          <span
+            class='text-on-gradient flex size-[26px] items-center justify-center rounded-full bg-gradient-to-t from-green-900 to-green-500 text-[11px] font-light'
+          >
+            ET
+          </span>
+          Ender Ting
+        </span>
+        <span class='text-text-muted text-[15px]'>Hipo v2 smart contract audit</span>
+        <span class='text-text-faint text-[13px]'>March 2024</span>
+      </a>
+
+      <a
+        href='https://github.com/HipoFinance/audits#2023-10-tontech-hipo-audit-report'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
+      >
+        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
+          <span class='bg-mark-chip flex size-[26px] items-center justify-center rounded-full'>
+            <img src='/images/tontech.svg' alt='' class='h-4' />
+          </span>
+          TonTech
+        </span>
+        <span class='text-text-muted text-[15px]'>Hipo v1 smart contract audit</span>
+        <span class='text-text-faint text-[13px]'>Oct 2023</span>
+      </a>
+
+      <a
+        href='https://github.com/HipoFinance/audits#2023-10-daniil-sedov-hipo-audit-report'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
+      >
+        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
+          <span
+            class='text-on-gradient flex size-[26px] items-center justify-center rounded-full bg-gradient-to-t from-blue-900 to-blue-500 text-[11px] font-light'
+          >
+            DS
+          </span>
+          Daniil Sedov
+        </span>
+        <span class='text-text-muted text-[15px]'>Hipo v1 smart contract audit</span>
+        <span class='text-text-faint text-[13px]'>Oct 2023</span>
+      </a>
     </div>
   </section>
 </landing>

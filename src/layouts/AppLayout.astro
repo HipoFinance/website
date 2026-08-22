@@ -45,9 +45,6 @@ const {
 
     <link rel='icon' href={`${import.meta.env.BASE_URL}favicon.ico`} />
 
-    <meta name='theme-color' content='#201b1a' />
-    <meta name='color-scheme' content='dark' />
-
     <!-- Telegram Mini App: marks <html> before the first paint so the static shell below never
          flashes inside Telegram while the island loads. This is a deliberate duplicate of
          probeTmaMode() in src/components/app/tma/telegram.ts — keep the two in sync; the island
@@ -85,8 +82,8 @@ const {
     </script>
   </head>
 
-  <!-- Single warm-dark theme: no toggle and no theme bootstrap script anymore, so nothing here
-       depends on the `.dark` class. -->
+  <!-- Both palettes come from `prefers-color-scheme` alone (src/styles/global.css), so there is
+       still no toggle and no theme bootstrap script — nothing here depends on a class. -->
   <body class='bg-bg text-text font-body'>
     <script async src='https://tganalytics.xyz/index.js' type='text/javascript' is:inline></script>
     <script>

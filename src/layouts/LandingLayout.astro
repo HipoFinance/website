@@ -42,8 +42,10 @@ const jsonLd = {
 </html>
 
 <style is:global>
+  /* The fill coral, not the foreground one: the selection band is a background with
+     --color-on-accent text on it, so it stays brand coral in both schemes. */
   ::selection {
-    background: var(--color-accent);
+    background: var(--color-accent-fill);
     color: var(--color-on-accent);
   }
 </style>
