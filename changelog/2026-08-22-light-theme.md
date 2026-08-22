@@ -18,6 +18,7 @@ browser that does not support the media query still gets the original design.
 | Commit    | Description                                                         |
 | --------- | ------------------------------------------------------------------- |
 | `ec2123d` | Add a light theme, and rework the home page steps and section order |
+| `e0af285` | Close the "How Hipo works" row with a Start Staking CTA card        |
 
 ## What changed
 
@@ -235,6 +236,28 @@ started the bot are reachable already and re-asking would spend a popup for
 nothing. That field is real but absent from `@twa-dev/types`, hence the cast.
 `requestWriteAccess` throws `WebAppWriteAccessRequested` on a second call in the
 same session, which the existing `guard()` swallows.
+
+### A closing CTA card on "How Hipo works"
+
+Feedback on the new carousel: it ends on "4 · Unstake anytime" and leaves the
+reader with nowhere to go. A fifth card now closes the row — deliberately _not_
+a step 5, just the call to action:
+
+> **Start Staking GRAM** — Start earning rewards and bonuses with as low as
+> 1 GRAM. → **Stake now** (`/stake/`)
+
+It shares the carousel's card shell (`snap-start`, `rounded-[20px]`, the same
+border) so it scrolls as the last slide on a phone, but drops `bg-surface` for
+the coral gradient the Hipo Community and Hipo Club panels use, which is what
+marks it as a CTA rather than a step. The button is the primary coral pill with
+the hard offset shadow, the same one the hero uses.
+
+From `sm` up it does not become a fifth column: it spans the full row
+(`sm:col-span-2 lg:col-span-4`) and switches to the horizontal
+text-left/button-right layout of the other two panels. Widening the grid to
+`lg:grid-cols-5` was the alternative and was rejected — five columns inside
+`max-w-[1280px]` leaves each step card about 224px wide, and step 2's copy
+would have run to ten very narrow lines.
 
 ## Decisions
 
