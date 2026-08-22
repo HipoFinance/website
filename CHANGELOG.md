@@ -19,8 +19,8 @@ here — `git log` remains the complete record.
   carousel below `sm`.
 - Moved the security-audits section to the end of the home page and dropped
   `/join` from the Hipo Club button.
-- Closed the "How Hipo works" section with a full-width "Start Staking GRAM"
-  CTA panel linking to `/stake/`.
+- Closed the "How Hipo works" row with a "Start Staking GRAM" CTA card linking
+  to `/stake/`.
 
 ## 2026-08-19 — [detailed report](changelog/2026-08-19-dune-dashboard-docs.md)
 
