@@ -19,6 +19,7 @@ browser that does not support the media query still gets the original design.
 | --------- | ------------------------------------------------------------------- |
 | `ec2123d` | Add a light theme, and rework the home page steps and section order |
 | `e0af285` | Close the "How Hipo works" row with a Start Staking CTA card        |
+| `e534158` | Move the Start Staking CTA out of the steps carousel                |
 
 ## What changed
 
