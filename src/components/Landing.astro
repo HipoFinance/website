@@ -76,12 +76,14 @@
     <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>How Hipo works</h2>
     <p class='text-text-muted mb-7 text-lg'>Stake any amount of GRAM and earn more than just staking rewards.</p>
 
-    <!-- Below sm the four steps are a snapping horizontal carousel rather than a four-deep stack
-         (design handoff, Home.dc.html). The negative margin cancels the section's px-6 so cards can
-         bleed to the screen edge while the first one still lines up with the heading, and
-         scroll-p-6 puts the snapped card back on that line. Card width is min(260px, 78vw), which
-         always leaves the next card peeking as the scroll affordance — that peek is why the
-         scrollbar can be hidden. From sm up this reverts to the plain responsive grid. -->
+    <!-- Below sm the four steps plus the closing CTA are a snapping horizontal carousel rather than
+         a five-deep stack (design handoff, Home.dc.html). The negative margin cancels the section's
+         px-6 so cards can bleed to the screen edge while the first one still lines up with the
+         heading, and scroll-p-6 puts the snapped card back on that line. Card width is
+         min(260px, 78vw), which always leaves the next card peeking as the scroll affordance — that
+         peek is why the scrollbar can be hidden. From sm up this reverts to the plain responsive
+         grid, where the CTA spans the full width on its own row instead of squeezing the steps into
+         a fifth column. -->
     <div
       class='-mx-6 grid snap-x snap-mandatory scroll-p-6 [scrollbar-width:none] auto-cols-[minmax(min(260px,78vw),1fr)] grid-flow-col gap-4 overflow-x-auto px-6 pb-2 sm:mx-0 sm:grid-flow-row sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden'
     >
@@ -114,26 +116,25 @@
           Return your hGRAM whenever you want. You'll receive GRAM plus your accumulated staking rewards.
         </div>
       </div>
-    </div>
 
-    <!-- Closing CTA. Deliberately outside the scroller above: it is not a fifth step, so on a phone
-         it sits below the carousel as a full-width panel rather than as a slide you might not reach. -->
-    <div
-      class='border-border mt-4 flex flex-col items-start justify-between gap-4 rounded-[20px] border p-6 sm:flex-row sm:items-center sm:gap-8 sm:p-8'
-      style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
-    >
-      <div class='flex flex-col gap-2.5'>
-        <div class='font-fredoka text-text text-xl font-semibold sm:text-[28px]'>Start Staking GRAM</div>
-        <div class='text-text-muted text-[15px] leading-[1.55] sm:text-[17px] sm:leading-[1.6]'>
-          Start earning rewards and bonuses with as low as 1 GRAM.
-        </div>
-      </div>
-      <a
-        href='/stake/'
-        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
+      <!-- Closing CTA, not a fifth step: the carousel ends on the way into the app. -->
+      <div
+        class='border-border flex snap-start flex-col items-start justify-between gap-4 rounded-[20px] border p-6 sm:col-span-2 sm:flex-row sm:items-center sm:gap-8 sm:p-8 lg:col-span-4'
+        style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
       >
-        Stake now
-      </a>
+        <div class='flex flex-col gap-2.5'>
+          <div class='font-fredoka text-text text-xl font-semibold sm:text-[28px]'>Start Staking GRAM</div>
+          <div class='text-text-muted text-[15px] leading-[1.55] sm:text-[17px] sm:leading-[1.6]'>
+            Start earning rewards and bonuses with as low as 1 GRAM.
+          </div>
+        </div>
+        <a
+          href='/stake/'
+          class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
+        >
+          Stake now
+        </a>
+      </div>
     </div>
   </section>
 
