@@ -7,9 +7,9 @@ anchors for the `/hpo/` FAQ. fa/ru/hi stay `draft`; the locale sync is the next 
 
 ## Commits
 
-| Commit      | Description                                         |
-| ----------- | --------------------------------------------------- |
-| _(pending)_ | Sweep the docs formatting and accessibility defects |
+| Commit    | Description                                     |
+| --------- | ----------------------------------------------- |
+| `04573b5` | Sweep the docs formatting and add /hpo/ anchors |
 
 ## What changed
 
