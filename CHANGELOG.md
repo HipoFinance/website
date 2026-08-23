@@ -7,6 +7,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-23 — [detailed report](changelog/2026-08-23-faq-restructure.md)
+
+- Restructured the site FAQ from 67 questions in 10 sections to 40 in 9, with
+  old anchors aliased client-side.
+- Rebuilt the HPO page FAQ as 7 items, adding the HPO contract address,
+  profit-share payout details and how to vote.
+- Added FAQPage JSON-LD to `/faq/` and `/hpo/`.
+- Kept draft-locale docs out of the build; recorded the seasonal-burns change
+  (history since Season 4).
+
 ## 2026-08-23 — [detailed report](changelog/2026-08-23-content-accuracy-fixes.md)
 
 - Reviewed the FAQ, HPO page and docs for structure, ambiguities and cuts,

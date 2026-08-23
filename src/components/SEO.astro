@@ -66,5 +66,6 @@ const isDraft = LOCALES[locale]?.status === 'draft'
 <meta name='twitter:description' content={description} />
 <meta name='twitter:image' content={imageUrl} />
 
-<!-- JSON-LD -->
-{jsonLd && <script type='application/ld+json' set:html={JSON.stringify(jsonLd)} />}
+<!-- JSON-LD: `<` is escaped as \u003c (still valid JSON) so no string in the payload can close the
+     inline script or open a comment. -->
+{jsonLd && <script type='application/ld+json' set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}

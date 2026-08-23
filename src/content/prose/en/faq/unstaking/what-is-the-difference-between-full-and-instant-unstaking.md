@@ -6,7 +6,7 @@ question: 'What is the difference between Full and Instant unstaking?'
 
 They are the two ways Hipo can process an unstake, and you choose between them before confirming.
 
-- **Full** waits until the current validation round ends. Because your GRAM keeps earning until then, this gives you the better exchange rate — the maximum rewards available on your hGRAM. It always goes through.
-- **Instant** is processed straight away, at a slightly lower rate. It only succeeds if Hipo is holding enough free GRAM at that moment to cover it.
+- **Full** waits until the current validation round ends. Your GRAM keeps earning until then, so this gives you the better exchange rate. It always goes through, and it is the default.
+- **Instant** is processed straight away, at a slightly lower rate, from the GRAM Hipo is holding free at that moment. Hipo handles it itself — no DEX or third party involved — and it succeeds only while that free liquidity covers your amount.
 
-Full is the default. Choose Instant when getting your GRAM now matters more than the last slice of rewards.
+If you need GRAM right away and your amount is within the currently available instant liquidity, choose Instant. Otherwise, Full gives you the better exchange rate.

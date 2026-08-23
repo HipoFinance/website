@@ -93,7 +93,11 @@ Fixed once here, reused verbatim (or in the adapted form noted) at every locatio
   hGRAM, HPO, STON.fi (never "Ston.fi"/"Stonfi"). Per `llms.txt:31-52` and `GLOSSARY.md`.
 - **CS-6 — what HPO is.** "HPO is Hipo's governance and profit-sharing token." Per `GLOSSARY.md` and
   `llms.txt:79-81`. Locations: A9, B3, B8, D8, E5.
-- **CS-7 — gas magnitude.** "on the order of a hundredth of a GRAM" (never a figure). Location: A5.
+- **CS-7 — gas magnitude.** "a small gas prepayment is attached on top (currently 0.1 GRAM); only a fraction — on the
+  order of a hundredth of a GRAM — is spent and the rest is refunded" (never quote the consumed amount as a figure).
+  The 0.1 GRAM figure is `feeStake`/`feeUnstake` in `@hipo-finance/sdk` (also `app.multisig.stakeInstructionsNoAmount`)
+  — update together with `staking/can-i-stake-with-a-multisig-or-cold-wallet.md` (no HTML comment there: the prose
+  collection has no precedent for HTML comments). Location: A5.
 - **CS-8 — governance fee.** "a governance fee on validation rewards, set by the [Hipo DAO](/docs/dao/),
   currently 0%". Locations: A4, A6.
 
@@ -335,8 +339,14 @@ Privacy 2023-06-28, the arbitration clause) beyond the glued heading in D45.
 1. Audit scope labels — default taken: Quantstamp + ProgramCrafter = v2, TonTech + Daniil Sedov = v1 (CS-2).
 2. Hipo Fund April table — leave the numbers, add only the "as reported on April 18, 2025" footnote (D41).
 3. Missing fund reports — **pending**; D42 is held (not applied) until answered.
-4. Seasonal burn share — **pending**; B4 and B14 are held (not applied) until answered. D32 (Season 3's own
-   recorded figures) and B7 (which keeps the existing "part of … is burned" claim) proceed.
+4. Seasonal burn share — **answered 2026-08-24**: since Season 4 HPO rewards accrue directly to hGRAM holders,
+   there is no claiming step and therefore no unclaimed tokens to burn; the unclaimed-rewards burn is history
+   (Seasons 1–3). B14 applied with that wording — `hpo.scarcity.seasonal.title` "Seasonal burns (Seasons 1–3)",
+   body "Part of the unclaimed rewards of Hipo Club Seasons 1–3 was burned (20% in Season 3) and the rest
+   returned to the treasury. Since Season 4, HPO rewards accrue directly to hGRAM holders, so nothing is left
+   unclaimed." B4 became moot when `specs/faq-restructure.md` dropped the HPO-FAQ duplicate (`hpo-faq/03` now
+   says nothing about seasonal burns); B7's file was deleted by the same batch. D32 stands (recorded Season 3
+   figures).
 5. "Exclusive offers" — default taken: cut, replaced by the Club-level benefit (B3, B12, D8, D9).
 6. Unstaking video — confirmed: no separate unstaking video exists; keep the id, fix both titles (F2).
 7. XP section — keep it, reword to active tasks (daily reward, quizzes, YouTube videos, …) — new D47.

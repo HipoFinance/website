@@ -1,5 +1,5 @@
 ---
-order: 6
+order: 5
 section: 'unstaking'
 question: 'Will I continue earning rewards while waiting for unstaking?'
 ---

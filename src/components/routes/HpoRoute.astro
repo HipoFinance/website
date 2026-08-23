@@ -7,11 +7,23 @@ import Footer from '../SiteFooter.astro'
 import Banner from '../Banner.astro'
 import { localeOf } from '../../i18n/locale.ts'
 import { getT } from '../../i18n/t.ts'
+import { getProse } from '../../i18n/prose.ts'
+import { faqPageJsonLd } from '../pages/jsonLd.ts'
 
-const { t } = getT(localeOf(Astro), ['seo'])
+const locale = localeOf(Astro)
+const { t } = getT(locale, ['seo'])
+const title = t('seo.hpo.title')
+const description = t('seo.hpo.description')
+
+// FAQPage JSON-LD from the HPO FAQ prose Hpo.astro renders, in its `order` (specs/faq-restructure.md).
+const questions = (await getProse(locale, 'hpo-faq')).map((entry) => ({
+  question: entry.data.question ?? '',
+  body: entry.body ?? '',
+}))
+const jsonLd = faqPageJsonLd(questions, { path: '/hpo/', title, description, locale })
 ---
 
-<Layout title={t('seo.hpo.title')} description={t('seo.hpo.description')}>
+<Layout title={title} description={description} jsonLd={jsonLd}>
   <Banner />
 
   <Header active='hpo' />

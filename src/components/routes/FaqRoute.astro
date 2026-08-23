@@ -7,11 +7,25 @@ import Footer from '../SiteFooter.astro'
 import Banner from '../Banner.astro'
 import { localeOf } from '../../i18n/locale.ts'
 import { getT } from '../../i18n/t.ts'
+import { getProse } from '../../i18n/prose.ts'
+import { faqSectionIndex } from '../faqSections.ts'
+import { faqPageJsonLd } from '../pages/jsonLd.ts'
 
-const { t } = getT(localeOf(Astro), ['seo'])
+const locale = localeOf(Astro)
+const { t } = getT(locale, ['seo'])
+const title = t('seo.faq.title')
+const description = t('seo.faq.description')
+
+// FAQPage JSON-LD from the same prose FAQ.astro renders, in visible order: section order from
+// faqSections.ts, then frontmatter `order` (specs/faq-restructure.md, "FAQPage JSON-LD").
+const questions = (await getProse(locale, 'faq'))
+  .filter((entry) => faqSectionIndex(entry.data.section) >= 0)
+  .sort((a, b) => faqSectionIndex(a.data.section) - faqSectionIndex(b.data.section) || a.data.order - b.data.order)
+  .map((entry) => ({ question: entry.data.question ?? '', body: entry.body ?? '' }))
+const jsonLd = faqPageJsonLd(questions, { path: '/faq/', title, description, locale })
 ---
 
-<Layout title={t('seo.faq.title')} description={t('seo.faq.description')}>
+<Layout title={title} description={description} jsonLd={jsonLd}>
   <Banner />
 
   <Header active='faq' />

@@ -16,7 +16,7 @@ Explore the [HPO page](/hpo/).
 ### Token Utility
 
 - **Profit Sharing:** HPO holders receive a share of Hipo's protocol revenue, calculated after every validation round and paid out at the end of each Hipo Club season.
-- **Hipo Club:** holding rewarded HPO keeps and raises a member's Hipo Club level, which sets how much HPO their hGRAM earns each validation round.
+- **Hipo Club:** holding rewarded HPO keeps a member's Hipo Club level — selling it resets them to Level 1 — and a higher level earns more HPO on their hGRAM each validation round; levels rise through Club activity (an instant upgrade or the seasonal upgrade).
 - **Governance:** Holders can participate in governance voting, helping decide on protocol upgrades, strategic decisions, and other vital matters.
 
 ### Token Distribution

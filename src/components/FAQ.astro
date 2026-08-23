@@ -2,25 +2,16 @@
 import { getCollection, render } from 'astro:content'
 import { localeOf } from '../i18n/locale.ts'
 import { getT } from '../i18n/t.ts'
+import { FAQ_SECTIONS } from './faqSections.ts'
 
 const locale = localeOf(Astro)
 const { t } = getT(locale, ['faq'])
 
-// Section ids stay the English slugs in every locale (stable deep links); headings and nav labels
-// come from the faq catalog. Answers come from the `prose` collection:
-// src/content/prose/<locale>/faq/<section>/<anchor-id>.md.
-const sections = [
-  { id: 'general', key: 'general' },
-  { id: 'staking', key: 'staking' },
-  { id: 'hgram', key: 'hgram' },
-  { id: 'unstaking', key: 'unstaking' },
-  { id: 'security', key: 'security' },
-  { id: 'validators-and-staking-marketplace', key: 'validators' },
-  { id: 'hpo-token', key: 'hpoToken' },
-  { id: 'ton-and-liquid-staking', key: 'tonLiquidStaking' },
-  { id: 'fees', key: 'fees' },
-  { id: 'support', key: 'support' },
-].map(({ id, key }) => ({
+// Section ids stay the English slugs in every locale (stable deep links) and come from
+// faqSections.ts, shared with the FAQPage JSON-LD so both follow the same order; headings and nav
+// labels come from the faq catalog. Answers come from the `prose` collection:
+// src/content/prose/<locale>/faq/<section>/<anchor-id>.md (the file name is the anchor).
+const sections = FAQ_SECTIONS.map(({ id, key }) => ({
   id,
   heading: t(`faq.section.${key}.heading`),
   nav: t(`faq.section.${key}.nav`),
@@ -35,6 +26,8 @@ const rendered = await Promise.all(
     Content: (await render(entry)).Content,
   })),
 )
+// Grouped by frontmatter `section` (the directory is convention only). A section with no entries
+// still renders its heading, so every section anchor exists in every locale.
 const groups = sections.map((section) => ({
   ...section,
   items: rendered
@@ -42,6 +35,8 @@ const groups = sections.map((section) => ({
     .sort((a, b) => a.entry.data.order - b.entry.data.order),
 }))
 ---
+
+<script src='/src/scripts/faq-anchors.ts'></script>
 
 <faq>
   <div

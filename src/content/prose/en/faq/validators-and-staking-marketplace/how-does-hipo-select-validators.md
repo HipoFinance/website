@@ -4,8 +4,8 @@ section: 'validators-and-staking-marketplace'
 question: 'How does Hipo select validators?'
 ---
 
-Validators are TON network participants that help secure the network and generate staking rewards.
+Nobody picks them. Instead of a validator list chosen by the team, Hipo runs a permissionless on-chain marketplace: any validator that meets the smart contract’s requirements can bid for staked GRAM, with no approval from anyone.
 
-Behind the scenes, Hipo uses an on-chain validator marketplace. Eligible validators can compete to receive staked GRAM by offering competitive reward terms.
+Validators compete on the reward rate they promise to pay, and each one must lock GRAM of its own as collateral before it can borrow. In every validation round the contracts lend the pooled stake to the best bids automatically. The selection is transparent on-chain and does not depend on a single validator, which also supports decentralisation on TON.
 
-This helps make validator selection more transparent and less dependent on a manually chosen validator list.
+Read more in the [validators documentation](/docs/introduction/how-does-hipo-work/validators/).

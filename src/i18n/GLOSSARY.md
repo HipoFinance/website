@@ -134,9 +134,9 @@ Common to all locales:
   value must appear exactly once in the translation (`check-i18n` enforces parity).
 - Catalog values may contain only the inline HTML subset `a strong em code br`. Keep the same tags the
   English has, translate their text, never add tags where English has none, never translate attribute values.
-- Markdown: keep URLs exactly as they are. Root-relative links (`/docs/…`, `/faq/#fees`) are localised by
-  the build (`remark-localize-links`) — do not prefix them with the locale yourself. Anchor ids, heading
-  slugs, file names, JSON keys and prose paths are never translated.
+- Markdown: keep URLs exactly as they are. Root-relative links (`/docs/…`, `/faq/#what-does-it-cost-to-stake`)
+  are localised by the build (`remark-localize-links`) — do not prefix them with the locale yourself. Anchor
+  ids, heading slugs, file names, JSON keys and prose paths are never translated.
 - Units follow the number and stay Latin: `۱۰ GRAM`, `10 GRAM`, `10 GRAM`. Percent follows the locale
   (`۳٫۲٪`, `3,2 %`, `3.2%`). Currency uses the locale's placement (`$۱٫۲ میلیون`, `1,2 млн $`, `$1.2 मिलियन`).
 - Copy the English tone: confident, plain, no hype; do not add "risk-free"/"guaranteed" wording.

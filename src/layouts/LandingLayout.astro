@@ -6,27 +6,33 @@ import { dirOf, langOf, localeOf, localizedPath } from '../i18n/locale.ts'
 interface Props {
   title: string
   description: string
+  jsonLd?: Record<string, any>
 }
 
-const { title, description } = Astro.props
 const locale = localeOf(Astro)
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: title,
-  url: new URL(localizedPath('/', locale), Astro.site).href,
+// A route may pass its own structured data (e.g. the FAQPage graph on /faq/); the default is the
+// WebSite node every page carried before, same pattern as AppLayout.
+const {
+  title,
   description,
-  inLanguage: langOf(locale),
-  publisher: {
-    '@type': 'Organization',
-    name: 'Hipo',
-    logo: {
-      '@type': 'ImageObject',
-      url: 'https://hipo.finance/hipo.svg',
+  jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: title,
+    url: new URL(localizedPath('/', locale), Astro.site).href,
+    description,
+    inLanguage: langOf(locale),
+    publisher: {
+      '@type': 'Organization',
+      name: 'Hipo',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://hipo.finance/hipo.svg',
+      },
     },
   },
-}
+} = Astro.props
 ---
 
 <!doctype html>

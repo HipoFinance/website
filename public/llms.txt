@@ -80,6 +80,8 @@ hGRAM should be described as:
 
 HPO is Hipo's governance and profit-sharing token. HPO holders can participate in protocol governance and may access profit-sharing or community benefits according to Hipo's current rules, DAO decisions, and Hipo Club mechanics.
 
+HPO jetton address on TON: `EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM` — verify against the official Hipo sources before swapping.
+
 ### Hipo DAO
 
 The Hipo DAO lets HPO holders vote on protocol decisions, including governance, tokenomics, ecosystem initiatives, profit-sharing parameters, and future protocol direction.
@@ -206,6 +208,7 @@ Current mainnet contract addresses (the contract repository README is the source
 
 - Treasury (main protocol contract, receives deposits): `EQCLyZHP4Xe8fpchQz76O-_RmUhaVc_9BAoGyJrwJrcbz2eZ`
 - Parent / jetton master (hGRAM token): `EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w`
+- HPO jetton (TON): `EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM`
 
 Major protocol components (from the contract repository):
 
