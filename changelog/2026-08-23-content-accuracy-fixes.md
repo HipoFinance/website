@@ -14,9 +14,9 @@ is `specs/content-accuracy-fixes.md`.
 
 ## Commits
 
-| Commit  | Description                                                    |
-| ------- | -------------------------------------------------------------- |
-| `_tbd_` | (pending — to be filled in after the user confirms the commit) |
+| Commit    | Description                                            |
+| --------- | ------------------------------------------------------ |
+| `9455eee` | Fix content accuracy across the FAQ, HPO page and docs |
 
 ## What changed
 
