@@ -9,9 +9,9 @@ the formatting batch, then flipped back.
 
 ## Commits
 
-| Commit | Description                                                    |
-| ------ | -------------------------------------------------------------- |
-| _tbd_  | (pending — to be filled in after the user confirms the commit) |
+| Commit    | Description                                                      |
+| --------- | ---------------------------------------------------------------- |
+| `785ef78` | Restructure the FAQ, rebuild the HPO FAQ and add FAQPage JSON-LD |
 
 ## What changed
 
