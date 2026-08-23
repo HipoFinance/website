@@ -13,6 +13,8 @@ here — `git log` remains the complete record.
   GRAM" CTA linking to `/stake/`.
 - Hid that footer CTA on the app pages, where it duplicates the page you are
   already on.
+- Rewrote the 404 page around the hippo artwork, keeping its two links.
+- Added the missing `<meta name="viewport">` to the 404 page.
 
 ## 2026-08-22 — [detailed report](changelog/2026-08-22-light-theme.md)
 

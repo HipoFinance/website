@@ -1,4 +1,4 @@
-# 2026-08-23 — A staking CTA in the footer
+# 2026-08-23 — A staking CTA in the footer, and a playful 404
 
 Replaced the site-wide "Join Hipo on Telegram" strip at the top of the footer
 with a staking call to action, so every page outside the app ends on a way into
@@ -13,9 +13,10 @@ footer to open on the logo.
 
 ## Commits
 
-| Commit | Description                                            |
-| ------ | ------------------------------------------------------ |
-| (this) | Replace the footer's Telegram strip with a staking CTA |
+| Commit    | Description                                            |
+| --------- | ------------------------------------------------------ |
+| `15d1c07` | Replace the footer's Telegram strip with a staking CTA |
+| (this)    | Give the 404 page the hippo and some character         |
 
 ## What changed
 
@@ -46,6 +47,42 @@ chat" (`t.me/hipo_chat`), and the **Docs** column lists "Help & support", which
 is the same `t.me/hipo_chat` link the removed **Join now** button pointed at. So
 the strip was the third copy of that link on the page, not the only one.
 
+## The 404 page
+
+The footer work raised the question of what `src/pages/404.astro` should get,
+since it renders no `SiteFooter` at all and so has neither the links nor a CTA.
+Adding the footer there was the obvious move and was **rejected on review**: the
+404 has exactly two links today (home, and Hipo Chat for support), which is the
+whole of its value, and bolting the footer on takes it to about thirteen plus
+the staking CTA — a footer taller than the page's own content, which on a phone
+turns a dead end into something you scroll. Three versions were rendered from
+the real site (current / with-footer / rewritten) in both schemes and compared
+as screenshots before deciding.
+
+What landed instead is a rewrite with personality, keeping the same two
+destinations:
+
+- The home page hero's piggy-bank hippo (`hipo-bank.webp`), rotated `-6deg`,
+  over the same radial `--hero-glow` treatment the hero uses.
+- "**This page went for a swim**" as the heading, and "Our hippo can't find it.
+  Everything else is still here, and your GRAM is still earning." as the body —
+  the second sentence doing real work, since a 404 on a staking site is exactly
+  where someone wonders whether their money is fine.
+- Support drops the bordered "Need support?" card and becomes a plain
+  `Ask on Hipo Chat →` link beside the primary button. That is what pays for the
+  artwork: the page gains an illustration but loses a box, so the element count
+  is unchanged.
+
+`noindex`, the favicon link, the `::selection` rule and the `t.me/hipo_chat`
+target all carried over unchanged.
+
+### An actual bug, fixed in passing
+
+The old 404 had **no `<meta name="viewport">`**. Every other page gets one from
+its layout; 404.astro hand-rolls its `<head>` and never had it, so phones were
+laying the page out at ~980px and scaling it down — the text was small and the
+tap targets smaller. Added.
+
 ## Decisions
 
 - **Suppressed on the app pages.** `SiteFooter` already takes an `app` prop (it
@@ -75,9 +112,11 @@ the strip was the third copy of that link on the page, not the only one.
 
 ## Follow-ups
 
-- `src/pages/404.astro` renders no `SiteFooter` at all — it is the one page
-  outside the app with neither the footer links nor any CTA. Pre-existing and
-  untouched here, but it is the obvious next place for a "Stake now".
+- ~~`src/pages/404.astro` renders no `SiteFooter` — the obvious next place for
+  a "Stake now".~~ Addressed, but deliberately _not_ that way: see "The 404
+  page" above. The page stays at two links and gained character instead. It
+  still has no staking CTA, and that is now a decision rather than an
+  oversight — someone who hit a dead link is not the person to pitch.
 - The home page now shows four coral-gradient panels in sequence (carousel CTA,
   Hipo Community, Hipo Club, footer CTA). Each earns its place individually;
   whether the repetition of the treatment dilutes it is a design question worth

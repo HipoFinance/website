@@ -6,35 +6,50 @@ import '../styles/global.css'
 <html lang='en' class='scroll-smooth'>
   <head>
     <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
     <title>Page not found | Hipo</title>
     <meta name='robots' content='noindex' />
     <link rel='icon' href={`${import.meta.env.BASE_URL}favicon.ico`} />
   </head>
 
-  <body class='bg-bg font-body text-text flex min-h-screen items-center justify-center px-6'>
-    <div class='w-full max-w-sm text-center'>
-      <div class='font-fredoka text-accent text-6xl font-semibold'>404</div>
+  <body class='bg-bg font-body text-text flex min-h-screen items-center justify-center px-6 py-16'>
+    <div class='flex w-full max-w-[520px] flex-col items-center text-center'>
+      <!-- Same glow-behind-artwork treatment as the home page hero, at a smaller size. -->
+      <div class='relative flex justify-center'>
+        <div
+          class='absolute inset-[10%_4%] rounded-full'
+          style='background: radial-gradient(closest-side, var(--hero-glow), rgba(255,126,115,0));'
+        >
+        </div>
+        <img
+          src='/images/hipo-bank.webp'
+          alt=''
+          class='relative w-[220px] max-w-full -rotate-6 drop-shadow-[0_20px_40px_var(--art-shadow)]'
+        />
+      </div>
 
-      <h1 class='font-fredoka text-text mt-4 text-xl font-semibold'>Page not found</h1>
+      <div class='font-fredoka text-accent mt-2 text-[64px] leading-none font-semibold'>404</div>
 
-      <p class='text-text-muted mt-2 text-[15px]'>The page you're looking for doesn't exist or has been moved.</p>
+      <h1 class='font-fredoka text-text mt-3 text-2xl font-semibold'>This page went for a swim</h1>
 
-      <a
-        href='/'
-        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover mt-6 inline-block rounded-full px-6 py-3 text-[15px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)]'
-      >
-        Back to home
-      </a>
+      <p class='text-text-muted mt-2.5 max-w-[380px] text-[15px] leading-[1.6]'>
+        Our hippo can't find it. Everything else is still here, and your GRAM is still earning.
+      </p>
 
-      <div class='border-border bg-surface mt-8 rounded-2xl border p-4'>
-        <p class='text-text-muted mb-2 text-sm'>Need support?</p>
+      <div class='mt-7 flex flex-wrap items-center justify-center gap-3.5'>
+        <a
+          href='/'
+          class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover inline-block rounded-full px-7 py-3 text-[15px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)]'
+        >
+          Back to home
+        </a>
         <a
           href='https://t.me/hipo_chat'
           target='_blank'
           rel='noreferrer'
-          class='text-accent hover:text-accent-hover text-sm'
+          class='text-text hover:text-accent px-4 py-3 text-[15px] font-medium'
         >
-          Hipo Chat
+          Ask on Hipo Chat →
         </a>
       </div>
     </div>
