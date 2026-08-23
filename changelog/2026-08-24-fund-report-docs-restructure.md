@@ -8,9 +8,9 @@ pages and a rewritten `/docs/` hub (suggestions #2, #3 and #5 of the content rev
 
 ## Commits
 
-| Commit | Description                                                    |
-| ------ | -------------------------------------------------------------- |
-| _tbd_  | (pending — to be filled in after the user confirms the commit) |
+| Commit    | Description                                                |
+| --------- | ---------------------------------------------------------- |
+| `3ce96d0` | Add the on-chain Hipo Fund report and restructure the docs |
 
 ## Hipo Fund on-chain report
 
