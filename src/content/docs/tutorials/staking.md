@@ -36,7 +36,7 @@ Decide how much GRAM you’d like to stake. You’ll be able to see how much [hG
 
 #### Step 4: Confirm the Transaction
 
-Confirm the staking transaction directly in your wallet. Within seconds, you’ll receive your hGRAM tokens, representing your staked GRAM.
+Confirm the staking transaction directly in your wallet. The app attaches a small gas prepayment on top of your amount, and the unused part is refunded — see [Fees & Gas](/docs/fees-and-gas/). Within seconds, you’ll receive your hGRAM tokens, representing your staked GRAM.
 
 <figure><img src="/docs/images/tutorials-staking-5.png" alt=""><figcaption></figcaption></figure>
 

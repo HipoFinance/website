@@ -7,6 +7,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-24 — [detailed report](changelog/2026-08-24-fund-report-docs-restructure.md)
+
+- Generated the Hipo Fund quarterly report (Aug 24, 2026) from on-chain data
+  via the new `scripts/hipo-fund-snapshot.mjs`.
+- Restructured the docs sidebar into 9 groups with dated archive labels and
+  four redirected merges.
+- Added the Fees & Gas, Risks, Contracts & Audits, Glossary and Staking
+  Without the App pages.
+- Rewrote `/docs/` as a hub.
+
 ## 2026-08-23 — [detailed report](changelog/2026-08-23-faq-restructure.md)
 
 - Restructured the site FAQ from 67 questions in 10 sections to 40 in 9, with

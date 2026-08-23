@@ -338,7 +338,9 @@ Privacy 2023-06-28, the arbitration clause) beyond the glued heading in D45.
 
 1. Audit scope labels — default taken: Quantstamp + ProgramCrafter = v2, TonTech + Daniil Sedov = v1 (CS-2).
 2. Hipo Fund April table — leave the numbers, add only the "as reported on April 18, 2025" footnote (D41).
-3. Missing fund reports — **pending**; D42 is held (not applied) until answered.
+3. Missing fund reports — **answered 2026-08-24**: reports are generated from on-chain data
+   (`specs/hipo-fund-onchain-reports.md`, `scripts/hipo-fund-snapshot.mjs`); the August 24, 2026 report ships
+   with March and June 2026 as clearly-labelled reconstructed snapshots. D42 applied.
 4. Seasonal burn share — **answered 2026-08-24**: since Season 4 HPO rewards accrue directly to hGRAM holders,
    there is no claiming step and therefore no unclaimed tokens to burn; the unclaimed-rewards burn is history
    (Seasons 1–3). B14 applied with that wording — `hpo.scarcity.seasonal.title` "Seasonal burns (Seasons 1–3)",

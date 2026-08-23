@@ -7,40 +7,70 @@ import { existsSync, readFileSync } from 'node:fs'
 import { DEFAULT_LOCALE, LOCALES, builtLocales, indexableLocales } from './src/i18n/registry.mjs'
 import remarkLocalizeLinks from './src/i18n/remark-localize-links.mjs'
 
-// Sidebar order and labels mirror the GitBook site this section was imported from.
-// See specs/gitbook-docs-migration.md.
+// Sidebar order is the reader path defined in specs/docs-restructure.md (understand → use →
+// tokens & governance → verify → build → fund → archive → legal → brand). Group order no longer
+// mirrors file paths: entries link pages by URL, and several pages keep their GitBook-era paths
+// while sitting in a different group.
 const docsSidebar = [
   {
-    label: '💡 Introduction',
+    label: '💡 Start Here',
     items: [
-      { label: '🦛 Hipo Liquid Staking Protocol', link: '/docs/' },
+      { label: '🦛 What is Hipo?', link: '/docs/' },
+      { label: '🚰 Liquid Staking', link: '/docs/introduction/liquid-staking/' },
+      { label: '⚙️ How Hipo Works', link: '/docs/introduction/how-does-hipo-work/' },
       {
-        label: '🚰 Liquid Staking',
-        items: [
-          { label: '🚰 Liquid Staking', link: '/docs/introduction/liquid-staking/' },
-          { label: '💎 Why TON?', link: '/docs/introduction/liquid-staking/why-ton/' },
-        ],
+        label: '💻 Validators & the Marketplace',
+        link: '/docs/introduction/how-does-hipo-work/validators/',
       },
+      { label: '🔥 Why Hipo', link: '/docs/introduction/advantages-of-hipo/' },
+      { label: '🎁 Rewards & APY', link: '/docs/introduction/hipo-rewards/' },
+      { label: '📖 Glossary', link: '/docs/glossary/' },
+    ],
+  },
+  {
+    label: '📚 Using Hipo',
+    items: [
+      { label: '🔒 Stake GRAM', link: '/docs/tutorials/staking/' },
+      { label: '🔓 Unstake hGRAM', link: '/docs/tutorials/unstaking/' },
+      { label: '⏳ How Unstaking Works', link: '/docs/introduction/how-does-hipo-work/unstaking/' },
+      { label: '✉️ Staking Without the App', link: '/docs/staking-without-the-app/' },
+      { label: '⛽ Fees & Gas', link: '/docs/fees-and-gas/' },
+      { label: '⚠️ Risks', link: '/docs/risks/' },
+      { label: '🔄 hGRAM in DeFi', link: '/docs/hipo-tokens/hipo-staked-gram-hgram/hgram-use-cases/' },
+    ],
+  },
+  {
+    label: '🪙 Tokens & Governance',
+    items: [
+      { label: '💧 hGRAM', link: '/docs/hipo-tokens/hipo-staked-gram-hgram/' },
+      { label: '💎 HPO', link: '/docs/hipo-tokens/hipo-governance-token-hpo/' },
       {
-        label: '⚙️ How Does Hipo Work?',
-        items: [
-          { label: '⚙️ How Does Hipo Work?', link: '/docs/introduction/how-does-hipo-work/' },
-          { label: '🔒 Stake GRAM', link: '/docs/introduction/how-does-hipo-work/stake-gram/' },
-          { label: '🔁 Get hGRAM', link: '/docs/introduction/how-does-hipo-work/get-hgram/' },
-          { label: '🔑 Unstaking', link: '/docs/introduction/how-does-hipo-work/unstaking/' },
-          { label: '💻 Validators', link: '/docs/introduction/how-does-hipo-work/validators/' },
-        ],
+        label: '🥧 HPO Distribution & Wallets',
+        link: '/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/',
       },
-      { label: '🔥 Advantages of Hipo', link: '/docs/introduction/advantages-of-hipo/' },
-      { label: '🎁 Hipo Rewards', link: '/docs/introduction/hipo-rewards/' },
+      { label: '🗳️ DAO', link: '/docs/dao/' },
+      { label: '💲 Profit Sharing', link: '/docs/profit-sharing/' },
+      { label: '⭐ Hipo Club', link: '/docs/giveaways-and-prizes/hipo-club/' },
+    ],
+  },
+  {
+    label: '🛡️ Security & Transparency',
+    items: [
+      { label: '🔐 Security Model', link: '/docs/security/why-your-security-matters/' },
+      { label: '🎣 Phishing Awareness', link: '/docs/security/phishing-awareness-and-prevention/' },
+      { label: '🧾 Contracts & Audits', link: '/docs/contracts-and-audits/' },
       { label: '📈 Hipo Stats', link: '/docs/introduction/hipo-stats/' },
       { label: '📊 Hipo on Dune', link: '/docs/introduction/hipo-on-dune/' },
     ],
   },
   {
+    label: '🛠️ Developers',
+    items: [{ label: '🤖 Hipo MCP Server', link: '/docs/hipo-mcp-server/' }],
+  },
+  {
     label: '💰 Hipo Fund',
     items: [
-      { label: '💰 Hipo Fund', link: '/docs/hipo-fund/' },
+      { label: 'Overview', link: '/docs/hipo-fund/' },
       {
         label: 'Quarterly Report: August 1, 2025',
         link: '/docs/hipo-fund/quarterly-report-august-1-2025/',
@@ -49,113 +79,58 @@ const docsSidebar = [
         label: 'Quarterly Report: December 18, 2025',
         link: '/docs/hipo-fund/quarterly-report-december-18-2025/',
       },
-    ],
-  },
-  {
-    label: '🛡️ Security',
-    items: [
-      { label: '🔐 Why Your Security Matters?', link: '/docs/security/why-your-security-matters/' },
       {
-        label: '⚠️ Phishing Awareness and Prevention',
-        link: '/docs/security/phishing-awareness-and-prevention/',
+        label: 'Quarterly Report: August 24, 2026',
+        link: '/docs/hipo-fund/quarterly-report-august-24-2026/',
       },
     ],
   },
   {
-    label: '📚 Tutorials',
+    label: '🗄️ Archive: Past Programs',
     items: [
-      { label: '🔐 Staking', link: '/docs/tutorials/staking/' },
-      { label: '🔓 Unstaking', link: '/docs/tutorials/unstaking/' },
-    ],
-  },
-  {
-    label: '🪙 Hipo Tokens',
-    items: [
+      { label: 'Programs Overview', link: '/docs/giveaways-and-prizes/hipo-incentive-programs/' },
       {
-        label: '💧 Hipo Staked GRAM (hGRAM)',
-        items: [
-          {
-            label: '💧 Hipo Staked GRAM (hGRAM)',
-            link: '/docs/hipo-tokens/hipo-staked-gram-hgram/',
-          },
-          {
-            label: '▶️ hGRAM Use Cases',
-            link: '/docs/hipo-tokens/hipo-staked-gram-hgram/hgram-use-cases/',
-          },
-        ],
-      },
-      {
-        label: '💎 Hipo Governance Token (HPO)',
-        items: [
-          {
-            label: '💎 Hipo Governance Token (HPO)',
-            link: '/docs/hipo-tokens/hipo-governance-token-hpo/',
-          },
-          {
-            label: '🏦 Tokenomics',
-            link: '/docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/',
-          },
-          {
-            label: '🚛 HPO Tokens Distribution',
-            link: '/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/',
-          },
-        ],
-      },
-    ],
-  },
-  { label: '🗳️ DAO', link: '/docs/dao/' },
-  { label: '💲 Profit Sharing', link: '/docs/profit-sharing/' },
-  {
-    label: '🎁 Giveaways & Prizes',
-    items: [
-      {
-        label: '🛍️ Hipo Incentive Programs',
-        link: '/docs/giveaways-and-prizes/hipo-incentive-programs/',
-      },
-      {
-        label: '💹 TVL Milestone Rewards',
+        label: '💹 TVL Milestone Rewards (ended 2024)',
         link: '/docs/giveaways-and-prizes/tvl-milestone-rewards/',
       },
       {
-        label: '⭐ Hipo Club',
+        label: '🎩 Hipo Gang (ended 2025)',
         items: [
-          { label: '⭐ Hipo Club', link: '/docs/giveaways-and-prizes/hipo-club/' },
+          { label: 'Overview', link: '/docs/giveaways-and-prizes/hipo-gang/' },
           {
-            label: 'Hipo Club: Season 2',
-            link: '/docs/giveaways-and-prizes/hipo-club/hipo-club-season-2/',
-          },
-          {
-            label: 'Hipo Club: Season 3',
-            link: '/docs/giveaways-and-prizes/hipo-club/hipo-club-season-3/',
-          },
-        ],
-      },
-      {
-        label: '🎩 Hipo Gang',
-        items: [
-          { label: '🎩 Hipo Gang', link: '/docs/giveaways-and-prizes/hipo-gang/' },
-          {
-            label: 'Hipo Gang: Season 1',
+            label: 'Season 1 (2024–2025)',
             link: '/docs/giveaways-and-prizes/hipo-gang/hipo-gang-season-1/',
           },
         ],
       },
-      { label: '🖼️ Hipo NFTs', link: '/docs/giveaways-and-prizes/hipo-nfts/' },
       {
-        label: '💲 Hipo $1,000,000 Rewards Program',
+        label: '🏅 Hipo Club Seasons',
+        items: [
+          {
+            label: 'Season 2 (2025)',
+            link: '/docs/giveaways-and-prizes/hipo-club/hipo-club-season-2/',
+          },
+          {
+            label: 'Season 3 (2025)',
+            link: '/docs/giveaways-and-prizes/hipo-club/hipo-club-season-3/',
+          },
+        ],
+      },
+      { label: '🖼️ Hipo NFTs (2024)', link: '/docs/giveaways-and-prizes/hipo-nfts/' },
+      {
+        label: '💵 $1,000,000 Rewards Program (paused)',
         link: '/docs/giveaways-and-prizes/hipo-usd1-000-000-rewards-program/',
       },
+      { label: '😎 Ambassadors Program (paused)', link: '/docs/hipo-ambassadors-program/' },
     ],
   },
-  { label: '😎 Hipo Ambassadors Program', link: '/docs/hipo-ambassadors-program/' },
   {
-    label: '📜 Legal Agreements',
+    label: '📜 Legal',
     items: [
       { label: '📄 Terms of Use', link: '/docs/legal-agreements/terms-of-use/' },
       { label: '🔏 Privacy Policy', link: '/docs/legal-agreements/privacy-policy/' },
     ],
   },
-  { label: '🤖 Hipo MCP Server', link: '/docs/hipo-mcp-server/' },
   { label: '🎨 Brand Kit', link: '/docs/brand-kit/' },
 ]
 
@@ -234,6 +209,18 @@ export default defineConfig({
   output: 'static',
 
   trailingSlash: 'always',
+
+  // Meta-refresh stubs (with noindex) for the four docs URLs retired by the 2026-08 restructure
+  // (specs/docs-restructure.md § Merges). GitHub Pages has no server redirects, and
+  // docs.hipo.finance 301s legacy GitBook paths here, so these URLs must keep resolving. Both
+  // sides carry a trailing slash to match `trailingSlash: 'always'`. Only ever redirect a path
+  // that no longer exists as a page, or the build emits a prerender conflict.
+  redirects: {
+    '/docs/introduction/liquid-staking/why-ton/': '/docs/introduction/liquid-staking/',
+    '/docs/introduction/how-does-hipo-work/stake-gram/': '/docs/introduction/how-does-hipo-work/',
+    '/docs/introduction/how-does-hipo-work/get-hgram/': '/docs/hipo-tokens/hipo-staked-gram-hgram/',
+    '/docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/': '/docs/hipo-tokens/hipo-governance-token-hpo/',
+  },
 
   markdown: {
     // Prefixes root-relative links in translated docs/prose Markdown with the entry's locale.

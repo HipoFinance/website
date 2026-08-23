@@ -20,7 +20,7 @@ Hipo Fund Wallet Upgraded to Multisig for Enhanced Security
 - **Initial Capital:** $186,963.96
 - **Start Reporting Date:** April 18, 2025
 - **Fund Wallet Address:** [hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr) — `EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr` (multisig)
-- **Previous wallet (before the multisig migration):** [UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG)
+- **Previous wallet (before the multisig migration):** [UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG) — it was not emptied and still holds part of the fund, so its balances are included in every report's totals.
 
 ---
 
@@ -43,8 +43,8 @@ Hipo Fund Wallet Upgraded to Multisig for Enhanced Security
 
 - **Fully On-chain & Transparent**\
   All fund assets are visible and trackable on TON. We only invest in assets that can be transparently monitored.
-- **Quarterly Reporting**\
-  We will publish a full, transparent report every season detailing performance, changes, and current holdings.
+- **Regular Reporting**\
+  We publish a full report on the fund's holdings and performance. The most recent is the [August 24, 2026 report](/docs/hipo-fund/quarterly-report-august-24-2026/). Every report is generated from an on-chain snapshot of the fund's wallets with [`scripts/hipo-fund-snapshot.mjs`](https://github.com/HipoFinance/website/blob/main/scripts/hipo-fund-snapshot.mjs) — the balances, the hGRAM exchange rate, the prices and the block they were read at are listed in each report's Notes.
 - **Risk-Controlled Growth**\
   We focus on long-term capital protection, stable growth, and low-risk yield generation.
 - **Governance-Driven**\

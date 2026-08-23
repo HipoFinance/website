@@ -1,6 +1,6 @@
 # Hipo Fund reports from on-chain data
 
-**Status:** draft
+**Status:** approved (2026-08-24; all six open questions at their defaults)
 
 ## Goal
 
@@ -270,6 +270,13 @@ December figures; it compares against them as published and notes the methodolog
 - **Stale-as-live cadence claim.** If the next report also slips, D42's wording still holds (it promises "a full
   report", not a season), but the report list will again look abandoned. Consider a standing calendar reminder;
   the script makes the cost of a report roughly one hour.
+
+## Decisions (2026-08-24)
+
+All six open questions at their defaults: report date = the snapshot day; Mar/Jun 2026 as a clearly-labelled
+reconstructed-snapshot table inside the new report (no back-dated pages); `scripts/hipo-fund-snapshot.mjs`,
+not wired into `prebuild`; USD table plus one GRAM total line; keep the `quarterly-report-<date>` slug and
+title with the Overview stating the gap; the period narrative limited to what balances prove.
 
 ## Open questions
 

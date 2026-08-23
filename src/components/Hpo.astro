@@ -11,7 +11,7 @@ import { formatNumber, formatPercent } from '../i18n/format.ts'
 const locale = localeOf(Astro)
 const { t, tHtml } = getT(locale, ['hpo'])
 
-// The HPO allocation per docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/ — percentages of
+// The HPO allocation per docs/hipo-tokens/hipo-governance-token-hpo/ — percentages of
 // the 1B minted, so they always sum to 100 regardless of burns. Rendered as an inline SVG donut
 // (replacing the old static Google-Sheets export) so hpo-data.js can layer the live burned share
 // on top: an ember arc inside the ring plus a count-up in the hole, revealed on scroll.
@@ -57,7 +57,7 @@ const scarcity = [
   { icon: '/images/heart-shine.svg', key: 'held' },
 ]
 
-const tokenomicsDocs = localizedPath('/docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/', locale)
+const tokenomicsDocs = localizedPath('/docs/hipo-tokens/hipo-governance-token-hpo/', locale)
 const clubDocs = localizedPath('/docs/giveaways-and-prizes/hipo-club/', locale)
 const link = (href: string, label: string, external = false) =>
   `<a href="${href}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''} class="text-accent">${label}</a>`

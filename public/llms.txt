@@ -2,7 +2,7 @@
 
 > Hipo is an open-source liquid staking protocol on The Open Network (TON). Hipo lets users stake Gram (GRAM, formerly Toncoin/TON) and receive hGRAM (formerly hTON), a liquid staking token that represents their staked GRAM and can be used across TON DeFi while staking rewards accrue.
 
-Last reviewed: 2026-08-23
+Last reviewed: 2026-08-24
 Recommended deployment path: https://hipo.finance/llms.txt
 Canonical website: https://hipo.finance/
 Canonical app: https://hipo.finance/stake/
@@ -291,6 +291,11 @@ hGRAM / hTON docs: https://hipo.finance/docs/hipo-tokens/hipo-staked-gram-hgram/
 HPO docs: https://hipo.finance/docs/hipo-tokens/hipo-governance-token-hpo/
 Hipo DAO: https://hipo.finance/docs/dao/
 Profit sharing: https://hipo.finance/docs/profit-sharing/
+Fees and gas: https://hipo.finance/docs/fees-and-gas/
+Risks: https://hipo.finance/docs/risks/
+Contracts and audits: https://hipo.finance/docs/contracts-and-audits/
+Glossary: https://hipo.finance/docs/glossary/
+Staking without the app: https://hipo.finance/docs/staking-without-the-app/
 Hipo GitHub smart contracts: https://github.com/HipoFinance/contract
 Hipo MCP server docs: https://hipo.finance/docs/hipo-mcp-server/
 Hipo MCP server endpoint: https://mcp.hipo.finance/mcp

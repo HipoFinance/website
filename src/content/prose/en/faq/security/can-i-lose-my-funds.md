@@ -12,4 +12,4 @@ Yes. No staking or DeFi protocol is risk-free, and Hipo does not guarantee retur
 - **Thin instant liquidity** — Instant unstaking draws only on Hipo’s free GRAM and is not always available; Full unstaking always settles after the current round.
 - **APY variability** — rewards change and are never fixed.
 
-DeFi use adds each protocol’s own smart-contract, liquidity and price-impact risk — see [Can I use hGRAM in DeFi?](#can-i-use-hgram-in-defi).
+DeFi use adds each protocol’s own smart-contract, liquidity and price-impact risk — see [Can I use hGRAM in DeFi?](#can-i-use-hgram-in-defi). Each risk, and what Hipo does about it, is covered in [Risks](/docs/risks/).

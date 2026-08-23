@@ -10,7 +10,7 @@ When you're ready to convert your hGRAM back into GRAM, you can unstake through 
 
 #### Option 1: Unstake via Hipo App
 
-Connect your wallet to the [Hipo Web App](/unstake/) or [Telegram Mini App](https://t.me/HipoFinanceBot) and select the option to unstake. This method has the lowest fees, and it offers [two ways to process the unstake](/faq/#what-is-the-difference-between-full-and-instant-unstaking):
+Connect your wallet to the [Hipo Web App](/unstake/) or [Telegram Mini App](https://t.me/HipoFinanceBot) and select the option to unstake. This method has the [lowest fees](/docs/fees-and-gas/), and it offers [two ways to process the unstake](/faq/#what-is-the-difference-between-full-and-instant-unstaking):
 
 - **Full** — settled after the current validation round ends. Your GRAM keeps earning until then, so this gives you the better exchange rate. In some cases you may have to wait [up to 36 hours](/faq/#how-long-does-unstaking-take) if all of Hipo's smart contract funds are locked during the staking rewards process.
 - **Instant** — processed straight away at a slightly lower rate. It succeeds as long as Hipo is holding enough free GRAM to cover your request; the app shows the largest amount available for it.
@@ -26,5 +26,7 @@ If Instant unstaking cannot cover the amount you want, you can swap your hGRAM t
 <figure><img src="/docs/images/tutorials-unstaking-3.png" alt=""><figcaption></figcaption></figure>
 
 Additionally, some wallets like Tonkeeper offer a feature where you can swap hGRAM for GRAM directly within the app.
+
+If your wallet cannot sign dapp transactions at all — a multisig or cold wallet, for example — you can still unstake with a plain transfer: see [Staking Without the App](/docs/staking-without-the-app/).
 
 <figure><img src="/docs/images/tutorials-unstaking-4.png" alt="" width="375"><figcaption></figcaption></figure>
