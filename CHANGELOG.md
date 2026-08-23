@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-23 — [detailed report](changelog/2026-08-23-footer-cta.md)
+
+- Replaced the footer's "Join Hipo on Telegram" strip with a "Start Staking
+  GRAM" CTA linking to `/stake/`.
+- Hid that footer CTA on the app pages, where it duplicates the page you are
+  already on.
+
 ## 2026-08-22 — [detailed report](changelog/2026-08-22-light-theme.md)
 
 - Added a site-wide light palette (landing, dApp, docs, 404, Mini App),

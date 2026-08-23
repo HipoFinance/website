@@ -28,19 +28,33 @@ const docsLinks = [
 
 <footer class:list={['font-body bg-surface-deep text-text-faint mt-auto', app && 'pb-20 lg:pb-0']}>
   <div class='mx-auto w-full max-w-[1120px] px-6 py-10 sm:px-10'>
-    <div
-      class='border-border bg-surface mb-10 flex flex-col items-center justify-between gap-4 rounded-[20px] border px-6 py-5 md:flex-row'
-    >
-      <p class='text-text-muted text-center'>Join Hipo on Telegram for updates, support, and discussions.</p>
-      <a
-        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover shrink-0 rounded-full px-7 py-2.5 text-sm font-semibold'
-        href='https://t.me/hipo_chat'
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        Join now
-      </a>
-    </div>
+    {
+      /* The closing CTA, in place of the old "Join Hipo on Telegram" strip: that strip duplicated the
+         home page's Hipo Community section, and both Telegram links survive in the Social column
+         below. Suppressed on the app pages — "start staking" is noise at the bottom of the staking
+         app itself. */
+    }
+    {
+      !app && (
+        <div
+          class='border-border mb-10 flex flex-col items-start justify-between gap-4 rounded-[20px] border p-6 sm:flex-row sm:items-center sm:gap-8 sm:px-8 sm:py-7'
+          style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
+        >
+          <div class='flex flex-col gap-2'>
+            <div class='font-fredoka text-text text-xl font-semibold sm:text-2xl'>Start Staking GRAM</div>
+            <p class='text-text-muted text-[15px] leading-[1.55]'>
+              Start earning rewards and bonuses with as low as 1 GRAM.
+            </p>
+          </div>
+          <a
+            class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover shrink-0 rounded-full px-[30px] py-3.5 text-base font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
+            href='/stake/'
+          >
+            Stake now
+          </a>
+        </div>
+      )
+    }
 
     <div class='flex flex-col gap-10 sm:flex-row sm:justify-between'>
       <div class='max-w-sm'>
