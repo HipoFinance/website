@@ -4,4 +4,4 @@ section: 'hpo-token'
 question: 'HPO چیست؟'
 ---
 
-HPO توکن حاکمیت و تقسیم درآمد اکوسیستم Hipo است.
+HPO توکن حاکمیت و تقسیم سود Hipo است.

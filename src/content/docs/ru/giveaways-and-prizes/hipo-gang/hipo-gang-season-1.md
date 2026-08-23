@@ -3,7 +3,7 @@ title: 'Hipo Gang: сезон 1'
 ---
 
 :::note
-Мы перешли от Hipo Gang к [Hipo Club](https://t.me/HipoFinanceBot/join), где вы можете зарабатывать XP, стейкая GRAM в Hipo, и получать награды каждый квартал.
+Hipo Gang завершилась **25 февраля 2025 г.**, и на смену ей пришёл [Hipo Club](https://t.me/HipoFinanceBot/join), где вы зарабатываете HPO, стейкая GRAM и храня hGRAM. Эта страница сохранена как запись о программе.
 :::
 
 ### 🎯 **Главное**

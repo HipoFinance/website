@@ -1,11 +1,11 @@
 ---
-title: "Why TON?"
+title: 'Why TON?'
 ---
 
-Due to these reasons, TON could be a prime candidate for mass adoption:
+TON is a prime candidate for mass adoption for three reasons:
 
-**Highest Record of TPS**: TON holds the highest record of transactions per second (TPS) among all blockchains, ensuring rapid and efficient transaction processing.
+**High Throughput**: TON's sharded design scales transaction throughput with demand, and has set public records in large-scale throughput tests.
 
-**Telegram Support**: TON is backed by Telegram Messenger, a widely used messaging platform that provides strong support and credibility to the blockchain network.
+**Telegram Roots and Reach**: TON grew out of a project started by Telegram's founders and is now maintained by the independent TON Foundation. Telegram is not its operator, but remains the main distribution channel for TON apps and wallets.
 
 **Thriving Community**: TON has a large and active community of developers, validators, and users, fostering innovation, collaboration, and network growth.

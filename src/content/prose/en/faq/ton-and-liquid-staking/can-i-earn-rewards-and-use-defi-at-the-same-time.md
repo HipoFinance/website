@@ -4,7 +4,7 @@ section: 'ton-and-liquid-staking'
 question: 'Can I earn rewards and use DeFi at the same time?'
 ---
 
-Yes, where supported.
+Yes, always. Rewards accrue in hGRAM’s exchange rate against GRAM, wherever the token sits — in your wallet, in a pool, or in another protocol.
 
 Liquid staking lets your GRAM keep earning staking rewards while you use hGRAM in supported TON DeFi apps.
 

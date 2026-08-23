@@ -29,7 +29,7 @@ Hipo एक सार्वजनिक इंस्टेंस चलाता
 https://mcp.hipo.finance/mcp
 ```
 
-[Claude Code](https://claude.com/claude-code) में एक कमांड काफ़ी है:
+[Claude Code](https://claude.com/product/claude-code) में एक कमांड काफ़ी है:
 
 ```sh
 claude mcp add --transport http hipo https://mcp.hipo.finance/mcp

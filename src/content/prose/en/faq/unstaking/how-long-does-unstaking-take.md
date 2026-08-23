@@ -6,7 +6,7 @@ question: 'How long does unstaking take?'
 
 That depends on which of the two options you pick.
 
-**Instant** is what its name says: if it succeeds, your GRAM arrives within about a minute. If Hipo is not holding enough free GRAM at that moment, the option is unavailable and you use Full instead.
+**Instant** is what its name says: if it succeeds, your GRAM arrives in the same chain of messages, normally within seconds. If Hipo is not holding enough free GRAM at that moment, the option is unavailable and you use Full instead.
 
 **Full** is settled after the current validation round ends, so there is a wait. The app shows you how long is left before your GRAM arrives.
 

@@ -10,20 +10,16 @@ title: 'TVL Milestone Rewards'
 **Hipo’s early supporters, who helped us reach the first two milestones—500K and 1M GRAM TVL—have already received their airdrop of 20,023,370 HPO tokens (\~$580K) on December 9, 2024.**
 :::
 
-The Staking Airdrop Plan is structured to distribute rewards as Hipo’s Total Value Locked (TVL) reaches predefined milestones. At each stage, **1% of the total HPO** supply is allocated to stakers and referrers.
+The Staking Airdrop Plan was structured to distribute rewards as Hipo’s Total Value Locked (TVL) reached predefined milestones. At each stage, **1% of the total HPO** supply was allocated to stakers and referrers.
 
 ### **Milestone Progress**
 
-As Hipo’s TVL grows, new reward distributions are unlocked:
+The programme ran two milestones and was then discontinued:
 
-- **500K GRAM TVL - \*\***Done!\*\*
-- **1M GRAM TVL - \*\***Done!\*\*
-- **2M GRAM TVL**
-- **3M GRAM TVL**
-- **4M GRAM TVL**
-- **5M GRAM TVL**
+- **500K GRAM TVL** — completed
+- **1M GRAM TVL** — completed
 
-This model ensures that incentives scale with ecosystem growth, reinforcing long-term participation and engagement.
+The later milestones (2M–5M GRAM) were never run: the programme was replaced by Hipo Club before they were reached. Hipo's TVL has since passed all of them — see the live figure on the [Stats page](/stats/).
 
 ### [Start Earning Staking Rewards](/stake/)
 

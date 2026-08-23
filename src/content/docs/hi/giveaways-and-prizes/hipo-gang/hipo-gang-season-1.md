@@ -3,7 +3,7 @@ title: 'Hipo Gang: सीज़न 1'
 ---
 
 :::note
-हम Hipo Gang से [Hipo Club](https://t.me/HipoFinanceBot/join) पर आ गए हैं, जहाँ आप Hipo में GRAM स्टेक करके XP कमा सकते हैं और हर तिमाही रिवॉर्ड्स पा सकते हैं।
+Hipo Gang **25 फ़रवरी 2025** को समाप्त हो गया और उसकी जगह [Hipo Club](https://t.me/HipoFinanceBot/join) ने ले ली, जहाँ आप GRAM स्टेक करके और hGRAM होल्ड करके HPO कमाते हैं। यह पेज इस प्रोग्राम के रिकॉर्ड के तौर पर रखा गया है।
 :::
 
 ### 🎯 **मुख्य बातें**

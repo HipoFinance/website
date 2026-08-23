@@ -29,7 +29,7 @@ Hipo یک نمونهٔ عمومی را اجرا می‌کند. کلاینت MCP 
 https://mcp.hipo.finance/mcp
 ```
 
-در [Claude Code](https://claude.com/claude-code) یک دستور کافی است:
+در [Claude Code](https://claude.com/product/claude-code) یک دستور کافی است:
 
 ```sh
 claude mcp add --transport http hipo https://mcp.hipo.finance/mcp

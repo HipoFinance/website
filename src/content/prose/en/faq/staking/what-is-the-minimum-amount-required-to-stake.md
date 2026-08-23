@@ -4,6 +4,6 @@ section: 'staking'
 question: 'What is the minimum amount required to stake?'
 ---
 
-Hipo does not enforce a large minimum. You can stake as little as 1 GRAM.
+There is no minimum. You can stake any amount of GRAM, even a fraction of one.
 
-You only need enough GRAM to cover the amount you want to stake plus a small TON network transaction fee.
+You only need enough to cover the amount you are staking plus a small gas prepayment — on the order of a hundredth of a GRAM. The app shows the exact figure before you confirm, and unused gas is refunded.

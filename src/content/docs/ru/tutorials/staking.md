@@ -2,7 +2,7 @@
 title: 'Стейкинг'
 ---
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Stake Your GRAM with Hipo" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Stake GRAM with Hipo | Step-by-Step Staking and Unstaking Guide" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### Ключевые возможности приложения Hipo для стейкинга
 

@@ -12,9 +12,9 @@ The [staking airdrop plan](/docs/giveaways-and-prizes/tvl-milestone-rewards/) is
 
 - **500K GRAM TVL – \*\***Completed!\*\*
 - **1M GRAM TVL – \*\***Completed!\*\*
-- **Upcoming Milestones:** 2M, 3M, 4M, and 5M GRAM TVL
+- The programme was discontinued after the 1M GRAM milestone and replaced by [Hipo Club](/docs/giveaways-and-prizes/hipo-club/); the later milestones were never run.
 
-> ### [Start Your Investment Now](/stake/)!
+[Start staking GRAM](/stake/).
 
 ### 2. Liquidity Provider Reward Program
 
@@ -28,7 +28,7 @@ The [$1M reward program](/docs/giveaways-and-prizes/hipo-usd1-000-000-rewards-pr
 
 #### **Program Objectives**
 
-- Maintain **hGRAM/GRAM** as the most profitable GRAM-staked pool.
+- Keep the **hGRAM/GRAM** pool deep and rewarding for liquidity providers.
 - Establish **HPO/hGRAM** and **HPO/GRAM** as leading liquidity pools within the TON ecosystem.
 
 ### 3. NFT-Based Incentives
@@ -41,17 +41,17 @@ These NFTs are issued to early adopters and active contributors who support the 
 
 ### 4. Community Engagement Rewards
 
-Users who contribute to discussions on Telegram and X (Twitter), take part in governance, or support educational initiatives may receive **exclusive benefits**. This initiative fosters a collaborative environment where informed discussions drive protocol improvements.
+Users who contribute to discussions on Telegram and X (Twitter), take part in governance, or support educational initiatives may receive **additional benefits**. This initiative fosters a collaborative environment where informed discussions drive protocol improvements.
 
 ### **5. Hipo Gang**
 
-**Phase one is completed**.
+**Ended February 25, 2025.**
 
 Hipo Gang introduced an interactive way for users to engage with the Hipo ecosystem while earning HPO. [Learn more](/docs/giveaways-and-prizes/hipo-gang/)
 
 By participating in in-game activities, users became familiar with DeFi concepts and contributed to the protocol’s growth.
 
-As the program evolves, the focus remains on fostering a dedicated community of long-term supporters. Future phases, including **Hipo Club**, will continue to reward active participants who contribute to the ecosystem’s development and sustainability.
+Hipo Gang was replaced by [Hipo Club](/docs/giveaways-and-prizes/hipo-club/), which rewards active participants today.
 
 ### 6. Hipo Ambassadors Program
 
@@ -65,11 +65,7 @@ The [ambassadors program](/docs/hipo-ambassadors-program/) encourages community-
 
 ### **7. Hipo Club**
 
-Hipo Club is a tiered community program that rewards long-term commitment and active participation in the Hipo ecosystem. Members are placed into six levels, each with increasing benefits, such as **greater claim discounts** and **higher sell allowances** for HPO rewards.
-
-Progression is based on seasonal XP, primarily earned by staking GRAM and engaging with the ecosystem (e.g., watching videos, inviting friends). At the end of each quarter, users can claim their HPO and level up. The more committed and informed the user, the more they benefit.
-
-Hipo Club promotes a culture of responsibility—members must stay within their sell limits or risk losing benefits.
+Hipo Club is a tiered community program that rewards long-term commitment. Members hold hGRAM and earn HPO after every validation round; their level — one of **10** — sets the reward rate. Levels rise through a paid instant upgrade or by claiming rewards at least once during the season, and reset to Level 1 if rewarded HPO is sold. Accrued rewards can be withdrawn once the balance passes 1,000 HPO.
 
 [Learn more about how Hipo Club works](/docs/giveaways-and-prizes/hipo-club/)
 

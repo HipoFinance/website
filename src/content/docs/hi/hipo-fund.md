@@ -1,6 +1,6 @@
 ---
 title: 'Hipo Fund'
-description: 'प्रारंभिक आँकड़ा रिपोर्ट - अप्रैल 2025'
+description: 'Hipo Fund — HPO टोकन को सहारा देने वाली एक ऑन-चेन ट्रेज़री।'
 ---
 
 <figure><img src="/docs/images/hipo-fund-1.jpg" alt=""><figcaption></figcaption></figure>
@@ -15,11 +15,12 @@ description: 'प्रारंभिक आँकड़ा रिपोर्�
 बेहतर सुरक्षा के लिए Hipo Fund वॉलेट को मल्टीसिग में अपग्रेड किया गया
 :::
 
-### 💰 फ़ंड सारांश
+### 💰 फ़ंड सारांश — प्रारंभिक रिपोर्ट, 18 अप्रैल 2025
 
 - **प्रारंभिक पूँजी:** $1,86,963.96
 - **रिपोर्टिंग आरंभ तिथि:** 18 अप्रैल 2025
-- **फ़ंड वॉलेट पता:** [hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr)\ <sub>नया मल्टीसिग वॉलेट:</sub> [<sub>EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr</sub>](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr)\ <sub>पुराना वॉलेट:</sub>[<sub>UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG</sub>](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG)
+- **फ़ंड वॉलेट पता:** [hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr) — `EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr` (मल्टीसिग)
+- **पिछला वॉलेट (मल्टीसिग माइग्रेशन से पहले):** [UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG)
 
 ---
 
@@ -32,6 +33,7 @@ description: 'प्रारंभिक आँकड़ा रिपोर्�
 | HPO               | 67,54,307.59 | 38.95% | $15,000      | गवर्नेंस और प्रॉफ़िट शेयरिंग टोकन |
 | अन्य (GRAM)       | 5.30         | 0.01%  | $15.87       | GRAM में प्रत्यक्ष एक्सपोज़र      |
 
+> - मान 18 अप्रैल 2025 को रिपोर्ट किए गए अनुसार हैं।
 > - सभी एसेट्स ऑन-चेन रखे गए हैं और [hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr) के ज़रिये सत्यापित किए जा सकते हैं
 > - Hipo Fund में HPO टोकनॉमिक्स से कोई आवंटन शामिल नहीं है। फ़ंड के पास मौजूद सारा HPO सीधे बाज़ार से खरीदा गया है।
 

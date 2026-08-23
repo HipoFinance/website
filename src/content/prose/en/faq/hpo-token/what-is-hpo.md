@@ -4,4 +4,4 @@ section: 'hpo-token'
 question: 'What is HPO?'
 ---
 
-HPO is the governance and revenue-sharing token of the Hipo ecosystem.
+HPO is Hipo’s governance and profit-sharing token.

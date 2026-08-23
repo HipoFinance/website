@@ -4,4 +4,4 @@ section: 'hgram'
 question: 'Can I sell hGRAM?'
 ---
 
-Yes, if hGRAM is supported by an exchange, swap app, or liquidity pool. You can also unstake hGRAM through Hipo to receive GRAM back.
+Yes. You can swap hGRAM for GRAM or other TON assets on the DEXs listed on the [DeFi page](/defi/), or unstake it through Hipo to receive GRAM back. A swap settles at the pool’s rate, so check the price impact; an unstake settles at the protocol’s rate.

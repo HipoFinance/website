@@ -2,7 +2,7 @@
 title: 'Вывод из стейкинга'
 ---
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Unstake Your hGRAM" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Stake GRAM with Hipo | Step-by-Step Staking and Unstaking Guide" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### Как вывести hGRAM из стейкинга
 
@@ -19,13 +19,9 @@ title: 'Вывод из стейкинга'
 
 #### Вариант 2: обмен на DEX
 
-Если мгновенный вывод не может покрыть нужную вам сумму, вы можете обменять hGRAM на **децентрализованных биржах** (DEX), таких как DeDust или Stonfi, за немного более высокую комиссию. Это альтернативный путь к немедленному получению GRAM, который не зависит от собственной ликвидности Hipo, хотя курс при этом задаёт пул, а не протокол:
-
-1- [DeDust](https://dedust.io/swap/hTON/TON)
+Если мгновенный вывод не может покрыть нужную вам сумму, вы можете обменять hGRAM на **децентрализованных биржах** (DEX), таких как DeDust, STON.fi и TONCO, за немного более высокую комиссию. Это альтернативный путь к немедленному получению GRAM, который не зависит от собственной ликвидности Hipo, хотя курс при этом задаёт пул, а не протокол. На [странице DeFi](/defi/) есть прямые ссылки на актуальные страницы пулов и обмена для каждой площадки.
 
 <figure><img src="/docs/images/tutorials-unstaking-2.png" alt=""><figcaption></figcaption></figure>
-
-2- [STON.fi](https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=hTON)
 
 <figure><img src="/docs/images/tutorials-unstaking-3.png" alt=""><figcaption></figcaption></figure>
 

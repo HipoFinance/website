@@ -1,5 +1,5 @@
 ---
-title: "Privacy Policy"
+title: 'Privacy Policy'
 ---
 
 Last updated: June 28, 2023
@@ -10,7 +10,9 @@ Hipo values your privacy and is committed to protecting your personal data in ac
 
 ### Data Collection
 
-We collect limited and necessary information to provide our services effectively. This may include publicly available blockchain addresses, data from tracking technologies, external information for legal compliance, survey data, and communication records. How We Use the Information
+We collect limited and necessary information to provide our services effectively. This may include publicly available blockchain addresses, data from tracking technologies, external information for legal compliance, survey data, and communication records.
+
+### How We Use the Information
 
 We use the information we collect to ensure platform functionality, maintain security, improve user experience, comply with laws, and enhance customer support.
 

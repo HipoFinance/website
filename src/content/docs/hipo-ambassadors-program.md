@@ -37,19 +37,17 @@ Share posts, create content, and join discussions to grow our online presence.
 
 ### Rewards and Evaluation
 
-- **hGRAM Tokens**: $200 in Hipo Staked GRAM (hGRAM) distributed every two weeks, with potential increases.
-- **Exclusive NFTs**: Special NFTs offer benefits like voting rights, discounts, and airdrops.
+- **hGRAM Tokens**: while the programme was running, $200 in Hipo Staked GRAM (hGRAM) was distributed every two weeks.
+- **Exclusive NFTs**: special NFTs offering benefits such as voting rights, discounts and airdrops.
 
-You can submit contributions anytime. Our team reviews submissions every two weeks and decides on rewards based on the quality and impact of your efforts.
+Submissions and reviews are suspended while the programme is paused.
 
-> ### [Submit Your Contributions](https://forms.gle/3GpXK1LFzcaFbJGf7)
+### How It Worked
 
-### How to Join
-
-1. **Get Involved**: Engage with the community and create content.
-2. **Share Your Work**: Use our form to submit your articles, videos, or social media posts.
-3. **Get Evaluated**: Our team reviews contributions bi-weekly.
-4. **Earn Rewards**: Receive rewards for your contributions.
+1. **Getting involved**: contributors engaged with the community and created content.
+2. **Sharing work**: they submitted their articles, videos or social media posts through our form.
+3. **Evaluation**: our team reviewed contributions every two weeks.
+4. **Rewards**: contributors received rewards for their work.
 
 ### Code of Conduct
 

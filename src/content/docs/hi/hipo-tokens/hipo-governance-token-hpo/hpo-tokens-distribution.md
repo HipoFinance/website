@@ -14,7 +14,7 @@ title: 'HPO टोकन वितरण'
 
 ### 1. समुदाय (30%)
 
-सबसे बड़ा आवंटन Hipo समुदाय के लिए है, जो **स्टेकर्स, NFT होल्डर्स और Hipo Gang के सक्रिय प्रतिभागियों** के लिए बने प्रोग्रामों के ज़रिए वितरित किया जाता है। इस सेगमेंट का उद्देश्य समुदाय-संचालित माहौल में विकास को बढ़ावा देना और प्रोजेक्ट में योगदान देने वाले सदस्यों को पुरस्कृत करना है।\ <sub>नया मल्टीसिग वॉलेट:</sub> [<sub>EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i</sub>](https://tonviewer.com/EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i)\ <sub>पुराना वॉलेट:</sub> [<sub>UQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-hZC</sub>](https://tonviewer.com/EQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-kuH)
+सबसे बड़ा आवंटन Hipo समुदाय के लिए है, जो **स्टेकर्स, NFT होल्डर्स और Hipo Club के सदस्यों** (पहले, Hipo Gang के खिलाड़ियों) के लिए बने प्रोग्रामों के ज़रिए वितरित किया जाता है। इस सेगमेंट का उद्देश्य समुदाय-संचालित माहौल में विकास को बढ़ावा देना और प्रोजेक्ट में योगदान देने वाले सदस्यों को पुरस्कृत करना है।\ <sub>नया मल्टीसिग वॉलेट:</sub> [<sub>EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i</sub>](https://tonviewer.com/EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i)\ <sub>पुराना वॉलेट:</sub> [<sub>UQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-hZC</sub>](https://tonviewer.com/EQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-kuH)
 
 ### 2. लिक्विडिटी (20%)
 
@@ -26,14 +26,14 @@ title: 'HPO टोकन वितरण'
 
 ### 4. टीम (20%)
 
-वर्तमान और भविष्य के टीम सदस्यों के लिए अलग रखे गए ये टोकन टीम के प्रोत्साहनों को Hipo की दीर्घकालिक सफलता से जोड़ते हैं। TGE के बाद 12 महीने का क्लिफ़ होगा, उसके बाद 24 महीने का लीनियर रिलीज़, ताकि प्रोटोकॉल के विकास के प्रति निरंतर प्रतिबद्धता सुनिश्चित हो।\ <sub>नया मल्टीसिग वॉलेट:</sub> [<sub>EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU</sub>](https://tonviewer.com/EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU)\ <sub>पुराना वॉलेट:</sub> [<sub>UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR</sub>](https://tonviewer.com/UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR)
+वर्तमान और भविष्य के टीम सदस्यों के लिए अलग रखे गए ये टोकन टीम के प्रोत्साहनों को Hipo की दीर्घकालिक सफलता से जोड़ते हैं। TGE के बाद 12 महीने का क्लिफ़ होगा, उसके बाद 48 महीने का लीनियर रिलीज़, ताकि प्रोटोकॉल के विकास के प्रति निरंतर प्रतिबद्धता सुनिश्चित हो।\ <sub>नया मल्टीसिग वॉलेट:</sub> [<sub>EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU</sub>](https://tonviewer.com/EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU)\ <sub>पुराना वॉलेट:</sub> [<sub>UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR</sub>](https://tonviewer.com/UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR)
 
 :::note
 **टीम सेगमेंट अपडेट — 27 अक्टूबर 2025**
 
 अपने समुदाय-प्रथम दृष्टिकोण को और मज़बूत करने के लिए, हमने **टीम सेगमेंट** को इस प्रकार अपडेट किया है:\
-▪️ रिलीज़ की अवधि **24 से बढ़ाकर 48 महीने** की जाएगी।\
-▪️ पहले 12 महीनों में रिलीज़ होने वाले **90% टोकन** बर्न कर दिए जाएँगे।
+▪️ रिलीज़ की अवधि 24 से **बढ़ाकर 48 महीने कर दी गई**।\
+▪️ पहले 12 महीनों में रिलीज़ होने वाले **90% टोकन** **बर्न कर दिए गए**।
 :::
 
 ### 5. सलाहकार (2%)

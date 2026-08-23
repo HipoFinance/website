@@ -14,7 +14,7 @@ HPO Tokenomics Wallets Upgraded to Multisig for Enhanced Security
 
 ### 1. Community (30%)
 
-The largest allocation is dedicated to the Hipo community, distributed through programs for **stakers, NFT holders, and active participants in Hipo Gang**. This segment aims to foster growth within a community-driven environment, rewarding members who bring value to the project.\ <sub>New Multisig Wallet:</sub> [<sub>EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i</sub>](https://tonviewer.com/EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i)\ <sub>Old Wallet:</sub> [<sub>UQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-hZC</sub>](https://tonviewer.com/EQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-kuH)
+The largest allocation is dedicated to the Hipo community, distributed through programs for **stakers, NFT holders and Hipo Club members** (earlier, Hipo Gang players). This segment aims to foster growth within a community-driven environment, rewarding members who bring value to the project.\ <sub>New Multisig Wallet:</sub> [<sub>EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i</sub>](https://tonviewer.com/EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i)\ <sub>Old Wallet:</sub> [<sub>UQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-hZC</sub>](https://tonviewer.com/EQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-kuH)
 
 ### 2. Liquidity (20%)
 
@@ -26,19 +26,19 @@ This portion is reserved for marketing campaigns and partnerships designed to gr
 
 ### 4. Team (20%)
 
-Set aside for current and future team members, these tokens align team incentives with Hipo’s long-term success. After TGE, there will be a 12-month cliff, followed by a 24-month linear release to ensure sustained commitment to the protocol's growth.\ <sub>New Multisig Wallet:</sub> [<sub>EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU</sub>](https://tonviewer.com/EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU)\ <sub>Old Wallet:</sub> [<sub>UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR</sub>](https://tonviewer.com/UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR)
+Set aside for current and future team members, these tokens align team incentives with Hipo’s long-term success. After TGE, there will be a 12-month cliff, followed by a 48-month linear release to ensure sustained commitment to the protocol's growth.\ <sub>New Multisig Wallet:</sub> [<sub>EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU</sub>](https://tonviewer.com/EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU)\ <sub>Old Wallet:</sub> [<sub>UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR</sub>](https://tonviewer.com/UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR)
 
 :::note
 **Team Segment Update — October 27, 2025**
 
 To further strengthen our community-first approach, we’ve updated the **Team Segment** as follows:\
-▪️ The release duration will be **extended from 24 to 48 months**.\
-▪️ **90% of the tokens** scheduled for release in the first 12 months will be burned.
+▪️ The release duration **was extended** from 24 to 48 months.\
+▪️ **90% of the tokens** scheduled for release in the first 12 months **were burned**.
 :::
 
-### 5. Advisors (2%)
+### 5. Advisers (2%)
 
-Reserved for both current and future advisors, this allocation supports those who provide strategic guidance and insights, helping the Hipo team make informed decisions to foster sustainable growth.\ <sub>New Multisig Wallet:</sub> [<sub>EQBr72QSCc3XkXt4agAh7x94brYDoJMkg55Hl3A1Adn7QuSl</sub>](https://tonviewer.com/EQBr72QSCc3XkXt4agAh7x94brYDoJMkg55Hl3A1Adn7QuSl)\ <sub>Old Wallet:</sub> [<sub>UQCbqyKOX5NGO2rPDr_wmFEw3bDA-kv8smdu2IzbU1brJ4Dk</sub>](https://tonviewer.com/UQCbqyKOX5NGO2rPDr_wmFEw3bDA-kv8smdu2IzbU1brJ4Dk)<br>
+Reserved for both current and future advisers, this allocation supports those who provide strategic guidance and insights, helping the Hipo team make informed decisions to foster sustainable growth.\ <sub>New Multisig Wallet:</sub> [<sub>EQBr72QSCc3XkXt4agAh7x94brYDoJMkg55Hl3A1Adn7QuSl</sub>](https://tonviewer.com/EQBr72QSCc3XkXt4agAh7x94brYDoJMkg55Hl3A1Adn7QuSl)\ <sub>Old Wallet:</sub> [<sub>UQCbqyKOX5NGO2rPDr_wmFEw3bDA-kv8smdu2IzbU1brJ4Dk</sub>](https://tonviewer.com/UQCbqyKOX5NGO2rPDr_wmFEw3bDA-kv8smdu2IzbU1brJ4Dk)<br>
 
 ### 6. Treasury (13%)
 

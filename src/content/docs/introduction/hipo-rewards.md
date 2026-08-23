@@ -4,25 +4,21 @@ title: 'Hipo Rewards'
 
 Our goal is to build Hipo as a truly community-driven protocol, where value and decision-making move to the community.
 
-This diagram shows how Hipo rewards work and how you can maximize your earnings
+Here is how Hipo rewards work:
 
-<figure><img src="/docs/images/introduction-hipo-rewards-1.jpg" alt=""><figcaption></figcaption></figure>
-
-- **Stake GRAM→ receive hGRAM**\
-  No lockups, full flexibility
-- **Base Rewards**\
-  Earn \~20% APY in TON through efficient staking\
-  (reflected in [hGRAM price growth](https://stats.hipo.finance/))
-- Boosted Rewards\
-  Earn extra HPO (governance & revenue-sharing token)\
-  based on your Hipo Club level\
-  → Up to **43.7% total APY** (GRAM + HPO)
-- **Extra Rewards**\
-  Hold HPO → get a share of protocol revenue
+- **Stake GRAM → receive hGRAM**\
+  No lock-up, full flexibility
+- **Base rewards**\
+  GRAM staking rewards, reflected in hGRAM's exchange rate against GRAM\
+  (see the [current rate](/stats/))
+- **Boosted rewards**\
+  Extra HPO on the hGRAM you hold, at a rate set by your [Hipo Club](https://t.me/HipoFinanceBot/join) level
+- **Extra rewards**\
+  Hold HPO → receive a share of protocol revenue
 
 :::note
-All rewards are distributed every validation round (\~18 hours)\
-Fully trackable in [Hipo App](/rewards/) & [Hipo Club](https://t.me/HipoFinanceBot/join)
+Three streams, three clocks: base rewards settle **every validation round** (~18 h) into the hGRAM exchange rate, with nothing to claim; Hipo Club HPO accrues **every validation round** and can be withdrawn once your balance passes 1,000 HPO; profit shares for HPO holders are paid **at the end of each Hipo Club season**.\
+All three are trackable in the [Hipo app](/rewards/) and [Hipo Club](https://t.me/HipoFinanceBot/join).
 :::
 
 The more you participate, the more you earn, and the bigger your role in shaping Hipo’s future.

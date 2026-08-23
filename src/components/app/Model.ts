@@ -444,11 +444,12 @@ export class Model {
   readonly tmaMode: TmaMode = detectTmaMode()
   isTelegram = this.tmaMode !== 'off'
 
-  readonly dedustSwapUrl = 'https://dedust.io/swap/hTON/TON'
+  readonly dedustSwapUrl = 'https://dedust.io/swap/EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w/TON'
   readonly dedustPoolUrl = 'https://dedust.io/pools/EQBWsAdyAg-8fs3G-m-eUBCXZuVaOldF5-tCMJBJzxQG7nLX'
-  readonly stonSwapUrl = 'https://app.ston.fi/swap?chartVisible=false&ft=hTON&tt=TON'
+  readonly stonSwapUrl =
+    'https://app.ston.fi/swap?chartVisible=false&ft=EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w&tt=EQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM9c'
   readonly stonPoolUrl = 'https://app.ston.fi/pools/EQDjmQDt12Ys1-gyKZskDSIDAVQaciI3cIUpk46LCWtnKpGF'
-  readonly toncoSwapUrl = 'https://app.tonco.io/#/swap?from=hTON&to=TON'
+  readonly toncoSwapUrl = 'https://app.tonco.io/#/swap?from=EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w&to=TON'
   readonly toncoPoolUrl = 'https://app.tonco.io/#/pool/EQCNtxsO6JYljVLkcJVt7hZZhkC50kMIFAZklE4zBby31RAR'
   readonly groypfiSwapUrl = 'https://groypfi.io/swap/ton/EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w'
   readonly swapCoffeeSwapUrl = 'https://swap.coffee/dex?ft=GRAM&st=EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w'

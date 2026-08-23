@@ -29,7 +29,7 @@ Hipo поддерживает публичный экземпляр. Напра�
 https://mcp.hipo.finance/mcp
 ```
 
-В [Claude Code](https://claude.com/claude-code) достаточно одной команды:
+В [Claude Code](https://claude.com/product/claude-code) достаточно одной команды:
 
 ```sh
 claude mcp add --transport http hipo https://mcp.hipo.finance/mcp

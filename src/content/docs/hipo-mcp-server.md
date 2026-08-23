@@ -29,7 +29,7 @@ Hipo runs a public instance. Point your MCP client at:
 https://mcp.hipo.finance/mcp
 ```
 
-In [Claude Code](https://claude.com/claude-code), one command is enough:
+In [Claude Code](https://claude.com/product/claude-code), one command is enough:
 
 ```sh
 claude mcp add --transport http hipo https://mcp.hipo.finance/mcp

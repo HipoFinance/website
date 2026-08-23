@@ -1,14 +1,14 @@
 ---
-title: "Hipo Gang"
+title: 'Hipo Gang'
 ---
 
 :::note
-We've migrated from Hipo Gang to [Hipo Cub](https://t.me/HipoFinanceBot/join), where you can earn XP by staking GRAM in Hipo and receive rewards quarterly.
+Hipo Gang ended on **February 25, 2025** and was replaced by [Hipo Club](https://t.me/HipoFinanceBot/join), where you earn HPO by staking GRAM and holding hGRAM. This page is kept as a record of the programme.
 :::
 
 ### **What is Hipo Gang?**
 
-[Hipo Gang](https://hipogang.io/) is the **first DeFi Tap-to-Earn** game on the TON blockchain, where players can earn HPO airdrops by engaging in various in-game activities. Powerd by the Hipo team.
+[Hipo Gang](https://hipogang.io/) **was** the first DeFi Tap-to-Earn game on the TON blockchain, where players earned HPO airdrops through in-game activities. **Powered** by the Hipo team.
 
 <figure><img src="/docs/images/giveaways-and-prizes-hipo-gang-1.jpg" alt=""><figcaption></figcaption></figure>
 
@@ -20,16 +20,16 @@ Hipo Gang is not just a game. Players will learn about DeFi while earning HPO. H
 
 ### Why Did We Launch Hipo Gang?
 
-* **Innovative Engagement**: Combines gaming with DeFi to attract and engage users.
-* **Wider Adoption**: Lowers entry barriers to DeFi.
-* **Rewarding Participation**: Users earn real value with HPO tokens.
-* **Educational Outreach**: Helps users understand DeFi in a fun, practical way.
+- **Innovative Engagement**: Combines gaming with DeFi to attract and engage users.
+- **Wider Adoption**: Lowers entry barriers to DeFi.
+- **Rewarding Participation**: Users earn real value with HPO tokens.
+- **Educational Outreach**: Helps users understand DeFi in a fun, practical way.
 
-### How to Get Started?
+### How It Worked
 
-1. **Join the Game**: Access Hipo Gang through our platform.
-2. **Complete Tasks**: Engage in tasks, tap to earn coins, and invite friends.
-3. **Earn HPO**: Collect coins and convert them to HPO tokens.
+1. **Join the game**: players accessed Hipo Gang through the Hipo platform.
+2. **Complete tasks**: they engaged in tasks, tapped to earn coins and invited friends.
+3. **Earn HPO**: coins were converted to HPO tokens.
 
 :::note
 For more information, visit the [Hipo Gang official website.](https://hipogang.io/)
@@ -37,13 +37,13 @@ For more information, visit the [Hipo Gang official website.](https://hipogang.i
 
 ### Stay Updated
 
-Follow us on social media for updates on developments, game updates, and airdrop schedules. 
+Follow us on social media for updates on developments, game updates, and airdrop schedules.
 
-* [Website](https://hipogang.io/)
-* [Documentation](https://docs.hipogang.io/)
-* [Telegram](https://t.me/HipoFinance)
-* [X (formerly Twitter)](https://x.com/hipofinance)
-* [YouTube](https://youtube.com/@hipofinance)
+- [Website](https://hipogang.io/)
+- [Documentation](https://docs.hipogang.io/)
+- [Telegram](https://t.me/HipoFinance)
+- [X (formerly Twitter)](https://x.com/hipofinance)
+- [YouTube](https://youtube.com/@hipofinance)
 
 ### Hipo Gang Brand Kit
 

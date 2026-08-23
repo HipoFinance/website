@@ -4,7 +4,7 @@ title: 'Unstaking'
 
 ### Unstaking GRAM Tokens on Hipo
 
-1. **Freedom to Unstake**: You can unstake your GRAM coins whenever you choose.
+1. **Unstake When You Want**: you can request an unstake at any time; how quickly it settles depends on whether you choose Full or Instant (step 3).
 2. **Initiate Unstaking**: Simply go to the Hipo App and enter the amount of Hipo Staked GRAM (hGRAM) you want to unstake.
 3. **Choose Full or Instant**: Decide how the unstake is processed. **Full** is settled after the current validation round ends and gives you the better exchange rate, since your GRAM keeps earning until then. **Instant** is processed straight away at a slightly lower rate, and succeeds as long as Hipo holds enough free GRAM to cover it. The app shows the largest amount you can unstake instantly.
 4. **Confirm Transaction**: Confirm the transaction on your wallet, and you'll receive your unstaked GRAM and any accrued rewards.
@@ -19,7 +19,7 @@ If you want to unstake your hGRAM without using the Hipo app, you can use one of
 
 You can simply swap your hGRAM on major TON decentralized exchanges such as:
 
-- Ston.fi
+- STON.fi
 - DeDust
 
 This is the easiest option for immediate liquidity, but swap fees will apply.

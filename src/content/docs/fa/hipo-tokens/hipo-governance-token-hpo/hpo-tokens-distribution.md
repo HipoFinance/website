@@ -14,7 +14,7 @@ title: 'توزیع توکن‌های HPO'
 
 ### ۱. جامعه (۳۰٪)
 
-بزرگ‌ترین تخصیص به جامعه Hipo اختصاص دارد و از طریق برنامه‌هایی برای **استیک‌کنندگان، دارندگان NFT و اعضای فعال Hipo Gang** توزیع می‌شود. هدف این بخش، رشد در فضایی جامعه‌محور و پاداش‌دادن به اعضایی است که برای پروژه ارزش می‌آفرینند.\ <sub>کیف پول چندامضایی جدید:</sub> [<sub>EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i</sub>](https://tonviewer.com/EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i)\ <sub>کیف پول قدیمی:</sub> [<sub>UQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-hZC</sub>](https://tonviewer.com/EQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-kuH)
+بزرگ‌ترین تخصیص به جامعه Hipo اختصاص دارد و از طریق برنامه‌هایی برای **استیک‌کنندگان، دارندگان NFT و اعضای Hipo Club** (و پیش‌تر، بازیکنان Hipo Gang) توزیع می‌شود. هدف این بخش، رشد در فضایی جامعه‌محور و پاداش‌دادن به اعضایی است که برای پروژه ارزش می‌آفرینند.\ <sub>کیف پول چندامضایی جدید:</sub> [<sub>EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i</sub>](https://tonviewer.com/EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i)\ <sub>کیف پول قدیمی:</sub> [<sub>UQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-hZC</sub>](https://tonviewer.com/EQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-kuH)
 
 ### ۲. نقدینگی (۲۰٪)
 
@@ -26,14 +26,14 @@ title: 'توزیع توکن‌های HPO'
 
 ### ۴. تیم (۲۰٪)
 
-این توکن‌ها که برای اعضای فعلی و آینده تیم کنار گذاشته شده‌اند، انگیزه‌های تیم را با موفقیت بلندمدت Hipo همسو می‌کنند. پس از TGE، یک دوره قفل (کلیف) ۱۲ ماهه و سپس آزادسازی خطی ۲۴ ماهه وجود خواهد داشت تا تعهد پایدار به رشد پروتکل تضمین شود.\ <sub>کیف پول چندامضایی جدید:</sub> [<sub>EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU</sub>](https://tonviewer.com/EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU)\ <sub>کیف پول قدیمی:</sub> [<sub>UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR</sub>](https://tonviewer.com/UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR)
+این توکن‌ها که برای اعضای فعلی و آینده تیم کنار گذاشته شده‌اند، انگیزه‌های تیم را با موفقیت بلندمدت Hipo همسو می‌کنند. پس از TGE، یک دوره قفل (کلیف) ۱۲ ماهه و سپس آزادسازی خطی ۴۸ ماهه وجود خواهد داشت تا تعهد پایدار به رشد پروتکل تضمین شود.\ <sub>کیف پول چندامضایی جدید:</sub> [<sub>EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU</sub>](https://tonviewer.com/EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU)\ <sub>کیف پول قدیمی:</sub> [<sub>UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR</sub>](https://tonviewer.com/UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR)
 
 :::note
 **به‌روزرسانی بخش تیم — ۵ آبان ۱۴۰۴ (۲۷ اکتبر ۲۰۲۵)**
 
 برای تقویت بیشتر رویکرد جامعه‌محور خود، **بخش تیم** را به این صورت به‌روزرسانی کرده‌ایم:\
-▪️ مدت آزادسازی **از ۲۴ به ۴۸ ماه افزایش می‌یابد**.\
-▪️ **۹۰٪ از توکن‌هایی** که قرار بود در ۱۲ ماه نخست آزاد شوند، سوزانده خواهند شد.
+▪️ مدت آزادسازی از ۲۴ به ۴۸ ماه **افزایش یافت**.\
+▪️ **۹۰٪ از توکن‌هایی** که قرار بود در ۱۲ ماه نخست آزاد شوند، **سوزانده شدند**.
 :::
 
 ### ۵. مشاوران (۲٪)

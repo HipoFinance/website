@@ -1,5 +1,5 @@
 ---
-title: "Hipo NFTs"
+title: 'Hipo NFTs'
 ---
 
 :::tip
@@ -12,7 +12,7 @@ Hipo NFTs are unique digital assets issued by the Hipo platform. They serve as a
 
 ### Who is Eligible to Receive Hipo NFTs?
 
-Hipo NFTs are distributed to individuals who actively engage with and contribute to the growth of the Hipo platform. This includes community members who participate in discussions, provide feedback, share ideas, and help promote Hipo's mission.
+Hipo NFTs were distributed to individuals who actively engaged with and contributed to the growth of the Hipo platform. This includes community members who participate in discussions, provide feedback, share ideas, and help promote Hipo's mission.
 
 ### Methods of Acquiring Hipo NFTs
 
@@ -22,10 +22,10 @@ Hipo NFTs are distributed to individuals who actively engage with and contribute
 
 ### Hipo NFT Collections
 
-Hipo has launched several [NFT collections](https://getgems.io/user/EQB9fxJw6ZaXwzhQuyrECRuCnX9AKzj5hG1Oy3gPY1Lg6lRY#collections) to date, with each collection representing a unique theme or concept. As Hipo continues to evolve, additional NFT collections may be released.
+Hipo has launched several [NFT collections](https://getgems.io/user/EQB9fxJw6ZaXwzhQuyrECRuCnX9AKzj5hG1Oy3gPY1Lg6lRY#collections); the most recent distribution was the 2,795,379 HPO airdrop of December 23, 2024. New collections are announced in the official channels.
 
 ### Benefits of Holding Hipo NFTs
 
-* Eligibility for rewards and benefits within the Hipo ecosystem.
-* Receiving HPO tokens, the governance token of the Hipo platform. Learn more about how HPO tokens are distributed [here](https://docs.google.com/spreadsheets/d/1-O_X5_gZAkPT2vxf106dtQmbrG20p0w986h0znJDtbU/edit#gid=1574427556).
-* Prioritization for rewards or incentives distributed by Hipo for ongoing support and contribution.
+- Eligibility for rewards and benefits within the Hipo ecosystem.
+- Receiving HPO tokens, the governance token of the Hipo platform. See [HPO Tokens Distribution](/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/).
+- Prioritization for rewards or incentives distributed by Hipo for ongoing support and contribution.

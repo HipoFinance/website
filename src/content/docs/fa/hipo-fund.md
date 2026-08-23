@@ -1,6 +1,6 @@
 ---
 title: 'Hipo Fund'
-description: 'گزارش آمار آغازین – فروردین ۱۴۰۴ (آوریل ۲۰۲۵)'
+description: 'Hipo Fund — خزانه‌ای آنچین که پشتوانهٔ توکن HPO است.'
 ---
 
 <figure><img src="/docs/images/hipo-fund-1.jpg" alt=""><figcaption></figcaption></figure>
@@ -15,11 +15,12 @@ description: 'گزارش آمار آغازین – فروردین ۱۴۰۴ (آو
 کیف پول Hipo Fund برای امنیت بیشتر به کیف پول چندامضایی (مولتی‌سیگ) ارتقا یافت
 :::
 
-### 💰 خلاصهٔ صندوق
+### 💰 خلاصهٔ صندوق — گزارش آغازین، ۲۹ فروردین ۱۴۰۴ (۱۸ آوریل ۲۰۲۵)
 
 - **سرمایهٔ اولیه:** $۱۸۶٬۹۶۳٫۹۶
 - **تاریخ شروع گزارش‌دهی:** ۲۹ فروردین ۱۴۰۴ (۱۸ آوریل ۲۰۲۵)
-- **آدرس کیف پول صندوق:** [hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr)\ <sub>کیف پول چندامضایی جدید:</sub> [<sub>EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr</sub>](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr)\ <sub>کیف پول قدیمی:</sub>[<sub>UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG</sub>](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG)
+- **آدرس کیف پول صندوق:** [hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr) — `EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr` (چندامضایی)
+- **کیف پول قبلی (پیش از مهاجرت به چندامضایی):** [UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG)
 
 ---
 
@@ -32,6 +33,7 @@ description: 'گزارش آمار آغازین – فروردین ۱۴۰۴ (آو
 | HPO                | ۶٬۷۵۴٬۳۰۷٫۵۹ | ۳۸٫۹۵٪ | $۱۵٬۰۰۰     | توکن حاکمیت و تقسیم سود       |
 | سایر (GRAM)        | ۵٫۳۰         | ۰٫۰۱٪  | $۱۵٫۸۷      | نگهداری مستقیم GRAM           |
 
+> - مقادیر مطابق گزارش ۲۹ فروردین ۱۴۰۴ (۱۸ آوریل ۲۰۲۵) است.
 > - همهٔ دارایی‌ها به‌صورت آنچین نگهداری می‌شوند و از طریق [hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr) قابل راستی‌آزمایی‌اند
 > - Hipo Fund هیچ تخصیصی از توکنومیکس HPO ندارد. همهٔ HPO در اختیار صندوق مستقیماً از بازار خریداری شده است.
 

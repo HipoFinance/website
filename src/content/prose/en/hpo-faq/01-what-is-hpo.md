@@ -3,4 +3,4 @@ order: 1
 question: 'What is HPO?'
 ---
 
-HPO is the decision-making and profit-sharing token of Hipo, a liquid staking platform on TON. Holders of HPO receive profit shares, exclusive offers, and a voice in Hipo’s key decisions.
+HPO is Hipo’s governance and profit-sharing token. Holders receive a share of protocol profits, vote on Hipo’s key decisions, and earn more HPO through [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).

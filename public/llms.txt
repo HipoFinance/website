@@ -2,7 +2,7 @@
 
 > Hipo is an open-source liquid staking protocol on The Open Network (TON). Hipo lets users stake Gram (GRAM, formerly Toncoin/TON) and receive hGRAM (formerly hTON), a liquid staking token that represents their staked GRAM and can be used across TON DeFi while staking rewards accrue.
 
-Last reviewed: 2026-07-29
+Last reviewed: 2026-08-23
 Recommended deployment path: https://hipo.finance/llms.txt
 Canonical website: https://hipo.finance/
 Canonical app: https://hipo.finance/stake/
@@ -132,7 +132,7 @@ There are two main ways to exit a Hipo staking position:
 2. Swap hGRAM on a DEX. Useful when Instant cannot cover the desired amount.
    - Can be faster if enough liquidity exists.
    - May involve price impact, DEX fees, or a different exchange rate.
-   - DEX examples historically included DeDust and STON.fi for hTON liquidity; verify current hGRAM pools after the rename.
+   - hGRAM pools exist on DeDust, STON.fi, TONCO, GroypFi and swap.coffee; the current list with live links is at https://hipo.finance/defi/.
 
 Accurate wording:
 
@@ -167,6 +167,8 @@ Avoid hardcoding APY values. APY changes over time and should be pulled from Hip
 ## Security and risk
 
 Hipo is open-source and its smart contract code is publicly available on GitHub.
+
+Hipo's contracts have been through four independent audits: Quantstamp (April 2025) and ProgramCrafter (March 2024) on v2, TonTech and Daniil Sedov (October 2023) on v1. Reports: https://github.com/HipoFinance/audits
 
 Important risks to disclose:
 

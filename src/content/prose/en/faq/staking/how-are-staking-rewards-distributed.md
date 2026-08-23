@@ -11,5 +11,5 @@ The amount of hGRAM in your wallet never changes on its own. What changes is how
 When a validation round is settled, its rewards are split in this order:
 
 1. The borrowing validator receives the share agreed when it won the loan.
-2. The protocol share, if any, is taken.
+2. The governance fee on validation rewards is taken — set by the [Hipo DAO](/docs/dao/) and currently 0%.
 3. Everything left returns to Hipo’s treasury, which raises the hGRAM exchange rate for every holder.

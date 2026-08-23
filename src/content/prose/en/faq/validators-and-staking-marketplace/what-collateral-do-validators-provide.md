@@ -4,6 +4,6 @@ section: 'validators-and-staking-marketplace'
 question: 'What collateral do validators provide?'
 ---
 
-Collateral is extra value that validators commit when they participate.
+Before a validator can borrow staked GRAM for a validation round, it must lock GRAM of its own covering the maximum slashing penalty for that round plus the reward it promised to pay.
 
-It helps protect stakers if a validator performs poorly or fails to meet expected performance.
+If the validator is slashed or underperforms, the penalty is taken from that collateral rather than from staked GRAM — which is what protects stakers.

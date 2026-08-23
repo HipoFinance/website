@@ -8,8 +8,8 @@ Explore the [HPO page](/hpo/).
 
 ## What is HPO Token?
 
-**HPO** is the governance and profit-sharing token of the Hipo Protocol, allowing holders to participate in protocol decisions and earn profit shares. Besides governance rights, HPO holders can access exclusive offers within the Hipo community.
+**HPO** is Hipo's governance and profit-sharing token, letting holders vote on protocol decisions and receive a share of protocol profits. Holding rewarded HPO also keeps a member's [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) level, which sets how much HPO their hGRAM earns each validation round.
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/QYU-TWJK1yg" title="Hipo video" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/QYU-TWJK1yg" title="What is the HPO token?" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 <br>

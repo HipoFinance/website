@@ -1,6 +1,6 @@
 ---
 title: 'Hipo Fund'
-description: 'Стартовый отчёт о показателях — апрель 2025 г.'
+description: 'Hipo Fund — ончейн-казна, поддерживающая токен HPO.'
 ---
 
 <figure><img src="/docs/images/hipo-fund-1.jpg" alt=""><figcaption></figcaption></figure>
@@ -15,11 +15,12 @@ description: 'Стартовый отчёт о показателях — апр
 Кошелёк Hipo Fund переведён на мультисиг для повышения безопасности
 :::
 
-### 💰 Сводка по фонду
+### 💰 Сводка по фонду — стартовый отчёт, 18 апреля 2025 г.
 
 - **Начальный капитал:** 186 963,96 $
 - **Дата начала отчётности:** 18 апреля 2025 г.
-- **Адрес кошелька фонда:** [hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr)\ <sub>Новый мультисиг-кошелёк:</sub> [<sub>EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr</sub>](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr)\ <sub>Старый кошелёк:</sub>[<sub>UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG</sub>](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG)
+- **Адрес кошелька фонда:** [hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr) — `EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr` (мультисиг)
+- **Прежний кошелёк (до перехода на мультисиг):** [UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG)
 
 ---
 
@@ -32,6 +33,7 @@ description: 'Стартовый отчёт о показателях — апр
 | HPO                | 6 754 307,59 | 38,95 % | 15 000 $        | Токен управления и распределения прибыли |
 | Прочее (GRAM)      | 5,30         | 0,01 %  | 15,87 $         | Прямая позиция в GRAM                    |
 
+> - Значения приведены по состоянию на 18 апреля 2025 г.
 > - Все активы хранятся ончейн, и их можно проверить через [hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr)
 > - Hipo Fund не включает никакого распределения из токеномики HPO. Все HPO, которыми владеет фонд, куплены напрямую на рынке.
 

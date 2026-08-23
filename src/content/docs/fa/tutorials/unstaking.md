@@ -2,7 +2,7 @@
 title: 'آن‌استیک کردن'
 ---
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Unstake Your hGRAM" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Stake GRAM with Hipo | Step-by-Step Staking and Unstaking Guide" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### چگونه hGRAM خود را آن‌استیک کنید
 
@@ -19,13 +19,9 @@ title: 'آن‌استیک کردن'
 
 #### گزینهٔ ۲: سواپ از طریق DEXها
 
-اگر آن‌استیک آنی نتواند مقدار مورد نظر شما را پوشش دهد، می‌توانید hGRAM خود را با کارمزدی اندکی بالاتر از طریق **صرافی‌های غیرمتمرکز** (DEX) مانند DeDust یا STON.fi سواپ کنید. این مسیر جایگزینی برای دریافت فوری GRAM است که به نقدینگی خود Hipo وابسته نیست، هرچند نرخی که می‌گیرید را استخر تعیین می‌کند نه پروتکل:
-
-۱- [DeDust](https://dedust.io/swap/hTON/TON)
+اگر آن‌استیک آنی نتواند مقدار مورد نظر شما را پوشش دهد، می‌توانید hGRAM خود را با کارمزدی اندکی بالاتر از طریق **صرافی‌های غیرمتمرکز** (DEX) مانند DeDust، STON.fi و TONCO سواپ کنید. این مسیر جایگزینی برای دریافت فوری GRAM است که به نقدینگی خود Hipo وابسته نیست، هرچند نرخ را استخر تعیین می‌کند نه پروتکل. [صفحهٔ DeFi](/defi/) مستقیماً به صفحه‌های فعلی استخر و سواپ هر یک از این صرافی‌ها پیوند می‌دهد.
 
 <figure><img src="/docs/images/tutorials-unstaking-2.png" alt=""><figcaption></figcaption></figure>
-
-۲- [STON.fi](https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=hTON)
 
 <figure><img src="/docs/images/tutorials-unstaking-3.png" alt=""><figcaption></figcaption></figure>
 

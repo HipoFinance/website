@@ -7,6 +7,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-23 — [detailed report](changelog/2026-08-23-content-accuracy-fixes.md)
+
+- Reviewed the FAQ, HPO page and docs for structure, ambiguities and cuts,
+  and audited every link (0 dead of 119).
+- Fixed the accuracy findings per `specs/content-accuracy-fixes.md`: minimum
+  stake, audit list, Hipo Gang → Hipo Club, reward cadence, hardcoded APY,
+  Hipo Club Season-4 model, TVL milestones, Why-TON, testnet claim, typos.
+- Re-pointed the DEX swap links in `Model.ts` and the unstaking tutorial off
+  the pre-rename `hTON` symbol.
+- Mirrored every change in the fa, ru and hi twins and refreshed their hashes.
+
 ## 2026-08-22 — [detailed report](changelog/2026-08-22-multi-language-site.md)
 
 - Added site-wide i18n: locale registry, `/<locale>/` routes, catalogs,

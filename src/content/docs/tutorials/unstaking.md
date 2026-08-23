@@ -2,7 +2,7 @@
 title: 'Unstaking'
 ---
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Unstake Your hGRAM" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Stake GRAM with Hipo | Step-by-Step Staking and Unstaking Guide" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### How to Unstake Your hGRAM
 
@@ -19,13 +19,9 @@ Connect your wallet to the [Hipo Web App](/unstake/) or [Telegram Mini App](http
 
 #### Option 2: Swap via DEXs
 
-If Instant unstaking cannot cover the amount you want, you can swap your hGRAM through **decentralized exchanges** (DEXs) like DeDust or Stonfi for a slightly higher fee. This is an alternative route to immediate GRAM that does not depend on Hipo's own liquidity, though the rate you get is set by the pool rather than by the protocol:
-
-1- [DeDust](https://dedust.io/swap/hTON/TON)
+If Instant unstaking cannot cover the amount you want, you can swap your hGRAM through **decentralized exchanges** (DEXs) such as DeDust, STON.fi and TONCO for a slightly higher fee. This is an alternative route to immediate GRAM that does not depend on Hipo's own liquidity, though the rate comes from the pool rather than the protocol. The [DeFi page](/defi/) links straight to the current pool and swap pages for each venue.
 
 <figure><img src="/docs/images/tutorials-unstaking-2.png" alt=""><figcaption></figcaption></figure>
-
-2- [STON.fi](https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=hTON)
 
 <figure><img src="/docs/images/tutorials-unstaking-3.png" alt=""><figcaption></figcaption></figure>
 

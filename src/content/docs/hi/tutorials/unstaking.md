@@ -2,7 +2,7 @@
 title: 'अनस्टेकिंग'
 ---
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Unstake Your hGRAM" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Stake GRAM with Hipo | Step-by-Step Staking and Unstaking Guide" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ### अपना hGRAM कैसे अनस्टेक करें
 
@@ -19,13 +19,9 @@ title: 'अनस्टेकिंग'
 
 #### विकल्प 2: DEX के ज़रिये स्वैप करें
 
-अगर तुरंत अनस्टेकिंग आपकी इच्छित राशि पूरी नहीं कर सकती, तो आप थोड़े अधिक शुल्क पर DeDust या Stonfi जैसे **विकेंद्रीकृत एक्सचेंजों** (DEX) के ज़रिये अपना hGRAM स्वैप कर सकते हैं। यह तत्काल GRAM पाने का एक वैकल्पिक रास्ता है जो Hipo की अपनी लिक्विडिटी पर निर्भर नहीं करता, हालाँकि यहाँ आपको मिलने वाली दर प्रोटोकॉल नहीं बल्कि पूल तय करता है:
-
-1- [DeDust](https://dedust.io/swap/hTON/TON)
+अगर तुरंत अनस्टेकिंग आपकी इच्छित राशि पूरी नहीं कर सकती, तो आप थोड़े अधिक शुल्क पर DeDust, STON.fi और TONCO जैसे **विकेंद्रीकृत एक्सचेंजों** (DEX) के ज़रिये अपना hGRAM स्वैप कर सकते हैं। यह तत्काल GRAM पाने का एक वैकल्पिक रास्ता है जो Hipo की अपनी लिक्विडिटी पर निर्भर नहीं करता, हालाँकि दर प्रोटोकॉल नहीं बल्कि पूल से आती है। [DeFi पेज](/defi/) हर वेन्यू के मौजूदा पूल और स्वैप पेज से सीधे लिंक करता है।
 
 <figure><img src="/docs/images/tutorials-unstaking-2.png" alt=""><figcaption></figcaption></figure>
-
-2- [STON.fi](https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=hTON)
 
 <figure><img src="/docs/images/tutorials-unstaking-3.png" alt=""><figcaption></figcaption></figure>
 

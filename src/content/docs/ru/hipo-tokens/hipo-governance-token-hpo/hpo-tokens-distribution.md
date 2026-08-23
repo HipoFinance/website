@@ -14,7 +14,7 @@ title: 'Распределение токенов HPO'
 
 ### 1. Сообщество (30 %)
 
-Самая крупная доля отведена сообществу Hipo и распределяется через программы для **стейкеров, держателей NFT и активных участников Hipo Gang**. Этот сегмент призван поддерживать рост в среде, движимой сообществом, вознаграждая участников, которые приносят проекту пользу.\ <sub>Новый мультисиг-кошелёк:</sub> [<sub>EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i</sub>](https://tonviewer.com/EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i)\ <sub>Старый кошелёк:</sub> [<sub>UQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-hZC</sub>](https://tonviewer.com/EQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-kuH)
+Самая крупная доля отведена сообществу Hipo и распределяется через программы для **стейкеров, держателей NFT и участников Hipo Club** (ранее — игроков Hipo Gang). Этот сегмент призван поддерживать рост в среде, движимой сообществом, вознаграждая участников, которые приносят проекту пользу.\ <sub>Новый мультисиг-кошелёк:</sub> [<sub>EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i</sub>](https://tonviewer.com/EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i)\ <sub>Старый кошелёк:</sub> [<sub>UQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-hZC</sub>](https://tonviewer.com/EQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-kuH)
 
 ### 2. Ликвидность (20 %)
 
@@ -26,14 +26,14 @@ title: 'Распределение токенов HPO'
 
 ### 4. Команда (20 %)
 
-Эти токены отложены для нынешних и будущих участников команды и увязывают её мотивацию с долгосрочным успехом Hipo. После TGE действует клифф 12 месяцев, за которым следует линейная разблокировка в течение 24 месяцев, чтобы обеспечить устойчивую приверженность росту протокола.\ <sub>Новый мультисиг-кошелёк:</sub> [<sub>EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU</sub>](https://tonviewer.com/EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU)\ <sub>Старый кошелёк:</sub> [<sub>UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR</sub>](https://tonviewer.com/UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR)
+Эти токены отложены для нынешних и будущих участников команды и увязывают её мотивацию с долгосрочным успехом Hipo. После TGE действует клифф 12 месяцев, за которым следует линейная разблокировка в течение 48 месяцев, чтобы обеспечить устойчивую приверженность росту протокола.\ <sub>Новый мультисиг-кошелёк:</sub> [<sub>EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU</sub>](https://tonviewer.com/EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU)\ <sub>Старый кошелёк:</sub> [<sub>UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR</sub>](https://tonviewer.com/UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR)
 
 :::note
 **Обновление сегмента команды — 27 октября 2025 г.**
 
 Чтобы ещё сильнее укрепить наш подход «сообщество прежде всего», мы обновили **сегмент команды** следующим образом:\
-▪️ Срок разблокировки будет **продлён с 24 до 48 месяцев**.\
-▪️ **90 % токенов**, запланированных к разблокировке в первые 12 месяцев, будут сожжены.
+▪️ Срок разблокировки **был продлён** с 24 до 48 месяцев.\
+▪️ **90 % токенов**, запланированных к разблокировке в первые 12 месяцев, **были сожжены**.
 :::
 
 ### 5. Советники (2 %)
