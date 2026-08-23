@@ -7,6 +7,20 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-22 — [detailed report](changelog/2026-08-22-multi-language-site.md)
+
+- Added site-wide i18n: locale registry, `/<locale>/` routes, catalogs,
+  `prose` collection, Starlight locales, island catalog delivery, Intl
+  formatting, per-script fonts, RTL-safe CSS.
+- Translated Persian, Russian and Hindi to 100 % (catalogs, prose, docs,
+  sidebar) and set them to `indexed` for the crawler-only launch.
+- Added `scripts/check-i18n.mjs` (prebuild gate, hashes, review flags) and
+  `scripts/i18n-selftest.mjs`.
+- Fixed the amount input's thousands-separator parsing and the Telegram
+  locale override's `lang`/`dir`.
+- Added dormant language switchers and a language-suggestion banner, off
+  until a second locale is `public`.
+
 ## 2026-08-19 — [detailed report](changelog/2026-08-19-dune-dashboard-docs.md)
 
 - Added a "Hipo on Dune" docs page describing the Dune dashboard and how it
@@ -109,6 +123,7 @@ here — `git log` remains the complete record.
 - Fixed the landing Hipo Club card's icon and docs link.
 - Wrote `specs/ton-v4-read-endpoint.md` (self-hosted TON v4 read endpoint);
   implementation pending review.
+
 ## 2026-08-11 — [detailed report](changelog/2026-08-11-hton-rate-chart.md)
 
 - Added an hGRAM/GRAM rate history chart to the Stats page from the newly

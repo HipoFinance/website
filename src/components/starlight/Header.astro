@@ -1,14 +1,25 @@
 ---
 // Warm Dark docs header (Docs.dc.html): adds FAQ / Stats / Open app links, which Starlight's
 // config has no built-in slot for. Based on @astrojs/starlight's default Header.astro (~0.40),
-// with SocialIcons/ThemeSelect/LanguageSelect dropped from the desktop bar to match the design —
-// they remain reachable from the mobile menu footer (MobileMenuFooter.astro, untouched).
-// Wired in astro.config.mjs via `starlight({ components: { Header: ... } })`.
+// with SocialIcons/ThemeSelect dropped from the desktop bar to match the design — they remain
+// reachable from the mobile menu footer (MobileMenuFooter.astro, untouched). LanguageSelect is our
+// own override (LanguageSelect.astro), which renders nothing until a non-English locale is `public`,
+// so including it here keeps the English markup unchanged until then. The three links are localised
+// for the page's locale and their labels come from the Starlight i18n collection
+// (src/content/i18n/<lang>.json, `hipo.header.*`). Wired in astro.config.mjs via
+// `starlight({ components: { Header: ... } })`.
 import config from 'virtual:starlight/user-config'
+import LanguageSelect from 'virtual:starlight/components/LanguageSelect'
 import Search from 'virtual:starlight/components/Search'
 import SiteTitle from 'virtual:starlight/components/SiteTitle'
+import { isLocaleKey, publicLocales } from '../../i18n/registry.mjs'
+import { localizedPath } from '../../i18n/locale'
 
 const shouldRenderSearch = config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro'
+// Starlight reports `undefined` for the root locale; our locale keys double as Starlight's locale keys.
+const routeLocale = Astro.locals.starlightRoute.locale
+const locale = routeLocale !== undefined && isLocaleKey(routeLocale) ? routeLocale : 'en'
+const showLanguageSelect = publicLocales().length >= 2
 ---
 
 <div class='header'>
@@ -19,9 +30,10 @@ const shouldRenderSearch = config.pagefind || config.components.Search !== '@ast
     {shouldRenderSearch && <Search />}
   </div>
   <nav class='sl-hidden md:sl-flex hipo-links print:hidden' aria-label='Site'>
-    <a href='/faq/'>FAQ</a>
-    <a href='/stats/'>Stats</a>
-    <a href='/stake/' class='cta'>Open app</a>
+    <a href={localizedPath('/faq/', locale)}>{Astro.locals.t('hipo.header.faq')}</a>
+    <a href={localizedPath('/stats/', locale)}>{Astro.locals.t('hipo.header.stats')}</a>
+    <a href={localizedPath('/stake/', locale)} class='cta'>{Astro.locals.t('hipo.header.openApp')}</a>
+    {showLanguageSelect && <LanguageSelect />}
   </nav>
 </div>
 

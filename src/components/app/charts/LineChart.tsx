@@ -2,7 +2,7 @@ import { RefreshCw } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { KeyboardEvent, PointerEvent, TouchEvent } from 'react'
 import type { ChartPoint } from './prometheus'
-import { computeDelta } from './delta'
+import { computeDelta, type DeltaFormat, type DeltaUnit } from './delta'
 
 // Presentational only — no Model import, so it stays swappable for a real chart library later
 // (see specs/app-stats-charts.md) without dragging the dApp store along.
@@ -28,8 +28,11 @@ export interface LineChartProps {
   areaFill?: string
   valueFormat: (v: number) => string
   axisFormat?: (v: number) => string
-  deltaUnit: 'pp' | '%'
+  deltaUnit: DeltaUnit
+  deltaFormat: DeltaFormat
   rangeLabel: string
+  // Catalog lookup (model.t) for the chart's own labels; passed in so this file stays Model-free.
+  t: (key: string, params?: Record<string, string | number>) => string
   xTickFormat: (t: number) => string
   tooltipTimeFormat: (t: number) => string
   hoveredTs: number | null
@@ -191,7 +194,9 @@ const LineChart = ({
   valueFormat,
   axisFormat,
   deltaUnit,
+  deltaFormat,
   rangeLabel,
+  t,
   xTickFormat,
   tooltipTimeFormat,
   hoveredTs,
@@ -257,18 +262,22 @@ const LineChart = ({
 
   const ariaLabel = useMemo(() => {
     if (finitePrimary.length === 0) {
-      return `${title}, ${rangeLabel}, no data`
+      return t('app.chart.ariaNoData', { title, range: rangeLabel })
     }
     const values = finitePrimary.map((p) => p.v)
     const min = Math.min(...values)
     const max = Math.max(...values)
     const first = finitePrimary[0]
     const last = finitePrimary[finitePrimary.length - 1]
-    return (
-      `${title}, ${rangeLabel}, first ${valueFormat(first.v)}, last ${valueFormat(last.v)}, ` +
-      `min ${valueFormat(min)}, max ${valueFormat(max)}`
-    )
-  }, [finitePrimary, title, rangeLabel, valueFormat])
+    return t('app.chart.ariaSummary', {
+      title,
+      range: rangeLabel,
+      first: valueFormat(first.v),
+      last: valueFormat(last.v),
+      min: valueFormat(min),
+      max: valueFormat(max),
+    })
+  }, [finitePrimary, title, rangeLabel, valueFormat, t])
 
   const handleHoverAt = (clientX: number, rect: DOMRect) => {
     const px = clientX - rect.left
@@ -389,24 +398,27 @@ const LineChart = ({
   const showChart = status === 'done' || status === 'refreshing'
 
   return (
-    <div className='border-border bg-surface text-text rounded-[20px] border p-6'>
+    // physical on purpose: chart is dir="ltr" — SVG coordinates, the padding object, and the
+    // pointer-derived tooltip position below stay physical regardless of page direction.
+    <div dir='ltr' className='border-border bg-surface text-text rounded-[20px] border p-6'>
       <div className='flex flex-row items-baseline'>
         <p className='font-fredoka text-[18px] font-semibold'>{title}</p>
-        {status === 'refreshing' && <RefreshCw className='text-text-faint ml-2 size-4 animate-spin' />}
+        {status === 'refreshing' && <RefreshCw className='text-text-faint ms-2 size-4 animate-spin' />}
         {series.length === 1 &&
           (() => {
             const delta = computeDelta(series[0].points, deltaUnit)
             if (delta == null) {
-              return <p className='text-text-faint ml-auto text-[13px]'>{rangeLabel}</p>
+              return <p className='text-text-faint ms-auto text-[13px]'>{rangeLabel}</p>
             }
             return (
-              <p className='ml-auto text-[13px]'>
+              <p className='ms-auto text-[13px]'>
                 <span
                   className={
-                    delta.direction === 'up' ? 'text-positive' : delta.direction === 'down' ? 'text-accent' : ''
+                    'num ' +
+                    (delta.direction === 'up' ? 'text-positive' : delta.direction === 'down' ? 'text-accent' : '')
                   }
                 >
-                  {delta.text}
+                  {deltaFormat(delta)}
                 </span>{' '}
                 <span className='text-text-faint font-normal'>· {rangeLabel}</span>
               </p>
@@ -423,7 +435,9 @@ const LineChart = ({
                 <span className='inline-block h-0.5 w-3' style={{ backgroundColor: s.color }} />
                 <span>{s.name}</span>
                 {delta != null && (
-                  <span className={delta.direction === 'up' ? 'text-positive' : 'text-accent'}>{delta.text}</span>
+                  <span className={'num ' + (delta.direction === 'up' ? 'text-positive' : 'text-accent')}>
+                    {deltaFormat(delta)}
+                  </span>
                 )}
               </div>
             )
@@ -436,19 +450,19 @@ const LineChart = ({
 
         {status === 'error' && (
           <div className='text-text-muted flex h-full flex-col items-center justify-center gap-2 text-sm'>
-            <p>Couldn&apos;t load history</p>
+            <p>{t('app.chart.loadError')}</p>
             <button
               type='button'
               className='border-border hover:text-accent cursor-pointer rounded-lg border px-3 py-1'
               onClick={onRetry}
             >
-              Retry
+              {t('app.chart.retry')}
             </button>
           </div>
         )}
 
         {status === 'empty' && (
-          <div className='text-text-muted flex h-full items-center justify-center text-sm'>No data for this range</div>
+          <div className='text-text-muted flex h-full items-center justify-center text-sm'>{t('app.chart.noData')}</div>
         )}
 
         {showChart && size.width > 0 && (
@@ -607,12 +621,13 @@ const LineChart = ({
           <div
             className='border-border bg-surface-deep text-text pointer-events-none absolute z-10 rounded-xl border px-3 py-2 text-xs shadow-xl'
             style={{
+              // physical on purpose: chart is dir="ltr", and this offset is derived from pointer x
               left: clamp(pointerPos?.x ?? hairlineX, 72, size.width - 72),
               top: pointerKind === 'touch' ? clamp((pointerPos?.y ?? 0) - 48, 0, size.height - 24) : padding.top,
               transform: 'translate(-50%, -100%)',
             }}
           >
-            <p className='mb-1 font-medium'>{tooltipTimeFormat(hoveredTs as number)}</p>
+            <p className='num mb-1 font-medium'>{tooltipTimeFormat(hoveredTs as number)}</p>
             {series.map((s) => {
               const near = nearestPoint(s.points, hoveredTs as number)
               if (near == null || Math.abs(near.t - (hoveredTs as number)) > maxGapSeconds) {
@@ -621,8 +636,8 @@ const LineChart = ({
               return (
                 <div key={s.key} className='flex flex-row items-center gap-1.5 tabular-nums'>
                   <span className='inline-block h-2 w-2 rounded-full' style={{ backgroundColor: s.color }} />
-                  <span className='mr-auto'>{s.name}</span>
-                  <span className='ml-2'>{valueFormat(near.v)}</span>
+                  <span className='me-auto'>{s.name}</span>
+                  <span className='num ms-2'>{valueFormat(near.v)}</span>
                 </div>
               )
             })}
@@ -631,14 +646,14 @@ const LineChart = ({
       </div>
 
       <details className='text-text-muted mt-2 text-xs'>
-        <summary className='text-text-faint hover:text-accent cursor-pointer'>Show table</summary>
+        <summary className='text-text-faint hover:text-accent cursor-pointer'>{t('app.chart.showTable')}</summary>
         <div className='mt-2 max-h-64 overflow-auto'>
-          <table className='w-full text-left tabular-nums'>
+          <table className='w-full text-start tabular-nums'>
             <thead>
               <tr>
-                <th className='pr-4'>Time</th>
+                <th className='pe-4'>{t('app.chart.time')}</th>
                 {series.map((s) => (
-                  <th key={s.key} className='pr-4'>
+                  <th key={s.key} className='pe-4'>
                     {s.name}
                   </th>
                 ))}
@@ -647,9 +662,9 @@ const LineChart = ({
             <tbody>
               {tableRows.map((row) => (
                 <tr key={row.t}>
-                  <td className='pr-4'>{tooltipTimeFormat(row.t)}</td>
+                  <td className='num pe-4'>{tooltipTimeFormat(row.t)}</td>
                   {row.values.map((v, i) => (
-                    <td key={series[i].key} className='pr-4'>
+                    <td key={series[i].key} className='num pe-4'>
                       {v != null ? valueFormat(v) : '—'}
                     </td>
                   ))}

@@ -6,22 +6,23 @@ interface Props {
 }
 
 const AmountAlert = observer(({ model }: Props) => {
+  const t = model.t
   let heading
   let message
   if (model.amountAlert === 'stake-max') {
-    heading = 'Insufficient funds'
-    message = 'Not enough GRAM in wallet.'
+    heading = t('app.amountAlert.insufficientFunds')
+    message = t('app.amountAlert.notEnoughGram')
   } else if (model.amountAlert === 'unstake-max') {
-    heading = 'Insufficient funds'
-    message = 'Not enough hGRAM in wallet.'
+    heading = t('app.amountAlert.insufficientFunds')
+    message = t('app.amountAlert.notEnoughHgram')
   } else if (model.amountAlert === 'instant-unstake-max') {
-    heading = 'Insufficient liquidity'
-    message = 'Not enough liquidity available for instant unstake.'
+    heading = t('app.amountAlert.insufficientLiquidity')
+    message = t('app.amountAlert.notEnoughLiquidity')
   }
 
   if (model.amountAlert !== 'none') {
     return (
-      <div className='font-body text-text fixed top-0 left-0 z-1000 flex h-full w-full overflow-y-auto bg-black/60 p-8'>
+      <div className='font-body text-text fixed start-0 top-0 z-1000 flex h-full w-full overflow-y-auto bg-black/60 p-8'>
         <div className='border-border bg-surface m-auto w-96 max-w-sm rounded-[20px] border p-8 shadow-2xl'>
           <img src='/images/app/warning-dark.svg' alt='' className='m-4 mx-auto h-16' />
           <h1 className='font-fredoka text-center text-xl font-semibold'>{heading}</h1>
@@ -43,7 +44,7 @@ const AmountAlert = observer(({ model }: Props) => {
             }}
             autoFocus
           >
-            Okay
+            {t('app.common.okay')}
           </button>
         </div>
       </div>

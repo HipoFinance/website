@@ -1,0 +1,20 @@
+---
+// The whole `/hpo/` document, shared by the English and the `[locale]` route (spec §B).
+import Layout from '../../layouts/HpoLayout.astro'
+import Hpo from '../Hpo.astro'
+import Header from '../SiteHeader.astro'
+import Footer from '../SiteFooter.astro'
+import Banner from '../Banner.astro'
+import { localeOf } from '../../i18n/locale.ts'
+import { getT } from '../../i18n/t.ts'
+
+const { t } = getT(localeOf(Astro), ['seo'])
+---
+
+<Layout title={t('seo.hpo.title')} description={t('seo.hpo.description')}>
+  <Banner />
+
+  <Header active='hpo' />
+  <Hpo />
+  <Footer />
+</Layout>

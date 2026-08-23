@@ -3,12 +3,15 @@
 // in the URL hash (#/page=<stake|reward|stats|defi>/tab=<stake|unstake>). It now lives at
 // path-based pages (/stake/, /unstake/, /rewards/, /stats/, /defi/); this stub parses the old
 // hash format and redirects. Deliberately not built on AppLayout/LandingLayout: it renders once,
-// client-side only, and must stay tiny and noindex.
+// client-side only, and must stay tiny and noindex. English-only by design (spec §J): it maps old
+// links to root-locale URLs, so its lang comes from the default locale, never from a route param.
 import '../../styles/global.css'
+import { DEFAULT_LOCALE } from '../../i18n/registry.mjs'
+import { dirOf, langOf } from '../../i18n/locale.ts'
 ---
 
 <!doctype html>
-<html lang='en'>
+<html lang={langOf(DEFAULT_LOCALE)} dir={dirOf(DEFAULT_LOCALE)}>
   <head>
     <meta charset='UTF-8' />
     <title>Redirecting… | Hipo</title>

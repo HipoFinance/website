@@ -6,12 +6,22 @@ import SEO from '../components/SEO.astro'
 import AppIsland from '../components/app/AppIsland.tsx'
 import SiteFooter from '../components/SiteFooter.astro'
 import Banner from '../components/Banner.astro'
+import LanguageSwitcher from '../components/LanguageSwitcher.astro'
+import { dirOf, langOf, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
+import { getAppCatalog, getT } from '../i18n/t.ts'
 
 interface Props {
   title: string
   description: string
   jsonLd?: Record<string, any>
 }
+
+const locale = localeOf(Astro)
+const { t } = getT(locale, ['site'])
+
+// The same page's canonical URL in this locale (the request path re-prefixed through localizedPath, like
+// the landing/HPO layouts do), so the JSON-LD never carries a dev-server origin.
+const { path: pagePath } = stripLocale(Astro.url.pathname)
 
 const {
   title,
@@ -20,8 +30,9 @@ const {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: title,
-    url: Astro.url.href,
+    url: new URL(localizedPath(pagePath, locale), Astro.site).href,
     description,
+    inLanguage: langOf(locale),
     publisher: {
       '@type': 'Organization',
       name: 'Hipo',
@@ -32,10 +43,27 @@ const {
     },
   },
 } = Astro.props
+
+// i18n (spec §D): the island reads its catalog from the #i18n-app JSON tag below; English is bundled in
+// the island, so the tag is emitted for other locales only. `<` is escaped so no catalog value can close
+// the script element.
+const appCatalogJson = locale === 'en' ? undefined : JSON.stringify(getAppCatalog(locale)).replace(/</g, '\\u003c')
+
+// Footer nav under the shell copy. /docs/ goes through localizedPath like every other internal link (the
+// SiteFooter's Documentation link already does); docs get their per-locale routes in phase 4, and until
+// then no non-English locale is public, so nobody can reach a missing /<locale>/docs/.
+const footerNav = [
+  { href: '/stake/', label: t('site.app.nav.stake') },
+  { href: '/unstake/', label: t('site.app.nav.unstake') },
+  { href: '/rewards/', label: t('site.app.nav.rewards') },
+  { href: '/stats/', label: t('site.app.nav.stats') },
+  { href: '/defi/', label: t('site.app.nav.defi') },
+  { href: '/docs/', label: t('site.app.nav.docs') },
+].map(({ href, label }) => ({ href: localizedPath(href, locale), label }))
 ---
 
 <!doctype html>
-<html lang='en' class='scroll-smooth'>
+<html lang={langOf(locale)} dir={dirOf(locale)} class='scroll-smooth'>
   <head>
     <meta charset='UTF-8' />
 
@@ -104,13 +132,19 @@ const {
     <div data-tma-hide><Banner /></div>
 
     <main>
+      {
+        /* The island's catalog for this locale (see Model.syncLocale); absent for English. Lives in the
+           static shell, so a ClientRouter swap between locales hands the persisted island its new
+           catalog with no request. */
+        appCatalogJson && <script type='application/json' id='i18n-app' set:html={appCatalogJson} />
+      }
       <AppIsland client:only='react' transition:persist='app-island' />
       <!-- Removed by App.tsx the moment the island hydrates (and again after every ClientRouter
            swap). On slow connections this is what tells the user an app is coming, instead of the
            bare SEO copy below reading as the whole page. -->
       <div data-app-loading class='flex min-h-[55vh] flex-col items-center justify-center gap-4'>
         <div class='border-border border-t-accent size-10 animate-spin rounded-full border-4'></div>
-        <p class='text-text-muted font-body text-sm'>Loading the Hipo app…</p>
+        <p class='text-text-muted font-body text-sm'>{t('site.app.loading')}</p>
       </div>
     </main>
 
@@ -120,18 +154,22 @@ const {
     <div data-tma-hide><slot /></div>
 
     <nav
-      aria-label='Hipo app pages'
+      aria-label={t('site.app.pagesNav')}
       class='font-body text-text-faint mx-auto w-full max-w-3xl px-4 pb-12 text-[13px] max-lg:pb-28'
       data-tma-hide
     >
       <ul class='flex flex-wrap justify-center gap-x-6 gap-y-2'>
-        <li><a class='hover:text-accent' href='/stake/'>Stake</a></li>
-        <li><a class='hover:text-accent' href='/unstake/'>Unstake</a></li>
-        <li><a class='hover:text-accent' href='/rewards/'>Rewards</a></li>
-        <li><a class='hover:text-accent' href='/stats/'>Stats</a></li>
-        <li><a class='hover:text-accent' href='/defi/'>DeFi</a></li>
-        <li><a class='hover:text-accent' href='/docs/'>Docs</a></li>
+        {
+          footerNav.map(({ href, label }) => (
+            <li>
+              <a class='hover:text-accent' href={href} set:text={label} />
+            </li>
+          ))
+        }
       </ul>
+      <!-- Language dropdown (spec §J): lists public locales only and renders nothing while English is
+           the only one, so this emits no markup today. -->
+      <LanguageSwitcher class='mt-4 flex justify-center' />
     </nav>
 
     <div data-tma-hide><SiteFooter app /></div>

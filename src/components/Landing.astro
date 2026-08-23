@@ -1,3 +1,55 @@
+---
+// Landing page body. Every visible string comes from src/i18n/<locale>/landing.json; the live
+// numbers (#heroApy, #statStaked, ...) are filled by src/scripts/landing-data.js and start as an
+// em dash. Where a sentence wraps a live element or an accent span, the element is built here
+// and interpolated into the catalog sentence via tHtml, so translators can move it freely.
+import { localeOf, localizedPath } from '../i18n/locale.ts'
+import { getT } from '../i18n/t.ts'
+
+const locale = localeOf(Astro)
+const { t, tHtml } = getT(locale, ['landing'])
+
+const audits = [
+  {
+    href: 'https://github.com/HipoFinance/audits?tab=readme-ov-file#2025-04-quantstamp-hipo-audit-report',
+    name: 'Quantstamp',
+    logo: '/images/quantstamp.svg',
+    scope: t('landing.audits.v2'),
+    date: t('landing.audits.quantstampDate'),
+  },
+  {
+    href: 'https://github.com/HipoFinance/audits?tab=readme-ov-file#2024-03-programcrafter-hipo-audit-report',
+    name: 'Ender Ting',
+    initials: 'ET',
+    gradient: 'from-green-900 to-green-500',
+    scope: t('landing.audits.v2'),
+    date: t('landing.audits.enderTingDate'),
+  },
+  {
+    href: 'https://github.com/HipoFinance/audits#2023-10-tontech-hipo-audit-report',
+    name: 'TonTech',
+    logo: '/images/tontech.svg',
+    scope: t('landing.audits.v1'),
+    date: t('landing.audits.tontechDate'),
+  },
+  {
+    href: 'https://github.com/HipoFinance/audits#2023-10-daniil-sedov-hipo-audit-report',
+    name: 'Daniil Sedov',
+    initials: 'DS',
+    gradient: 'from-blue-900 to-blue-500',
+    scope: t('landing.audits.v1'),
+    date: t('landing.audits.sedovDate'),
+  },
+]
+
+const why = [
+  { icon: '/images/graph.png', iconClass: 'size-11 self-start object-contain', key: 'apy' },
+  { icon: '/images/heart-shine.svg', iconClass: 'size-11 self-start', key: 'community' },
+  { icon: '/images/audit-shield.svg', iconClass: 'size-11 self-start', key: 'audited' },
+  { icon: '/images/decentralized.svg', iconClass: 'size-11 self-start', key: 'decentralized' },
+]
+---
+
 <landing>
   <script src='/src/scripts/landing-data.js'></script>
 
@@ -10,29 +62,37 @@
         class='border-border bg-surface text-text-muted flex w-fit items-center gap-2 rounded-full border px-3.5 py-[7px] text-sm font-medium'
       >
         <span class='bg-positive inline-block size-2 rounded-full'></span>
-        Yearly rewards <strong id='heroApy' class='text-text'>—</strong> · Staking fee <span id='heroFee'>—</span>
+        <Fragment
+          set:html={tHtml('landing.hero.pill', {
+            apy: '<strong id="heroApy" class="text-text">—</strong>',
+            fee: '<span id="heroFee">—</span>',
+          })}
+        />
       </div>
 
       <h1
         class='font-fredoka text-text text-[36px] leading-[1.1] font-semibold tracking-[-0.5px] sm:text-[48px] lg:text-[60px] lg:leading-[1.08]'
-      >
-        The #1 most profitable <span class='text-accent'>GRAM staking</span> on TON
-      </h1>
+        set:html={tHtml('landing.hero.title', {
+          accent: `<span class="text-accent">${t('landing.hero.titleAccent')}</span>`,
+        })}
+      />
 
-      <p class='text-text-muted max-w-[460px] text-[17px] leading-[1.6] lg:text-[19px]'>
-        Join <span id='heroHolders'>thousands of</span> GRAM holders earning passive income with Hipo — liquid, audited, and
-        community-owned.
-      </p>
+      <p
+        class='text-text-muted max-w-[460px] text-[17px] leading-[1.6] lg:text-[19px]'
+        set:html={tHtml('landing.hero.lead', {
+          holders: `<span id="heroHolders">${t('landing.hero.holdersPlaceholder')}</span>`,
+        })}
+      />
 
       <div class='flex flex-wrap items-center gap-3.5'>
         <a
-          href='/stake/'
+          href={localizedPath('/stake/', locale)}
           class='bg-accent text-on-accent hover:bg-accent-hover rounded-full px-8 py-[15px] text-[17px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
         >
-          Stake now
+          {t('landing.hero.stakeNow')}
         </a>
         <a href='#how-it-works' class='text-text hover:text-accent px-5 py-[15px] text-[17px] font-medium'>
-          How it works →
+          {t('landing.hero.howItWorks')}
         </a>
       </div>
     </div>
@@ -45,7 +105,7 @@
       </div>
       <img
         src='/images/hipo-bank.webp'
-        alt='Hipo piggy bank'
+        alt={t('landing.hero.imageAlt')}
         class='relative w-[420px] max-w-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.45)]'
       />
     </div>
@@ -55,56 +115,53 @@
   <section class='mx-auto grid w-full max-w-[1280px] grid-cols-2 gap-4 px-6 pt-2 pb-12 md:px-12 lg:grid-cols-4'>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
       <div id='statStakedUsd' class='font-fredoka text-text text-[30px] font-semibold'>—</div>
-      <div class='text-text-muted text-sm'>staked, worth <span id='statStaked'>—</span> GRAM</div>
+      <div
+        class='text-text-muted text-sm'
+        set:html={tHtml('landing.stats.stakedCaption', { amount: '<span id="statStaked">—</span>' })}
+      />
     </div>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
       <div id='statApy' class='font-fredoka text-accent text-[30px] font-semibold'>—</div>
-      <div class='text-text-muted text-sm'>Yearly rewards, last round</div>
+      <div class='text-text-muted text-sm'>{t('landing.stats.apyCaption')}</div>
     </div>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
       <div id='statHolders' class='font-fredoka text-text text-[30px] font-semibold'>—</div>
-      <div class='text-text-muted text-sm'>GRAM holders staking</div>
+      <div class='text-text-muted text-sm'>{t('landing.stats.holdersCaption')}</div>
     </div>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
       <div id='statFee' class='font-fredoka text-text text-[30px] font-semibold'>—</div>
-      <div class='text-text-muted text-sm'>Staking fee</div>
+      <div class='text-text-muted text-sm'>{t('landing.stats.feeCaption')}</div>
     </div>
   </section>
 
   <!-- How Hipo works -->
   <section id='how-it-works' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
-    <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>How Hipo works</h2>
-    <p class='text-text-muted mb-7 text-lg'>Stake any amount of GRAM and earn more than just staking rewards.</p>
+    <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>{t('landing.how.title')}</h2>
+    <p class='text-text-muted mb-7 text-lg'>{t('landing.how.subtitle')}</p>
 
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
       <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
         <img src='/images/gram-3d.svg' alt='GRAM' class='size-[52px]' />
-        <div class='font-fredoka text-text text-xl font-semibold'>1 · Stake GRAM</div>
-        <div class='text-text-muted text-[15px] leading-[1.55]'>
-          Deposit your GRAM into Hipo to earn the highest staking rewards in the market.
-        </div>
+        <div class='font-fredoka text-text text-xl font-semibold'>{t('landing.how.step1.title')}</div>
+        <div class='text-text-muted text-[15px] leading-[1.55]'>{t('landing.how.step1.body')}</div>
       </div>
       <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
         <img src='/images/hgram-3d.svg' alt='hGRAM' class='size-[52px]' />
-        <div class='font-fredoka text-text text-xl font-semibold'>2 · Get liquid hGRAM</div>
-        <div class='text-text-muted text-[15px] leading-[1.55]'>
-          Get hGRAM representing your staked GRAM. Its value grows as rewards accumulate, and it works across TON DeFi.
-        </div>
+        <div class='font-fredoka text-text text-xl font-semibold'>{t('landing.how.step2.title')}</div>
+        <div class='text-text-muted text-[15px] leading-[1.55]'>{t('landing.how.step2.body')}</div>
       </div>
       <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
         <img src='/hpo.png' alt='HPO' class='size-[52px]' />
-        <div class='font-fredoka text-text text-xl font-semibold'>3 · Earn free HPO</div>
+        <div class='font-fredoka text-text text-xl font-semibold'>{t('landing.how.step3.title')}</div>
         <div class='text-text-muted text-[15px] leading-[1.55]'>
-          Stakers also earn HPO through Hipo Club — both come free with staking, nothing extra to pay.
-          <a href='#hipo-club' class='text-accent hover:text-accent-hover'>Meet Hipo Club →</a>
+          {t('landing.how.step3.body')}
+          <a href='#hipo-club' class='text-accent hover:text-accent-hover'>{t('landing.how.step3.link')}</a>
         </div>
       </div>
       <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
-        <img src='/images/gram.svg' alt='Unstake' class='size-[52px]' />
-        <div class='font-fredoka text-text text-xl font-semibold'>4 · Unstake anytime</div>
-        <div class='text-text-muted text-[15px] leading-[1.55]'>
-          Return your hGRAM whenever you want. You'll receive GRAM plus your accumulated staking rewards.
-        </div>
+        <img src='/images/gram.svg' alt={t('landing.how.step4.imageAlt')} class='size-[52px]' />
+        <div class='font-fredoka text-text text-xl font-semibold'>{t('landing.how.step4.title')}</div>
+        <div class='text-text-muted text-[15px] leading-[1.55]'>{t('landing.how.step4.body')}</div>
       </div>
     </div>
   </section>
@@ -112,86 +169,46 @@
   <!-- Security audits -->
   <section id='audits' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
     <div class='flex flex-wrap items-baseline justify-between gap-2'>
-      <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>Hipo security audits</h2>
+      <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>{t('landing.audits.title')}</h2>
       <a
         href='https://github.com/HipoFinance/audits'
         target='_blank'
         rel='noopener noreferrer'
         class='text-accent hover:text-accent-hover text-[15px] font-medium'
       >
-        All reports →
+        {t('landing.audits.allReports')}
       </a>
     </div>
-    <p class='text-text-muted mb-7 text-lg'>One of the most rigorously tested smart contracts in the GRAM ecosystem.</p>
+    <p class='text-text-muted mb-7 text-lg'>{t('landing.audits.subtitle')}</p>
 
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-      <a
-        href='https://github.com/HipoFinance/audits?tab=readme-ov-file#2025-04-quantstamp-hipo-audit-report'
-        target='_blank'
-        rel='noopener noreferrer'
-        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
-      >
-        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
-          <span class='bg-text flex size-[26px] items-center justify-center rounded-full'>
-            <img src='/images/quantstamp.svg' alt='' class='h-4' />
-          </span>
-          Quantstamp
-        </span>
-        <span class='text-text-muted text-[15px]'>Hipo v2 smart contract audit</span>
-        <span class='text-text-faint text-[13px]'>Apr 2025</span>
-      </a>
-
-      <a
-        href='https://github.com/HipoFinance/audits?tab=readme-ov-file#2024-03-programcrafter-hipo-audit-report'
-        target='_blank'
-        rel='noopener noreferrer'
-        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
-      >
-        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
-          <span
-            class='flex size-[26px] items-center justify-center rounded-full bg-gradient-to-t from-green-900 to-green-500 text-[11px] font-light'
+      {
+        audits.map((audit) => (
+          <a
+            href={audit.href}
+            target='_blank'
+            rel='noopener noreferrer'
+            class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
           >
-            ET
-          </span>
-          Ender Ting
-        </span>
-        <span class='text-text-muted text-[15px]'>Hipo v2 smart contract audit</span>
-        <span class='text-text-faint text-[13px]'>March 2024</span>
-      </a>
-
-      <a
-        href='https://github.com/HipoFinance/audits#2023-10-tontech-hipo-audit-report'
-        target='_blank'
-        rel='noopener noreferrer'
-        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
-      >
-        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
-          <span class='bg-text flex size-[26px] items-center justify-center rounded-full'>
-            <img src='/images/tontech.svg' alt='' class='h-4' />
-          </span>
-          TonTech
-        </span>
-        <span class='text-text-muted text-[15px]'>Hipo v1 smart contract audit</span>
-        <span class='text-text-faint text-[13px]'>Oct 2023</span>
-      </a>
-
-      <a
-        href='https://github.com/HipoFinance/audits#2023-10-daniil-sedov-hipo-audit-report'
-        target='_blank'
-        rel='noopener noreferrer'
-        class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
-      >
-        <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
-          <span
-            class='flex size-[26px] items-center justify-center rounded-full bg-gradient-to-t from-blue-900 to-blue-500 text-[11px] font-light'
-          >
-            DS
-          </span>
-          Daniil Sedov
-        </span>
-        <span class='text-text-muted text-[15px]'>Hipo v1 smart contract audit</span>
-        <span class='text-text-faint text-[13px]'>Oct 2023</span>
-      </a>
+            <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
+              {audit.logo ? (
+                <span class='bg-text flex size-[26px] items-center justify-center rounded-full'>
+                  <img src={audit.logo} alt='' class='h-4' />
+                </span>
+              ) : (
+                <span
+                  class={`flex size-[26px] items-center justify-center rounded-full bg-gradient-to-t ${audit.gradient} text-[11px] font-light`}
+                >
+                  {audit.initials}
+                </span>
+              )}
+              {audit.name}
+            </span>
+            <span class='text-text-muted text-[15px]'>{audit.scope}</span>
+            <span class='text-text-faint text-[13px]'>{audit.date}</span>
+          </a>
+        ))
+      }
     </div>
   </section>
 
@@ -201,12 +218,12 @@
       class='border-border flex flex-col items-center justify-between gap-10 rounded-[28px] border p-8 lg:flex-row lg:p-12'
       style='background: linear-gradient(240deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
     >
-      <div class='flex max-w-[560px] flex-col items-center gap-2.5 text-center lg:items-start lg:text-left'>
+      <div class='flex max-w-[560px] flex-col items-center gap-2.5 text-center lg:items-start lg:text-start'>
         <img src='/images/heart-shine.svg' alt='' class='size-11' />
-        <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>Hipo Community</h2>
+        <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>{t('landing.community.title')}</h2>
         <p class='text-text-muted text-[17px] leading-[1.6]'>
-          <strong class='text-text'>Questions? We're here to help.</strong> Connect with the Hipo team and community members
-          on Telegram. Ask questions, get help, share ideas, or simply learn more about Hipo and GRAM staking.
+          <strong class='text-text'>{t('landing.community.lead')}</strong>
+          {t('landing.community.body')}
         </p>
       </div>
       <a
@@ -215,7 +232,7 @@
         rel='noopener noreferrer'
         class='bg-accent text-on-accent hover:bg-accent-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold'
       >
-        Join Hipo Community
+        {t('landing.community.cta')}
       </a>
     </div>
   </section>
@@ -226,13 +243,14 @@
       class='border-border flex flex-col items-center justify-between gap-10 rounded-[28px] border p-8 lg:flex-row lg:p-12'
       style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
     >
-      <div class='flex max-w-[560px] flex-col items-center gap-2.5 text-center lg:items-start lg:text-left'>
+      <div class='flex max-w-[560px] flex-col items-center gap-2.5 text-center lg:items-start lg:text-start'>
         <img src='/images/star-shine.svg' alt='' class='size-11' />
-        <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>Hipo Club</h2>
+        <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>{t('landing.club.title')}</h2>
         <p class='text-text-muted text-[17px] leading-[1.6]'>
-          Community of Hipo believers. Earn HPO by staking in Hipo, and become part of the Hipo community of HPO
-          holders. <a href='/docs/giveaways-and-prizes/hipo-club/' class='text-accent hover:text-accent-hover'
-            >Learn more</a
+          {t('landing.club.body')}
+          <a
+            href={localizedPath('/docs/giveaways-and-prizes/hipo-club/', locale)}
+            class='text-accent hover:text-accent-hover'>{t('landing.club.learnMore')}</a
           >
         </p>
       </div>
@@ -242,7 +260,7 @@
         rel='noopener noreferrer'
         class='bg-accent text-on-accent hover:bg-accent-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold'
       >
-        Join Hipo Club
+        {t('landing.club.cta')}
       </a>
     </div>
   </section>
@@ -253,25 +271,21 @@
       class='border-border bg-surface grid grid-cols-1 items-center gap-10 rounded-[28px] border p-8 lg:grid-cols-2 lg:p-12'
     >
       <div class='flex flex-col items-start gap-4'>
-        <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>
-          HPO — decision-making & profit-sharing token
-        </h2>
-        <p class='text-text-muted text-[17px] leading-[1.6]'>
-          Become an HPO holder for revenue-sharing and decision-making in Hipo.
-        </p>
+        <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>{t('landing.hpo.title')}</h2>
+        <p class='text-text-muted text-[17px] leading-[1.6]'>{t('landing.hpo.body')}</p>
 
         <div class='flex flex-wrap gap-7 py-1.5'>
           <div>
             <div id='hpoMarketCap' class='font-fredoka text-text text-2xl font-semibold'>—</div>
-            <div class='text-text-muted text-[13px]'>Market cap</div>
+            <div class='text-text-muted text-[13px]'>{t('landing.hpo.marketCap')}</div>
           </div>
           <div>
             <div id='hpoVolume' class='font-fredoka text-text text-2xl font-semibold'>—</div>
-            <div class='text-text-muted text-[13px]'>Volume, 24h</div>
+            <div class='text-text-muted text-[13px]'>{t('landing.hpo.volume')}</div>
           </div>
           <div>
             <div id='hpoHolders' class='font-fredoka text-text text-2xl font-semibold'>—</div>
-            <div class='text-text-muted text-[13px]'>Holders</div>
+            <div class='text-text-muted text-[13px]'>{t('landing.hpo.holders')}</div>
           </div>
         </div>
 
@@ -282,46 +296,39 @@
             rel='noopener noreferrer'
             class='bg-accent text-on-accent hover:bg-accent-hover rounded-full px-7 py-[13px] text-base font-semibold'
           >
-            Buy HPO
+            {t('landing.hpo.buy')}
           </a>
-          <a href='/hpo/' class='text-accent hover:text-accent-hover text-base font-medium'>Learn more →</a>
+          <a href={localizedPath('/hpo/', locale)} class='text-accent hover:text-accent-hover text-base font-medium'>
+            {t('landing.hpo.learnMore')}
+          </a>
         </div>
       </div>
 
       <div class='flex justify-center'>
-        <img src='/hpo.png' alt='HPO token' class='w-[220px] drop-shadow-[0_16px_32px_rgba(0,0,0,0.4)]' />
+        <img
+          src='/hpo.png'
+          alt={t('landing.hpo.imageAlt')}
+          class='w-[220px] drop-shadow-[0_16px_32px_rgba(0,0,0,0.4)]'
+        />
       </div>
     </div>
   </section>
 
   <!-- Why Hipo -->
   <section id='why-hipo' class='mx-auto w-full max-w-[1280px] px-6 pt-12 pb-18 md:px-12'>
-    <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>Why Hipo?</h2>
-    <p class='text-text-muted mb-7 text-lg'>Building the future of GRAM staking, together.</p>
+    <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>{t('landing.why.title')}</h2>
+    <p class='text-text-muted mb-7 text-lg'>{t('landing.why.subtitle')}</p>
 
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
-        <img src='/images/graph.png' alt='' class='size-11 self-start object-contain' />
-        <div class='font-fredoka text-text text-[19px] font-semibold'>Highest APY</div>
-        <div class='text-text-muted text-[15px] leading-[1.55]'>Earn the most competitive staking rewards on GRAM.</div>
-      </div>
-      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
-        <img src='/images/heart-shine.svg' alt='' class='size-11 self-start' />
-        <div class='font-fredoka text-text text-[19px] font-semibold'>Community-driven</div>
-        <div class='text-text-muted text-[15px] leading-[1.55]'>Hipo is built with and for the community.</div>
-      </div>
-      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
-        <img src='/images/audit-shield.svg' alt='' class='size-11 self-start' />
-        <div class='font-fredoka text-text text-[19px] font-semibold'>Open-source & audited</div>
-        <div class='text-text-muted text-[15px] leading-[1.55]'>
-          One of the most rigorously tested smart contracts on TON.
-        </div>
-      </div>
-      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
-        <img src='/images/decentralized.svg' alt='' class='size-11 self-start' />
-        <div class='font-fredoka text-text text-[19px] font-semibold'>Truly decentralized</div>
-        <div class='text-text-muted text-[15px] leading-[1.55]'>Fully DeFi-native and permissionless by design.</div>
-      </div>
+      {
+        why.map(({ icon, iconClass, key }) => (
+          <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
+            <img src={icon} alt='' class={iconClass} />
+            <div class='font-fredoka text-text text-[19px] font-semibold'>{t(`landing.why.${key}.title`)}</div>
+            <div class='text-text-muted text-[15px] leading-[1.55]'>{t(`landing.why.${key}.body`)}</div>
+          </div>
+        ))
+      }
     </div>
   </section>
 </landing>

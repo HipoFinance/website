@@ -4,8 +4,10 @@ import {
   THEME,
   CHAIN,
   WalletNotConnectedError,
+  type Locales as TonConnectLanguage,
   type SendTransactionRequest,
   type SendTransactionResponse,
+  type TonConnectUiOptions,
 } from '@tonconnect/ui'
 import { action, autorun, computed, makeObservable, observable, runInAction } from 'mobx'
 import { Address, Dictionary, type OpenedContract, TonClient4, beginCell, fromNano, toNano } from '@ton/ton'
@@ -26,7 +28,14 @@ import {
   createUnstakeMessage,
 } from '@hipo-finance/sdk'
 import { OldTreasury } from './OldTreasury'
-import { detectTmaMode, initTelegramChrome, tmaClass, type TmaMode } from './tma/telegram'
+import { detectTmaMode, initTelegramChrome, telegramLanguageCode, tmaClass, type TmaMode } from './tma/telegram'
+import { DEFAULT_LOCALE, LOCALES, isReleased } from '../../i18n/registry.mjs'
+import { dirOf, langOf, localizedPath, matchLocale, stripLocale, type Locale } from '../../i18n/locale.ts'
+import { makeT, type Catalog, type Params, type Translator } from '../../i18n/make-t.ts'
+import * as fmt from '../../i18n/format.ts'
+// The English app catalog, bundled as the compile-time fallback (spec §D); other locales arrive through
+// the #i18n-app JSON tag that AppLayout inlines into the static shell.
+import enApp from '../../i18n/en/app.json'
 
 type ActivePage = 'stake' | 'reward' | 'stats' | 'defi'
 
@@ -180,8 +189,10 @@ function normalizePath(pathname: string): string {
   return pathname.replace(/\/+$/, '') + '/'
 }
 
+// Routes are matched with the locale prefix stripped (`/fa/stake/` → `/stake/`); navigateToPath adds
+// the current locale back (spec §D).
 function routeForPathname(pathname: string): Route | undefined {
-  const path = normalizePath(pathname)
+  const path = normalizePath(stripLocale(pathname).path)
   return routes.find((route) => route.path === path)
 }
 
@@ -202,6 +213,10 @@ function routeForState(activePage: ActivePage, activeTab: ActiveTab): Route {
 // document.body, which the ClientRouter replaces wholesale on every navigation, taking the
 // wallet and transaction modals with it.
 const tonConnectWidgetRootId = 'ton-connect-widget-root'
+
+// Marks <html> while the Telegram locale override rewrites its lang/dir (see Model.syncLocale and
+// keepRuntimeStyles below).
+const localeOverrideAttribute = 'data-locale-override'
 
 // Same problem one level up: TonConnect injects its stylesheet into <head> at runtime (goober),
 // and the ClientRouter drops every head element the incoming document does not also carry.
@@ -244,6 +259,20 @@ function keepRuntimeStyles(event: Event) {
     newDocument.documentElement.classList.add(tmaClass)
   }
 
+  // And for the Telegram locale override (Model.syncLocale): while it is active the live <html lang dir>
+  // differ from what the (English) static page declares, and the swap would reset them to the incoming
+  // document's — one frame of Heebo and LTR before syncLocale re-applies them. Copy them across first,
+  // marker included; only onto another default-locale page, since a page whose URL carries a locale
+  // declares its own (correct) attributes and is not overridden.
+  if (
+    document.documentElement.hasAttribute(localeOverrideAttribute) &&
+    localeOfLang(newDocument.documentElement.lang) === DEFAULT_LOCALE
+  ) {
+    newDocument.documentElement.setAttribute(localeOverrideAttribute, '')
+    newDocument.documentElement.lang = document.documentElement.lang
+    newDocument.documentElement.dir = document.documentElement.dir
+  }
+
   // TonConnect's portal cleanup captured the body it originally mounted into and will call
   // removeChild on it (e.g. on disconnect) even though the portal now lives elsewhere. The old
   // body is abandoned after the swap, so make its removeChild forgiving instead of throwing.
@@ -273,7 +302,71 @@ function trackInputModality(event: Event) {
   }
 }
 
-const errorMessageTonAccess = 'Unable to access blockchain'
+// i18n (spec §D). The page locale is whatever <html lang> says — server-rendered by every layout from
+// the registry, and copied onto the live document by the ClientRouter on each swap. Either the registry
+// key or its BCP-47 tag matches (`pt-BR` → `pt-br`); anything else is English.
+function localeOfLang(lang: string): Locale {
+  lang = lang.toLowerCase()
+  for (const key of Object.keys(LOCALES) as Locale[]) {
+    if (key === lang || LOCALES[key].lang.toLowerCase() === lang) {
+      return key
+    }
+  }
+  return DEFAULT_LOCALE
+}
+
+// The locale the current page declares. While the Telegram override marker is set (syncLocale), the
+// live lang/dir are the override's, not the page's — and the override only ever rewrites
+// default-locale pages, so the declared locale is the default.
+function readDocumentLocale(): Locale {
+  if (typeof document === 'undefined') {
+    return DEFAULT_LOCALE
+  }
+  if (document.documentElement.hasAttribute(localeOverrideAttribute)) {
+    return DEFAULT_LOCALE
+  }
+  return localeOfLang(document.documentElement.lang)
+}
+
+// AppLayout inlines the locale's merged app catalog as <script type="application/json" id="i18n-app">
+// (omitted for English, whose catalog is the bundled enApp). Read as text first so syncLocale can tell
+// an unchanged catalog apart without re-parsing it on every swap.
+const inlineCatalogId = 'i18n-app'
+const emptyCatalog: Catalog = Object.freeze({})
+
+function readInlineCatalogText(): string {
+  if (typeof document === 'undefined') {
+    return ''
+  }
+  return document.getElementById(inlineCatalogId)?.textContent ?? ''
+}
+
+function parseCatalog(text: string): Catalog {
+  if (text.trim() === '') {
+    return emptyCatalog
+  }
+  try {
+    const parsed: unknown = JSON.parse(text)
+    return typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed) ? (parsed as Catalog) : emptyCatalog
+  } catch {
+    return emptyCatalog
+  }
+}
+
+// TonConnect's UI speaks 'en' and 'ru' only; the registry's `tonconnect` column picks one per locale.
+function tonConnectLanguage(locale: Locale): TonConnectLanguage {
+  return LOCALES[locale].tonconnect === 'ru' ? 'ru' : 'en'
+}
+
+// Passed both at construction and with every language change: TonConnect's `uiOptions` setter merges
+// `language` into its state but assigns `actionsConfiguration` wholesale (see `set uiOptions` in
+// @tonconnect/ui), so leaving it out there would drop the Telegram return URL.
+const tonConnectActionsConfiguration: NonNullable<TonConnectUiOptions['actionsConfiguration']> = {
+  twaReturnUrl: 'https://t.me/HipoFinanceBot',
+}
+
+// What parseNumberInput emits and toNano may see: digits, at most one '.', digits ("12", "12.", "0.5").
+const canonicalAmount = /^[0-9]+(\.[0-9]*)?$/
 
 export class Model {
   initialized = false
@@ -296,7 +389,14 @@ export class Model {
   activePage: ActivePage = defaultActivePage
   activeTab: ActiveTab = defaultActiveTab
   statsRange: StatsRange = defaultStatsRange
+  // The amount input (spec §E). `amountRaw` is the text exactly as typed — the controlled input's value —
+  // `amount` its canonical ASCII reading ("1234.5"; '' when the field is empty or unparseable) and
+  // `amountInvalid` whether non-empty text failed to parse. Only setAmountToMax and a locale switch
+  // rewrite amountRaw (from `amount`, via formatInput): rewriting it on every keystroke would turn a
+  // half-typed thousands group into a decimal — see setAmount.
+  amountRaw = ''
   amount = ''
+  amountInvalid = false
   unstakeOption: UnstakeOption = 'best'
   waitForTransaction: WaitForTransaction = 'no'
   amountAlert: AmountAlert = 'none'
@@ -311,7 +411,18 @@ export class Model {
   walletRewardsFetchState: WalletRewardsFetchState = 'init'
   walletRewards?: WalletRewards
 
+  // i18n: the page locale and the inlined catalog for it (spec §D). Read at construction so the very
+  // first render is already in the page's language, and re-read by syncLocale on every swap.
+  locale: Locale = readDocumentLocale()
+  catalogText = readInlineCatalogText()
+  catalog: Catalog = parseCatalog(this.catalogText)
+
   // unobserved state
+  // Telegram Mini App locale override (spec §D): the user's Telegram language and its catalog, set
+  // once by applyTelegramLocale and applied by syncLocale whenever the URL carries no locale of its
+  // own. Unobserved — only `locale`/`catalog` above render.
+  telegramLocale?: Locale
+  telegramCatalogText = ''
   tonConnectUI?: TonConnectUI
   lastBlock = 0
   // Endpoint state is deliberately not observable — nothing renders it — and in-memory only, so a
@@ -332,8 +443,6 @@ export class Model {
   // tiers; `isTelegram` is observable only so a tier-2 disagreement can revoke it.
   readonly tmaMode: TmaMode = detectTmaMode()
   isTelegram = this.tmaMode !== 'off'
-
-  // readonly numberParser = new NumberParser(navigator.language)
 
   readonly dedustSwapUrl = 'https://dedust.io/swap/hTON/TON'
   readonly dedustPoolUrl = 'https://dedust.io/pools/EQBWsAdyAg-8fs3G-m-eUBCXZuVaOldF5-tCMJBJzxQG7nLX'
@@ -364,7 +473,9 @@ export class Model {
       newWalletTokens: observable,
       activePage: observable,
       activeTab: observable,
+      amountRaw: observable,
       amount: observable,
+      amountInvalid: observable,
       unstakeOption: observable,
       waitForTransaction: observable,
       amountAlert: observable,
@@ -380,7 +491,10 @@ export class Model {
       walletRewards: observable,
       statsRange: observable,
       isTelegram: observable,
+      locale: observable,
+      catalog: observable.ref,
 
+      translator: computed({ keepAlive: true }),
       isWalletConnected: computed,
       isStakeTabActive: computed,
       tonBalanceFormatted: computed,
@@ -420,6 +534,7 @@ export class Model {
       multisigComment: computed,
       multisigTransferAmount: computed,
       multisigTransferAmountFormatted: computed,
+      activePath: computed,
       multisigDeepLink: computed,
       apy: computed,
       apyFormatted: computed,
@@ -452,6 +567,8 @@ export class Model {
       setUnstakeOption: action,
       setAmount: action,
       setAmountToMax: action,
+      clearAmount: action,
+      relocalizeAmount: action,
       setWaitForTransaction: action,
       setAmountAlert: action,
       beginRequest: action,
@@ -465,8 +582,223 @@ export class Model {
       loadWalletRewards: action,
       setStatsRange: action,
       setTelegram: action,
+      syncLocale: action,
     })
   }
+
+  // ----------------------------------------------------------------------------------------------
+  // i18n API for the views (spec §D/§E). Every method reads this.locale, so observers re-render on a
+  // locale change for free.
+
+  // Memoised per (locale, catalog): both are observables, so MobX recomputes exactly when either moves.
+  get translator(): Translator {
+    return makeT(this.locale, this.catalog, enApp)
+  }
+
+  t = (key: string, params?: Params): string => {
+    return this.translator.t(key, params)
+  }
+
+  // `/stake/` → `/fa/stake/` for the current locale (English unprefixed); external URLs unchanged.
+  localizedPath = (path: string): string => {
+    return localizedPath(path, this.locale)
+  }
+
+  formatNumber = (value: number, opts?: Intl.NumberFormatOptions): string => {
+    return fmt.formatNumber(this.locale, value, opts)
+  }
+
+  formatNano = (nano: bigint | number, digits = 2): string => {
+    return fmt.formatNano(this.locale, nano, digits)
+  }
+
+  formatPercent = (ratio: number, digits = 2): string => {
+    return fmt.formatPercent(this.locale, ratio, digits)
+  }
+
+  formatSignedPercent = (ratio: number): string => {
+    return fmt.formatSignedPercent(this.locale, ratio)
+  }
+
+  formatCompact = (value: number, digits = 1): string => {
+    return fmt.formatCompact(this.locale, value, digits)
+  }
+
+  formatUsd = (value: number, opts?: Intl.NumberFormatOptions): string => {
+    return fmt.formatUsd(this.locale, value, opts)
+  }
+
+  // HPO trades around $0.002, so a fixed 2-decimal price would render it as $0.00: significant digits
+  // below a dollar, up to 2 decimals (no padding — "$3", "$1,234.5") above. The charts on StatsPage
+  // format prices through this too.
+  formatUsdPrice = (value: number): string => {
+    if (value < 1) {
+      return this.formatUsd(value, { maximumSignificantDigits: 4 })
+    }
+    return this.formatUsd(value, { minimumFractionDigits: 0, maximumFractionDigits: 2 })
+  }
+
+  // "$1.2M" — market caps, volumes, TVL.
+  formatUsdCompact = (value: number): string => {
+    return this.formatUsd(value, { notation: 'compact', maximumFractionDigits: 1 })
+  }
+
+  formatRate = (value: number): string => {
+    return fmt.formatRate(this.locale, value)
+  }
+
+  formatDate = (date: Date | number, opts: Intl.DateTimeFormatOptions): string => {
+    return fmt.formatDate(this.locale, date, opts)
+  }
+
+  // "3h 20m" from the catalog templates app.format.duration.*; "0m" for nothing left.
+  formatDuration = (seconds: number): string => {
+    return fmt.formatDuration(this.translator, seconds)
+  }
+
+  // ASCII "1234.5" → the locale's digits and decimal symbol (what the amount input displays).
+  formatInput = (ascii: string): string => {
+    return fmt.formatInput(this.locale, ascii)
+  }
+
+  // Anything the user may type in this locale → ASCII "1234.5", or undefined when it is not a number.
+  parseNumberInput = (raw: string): string | undefined => {
+    return fmt.parseNumberInput(this.locale, raw)
+  }
+
+  // Bidi isolation (FSI … PDI) for values interpolated into Model-composed strings (spec §F), so
+  // `≈ ۱٬۲۳۴٫۵ GRAM` keeps its reading order inside RTL text. Applied for RTL locales only: LTR text
+  // needs none, and English output stays byte-identical to before.
+  isolate = (s: string): string => {
+    return dirOf(this.locale) === 'rtl' ? fmt.isolate(s) : s
+  }
+
+  // "{amount} GRAM" and friends: the unit templates live in the catalog (app.model.gram/hgram/hpo) so
+  // translators control spacing and order; the amount is isolated for RTL.
+  withUnit = (key: string, amount: string): string => {
+    return this.t(key, { amount: this.isolate(amount) })
+  }
+
+  // Seconds left until an on-chain `stakeHeldUntil`, as "3h 20m"; undefined once under a minute
+  // remains — exactly when the old formatRemain returned '' and its callers hid the label.
+  remainUntil = (time: bigint): string | undefined => {
+    const diff = Number(time) - Math.floor(Date.now() / 1000)
+    return diff < 60 ? undefined : this.formatDuration(diff)
+  }
+
+  // Re-reads locale and catalog from the document: in init() and on astro:after-swap — before paint,
+  // where astro:page-load would show one frame in the old language. The catalog is replaced only when
+  // its JSON text actually changed, so English-to-English swaps leave every observer alone.
+  //
+  // An explicit URL locale always wins: the Telegram override below only fills in when the document
+  // is unprefixed English, so a /fa/stake/ deep link inside the mini app still shows Farsi, and a
+  // later swap back to an unprefixed page restores the Telegram language.
+  //
+  // When the override is in effect the document's own <html lang dir> (English, LTR) are wrong for
+  // what the island renders — the per-script font faces in i18n-fonts.css key off html[lang], and the
+  // logical/`rtl:` utilities off dir — so they are rewritten here, and marked so keepRuntimeStyles
+  // carries them over the next swap. Pages whose URL carries the locale already declare the right
+  // attributes and are left alone.
+  syncLocale = () => {
+    const documentLocale = readDocumentLocale()
+    let locale = documentLocale
+    let text = readInlineCatalogText()
+    if (locale === DEFAULT_LOCALE && this.telegramLocale != null) {
+      locale = this.telegramLocale
+      text = this.telegramCatalogText
+    }
+    if (locale !== this.locale) {
+      this.locale = locale
+      this.applyTonConnectLanguage()
+      this.relocalizeAmount()
+    }
+    if (text !== this.catalogText) {
+      this.catalogText = text
+      this.catalog = parseCatalog(text)
+    }
+    if (typeof document !== 'undefined') {
+      const html = document.documentElement
+      if (locale !== documentLocale) {
+        html.setAttribute(localeOverrideAttribute, '')
+        html.lang = langOf(locale)
+        html.dir = dirOf(locale)
+      } else if (html.hasAttribute(localeOverrideAttribute)) {
+        // Not reachable today (the override, once set, is never lifted), kept so the marker can never
+        // outlive the override: restore the page's own attributes.
+        html.removeAttribute(localeOverrideAttribute)
+        html.lang = langOf(locale)
+        html.dir = dirOf(locale)
+      }
+    }
+  }
+
+  // The amount field after a locale switch: valid text is re-rendered from the canonical value in the
+  // new locale's digits and decimal symbol; unparseable text is left as typed (nothing canonical to
+  // render it from) but re-read under the new rules, so amountInvalid matches the new locale. While
+  // the field has focus (the async Telegram override can land mid-typing) the text is never rewritten —
+  // a controlled-input value change would jump the caret — only re-read.
+  relocalizeAmount = () => {
+    const focused = typeof document !== 'undefined' && document.activeElement?.id === 'amount'
+    if (this.amountInvalid || focused) {
+      this.setAmount(this.amountRaw)
+    } else {
+      this.amountRaw = this.formatInput(this.amount)
+    }
+  }
+
+  // Telegram Mini App locale override (spec §D, phase 5). The mini app's URL is fixed by BotFather
+  // and never carries a locale, so inside a confirmed Telegram webview the user's Telegram language
+  // (`initDataUnsafe.user.language_code`) picks the locale instead — without navigating, because
+  // the static shell is hidden there anyway. Gated three times: only after initTelegramChrome
+  // confirmed a real webview (telegramLanguageCode returns nothing otherwise, so this never runs on
+  // the public web or in the ?tma=1 preview); only when the current URL is unprefixed (an explicit
+  // locale in the URL wins); only for a released registry locale, whose catalog exists as the
+  // static /i18n/<locale>.json (src/pages/i18n/[locale].json.ts). Any failure — unknown language,
+  // fetch error, malformed JSON — leaves the island in English.
+  applyTelegramLocale = async () => {
+    if (stripLocale(window.location.pathname).locale !== DEFAULT_LOCALE) {
+      return
+    }
+    const code = await telegramLanguageCode(this.tmaMode)
+    if (code == null) {
+      return
+    }
+    const candidates = (Object.keys(LOCALES) as Locale[]).filter((key) => isReleased(key))
+    const locale = matchLocale(code, candidates)
+    if (locale == null || locale === DEFAULT_LOCALE) {
+      return
+    }
+    let text: string
+    try {
+      const response = await fetch('/i18n/' + locale + '.json')
+      if (!response.ok) {
+        return
+      }
+      text = await response.text()
+    } catch (e) {
+      console.warn('[hipo] app catalog for Telegram language "' + code + '" failed to load', e)
+      return
+    }
+    if (parseCatalog(text) === emptyCatalog) {
+      return
+    }
+    runInAction(() => {
+      this.telegramLocale = locale
+      this.telegramCatalogText = text
+      this.syncLocale()
+    })
+  }
+
+  applyTonConnectLanguage = () => {
+    if (this.tonConnectUI != null) {
+      this.tonConnectUI.uiOptions = {
+        language: tonConnectLanguage(this.locale),
+        actionsConfiguration: tonConnectActionsConfiguration,
+      }
+    }
+  }
+
+  // ----------------------------------------------------------------------------------------------
 
   init() {
     if (this.initialized) {
@@ -481,15 +813,19 @@ export class Model {
     // function twice is a no-op, and init() itself runs only once per Model.
     document.addEventListener('astro:page-load', this.applyPathState)
     document.addEventListener('astro:before-swap', keepRuntimeStyles)
+    document.addEventListener('astro:after-swap', this.syncLocale)
     document.addEventListener('mousedown', trackInputModality)
     document.addEventListener('keydown', trackInputModality)
+    this.syncLocale()
     this.applyPathState()
 
     if (this.isTelegram) {
       void initTelegramChrome(this.tmaMode).then((confirmed) => {
         if (!confirmed) {
           this.setTelegram(false)
+          return
         }
+        void this.applyTelegramLocale()
       })
     }
 
@@ -531,7 +867,7 @@ export class Model {
 
   get tonBalanceFormatted() {
     if (this.tonBalance != null) {
-      return formatNano(this.tonBalance) + ' GRAM'
+      return this.withUnit('app.model.gram', this.formatNano(this.tonBalance))
     }
   }
 
@@ -541,13 +877,15 @@ export class Model {
 
   get htonBalanceFormatted() {
     if (this.tonBalance != null) {
-      return formatNano(this.walletState?.tokens ?? 0n) + ' hGRAM'
+      return this.withUnit('app.model.hgram', this.formatNano(this.walletState?.tokens ?? 0n))
     }
   }
 
   get maxBurnableTokensFormatted() {
     if (this.maxBurnableTokens != null) {
-      return 'Max Instant: ' + formatNano(Math.max(0, Number(this.maxBurnableTokens ?? 0n))) + ' hGRAM'
+      return this.t('app.model.maxInstant', {
+        amount: this.isolate(this.formatNano(Math.max(0, Number(this.maxBurnableTokens ?? 0n)))),
+      })
     }
   }
 
@@ -562,7 +900,7 @@ export class Model {
     if (state != null && this.walletState != null) {
       const rate = Number(state.totalCoins) / Number(state.totalTokens) || 1
       const balance = Number(this.walletState.tokens ?? 0n) * rate
-      return '≈ ' + formatNano(balance) + ' GRAM'
+      return this.withUnit('app.model.approxGram', this.formatNano(balance))
     }
   }
 
@@ -572,7 +910,7 @@ export class Model {
     if (apy != null && state != null && this.walletState != null) {
       const rate = Number(state.totalCoins) / Number(state.totalTokens) || 1
       const balance = Number(this.walletState.tokens ?? 0n) * rate * (1 + apy)
-      return '≈ ' + formatNano(balance) + ' GRAM'
+      return this.withUnit('app.model.approxGram', this.formatNano(balance))
     }
   }
 
@@ -594,9 +932,12 @@ export class Model {
     const hpo = hton * exchangeRate * rewardRate * rewardCoefficient * 20 * 12
 
     if (hpo > 0.01) {
-      return formatNano(ton) + ' GRAM + ' + formatNano(hpo) + ' HPO'
+      return this.t('app.model.gramPlusHpo', {
+        gram: this.isolate(this.formatNano(ton)),
+        hpo: this.isolate(this.formatNano(hpo)),
+      })
     } else {
-      return formatNano(ton) + ' GRAM'
+      return this.withUnit('app.model.gram', this.formatNano(ton))
     }
   }
 
@@ -614,23 +955,23 @@ export class Model {
     const hton = Number(this.walletState.tokens ?? 0n)
     const hpo = hton * exchangeRate * rewardRate * rewardCoefficient * 20 * 12
 
-    return formatNano(hpo) + ' HPO'
+    return this.withUnit('app.model.hpo', this.formatNano(hpo))
   }
 
   get oldWalletTokensFormatted() {
     if (this.oldWalletTokens != null) {
-      return formatNano(this.oldWalletTokens) + ' hGRAM'
+      return this.withUnit('app.model.hgram', this.formatNano(this.oldWalletTokens))
     }
   }
 
   get newWalletTokensFormatted() {
     if (this.newWalletTokens != null) {
-      return formatNano(this.newWalletTokens) + ' hGRAM'
+      return this.withUnit('app.model.hgram', this.formatNano(this.newWalletTokens))
     }
   }
 
   get unstakingInProgressFormatted() {
-    return formatNano(this.walletState?.unstaking ?? 0n) + ' hGRAM'
+    return this.withUnit('app.model.hgram', this.formatNano(this.walletState?.unstaking ?? 0n))
   }
 
   get unstakingInProgressDetails() {
@@ -645,8 +986,8 @@ export class Model {
       time = firstParticipationValue?.stakeHeldUntil
     }
     return {
-      amount: formatNano(value) + ' hGRAM',
-      estimated: time == null ? undefined : formatRemain(time),
+      amount: this.withUnit('app.model.hgram', this.formatNano(value)),
+      estimated: time == null ? undefined : this.remainUntil(time),
     }
   }
 
@@ -661,7 +1002,7 @@ export class Model {
         result += value
       }
     }
-    return formatNano(result) + ' GRAM'
+    return this.withUnit('app.model.gram', this.formatNano(result))
   }
 
   get stakingInProgressDetails() {
@@ -674,8 +1015,8 @@ export class Model {
       if (value != null) {
         const until = this.treasuryState?.participations.get(time)?.stakeHeldUntil ?? 0n
         result.push({
-          amount: formatNano(value) + ' GRAM',
-          estimated: until === 0n ? undefined : formatRemain(until),
+          amount: this.withUnit('app.model.gram', this.formatNano(value)),
+          estimated: until === 0n ? undefined : this.remainUntil(until),
         })
       }
     }
@@ -694,8 +1035,22 @@ export class Model {
     }
   }
 
+  // `amount` is canonical ASCII ("1234.5") whenever the typed text parsed — see setAmount — so toNano gets
+  // exactly what it accepts; text that did not parse (amountInvalid) is undefined, i.e. not sendable.
+  // Only the canonical shape is let through: toNano itself would also take "0x10" or "-1". The string
+  // is deliberately NOT re-parsed through parseNumberInput here — ASCII "1.500" would read as a German
+  // thousands group. Empty stays 0n, which is what toNano('') always returned.
   get amountInNano() {
+    if (this.amountInvalid) {
+      return undefined
+    }
     const amount = this.amount.trim()
+    if (amount === '') {
+      return 0n
+    }
+    if (!canonicalAmount.test(amount)) {
+      return undefined
+    }
     try {
       return toNano(amount)
     } catch {
@@ -720,12 +1075,12 @@ export class Model {
   get buttonLabel() {
     if (this.isWalletConnected) {
       if (this.isStakeTabActive) {
-        return 'Stake'
+        return this.t('app.model.buttonStake')
       } else {
-        return 'Unstake'
+        return this.t('app.model.buttonUnstake')
       }
     } else {
-      return 'Connect Wallet'
+      return this.t('app.model.buttonConnect')
     }
   }
 
@@ -748,7 +1103,7 @@ export class Model {
     } else if (nano == null || !this.isAmountValid || !this.isAmountPositive) {
       return ''
     } else {
-      return formatNano(Number(nano) * rate)
+      return this.formatNano(Number(nano) * rate)
     }
   }
 
@@ -761,7 +1116,9 @@ export class Model {
     if (amount == null) {
       return
     }
-    return amount === '' ? this.youWillReceiveToken : `~ ${amount} ${this.youWillReceiveToken}`
+    return amount === ''
+      ? this.youWillReceiveToken
+      : this.t('app.model.youWillReceive', { amount: this.isolate(amount), token: this.youWillReceiveToken })
   }
 
   get exchangeRate() {
@@ -779,19 +1136,19 @@ export class Model {
     const state = this.treasuryState
     if (state != null) {
       const rate = (Number(state.totalCoins) / Number(state.totalTokens)) * 1000000000 || 1
-      return '1 hGRAM = ~ ' + formatNano(rate, 4) + ' GRAM'
+      return this.t('app.model.rate', { rate: this.isolate(this.formatNano(rate, 4)) })
     }
   }
 
   get averageStakeFeeFormatted() {
     if (this.treasuryState != null) {
-      return formatNano(averageStakeFee, 3) + ' GRAM'
+      return this.withUnit('app.model.gram', this.formatNano(averageStakeFee, 3))
     }
   }
 
   get averageUnstakeFeeFormatted() {
     if (this.treasuryState != null) {
-      return formatNano(averageUnstakeFee, 3) + ' GRAM'
+      return this.withUnit('app.model.gram', this.formatNano(averageUnstakeFee, 3))
     }
   }
 
@@ -800,9 +1157,9 @@ export class Model {
     const participations = this.treasuryState?.participations
     if (times != null && participations != null) {
       const keys = participations.keys().sort()
-      const remain = formatRemain(participations.get(keys[0] ?? 0n)?.stakeHeldUntil ?? 0n)
-      if (remain !== '') {
-        return 'Receive GRAM in ' + remain
+      const remain = this.remainUntil(participations.get(keys[0] ?? 0n)?.stakeHeldUntil ?? 0n)
+      if (remain != null) {
+        return this.t('app.model.receiveGramIn', { remain: this.isolate(remain) })
       }
     }
   }
@@ -823,9 +1180,9 @@ export class Model {
           state > ParticipationState.Open &&
           state < ParticipationState.Burning
         ) {
-          const remain = formatRemain(participation.stakeHeldUntil)
-          if (remain !== '') {
-            return 'Receive hGRAM in ' + remain
+          const remain = this.remainUntil(participation.stakeHeldUntil)
+          if (remain != null) {
+            return this.t('app.model.receiveHgramIn', { remain: this.isolate(remain) })
           }
         }
       }
@@ -854,10 +1211,11 @@ export class Model {
     return feeUnstake
   }
 
+  // ASCII digits on purpose: the user retypes this into a multisig UI that takes nothing else.
   get multisigTransferAmountFormatted() {
     const amount = this.multisigTransferAmount
     if (amount != null) {
-      return formatNano(amount) + ' GRAM'
+      return this.withUnit('app.model.gram', fmt.formatAsciiNano(amount))
     }
   }
 
@@ -900,30 +1258,29 @@ export class Model {
 
   get apyFormatted() {
     if (this.apy != null) {
-      return formatPercent(this.apy)
+      return this.formatPercent(this.apy)
     }
   }
 
   get protocolFee() {
     const governanceFee = this.treasuryState?.governanceFee
     if (governanceFee != null) {
-      return formatPercent(Number(governanceFee) / 65535)
+      return this.formatPercent(Number(governanceFee) / 65535)
     }
   }
 
   get currentlyStaked() {
     if (this.treasuryState != null) {
-      return (
-        (Number(this.treasuryState.totalCoins) / 1000000000).toLocaleString(undefined, {
-          maximumFractionDigits: 0,
-        }) + ' GRAM'
+      return this.withUnit(
+        'app.model.gram',
+        this.formatNumber(Number(this.treasuryState.totalCoins) / 1000000000, { maximumFractionDigits: 0 }),
       )
     }
   }
 
   get holdersCountFormatted() {
     if (this.holdersCount != null) {
-      return formatCompact1Fraction(this.holdersCount)
+      return this.formatCompact(this.holdersCount)
     } else {
       return '—'
     }
@@ -946,7 +1303,7 @@ export class Model {
     }
     const apy = this.gauge?.treasury?.current_apy
     if (this.useGauge && apy != null) {
-      return formatPercent(apy / 100)
+      return this.formatPercent(apy / 100)
     }
   }
 
@@ -956,7 +1313,7 @@ export class Model {
     }
     const tvl = this.gauge?.treasury?.current_tvl
     if (this.useGauge && tvl != null) {
-      return formatNano(tvl, 0) + ' GRAM'
+      return this.withUnit('app.model.gram', this.formatNano(tvl, 0))
     }
   }
 
@@ -964,30 +1321,31 @@ export class Model {
   // Staked it cannot fall back; it degrades to a dash until the gauge answers.
   get statsHoldersFormatted() {
     const holders = this.useGauge ? this.gauge?.hgram?.holders_count : undefined
-    return holders != null ? formatCompact1Fraction(holders) : '—'
+    return holders != null ? this.formatCompact(holders) : '—'
   }
 
   // Same figure as statsStakedFormatted, abbreviated for the Stats page's headline card
   // ("1.54M" rather than "1,540,000 GRAM"), with the unit carried by the card's label.
   get statsStakedCompact() {
     if (this.treasuryState != null) {
-      return formatCompact1Fraction(Number(this.treasuryState.totalCoins) / 1000000000)
+      return this.formatCompact(Number(this.treasuryState.totalCoins) / 1000000000)
     }
     const tvl = this.gauge?.treasury?.current_tvl
     if (this.useGauge && tvl != null) {
-      return formatCompact1Fraction(tvl / 1000000000)
+      return this.formatCompact(tvl / 1000000000)
     }
   }
 
   // The same figure to the full GRAM ("8,285,160"), shown as selectable text on the staked card —
-  // the team copies the exact number from here when talking to the community.
+  // the team copies the exact number from here when talking to the community. Formatted for the
+  // page locale like every other number (spec §E); the team reads the English site.
   get statsStakedExact() {
     if (this.treasuryState != null) {
-      return (Number(this.treasuryState.totalCoins) / 1000000000).toLocaleString('en-US', { maximumFractionDigits: 0 })
+      return this.formatNumber(Number(this.treasuryState.totalCoins) / 1000000000, { maximumFractionDigits: 0 })
     }
     const tvl = this.gauge?.treasury?.current_tvl
     if (this.useGauge && tvl != null) {
-      return (tvl / 1000000000).toLocaleString('en-US', { maximumFractionDigits: 0 })
+      return this.formatNumber(tvl / 1000000000, { maximumFractionDigits: 0 })
     }
   }
 
@@ -1000,11 +1358,11 @@ export class Model {
       return undefined
     }
     if (this.treasuryState != null) {
-      return formatUsdCompact((Number(this.treasuryState.totalCoins) / 1000000000) * price)
+      return this.formatUsdCompact((Number(this.treasuryState.totalCoins) / 1000000000) * price)
     }
     const tvl = this.gauge?.treasury?.current_tvl
     if (tvl != null) {
-      return formatUsdCompact((tvl / 1000000000) * price)
+      return this.formatUsdCompact((tvl / 1000000000) * price)
     }
   }
 
@@ -1020,20 +1378,39 @@ export class Model {
   get statsRateFormatted() {
     const state = this.treasuryState
     if (state != null) {
-      return formatRate(Number(state.totalCoins) / Number(state.totalTokens) || 1)
+      return this.formatRate(Number(state.totalCoins) / Number(state.totalTokens) || 1)
     }
   }
 
   get hgramStats() {
-    return this.useGauge ? formatTokenStats(this.gauge?.hgram) : undefined
+    return this.useGauge ? this.tokenStats(this.gauge?.hgram) : undefined
   }
 
   get hpoStats() {
-    return this.useGauge ? formatTokenStats(this.gauge?.hpo) : undefined
+    return this.useGauge ? this.tokenStats(this.gauge?.hpo) : undefined
   }
 
   get gramStats() {
-    return this.useGauge ? formatTokenStats(this.gauge?.gram) : undefined
+    return this.useGauge ? this.tokenStats(this.gauge?.gram) : undefined
+  }
+
+  // Every field is optional: a partial gauge response must render what it has rather than blank the
+  // whole section. The gauge's 24h change is in percent units, hence the /100.
+  tokenStats = (token?: HipoGaugeToken): TokenStats | undefined => {
+    if (token == null) {
+      return undefined
+    }
+    const market = token.market
+    const change = market?.price_change_percentage_24h
+    return {
+      price: market?.current_price?.usd != null ? this.formatUsdPrice(market.current_price.usd) : undefined,
+      change24h: change != null ? this.formatSignedPercent(change / 100) : undefined,
+      isChangePositive: (change ?? 0) >= 0,
+      marketCap: market?.market_cap?.usd != null ? this.formatUsdCompact(market.market_cap.usd) : undefined,
+      totalVolume: market?.total_volume?.usd != null ? this.formatUsdCompact(market.total_volume.usd) : undefined,
+      supply: market?.circulating_supply != null ? this.formatCompact(market.circulating_supply) : undefined,
+      holders: token.holders_count != null ? this.formatCompact(token.holders_count) : undefined,
+    }
   }
 
   // The claim button's label itself is now static ("Claim Rewards" — see Reward.tsx); this feeds
@@ -1046,18 +1423,16 @@ export class Model {
       return undefined
     }
     if (rewards.hpoSumRewards > 0.01 && rewards.htonSumRewards > 0.01) {
-      return (
-        formatCompact2Fraction(rewards.hpoSumRewards) +
-        ' GRAM + ' +
-        formatCompact2Fraction(rewards.htonSumRewards) +
-        ' HPO'
-      )
+      return this.t('app.model.gramPlusHpo', {
+        gram: this.isolate(this.formatNumber(rewards.hpoSumRewards, { maximumFractionDigits: 2 })),
+        hpo: this.isolate(this.formatNumber(rewards.htonSumRewards, { maximumFractionDigits: 2 })),
+      })
     }
     if (rewards.hpoSumRewards > 0.01) {
-      return formatCompact2Fraction(rewards.hpoSumRewards) + ' GRAM'
+      return this.withUnit('app.model.gram', this.formatNumber(rewards.hpoSumRewards, { maximumFractionDigits: 2 }))
     }
     if (rewards.htonSumRewards > 0.01) {
-      return formatCompact2Fraction(rewards.htonSumRewards) + ' HPO'
+      return this.withUnit('app.model.hpo', this.formatNumber(rewards.htonSumRewards, { maximumFractionDigits: 2 }))
     }
     return undefined
   }
@@ -1071,7 +1446,10 @@ export class Model {
     if (this.walletRewards == null) {
       return undefined
     }
-    return formatCompact2Fraction(this.walletRewards.stakeSumRewards ?? 0) + ' GRAM'
+    return this.withUnit(
+      'app.model.gram',
+      this.formatNumber(this.walletRewards.stakeSumRewards ?? 0, { maximumFractionDigits: 2 }),
+    )
   }
 
   // hton_total_rewards is the wallet's LIFETIME HPO earned for holding hGRAM, reward coefficient
@@ -1082,15 +1460,19 @@ export class Model {
     if (this.walletRewards == null) {
       return undefined
     }
-    return formatCompact2Fraction(this.walletRewards.htonTotalRewards ?? 0) + ' HPO'
+    return this.withUnit(
+      'app.model.hpo',
+      this.formatNumber(this.walletRewards.htonTotalRewards ?? 0, { maximumFractionDigits: 2 }),
+    )
   }
 
-  // Same date formatting as the visible (non-title) reward.time in Reward.tsx's per-round rows.
-  // Stays undefined until the date itself is known, independent of the two totals above.
+  // Same options as the visible (non-title) reward.time in Reward.tsx's per-round rows, which should
+  // format through model.formatDate as well so the two agree in every locale. Stays undefined until
+  // the date itself is known, independent of the two totals above.
   get totalEarnedSinceFormatted() {
     const since = this.walletRewards?.stakeRewardsSince
     if (since != null) {
-      return since.toLocaleString(navigator.language, { month: 'long', day: '2-digit' })
+      return this.formatDate(since, { month: 'long', day: '2-digit' })
     }
   }
 
@@ -1153,7 +1535,7 @@ export class Model {
   setActiveTab = (activeTab: ActiveTab) => {
     if (this.activeTab !== activeTab) {
       this.activeTab = activeTab
-      this.amount = ''
+      this.clearAmount()
     }
   }
 
@@ -1171,6 +1553,13 @@ export class Model {
     }
   }
 
+  // The bare (unprefixed) route for the current page and tab — what the language switcher links to in
+  // each locale. Derived from observable state, not location.pathname, so observers re-render on
+  // in-app navigation.
+  get activePath(): string {
+    return routeForState(this.activePage, this.activeTab).path
+  }
+
   navigateToPage = (activePage: ActivePage) => {
     this.navigateToPath(routeForState(activePage, this.activeTab).path)
   }
@@ -1180,12 +1569,14 @@ export class Model {
   }
 
   // navigate() falls back to a full page load when no ClientRouter is present, so this works
-  // even if the island is ever mounted on a page without view transitions.
+  // even if the island is ever mounted on a page without view transitions. The route table holds
+  // bare paths; the current locale's prefix is added here (and replaced, if `path` carried one).
   navigateToPath = (path: string) => {
-    if (normalizePath(window.location.pathname) === path) {
+    const target = localizedPath(path, this.locale)
+    if (normalizePath(window.location.pathname) === target) {
       return
     }
-    void navigate(path)
+    void navigate(target)
   }
 
   setUnstakeOption = (unstakeOption: UnstakeOption) => {
@@ -1194,12 +1585,37 @@ export class Model {
     }
   }
 
-  setAmount = (amount: string) => {
-    this.amount = amount
+  // The amount input's handler. The text stays in the field exactly as typed (the view renders
+  // `amountRaw`) and the WHOLE string is re-read on every keystroke — native or ASCII digits, any
+  // separator the locale uses (spec §E) — into canonical ASCII `amount`. Text that does not parse,
+  // including a thousands group the user is still typing ("1," "1,0" "1,00" on the way to "1,000"),
+  // marks amountInvalid: the field turns the invalid colour and amountInNano is undefined, so it can
+  // never be sent as a thousand-fold smaller number. Rewriting the field from the canonical value on
+  // each keystroke (as an earlier version did) would do exactly that: a lone group mark has no digits
+  // after it yet, so it can only ever read as a decimal, and once formatted back as the locale's decimal
+  // symbol the grouping is unreachable — fa "۱٬۰۰۰" became 1.000 GRAM, never 1000.
+  setAmount = (raw: string) => {
+    this.amountRaw = raw
+    if (raw.trim() === '') {
+      this.amount = ''
+      this.amountInvalid = false
+      return
+    }
+    const parsed = this.parseNumberInput(raw)
+    this.amount = parsed ?? ''
+    this.amountInvalid = parsed === undefined
   }
 
   setAmountToMax = () => {
     this.amount = fromNano(this.maxAmount)
+    this.amountRaw = this.formatInput(this.amount)
+    this.amountInvalid = false
+  }
+
+  clearAmount = () => {
+    this.amountRaw = ''
+    this.amount = ''
+    this.amountInvalid = false
   }
 
   setWaitForTransaction = (wait: WaitForTransaction) => {
@@ -1526,7 +1942,7 @@ export class Model {
 
       await this.readOldWallet(tonClient, lastBlock, treasuryState)
     } catch {
-      this.setErrorMessage(errorMessageTonAccess, retryDelay - 500)
+      this.setErrorMessage(this.t('app.model.errorTonAccess'), retryDelay - 500)
       clearTimeout(this.timeoutReadLastBlock)
       this.timeoutReadLastBlock = setTimeout(() => void this.readLastBlock(), retryDelay)
       // Last, so that a failover's restarted read owns the timer, not this retry.
@@ -1630,7 +2046,7 @@ export class Model {
       send.catch(() => undefined)
       if (e instanceof StaleSessionError || e instanceof WalletNotConnectedError) {
         void tonConnectUI.disconnect()
-        this.setErrorMessage('Wallet connection expired, please reconnect your wallet', 10000)
+        this.setErrorMessage(this.t('app.model.errorSessionExpired'), 10000)
       }
       throw e
     } finally {
@@ -1717,7 +2133,7 @@ export class Model {
       void this.guardedSendTransaction(tx).then(
         () =>
           this.waitForCompletion(queryId).then(() => {
-            this.setAmount('')
+            this.clearAmount()
           }),
         (e: unknown) => {
           if (!(e instanceof StaleSessionError) && !(e instanceof WalletNotConnectedError)) {
@@ -1823,9 +2239,9 @@ export class Model {
       manifestUrl: 'https://hipo.finance/tonconnect-manifest.json',
       // No buttonRootId on purpose: the header renders its own wallet button.
       widgetRootId: tonConnectWidgetRootId,
-      actionsConfiguration: {
-        twaReturnUrl: 'https://t.me/HipoFinanceBot',
-      },
+      actionsConfiguration: tonConnectActionsConfiguration,
+      // 'en' or 'ru' per the registry; applyTonConnectLanguage re-sets it when the locale changes.
+      language: tonConnectLanguage(this.locale),
       // Single warm-dark theme, so only the dark colors set is supplied and the theme is fixed.
       uiPreferences: {
         theme: THEME.DARK,
@@ -1907,34 +2323,6 @@ export class Model {
   }
 }
 
-// class NumberParser {
-//     #group: RegExp
-//     #decimal: RegExp
-//     #numeral: RegExp
-//     #index: (substring: string) => string
-//     constructor(locale: string) {
-//         const parts = new Intl.NumberFormat(locale).formatToParts(12345.6)
-//         const numerals = [...new Intl.NumberFormat(locale, { useGrouping: false }).format(9876543210)].reverse()
-//         const index = new Map(numerals.map((d, i) => [d, i]))
-//         this.#group = new RegExp(`[${(parts.find((d) => d.type === 'group') ?? parts[0]).value}]`, 'g')
-//         this.#decimal = new RegExp(`[${(parts.find((d) => d.type === 'decimal') ?? parts[0]).value}]`)
-//         this.#numeral = new RegExp(`[${numerals.join('')}]`, 'g')
-//         this.#index = (d) => (index.get(d) ?? '').toString()
-//     }
-//     parse(input: string) {
-//         const result = input
-//             .trim()
-//             .replace(this.#group, '')
-//             .replace(this.#decimal, '.')
-//             .replace(this.#numeral, this.#index)
-//         return result ? +result : NaN
-//     }
-// }
-
-export function formatCompact1Fraction(n: number): string {
-  return n.toLocaleString(undefined, { notation: 'compact', maximumFractionDigits: 1 })
-}
-
 export interface TokenStats {
   price?: string
   change24h?: string
@@ -1943,92 +2331,6 @@ export interface TokenStats {
   totalVolume?: string
   supply?: string
   holders?: string
-}
-
-// HPO trades around $0.002, so a fixed 2-decimal price would render it as $0.00. Significant
-// digits keep it short without losing the leading zeros. Exported so the charts on StatsPage
-// format prices identically.
-export function formatUsdPrice(n: number): string {
-  if (n < 1) {
-    return '$' + n.toLocaleString(undefined, { maximumSignificantDigits: 4 })
-  }
-  return '$' + n.toLocaleString(undefined, { maximumFractionDigits: 2 })
-}
-
-function formatUsdCompact(n: number): string {
-  return '$' + formatCompact1Fraction(n)
-}
-
-function formatRate(n: number): string {
-  return n.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 })
-}
-
-function formatSignedPercent(n: number): string {
-  return (n / 100).toLocaleString(undefined, {
-    style: 'percent',
-    maximumFractionDigits: 2,
-    signDisplay: 'exceptZero',
-  })
-}
-
-// Every field is optional: a partial gauge response must render what it has rather than blank the
-// whole section.
-function formatTokenStats(token?: HipoGaugeToken): TokenStats | undefined {
-  if (token == null) {
-    return undefined
-  }
-  const market = token.market
-  const change = market?.price_change_percentage_24h
-  return {
-    price: market?.current_price?.usd != null ? formatUsdPrice(market.current_price.usd) : undefined,
-    change24h: change != null ? formatSignedPercent(change) : undefined,
-    isChangePositive: (change ?? 0) >= 0,
-    marketCap: market?.market_cap?.usd != null ? formatUsdCompact(market.market_cap.usd) : undefined,
-    totalVolume: market?.total_volume?.usd != null ? formatUsdCompact(market.total_volume.usd) : undefined,
-    supply: market?.circulating_supply != null ? formatCompact1Fraction(market.circulating_supply) : undefined,
-    holders: token.holders_count != null ? formatCompact1Fraction(token.holders_count) : undefined,
-  }
-}
-
-function formatCompact2Fraction(n: number): string {
-  return n.toLocaleString(undefined, { maximumFractionDigits: 2 })
-}
-
-function formatNano(amount: bigint | number, maximumFractionDigits = 2): string {
-  return (Number(amount) / 1000000000).toLocaleString(undefined, {
-    maximumFractionDigits,
-  })
-}
-
-function formatPercent(amount: number): string {
-  return amount.toLocaleString(undefined, {
-    style: 'percent',
-    maximumFractionDigits: 2,
-  })
-}
-
-function formatDate(date: Date): string {
-  return date.toLocaleString(navigator.language, {
-    weekday: 'short',
-    hour12: false,
-    hour: '2-digit',
-    minute: '2-digit',
-  })
-}
-
-function formatRemain(time: bigint): string {
-  const now = Math.floor(Date.now() / 1000)
-  const diff = Number(time) - now
-  const hours = Math.max(0, Math.floor(diff / 3600))
-  const minutes = Math.max(0, Math.floor((diff % 3600) / 60))
-  let result = ''
-  if (hours > 0) {
-    result += hours.toString() + 'h '
-  }
-  if (minutes > 0) {
-    result += minutes.toString() + 'm'
-  }
-  return result.trim()
 }
 
 function generateRandomQueryId(): bigint {

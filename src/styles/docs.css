@@ -20,6 +20,8 @@
 @import '@fontsource/heebo/400.css';
 @import '@fontsource/heebo/500.css';
 @import '@fontsource/heebo/700.css';
+/* Per-script faces + per-<html lang> overrides of --sl-font / --hipo-font-display (spec §F). */
+@import './i18n-fonts.css';
 
 :root {
   /* Warm Dark palette (see src/styles/global.css @theme). */
@@ -39,6 +41,8 @@
   --hipo-on-accent: #291f20;
 
   --sl-font: 'Heebo', ui-sans-serif, system-ui, sans-serif;
+  /* Display face for the site title and article headings; swapped per locale in i18n-fonts.css. */
+  --hipo-font-display: 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
 
   /* Fixed heading sizes per the design (h1 40px, h3 24px), regardless of Starlight's own
      viewport-based type scale below 50rem/72rem. */
@@ -86,7 +90,7 @@
 }
 
 .site-title {
-  font-family: 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
+  font-family: var(--hipo-font-display);
   font-weight: 600;
 }
 
@@ -99,9 +103,9 @@ a:hover {
   color: var(--hipo-accent);
 }
 
-/* Article headings use Fredoka; body text stays Heebo. */
+/* Article headings use the display face (Fredoka); body text stays on --sl-font (Heebo). */
 .sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
-  font-family: 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
+  font-family: var(--hipo-font-display);
 }
 
 .sl-markdown-content strong:not(:where(.not-content *)),

@@ -6,6 +6,7 @@ interface Props {
 }
 
 const Wait = observer(({ model }: Props) => {
+  const t = model.t
   let img
   let progress
   let heading
@@ -19,19 +20,13 @@ const Wait = observer(({ model }: Props) => {
         <div className={'bg-accent h-1' + (sent ? ' w-1/2' : ' w-1/6')}></div>
       </div>
     )
-    heading = <h1 className='font-fredoka text-center text-xl font-semibold'>Finalizing your transaction</h1>
-    message = (
-      <p className='text-text-muted mt-4 text-center text-sm'>
-        Awaiting the processing of your transaction in the next block.
-      </p>
-    )
+    heading = <h1 className='font-fredoka text-center text-xl font-semibold'>{t('app.wait.finalizingTitle')}</h1>
+    message = <p className='text-text-muted mt-4 text-center text-sm'>{t('app.wait.finalizingMessage')}</p>
   } else if (model.waitForTransaction === 'timeout') {
     img = <img src='/images/app/warning-dark.svg' alt='' className='m-4 mx-auto h-16' />
     progress = <></>
-    heading = <h1 className='font-fredoka text-center text-xl font-semibold'>Cannot find your transaction</h1>
-    message = (
-      <p className='text-text-muted mt-4 text-center text-sm'>Despite multiple attempts, we could not locate it.</p>
-    )
+    heading = <h1 className='font-fredoka text-center text-xl font-semibold'>{t('app.wait.timeoutTitle')}</h1>
+    message = <p className='text-text-muted mt-4 text-center text-sm'>{t('app.wait.timeoutMessage')}</p>
     button = (
       <button
         className='bg-accent text-on-accent hover:bg-accent-hover mt-6 h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold'
@@ -39,7 +34,7 @@ const Wait = observer(({ model }: Props) => {
           model.setWaitForTransaction('no')
         }}
       >
-        Okay
+        {t('app.common.okay')}
       </button>
     )
   } else if (model.waitForTransaction === 'done') {
@@ -47,7 +42,7 @@ const Wait = observer(({ model }: Props) => {
     progress = <></>
     heading = (
       <h1 className='font-fredoka text-center text-xl font-semibold'>
-        Successfully {model.isStakeTabActive ? 'staked' : 'unstaked'}
+        {model.isStakeTabActive ? t('app.wait.stakedTitle') : t('app.wait.unstakedTitle')}
       </h1>
     )
     button = (
@@ -64,14 +59,14 @@ const Wait = observer(({ model }: Props) => {
         }}
         autoFocus
       >
-        Okay
+        {t('app.common.okay')}
       </button>
     )
   }
 
   if (model.waitForTransaction !== 'no') {
     return (
-      <div className='font-body text-text fixed top-0 left-0 z-1000 flex h-full w-full overflow-y-auto bg-black/60 p-8'>
+      <div className='font-body text-text fixed start-0 top-0 z-1000 flex h-full w-full overflow-y-auto bg-black/60 p-8'>
         <div className='border-border bg-surface m-auto w-96 max-w-sm rounded-[20px] border p-8 shadow-2xl'>
           {img}
           {progress}

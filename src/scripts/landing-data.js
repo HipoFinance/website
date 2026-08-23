@@ -5,6 +5,14 @@
 // (#hpoMarketCap #hpoVolume #hpoHolders — same ids hpo-data.js fills on the HPO page). Every value
 // starts as an em dash ("—") in the markup and is only overwritten when the fetch succeeds — a
 // failed or slow fetch must never leave a fake/stale number on screen.
+//
+// Numbers follow the page's locale (spec §E): `<html lang>` is mapped back to its registry key and
+// every value goes through src/i18n/format.ts, so `/fa/` gets Persian digits without any change here.
+
+import { LOCALES } from '../i18n/registry.mjs'
+import { formatCompact, formatNumber, formatPercent, formatUsd } from '../i18n/format.ts'
+
+const locale = pageLocale()
 
 let elHeroApy = document.getElementById('heroApy')
 let elHeroFee = document.getElementById('heroFee')
@@ -49,13 +57,13 @@ let updateLandingData = () => {
 
         // The compact figure is what renders; the exact amount rides along as a hover tooltip
         // (the Stats page shows it as selectable text for copying).
-        const exact = staked.toLocaleString('en-US', { maximumFractionDigits: 0 }) + ' GRAM'
+        const exact = formatNumber(locale, staked, { maximumFractionDigits: 0 }) + ' GRAM'
         SetTitle(elStatStaked, exact)
         SetTitle(elStatStakedUsd, exact)
 
         const gramPrice = result.ton?.market?.current_price?.usd
         if (gramPrice != null && gramPrice > 0) {
-          SetText(elStatStakedUsd, '$' + FormatCompact1Fraction(staked * gramPrice))
+          SetText(elStatStakedUsd, FormatCompactUsd(staked * gramPrice))
         }
       }
 
@@ -68,12 +76,12 @@ let updateLandingData = () => {
 
       const hpoMarketCap = result.hpo?.market?.market_cap?.usd
       if (hpoMarketCap != null && hpoMarketCap > 0) {
-        SetText(elHpoMarketCap, '$' + FormatCompact1Fraction(hpoMarketCap))
+        SetText(elHpoMarketCap, FormatCompactUsd(hpoMarketCap))
       }
 
       const hpoVolume = result.hpo?.market?.total_volume?.usd
       if (hpoVolume != null && hpoVolume > 0) {
-        SetText(elHpoVolume, '$' + FormatCompact1Fraction(hpoVolume))
+        SetText(elHpoVolume, FormatCompactUsd(hpoVolume))
       }
 
       const hpoHolders = result.hpo?.holders_count
@@ -96,21 +104,34 @@ let SetTitle = (el, text) => {
   }
 }
 
+// The registry key whose `lang` matches <html lang> (e.g. lang="pt-BR" → 'pt-br'); English otherwise.
+function pageLocale() {
+  const lang = document.documentElement.lang
+  const match = Object.entries(LOCALES).find(([, info]) => info.lang === lang)
+  return match === undefined ? 'en' : match[0]
+}
+
+// Percent like current_apy is given as a plain percentage number (4.32 → "4.32%").
 let FormatPercent = (n) => {
-  return (n / 100).toLocaleString(undefined, { style: 'percent', maximumFractionDigits: 2 })
+  return formatPercent(locale, n / 100, 2)
 }
 
 let FormatCompact1Fraction = (n) => {
-  return n.toLocaleString('en-US', { notation: 'compact', maximumFractionDigits: 1 })
+  return formatCompact(locale, n, 1)
 }
 
 let FormatCompact2Fraction = (n) => {
-  return n.toLocaleString('en-US', { notation: 'compact', maximumFractionDigits: 2 })
+  return formatCompact(locale, n, 2)
+}
+
+// "$1.2M" in English; the currency sign goes wherever the locale puts it.
+let FormatCompactUsd = (n) => {
+  return formatUsd(locale, n, { notation: 'compact', maximumFractionDigits: 1 })
 }
 
 let FormatHolders = (n) => {
   // The real count, not a rounded "23,000+" — team feedback prefers exact numbers.
-  return n.toLocaleString('en-US')
+  return formatNumber(locale, n)
 }
 
 updateLandingData()

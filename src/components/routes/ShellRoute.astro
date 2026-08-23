@@ -1,0 +1,32 @@
+---
+// The whole document of a dApp shell page (`/stake/`, `/unstake/`, `/rewards/`, `/stats/`,
+// `/defi/`), shared by the English route and its `[locale]` twin (spec §B). `page` picks the static
+// copy component and the seo.json keys; the island itself is mounted by AppLayout.
+import Layout from '../../layouts/AppLayout.astro'
+import StakePage from '../pages/StakePage.astro'
+import UnstakePage from '../pages/UnstakePage.astro'
+import RewardsPage from '../pages/RewardsPage.astro'
+import StatsPage from '../pages/StatsPage.astro'
+import DefiPage from '../pages/DefiPage.astro'
+import { shellJsonLd, type ShellPage } from '../pages/shellJsonLd'
+import { localeOf } from '../../i18n/locale.ts'
+import { getT } from '../../i18n/t.ts'
+
+interface Props {
+  page: ShellPage
+}
+
+const { page } = Astro.props
+const Page = { stake: StakePage, unstake: UnstakePage, rewards: RewardsPage, stats: StatsPage, defi: DefiPage }[page]
+
+const locale = localeOf(Astro)
+const { t } = getT(locale, ['seo'])
+const title = t(`seo.${page}.title`)
+const description = t(`seo.${page}.description`)
+
+const jsonLd = await shellJsonLd({ page, title, description, locale })
+---
+
+<Layout title={title} description={description} jsonLd={jsonLd}>
+  <Page />
+</Layout>

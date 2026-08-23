@@ -45,12 +45,13 @@ export const STATS_RANGES: StatsRange[] = ['24h', '7d', '30d', '90d', '1y']
 // Display labels for the range switcher and the chart captions. The design asks for
 // 1W / 1M / 1Y / All; these are the same shorthand over the ranges the store actually supports.
 // There is deliberately no "All" — see the RANGE_CONFIG note below.
-export const RANGE_LABELS: Record<StatsRange, string> = {
-  '24h': '24H',
-  '7d': '1W',
-  '30d': '1M',
-  '90d': '3M',
-  '1y': '1Y',
+// Catalog keys for the range pills ("24H", "1W", …); resolved through model.t by the callers.
+export const RANGE_LABEL_KEYS: Record<StatsRange, string> = {
+  '24h': 'app.chart.range24h',
+  '7d': 'app.chart.range1w',
+  '30d': 'app.chart.range1m',
+  '90d': 'app.chart.range3m',
+  '1y': 'app.chart.range1y',
 }
 
 interface RangeConfig {

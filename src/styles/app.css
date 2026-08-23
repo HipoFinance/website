@@ -1,3 +1,6 @@
+/* Per-script faces + per-<html lang> family/metric overrides for translated pages (spec §F). This
+   stylesheet is compiled separately, so it has to pull the overrides in too. */
+@import './i18n-fonts.css';
 @import 'tailwindcss';
 
 /* Chart palette for the Warm Dark redesign. The app is single-theme now, so there is no
@@ -12,6 +15,15 @@
 ::selection {
   background: #ff7e73;
   color: #291f20;
+}
+
+/* TonConnect renders its modal, dropdowns and toasts into #ton-connect-widget-root (see
+   tonConnectWidgetRootId in Model.ts), appended outside the persisted island. TonConnect's own UI
+   isn't translated, so keep it LTR regardless of page direction. */
+#ton-connect-widget-root,
+[data-tc-dropdown-container],
+[data-tc-list-notifications] {
+  direction: ltr;
 }
 
 .loading {
@@ -54,4 +66,11 @@ html.tma body {
      etc.) come from the global.css compilation, which app pages also load. */
   --font-body: 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --font-fredoka: 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Bidi isolation for formatted values, mirrored from global.css: this stylesheet is compiled
+   separately, so the utility has to exist in this build too. See specs/multi-language-site.md §F. */
+@utility num {
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
 }

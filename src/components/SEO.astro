@@ -1,5 +1,11 @@
 ---
-// src/components/SEO.astro
+// Head tags shared by the landing, HPO and app layouts (Starlight owns its own head). The
+// alternate-language links cover English plus every indexable locale (spec §H): with an English-only
+// registry that is exactly hreflang="en" and x-default, both pointing at the current URL. Draft
+// locales (status 'draft', built only when I18N_INCLUDE_DRAFTS=1 for local preview) are never linked
+// here and get their own page noindex'd below, so a drafts build never changes what crawlers see.
+import { DEFAULT_LOCALE, LOCALES, indexableLocales } from '../i18n/registry.mjs'
+import { langOf, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
 
 interface Props {
   title: string
@@ -12,15 +18,30 @@ interface Props {
 
 const { title, description, image = '/og/default.png', publishedTime, author, jsonLd } = Astro.props
 
+const locale = localeOf(Astro)
 const url = Astro.url.href
 const imageUrl = new URL(image, Astro.site).href
+
+// The same page in every indexable locale, for hreflang and og:locale:alternate — draft locales
+// (built only when I18N_INCLUDE_DRAFTS=1) are never linked, even in a drafts build.
+const { path } = stripLocale(Astro.url.pathname)
+const alternates = indexableLocales().map((l) => ({
+  locale: l,
+  lang: langOf(l),
+  href: new URL(localizedPath(path, l), Astro.site).href,
+}))
+const englishUrl = new URL(localizedPath(path, DEFAULT_LOCALE), Astro.site).href
+const isDraft = LOCALES[locale]?.status === 'draft'
 ---
 
 <!-- BASIC -->
 <title>{title}</title>
 <meta name='description' content={description} />
 <meta name='viewport' content='width=device-width, initial-scale=1' />
+{isDraft && <meta name='robots' content='noindex, nofollow' />}
 <link rel='canonical' href={url} />
+{alternates.map((alt) => <link rel='alternate' hreflang={alt.lang} href={alt.href} />)}
+<link rel='alternate' hreflang='x-default' href={englishUrl} />
 
 <!-- OPEN GRAPH -->
 <meta property='og:type' content='website' />
@@ -28,6 +49,12 @@ const imageUrl = new URL(image, Astro.site).href
 <meta property='og:description' content={description} />
 <meta property='og:url' content={url} />
 <meta property='og:image' content={imageUrl} />
+<meta property='og:locale' content={langOf(locale)} />
+{
+  alternates
+    .filter((alt) => alt.locale !== locale)
+    .map((alt) => <meta property='og:locale:alternate' content={alt.lang} />)
+}
 
 <!-- optional article OG -->
 {publishedTime && <meta property='article:published_time' content={publishedTime} />}

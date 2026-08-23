@@ -1,0 +1,9 @@
+---
+import ShellPage from './ShellPage.astro'
+import { localeOf } from '../../i18n/locale.ts'
+import { getT } from '../../i18n/t.ts'
+
+const { t } = getT(localeOf(Astro), ['site'])
+---
+
+<ShellPage page='stake' heading={t('site.shell.stake.heading')} />

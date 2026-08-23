@@ -9,7 +9,7 @@ const LoadingIndicator = observer(({ model }: Props) => {
   return (
     <div
       className={
-        'bg-surface-deep/70 pointer-events-none fixed right-5 bottom-20 z-50 w-10 rounded-full sm:bottom-2' +
+        'bg-surface-deep/70 pointer-events-none fixed end-5 bottom-20 z-50 w-10 rounded-full sm:bottom-2' +
         (model.ongoingRequests > 0 ? '' : ' hidden')
       }
     >

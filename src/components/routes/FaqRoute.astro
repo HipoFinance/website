@@ -1,0 +1,24 @@
+---
+// The whole `/faq/` document, shared by the English and the `[locale]` route (spec §B).
+import Layout from '../../layouts/LandingLayout.astro'
+import FAQ from '../FAQ.astro'
+import Header from '../SiteHeader.astro'
+import Footer from '../SiteFooter.astro'
+import Banner from '../Banner.astro'
+import { localeOf } from '../../i18n/locale.ts'
+import { getT } from '../../i18n/t.ts'
+
+const { t } = getT(localeOf(Astro), ['seo'])
+---
+
+<Layout title={t('seo.faq.title')} description={t('seo.faq.description')}>
+  <Banner />
+
+  <Header active='faq' />
+
+  <main class=''>
+    <FAQ />
+  </main>
+
+  <Footer />
+</Layout>

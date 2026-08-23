@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { Model } from './Model'
+import { Num, nodes } from './Interpolate'
 
 interface Props {
   model: Model
@@ -8,11 +9,12 @@ interface Props {
 const Row = ({ label, value }: { label: string; value?: string }) => (
   <div className='flex flex-row flex-wrap'>
     <p>{label}</p>
-    <p className='text-text ml-auto font-medium'>{value ?? '—'}</p>
+    <p className='text-text num ms-auto font-medium'>{value ?? '—'}</p>
   </div>
 )
 
 const Reward = observer(({ model }: Props) => {
+  const t = model.t
   const rewards = model.walletRewards
   const coefficients = rewards?.rewardCoefficients ?? [1]
   const level = rewards?.clubLevel ?? 0
@@ -23,7 +25,7 @@ const Reward = observer(({ model }: Props) => {
   const claimCta = (
     <div className='flex flex-col gap-2'>
       {model.claimableRewardsFormatted != null && (
-        <p className='text-text-faint text-center text-[12.5px]'>{model.claimableRewardsFormatted}</p>
+        <p className='text-text-faint num text-center text-[12.5px]'>{model.claimableRewardsFormatted}</p>
       )}
       <a
         className='bg-accent text-on-accent hover:bg-accent-hover block h-14 w-full rounded-2xl text-center text-[17px] leading-14 font-semibold'
@@ -31,16 +33,25 @@ const Reward = observer(({ model }: Props) => {
         target='_blank'
         rel='noopener noreferrer'
       >
-        Claim Rewards
+        {t('app.reward.claim')}
       </a>
     </div>
   )
 
+  const rewardRate =
+    rewards != null
+      ? t('app.reward.rewardRateValue', {
+          coefficient: model.isolate(model.formatNumber(coefficients[level] ?? 1)),
+          level: model.isolate(model.formatNumber(level + 1)),
+          total: model.isolate(model.formatNumber(coefficients.length)),
+        })
+      : undefined
+
   return (
     <div className='font-body text-text mx-auto flex w-full max-w-[1120px] flex-col items-center px-6 pt-10 pb-8'>
       <div className='pb-7 text-center'>
-        <h1 className='font-fredoka mb-2 text-3xl font-semibold sm:text-[34px]'>Rewards</h1>
-        <p className='text-text-muted text-base'>Earn bonus HPO on top of your staking rewards</p>
+        <h1 className='font-fredoka mb-2 text-3xl font-semibold sm:text-[34px]'>{t('app.reward.title')}</h1>
+        <p className='text-text-muted text-base'>{t('app.reward.subtitle')}</p>
       </div>
 
       <div className='flex w-full max-w-[480px] flex-col gap-4'>
@@ -48,8 +59,8 @@ const Reward = observer(({ model }: Props) => {
           <div className='flex flex-row items-center gap-3.5'>
             <img src='/hpo.png' alt='HPO' className='h-12 w-12' />
             <div>
-              <div className='font-fredoka text-xl font-semibold'>HPO rewards</div>
-              <div className='text-text-muted text-sm'>Distributed to stakers via Hipo Club</div>
+              <div className='font-fredoka text-xl font-semibold'>{t('app.reward.hpoRewards')}</div>
+              <div className='text-text-muted text-sm'>{t('app.reward.distributedVia')}</div>
             </div>
           </div>
 
@@ -60,29 +71,29 @@ const Reward = observer(({ model }: Props) => {
               {tma && claimCta}
 
               <div className='text-text-muted flex flex-col gap-2.5 text-sm'>
-                <Row label='Your staked balance' value={model.htonBalanceFormatted} />
-                <Row label='Value in GRAM' value={model.htonBalanceInTon} />
+                <Row label={t('app.reward.stakedBalance')} value={model.htonBalanceFormatted} />
+                <Row label={t('app.reward.valueInGram')} value={model.htonBalanceInTon} />
                 <div className='flex flex-col gap-2.5'>
                   {model.totalEarnedSinceFormatted != null && (
-                    <p className='text-text-faint text-[12.5px]'>Earned since {model.totalEarnedSinceFormatted}</p>
+                    <p className='text-text-faint text-[12.5px]'>
+                      {nodes(t('app.reward.earnedSince'), { date: <Num>{model.totalEarnedSinceFormatted}</Num> })}
+                    </p>
                   )}
-                  <div className='flex flex-col gap-2.5 pl-3'>
-                    <Row label='Total GRAM earned' value={model.totalEarnedFormatted} />
-                    <Row label='Total HPO earned' value={model.totalHpoEarnedFormatted} />
+                  <div className='flex flex-col gap-2.5 ps-3'>
+                    <Row label={t('app.reward.totalGramEarned')} value={model.totalEarnedFormatted} />
+                    <Row label={t('app.reward.totalHpoEarned')} value={model.totalHpoEarnedFormatted} />
                   </div>
                 </div>
-                <Row label='Rewards after a year' value={model.profitAfterOneYear} />
-                <Row
-                  label='Reward rate'
-                  value={
-                    rewards != null ? `${coefficients[level] ?? 1}× (Level ${level + 1}/${coefficients.length})` : '—'
-                  }
-                />
+                <Row label={t('app.reward.afterYear')} value={model.profitAfterOneYear} />
+                <Row label={t('app.reward.rewardRate')} value={rewardRate} />
               </div>
 
               {level < coefficients.length - 1 && (
                 <p className='text-text-faint -mt-2 text-[12.5px]'>
-                  Level {coefficients.length} rewards: {model.profitAfterOneYearOnLastLevel ?? '—'}
+                  {nodes(t('app.reward.lastLevelRewards'), {
+                    level: <Num>{model.formatNumber(coefficients.length)}</Num>,
+                    amount: <Num>{model.profitAfterOneYearOnLastLevel ?? '—'}</Num>,
+                  })}
                 </p>
               )}
 
@@ -91,8 +102,9 @@ const Reward = observer(({ model }: Props) => {
           ) : (
             <>
               <p className='text-text-muted text-sm'>
-                Connect your TON wallet to view your <b className='text-text font-medium'>staking rewards</b> and your
-                Hipo Club reward rate.
+                {nodes(t('app.reward.connectPrompt'), {
+                  stakingRewards: <b className='text-text font-medium'>{t('app.reward.stakingRewards')}</b>,
+                })}
               </p>
               {!tma && <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />}
               <button
@@ -103,7 +115,7 @@ const Reward = observer(({ model }: Props) => {
                   target.blur()
                 }}
               >
-                Connect wallet
+                {t('app.common.connectWallet')}
               </button>
               {tma && <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />}
             </>
@@ -112,14 +124,14 @@ const Reward = observer(({ model }: Props) => {
 
         {model.isWalletConnected && rewards == null && model.walletRewardsFetchState === 'error' && (
           <div className='border-border bg-surface flex flex-col rounded-[20px] border p-7'>
-            <h2 className='font-fredoka mb-4 text-xl font-semibold'>Recent rewards</h2>
-            <p className='text-text-muted mt-4 text-center text-sm'>Oops! Please try again a little later.</p>
+            <h2 className='font-fredoka mb-4 text-xl font-semibold'>{t('app.reward.recent')}</h2>
+            <p className='text-text-muted mt-4 text-center text-sm'>{t('app.reward.tryAgain')}</p>
           </div>
         )}
 
         {model.isWalletConnected && rewards != null && (
           <div className='border-border bg-surface flex flex-col rounded-[20px] border p-7'>
-            <h2 className='font-fredoka mb-4 text-xl font-semibold'>Recent rewards</h2>
+            <h2 className='font-fredoka mb-4 text-xl font-semibold'>{t('app.reward.recent')}</h2>
 
             {rewards.earnedRewards.map((reward, i) => (
               <div className='flex w-full flex-col gap-2 py-3.5 text-sm' key={i}>
@@ -127,7 +139,8 @@ const Reward = observer(({ model }: Props) => {
 
                 <div className='text-text-muted flex flex-row'>
                   <div
-                    title={reward.time.toLocaleString(navigator.language, {
+                    className='num'
+                    title={model.formatDate(reward.time, {
                       year: 'numeric',
                       month: 'numeric',
                       day: 'numeric',
@@ -136,23 +149,19 @@ const Reward = observer(({ model }: Props) => {
                       hour12: false,
                     })}
                   >
-                    {reward.time.toLocaleString(navigator.language, {
-                      month: 'long',
-                      day: '2-digit',
-                    })}
+                    {model.formatDate(reward.time, { month: 'long', day: '2-digit' })}
                   </div>
-                  <div className='ml-auto'>Rewards</div>
+                  <div className='ms-auto'>{t('app.reward.rowLabel')}</div>
                 </div>
 
                 <div className='flex flex-row items-center'>
                   <img src='/images/app/gram.svg' alt='' className='h-7 w-7' />
-                  <div className='ml-auto flex flex-row gap-1'>
-                    <span className='text-positive font-medium'>
-                      {(
-                        reward.tonReward + (reward.time >= new Date(1781256166 * 1_000) ? reward.stakeReward : 0)
-                      ).toLocaleString('en', {
-                        maximumFractionDigits: 9,
-                      })}
+                  <div className='ms-auto flex flex-row gap-1'>
+                    <span className='text-positive num font-medium'>
+                      {model.formatNumber(
+                        reward.tonReward + (reward.time >= new Date(1781256166 * 1_000) ? reward.stakeReward : 0),
+                        { maximumFractionDigits: 9 },
+                      )}
                     </span>
                     <span className='text-text-faint'>GRAM</span>
                   </div>
@@ -161,8 +170,10 @@ const Reward = observer(({ model }: Props) => {
                 <div className='flex flex-row items-center'>
                   {/* hpo.svg is dark-on-transparent and disappears on the warm-dark surface. */}
                   <img src='/hpo.png' alt='' className='h-7 w-7' />
-                  <div className='ml-auto flex flex-row gap-1'>
-                    <span className='text-positive font-medium'>{reward.hpoReward}</span>
+                  <div className='ms-auto flex flex-row gap-1'>
+                    <span className='text-positive num font-medium'>
+                      {model.formatNumber(reward.hpoReward, { maximumFractionDigits: 9 })}
+                    </span>
                     <span className='text-text-faint'>HPO</span>
                   </div>
                 </div>
@@ -170,13 +181,15 @@ const Reward = observer(({ model }: Props) => {
             ))}
 
             {model.walletRewardsFetchState === 'error' && (
-              <p className='text-text-muted mt-4 text-center text-sm'>Oops! Please try again a little later.</p>
+              <p className='text-text-muted mt-4 text-center text-sm'>{t('app.reward.tryAgain')}</p>
             )}
 
             {rewards.earnedRewards.length === 0 && model.htonBalance > 0n && (
               <div className='flex flex-col gap-6'>
                 <p className='text-text-muted text-center text-sm'>
-                  Your first reward will be credited within <b className='text-text font-medium'>36 hours</b>.
+                  {nodes(t('app.reward.firstRewardWithin'), {
+                    hours: <b className='text-text font-medium'>{t('app.reward.firstRewardHours')}</b>,
+                  })}
                 </p>
                 <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />
               </div>
@@ -184,7 +197,7 @@ const Reward = observer(({ model }: Props) => {
 
             {rewards.earnedRewards.length === 0 && model.htonBalance === 0n && (
               <div className='flex flex-col gap-6'>
-                <p className='text-text-muted text-center text-sm'>Start staking with Hipo for daily rewards!</p>
+                <p className='text-text-muted text-center text-sm'>{t('app.reward.startStaking')}</p>
                 <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />
                 <button
                   className='bg-accent text-on-accent hover:bg-accent-hover h-14 w-full cursor-pointer rounded-2xl text-[17px] font-semibold'
@@ -192,7 +205,7 @@ const Reward = observer(({ model }: Props) => {
                     model.navigateToTab('stake')
                   }}
                 >
-                  Stake now
+                  {t('app.reward.stakeNow')}
                 </button>
               </div>
             )}

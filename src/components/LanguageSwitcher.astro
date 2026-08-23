@@ -1,0 +1,98 @@
+---
+// The language dropdown (spec §J/§L). It lists `public` locales only and renders nothing at all
+// until at least two are public, so exposing a language is a registry edit, not a code change.
+// Plain <details>/<summary>: works without JavaScript and survives view transitions. Every entry is
+// a real link to the same path in the other locale (localizedPath round-trips the prefix).
+// `inline` lays the list out in the flow (mobile menu) instead of as a floating panel.
+import { LOCALES, publicLocales } from '../i18n/registry.mjs'
+import { langOf, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
+import { getT } from '../i18n/t.ts'
+
+interface Props {
+  inline?: boolean
+  class?: string
+}
+
+const { inline = false, class: className } = Astro.props
+const locale = localeOf(Astro)
+const locales = publicLocales()
+const show = locales.length >= 2
+
+const { t } = getT(locale, ['site'])
+const { path } = stripLocale(Astro.url.pathname)
+const entries = locales.map((l) => ({
+  locale: l,
+  lang: langOf(l),
+  label: LOCALES[l].label,
+  href: localizedPath(path, l),
+  current: l === locale,
+}))
+---
+
+{
+  show && (
+    <details data-i18n-switcher class:list={['group relative', className]}>
+      <summary
+        class='hover:text-accent flex cursor-pointer list-none items-center gap-1.5 [&::-webkit-details-marker]:hidden'
+        title={t('site.switcher.label')}
+      >
+        <span class='sr-only'>{t('site.switcher.label')}: </span>
+        <svg class='size-4 shrink-0' fill='none' stroke='currentColor' stroke-width='1.8' viewBox='0 0 24 24'>
+          <circle cx='12' cy='12' r='9' />
+          <path stroke-linecap='round' d='M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18' />
+        </svg>
+        <span>{LOCALES[locale].label}</span>
+        <svg
+          class='size-3 shrink-0 transition-transform group-open:rotate-180'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          viewBox='0 0 24 24'
+        >
+          <path stroke-linecap='round' stroke-linejoin='round' d='m6 9 6 6 6-6' />
+        </svg>
+      </summary>
+      <ul
+        class:list={[
+          'border-border bg-surface min-w-40 rounded-xl border py-1.5',
+          inline ? 'mt-2' : 'absolute end-0 top-full z-20 mt-2 shadow-lg',
+        ]}
+      >
+        {entries.map(({ locale: entry, lang, label, href, current }) => (
+          <li>
+            <a
+              href={href}
+              hreflang={lang}
+              lang={lang}
+              data-locale={entry}
+              aria-current={current ? 'page' : undefined}
+              class:list={[
+                'hover:bg-surface-deep hover:text-accent block px-4 py-2 text-sm',
+                current ? 'text-accent' : 'text-text-muted',
+              ]}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </details>
+  )
+}
+
+<script>
+  // Spec §J: remember the picked language so the one-time "Read this in …?" suggestion (banner.js,
+  // same key) never re-asks. Delegated on the document, which the ClientRouter never swaps, so one
+  // listener covers every switcher on every page; the link navigates regardless of storage.
+  document.addEventListener('click', (event) => {
+    const link = (event.target as Element | null)?.closest?.('[data-i18n-switcher] a[data-locale]')
+    const locale = link?.getAttribute('data-locale')
+    if (locale != null) {
+      try {
+        localStorage.setItem('hipo.locale', locale)
+      } catch {
+        // ignore
+      }
+    }
+  })
+</script>

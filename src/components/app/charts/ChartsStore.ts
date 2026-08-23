@@ -1,6 +1,6 @@
 import { makeAutoObservable, reaction, runInAction } from 'mobx'
 import { type Model } from '../Model'
-import { bustCache, queryRange, RANGE_LABELS, stepFor, type SeriesMap } from './prometheus'
+import { bustCache, queryRange, RANGE_LABEL_KEYS, stepFor, type SeriesMap } from './prometheus'
 
 export type ChartFetchStatus = 'loading' | 'refreshing' | 'error' | 'empty' | 'done'
 
@@ -60,8 +60,9 @@ export class ChartsStore {
     return this.step * 2.5
   }
 
+  // Translated through the Model so it follows a locale change like everything else.
   get rangeLabel(): string {
-    return RANGE_LABELS[this.model.statsRange]
+    return this.model.t(RANGE_LABEL_KEYS[this.model.statsRange])
   }
 
   setHoveredTs = (ts: number | null) => {

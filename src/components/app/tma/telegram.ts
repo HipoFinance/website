@@ -121,6 +121,27 @@ function guard(label: string, call: () => void) {
 }
 
 /**
+ * The user's Telegram UI language from the launch data (`initDataUnsafe.user.language_code`: an
+ * IETF-style tag such as 'en', 'fa' or 'pt-br'), for the mini-app locale override (spec §D). Only a
+ * real Telegram webview has launch data, so anything but mode 'telegram' resolves to undefined — the
+ * `?tma=1` preview included. Call it after initTelegramChrome has confirmed the webview: the dynamic
+ * import below is then already evaluated and just returns the cached module, so nothing is loaded or
+ * initialised twice. Undefined when the SDK is missing or the launch data carries no user.
+ */
+export async function telegramLanguageCode(mode: TmaMode): Promise<string | undefined> {
+  if (mode !== 'telegram') {
+    return undefined
+  }
+  try {
+    const WebApp = (await import('@twa-dev/sdk')).default
+    const code: unknown = WebApp.initDataUnsafe?.user?.language_code
+    return typeof code === 'string' && code !== '' ? code : undefined
+  } catch {
+    return undefined
+  }
+}
+
+/**
  * Applies the mini-app chrome for the session: marks <html> so the static shell is hidden, and —
  * in a real Telegram webview — loads the SDK to blend Telegram's own chrome with ours.
  *

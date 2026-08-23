@@ -3,6 +3,8 @@
 @import '@fontsource/heebo/400.css';
 @import '@fontsource/heebo/500.css';
 @import '@fontsource/heebo/700.css';
+/* Per-script faces + per-<html lang> family/metric overrides for translated pages (spec §F). */
+@import './i18n-fonts.css';
 @import 'tailwindcss';
 
 @theme {
@@ -27,4 +29,11 @@
   --color-accent-shadow: #c1544a;
   --color-on-accent: #291f20;
   --color-positive: #4ade80;
+}
+
+/* Bidi isolation for formatted values (amounts, percentages, deltas) so RTL text doesn't reorder
+   them around bidi-neutral characters like %, $, ≈, +/−. See specs/multi-language-site.md §F. */
+@utility num {
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
 }

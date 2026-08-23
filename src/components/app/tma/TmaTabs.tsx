@@ -8,11 +8,12 @@ interface Props {
 
 type Page = 'stake' | 'reward' | 'stats' | 'defi'
 
+// Labels are catalog keys, resolved through model.t at render time.
 const pages: { page: Page; label: string; icon: LucideIcon }[] = [
-  { page: 'stake', label: 'Stake', icon: Coins },
-  { page: 'reward', label: 'Rewards', icon: Gift },
-  { page: 'stats', label: 'Stats', icon: ChartLine },
-  { page: 'defi', label: 'DeFi', icon: ArrowLeftRight },
+  { page: 'stake', label: 'app.nav.stake', icon: Coins },
+  { page: 'reward', label: 'app.nav.rewards', icon: Gift },
+  { page: 'stats', label: 'app.nav.stats', icon: ChartLine },
+  { page: 'defi', label: 'app.nav.defi', icon: ArrowLeftRight },
 ]
 
 // Last row of the shell's flex column rather than a fixed overlay: the shell is exactly one
@@ -21,7 +22,7 @@ const pages: { page: Page; label: string; icon: LucideIcon }[] = [
 const TmaTabs = observer(({ model }: Props) => {
   return (
     <nav
-      aria-label='App sections'
+      aria-label={model.t('app.header.appSections')}
       className='border-border bg-surface-deep flex shrink-0 flex-row border-t pb-[env(safe-area-inset-bottom)] select-none'
     >
       {pages.map(({ page, label, icon: Icon }) => {
@@ -30,7 +31,7 @@ const TmaTabs = observer(({ model }: Props) => {
           <button
             key={page}
             type='button'
-            aria-label={label}
+            aria-label={model.t(label)}
             aria-current={active ? 'page' : undefined}
             className={
               'flex min-h-11 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs ' +
@@ -41,7 +42,7 @@ const TmaTabs = observer(({ model }: Props) => {
             }}
           >
             <Icon className='size-[18px]' aria-hidden='true' />
-            <span>{label}</span>
+            <span>{model.t(label)}</span>
           </button>
         )
       })}

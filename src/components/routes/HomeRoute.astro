@@ -1,0 +1,26 @@
+---
+// The whole `/` document. `src/pages/index.astro` (English) and `src/pages/[locale]/index.astro`
+// both render this, so the two routes cannot drift (spec §B); the locale comes from the route
+// params via localeOf(Astro) in every component below.
+import Layout from '../../layouts/LandingLayout.astro'
+import Landing from '../Landing.astro'
+import Header from '../SiteHeader.astro'
+import Footer from '../SiteFooter.astro'
+import Banner from '../Banner.astro'
+import { localeOf } from '../../i18n/locale.ts'
+import { getT } from '../../i18n/t.ts'
+
+const { t } = getT(localeOf(Astro), ['seo'])
+---
+
+<Layout title={t('seo.home.title')} description={t('seo.home.description')}>
+  <Banner />
+
+  <Header active='home' />
+
+  <main class=''>
+    <Landing />
+  </main>
+
+  <Footer />
+</Layout>

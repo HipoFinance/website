@@ -1,0 +1,57 @@
+---
+// Starlight's language select, gated by the rollout (specs/multi-language-site.md §G, §J, §L): it renders
+// nothing until at least one non-English locale is `public`, so configuring Starlight `locales` for draft
+// or indexed locales adds no visible language UI — neither in our Header override nor in Starlight's
+// MobileMenuFooter, which imports the same virtual component. Once shown it lists `public` locales only
+// (Starlight's default lists every configured locale, which would expose `indexed` ones) and links through
+// our localizedPath so the choice lands on the same docs page. The markup and the <select> behaviour mirror
+// @astrojs/starlight/components/LanguageSelect.astro (~0.40). Wired in astro.config.mjs `components`.
+import Select from '@astrojs/starlight/components/Select.astro'
+import { LOCALES, isLocaleKey, publicLocales } from '../../i18n/registry.mjs'
+import { localizedPath } from '../../i18n/locale'
+
+const locales = publicLocales()
+const routeLocale = Astro.locals.starlightRoute.locale
+const current = routeLocale !== undefined && isLocaleKey(routeLocale) ? routeLocale : 'en'
+
+// Inline (not hoisted) so that no script — and no `starlight-lang-select` string — ships while the select
+// is suppressed; guarded because the header and the mobile menu footer both render this component.
+const script = `
+if (!customElements.get('starlight-lang-select')) {
+  customElements.define('starlight-lang-select', class extends HTMLElement {
+    constructor() {
+      super()
+      const select = this.querySelector('select')
+      if (!select) return
+      select.addEventListener('change', (e) => {
+        if (e.currentTarget instanceof HTMLSelectElement) window.location.pathname = e.currentTarget.value
+      })
+      window.addEventListener('pageshow', (event) => {
+        if (!event.persisted) return
+        // A bfcache restore can leave the selected index out of sync with the current page.
+        const markupSelectedIndex = select.querySelector('option[selected]')?.index
+        if (markupSelectedIndex !== select.selectedIndex) select.selectedIndex = markupSelectedIndex ?? 0
+      })
+    }
+  })
+}
+`
+---
+
+{
+  locales.length >= 2 && (
+    <starlight-lang-select>
+      <Select
+        icon='translate'
+        label={Astro.locals.t('languageSelect.accessibleLabel')}
+        options={locales.map((key) => ({
+          value: localizedPath(Astro.url.pathname, key),
+          selected: key === current,
+          label: LOCALES[key].label,
+        }))}
+        width='7em'
+      />
+      <script is:inline set:html={script} />
+    </starlight-lang-select>
+  )
+}

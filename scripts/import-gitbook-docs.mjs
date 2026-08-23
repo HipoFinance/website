@@ -8,8 +8,10 @@
 // so it can be re-run to pick up GitBook edits before cutover. After cutover the generated Markdown
 // is the source of truth and this script is kept only for reference.
 
+import { existsSync, readdirSync, statSync } from 'node:fs'
 import { mkdir, rm, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
+import { isLocaleKey } from '../src/i18n/registry.mjs'
 
 const SITE = 'https://docs.hipo.finance'
 const OUT_CONTENT = 'src/content/docs'
@@ -32,8 +34,7 @@ const LINK_FIXUPS = {
 // once docs.hipo.finance starts wildcard-redirecting into /docs/.
 const EXTERNAL_FIXUPS = {
   '/frequently-asked-questions/what-is-apy': '/faq/',
-  '/frequently-asked-questions/what-is-the-expected-timeframe-for-receiving-my-ton-after-unstaking':
-    '/faq/',
+  '/frequently-asked-questions/what-is-the-expected-timeframe-for-receiving-my-ton-after-unstaking': '/faq/',
 }
 
 const HINT_TO_ASIDE = { info: 'note', success: 'tip', warning: 'caution', danger: 'danger' }
@@ -200,7 +201,24 @@ function transform(md, page, ctx) {
   return frontmatter.join('\n') + '\n' + out + '\n'
 }
 
+// Translated docs live at src/content/docs/<locale>/ (specs/multi-language-site.md §G). This importer
+// wipes src/content/docs/ wholesale, so it must never run once any locale directory exists there.
+function refuseIfTranslationsExist() {
+  if (!existsSync(OUT_CONTENT)) return
+  const locales = readdirSync(OUT_CONTENT).filter(
+    (name) => isLocaleKey(name) && statSync(join(OUT_CONTENT, name)).isDirectory(),
+  )
+  if (locales.length > 0) {
+    console.error(
+      `Refusing to run: ${OUT_CONTENT}/ contains translated docs (${locales.join(', ')}); ` +
+        'this importer would delete them. The Markdown in this repo is the source of truth now.',
+    )
+    process.exit(1)
+  }
+}
+
 async function main() {
+  refuseIfTranslationsExist()
   const pages = parseIndex(await fetchText(`${SITE}/llms.txt`))
   if (pages.length === 0) throw new Error('llms.txt yielded no pages')
   console.log(`Found ${pages.length} pages in llms.txt`)

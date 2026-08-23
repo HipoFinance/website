@@ -1,0 +1,76 @@
+---
+import { getCollection, render } from 'astro:content'
+import type { ShellPage } from './shellJsonLd'
+import { localeOf } from '../../i18n/locale.ts'
+
+interface Props {
+  page: ShellPage
+  heading: string
+}
+
+const { page, heading } = Astro.props
+const locale = localeOf(Astro)
+
+// Explainer cards under the dApp island: src/content/prose/<locale>/shell/<page>/cards/<nn>-<slug>.md,
+// `title` in frontmatter and the card prose as the body.
+const prefix = `${locale}/shell/${page}/cards/`
+const cards = (await getCollection('prose', (entry) => entry.id.startsWith(prefix))).sort(
+  (a, b) => a.data.order - b.data.order,
+)
+const rendered = await Promise.all(cards.map(async (entry) => ({ entry, Content: (await render(entry)).Content })))
+---
+
+<section class='font-body text-text mx-auto w-full max-w-3xl px-4 pt-8 pb-24'>
+  <h1 class='font-fredoka mb-6 text-center text-3xl font-semibold'>{heading}</h1>
+
+  {
+    rendered.map(({ entry, Content }, i) => (
+      <div class:list={['border-border bg-surface rounded-[20px] border p-6', i < rendered.length - 1 && 'mb-6']}>
+        <h2 class='font-fredoka mb-2 text-xl font-semibold'>{entry.data.title}</h2>
+        <div class='shell-card-body'>
+          <Content />
+        </div>
+      </div>
+    ))
+  }
+</section>
+
+<style>
+  /* The card bodies are rendered Markdown; these reproduce the utilities the handwritten markup
+     carried: text-text-muted leading-relaxed on paragraphs and lists, list-decimal space-y-2 ps-5
+     / list-disc space-y-1 ps-5 on lists, mt-3 on a block following another, underlined accent links. */
+  .shell-card-body :global(p),
+  .shell-card-body :global(ul),
+  .shell-card-body :global(ol) {
+    color: var(--color-text-muted);
+    line-height: 1.625;
+  }
+  .shell-card-body :global(ul),
+  .shell-card-body :global(ol) {
+    padding-inline-start: 1.25rem;
+  }
+  .shell-card-body :global(ul) {
+    list-style-type: disc;
+  }
+  .shell-card-body :global(ol) {
+    list-style-type: decimal;
+  }
+  .shell-card-body :global(ul > li:not(:last-child)) {
+    margin-block-end: 0.25rem;
+  }
+  .shell-card-body :global(ol > li:not(:last-child)) {
+    margin-block-end: 0.5rem;
+  }
+  .shell-card-body > :global(* + *) {
+    margin-block-start: 0.75rem;
+  }
+  .shell-card-body :global(a) {
+    color: var(--color-accent);
+    text-decoration-line: underline;
+  }
+  @media (hover: hover) {
+    .shell-card-body :global(a:hover) {
+      color: var(--color-accent-hover);
+    }
+  }
+</style>

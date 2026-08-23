@@ -1,0 +1,8 @@
+---
+import ShellRoute from '../../../components/routes/ShellRoute.astro'
+import { localeParams } from '../../../i18n/locale.ts'
+
+export const getStaticPaths = localeParams
+---
+
+<ShellRoute page='unstake' />

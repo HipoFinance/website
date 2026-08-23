@@ -1,0 +1,32 @@
+---
+// Overrides Starlight's default Head.astro (~0.40) so a drafts build (I18N_INCLUDE_DRAFTS=1) never
+// changes what crawlers see. Starlight builds `Astro.locals.starlightRoute.head` from the `locales`
+// object passed to `starlight()` in astro.config.mjs, which must list every built locale (drafts
+// included) for its own i18n routing to work — so we cannot filter that source. Instead this
+// component filters the resulting hreflang alternates to drop draft locales, and adds a robots
+// noindex meta on pages whose own locale is a draft. Wired via astro.config.mjs
+// `starlight({ components: { Head: ... } })`.
+import { isLocaleKey, LOCALES } from '../../i18n/registry.mjs'
+
+const { head } = Astro.locals.starlightRoute
+const routeLocale = Astro.locals.starlightRoute.locale
+const locale = routeLocale !== undefined && isLocaleKey(routeLocale) ? routeLocale : 'en'
+const isDraft = LOCALES[locale]?.status === 'draft'
+
+const draftLangs = new Set(
+  Object.values(LOCALES)
+    .filter((info) => info.status === 'draft')
+    .map((info) => info.lang),
+)
+
+const filteredHead = head.filter((entry) => {
+  if (entry.tag !== 'link' || entry.attrs?.rel !== 'alternate') {
+    return true
+  }
+  const hreflang = entry.attrs?.hreflang
+  return typeof hreflang !== 'string' || !draftLangs.has(hreflang)
+})
+---
+
+{filteredHead.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+{isDraft && <meta name='robots' content='noindex, nofollow' />}

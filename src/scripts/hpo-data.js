@@ -3,6 +3,14 @@
 // (#hpoTvlGram #hpoTvlUsd #hpoStakers). Every value starts as an em dash ("—") in the markup and
 // is only overwritten when the fetch succeeds — a missing field or a failed fetch must never
 // write a fake or stale number, it just leaves the dash in place.
+//
+// Numbers follow the page's locale (spec §E): `<html lang>` is mapped back to its registry key and
+// every value goes through src/i18n/format.ts, so `/fa/` gets Persian digits without any change here.
+
+import { LOCALES } from '../i18n/registry.mjs'
+import { formatCompact, formatNumber, formatUsd } from '../i18n/format.ts'
+
+const locale = pageLocale()
 
 let elMarketCap = document.getElementById('hpoMarketCap')
 let elHpoVolume = document.getElementById('hpoVolume')
@@ -48,7 +56,7 @@ let revealBurned = (burned) => {
       elBurnArc.setAttribute('stroke-dasharray', pct + ' ' + (100 - pct))
     }
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      SetText(elBurned, burned.toLocaleString('en-US'))
+      SetText(elBurned, formatNumber(locale, burned))
       return
     }
     const duration = 1400
@@ -56,7 +64,7 @@ let revealBurned = (burned) => {
     const tick = (now) => {
       const p = Math.min((now - t0) / duration, 1)
       const eased = 1 - Math.pow(1 - p, 3)
-      SetText(elBurned, Math.round(burned * eased).toLocaleString('en-US'))
+      SetText(elBurned, formatNumber(locale, Math.round(burned * eased)))
       if (p < 1) {
         requestAnimationFrame(tick)
       }
@@ -111,12 +119,12 @@ let updateHpoData = () => {
 
       const marketCap = result.hpo?.market?.market_cap?.usd
       if (marketCap != null && marketCap > 0) {
-        SetText(elMarketCap, '$' + FormatCompact1Fraction(marketCap))
+        SetText(elMarketCap, FormatCompactUsd(marketCap))
       }
 
       const volume = result.hpo?.market?.total_volume?.usd
       if (volume != null && volume > 0) {
-        SetText(elHpoVolume, '$' + FormatCompact1Fraction(volume))
+        SetText(elHpoVolume, FormatCompactUsd(volume))
       }
 
       const holders = result.hpo?.holders_count
@@ -131,7 +139,7 @@ let updateHpoData = () => {
 
         const gramPrice = result.ton?.market?.current_price?.usd
         if (gramPrice != null && gramPrice > 0) {
-          SetText(elTvlUsd, '$' + FormatCompact1Fraction(staked * gramPrice))
+          SetText(elTvlUsd, FormatCompactUsd(staked * gramPrice))
         }
       }
 
@@ -152,18 +160,24 @@ let SetText = (el, text) => {
   }
 }
 
+// The registry key whose `lang` matches <html lang> (e.g. lang="pt-BR" → 'pt-br'); English otherwise.
+function pageLocale() {
+  const lang = document.documentElement.lang
+  const match = Object.entries(LOCALES).find(([, info]) => info.lang === lang)
+  return match === undefined ? 'en' : match[0]
+}
+
 let FormatCompact1Fraction = (n) => {
-  return n.toLocaleString('en-US', {
-    notation: 'compact',
-    maximumFractionDigits: 1,
-  })
+  return formatCompact(locale, n, 1)
 }
 
 let FormatCompact2Fraction = (n) => {
-  return n.toLocaleString('en-US', {
-    notation: 'compact',
-    maximumFractionDigits: 2,
-  })
+  return formatCompact(locale, n, 2)
+}
+
+// "$1.2M" in English; the currency sign goes wherever the locale puts it.
+let FormatCompactUsd = (n) => {
+  return formatUsd(locale, n, { notation: 'compact', maximumFractionDigits: 1 })
 }
 
 updateHpoData()

@@ -1,19 +1,28 @@
 ---
+import { getCollection, render } from 'astro:content'
+import { localeOf, localizedPath } from '../i18n/locale.ts'
+import { getT } from '../i18n/t.ts'
+import { formatNumber, formatPercent } from '../i18n/format.ts'
+
 // HPO token page content. Recreates design/HPO.dc.html in the Warm Dark tokens defined in
-// src/styles/global.css. Owned by src/pages/hpo/index.astro only.
+// src/styles/global.css. Owned by src/pages/hpo/index.astro only. Every visible string comes from
+// src/i18n/<locale>/hpo.json; sentences that wrap a live element or a link are built here and
+// interpolated through tHtml so translators can move the pieces.
+const locale = localeOf(Astro)
+const { t, tHtml } = getT(locale, ['hpo'])
 
 // The HPO allocation per docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/ — percentages of
 // the 1B minted, so they always sum to 100 regardless of burns. Rendered as an inline SVG donut
 // (replacing the old static Google-Sheets export) so hpo-data.js can layer the live burned share
 // on top: an ember arc inside the ring plus a count-up in the hole, revealed on scroll.
 const tokenomics = [
-  { label: 'Community', pct: 30, color: '#ff7e73' },
-  { label: 'Liquidity', pct: 20, color: '#6fc7b2' },
-  { label: 'Team', pct: 20, color: '#7ea6e0' },
-  { label: 'Marketing', pct: 15, color: '#b795e0' },
-  { label: 'Treasury', pct: 13, color: '#9ab87c' },
-  { label: 'Advisers', pct: 2, color: '#8d7f76' },
-]
+  { label: t('hpo.tokenomics.community'), pct: 30, color: '#ff7e73' },
+  { label: t('hpo.tokenomics.liquidity'), pct: 20, color: '#6fc7b2' },
+  { label: t('hpo.tokenomics.team'), pct: 20, color: '#7ea6e0' },
+  { label: t('hpo.tokenomics.marketing'), pct: 15, color: '#b795e0' },
+  { label: t('hpo.tokenomics.treasury'), pct: 13, color: '#9ab87c' },
+  { label: t('hpo.tokenomics.advisers'), pct: 2, color: '#8d7f76' },
+].map((slice) => ({ ...slice, pctText: formatPercent(locale, slice.pct / 100, 0) }))
 // Donut slice geometry via pathLength=100: each circle draws pct units minus a small gap,
 // dashoffset walks the start point clockwise from 12 o'clock (25 = the top of an SVG circle).
 const GAP = 1.2
@@ -23,7 +32,43 @@ const slices = tokenomics.map((t) => {
   sliceStart += t.pct
   return { ...t, dasharray: `${t.pct - GAP} ${100 - t.pct + GAP}`, dashoffset: 25 - start - GAP / 2 }
 })
-const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pct}%`).join(', ')
+const chartLabel = t('hpo.tokenomics.chartLabel', {
+  items: tokenomics
+    .map((slice) => t('hpo.tokenomics.chartItem', { label: slice.label, pct: slice.pctText }))
+    .join(t('hpo.tokenomics.chartSeparator')),
+})
+
+const buySteps = [1, 2, 3, 4].map((n) => ({
+  num: t(`hpo.buy.step${n}.num`),
+  text: t(`hpo.buy.step${n}.text`),
+}))
+
+const utility = [
+  { icon: '/images/money.svg', key: 'profit' },
+  { icon: '/images/hat.svg', key: 'gang' },
+  { icon: '/images/percentage.svg', key: 'offers' },
+  { icon: '/images/governance.svg', key: 'vote' },
+]
+
+const scarcity = [
+  { icon: '/images/diamond.svg', key: 'fixed' },
+  { icon: '/images/lockup.svg', key: 'team' },
+  { icon: '/images/star-shine.svg', key: 'seasonal' },
+  { icon: '/images/heart-shine.svg', key: 'held' },
+]
+
+const tokenomicsDocs = localizedPath('/docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/', locale)
+const clubDocs = localizedPath('/docs/giveaways-and-prizes/hipo-club/', locale)
+const link = (href: string, label: string, external = false) =>
+  `<a href="${href}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''} class="text-accent">${label}</a>`
+
+// The FAQ answers come from the `prose` collection: src/content/prose/<locale>/hpo-faq/<nn>-<slug>.md.
+const faqPrefix = `${locale}/hpo-faq/`
+const hpoFaq = await Promise.all(
+  (await getCollection('prose', (entry) => entry.id.startsWith(faqPrefix)))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+)
 ---
 
 <script src='/src/scripts/hpo-data.js'></script>
@@ -33,12 +78,11 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
   <!-- Hero -->
   <section class='grid items-center gap-12 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:py-16'>
     <div class='flex flex-col items-start gap-[22px]'>
-      <h1 class='font-fredoka text-[40px] leading-[1.1] font-semibold sm:text-[54px]'>
-        <span class='text-accent'>HPO</span>, the decision-making &amp; profit-sharing token of Hipo
-      </h1>
-      <p class='text-text-muted max-w-[480px] text-[19px] leading-[1.6]'>
-        Be part of the future of GRAM staking. Hold HPO for revenue-sharing and decision-making in the Hipo protocol.
-      </p>
+      <h1
+        class='font-fredoka text-[40px] leading-[1.1] font-semibold sm:text-[54px]'
+        set:html={tHtml('hpo.hero.title', { accent: '<span class="text-accent">HPO</span>' })}
+      />
+      <p class='text-text-muted max-w-[480px] text-[19px] leading-[1.6]'>{t('hpo.hero.lead')}</p>
       <div class='flex flex-wrap items-center gap-3.5'>
         <a
           href='https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=HPO'
@@ -46,13 +90,10 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
           rel='noopener noreferrer'
           class='bg-accent text-on-accent hover:bg-accent-hover rounded-full px-9 py-[15px] text-[17px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)]'
         >
-          Buy HPO
+          {t('hpo.hero.buy')}
         </a>
-        <a
-          href='/docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/'
-          class='hover:text-accent px-3 py-[15px] text-base font-medium'
-        >
-          Tokenomics docs →
+        <a href={tokenomicsDocs} class='hover:text-accent px-3 py-[15px] text-base font-medium'>
+          {t('hpo.hero.tokenomicsDocs')}
         </a>
       </div>
     </div>
@@ -61,12 +102,12 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
       <div class='flex items-center gap-3'>
         <img src='/hpo.png' class='size-11' alt='HPO' />
         <div>
-          <div class='font-fredoka text-lg font-semibold'>HPO / USD</div>
-          <div class='text-text-muted text-[13px]'>Live market data</div>
+          <div class='font-fredoka text-lg font-semibold'>{t('hpo.hero.pair')}</div>
+          <div class='text-text-muted text-[13px]'>{t('hpo.hero.liveData')}</div>
         </div>
-        <span class='text-positive ml-auto flex items-center gap-1.5 text-[13px] font-medium'>
+        <span class='text-positive ms-auto flex items-center gap-1.5 text-[13px] font-medium'>
           <span class='bg-positive inline-block size-[7px] rounded-full'></span>
-          Live
+          {t('hpo.hero.live')}
         </span>
       </div>
 
@@ -79,15 +120,15 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
       <div class='flex justify-between gap-3'>
         <div>
           <div id='hpoMarketCap' class='font-fredoka text-[22px] font-semibold'>—</div>
-          <div class='text-text-muted text-[13px]'>Market cap</div>
+          <div class='text-text-muted text-[13px]'>{t('hpo.hero.marketCap')}</div>
         </div>
         <div>
           <div id='hpoVolume' class='font-fredoka text-[22px] font-semibold'>—</div>
-          <div class='text-text-muted text-[13px]'>Volume, 24h</div>
+          <div class='text-text-muted text-[13px]'>{t('hpo.hero.volume')}</div>
         </div>
         <div>
           <div id='hpoHolders' class='font-fredoka text-[22px] font-semibold'>—</div>
-          <div class='text-text-muted text-[13px]'>Holders</div>
+          <div class='text-text-muted text-[13px]'>{t('hpo.hero.holders')}</div>
         </div>
       </div>
     </div>
@@ -95,36 +136,17 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
 
   <!-- HPO utility -->
   <section class='py-6'>
-    <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>HPO utility</h2>
+    <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>{t('hpo.utility.title')}</h2>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
-        <img src='/images/money.svg' class='size-11' alt='' />
-        <div class='font-fredoka text-[19px] font-semibold'>Earn profit shares</div>
-        <p class='text-text-muted text-[15px] leading-[1.55]'>
-          Receive periodic distributions from Hipo Protocol's profits.
-        </p>
-      </div>
-      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
-        <img src='/images/hat.svg' class='size-11' alt='' />
-        <div class='font-fredoka text-[19px] font-semibold'>Boost Hipo Gang earnings</div>
-        <p class='text-text-muted text-[15px] leading-[1.55]'>
-          Hold HPO to earn extra in-game coins and qualify for HPO airdrops.
-        </p>
-      </div>
-      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
-        <img src='/images/percentage.svg' class='size-11' alt='' />
-        <div class='font-fredoka text-[19px] font-semibold'>Access exclusive offers</div>
-        <p class='text-text-muted text-[15px] leading-[1.55]'>
-          Unlock special discounts, rewards, and perks within the Hipo community.
-        </p>
-      </div>
-      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
-        <img src='/images/governance.svg' class='size-11' alt='' />
-        <div class='font-fredoka text-[19px] font-semibold'>Vote on key decisions</div>
-        <p class='text-text-muted text-[15px] leading-[1.55]'>
-          Shape the future of Hipo by voting on upgrades, strategies, and key decisions.
-        </p>
-      </div>
+      {
+        utility.map(({ icon, key }) => (
+          <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
+            <img src={icon} class='size-11' alt='' />
+            <div class='font-fredoka text-[19px] font-semibold'>{t(`hpo.utility.${key}.title`)}</div>
+            <p class='text-text-muted text-[15px] leading-[1.55]'>{t(`hpo.utility.${key}.body`)}</p>
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -132,49 +154,28 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
   <section id='tokenomics' class='py-12'>
     <div class='grid items-start gap-12 lg:grid-cols-2'>
       <div>
-        <h2 class='font-fredoka mb-5 text-[40px] font-semibold'>How to buy HPO</h2>
+        <h2 class='font-fredoka mb-5 text-[40px] font-semibold'>{t('hpo.buy.title')}</h2>
         <div class='flex flex-col'>
-          <div class='border-border grid grid-cols-[56px_1fr] items-center gap-[18px] border-b py-[18px]'>
-            <span
-              class='bg-accent text-on-accent font-fredoka inline-flex size-11 items-center justify-center rounded-[14px] text-[19px] font-semibold'
-            >
-              01
-            </span>
-            <span class='text-[16px] leading-[1.5]'>Get a wallet supporting TON.</span>
-          </div>
-          <div class='border-border grid grid-cols-[56px_1fr] items-center gap-[18px] border-b py-[18px]'>
-            <span
-              class='bg-accent text-on-accent font-fredoka inline-flex size-11 items-center justify-center rounded-[14px] text-[19px] font-semibold'
-            >
-              02
-            </span>
-            <span class='text-[16px] leading-[1.5]'>Ensure you have enough GRAM for your desired HPO purchase.</span>
-          </div>
-          <div class='border-border grid grid-cols-[56px_1fr] items-center gap-[18px] border-b py-[18px]'>
-            <span
-              class='bg-accent text-on-accent font-fredoka inline-flex size-11 items-center justify-center rounded-[14px] text-[19px] font-semibold'
-            >
-              03
-            </span>
-            <span class='text-[16px] leading-[1.5]'>
-              Head to your favorite DEX or aggregator — STON.fi, DeDust, TONCO, GroypFi, or swap.coffee — and connect
-              your TON wallet.
-            </span>
-          </div>
-          <div class='grid grid-cols-[56px_1fr] items-center gap-[18px] py-[18px]'>
-            <span
-              class='bg-accent text-on-accent font-fredoka inline-flex size-11 items-center justify-center rounded-[14px] text-[19px] font-semibold'
-            >
-              04
-            </span>
-            <span class='text-[16px] leading-[1.5]'>
-              Swap your GRAM for HPO, and receive HPO in your wallet instantly.
-            </span>
-          </div>
+          {
+            buySteps.map((step, i) => (
+              <div
+                class={
+                  i < buySteps.length - 1
+                    ? 'border-border grid grid-cols-[56px_1fr] items-center gap-[18px] border-b py-[18px]'
+                    : 'grid grid-cols-[56px_1fr] items-center gap-[18px] py-[18px]'
+                }
+              >
+                <span class='bg-accent text-on-accent font-fredoka inline-flex size-11 items-center justify-center rounded-[14px] text-[19px] font-semibold'>
+                  {step.num}
+                </span>
+                <span class='text-[16px] leading-[1.5]'>{step.text}</span>
+              </div>
+            ))
+          }
         </div>
       </div>
       <div>
-        <h2 class='font-fredoka mb-5 text-[40px] font-semibold'>Tokenomics</h2>
+        <h2 class='font-fredoka mb-5 text-[40px] font-semibold'>{t('hpo.tokenomics.title')}</h2>
         <div class='border-border bg-surface rounded-[20px] border p-6'>
           <div class='flex flex-col items-center gap-7 sm:flex-row'>
             <div id='hpoTokenomicsChart' class='relative w-full max-w-[250px] shrink-0'>
@@ -213,7 +214,7 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
               current total). Stays an em dash if the lookup fails — never a hardcoded number. -->
               <div class='absolute inset-0 flex flex-col items-center justify-center gap-0.5 text-center'>
                 <div class='font-fredoka text-[21px] font-semibold'>🔥 <span id='hpoBurned'>—</span></div>
-                <div class='text-text-muted text-[13px]'>HPO burned so far</div>
+                <div class='text-text-muted text-[13px]'>{t('hpo.tokenomics.burned')}</div>
               </div>
             </div>
             <ul class='w-full space-y-2.5 text-[15px]'>
@@ -222,15 +223,15 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
                   <li class='flex items-center gap-2.5'>
                     <span class='inline-block size-3 shrink-0 rounded-full' style={`background:${s.color}`} />
                     <span>{s.label}</span>
-                    <span class='text-text-muted ml-auto'>{s.pct}%</span>
+                    <span class='text-text-muted ms-auto'>{s.pctText}</span>
                   </li>
                 ))
               }
             </ul>
           </div>
           <p class='text-text-muted mt-5 text-[15px] leading-[1.55]'>
-            Each category in HPO tokenomics is strategically designed to fuel Hipo's growth.
-            <a href='/docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/' class='text-accent'>Learn more</a>
+            {t('hpo.tokenomics.body')}
+            <a href={tokenomicsDocs} class='text-accent'>{t('hpo.tokenomics.learnMore')}</a>
           </p>
         </div>
       </div>
@@ -239,82 +240,70 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
 
   <!-- A shrinking supply -->
   <section class='py-12'>
-    <h2 class='font-fredoka mb-2 text-[40px] font-semibold'>HPO is built to get scarcer</h2>
-    <p class='text-text-muted mb-7 text-[18px]'>A fixed supply with real burns behind it — not promises.</p>
+    <h2 class='font-fredoka mb-2 text-[40px] font-semibold'>{t('hpo.scarcity.title')}</h2>
+    <p class='text-text-muted mb-7 text-[18px]'>{t('hpo.scarcity.subtitle')}</p>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
-        <img src='/images/diamond.svg' class='size-11' alt='' />
-        <div class='font-fredoka text-[19px] font-semibold'>Fixed supply</div>
-        <p class='text-text-muted text-[15px] leading-[1.55]'>
-          1,000,000,000 HPO, minted once. There is no inflation — burns only move the supply down.
-        </p>
-      </div>
-      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
-        <img src='/images/lockup.svg' class='size-11' alt='' />
-        <div class='font-fredoka text-[19px] font-semibold'>Team tokens burned</div>
-        <p class='text-text-muted text-[15px] leading-[1.55]'>
-          90% of the team tokens due in the first release year were burned, and the remaining release was extended from
-          24 to 48 months.
-        </p>
-      </div>
-      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
-        <img src='/images/star-shine.svg' class='size-11' alt='' />
-        <div class='font-fredoka text-[19px] font-semibold'>Seasonal burns</div>
-        <p class='text-text-muted text-[15px] leading-[1.55]'>
-          A share of every Hipo Club season's unclaimed rewards is burned, and the rest returns to the treasury.
-        </p>
-      </div>
-      <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
-        <img src='/images/heart-shine.svg' class='size-11' alt='' />
-        <div class='font-fredoka text-[19px] font-semibold'>Held, not flipped</div>
-        <p class='text-text-muted text-[15px] leading-[1.55]'>
-          Selling rewarded HPO resets a member's Hipo Club level, so rewards flow to long-term holders.
-        </p>
-      </div>
+      {
+        scarcity.map(({ icon, key }) => (
+          <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
+            <img src={icon} class='size-11' alt='' />
+            <div class='font-fredoka text-[19px] font-semibold'>{t(`hpo.scarcity.${key}.title`)}</div>
+            <p class='text-text-muted text-[15px] leading-[1.55]'>{t(`hpo.scarcity.${key}.body`)}</p>
+          </div>
+        ))
+      }
     </div>
-    <p class='text-text-muted mt-5 text-[15px]'>
-      The details live in the
-      <a href='/docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/' class='text-accent'>tokenomics docs</a>
-      and the
-      <a href='/docs/giveaways-and-prizes/hipo-club/' class='text-accent'>Hipo Club docs</a>.
-    </p>
+    <p
+      class='text-text-muted mt-5 text-[15px]'
+      set:html={tHtml('hpo.scarcity.details', {
+        tokenomicsLink: link(tokenomicsDocs, t('hpo.scarcity.tokenomicsDocs')),
+        clubLink: link(clubDocs, t('hpo.scarcity.clubDocs')),
+      })}
+    />
   </section>
 
   <!-- Early investors -->
   <section class='py-12'>
-    <h2 class='font-fredoka mb-2 text-[40px] font-semibold'>A unique opportunity for early investors</h2>
-    <p class='text-text-muted mb-7 text-[18px]'>Proven, live on mainnet since October 30, 2023 — not just a plan.</p>
+    <h2 class='font-fredoka mb-2 text-[40px] font-semibold'>{t('hpo.investors.title')}</h2>
+    <p class='text-text-muted mb-7 text-[18px]'>{t('hpo.investors.subtitle')}</p>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-3'>
       <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
-        <div class='font-fredoka text-accent text-[19px] font-semibold'>Impressive metrics</div>
+        <div class='font-fredoka text-accent text-[19px] font-semibold'>{t('hpo.investors.metrics.title')}</div>
         <div class='flex flex-col gap-2 text-[15px] leading-[1.5]'>
-          <span>
-            <strong class='text-text font-bold'><span id='hpoTvlGram'>—</span> GRAM</strong>
-            (<span id='hpoTvlUsd'>—</span>) TVL
-          </span>
-          <span>
-            <strong id='hpoStakers' class='text-text font-bold'>—</strong> active stakers ·
-            <a href='/stats/' class='text-accent'>live stats</a>
-          </span>
+          <span
+            set:html={tHtml('hpo.investors.metrics.tvl', {
+              tvl: '<strong class="text-text font-bold"><span id="hpoTvlGram">—</span> GRAM</strong>',
+              usd: '<span id="hpoTvlUsd">—</span>',
+            })}
+          />
+          <span
+            set:html={tHtml('hpo.investors.metrics.stakers', {
+              stakers: '<strong id="hpoStakers" class="text-text font-bold">—</strong>',
+              link: link(localizedPath('/stats/', locale), t('hpo.investors.metrics.liveStats')),
+            })}
+          />
         </div>
       </div>
       <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
-        <div class='font-fredoka text-accent text-[19px] font-semibold'>Audited &amp; open-source</div>
+        <div class='font-fredoka text-accent text-[19px] font-semibold'>{t('hpo.investors.audited.title')}</div>
         <div class='flex flex-col gap-2 text-[15px] leading-[1.5]'>
-          <span><strong class='text-text font-bold'>4</strong> independent smart-contract audits.</span>
-          <span>
-            Fully open-source on
-            <a href='https://github.com/HipoFinance' target='_blank' rel='noopener noreferrer' class='text-accent'>
-              GitHub
-            </a>
-          </span>
+          <span
+            set:html={tHtml('hpo.investors.audited.audits', {
+              count: `<strong class="text-text font-bold">${t('hpo.investors.audited.auditsCount')}</strong>`,
+            })}
+          />
+          <span
+            set:html={tHtml('hpo.investors.audited.openSource', {
+              link: link('https://github.com/HipoFinance', 'GitHub', true),
+            })}
+          />
         </div>
       </div>
       <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
-        <div class='font-fredoka text-accent text-[19px] font-semibold'>Room to grow</div>
+        <div class='font-fredoka text-accent text-[19px] font-semibold'>{t('hpo.investors.growth.title')}</div>
         <div class='flex flex-col gap-2 text-[15px] leading-[1.5]'>
-          <span>Liquid staking on TON is still early — most stakable GRAM has yet to go liquid.</span>
-          <span>No private fundraising — early investors buy at a modest price.</span>
+          <span>{t('hpo.investors.growth.early')}</span>
+          <span>{t('hpo.investors.growth.fundraising')}</span>
         </div>
       </div>
     </div>
@@ -322,13 +311,13 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
 
   <!-- Watch & learn -->
   <section class='py-12'>
-    <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>Watch &amp; learn</h2>
+    <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>{t('hpo.watch.title')}</h2>
     <div class='grid grid-cols-1 gap-6 lg:grid-cols-2'>
       <div class='border-border bg-surface rounded-[20px] border p-4'>
         <iframe
           class='aspect-video w-full rounded-[12px]'
           src='https://www.youtube.com/embed/QYU-TWJK1yg'
-          title='YouTube video player'
+          title={t('hpo.watch.videoTitle')}
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
           allowfullscreen></iframe>
       </div>
@@ -336,7 +325,7 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
         <iframe
           class='aspect-video w-full rounded-[12px]'
           src='https://youtube.com/embed/ZHAlS4wystU?feature=share'
-          title='YouTube video player'
+          title={t('hpo.watch.videoTitle')}
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
           allowfullscreen></iframe>
       </div>
@@ -345,144 +334,20 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
 
   <!-- FAQ -->
   <section class='py-12'>
-    <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>FAQ</h2>
+    <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>{t('hpo.faq.title')}</h2>
     <div class='flex flex-col gap-4'>
-      <details open class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>1. What is HPO?</summary>
-        <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
-          HPO is the decision-making and profit-sharing token of Hipo, a liquid staking platform on TON. Holders of HPO
-          receive profit shares, exclusive offers, and a voice in Hipo's key decisions.
-        </div>
-      </details>
-
-      <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>2. What makes HPO valuable?</summary>
-        <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
-          <ol class='flex list-inside list-[lower-alpha] flex-col gap-2.5'>
-            <li>
-              Profit sharing: HPO holders receive a share of the Hipo protocol's profits, distributed periodically.
-            </li>
-            <li>Governance: holders vote on protocol upgrades, strategy, and treasury decisions.</li>
-            <li>
-              Rewards: through <a href='/docs/giveaways-and-prizes/hipo-club/' class='text-accent'>Hipo Club</a>, hGRAM
-              holders earn HPO after every validation round.
-            </li>
-            <li>Exclusive offers: discounts, rewards, and perks within the Hipo community.</li>
-          </ol>
-        </div>
-      </details>
-
-      <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>
-          3. Is the HPO supply fixed? What gets burned?
-        </summary>
-        <div class='text-text-muted flex flex-col gap-2.5 pt-3 text-[15px] leading-[1.6]'>
-          <p>
-            The total supply is fixed at 1,000,000,000 HPO — no new tokens can be minted. On top of that, the supply
-            shrinks over time:
-          </p>
-          <ol class='flex list-inside list-[lower-alpha] flex-col gap-2.5'>
-            <li>
-              90% of the team tokens scheduled for release in the first vesting year were burned, and the remaining team
-              release was extended from 24 to 48 months.
-            </li>
-            <li>A share of each Hipo Club season's unclaimed rewards is burned.</li>
-          </ol>
-          <p>
-            See the
-            <a href='/docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/' class='text-accent'>tokenomics docs</a>
-            for the full distribution and vesting details.
-          </p>
-        </div>
-      </details>
-
-      <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>4. When did HPO launch?</summary>
-        <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
-          The HPO TGE took place on <strong class='text-text font-bold'>25th November 2024</strong> through an Initial Liquidity
-          Offering (ILO) — a launch directly on a decentralized exchange, open to anyone with a TON wallet, with no private
-          fundraising round. The initial DEX price was $0.02; since listing, the price is determined by the market.
-        </div>
-      </details>
-
-      <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>5. How can I become a HPO holder?</summary>
-        <div class='text-text-muted flex flex-col gap-2.5 pt-3 text-[15px] leading-[1.6]'>
-          <p>There are two main ways to become a HPO holder:</p>
-          <ol class='flex list-inside list-[lower-alpha] flex-col gap-2.5'>
-            <li><strong class='text-text font-bold'>Buy HPO</strong>: You can purchase HPO from listed markets.</li>
-            <li>
-              <strong class='text-text font-bold'>Airdrops</strong>: Become eligible for HPO airdrops by participating
-              in our ecosystem.
-            </li>
-          </ol>
-        </div>
-      </details>
-
-      <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>6. How do I earn HPO by staking?</summary>
-        <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
-          Join <a href='/docs/giveaways-and-prizes/hipo-club/' class='text-accent'>Hipo Club</a>: hGRAM holders earn HPO
-          directly after every validation round, with the amount depending on how much hGRAM you hold and your club
-          level. Levels rise as you claim and hold rewards — and reset if you sell them — so the system favors long-term
-          participants.
-        </div>
-      </details>
-
-      <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>
-          7. How can I become eligible for HPO airdrops?
-        </summary>
-        <div class='text-text-muted flex flex-col gap-2.5 pt-3 text-[15px] leading-[1.6]'>
-          <p>
-            We announce Hipo airdrop plans regularly in our official channels. The two most effective ways to qualify
-            are:
-          </p>
-          <ol class='flex list-inside list-[lower-alpha] flex-col gap-2.5'>
-            <li>
-              <strong class='text-text font-bold'>Stake Your GRAM</strong>: Stake your GRAM with Hipo to become
-              eligible.
-            </li>
-            <li>
-              <strong class='text-text font-bold'>Join Hipo Gang</strong>: Earn in-game coins, and boost your chances.
-            </li>
-          </ol>
-        </div>
-      </details>
-
-      <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>8. How to Buy HPO?</summary>
-        <div class='text-text-muted pt-3 text-[15px] leading-[1.6]'>
-          <ol class='flex list-inside list-[lower-alpha] flex-col gap-2.5'>
-            <li>Get a TON-supported Wallet.</li>
-            <li>Ensure You Have GRAM for your desired HPO purchase.</li>
-            <li>Head to the listed exchanges and connect your TON wallet.</li>
-            <li>Swap GRAM for HPO, and receive HPO instantly in your wallet!</li>
-          </ol>
-        </div>
-      </details>
-
-      <details class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
-        <summary class='text-text cursor-pointer text-[17px] font-medium'>
-          9. How do you manage sell pressure after airdrops?
-        </summary>
-        <div class='text-text-muted flex flex-col gap-2.5 pt-3 text-[15px] leading-[1.6]'>
-          <p>While the market determines whether holders sell or keep HPO, our approach focuses on:</p>
-          <ol class='flex list-inside list-[lower-alpha] flex-col gap-2.5'>
-            <li>
-              Airdropping tokens to those who bring real value to the Hipo ecosystem, attracting long-term believers.
-            </li>
-            <li>
-              Rewarding holding: selling rewarded HPO resets a member's Hipo Club level, and unclaimed seasonal rewards
-              are partly burned.
-            </li>
-            <li>
-              Developing Hipo's products and market, creating long-term growth opportunities for HPO holders, and
-              ensuring that any sell pressure becomes an opportunity for committed supporters to accumulate more HPO.
-            </li>
-          </ol>
-        </div>
-      </details>
+      {
+        hpoFaq.map(({ entry, Content }, i) => (
+          <details open={i === 0} class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
+            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+              {t('hpo.faq.item', { n: formatNumber(locale, entry.data.order), question: entry.data.question ?? '' })}
+            </summary>
+            <div class='hpo-answer text-text-muted flex flex-col gap-2.5 pt-3 text-[15px] leading-[1.6]'>
+              <Content />
+            </div>
+          </details>
+        ))
+      }
     </div>
   </section>
 
@@ -493,11 +358,8 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
       style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%)'
     >
       <div class='flex max-w-[620px] flex-col gap-2.5'>
-        <h2 class='font-fredoka text-[32px] font-semibold'>Build success with our community through HPO</h2>
-        <p class='text-text-muted text-[16px] leading-[1.6]'>
-          We see incredible growth potential and are excited to capture that value alongside the whole Hipo community.
-          Shape GRAM's future with HPO.
-        </p>
+        <h2 class='font-fredoka text-[32px] font-semibold'>{t('hpo.cta.title')}</h2>
+        <p class='text-text-muted text-[16px] leading-[1.6]'>{t('hpo.cta.body')}</p>
       </div>
       <a
         href='https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=HPO'
@@ -505,13 +367,30 @@ const chartLabel = 'HPO allocation: ' + tokenomics.map((t) => `${t.label} ${t.pc
         rel='noopener noreferrer'
         class='bg-accent text-on-accent hover:bg-accent-hover shrink-0 rounded-full px-[30px] py-[14px] text-[16px] font-semibold'
       >
-        Buy HPO
+        {t('hpo.cta.buy')}
       </a>
     </div>
   </section>
 </main>
 
 <style>
+  /* The FAQ answers are rendered Markdown; these reproduce the utilities the handwritten markup
+     carried: lower-alpha inside lists with gap-2.5, text-text font-bold emphasis, text-accent links. */
+  .hpo-answer :global(ol) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    list-style-position: inside;
+    list-style-type: lower-alpha;
+  }
+  .hpo-answer :global(strong) {
+    color: var(--color-text);
+    font-weight: 700;
+  }
+  .hpo-answer :global(a) {
+    color: var(--color-accent);
+  }
+
   /* The tokenomics burn arc: hpo-data.js only sets stroke-dasharray, this transition turns that
      into the attention-grabbing sweep. The ember glow separates it from the allocation ring. */
   #hpoBurnArc {

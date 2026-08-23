@@ -7,6 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/check-i18n.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -15,8 +16,14 @@
     "@astrojs/react": "^5.0.7",
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/starlight": "^0.40.0",
+    "@fontsource-variable/baloo-2": "^5.3.0",
+    "@fontsource-variable/baloo-bhaijaan-2": "^5.3.0",
+    "@fontsource-variable/comfortaa": "^5.3.0",
     "@fontsource-variable/fredoka": "^5.3.0",
+    "@fontsource-variable/rubik": "^5.3.0",
+    "@fontsource-variable/vazirmatn": "^5.3.0",
     "@fontsource/heebo": "^5.1.0",
+    "@fontsource/hind": "^5.3.0",
     "@hipo-finance/sdk": "^4.1.0",
     "@tailwindcss/vite": "^4.3.1",
     "@ton/core": "^0.63.1",

@@ -1,0 +1,9 @@
+---
+// `/<locale>/` for every released locale (plus drafts with I18N_INCLUDE_DRAFTS=1); never `/en/`.
+import HomeRoute from '../../components/routes/HomeRoute.astro'
+import { localeParams } from '../../i18n/locale.ts'
+
+export const getStaticPaths = localeParams
+---
+
+<HomeRoute />

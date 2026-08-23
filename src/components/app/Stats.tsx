@@ -17,7 +17,7 @@ interface TileProps {
 // tooltips live on the Stats page.
 const Tile = ({ label, tooltip, value, accent }: TileProps) => (
   <div className='border-border bg-surface rounded-[20px] border px-5 py-4'>
-    <p className={'font-fredoka text-2xl font-semibold ' + (accent === true ? 'text-accent' : 'text-text')}>
+    <p className={'font-fredoka num text-2xl font-semibold ' + (accent === true ? 'text-accent' : 'text-text')}>
       {value ?? '—'}
     </p>
     <p className='text-text-muted text-sm' title={tooltip}>
@@ -27,20 +27,25 @@ const Tile = ({ label, tooltip, value, accent }: TileProps) => (
 )
 
 const Stats = observer(({ model }: Props) => {
+  const t = model.t
   return (
     <div className='font-body text-text mx-auto w-full max-w-[1120px] px-6 pb-12'>
       <div className='mx-auto w-full max-w-[480px]'>
         <div className='grid grid-cols-1 gap-3 sm:grid-cols-3'>
           <Tile
-            label='APY, last round'
-            tooltip='Your yearly earnings based on recent staking rewards.'
+            label={t('app.stats.apyLastRound')}
+            tooltip={t('app.stats.apyTooltip')}
             value={model.statsApyFormatted}
             accent
           />
-          <Tile label='GRAM staked' tooltip='Total GRAM currently staked in Hipo.' value={model.statsStakedCompact} />
           <Tile
-            label='hGRAM holders'
-            tooltip='The number of wallets holding the hGRAM token.'
+            label={t('app.stats.gramStaked')}
+            tooltip={t('app.stats.gramStakedTooltip')}
+            value={model.statsStakedCompact}
+          />
+          <Tile
+            label={t('app.stats.hgramHolders')}
+            tooltip={t('app.stats.hgramHoldersTooltip')}
             value={model.statsHoldersFormatted}
           />
         </div>
@@ -52,7 +57,7 @@ const Stats = observer(({ model }: Props) => {
               model.navigateToPage('stats')
             }}
           >
-            More stats →
+            {t('app.stats.moreStats')} <span className='inline-block rtl:-scale-x-100'>→</span>
           </button>
         </div>
       </div>

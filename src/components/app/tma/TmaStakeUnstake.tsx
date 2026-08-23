@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import { Clock, Zap } from 'lucide-react'
 import { Model } from '../Model'
+import { nodes } from '../Interpolate'
 
 interface Props {
   model: Model
@@ -11,10 +12,12 @@ interface Props {
 // two cards of the mini app mockup. `min-h-full` plus `mt-auto` on the submit block is what pins
 // the CTA to the bottom of the viewport on a short page while still letting a long one scroll.
 const TmaStakeUnstake = observer(({ model }: Props) => {
+  const t = model.t
   const stake = model.isStakeTabActive
   const balance = stake ? model.tonBalanceFormatted : model.htonBalanceFormatted
   const receiveAmount = model.youWillReceiveAmount
   const hint = stake ? model.stakeRemain : model.unstakeOption === 'best' ? model.unstakeBestRemain : undefined
+  const zero = model.formatNumber(0)
 
   return (
     <div className='flex min-h-full flex-col gap-3.5 px-4 pt-1.5 pb-4'>
@@ -30,7 +33,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
             model.navigateToTab('stake')
           }}
         >
-          Stake
+          {t('app.common.stake')}
         </button>
         <button
           type='button'
@@ -43,7 +46,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
             model.navigateToTab('unstake')
           }}
         >
-          Unstake
+          {t('app.common.unstake')}
         </button>
       </div>
 
@@ -54,8 +57,12 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
         }
       >
         <div className='text-text-faint flex flex-row justify-between gap-2 text-xs'>
-          <span>{stake ? 'You stake' : 'You unstake'}</span>
-          {model.isWalletConnected && balance != null && <span className='truncate'>Balance: {balance}</span>}
+          <span>{stake ? t('app.tma.youStake') : t('app.tma.youUnstake')}</span>
+          {model.isWalletConnected && balance != null && (
+            <span className='truncate'>
+              {nodes(t('app.tma.balance'), { balance: <bdi className='num'>{balance}</bdi> })}
+            </span>
+          )}
         </div>
 
         <div className='flex flex-row items-center gap-2.5'>
@@ -64,17 +71,16 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
             id='amount'
             type='text'
             inputMode='decimal'
-            placeholder='0'
+            placeholder={zero}
             size={1}
+            dir='ltr'
             className={
-              'placeholder:text-text-faint w-full min-w-0 flex-1 bg-transparent text-[26px] font-semibold focus:outline-none ' +
+              'placeholder:text-text-faint w-full min-w-0 flex-1 bg-transparent text-start text-[26px] font-semibold focus:outline-none ' +
               (model.isAmountValid ? 'text-text' : 'text-accent')
             }
-            value={model.amount}
+            value={model.amountRaw}
             onInput={(e) => {
-              const target = e.target as HTMLInputElement
-              const value = target.value.replace(/,/g, '.')
-              model.setAmount(value)
+              model.setAmount(e.currentTarget.value)
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && model.isButtonEnabled) {
@@ -89,22 +95,22 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
           />
           <button
             type='button'
-            className='bg-border text-text-muted ml-auto shrink-0 cursor-pointer rounded-lg px-[9px] py-[5px] text-[11px] font-semibold'
+            className='bg-border text-text-muted ms-auto shrink-0 cursor-pointer rounded-lg px-[9px] py-[5px] text-[11px] font-semibold'
             onClick={model.setAmountToMax}
           >
-            Max
+            {t('app.common.max')}
           </button>
         </div>
       </label>
 
       <div className='border-border bg-surface-deep flex flex-col gap-2 rounded-2xl border p-4'>
-        <div className='text-text-faint text-xs'>You receive</div>
+        <div className='text-text-faint text-xs'>{t('app.tma.youReceive')}</div>
         <div className='flex flex-row items-center gap-2.5'>
           <img src={stake ? '/images/app/hgram.svg' : '/images/app/gram.svg'} alt='' className='h-[26px] w-[26px]' />
-          <span className='min-w-0 flex-1 truncate text-[26px] font-semibold'>
-            {receiveAmount == null ? '—' : receiveAmount === '' ? '0' : receiveAmount}
+          <span className='num min-w-0 flex-1 truncate text-[26px] font-semibold'>
+            {receiveAmount == null ? '—' : receiveAmount === '' ? zero : receiveAmount}
           </span>
-          <span className='text-text-muted ml-auto shrink-0 text-sm font-medium'>{model.youWillReceiveToken}</span>
+          <span className='text-text-muted ms-auto shrink-0 text-sm font-medium'>{model.youWillReceiveToken}</span>
         </div>
       </div>
 
@@ -122,19 +128,19 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
             >
               <div className='flex flex-row items-center gap-1.5'>
                 <Clock className='text-accent size-3.5' />
-                <p className='text-[13px] font-semibold'>Full</p>
+                <p className='text-[13px] font-semibold'>{t('app.stake.optionFull')}</p>
                 <span
                   className={
-                    'text-accent ml-auto text-xs font-bold' + (model.unstakeOption === 'best' ? '' : ' invisible')
+                    'text-accent ms-auto text-xs font-bold' + (model.unstakeOption === 'best' ? '' : ' invisible')
                   }
                 >
                   ✓
                 </span>
               </div>
               <p className='text-text-muted text-[11.5px] leading-[1.4]'>
-                Wait until round ends
+                {t('app.stake.optionFullLine1')}
                 <br />
-                Maximum rewards
+                {t('app.stake.optionFullLine2')}
               </p>
             </div>
 
@@ -149,19 +155,19 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
             >
               <div className='flex flex-row items-center gap-1.5'>
                 <Zap className='text-accent size-3.5' />
-                <p className='text-[13px] font-semibold'>Instant</p>
+                <p className='text-[13px] font-semibold'>{t('app.stake.optionInstant')}</p>
                 <span
                   className={
-                    'text-accent ml-auto text-xs font-bold' + (model.unstakeOption === 'instant' ? '' : ' invisible')
+                    'text-accent ms-auto text-xs font-bold' + (model.unstakeOption === 'instant' ? '' : ' invisible')
                   }
                 >
                   ✓
                 </span>
               </div>
               <p className='text-text-muted text-[11.5px] leading-[1.4]'>
-                If liquidity is available
+                {t('app.stake.optionInstantLine1')}
                 <br />
-                Reduced rewards
+                {t('app.stake.optionInstantLine2')}
               </p>
             </div>
           </div>
@@ -182,12 +188,12 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
 
       <div className='text-text-muted flex flex-col gap-2 px-1 text-[13px]'>
         <div className='flex flex-row flex-wrap gap-x-2'>
-          <span>Exchange rate</span>
-          <span className='text-text ml-auto font-medium'>{model.exchangeRateFormatted ?? '—'}</span>
+          <span>{t('app.stake.exchangeRate')}</span>
+          <span className='text-text num ms-auto font-medium'>{model.exchangeRateFormatted ?? '—'}</span>
         </div>
         <div className='flex flex-row flex-wrap gap-x-2'>
-          <span>Yearly rewards, last round</span>
-          <span className='text-positive ml-auto font-semibold'>{model.apyFormatted ?? '—'}</span>
+          <span>{t('app.stake.yearlyRewards')}</span>
+          <span className='text-positive num ms-auto font-semibold'>{model.apyFormatted ?? '—'}</span>
         </div>
       </div>
 
@@ -215,11 +221,13 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
           {model.buttonLabel}
         </button>
         <p className='text-text-faint text-center text-[11.5px]'>
-          Questions?{' '}
-          <a className='text-accent' href='https://t.me/hipo_chat' target='_blank' rel='noopener noreferrer'>
-            Ask us on Telegram
-          </a>{' '}
-          — a real person replies.
+          {nodes(t('app.tma.questions'), {
+            link: (
+              <a className='text-accent' href='https://t.me/hipo_chat' target='_blank' rel='noopener noreferrer'>
+                {t('app.stake.askOnTelegram')}
+              </a>
+            ),
+          })}
         </p>
       </div>
     </div>

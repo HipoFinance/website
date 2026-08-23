@@ -1,21 +1,81 @@
 ---
+import { LOCALES, publicLocales } from '../i18n/registry.mjs'
+import { langOf, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
+import { getT } from '../i18n/t.ts'
 
+const locale = localeOf(Astro)
+const { t } = getT(locale, ['site'])
+
+// Language suggestion (spec §J, §L step 4): "Read this page in فارسی?" for visitors whose browser prefers
+// a `public` locale, shown once on English pages and remembered in localStorage['hipo.locale'] (see
+// banner.js). Dormant until a second locale is public — then, like the LanguageSwitcher, it is a registry
+// edit away — so today this emits no markup at all. The per-locale targets are precomputed here (the
+// same path in each public locale) so the script needs neither the registry nor localizedPath.
+const suggestLocales = publicLocales()
+const suggest = locale === 'en' && suggestLocales.length >= 2
+const { path: pagePath } = stripLocale(Astro.url.pathname)
+// Each target carries its own sentence and dismiss label, so the bar speaks the visitor's language — the
+// whole point for someone who does not read English.
+const suggestTargets = suggest
+  ? Object.fromEntries(
+      suggestLocales.map((l) => {
+        const { t: tl } = getT(l, ['site'])
+        return [
+          l,
+          {
+            label: LOCALES[l].label,
+            lang: langOf(l),
+            dir: LOCALES[l].dir,
+            href: localizedPath(pagePath, l),
+            text: tl('site.langSuggest.text'),
+            dismiss: tl('site.langSuggest.dismiss'),
+          },
+        ]
+      }),
+    )
+  : undefined
 ---
 
 <script src='/src/scripts/banner.js'></script>
+
+{
+  suggest && (
+    <div
+      id='lang-suggest'
+      class='bg-surface text-text border-border hidden border-b'
+      data-page-locale={locale}
+      data-text={t('site.langSuggest.text')}
+      data-targets={JSON.stringify(suggestTargets)}
+    >
+      <div class='relative mx-auto flex max-w-[1280px] items-center justify-center gap-2 px-12 py-2.5 text-center text-[15px] font-medium'>
+        <span id='lang-suggest-text'>🌐 </span>
+        <button
+          id='lang-suggest-dismiss'
+          class='text-text-muted hover:text-text absolute end-3 top-1/2 -translate-y-1/2 p-2'
+          aria-label={t('site.langSuggest.dismiss')}
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  )
+}
 
 <div id='site-banner' class='bg-accent text-on-accent hidden'>
   <div
     class='relative mx-auto flex max-w-[1280px] items-center justify-center gap-2 px-12 py-2.5 text-center text-[15px] font-medium'
   >
     <span>
-      💰 <strong class='font-semibold'>Earn 100% of staking rewards.</strong> Staking fee is now 0%.
-      <a href='/stake/' class='font-bold underline underline-offset-2'>Earn now</a>
+      💰 <strong class='font-semibold'>{t('site.banner.headline')}</strong>
+      {t('site.banner.body')}
+      <a href={localizedPath('/stake/', locale)} class='font-bold underline underline-offset-2'
+        >{t('site.banner.cta')}</a
+      >
     </span>
     <button
       id='close-banner'
-      class='text-on-accent/70 hover:text-on-accent absolute top-1/2 right-3 -translate-y-1/2 p-2'
-      aria-label='Dismiss banner'
+      class='text-on-accent/70 hover:text-on-accent absolute end-3 top-1/2 -translate-y-1/2 p-2'
+      aria-label={t('site.banner.dismiss')}
     >
       ✕
     </button>
