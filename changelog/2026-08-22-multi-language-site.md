@@ -15,9 +15,9 @@ fixes and verification).
 
 ## Commits
 
-| Commit | Description                                                    |
-| ------ | -------------------------------------------------------------- |
-| _tbd_  | (pending — to be filled in after the user confirms the commit) |
+| Commit    | Description                                                                             |
+| --------- | --------------------------------------------------------------------------------------- |
+| `0c6246a` | Add multi-language support with the first batch fa/ru/hi (branch `i18n-multi-language`) |
 
 ## What changed
 
