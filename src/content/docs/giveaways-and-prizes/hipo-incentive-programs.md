@@ -6,17 +6,17 @@ Hipo’s incentive programs are structured to encourage active participation and
 
 These initiatives are designed to attract users who contribute to the protocol’s development, fostering a self-sustaining ecosystem. By aligning incentives with engagement, Hipo aims to build a community that supports the protocol’s growth while ensuring the stability and long-term success of the platform.
 
-### 1. Direct Staking Airdrop Plan
+## 1. Direct Staking Airdrop Plan
 
 The [staking airdrop plan](/docs/giveaways-and-prizes/tvl-milestone-rewards/) is structured to distribute rewards as Hipo’s Total Value Locked (TVL) reaches key milestones. At each milestone, **1% of the total HPO supply** is allocated to stakers and referrers:
 
-- **500K GRAM TVL – \*\***Completed!\*\*
-- **1M GRAM TVL – \*\***Completed!\*\*
+- **500K GRAM TVL** — completed
+- **1M GRAM TVL** — completed
 - The programme was discontinued after the 1M GRAM milestone and replaced by [Hipo Club](/docs/giveaways-and-prizes/hipo-club/); the later milestones were never run.
 
 [Start staking GRAM](/stake/).
 
-### 2. Liquidity Provider Reward Program
+## 2. Liquidity Provider Reward Program
 
 **This program is currently paused**.
 
@@ -26,12 +26,12 @@ The [$1M reward program](/docs/giveaways-and-prizes/hipo-usd1-000-000-rewards-pr
 - **HPO/hGRAM**
 - **HPO/GRAM**
 
-#### **Program Objectives**
+### Program Objectives
 
 - Keep the **hGRAM/GRAM** pool deep and rewarding for liquidity providers.
 - Establish **HPO/hGRAM** and **HPO/GRAM** as leading liquidity pools within the TON ecosystem.
 
-### 3. NFT-Based Incentives
+## 3. NFT-Based Incentives
 
 **2,795,379 HPO tokens have been successfully distributed to Hipo NFT holders**.
 
@@ -39,11 +39,11 @@ Hipo [NFTs](/docs/giveaways-and-prizes/hipo-nfts/) are designed to provide speci
 
 These NFTs are issued to early adopters and active contributors who support the protocol’s long-term development.
 
-### 4. Community Engagement Rewards
+## 4. Community Engagement Rewards
 
 Users who contribute to discussions on Telegram and X (Twitter), take part in governance, or support educational initiatives may receive **additional benefits**. This initiative fosters a collaborative environment where informed discussions drive protocol improvements.
 
-### **5. Hipo Gang**
+## 5. Hipo Gang
 
 **Ended February 25, 2025.**
 
@@ -53,7 +53,7 @@ By participating in in-game activities, users became familiar with DeFi concepts
 
 Hipo Gang was replaced by [Hipo Club](/docs/giveaways-and-prizes/hipo-club/), which rewards active participants today.
 
-### 6. Hipo Ambassadors Program
+## 6. Hipo Ambassadors Program
 
 **This program is currently paused**.
 
@@ -63,13 +63,13 @@ The [ambassadors program](/docs/hipo-ambassadors-program/) encourages community-
 - Educating users about DeFi through accurate and engaging content.
 - Strengthening community engagement through various initiatives.
 
-### **7. Hipo Club**
+## 7. Hipo Club
 
 Hipo Club is a tiered community program that rewards long-term commitment. Members hold hGRAM and earn HPO after every validation round; their level — one of **10** — sets the reward rate. Levels rise through a paid instant upgrade or by claiming rewards at least once during the season, and reset to Level 1 if rewarded HPO is sold. Accrued rewards can be withdrawn once the balance passes 1,000 HPO.
 
 [Learn more about how Hipo Club works](/docs/giveaways-and-prizes/hipo-club/)
 
-### Incentive Structure and Ecosystem Impact
+## Incentive Structure and Ecosystem Impact
 
 Hipo’s incentive mechanisms are structured to promote sustainable growth rather than short-term speculation. The reward distribution model prioritizes:
 

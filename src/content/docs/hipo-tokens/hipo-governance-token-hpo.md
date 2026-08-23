@@ -36,7 +36,7 @@ Explore the [HPO page](/hpo/).
 - 2%: Advisers
 - 13%: Treasury
 
-<figure><img src="/docs/images/hipo-tokens-hipo-governance-token-hpo-tokenomics-1.jpg" alt=""><figcaption><p>The Distribution Chart of HPO Token</p></figcaption></figure>
+<figure><img src="/docs/images/hipo-tokens-hipo-governance-token-hpo-tokenomics-1.jpg" alt="Donut chart of HPO token distribution: Community 30%, Liquidity 20%, Team 20%, Marketing 15%, Treasury 13%, Advisers 2%."><figcaption><p>The Distribution Chart of HPO Token</p></figcaption></figure>
 
 ### Token Vesting
 

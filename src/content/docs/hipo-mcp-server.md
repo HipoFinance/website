@@ -3,7 +3,7 @@ title: 'Hipo MCP Server'
 description: "Connect Claude, Cursor, or any MCP-capable AI client to Hipo's documentation and live on-chain data."
 ---
 
-### What is the Hipo MCP Server?
+## What is the Hipo MCP Server?
 
 The Hipo MCP Server is a small, open-source service that allows AI assistants to access Hipo-related data, including information about GRAM staking and other topics. It speaks the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP), an open standard for connecting AI clients to external data, so any MCP-capable client — Claude, Claude Code, Cursor, and others — can look up Hipo's documentation and query live on-chain numbers instead of guessing from memory.
 
@@ -19,9 +19,9 @@ The answers come from Hipo's smart-contract getters on TON, not from the model's
 
 The server is strictly **read-only**. It holds no keys, signs nothing, and sends no messages to the blockchain. It can look, but it can never move your funds — connecting it is not a way for anyone to stake, unstake, or transfer on your behalf.
 
-### Connecting
+## Connecting
 
-#### Hosted server (recommended)
+### Hosted server (recommended)
 
 Hipo runs a public instance. Point your MCP client at:
 
@@ -56,7 +56,7 @@ Other clients are configured with a JSON file (Claude Desktop, Cursor, and most 
 }
 ```
 
-#### Running it locally
+### Running it locally
 
 If you would rather run the server yourself, it is published on npm as [`@hipo-finance/mcp`](https://www.npmjs.com/package/@hipo-finance/mcp) and speaks stdio. This requires Node.js 20 or newer:
 
@@ -77,7 +77,7 @@ The same advice applies here — add it with the command, not by editing a file 
 }
 ```
 
-### Tools
+## Tools
 
 These are the questions the server can answer. Your AI client picks the right one on its own — you ask in plain language.
 
@@ -97,7 +97,7 @@ The first four tools need no input at all. `get_wallet_status`, `get_reward_hist
 
 Every response carries the same reminder that the tools return live protocol data, not financial advice: values change every validation round and no returns are guaranteed.
 
-### Documentation resources
+## Documentation resources
 
 Alongside the live data, the server exposes Hipo's technical documents as MCP resources, fetched from their canonical public locations so they are always current:
 
@@ -109,7 +109,7 @@ Alongside the live data, the server exposes Hipo's technical documents as MCP re
 | `hipo://docs/schema`       | The full TL-B schemas of all Hipo contracts                                            |
 | `hipo://docs/knowledge`    | The curated Hipo knowledge base ([llms.txt](https://hipo.finance/llms.txt))            |
 
-### Example
+## Example
 
 A call to `get_exchange_rate` returns plain JSON. Numbers change every round, so treat these as a shape, not as current values:
 
@@ -127,7 +127,7 @@ A call to `get_exchange_rate` returns plain JSON. Numbers change every round, so
 
 The server never re-implements protocol math. Every number above comes from a contract getter, and the contract repository is the source of truth for deployed addresses.
 
-### Self-hosting
+## Self-hosting
 
 The server is MIT-licensed and lives at [github.com/HipoFinance/mcp](https://github.com/HipoFinance/mcp). It ships two transports — `stdio` for local clients and streamable HTTP for a hosted deployment — and a Dockerfile:
 
@@ -148,5 +148,3 @@ All configuration is optional; the defaults target mainnet through the public to
 | `HIPO_DOCS_CACHE_SECONDS`  | `300`                                  | How long documentation resources are cached                                                                   |
 | `HIPO_REWARDS_API_BASE`    | `https://api.hipogang.io`              | Base URL of the Hipo rewards API; set it empty to disable `get_reward_history`                                |
 | `PORT` / `HOST`            | `3000` / `0.0.0.0`                     | HTTP transport only                                                                                           |
-
-<br>

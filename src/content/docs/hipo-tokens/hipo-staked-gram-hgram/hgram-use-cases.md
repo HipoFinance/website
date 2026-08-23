@@ -10,4 +10,4 @@ hGRAM tokens offer versatile applications within the DeFi ecosystem, providing u
 
 Other uses — lending markets, collateral, stablecoin minting — depend on third-party protocols adding hGRAM support; the [DeFi page](/defi/) always lists the integrations that exist today.
 
-#### Check out hGRAM use cases on [Hipo DeFi section](/defi/).
+Check out hGRAM use cases on the [Hipo DeFi section](/defi/).

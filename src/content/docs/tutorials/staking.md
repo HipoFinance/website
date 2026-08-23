@@ -4,7 +4,7 @@ title: 'Staking'
 
 <iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Stake GRAM with Hipo | Step-by-Step Staking and Unstaking Guide" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-### Key Features of the Hipo App for Staking
+## Key Features of the Hipo App for Staking
 
 In the "**Stake**" tab, you can:
 
@@ -12,33 +12,33 @@ In the "**Stake**" tab, you can:
 - Check the **hGRAM exchange rate**, which increases as staking rewards accumulate.
 - Review the [APY](/faq/#what-apy-does-hipo-offer) (Annual Percentage Yield) from the last validation round.
 
-<figure><img src="/docs/images/tutorials-staking-1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-1.png" alt="The Stake tab, with the balance rows, the exchange-rate line and the APY figure called out"></figure>
 
-### How to Stake Your GRAM with Hipo
+## How to Stake Your GRAM with Hipo
 
-#### Step 1: Choose Your Platform
+### Step 1: Choose Your Platform
 
 You can stake your GRAM using the [Hipo Web App](/stake/), [Telegram Mini App](https://t.me/HipoFinanceBot/app), or even through [Hipo Club](https://t.me/HipoFinanceBot/join). Simply choose the platform that suits you best, and you'll be able to stake GRAM from any of these options.
 
-<figure><img src="/docs/images/tutorials-staking-2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-2.png" alt="The three ways to stake side by side: the Hipo web app, the Telegram Mini App and the Hipo bot"></figure>
 
-#### Step 2: Connect Your Wallet
+### Step 2: Connect Your Wallet
 
 Next, connect your TON wallet. Hipo supports a wide range of GRAM wallets, including Tonkeeper, Tonhub, and others.
 
-<figure><img src="/docs/images/tutorials-staking-3.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-3.png" alt="The wallet-connect dialog listing Tonkeeper, MyTonWallet, Tonhub and DeWallet"></figure>
 
-#### Step 3: Enter the Amount You Want to Stake
+### Step 3: Enter the Amount You Want to Stake
 
 Decide how much GRAM you’d like to stake. You’ll be able to see how much [hGRAM (Hipo Staked GRAM)](/docs/hipo-tokens/hipo-staked-gram-hgram/) you’ll receive based on the current exchange rate, which increases over time as staking rewards accumulate. Once you're satisfied, click "Stake."
 
-<figure><img src="/docs/images/tutorials-staking-4.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-4.png" alt="The stake form with an amount typed in, showing the amount you will receive below it"></figure>
 
-#### Step 4: Confirm the Transaction
+### Step 4: Confirm the Transaction
 
 Confirm the staking transaction directly in your wallet. The app attaches a small gas prepayment on top of your amount, and the unused part is refunded — see [Fees & Gas](/docs/fees-and-gas/). Within seconds, you’ll receive your hGRAM tokens, representing your staked GRAM.
 
-<figure><img src="/docs/images/tutorials-staking-5.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-5.png" alt="The wallet's confirm-action sheet with the slide-to-confirm control, and the wallet balance afterwards"></figure>
 
 :::tip
 As the value of hGRAM increases with each validation round, your rewards are compounded.

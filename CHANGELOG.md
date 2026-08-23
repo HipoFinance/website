@@ -7,6 +7,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-24 — [detailed report](changelog/2026-08-24-docs-formatting-sweep.md)
+
+- Wrote alt text for all 22 docs images and removed the 21 empty figcaptions.
+- Normalised heading levels across 30 docs pages and stripped bold from headings.
+- Replaced the `\ <sub>` wallet run-ons with tables and removed stray `<br>`.
+- Repacked both brand kits from `.rar` to `.zip` and corrected the brand-kit copy.
+- Added deep-link anchors to the `/hpo/` sections and FAQ answers, with per-question JSON-LD URLs.
+
 ## 2026-08-24 — [detailed report](changelog/2026-08-24-fund-report-docs-restructure.md)
 
 - Generated the Hipo Fund quarterly report (Aug 24, 2026) from on-chain data

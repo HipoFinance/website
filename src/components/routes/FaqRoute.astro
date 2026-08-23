@@ -21,7 +21,12 @@ const description = t('seo.faq.description')
 const questions = (await getProse(locale, 'faq'))
   .filter((entry) => faqSectionIndex(entry.data.section) >= 0)
   .sort((a, b) => faqSectionIndex(a.data.section) - faqSectionIndex(b.data.section) || a.data.order - b.data.order)
-  .map((entry) => ({ question: entry.data.question ?? '', body: entry.body ?? '' }))
+  // The anchor is the prose file name, the same id FAQ.astro puts on the <details>.
+  .map((entry) => ({
+    question: entry.data.question ?? '',
+    body: entry.body ?? '',
+    anchor: entry.id.slice(entry.id.lastIndexOf('/') + 1),
+  }))
 const jsonLd = faqPageJsonLd(questions, { path: '/faq/', title, description, locale })
 ---
 

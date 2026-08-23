@@ -3,7 +3,7 @@ title: 'Hipo Liquid Staking Protocol'
 description: 'Documentation for Hipo, the liquid staking protocol on TON: how it works, how to stake and unstake, fees, risks, contracts and audits.'
 ---
 
-<figure><img src="/docs/images/introduction-hipo-liquid-staking-protocol-1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/introduction-hipo-liquid-staking-protocol-1.png" alt="Hipo banner with hGRAM, HPO and Hipo mascot coin icons."></figure>
 
 Hipo is an open-source liquid staking protocol on TON. It lets you stake GRAM and receive hGRAM, a liquid staking token that represents your staked GRAM and can be used across TON DeFi while rewards accrue.
 

@@ -9,6 +9,7 @@ import { localeOf } from '../../i18n/locale.ts'
 import { getT } from '../../i18n/t.ts'
 import { getProse } from '../../i18n/prose.ts'
 import { faqPageJsonLd } from '../pages/jsonLd.ts'
+import { hpoFaqAnchor } from '../hpoFaq.ts'
 
 const locale = localeOf(Astro)
 const { t } = getT(locale, ['seo'])
@@ -19,6 +20,7 @@ const description = t('seo.hpo.description')
 const questions = (await getProse(locale, 'hpo-faq')).map((entry) => ({
   question: entry.data.question ?? '',
   body: entry.body ?? '',
+  anchor: hpoFaqAnchor(entry.id),
 }))
 const jsonLd = faqPageJsonLd(questions, { path: '/hpo/', title, description, locale })
 ---

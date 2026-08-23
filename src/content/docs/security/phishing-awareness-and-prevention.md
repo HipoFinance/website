@@ -2,17 +2,17 @@
 title: 'Phishing Awareness and Prevention'
 ---
 
-#### What is Phishing?
+## What is Phishing?
 
 Phishing is a common cyberattack where scammers trick individuals into revealing sensitive information such as passwords, wallet secret phrases, or financial details. These attacks often appear as legitimate communications from trusted sources.
 
-#### Hipo's Commitment to Security
+## Hipo's Commitment to Security
 
 At Hipo, we are dedicated to educating our community to safeguard themselves from phishing scams. This page provides tips and examples specific to Hipo-related phishing attempts. We will continue updating it as we discover new and significant scam methods.
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/rmCOz1UmV4c" title="Hipo video" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/rmCOz1UmV4c" title="How to spot a phishing attempt" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-#### Understanding Phishing in 3 Steps
+## Understanding Phishing in 3 Steps
 
 Phishing attacks usually occur in three stages:
 
@@ -36,7 +36,7 @@ Never share your wallet’s secret phrase or other sensitive data with anyone or
 
 ---
 
-#### Tips to Protect Against Phishing
+## Tips to Protect Against Phishing
 
 - Avoid suspicious links and always verify the sender before clicking.
 - Enable Two-Factor Authentication (2FA) for email and social accounts.
@@ -46,7 +46,7 @@ Never share your wallet’s secret phrase or other sensitive data with anyone or
 - Stay informed about the latest scams and online security practices.
 - Be wary of messages that pressure you to act quickly or promise rewards.
 
-#### Official Hipo Channels
+## Official Hipo Channels
 
 - **Website:** [hipo.finance](https://hipo.finance)
 - **Webapp:** [hipo.finance/stake](/stake/)
@@ -56,13 +56,13 @@ Never share your wallet’s secret phrase or other sensitive data with anyone or
 
 ---
 
-### Phishing Examples and How to Handle Them
+## Phishing Examples and How to Handle Them
 
 **Example 1: Fake Hipo Reward Program**
 
-<figure><img src="/docs/images/security-phishing-awareness-and-prevention-1.jpg" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="/docs/images/security-phishing-awareness-and-prevention-1.jpg" alt="A Telegram DM from an account impersonating Hipo, linking to a fake “official rewards checker” bot, marked Scam" width="563"></figure>
 
-<figure><img src="/docs/images/security-phishing-awareness-and-prevention-2.jpg" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="/docs/images/security-phishing-awareness-and-prevention-2.jpg" alt="A fake Hipo site whose Connect dialog asks for your wallet phrase or private key, marked Scam" width="563"></figure>
 
 **Scenario:** You receive a message from someone claiming to represent Hipo’s $1M reward program. They direct you to a website that appears to be Hipo’s and ask for your wallet’s secret phrase.
 
@@ -74,7 +74,7 @@ Never share your wallet’s secret phrase or other sensitive data with anyone or
 
 **Example 2: Exclusive Investment Opportunity**
 
-<figure><img src="/docs/images/security-phishing-awareness-and-prevention-3.jpg" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="/docs/images/security-phishing-awareness-and-prevention-3.jpg" alt="A Telegram DM from a stranger posing as a DeFi expert offering higher returns than Hipo, marked Scam" width="563"></figure>
 
 **Scenario:** Someone contacts you, claiming to know you’re part of the Hipo community, and offers an exclusive investment opportunity.
 
@@ -85,6 +85,6 @@ Never share your wallet’s secret phrase or other sensitive data with anyone or
 
 ---
 
-#### Stay Vigilant
+## Stay Vigilant
 
 Phishing scams are constantly evolving, but by staying informed and cautious, you can protect yourself and contribute to a secure Hipo community.

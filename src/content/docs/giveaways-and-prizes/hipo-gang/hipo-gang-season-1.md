@@ -6,7 +6,7 @@ title: 'Hipo Gang: Season 1'
 Hipo Gang ended on **February 25, 2025** and was replaced by [Hipo Club](https://t.me/HipoFinanceBot/join), where you earn HPO by staking GRAM and holding hGRAM. This page is kept as a record of the programme.
 :::
 
-### 🎯 **Key Highlights**
+## 🎯 Key Highlights
 
 - 📅 **Duration:** July 24, 2024 – February 25, 2025
   - 4.04M total users
@@ -20,7 +20,7 @@ Hipo Gang ended on **February 25, 2025** and was replaced by [Hipo Club](https:/
 
 ---
 
-### 📊 Final Stats
+## 📊 Final Stats
 
 - ✅ **Total HPO Claimed:** 5,874,214 HPO (≈ $100,000)
 - 👥 **Members Who Claimed:** 3,987
@@ -28,6 +28,6 @@ Hipo Gang ended on **February 25, 2025** and was replaced by [Hipo Club](https:/
 
 ---
 
-### 🔄 Transition to Hipo Club
+## 🔄 Transition to Hipo Club
 
 Season 1 laid the foundation for Hipo Club — a more sustainable and community-driven platform where XP, staking, and long-term holding matter more than ever. Users who claimed and held HPO in Season 1 became eligible for **bonus rewards in Season 2**, reinforcing long-term alignment.

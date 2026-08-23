@@ -2,7 +2,7 @@
 title: 'Hipo Club: Season 3'
 ---
 
-### 🎯 **Key Highlights**
+## 🎯 Key Highlights
 
 - 📅 **Duration:** July 10th to November 15th, 2025
 - 🧾 **NFT Minting:** 612 members minted their [**Season 3 NFT**](https://getgems.io/collection/EQDtvHgDb7o_YKwSP4OmcQY4Ab4BodXFT-RWRmTvBssUYlOj)
@@ -10,7 +10,7 @@ title: 'Hipo Club: Season 3'
 
 ---
 
-### 💰 Reward Allocation
+## 💰 Reward Allocation
 
 The Season 3 pool was **3,774,659.24 HPO**: the **2,000,000 HPO** allocated by DAO vote plus **1,774,659.24 HPO** (30% of unclaimed Season 2 rewards) rolled over into it.
 
@@ -25,7 +25,7 @@ The Season 3 pool was **3,774,659.24 HPO**: the **2,000,000 HPO** allocated by D
 
 ---
 
-### 📊 Final Stats
+## 📊 Final Stats
 
 - ✅ **Total HPO Claimed:** 1,873,758 HPO
 - 👥 **Members Who Claimed:** 566

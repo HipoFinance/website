@@ -13,7 +13,7 @@ title: 'How Does Hipo Work?'
 💡 _Your staked GRAM is delegated to validators through the Hipo smart contract to participate in validation rounds and generate staking rewards._
 :::
 
-<figure><img src="/docs/images/introduction-how-does-hipo-work-1.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/introduction-how-does-hipo-work-1.jpg" alt="Diagram of the Hipo staking loop: users stake GRAM for hGRAM, use hGRAM in DeFi apps, and Hipo lends the GRAM to validators for rewards."></figure>
 
 ## Staking, step by step
 
@@ -23,4 +23,4 @@ title: 'How Does Hipo Work?'
 
 For the full walkthrough with screenshots, see the [staking tutorial](/docs/tutorials/staking/).
 
-<figure><img src="/docs/images/introduction-how-does-hipo-work-stake-gram-1.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/introduction-how-does-hipo-work-stake-gram-1.jpg" alt="Diagram of staking on Hipo: the user sends GRAM to the Hipo protocol and receives hGRAM in return."></figure>

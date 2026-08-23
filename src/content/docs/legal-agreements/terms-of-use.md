@@ -1,5 +1,5 @@
 ---
-title: "Terms of Use"
+title: 'Terms of Use'
 ---
 
 Last updated: August 17, 2023

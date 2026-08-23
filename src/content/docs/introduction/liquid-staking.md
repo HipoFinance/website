@@ -2,7 +2,7 @@
 title: 'Liquid Staking'
 ---
 
-### What is Liquid Staking?
+## What is Liquid Staking?
 
 Liquid staking combines the benefits of staking with the flexibility of liquidity.
 
@@ -12,7 +12,7 @@ Liquid staking protocols like [Hipo](https://hipo.finance/) address this limitat
 
 For example, after receiving hGRAM for staking your GRAM with Hipo, you can hold it, transfer it, swap it on a DEX, or supply it to a liquidity pool — while the underlying GRAM keeps earning staking rewards. Each of those uses carries its own smart-contract, liquidity and price-impact risk; the [DeFi page](/defi/) lists the integrations Hipo currently points to.
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/fmLawb3gaxk" title="Hipo video" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/fmLawb3gaxk" title="What is liquid staking?" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Why TON?
 

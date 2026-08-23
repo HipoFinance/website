@@ -1,8 +1,8 @@
 ---
-title: "DAO"
+title: 'DAO'
 ---
 
-### **Hipo DAO: Community-Driven Governance**
+## Hipo DAO: Community-Driven Governance
 
 By holding **HPO**, you can vote on governance proposals and help decide the future of Hipo. From tokenomics to ecosystem initiatives, your voice directly influences the protocol’s growth.
 

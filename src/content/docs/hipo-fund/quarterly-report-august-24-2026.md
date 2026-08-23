@@ -3,13 +3,13 @@ title: 'Quarterly Report: August 24, 2026'
 description: "The Hipo Fund's holdings as of August 2026, generated from an on-chain snapshot of the fund's two wallets."
 ---
 
-### 🟣 Hipo Fund – Quarterly Report
+## 🟣 Hipo Fund – Quarterly Report
 
 **August 24, 2026**
 
 ---
 
-#### 📌 Overview
+### 📌 Overview
 
 **No report was published in March or June 2026.** This report covers the whole period since the
 [December 18, 2025 report](/docs/hipo-fund/quarterly-report-december-18-2025/) — eight months in one
@@ -25,7 +25,7 @@ price effect on the HPO and hGRAM held, partly offset by the larger stablecoin b
 
 ---
 
-#### 💰 Fund Summary
+### 💰 Fund Summary
 
 - **Capital in Previous Report (December 18, 2025):** $110,875.29
 - **Current Capital (August 24, 2026):** $98,776.51
@@ -39,7 +39,7 @@ price effect on the HPO and hGRAM held, partly offset by the larger stablecoin b
 
 ---
 
-#### 📥 Key Activity This Period
+### 📥 Key Activity This Period
 
 Reconstructed from balance changes between the two blocks. These are the movements the chain proves; we have
 not attributed them to specific transactions.
@@ -56,7 +56,7 @@ not attributed them to specific transactions.
 
 ---
 
-#### 🔸 Portfolio Allocation (as of August 24, 2026)
+### 🔸 Portfolio Allocation (as of August 24, 2026)
 
 | Asset | Amount              | Allocation | Value (USD) | Notes                                      |
 | ----- | ------------------- | ---------- | ----------- | ------------------------------------------ |
@@ -72,7 +72,7 @@ not attributed them to specific transactions.
 
 ---
 
-#### 📊 Comparison vs the December 18, 2025 report
+### 📊 Comparison vs the December 18, 2025 report
 
 December's figures are quoted **as published**. They are not recalculated — see _Methodology_ for why.
 
@@ -87,7 +87,7 @@ December's figures are quoted **as published**. They are not recalculated — se
 
 ---
 
-#### 📉 Interim snapshots (reconstructed)
+### 📉 Interim snapshots (reconstructed)
 
 No report was published in March or June 2026. The balances below were read back from the TON archive at the
 masterchain block covering 12:00 UTC on each date and priced with the hourly price series for the same hour.
@@ -105,7 +105,7 @@ value is entirely price.
 
 ---
 
-#### 🧠 Strategic Notes
+### 🧠 Strategic Notes
 
 - The treasury is now **two-thirds stablecoins**. That was the intent stated in the December report, and it
   has held through an eight-month drawdown in GRAM and HPO.
@@ -116,7 +116,7 @@ value is entirely price.
 
 ---
 
-#### 🔬 Methodology
+### 🔬 Methodology
 
 Every figure comes from `scripts/hipo-fund-snapshot.mjs` in the website repository, run once against one
 block. Its rules:
@@ -141,7 +141,7 @@ comparison table quotes them exactly as published, and only the current column u
 
 ---
 
-#### 📎 Notes — sources for every figure
+### 📎 Notes — sources for every figure
 
 - **Masterchain block:** seqno 88063277, 2026-08-23 20:51:50 UTC (`https://mainnet-v4.tonhubapi.com/block/latest`).
   The report is dated by its publication day; the data is the state at this block. Re-run

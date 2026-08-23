@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content'
 import { localeOf, localizedPath } from '../i18n/locale.ts'
 import { getT } from '../i18n/t.ts'
 import { formatNumber, formatPercent } from '../i18n/format.ts'
+import { hpoFaqAnchor } from './hpoFaq.ts'
 
 // HPO token page content. Recreates design/HPO.dc.html in the Warm Dark tokens defined in
 // src/styles/global.css. Owned by src/pages/hpo/index.astro only. Every visible string comes from
@@ -62,15 +63,17 @@ const clubDocs = localizedPath('/docs/giveaways-and-prizes/hipo-club/', locale)
 const link = (href: string, label: string, external = false) =>
   `<a href="${href}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''} class="text-accent">${label}</a>`
 
-// The FAQ answers come from the `prose` collection: src/content/prose/<locale>/hpo-faq/<nn>-<slug>.md.
+// The FAQ answers come from the `prose` collection: src/content/prose/<locale>/hpo-faq/<nn>-<slug>.md;
+// each one gets the anchor hpoFaqAnchor() derives, so questions are deep-linkable like /faq/.
 const faqPrefix = `${locale}/hpo-faq/`
 const hpoFaq = await Promise.all(
   (await getCollection('prose', (entry) => entry.id.startsWith(faqPrefix)))
     .sort((a, b) => a.data.order - b.data.order)
-    .map(async (entry) => ({ entry, Content: (await render(entry)).Content })),
+    .map(async (entry) => ({ entry, anchor: hpoFaqAnchor(entry.id), Content: (await render(entry)).Content })),
 )
 ---
 
+<script src='/src/scripts/hpo-anchors.ts'></script>
 <script src='/src/scripts/hpo-data.js'></script>
 <script src='/src/scripts/hpo-sparkline.ts'></script>
 
@@ -135,7 +138,7 @@ const hpoFaq = await Promise.all(
   </section>
 
   <!-- HPO utility -->
-  <section class='py-6'>
+  <section id='utility' class='py-6'>
     <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>{t('hpo.utility.title')}</h2>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
       {
@@ -239,7 +242,7 @@ const hpoFaq = await Promise.all(
   </section>
 
   <!-- A shrinking supply -->
-  <section class='py-12'>
+  <section id='scarcity' class='py-12'>
     <h2 class='font-fredoka mb-2 text-[40px] font-semibold'>{t('hpo.scarcity.title')}</h2>
     <p class='text-text-muted mb-7 text-[18px]'>{t('hpo.scarcity.subtitle')}</p>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
@@ -263,7 +266,7 @@ const hpoFaq = await Promise.all(
   </section>
 
   <!-- Early investors -->
-  <section class='py-12'>
+  <section id='investors' class='py-12'>
     <h2 class='font-fredoka mb-2 text-[40px] font-semibold'>{t('hpo.investors.title')}</h2>
     <p class='text-text-muted mb-7 text-[18px]'>{t('hpo.investors.subtitle')}</p>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-3'>
@@ -310,7 +313,7 @@ const hpoFaq = await Promise.all(
   </section>
 
   <!-- Watch & learn -->
-  <section class='py-12'>
+  <section id='watch' class='py-12'>
     <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>{t('hpo.watch.title')}</h2>
     <div class='grid grid-cols-1 gap-6 lg:grid-cols-2'>
       <div class='border-border bg-surface rounded-[20px] border p-4'>
@@ -333,12 +336,16 @@ const hpoFaq = await Promise.all(
   </section>
 
   <!-- FAQ -->
-  <section class='py-12'>
+  <section id='faq' class='py-12'>
     <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>{t('hpo.faq.title')}</h2>
     <div class='flex flex-col gap-4'>
       {
-        hpoFaq.map(({ entry, Content }, i) => (
-          <details open={i === 0} class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'>
+        hpoFaq.map(({ entry, anchor, Content }, i) => (
+          <details
+            id={anchor}
+            open={i === 0}
+            class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
+          >
             <summary class='text-text cursor-pointer text-[17px] font-medium'>
               {t('hpo.faq.item', { n: formatNumber(locale, entry.data.order), question: entry.data.question ?? '' })}
             </summary>

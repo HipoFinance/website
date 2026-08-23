@@ -48,6 +48,8 @@ export interface FaqQuestion {
   question: string
   /** The Markdown answer body; stripped to plain text, never truncated. */
   body: string
+  /** The in-page anchor of this Q&A, when the page has one, so the Question node can point at it. */
+  anchor?: string
 }
 
 // `@graph: [WebPage, FAQPage]` for a page whose Q&As are `questions`, already in visible order.
@@ -62,9 +64,10 @@ export function faqPageJsonLd(questions: readonly FaqQuestion[], page: PageOptio
       {
         '@type': 'FAQPage',
         inLanguage: webPage.inLanguage,
-        mainEntity: questions.map(({ question, body }) => ({
+        mainEntity: questions.map(({ question, body, anchor }) => ({
           '@type': 'Question',
           name: question,
+          ...(anchor === undefined ? {} : { url: `${webPage.url}#${anchor}` }),
           acceptedAnswer: { '@type': 'Answer', text: stripMarkdown(body) },
         })),
       },

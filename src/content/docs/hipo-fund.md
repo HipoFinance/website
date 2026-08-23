@@ -3,9 +3,9 @@ title: 'Hipo Fund'
 description: 'The Hipo Fund — an on-chain treasury backing the HPO token.'
 ---
 
-<figure><img src="/docs/images/hipo-fund-1.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/hipo-fund-1.jpg" alt="Promotional banner reading 'HipoFund.ton', with a money bag surrounded by Bitcoin, Tether, HPO and TON icons and an upward growth chart."></figure>
 
-### 📌 Overview
+## 📌 Overview
 
 The **Hipo Fund** is a transparent, DeFi-native investment treasury created to support the long-term sustainability of the Hipo ecosystem and the HPO token. It reinvests proceeds from HPO token sales into TON on-chain assets to **diversify risk**, **generate yield**, and **strengthen the Hipo economy** by backing the value of HPO.
 
@@ -15,7 +15,7 @@ The **Hipo Fund** is a transparent, DeFi-native investment treasury created to s
 Hipo Fund Wallet Upgraded to Multisig for Enhanced Security
 :::
 
-### 💰 Fund Summary — opening report, April 18, 2025
+## 💰 Fund Summary — opening report, April 18, 2025
 
 - **Initial Capital:** $186,963.96
 - **Start Reporting Date:** April 18, 2025
@@ -24,7 +24,7 @@ Hipo Fund Wallet Upgraded to Multisig for Enhanced Security
 
 ---
 
-#### 🔸 Initial Portfolio Allocation
+### 🔸 Initial Portfolio Allocation
 
 | Asset              | Amount       | Allocation | Value (USD) | Notes                             |
 | ------------------ | ------------ | ---------- | ----------- | --------------------------------- |
@@ -39,7 +39,7 @@ Hipo Fund Wallet Upgraded to Multisig for Enhanced Security
 
 ---
 
-### 🔒 Management Principles
+## 🔒 Management Principles
 
 - **Fully On-chain & Transparent**\
   All fund assets are visible and trackable on TON. We only invest in assets that can be transparently monitored.
@@ -52,7 +52,7 @@ Hipo Fund Wallet Upgraded to Multisig for Enhanced Security
 
 ---
 
-### 💜 For the Hipo Community
+## 💜 For the Hipo Community
 
 The Hipo Fund is owned by the community. Its growth supports the value and sustainability of the HPO and supports every HPO holder. We are committed to **radical transparency**, **open governance**, and **DeFi-native best practices**.
 
