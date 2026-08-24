@@ -9,7 +9,7 @@ pick the two new strings up in the locale sync.
 
 | Commit    | Description                                    |
 | --------- | ---------------------------------------------- |
-| `pending` | Add copy-link icons to the FAQ and HPO anchors |
+| `6362271` | Add copy-link icons to the FAQ and HPO anchors |
 
 ## What changed
 
