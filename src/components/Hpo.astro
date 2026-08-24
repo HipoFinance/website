@@ -4,6 +4,7 @@ import { localeOf, localizedPath } from '../i18n/locale.ts'
 import { getT } from '../i18n/t.ts'
 import { formatNumber, formatPercent } from '../i18n/format.ts'
 import { hpoFaqAnchor } from './hpoFaq.ts'
+import AnchorLink from './AnchorLink.astro'
 
 // HPO token page content. Recreates design/HPO.dc.html in the Warm Dark tokens defined in
 // src/styles/global.css. Owned by src/pages/hpo/index.astro only. Every visible string comes from
@@ -139,7 +140,9 @@ const hpoFaq = await Promise.all(
 
   <!-- HPO utility -->
   <section id='utility' class='py-6'>
-    <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>{t('hpo.utility.title')}</h2>
+    <h2 class='anchor-host font-fredoka mb-7 text-[40px] font-semibold'>
+      {t('hpo.utility.title')}<AnchorLink anchor='utility' />
+    </h2>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
       {
         utility.map(({ icon, key }) => (
@@ -178,7 +181,9 @@ const hpoFaq = await Promise.all(
         </div>
       </div>
       <div>
-        <h2 class='font-fredoka mb-5 text-[40px] font-semibold'>{t('hpo.tokenomics.title')}</h2>
+        <h2 class='anchor-host font-fredoka mb-5 text-[40px] font-semibold'>
+          {t('hpo.tokenomics.title')}<AnchorLink anchor='tokenomics' />
+        </h2>
         <div class='border-border bg-surface rounded-[20px] border p-6'>
           <div class='flex flex-col items-center gap-7 sm:flex-row'>
             <div id='hpoTokenomicsChart' class='relative w-full max-w-[250px] shrink-0'>
@@ -243,7 +248,9 @@ const hpoFaq = await Promise.all(
 
   <!-- A shrinking supply -->
   <section id='scarcity' class='py-12'>
-    <h2 class='font-fredoka mb-2 text-[40px] font-semibold'>{t('hpo.scarcity.title')}</h2>
+    <h2 class='anchor-host font-fredoka mb-2 text-[40px] font-semibold'>
+      {t('hpo.scarcity.title')}<AnchorLink anchor='scarcity' />
+    </h2>
     <p class='text-text-muted mb-7 text-[18px]'>{t('hpo.scarcity.subtitle')}</p>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
       {
@@ -267,7 +274,9 @@ const hpoFaq = await Promise.all(
 
   <!-- Early investors -->
   <section id='investors' class='py-12'>
-    <h2 class='font-fredoka mb-2 text-[40px] font-semibold'>{t('hpo.investors.title')}</h2>
+    <h2 class='anchor-host font-fredoka mb-2 text-[40px] font-semibold'>
+      {t('hpo.investors.title')}<AnchorLink anchor='investors' />
+    </h2>
     <p class='text-text-muted mb-7 text-[18px]'>{t('hpo.investors.subtitle')}</p>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-3'>
       <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
@@ -314,7 +323,9 @@ const hpoFaq = await Promise.all(
 
   <!-- Watch & learn -->
   <section id='watch' class='py-12'>
-    <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>{t('hpo.watch.title')}</h2>
+    <h2 class='anchor-host font-fredoka mb-7 text-[40px] font-semibold'>
+      {t('hpo.watch.title')}<AnchorLink anchor='watch' />
+    </h2>
     <div class='grid grid-cols-1 gap-6 lg:grid-cols-2'>
       <div class='border-border bg-surface rounded-[20px] border p-4'>
         <iframe
@@ -337,7 +348,9 @@ const hpoFaq = await Promise.all(
 
   <!-- FAQ -->
   <section id='faq' class='py-12'>
-    <h2 class='font-fredoka mb-7 text-[40px] font-semibold'>{t('hpo.faq.title')}</h2>
+    <h2 class='anchor-host font-fredoka mb-7 text-[40px] font-semibold'>
+      {t('hpo.faq.title')}<AnchorLink anchor='faq' />
+    </h2>
     <div class='flex flex-col gap-4'>
       {
         hpoFaq.map(({ entry, anchor, Content }, i) => (
@@ -346,8 +359,9 @@ const hpoFaq = await Promise.all(
             open={i === 0}
             class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
           >
-            <summary class='text-text cursor-pointer text-[17px] font-medium'>
+            <summary class='anchor-host text-text cursor-pointer text-[17px] font-medium'>
               {t('hpo.faq.item', { n: formatNumber(locale, entry.data.order), question: entry.data.question ?? '' })}
+              <AnchorLink anchor={anchor} />
             </summary>
             <div class='hpo-answer text-text-muted flex flex-col gap-2.5 pt-3 text-[15px] leading-[1.6]'>
               <Content />

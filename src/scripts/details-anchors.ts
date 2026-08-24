@@ -48,6 +48,8 @@ export function installDetailsAnchors(aliases: Readonly<Record<string, string>> 
     if (event.defaultPrevented) return
     const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href^="#"]')
     if (link === null || link === undefined) return
+    // The copy icons (src/scripts/anchor-copy.ts) share the anchor but never navigate.
+    if (link.hasAttribute('data-anchor-copy')) return
     const anchor = decodeAnchor(link.hash.slice(1))
     if (anchor === '' || anchor !== currentAnchor()) return
     reveal(anchor)

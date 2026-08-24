@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-24 — [detailed report](changelog/2026-08-24-anchor-copy-links.md)
+
+- Added a hover-revealed copy-link icon to every `/faq/` section and question (49 icons).
+- Added the same to the `/hpo/` section headings and FAQ answers (13 icons).
+- New `AnchorLink.astro` + `anchor-copy.ts`: a plain click copies the absolute URL, modified clicks still navigate.
+- Added `site.anchor.copy` / `site.anchor.copied` to the English site catalog.
+
 ## 2026-08-24 — [detailed report](changelog/2026-08-24-docs-formatting-sweep.md)
 
 - Wrote alt text for all 22 docs images and removed the 21 empty figcaptions.

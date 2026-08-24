@@ -1,0 +1,127 @@
+---
+// The small link icon next to a deep-linkable heading or question (/faq/ and /hpo/). It is a real
+// <a href="#id">, so it degrades to a plain in-page link without JS and honours modified clicks;
+// src/scripts/anchor-copy.ts turns a plain click into "copy the absolute URL" instead.
+//
+// The icon is invisible until the reader hovers (or keyboard-focuses) its heading — the parent
+// carries the `anchor-host` class — so it costs nothing visually until it is wanted. It still
+// occupies its box when hidden, so revealing it never reflows the heading.
+import { localeOf } from '../i18n/locale.ts'
+import { getT } from '../i18n/t.ts'
+
+interface Props {
+  anchor: string
+}
+
+const { anchor } = Astro.props
+const { t } = getT(localeOf(Astro), ['site'])
+---
+
+<a
+  class='anchor-link'
+  href={`#${anchor}`}
+  data-anchor-copy
+  data-copied={t('site.anchor.copied')}
+  aria-label={t('site.anchor.copy')}
+  title={t('site.anchor.copy')}
+>
+  <svg
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    stroke-width='2'
+    stroke-linecap='round'
+    stroke-linejoin='round'
+    aria-hidden='true'
+  >
+    <path d='M9.5 14.5 14.5 9.5'></path>
+    <path d='M11.8 7.6 13.4 6a4 4 0 0 1 5.6 5.6l-1.6 1.6'></path>
+    <path d='M12.2 16.4l-1.6 1.6A4 4 0 0 1 5 12.4L6.6 10.8'></path>
+  </svg>
+</a>
+
+<script src='/src/scripts/anchor-copy.ts'></script>
+
+<style>
+  /* Scales with the heading it follows, but never grows past a discreet 18px. */
+  .anchor-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    inline-size: clamp(13px, 0.8em, 18px);
+    block-size: clamp(13px, 0.8em, 18px);
+    margin-inline-start: 0.35em;
+    border-radius: 4px;
+    color: var(--color-text-faint);
+    opacity: 0;
+    transition:
+      opacity 150ms ease,
+      color 150ms ease;
+  }
+  .anchor-link svg {
+    inline-size: 100%;
+    block-size: 100%;
+  }
+  @media (hover: hover) {
+    :global(.anchor-host:hover) .anchor-link {
+      opacity: 1;
+    }
+    .anchor-link:hover {
+      color: var(--color-accent);
+      opacity: 1;
+    }
+  }
+  /* Touch has no hover to reveal it, so keep it faintly visible instead of unreachable. */
+  @media (hover: none) {
+    .anchor-link {
+      opacity: 0.4;
+    }
+  }
+  .anchor-link:focus-visible {
+    color: var(--color-accent);
+    opacity: 1;
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  .anchor-link.is-copied {
+    color: var(--color-positive);
+    opacity: 1;
+  }
+
+  /* Confirmation tooltip, shown for a moment after a successful copy. */
+  .anchor-link::after {
+    content: attr(data-copied);
+    position: absolute;
+    z-index: 10;
+    bottom: calc(100% + 8px);
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    padding: 3px 8px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface-deep);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 120ms ease;
+  }
+  :global(html[dir='rtl']) .anchor-link::after {
+    transform: translateX(50%);
+  }
+  .anchor-link.is-copied::after {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .anchor-link,
+    .anchor-link::after {
+      transition: none;
+    }
+  }
+</style>
