@@ -1,6 +1,6 @@
 ---
 order: 4
-title: 'और गहरा डेटा'
+title: 'गहराई में डेटा'
 ---
 
-यहाँ दिखाए गए से आगे एक व्यापक सार्वजनिक डैशबोर्ड के लिए <a href="https://stats.hipo.finance/" target="_blank" rel="noopener noreferrer">Hipo Stats</a> देखें, या [डॉक्स](/docs/introduction/hipo-stats/) में पढ़ें कि हर मेट्रिक का क्या मतलब है।
+यहाँ दिखाए गए से ज़्यादा व्यापक पब्लिक डैशबोर्ड के लिए <a href="https://stats.hipo.finance/" target="_blank" rel="noopener noreferrer">Hipo Stats</a> देखें, या हर मेट्रिक का मतलब जानने के लिए [डॉक्स](/docs/introduction/hipo-stats/) पढ़ें।

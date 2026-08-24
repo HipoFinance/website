@@ -2,7 +2,7 @@
 title: 'लिक्विड स्टेकिंग'
 ---
 
-### लिक्विड स्टेकिंग क्या है?
+## लिक्विड स्टेकिंग क्या है?
 
 लिक्विड स्टेकिंग स्टेकिंग के लाभों को लिक्विडिटी की सुविधा के साथ जोड़ती है।
 
@@ -12,4 +12,14 @@ title: 'लिक्विड स्टेकिंग'
 
 उदाहरण के लिए, Hipo के साथ अपने GRAM स्टेक करके hGRAM प्राप्त करने के बाद, आप इसे होल्ड कर सकते हैं, ट्रांसफ़र कर सकते हैं, किसी DEX पर स्वैप कर सकते हैं, या किसी लिक्विडिटी पूल में सप्लाई कर सकते हैं — जबकि अंतर्निहित GRAM स्टेकिंग रिवॉर्ड्स कमाता रहता है। इनमें से हर उपयोग का अपना स्मार्ट-कॉन्ट्रैक्ट, लिक्विडिटी और प्राइस-इम्पैक्ट जोखिम है; Hipo फ़िलहाल जिन इंटीग्रेशन की ओर इशारा करता है, उनकी सूची [DeFi पेज](/defi/) पर है।
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/fmLawb3gaxk" title="Hipo video" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/fmLawb3gaxk" title="लिक्विड स्टेकिंग क्या है?" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## TON ही क्यों?
+
+TON तीन वजहों से बड़े पैमाने पर अपनाए जाने का प्रमुख दावेदार है:
+
+**उच्च थ्रूपुट**: TON का शार्डेड डिज़ाइन माँग के साथ ट्रांज़ैक्शन थ्रूपुट को स्केल करता है, और बड़े पैमाने के थ्रूपुट परीक्षणों में सार्वजनिक रिकॉर्ड बना चुका है।
+
+**Telegram से जुड़ाव और पहुँच**: TON की शुरुआत Telegram के संस्थापकों द्वारा शुरू किए गए एक प्रोजेक्ट से हुई थी और अब इसका रखरखाव स्वतंत्र TON Foundation करता है। Telegram इसका संचालक नहीं है, लेकिन TON ऐप्स और वॉलेट्स के लिए मुख्य वितरण माध्यम बना हुआ है।
+
+**समृद्ध समुदाय**: TON के पास डेवलपर्स, वैलिडेटर्स और उपयोगकर्ताओं का एक बड़ा और सक्रिय समुदाय है, जो नवाचार, सहयोग और नेटवर्क की वृद्धि को बढ़ावा देता है।

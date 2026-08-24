@@ -2,17 +2,17 @@
 title: 'آگاهی از فیشینگ و پیشگیری از آن'
 ---
 
-#### فیشینگ چیست؟
+## فیشینگ چیست؟
 
 فیشینگ حملهٔ سایبری رایجی است که در آن کلاهبرداران افراد را فریب می‌دهند تا اطلاعات حساسی مانند رمز عبور، عبارت بازیابی (سید) کیف پول یا جزئیات مالی خود را فاش کنند. این حمله‌ها اغلب در قالب پیام‌هایی معتبر از منابع مورد اعتماد ظاهر می‌شوند.
 
-#### تعهد Hipo به امنیت
+## تعهد Hipo به امنیت
 
 ما در Hipo متعهدیم جامعهٔ خود را آموزش دهیم تا از خود در برابر کلاهبرداری‌های فیشینگ محافظت کنند. این صفحه نکات و نمونه‌هایی ویژهٔ تلاش‌های فیشینگ مرتبط با Hipo ارائه می‌دهد. با کشف روش‌های جدید و مهم کلاهبرداری، آن را به‌روز خواهیم کرد.
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/rmCOz1UmV4c" title="Hipo video" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/rmCOz1UmV4c" title="How to spot a phishing attempt" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-#### شناخت فیشینگ در ۳ گام
+## شناخت فیشینگ در ۳ گام
 
 حمله‌های فیشینگ معمولاً در سه مرحله رخ می‌دهند:
 
@@ -36,7 +36,7 @@ title: 'آگاهی از فیشینگ و پیشگیری از آن'
 
 ---
 
-#### نکاتی برای محافظت در برابر فیشینگ
+## نکاتی برای محافظت در برابر فیشینگ
 
 - از لینک‌های مشکوک دوری کنید و پیش از کلیک همیشه فرستنده را راستی‌آزمایی کنید.
 - احراز هویت دومرحله‌ای (2FA) را برای ایمیل و حساب‌های اجتماعی خود فعال کنید.
@@ -46,7 +46,7 @@ title: 'آگاهی از فیشینگ و پیشگیری از آن'
 - از تازه‌ترین کلاهبرداری‌ها و شیوه‌های امنیت آنلاین آگاه بمانید.
 - نسبت به پیام‌هایی که شما را به اقدام سریع وادار می‌کنند یا وعدهٔ پاداش می‌دهند محتاط باشید.
 
-#### کانال‌های رسمی Hipo
+## کانال‌های رسمی Hipo
 
 - **وب‌سایت:** [hipo.finance](https://hipo.finance)
 - **وب‌اپ:** [hipo.finance/stake](/stake/)
@@ -56,13 +56,13 @@ title: 'آگاهی از فیشینگ و پیشگیری از آن'
 
 ---
 
-### نمونه‌های فیشینگ و نحوهٔ برخورد با آن‌ها
+## نمونه‌های فیشینگ و نحوهٔ برخورد با آن‌ها
 
 **نمونهٔ ۱: برنامهٔ پاداش جعلی Hipo**
 
-<figure><img src="/docs/images/security-phishing-awareness-and-prevention-1.jpg" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="/docs/images/security-phishing-awareness-and-prevention-1.jpg" alt="پیام خصوصی در تلگرام از حسابی که خود را Hipo جا زده و لینکی به یک ربات جعلی «بررسی رسمی پاداش‌ها» می‌دهد؛ با برچسب کلاهبرداری" width="563"></figure>
 
-<figure><img src="/docs/images/security-phishing-awareness-and-prevention-2.jpg" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="/docs/images/security-phishing-awareness-and-prevention-2.jpg" alt="سایت جعلی Hipo که پنجرهٔ اتصال آن عبارت بازیابی یا کلید خصوصی کیف پول شما را می‌خواهد؛ با برچسب کلاهبرداری" width="563"></figure>
 
 **سناریو:** پیامی از کسی دریافت می‌کنید که ادعا می‌کند نمایندهٔ برنامهٔ پاداش ۱ میلیون دلاری Hipo است. شما را به وب‌سایتی هدایت می‌کند که شبیه Hipo به نظر می‌رسد و عبارت بازیابی کیف پولتان را می‌خواهد.
 
@@ -74,7 +74,7 @@ title: 'آگاهی از فیشینگ و پیشگیری از آن'
 
 **نمونهٔ ۲: فرصت سرمایه‌گذاری انحصاری**
 
-<figure><img src="/docs/images/security-phishing-awareness-and-prevention-3.jpg" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="/docs/images/security-phishing-awareness-and-prevention-3.jpg" alt="پیام خصوصی در تلگرام از فردی ناشناس که خود را کارشناس DeFi جا زده و بازدهی بیشتر از Hipo پیشنهاد می‌دهد؛ با برچسب کلاهبرداری" width="563"></figure>
 
 **سناریو:** کسی با شما تماس می‌گیرد، ادعا می‌کند می‌داند عضو جامعهٔ Hipo هستید و فرصت سرمایه‌گذاری انحصاری پیشنهاد می‌دهد.
 
@@ -85,6 +85,6 @@ title: 'آگاهی از فیشینگ و پیشگیری از آن'
 
 ---
 
-#### هوشیار بمانید
+## هوشیار بمانید
 
 کلاهبرداری‌های فیشینگ دائماً در حال تغییرند، اما با آگاه و محتاط ماندن می‌توانید از خود محافظت کنید و به امنیت جامعهٔ Hipo کمک کنید.

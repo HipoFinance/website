@@ -3,13 +3,55 @@ title: 'توکن حاکمیتی Hipo (HPO)'
 ---
 
 :::note
-[صفحه HPO](/hpo/) را ببینید.
+[صفحهٔ HPO](/hpo/) را ببینید.
 :::
 
 ## توکن HPO چیست؟
 
-**HPO** توکن حاکمیت و تقسیم سود Hipo است که به دارندگان اجازه می‌دهد دربارهٔ تصمیم‌های پروتکل رأی دهند و سهمی از سود پروتکل دریافت کنند. نگه‌داشتن HPO پاداشی همچنین سطح عضو در [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) را حفظ می‌کند؛ سطحی که تعیین می‌کند hGRAM او در هر دور اعتبارسنجی چقدر HPO کسب کند.
+**HPO** توکن حاکمیت و تقسیم سود Hipo است که به دارندگان اجازه می‌دهد دربارهٔ تصمیم‌های پروتکل رأی دهند و سهمی از سود پروتکل دریافت کنند.
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/QYU-TWJK1yg" title="What is the HPO token?" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/QYU-TWJK1yg" title="توکن HPO چیست؟" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-<br>
+## توکنومیکس
+
+- **نام توکن**: توکن حاکمیتی Hipo
+- **نماد توکن**: HPO
+- **استاندارد**: جتون TON (TEP-74)
+- **شبکه**: TON
+- **عرضهٔ کل**: ۱٬۰۰۰٬۰۰۰٬۰۰۰ HPO
+- **آدرس:** [EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM](https://tonviewer.com/EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM)
+
+### کاربرد توکن
+
+- **تقسیم سود:** دارندگان HPO سهمی از درآمد پروتکل Hipo دریافت می‌کنند که پس از هر دور اعتبارسنجی محاسبه و در پایان هر فصل Hipo Club پرداخت می‌شود.
+- **Hipo Club:** نگه‌داشتن HPO پاداشی، سطح عضو در [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) را حفظ می‌کند — فروش آن سطح عضو را به سطح ۱ بازمی‌گرداند — و سطح بالاتر باعث می‌شود عضو در هر دور اعتبارسنجی HPO بیشتری بابت hGRAM خود کسب کند؛ سطح‌ها با فعالیت در Club (ارتقای آنی یا ارتقای فصلی) بالا می‌روند.
+- **حاکمیت:** دارندگان می‌توانند فعالانه در رأی‌گیری‌های حاکمیتی شرکت کنند و به تصمیم‌گیری دربارهٔ ارتقاهای پروتکل، تصمیم‌های راهبردی و دیگر مسائل حیاتی کمک کنند.
+
+### توزیع توکن
+
+- ۳۰٪: جامعه (استیک‌کنندگان، دعوت‌کنندگان و اعضای جامعه‌ای که به پیوستن و پشتیبانی کاربران جدید در Hipo Chat کمک می‌کنند.)
+- ۲۰٪: نقدینگی
+- ۱۵٪: بازاریابی
+- ۲۰٪: تیم
+- ۲٪: مشاوران
+- ۱۳٪: خزانه
+
+<figure><img src="/docs/images/hipo-tokens-hipo-governance-token-hpo-tokenomics-1.jpg" alt="نمودار دونات توزیع توکن HPO: جامعه ۳۰٪، نقدینگی ۲۰٪، تیم ۲۰٪، بازاریابی ۱۵٪، خزانه ۱۳٪، مشاوران ۲٪."><figcaption><p>نمودار توزیع توکن HPO</p></figcaption></figure>
+
+### وستینگ توکن
+
+- **تیم:** دورهٔ انتظار ۱۲ ماهه، آزادسازی خطی ۴۸ ماهه
+
+:::note
+**به‌روزرسانی وستینگ — ۵ آبان ۱۴۰۴ (۲۷ اکتبر ۲۰۲۵)**
+
+برای تقویت بیشتر رویکرد جامعه‌محور خود، **بخش تیم** را به‌شرح زیر به‌روزرسانی کردیم:
+
+- مدت آزادسازی **از ۲۴ به ۴۸ ماه افزایش یافت**.
+- **۹۰٪ از توکن‌هایی** که قرار بود در ۱۲ ماه نخست آزاد شوند **سوزانده شدند**.
+
+:::
+
+### سوزانده‌شده تاکنون
+
+توکن‌های سوزانده‌شده برای همیشه از عرضهٔ ثابت ۱٬۰۰۰٬۰۰۰٬۰۰۰ HPO حذف می‌شوند. رقم زندهٔ کل HPO سوزانده‌شده تاکنون را در [صفحهٔ HPO](/hpo/#tokenomics) ببینید.

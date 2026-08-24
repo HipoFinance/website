@@ -2,7 +2,7 @@
 title: 'استیکینگ نقدشونده'
 ---
 
-### استیکینگ نقدشونده چیست؟
+## استیکینگ نقدشونده چیست؟
 
 استیکینگ نقدشونده مزایای استیکینگ را با انعطاف نقدینگی ترکیب می‌کند.
 
@@ -12,4 +12,14 @@ title: 'استیکینگ نقدشونده'
 
 برای مثال، پس از دریافت hGRAM در ازای استیک کردن GRAM خود در Hipo، می‌توانید آن را نگه دارید، منتقل کنید، در یک DEX سواپ کنید یا به یک استخر نقدینگی بسپارید — در حالی که GRAM پایه همچنان پاداش استیکینگ می‌گیرد. هر یک از این کاربردها ریسک قرارداد هوشمند، نقدینگی و تأثیر قیمتی خودش را دارد؛ [صفحهٔ DeFi](/defi/) یکپارچه‌سازی‌هایی را که Hipo در حال حاضر به آن‌ها اشاره می‌کند فهرست کرده است.
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/fmLawb3gaxk" title="Hipo video" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/fmLawb3gaxk" title="استیکینگ نقدشونده چیست؟" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## چرا TON؟
+
+TON به سه دلیل نامزد برجسته‌ای برای پذیرش گسترده است:
+
+**توان عملیاتی بالا**: طراحی شاردشدهٔ TON توان عملیاتی تراکنش را متناسب با تقاضا مقیاس می‌دهد و در آزمون‌های توان عملیاتی بزرگ‌مقیاس رکوردهای عمومی ثبت کرده است.
+
+**ریشه و دسترس تلگرام**: TON از پروژه‌ای که بنیان‌گذاران تلگرام آغاز کردند رشد کرد و اکنون توسط بنیاد مستقل TON نگهداری می‌شود. تلگرام دیگر اپراتور آن نیست، اما همچنان کانال اصلی توزیع اپ‌ها و کیف پول‌های TON است.
+
+**جامعهٔ رو به رشد**: TON جامعه‌ای بزرگ و فعال از توسعه‌دهندگان، ولیدیتورها و کاربران دارد که نوآوری، همکاری و رشد شبکه را تقویت می‌کند.

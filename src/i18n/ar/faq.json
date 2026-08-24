@@ -1,0 +1,22 @@
+{
+  "faq.page.title": "الأسئلة الشائعة",
+  "faq.page.sections": "الأقسام",
+  "faq.section.gettingStarted.heading": "البدء",
+  "faq.section.gettingStarted.nav": "البدء",
+  "faq.section.staking.heading": "الستاكينغ",
+  "faq.section.staking.nav": "الستاكينغ",
+  "faq.section.rewards.heading": "المكافآت و APY",
+  "faq.section.rewards.nav": "المكافآت و APY",
+  "faq.section.hgram.heading": "hGRAM",
+  "faq.section.hgram.nav": "hGRAM",
+  "faq.section.unstaking.heading": "إلغاء الستاكينغ",
+  "faq.section.unstaking.nav": "إلغاء الستاكينغ",
+  "faq.section.security.heading": "الأمان والمخاطر",
+  "faq.section.security.nav": "الأمان والمخاطر",
+  "faq.section.validators.heading": "الفاليديتورز وسوق الستاكينغ",
+  "faq.section.validators.nav": "الفاليديتورز والسوق",
+  "faq.section.hpoToken.heading": "HPO و Hipo Club",
+  "faq.section.hpoToken.nav": "HPO و Club",
+  "faq.section.support.heading": "الدعم",
+  "faq.section.support.nav": "الدعم"
+}

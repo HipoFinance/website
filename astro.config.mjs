@@ -203,6 +203,15 @@ function withSidebarTranslations(items) {
   return result
 }
 
+// The four docs URLs the 2026-08 restructure merged away, mapped to their successor. Expanded per
+// locale in `redirects` below.
+const DOCS_MERGE_REDIRECTS = {
+  '/docs/introduction/liquid-staking/why-ton/': '/docs/introduction/liquid-staking/',
+  '/docs/introduction/how-does-hipo-work/stake-gram/': '/docs/introduction/how-does-hipo-work/',
+  '/docs/introduction/how-does-hipo-work/get-hgram/': '/docs/hipo-tokens/hipo-staked-gram-hgram/',
+  '/docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/': '/docs/hipo-tokens/hipo-governance-token-hpo/',
+}
+
 export default defineConfig({
   site: 'https://hipo.finance',
   base: '/',
@@ -215,12 +224,18 @@ export default defineConfig({
   // docs.hipo.finance 301s legacy GitBook paths here, so these URLs must keep resolving. Both
   // sides carry a trailing slash to match `trailingSlash: 'always'`. Only ever redirect a path
   // that no longer exists as a page, or the build emits a prerender conflict.
-  redirects: {
-    '/docs/introduction/liquid-staking/why-ton/': '/docs/introduction/liquid-staking/',
-    '/docs/introduction/how-does-hipo-work/stake-gram/': '/docs/introduction/how-does-hipo-work/',
-    '/docs/introduction/how-does-hipo-work/get-hgram/': '/docs/hipo-tokens/hipo-staked-gram-hgram/',
-    '/docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/': '/docs/hipo-tokens/hipo-governance-token-hpo/',
-  },
+  //
+  // The translated twins of those four pages were retired with the English ones, so every built
+  // locale gets the same stub under its prefix (`/fa/docs/…/why-ton/`) — those URLs were indexed
+  // while fa/ru/hi were released.
+  redirects: Object.fromEntries(
+    Object.entries(DOCS_MERGE_REDIRECTS).flatMap(([from, to]) => [
+      [from, to],
+      ...builtLocales()
+        .filter((key) => key !== DEFAULT_LOCALE)
+        .map((key) => [`/${key}${from}`, `/${key}${to}`]),
+    ]),
+  ),
 
   markdown: {
     // Prefixes root-relative links in translated docs/prose Markdown with the entry's locale.

@@ -7,6 +7,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-24 — [detailed report](changelog/2026-08-24-nine-locale-translation.md)
+
+- Translated the whole site into six new locales: `ar`, `de`, `it`, `tr`, `id`, `pt-br`.
+- Resynchronised `fa`, `ru` and `hi` with the restructured English content.
+- Grew `GLOSSARY.md` to a binding terminology sheet and style block for all nine locales.
+- Expanded the four docs-merge redirects per locale in `astro.config.mjs`.
+- Flipped all nine locales from `draft` to `indexed` at 100 % coverage.
+
 ## 2026-08-24 — [detailed report](changelog/2026-08-24-anchor-copy-links.md)
 
 - Added a hover-revealed copy-link icon to every `/faq/` section and question (49 icons).

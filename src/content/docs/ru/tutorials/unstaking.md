@@ -2,29 +2,31 @@
 title: 'Вывод из стейкинга'
 ---
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Stake GRAM with Hipo | Step-by-Step Staking and Unstaking Guide" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="Как застейкать GRAM в Hipo | Пошаговое руководство по стейкингу и выводу из стейкинга" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-### Как вывести hGRAM из стейкинга
+## Как вывести hGRAM из стейкинга
 
-Когда вы будете готовы обменять hGRAM обратно на GRAM, вы можете вывести его из стейкинга через приложение Hipo или обменять на DEX.
+Когда будете готовы конвертировать hGRAM обратно в GRAM, вы можете вывести его из стейкинга через приложение Hipo или обменять на DEX.
 
-#### Вариант 1: вывод через приложение Hipo
+### Вариант 1. Вывод из стейкинга через приложение Hipo
 
-Подключите кошелёк к [веб-приложению Hipo](/unstake/) или [мини-приложению Telegram](https://t.me/HipoFinanceBot) и выберите вывод из стейкинга. У этого способа самые низкие комиссии, и он предлагает [два способа обработки вывода](/faq/#what-is-the-difference-between-full-and-instant-unstaking):
+Подключите кошелёк к [веб-приложению Hipo](/unstake/) или [мини-приложению Telegram](https://t.me/HipoFinanceBot) и выберите опцию вывода из стейкинга. У этого способа [самые низкие комиссии](/docs/fees-and-gas/), и он предлагает [два варианта обработки вывода из стейкинга](/faq/#what-is-the-difference-between-full-and-instant-unstaking):
 
-- **Полный** — исполняется после завершения текущего раунда валидации. Ваш GRAM продолжает приносить доход до этого момента, поэтому вы получаете лучший курс обмена. В некоторых случаях придётся подождать [до 36 часов](/faq/#how-long-does-unstaking-take), если все средства смарт-контракта Hipo заблокированы в процессе начисления наград за стейкинг.
-- **Мгновенный** — обрабатывается сразу по немного более низкому курсу. Он проходит, пока у Hipo достаточно свободного GRAM, чтобы покрыть ваш запрос; приложение показывает максимальную доступную для этого сумму.
+- **Полный** — завершается после окончания текущего раунда валидации. До этого момента ваш GRAM продолжает приносить доход, поэтому вы получаете более выгодный курс обмена. В некоторых случаях может потребоваться подождать [до 36 часов](/faq/#how-long-does-unstaking-take), если все средства смарт-контракта Hipo заблокированы в процессе начисления наград за стейкинг.
+- **Мгновенный** — обрабатывается сразу же по немного более низкому курсу. Проходит, пока у Hipo достаточно свободного GRAM, чтобы покрыть ваш запрос; приложение показывает максимальную доступную для этого сумму.
 
-<figure><img src="/docs/images/tutorials-unstaking-1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-unstaking-1.png" alt="Вкладка вывода из стейкинга с полем суммы и опциями «Полный» и «Мгновенный», выбран «Мгновенный», показан его максимум"></figure>
 
-#### Вариант 2: обмен на DEX
+### Вариант 2. Обмен через DEX
 
-Если мгновенный вывод не может покрыть нужную вам сумму, вы можете обменять hGRAM на **децентрализованных биржах** (DEX), таких как DeDust, STON.fi и TONCO, за немного более высокую комиссию. Это альтернативный путь к немедленному получению GRAM, который не зависит от собственной ликвидности Hipo, хотя курс при этом задаёт пул, а не протокол. На [странице DeFi](/defi/) есть прямые ссылки на актуальные страницы пулов и обмена для каждой площадки.
+Если мгновенный вывод из стейкинга не может покрыть нужную вам сумму, вы можете обменять hGRAM через **децентрализованные биржи** (DEX), такие как DeDust, STON.fi и TONCO, за немного более высокую комиссию. Это альтернативный путь к немедленному получению GRAM, не зависящий от собственной ликвидности Hipo, хотя курс определяется пулом, а не протоколом. Страница [DeFi](/defi/) ведёт напрямую к актуальным страницам пулов и обмена для каждой площадки.
 
-<figure><img src="/docs/images/tutorials-unstaking-2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-unstaking-2.png" alt="Форма обмена DeDust, настроенная на обмен hGRAM на GRAM"></figure>
 
-<figure><img src="/docs/images/tutorials-unstaking-3.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-unstaking-3.png" alt="Форма обмена STON.fi с полем GRAM для отправки и hGRAM для получения"></figure>
 
-Кроме того, некоторые кошельки, например Tonkeeper, позволяют обменять hGRAM на GRAM прямо в приложении.
+Кроме того, некоторые кошельки, например Tonkeeper, предлагают функцию, позволяющую обменивать hGRAM на GRAM прямо внутри приложения.
 
-<figure><img src="/docs/images/tutorials-unstaking-4.png" alt="" width="375"><figcaption></figcaption></figure>
+Если ваш кошелёк вообще не может подписывать транзакции dApp — например, мультисиг- или холодный кошелёк, — вы всё равно можете вывести из стейкинга обычным переводом: см. [Стейкинг без приложения](/docs/staking-without-the-app/).
+
+<figure><img src="/docs/images/tutorials-unstaking-4.png" alt="Экран обмена внутри кошелька: отправка hGRAM и получение GRAM на базе STON.fi" width="375"></figure>

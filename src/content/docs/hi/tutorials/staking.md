@@ -2,46 +2,46 @@
 title: 'स्टेकिंग'
 ---
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Stake GRAM with Hipo | Step-by-Step Staking and Unstaking Guide" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="Hipo के साथ GRAM कैसे स्टेक करें | स्टेप-बाय-स्टेप स्टेकिंग और अनस्टेकिंग गाइड" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-### स्टेकिंग के लिए Hipo ऐप की प्रमुख विशेषताएँ
+## स्टेकिंग के लिए Hipo ऐप की मुख्य विशेषताएं
 
-"**स्टेक करें**" टैब में आप:
+"**Stake**" टैब में, आप यह कर सकते हैं:
 
-- अपने **GRAM** और **hGRAM** दोनों बैलेंस देख सकते हैं।
-- **hGRAM विनिमय दर** देख सकते हैं, जो स्टेकिंग रिवॉर्ड्स जमा होने के साथ बढ़ती है।
-- पिछले वैलिडेशन राउंड का [APY](/faq/#what-apy-does-hipo-offer) (वार्षिक प्रतिशत यील्ड) देख सकते हैं।
+- अपने **GRAM** और **hGRAM** दोनों बैलेंस देखें।
+- **hGRAM एक्सचेंज रेट** देखें, जो स्टेकिंग रिवॉर्ड्स जमा होने के साथ बढ़ता जाता है।
+- पिछले वैलिडेशन राउंड का [APY](/faq/#what-apy-does-hipo-offer) (वार्षिक रिवॉर्ड दर) देखें।
 
-<figure><img src="/docs/images/tutorials-staking-1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-1.png" alt="बैलेंस पंक्तियों, एक्सचेंज-रेट लाइन और APY आंकड़े को दर्शाता Stake टैब"></figure>
 
-### Hipo के साथ अपना GRAM कैसे स्टेक करें
+## Hipo के साथ अपना GRAM कैसे स्टेक करें
 
-#### चरण 1: अपना प्लेटफ़ॉर्म चुनें
+### स्टेप 1: अपना प्लेटफ़ॉर्म चुनें
 
-आप [Hipo वेब ऐप](/stake/), [Telegram मिनी ऐप](https://t.me/HipoFinanceBot/app), या [Hipo Club](https://t.me/HipoFinanceBot/join) के ज़रिये भी अपना GRAM स्टेक कर सकते हैं। बस वह प्लेटफ़ॉर्म चुनें जो आपको सबसे अच्छा लगे — इनमें से किसी भी विकल्प से आप GRAM स्टेक कर पाएँगे।
+आप [Hipo Web App](/stake/), [Telegram Mini App](https://t.me/HipoFinanceBot/app), या यहां तक कि [Hipo Club](https://t.me/HipoFinanceBot/join) के ज़रिए भी अपना GRAM स्टेक कर सकते हैं। बस वह प्लेटफ़ॉर्म चुनें जो आपको सबसे अच्छा लगे, और आप इनमें से किसी भी विकल्प से GRAM स्टेक कर पाएंगे।
 
-<figure><img src="/docs/images/tutorials-staking-2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-2.png" alt="स्टेक करने के तीन तरीके साथ-साथ: Hipo web app, Telegram Mini App और Hipo bot"></figure>
 
-#### चरण 2: अपना वॉलेट कनेक्ट करें
+### स्टेप 2: अपना वॉलेट कनेक्ट करें
 
-इसके बाद अपना TON वॉलेट कनेक्ट करें। Hipo Tonkeeper, Tonhub और अन्य सहित GRAM वॉलेट की एक विस्तृत श्रृंखला को सपोर्ट करता है।
+इसके बाद, अपना TON वॉलेट कनेक्ट करें। Hipo Tonkeeper, Tonhub और अन्य सहित कई तरह के GRAM वॉलेट्स को सपोर्ट करता है।
 
-<figure><img src="/docs/images/tutorials-staking-3.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-3.png" alt="Tonkeeper, MyTonWallet, Tonhub और DeWallet को सूचीबद्ध करता वॉलेट-कनेक्ट डायलॉग"></figure>
 
-#### चरण 3: स्टेक करने की राशि दर्ज करें
+### स्टेप 3: वह राशि दर्ज करें जो आप स्टेक करना चाहते हैं
 
-तय करें कि आप कितना GRAM स्टेक करना चाहते हैं। आप देख पाएँगे कि मौजूदा विनिमय दर के आधार पर आपको कितना [hGRAM (Hipo Staked GRAM)](/docs/hipo-tokens/hipo-staked-gram-hgram/) मिलेगा — यह दर स्टेकिंग रिवॉर्ड्स जमा होने के साथ समय के साथ बढ़ती है। संतुष्ट होने पर "स्टेक करें" पर क्लिक करें।
+तय करें कि आप कितना GRAM स्टेक करना चाहते हैं। आप देख पाएंगे कि मौजूदा एक्सचेंज रेट के आधार पर आपको कितना [hGRAM (Hipo Staked GRAM)](/docs/hipo-tokens/hipo-staked-gram-hgram/) मिलेगा, जो समय के साथ स्टेकिंग रिवॉर्ड्स जमा होने के साथ बढ़ता है। संतुष्ट होने पर, "Stake" पर क्लिक करें।
 
-<figure><img src="/docs/images/tutorials-staking-4.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-4.png" alt="टाइप की गई राशि वाला स्टेक फ़ॉर्म, जिसके नीचे आपको मिलने वाली राशि दिखाई गई है"></figure>
 
-#### चरण 4: ट्रांज़ैक्शन की पुष्टि करें
+### स्टेप 4: ट्रांज़ैक्शन कन्फ़र्म करें
 
-स्टेकिंग ट्रांज़ैक्शन की पुष्टि सीधे अपने वॉलेट में करें। कुछ ही सेकंड में आपको अपने hGRAM टोकन मिल जाएँगे, जो आपके स्टेक किए हुए GRAM का प्रतिनिधित्व करते हैं।
+अपने वॉलेट में सीधे स्टेकिंग ट्रांज़ैक्शन कन्फ़र्म करें। ऐप आपकी राशि के ऊपर एक छोटा गैस प्रीपेमेंट जोड़ता है, और अनुपयोगी हिस्सा वापस कर दिया जाता है — देखें [शुल्क और गैस](/docs/fees-and-gas/)। कुछ ही सेकंड में, आपको अपने स्टेक किए GRAM को दर्शाते hGRAM टोकन मिल जाएंगे।
 
-<figure><img src="/docs/images/tutorials-staking-5.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-5.png" alt="स्लाइड-टू-कन्फ़र्म कंट्रोल के साथ वॉलेट की कन्फ़र्म-एक्शन शीट, और उसके बाद वॉलेट बैलेंस"></figure>
 
 :::tip
-चूँकि hGRAM का मूल्य हर वैलिडेशन राउंड के साथ बढ़ता है, आपके रिवॉर्ड्स चक्रवृद्धि होते हैं।
+जैसे-जैसे hGRAM का मूल्य हर वैलिडेशन राउंड के साथ बढ़ता है, आपके रिवॉर्ड्स कंपाउंड होते जाते हैं।
 
-इसके अलावा, [DeFi सेक्शन](/defi/) में विभिन्न विकेंद्रीकृत वित्त प्लेटफ़ॉर्म दिए गए हैं, जहाँ आप स्टेकिंग रिवॉर्ड्स पाते रहने के साथ-साथ अपनी कमाई और बढ़ाने के लिए अपने hGRAM का इस्तेमाल कर सकते हैं।
+इसके अलावा, [DeFi सेक्शन](/defi/) कई तरह के डीसेंट्रलाइज़्ड फ़ाइनेंस प्लेटफ़ॉर्म प्रदान करता है, जहां आप स्टेकिंग रिवॉर्ड्स पाते रहते हुए भी, अपनी कमाई और बढ़ाने के लिए अपने hGRAM का उपयोग कर सकते हैं।
 :::

@@ -2,46 +2,46 @@
 title: 'Стейкинг'
 ---
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="How to Stake GRAM with Hipo | Step-by-Step Staking and Unstaking Guide" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/X2efM5RuDow" title="Как застейкать GRAM в Hipo | Пошаговое руководство по стейкингу и выводу из стейкинга" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-### Ключевые возможности приложения Hipo для стейкинга
+## Ключевые возможности приложения Hipo для стейкинга
 
 На вкладке «**Стейкинг**» вы можете:
 
-- Видеть свои балансы **GRAM** и **hGRAM**.
-- Проверять **курс обмена hGRAM**, который растёт по мере накопления наград за стейкинг.
-- Смотреть [APY](/faq/#what-apy-does-hipo-offer) (годовую доходность) за последний раунд валидации.
+- Посмотреть балансы **GRAM** и **hGRAM**.
+- Проверить **курс обмена hGRAM**, который растёт по мере накопления наград за стейкинг.
+- Посмотреть [APY](/faq/#what-apy-does-hipo-offer) (годовую процентную доходность) за последний раунд валидации.
 
-<figure><img src="/docs/images/tutorials-staking-1.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-1.png" alt="Вкладка «Стейкинг» с указанными строками баланса, строкой курса обмена и значением APY"></figure>
 
-### Как застейкать GRAM в Hipo
+## Как застейкать GRAM в Hipo
 
-#### Шаг 1: выберите платформу
+### Шаг 1. Выберите платформу
 
-Вы можете стейкать GRAM через [веб-приложение Hipo](/stake/), [мини-приложение Telegram](https://t.me/HipoFinanceBot/app) или даже через [Hipo Club](https://t.me/HipoFinanceBot/join). Просто выберите платформу, которая вам удобнее, — стейкать GRAM можно из любой из них.
+Вы можете застейкать GRAM через [веб-приложение Hipo](/stake/), [мини-приложение Telegram](https://t.me/HipoFinanceBot/app) или даже через [Hipo Club](https://t.me/HipoFinanceBot/join). Просто выберите платформу, которая вам больше подходит, — застейкать GRAM можно через любой из этих вариантов.
 
-<figure><img src="/docs/images/tutorials-staking-2.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-2.png" alt="Три способа стейкинга рядом друг с другом: веб-приложение Hipo, мини-приложение Telegram и бот Hipo"></figure>
 
-#### Шаг 2: подключите кошелёк
+### Шаг 2. Подключите кошелёк
 
-Затем подключите свой кошелёк TON. Hipo поддерживает широкий набор кошельков GRAM, включая Tonkeeper, Tonhub и другие.
+Далее подключите свой кошелёк TON. Hipo поддерживает широкий набор кошельков для GRAM, включая Tonkeeper, Tonhub и другие.
 
-<figure><img src="/docs/images/tutorials-staking-3.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-3.png" alt="Диалог подключения кошелька со списком Tonkeeper, MyTonWallet, Tonhub и DeWallet"></figure>
 
-#### Шаг 3: введите сумму для стейкинга
+### Шаг 3. Введите сумму, которую хотите застейкать
 
-Решите, сколько GRAM вы хотите застейкать. Вы увидите, сколько [hGRAM (Hipo Staked GRAM)](/docs/hipo-tokens/hipo-staked-gram-hgram/) получите по текущему курсу обмена, который со временем растёт по мере накопления наград за стейкинг. Когда всё устроит, нажмите «Стейкать».
+Определите, сколько GRAM хотите застейкать. Вы увидите, сколько [hGRAM (Hipo Staked GRAM)](/docs/hipo-tokens/hipo-staked-gram-hgram/) получите по текущему курсу обмена, который со временем растёт по мере накопления наград за стейкинг. Когда всё устроит, нажмите «Стейкать».
 
-<figure><img src="/docs/images/tutorials-staking-4.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-4.png" alt="Форма стейкинга с введённой суммой, под которой показана сумма, которую вы получите"></figure>
 
-#### Шаг 4: подтвердите транзакцию
+### Шаг 4. Подтвердите транзакцию
 
-Подтвердите транзакцию стейкинга прямо в кошельке. Через несколько секунд вы получите токены hGRAM, представляющие ваш GRAM в стейкинге.
+Подтвердите транзакцию стейкинга прямо в кошельке. Приложение прикрепляет сверху небольшую предоплату за газ, и неиспользованная часть возвращается — см. [Комиссии и газ](/docs/fees-and-gas/). Через несколько секунд вы получите токены hGRAM, представляющие ваш застейканный GRAM.
 
-<figure><img src="/docs/images/tutorials-staking-5.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/tutorials-staking-5.png" alt="Экран подтверждения действия в кошельке с элементом «проведите для подтверждения» и баланс кошелька после этого"></figure>
 
 :::tip
-Поскольку стоимость hGRAM растёт с каждым раундом валидации, ваши награды реинвестируются автоматически.
+Поскольку стоимость hGRAM растёт с каждым раундом валидации, ваши награды капитализируются.
 
-Кроме того, в [разделе DeFi](/defi/) собраны различные платформы децентрализованных финансов, где вы можете использовать свой hGRAM, чтобы ещё больше увеличить заработок, продолжая получать награды за стейкинг.
+Кроме того, раздел [DeFi](/defi/) предлагает различные платформы децентрализованных финансов, где вы можете использовать hGRAM, чтобы дополнительно увеличить доход, продолжая при этом получать награды за стейкинг.
 :::

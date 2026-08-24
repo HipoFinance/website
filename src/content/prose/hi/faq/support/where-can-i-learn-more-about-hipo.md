@@ -1,9 +1,9 @@
 ---
-order: 4
+order: 3
 section: 'support'
 question: 'मैं Hipo के बारे में और कहाँ जान सकता हूँ?'
 ---
 
-[Hipo दस्तावेज़](/docs/) प्रोटोकॉल को गहराई से समझाते हैं, और <a href="https://stats.hipo.finance/" target="_blank" rel="noopener noreferrer">stats.hipo.finance</a> प्रोटोकॉल के लाइव आँकड़े ट्रैक करता है।
+[Hipo दस्तावेज़](/docs/) प्रोटोकॉल को विस्तार से कवर करते हैं, और <a href="https://stats.hipo.finance/" target="_blank" rel="noopener noreferrer">stats.hipo.finance</a> लाइव प्रोटोकॉल आँकड़े दिखाता है।
 
-कॉन्ट्रैक्ट्स <a href="https://github.com/HipoFinance" target="_blank" rel="noopener noreferrer">github.com/HipoFinance</a> पर ओपन-सोर्स हैं।
+कॉन्ट्रैक्ट <a href="https://github.com/HipoFinance" target="_blank" rel="noopener noreferrer">github.com/HipoFinance</a> पर ओपन-सोर्स हैं।

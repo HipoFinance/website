@@ -6,27 +6,47 @@ title: 'توزیع توکن‌های HPO'
 [صفحه HPO](/hpo/) را ببینید.
 :::
 
-<figure><img src="/docs/images/hipo-tokens-hipo-governance-token-hpo-hpo-tokens-distribution-1.jpg" alt=""><figcaption></figcaption></figure>
+<figure><img src="/docs/images/hipo-tokens-hipo-governance-token-hpo-hpo-tokens-distribution-1.jpg" alt="نمودار دونات توکنومیکس HPO: جامعه ۳۰٪، نقدینگی ۲۰٪، تیم ۲۰٪، بازاریابی ۱۵٪، خزانه ۱۳٪، مشاوران ۲٪."></figure>
 
 :::note
 کیف پول‌های توکنومیکس HPO برای امنیت بیشتر به کیف پول چندامضایی (مولتی‌سیگ) ارتقا یافتند
 :::
 
-### ۱. جامعه (۳۰٪)
+## ۱. جامعه (۳۰٪)
 
-بزرگ‌ترین تخصیص به جامعه Hipo اختصاص دارد و از طریق برنامه‌هایی برای **استیک‌کنندگان، دارندگان NFT و اعضای Hipo Club** (و پیش‌تر، بازیکنان Hipo Gang) توزیع می‌شود. هدف این بخش، رشد در فضایی جامعه‌محور و پاداش‌دادن به اعضایی است که برای پروژه ارزش می‌آفرینند.\ <sub>کیف پول چندامضایی جدید:</sub> [<sub>EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i</sub>](https://tonviewer.com/EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i)\ <sub>کیف پول قدیمی:</sub> [<sub>UQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-hZC</sub>](https://tonviewer.com/EQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-kuH)
+بزرگ‌ترین تخصیص به جامعه Hipo اختصاص دارد و از طریق برنامه‌هایی برای **استیک‌کنندگان، دارندگان NFT و اعضای Hipo Club** (و پیش‌تر، بازیکنان Hipo Gang) توزیع می‌شود. هدف این بخش، رشد در فضایی جامعه‌محور و پاداش‌دادن به اعضایی است که برای پروژه ارزش می‌آفرینند.
 
-### ۲. نقدینگی (۲۰٪)
+| کیف پول        | آدرس                                                                                                                       |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| چندامضایی جدید | [EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i](https://tonviewer.com/EQDyNWAKsyJxWcw0O5TSTBP448nB8cwtyWhZZN5TPB0-NS-i) |
+| کیف پول قدیمی  | [UQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-hZC](https://tonviewer.com/EQAKcMrV9H0nmWbPVio_VboRKoqNeWLMHghe6hHgybXX-kuH) |
 
-این توکن‌ها به برنامه‌های نقدینگی اختصاص می‌یابند تا از معاملات HPO در بازارهای گوناگون پشتیبانی کنند. این بخش با تأمین نقدینگی کافی، به ثبات، دسترس‌پذیری و کارایی معاملات کمک می‌کند.\ <sub>کیف پول چندامضایی جدید:</sub> [<sub>EQAEBTP7CYM6PzdzFgoZirjJa0eW6s9Xa1E9vaiG93UiXRQN</sub>](https://tonviewer.com/EQAEBTP7CYM6PzdzFgoZirjJa0eW6s9Xa1E9vaiG93UiXRQN)\ <sub>کیف پول قدیمی:</sub> [<sub>UQDjhorrj9pKZcxniE_LPN9fY1Hg8WHky9FrtXcxSCkhi_Ns</sub>](https://tonviewer.com/EQDjhorrj9pKZcxniE_LPN9fY1Hg8WHky9FrtXcxSCkhi66p)<br>
+## ۲. نقدینگی (۲۰٪)
 
-### ۳. بازاریابی (۱۵٪)
+این توکن‌ها به برنامه‌های نقدینگی اختصاص می‌یابند تا از معاملات HPO در بازارهای گوناگون پشتیبانی کنند. این بخش با تأمین نقدینگی کافی، به ثبات، دسترس‌پذیری و کارایی معاملات کمک می‌کند.
 
-این بخش برای کارزارهای بازاریابی و همکاری‌هایی در نظر گرفته شده که برای گسترش پایگاه کاربران Hipo طراحی شده‌اند. یک راهبرد بازاریابی قوی با افزایش دیده‌شدن، جذب کاربران جدید و پیشبرد رشد کلی، به سود همه جامعه است.\ <sub>کیف پول چندامضایی جدید:</sub> [<sub>EQAbY_sdVWapnNWP4BHKX7knOHNWhjn125R8ZlcBn0ehU7pZ</sub>](https://tonviewer.com/EQAbY_sdVWapnNWP4BHKX7knOHNWhjn125R8ZlcBn0ehU7pZ)\ <sub>کیف پول قدیمی:</sub> [<sub>UQCDBOa4nPTOSsPUg4RZjee99LJrXRhNnAPNRs67fSBvTkXw</sub>](https://tonviewer.com/UQCDBOa4nPTOSsPUg4RZjee99LJrXRhNnAPNRs67fSBvTkXw)<br>
+| کیف پول        | آدرس                                                                                                                       |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| چندامضایی جدید | [EQAEBTP7CYM6PzdzFgoZirjJa0eW6s9Xa1E9vaiG93UiXRQN](https://tonviewer.com/EQAEBTP7CYM6PzdzFgoZirjJa0eW6s9Xa1E9vaiG93UiXRQN) |
+| کیف پول قدیمی  | [UQDjhorrj9pKZcxniE_LPN9fY1Hg8WHky9FrtXcxSCkhi_Ns](https://tonviewer.com/EQDjhorrj9pKZcxniE_LPN9fY1Hg8WHky9FrtXcxSCkhi66p) |
 
-### ۴. تیم (۲۰٪)
+## ۳. بازاریابی (۱۵٪)
 
-این توکن‌ها که برای اعضای فعلی و آینده تیم کنار گذاشته شده‌اند، انگیزه‌های تیم را با موفقیت بلندمدت Hipo همسو می‌کنند. پس از TGE، یک دوره قفل (کلیف) ۱۲ ماهه و سپس آزادسازی خطی ۴۸ ماهه وجود خواهد داشت تا تعهد پایدار به رشد پروتکل تضمین شود.\ <sub>کیف پول چندامضایی جدید:</sub> [<sub>EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU</sub>](https://tonviewer.com/EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU)\ <sub>کیف پول قدیمی:</sub> [<sub>UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR</sub>](https://tonviewer.com/UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR)
+این بخش برای کارزارهای بازاریابی و همکاری‌هایی در نظر گرفته شده که برای گسترش پایگاه کاربران Hipo طراحی شده‌اند. یک راهبرد بازاریابی قوی با افزایش دیده‌شدن، جذب کاربران جدید و پیشبرد رشد کلی، به سود همه جامعه است.
+
+| کیف پول        | آدرس                                                                                                                       |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| چندامضایی جدید | [EQAbY_sdVWapnNWP4BHKX7knOHNWhjn125R8ZlcBn0ehU7pZ](https://tonviewer.com/EQAbY_sdVWapnNWP4BHKX7knOHNWhjn125R8ZlcBn0ehU7pZ) |
+| کیف پول قدیمی  | [UQCDBOa4nPTOSsPUg4RZjee99LJrXRhNnAPNRs67fSBvTkXw](https://tonviewer.com/UQCDBOa4nPTOSsPUg4RZjee99LJrXRhNnAPNRs67fSBvTkXw) |
+
+## ۴. تیم (۲۰٪)
+
+این توکن‌ها که برای اعضای فعلی و آینده تیم کنار گذاشته شده‌اند، انگیزه‌های تیم را با موفقیت بلندمدت Hipo همسو می‌کنند. پس از TGE، یک دوره قفل (کلیف) ۱۲ ماهه و سپس آزادسازی خطی ۴۸ ماهه وجود خواهد داشت تا تعهد پایدار به رشد پروتکل تضمین شود.
+
+| کیف پول        | آدرس                                                                                                                       |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| چندامضایی جدید | [EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU](https://tonviewer.com/EQC2lkcQlX7KFwBUCe44iUJXHLeQawH4AdAw1ijWOJAsObcU) |
+| کیف پول قدیمی  | [UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR](https://tonviewer.com/UQCazTJThTAM8qVLCWjsS68kOn3LQ7CkF8-sxkrmwXYonZRR) |
 
 :::note
 **به‌روزرسانی بخش تیم — ۵ آبان ۱۴۰۴ (۲۷ اکتبر ۲۰۲۵)**
@@ -36,10 +56,20 @@ title: 'توزیع توکن‌های HPO'
 ▪️ **۹۰٪ از توکن‌هایی** که قرار بود در ۱۲ ماه نخست آزاد شوند، **سوزانده شدند**.
 :::
 
-### ۵. مشاوران (۲٪)
+## ۵. مشاوران (۲٪)
 
-این تخصیص که برای مشاوران فعلی و آینده در نظر گرفته شده، از کسانی پشتیبانی می‌کند که راهنمایی و دیدگاه راهبردی ارائه می‌دهند و به تیم Hipo کمک می‌کنند برای رشد پایدار، تصمیم‌های آگاهانه بگیرد.\ <sub>کیف پول چندامضایی جدید:</sub> [<sub>EQBr72QSCc3XkXt4agAh7x94brYDoJMkg55Hl3A1Adn7QuSl</sub>](https://tonviewer.com/EQBr72QSCc3XkXt4agAh7x94brYDoJMkg55Hl3A1Adn7QuSl)\ <sub>کیف پول قدیمی:</sub> [<sub>UQCbqyKOX5NGO2rPDr_wmFEw3bDA-kv8smdu2IzbU1brJ4Dk</sub>](https://tonviewer.com/UQCbqyKOX5NGO2rPDr_wmFEw3bDA-kv8smdu2IzbU1brJ4Dk)<br>
+این تخصیص که برای مشاوران فعلی و آینده در نظر گرفته شده، از کسانی پشتیبانی می‌کند که راهنمایی و دیدگاه راهبردی ارائه می‌دهند و به تیم Hipo کمک می‌کنند برای رشد پایدار، تصمیم‌های آگاهانه بگیرد.
 
-### ۶. خزانه (۱۳٪)
+| کیف پول        | آدرس                                                                                                                       |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| چندامضایی جدید | [EQBr72QSCc3XkXt4agAh7x94brYDoJMkg55Hl3A1Adn7QuSl](https://tonviewer.com/EQBr72QSCc3XkXt4agAh7x94brYDoJMkg55Hl3A1Adn7QuSl) |
+| کیف پول قدیمی  | [UQCbqyKOX5NGO2rPDr_wmFEw3bDA-kv8smdu2IzbU1brJ4Dk](https://tonviewer.com/UQCbqyKOX5NGO2rPDr_wmFEw3bDA-kv8smdu2IzbU1brJ4Dk) |
 
-خزانه به‌عنوان یک ذخیره انعطاف‌پذیر عمل می‌کند و امکان سرمایه‌گذاری مجدد راهبردی در بخش‌هایی را فراهم می‌آورد که به پشتیبانی بیشتری نیاز دارند، مانند **پاداش‌های جامعه، بازاریابی یا نقدینگی**. این بخش تضمین می‌کند که Hipo بتواند با تحول پروژه، منابع را برای بهره‌گیری از فرصت‌ها یا پاسخ به نیازها تطبیق دهد.\ <sub>کیف پول چندامضایی جدید:</sub> [<sub>EQALdO7Z2KdmtcFsj1UoEa1OVZtPe\_\_uADFMcODb4d5FWxE3</sub>](https://tonviewer.com/EQALdO7Z2KdmtcFsj1UoEa1OVZtPe__uADFMcODb4d5FWxE3) \ <sub>کیف پول قدیمی:</sub> [<sub>UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4</sub>](https://tonviewer.com/UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4)<br>
+## ۶. خزانه (۱۳٪)
+
+خزانه به‌عنوان یک ذخیره انعطاف‌پذیر عمل می‌کند و امکان سرمایه‌گذاری مجدد راهبردی در بخش‌هایی را فراهم می‌آورد که به پشتیبانی بیشتری نیاز دارند، مانند **پاداش‌های جامعه، بازاریابی یا نقدینگی**. این بخش تضمین می‌کند که Hipo بتواند با تحول پروژه، منابع را برای بهره‌گیری از فرصت‌ها یا پاسخ به نیازها تطبیق دهد.
+
+| کیف پول        | آدرس                                                                                                                         |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| چندامضایی جدید | [EQALdO7Z2KdmtcFsj1UoEa1OVZtPe\_\_uADFMcODb4d5FWxE3](https://tonviewer.com/EQALdO7Z2KdmtcFsj1UoEa1OVZtPe__uADFMcODb4d5FWxE3) |
+| کیف پول قدیمی  | [UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4](https://tonviewer.com/UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4)   |

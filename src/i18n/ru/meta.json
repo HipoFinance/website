@@ -772,15 +772,23 @@
     "reviewed": false
   },
   "docs-sidebar//docs/": {
-    "sourceHash": "99a4c8252c788cbf8a720a29eb0a2e3695f8da44",
+    "sourceHash": "7de70c1b9faa8dd17ac41426e19ab86ba2546068",
     "reviewed": false
   },
   "docs-sidebar//docs/brand-kit/": {
     "sourceHash": "4872b0fd48b3a7885cd566da2583f5fb59b40b5b",
     "reviewed": false
   },
+  "docs-sidebar//docs/contracts-and-audits/": {
+    "sourceHash": "0a03695925b52f292d9ff177d348ae6d23d21364",
+    "reviewed": false
+  },
   "docs-sidebar//docs/dao/": {
     "sourceHash": "2d504e39b4c79371e09ddcba87d2a712e40be739",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/fees-and-gas/": {
+    "sourceHash": "1f9595babcb125be67937ba90d3a19e8b2aa4d3e",
     "reviewed": false
   },
   "docs-sidebar//docs/giveaways-and-prizes/hipo-club/": {
@@ -788,47 +796,55 @@
     "reviewed": false
   },
   "docs-sidebar//docs/giveaways-and-prizes/hipo-club/hipo-club-season-2/": {
-    "sourceHash": "a07757518dd4416d1508152de978f0b1ccea6eab",
+    "sourceHash": "88c868e5f3d1343948f0b256eccbe2b4581a658e",
     "reviewed": false
   },
   "docs-sidebar//docs/giveaways-and-prizes/hipo-club/hipo-club-season-3/": {
-    "sourceHash": "d4c94b891a29062335793c3daec6741e5363b378",
+    "sourceHash": "ae85bb8a255cef5073614f112acd04dc47c9660e",
     "reviewed": false
   },
   "docs-sidebar//docs/giveaways-and-prizes/hipo-gang/": {
-    "sourceHash": "54034fa8e790c9c04f7baf6fec86a38c383066d9",
+    "sourceHash": "0efc2e6be4c23b9a513d7ce0dcff8ed80e8912e7",
     "reviewed": false
   },
   "docs-sidebar//docs/giveaways-and-prizes/hipo-gang/hipo-gang-season-1/": {
-    "sourceHash": "2cffecac1b5b1212714c7e6a4ccb6efe39d197fc",
+    "sourceHash": "0db13bd078ad3376258d3a8e2c6eb0d55e8dd895",
     "reviewed": false
   },
   "docs-sidebar//docs/giveaways-and-prizes/hipo-incentive-programs/": {
-    "sourceHash": "82ff64325a47483ef3a60bb29a43601a3364d62d",
+    "sourceHash": "34bfbc499049d143610db688ca00787780673ec9",
     "reviewed": false
   },
   "docs-sidebar//docs/giveaways-and-prizes/hipo-nfts/": {
-    "sourceHash": "7e86290bae88135947c11380ed87dae4f6190121",
+    "sourceHash": "7e4a1d785022ce10a7d0441033dcdc2356a217f2",
     "reviewed": false
   },
   "docs-sidebar//docs/giveaways-and-prizes/hipo-usd1-000-000-rewards-program/": {
-    "sourceHash": "f296d6697161845f46fab164f204f059b080d1f7",
+    "sourceHash": "fbc0d594da95e0b74c41956d6b61cde244f2c7fd",
     "reviewed": false
   },
   "docs-sidebar//docs/giveaways-and-prizes/tvl-milestone-rewards/": {
-    "sourceHash": "388a44da471e4c2920a2d650eba614d61415fa28",
+    "sourceHash": "0bed289ef3bd6195f1ccfcbcf80349ae14f26a38",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/glossary/": {
+    "sourceHash": "69eb50d2278e1a8e5d8f677d5b0b96be24accf78",
     "reviewed": false
   },
   "docs-sidebar//docs/hipo-ambassadors-program/": {
-    "sourceHash": "c2802e65aa26f8467a638ef75337205213eb1c94",
+    "sourceHash": "ed9ebb83ee634da13329a94e800e284977839e19",
     "reviewed": false
   },
   "docs-sidebar//docs/hipo-fund/": {
-    "sourceHash": "6ca36aa260834117f9bab81e550783264eac1bb0",
+    "sourceHash": "0efc2e6be4c23b9a513d7ce0dcff8ed80e8912e7",
     "reviewed": false
   },
   "docs-sidebar//docs/hipo-fund/quarterly-report-august-1-2025/": {
     "sourceHash": "4b5599e506b19992e99b7b383a46ccc252821e50",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/hipo-fund/quarterly-report-august-24-2026/": {
+    "sourceHash": "f47ecd20a3183e8775c80729304a3bbfd59260ff",
     "reviewed": false
   },
   "docs-sidebar//docs/hipo-fund/quarterly-report-december-18-2025/": {
@@ -840,27 +856,23 @@
     "reviewed": false
   },
   "docs-sidebar//docs/hipo-tokens/hipo-governance-token-hpo/": {
-    "sourceHash": "289150014e91d498a4b98f6f03e41dabc839ff12",
+    "sourceHash": "940b10cb0957099c46ecf2d7e6cd045bc10e3b1a",
     "reviewed": false
   },
   "docs-sidebar//docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/": {
-    "sourceHash": "30dfc61485bc1251d4e987a612b3d484fb07eb99",
-    "reviewed": false
-  },
-  "docs-sidebar//docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/": {
-    "sourceHash": "488a9b8f31fa4b1eb46b072de898014b5a665d0e",
+    "sourceHash": "13464ece98a851cd77386d1fb25ab707d10f9ee9",
     "reviewed": false
   },
   "docs-sidebar//docs/hipo-tokens/hipo-staked-gram-hgram/": {
-    "sourceHash": "90304505fa03d48d30463c2ec11ea83d3479c622",
+    "sourceHash": "cde797234453671e3ca59ee36034833cd32c403a",
     "reviewed": false
   },
   "docs-sidebar//docs/hipo-tokens/hipo-staked-gram-hgram/hgram-use-cases/": {
-    "sourceHash": "163c54b8adfe3730209ae2e2f3e55957a06ea3b2",
+    "sourceHash": "6d90acf552ae16a00d669d7484fa9bf73e78a905",
     "reviewed": false
   },
   "docs-sidebar//docs/introduction/advantages-of-hipo/": {
-    "sourceHash": "a07595a1193ed54520b2eccca4cba3b16dbb6b1c",
+    "sourceHash": "9f9c62e10eca689bef6d9178a6b055e944727cef",
     "reviewed": false
   },
   "docs-sidebar//docs/introduction/hipo-on-dune/": {
@@ -868,7 +880,7 @@
     "reviewed": false
   },
   "docs-sidebar//docs/introduction/hipo-rewards/": {
-    "sourceHash": "5b4e3ba6fbe30306b1586f4d2a410687874cd241",
+    "sourceHash": "2ddd996df0185e9d212bbd04ad10b7d9b3e6d8d8",
     "reviewed": false
   },
   "docs-sidebar//docs/introduction/hipo-stats/": {
@@ -876,31 +888,19 @@
     "reviewed": false
   },
   "docs-sidebar//docs/introduction/how-does-hipo-work/": {
-    "sourceHash": "b76613733a7da0464048ee2b4eda45831f81be32",
-    "reviewed": false
-  },
-  "docs-sidebar//docs/introduction/how-does-hipo-work/get-hgram/": {
-    "sourceHash": "2091497886184f5bdb270f9c87e4ef7078295899",
-    "reviewed": false
-  },
-  "docs-sidebar//docs/introduction/how-does-hipo-work/stake-gram/": {
-    "sourceHash": "ccca821bd1711e424a19933bd568d384d102d739",
+    "sourceHash": "cab1fe98cb955190536e127132cdf2fb725a6af6",
     "reviewed": false
   },
   "docs-sidebar//docs/introduction/how-does-hipo-work/unstaking/": {
-    "sourceHash": "761c0833b20e6c2134e245d776ddb4629d766674",
+    "sourceHash": "6e02a02e6de0aea8d498f8a1869742787b2c361c",
     "reviewed": false
   },
   "docs-sidebar//docs/introduction/how-does-hipo-work/validators/": {
-    "sourceHash": "ca6218634a440c5d8486022ca171409283bc2d53",
+    "sourceHash": "8dc1129f436e04e1b8492b10c70be63d56154da1",
     "reviewed": false
   },
   "docs-sidebar//docs/introduction/liquid-staking/": {
     "sourceHash": "84b75e32b29ca9790fe4100fee3f350cecd8adb9",
-    "reviewed": false
-  },
-  "docs-sidebar//docs/introduction/liquid-staking/why-ton/": {
-    "sourceHash": "d89cca3ac3bef78c62c93c26a4d0625d9bc2c473",
     "reviewed": false
   },
   "docs-sidebar//docs/legal-agreements/privacy-policy/": {
@@ -915,148 +915,156 @@
     "sourceHash": "b03d00a2cd53ec6e5f90d369864b06378f80fe07",
     "reviewed": false
   },
+  "docs-sidebar//docs/risks/": {
+    "sourceHash": "33b6583f21709810c9d17ae814c1c9d94cfacddc",
+    "reviewed": false
+  },
   "docs-sidebar//docs/security/phishing-awareness-and-prevention/": {
-    "sourceHash": "96eaf646c632129b930144c586aad29f3a4c292e",
+    "sourceHash": "353e1ff7e9344e38b550d9a4653598aa003c2aa6",
     "reviewed": false
   },
   "docs-sidebar//docs/security/why-your-security-matters/": {
-    "sourceHash": "50f5bce25b60333f513e135fc0eec203f52d0de8",
+    "sourceHash": "1f88c0f1adeefd89c39bf834ca0c98ff79c6fad5",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/staking-without-the-app/": {
+    "sourceHash": "4d943c7c29256b7ce025827f89db96fab2c21c27",
     "reviewed": false
   },
   "docs-sidebar//docs/tutorials/staking/": {
-    "sourceHash": "f49d585d11ddd92354eeccd0d451bb12cc25aa1a",
+    "sourceHash": "ccca821bd1711e424a19933bd568d384d102d739",
     "reviewed": false
   },
   "docs-sidebar//docs/tutorials/unstaking/": {
-    "sourceHash": "f5a53a7ed2d6e7b96c9d4df494bdda8cc2ff6cd4",
+    "sourceHash": "c125ec158ba831873ea536508007f76b89135411",
     "reviewed": false
   },
-  "docs-sidebar/group:⚙️ How Does Hipo Work?": {
-    "sourceHash": "b76613733a7da0464048ee2b4eda45831f81be32",
+  "docs-sidebar/group:🎩 Hipo Gang (ended 2025)": {
+    "sourceHash": "941eeaf4f09f3aa56d1ebac81cb3ec897a8eea2d",
     "reviewed": false
   },
-  "docs-sidebar/group:⭐ Hipo Club": {
-    "sourceHash": "9c1d322bca4328ee84a05d753bb7f0cd66141fe9",
+  "docs-sidebar/group:🏅 Hipo Club Seasons": {
+    "sourceHash": "326d73eba8bb2761610172c5b542f297180a9c39",
     "reviewed": false
   },
-  "docs-sidebar/group:🎁 Giveaways & Prizes": {
-    "sourceHash": "51f83711aca7f26f4a198633ede6deb80cc81f7a",
-    "reviewed": false
-  },
-  "docs-sidebar/group:🎩 Hipo Gang": {
-    "sourceHash": "54034fa8e790c9c04f7baf6fec86a38c383066d9",
-    "reviewed": false
-  },
-  "docs-sidebar/group:💎 Hipo Governance Token (HPO)": {
-    "sourceHash": "289150014e91d498a4b98f6f03e41dabc839ff12",
-    "reviewed": false
-  },
-  "docs-sidebar/group:💡 Introduction": {
-    "sourceHash": "f71d2a6dd71c12dfa3bb90cc773addb8122aa5cf",
-    "reviewed": false
-  },
-  "docs-sidebar/group:💧 Hipo Staked GRAM (hGRAM)": {
-    "sourceHash": "90304505fa03d48d30463c2ec11ea83d3479c622",
+  "docs-sidebar/group:💡 Start Here": {
+    "sourceHash": "eed58ade1e01cab36cb6648a72a787a9f9948e51",
     "reviewed": false
   },
   "docs-sidebar/group:💰 Hipo Fund": {
     "sourceHash": "6ca36aa260834117f9bab81e550783264eac1bb0",
     "reviewed": false
   },
-  "docs-sidebar/group:📚 Tutorials": {
-    "sourceHash": "e9ce0a9b52a55c8944f869f7922d98a9606e4652",
+  "docs-sidebar/group:📚 Using Hipo": {
+    "sourceHash": "7f1f9657aaec1a2913a2261a7043d3d3cb1328f1",
     "reviewed": false
   },
-  "docs-sidebar/group:📜 Legal Agreements": {
-    "sourceHash": "b020a0b542dd7e35011d4be3b5ca6219224ca2d4",
+  "docs-sidebar/group:📜 Legal": {
+    "sourceHash": "500b16d70ee83cb34b16dbf54f258a27e40c3907",
     "reviewed": false
   },
-  "docs-sidebar/group:🚰 Liquid Staking": {
-    "sourceHash": "84b75e32b29ca9790fe4100fee3f350cecd8adb9",
+  "docs-sidebar/group:🗄️ Archive: Past Programs": {
+    "sourceHash": "9efdd16d1c882ae7afc991f734873138bd0ba8f9",
     "reviewed": false
   },
-  "docs-sidebar/group:🛡️ Security": {
-    "sourceHash": "6b33414108625d84ad05f9ddf233dfd159ba3a51",
+  "docs-sidebar/group:🛠️ Developers": {
+    "sourceHash": "bc5390ca2975ad9dbe221bc360581f8e684cf7f2",
     "reviewed": false
   },
-  "docs-sidebar/group:🪙 Hipo Tokens": {
-    "sourceHash": "02d95246eebd2f8429744761687b65009f46b9cd",
+  "docs-sidebar/group:🛡️ Security & Transparency": {
+    "sourceHash": "2da4a302818b9f3a00eedb18688049a546bae9f0",
+    "reviewed": false
+  },
+  "docs-sidebar/group:🪙 Tokens & Governance": {
+    "sourceHash": "34ef62e64e3004379a1977f9de1ee46637a46f79",
     "reviewed": false
   },
   "docs/brand-kit.md": {
-    "sourceHash": "706fa704c49a273b6376dddd120b068190e2bc25",
+    "sourceHash": "f6dba2e92df3cbd55a75b11cb7e4c9d24ada398e",
+    "reviewed": false
+  },
+  "docs/contracts-and-audits.md": {
+    "sourceHash": "f53e418bd9e391cdb64bb14eda91570d05543911",
     "reviewed": false
   },
   "docs/dao.md": {
-    "sourceHash": "0b47dff1241a60fe1c8c51905cce409cd2c3d502",
+    "sourceHash": "d77e9f591ab2a40b62818dd80564f1713ff48ff7",
+    "reviewed": false
+  },
+  "docs/fees-and-gas.md": {
+    "sourceHash": "fd3980c49d05dc191f46bcdc16d1153dd888cc83",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-club.md": {
-    "sourceHash": "713ba000ead075c464d745d30c2697720cd887bf",
+    "sourceHash": "144ab9704359dbc7f7c5c16a8414b319604f8610",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-club/hipo-club-season-2.md": {
-    "sourceHash": "079e05f06e4a83b44ab34125046793b821e6bbcd",
+    "sourceHash": "ca656e5ded79802fd156ba34dbd7e547bb1de9a5",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-club/hipo-club-season-3.md": {
-    "sourceHash": "4d32aec892abc04da9e5e2187b617c97ad04f0ea",
+    "sourceHash": "1a07a5ce537a38483483d26660696d985a2ad359",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-gang.md": {
-    "sourceHash": "60f7027533033033547cdd0b6834d7795f4e95a1",
+    "sourceHash": "19f85d38c31cd6d0dcbd501e80eb070e1d7eb89e",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-gang/hipo-gang-season-1.md": {
-    "sourceHash": "c9c00a7d885f400b85c04ffd10d775672d72eddd",
+    "sourceHash": "d0b981270b43b15ed9f7b080b681c739962862b2",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-incentive-programs.md": {
-    "sourceHash": "95a97428bab5e506052f8ae8839c04e67b53ca37",
+    "sourceHash": "3ab29a21e8db424e4c18007e97e9832fd4ef0a02",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-nfts.md": {
-    "sourceHash": "b74aa1338f4ce7b1b67dded3cbcec3784801f982",
+    "sourceHash": "87daa555101ad3d7066383c9360201c6e01d481c",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-usd1-000-000-rewards-program.md": {
-    "sourceHash": "33f7f417bd5b9de5dd29e439a7cf43f25085846a",
+    "sourceHash": "02a61473f1476a0fc93e22e460090525e74ef9d0",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/tvl-milestone-rewards.md": {
-    "sourceHash": "d911647bb75d04e068681658610663de7fa7657a",
+    "sourceHash": "feeaef9abbb3753eff7a44a5bc0ed30cf2ae8591",
+    "reviewed": false
+  },
+  "docs/glossary.md": {
+    "sourceHash": "63d2ba90e2c3f1bdb35633e3fb68f3a3669b705a",
     "reviewed": false
   },
   "docs/hipo-ambassadors-program.md": {
-    "sourceHash": "69edcf4ca226a84140f8a4b34cd7ac4e5373353d",
+    "sourceHash": "26f0c96b39e5722a445c0698e449e925c5884947",
     "reviewed": false
   },
   "docs/hipo-fund.md": {
-    "sourceHash": "c547a188b18f427ae3e64e82c5f060f81572d1da",
+    "sourceHash": "fabafd5e7fd0e44abb99f4fec15fa077014458eb",
     "reviewed": false
   },
   "docs/hipo-fund/quarterly-report-august-1-2025.md": {
-    "sourceHash": "f1cd665021ca34c3577ef75918caafd83746af4b",
+    "sourceHash": "a3d3ae64f66eb86a875c6a7229d554cd86377ca1",
+    "reviewed": false
+  },
+  "docs/hipo-fund/quarterly-report-august-24-2026.md": {
+    "sourceHash": "c2c0074220dc106198fc55a6f2a99fd10cf4a4aa",
     "reviewed": false
   },
   "docs/hipo-fund/quarterly-report-december-18-2025.md": {
-    "sourceHash": "6bba74c9bb2bb1c4519fa2b0f876135d9f945f4b",
+    "sourceHash": "7f5b53790e80e77619a24be690aadac94d8d5bad",
     "reviewed": false
   },
   "docs/hipo-mcp-server.md": {
-    "sourceHash": "d5f72680c9046960247c9073e0eb1a7055153b27",
+    "sourceHash": "45c0e303df20560ed83ba4050fa93c36d5bb690d",
     "reviewed": false
   },
   "docs/hipo-tokens/hipo-governance-token-hpo.md": {
-    "sourceHash": "e567b26160f1b881721828847ff91d3a147c70f3",
+    "sourceHash": "a807b6574e7a9f88ea89f57741dd2dc25e1d7c39",
     "reviewed": false
   },
   "docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution.md": {
-    "sourceHash": "12d936f64b8e3bc364021018f1d4ce00ceb08f0f",
-    "reviewed": false
-  },
-  "docs/hipo-tokens/hipo-governance-token-hpo/tokenomics.md": {
-    "sourceHash": "95eb96b4505727f22e84634494daf6a0143ef133",
+    "sourceHash": "d3be033d64a0278cc52d7624ff7f5b7b2ae021a9",
     "reviewed": false
   },
   "docs/hipo-tokens/hipo-staked-gram-hgram.md": {
@@ -1064,19 +1072,19 @@
     "reviewed": false
   },
   "docs/hipo-tokens/hipo-staked-gram-hgram/hgram-use-cases.md": {
-    "sourceHash": "572a360a43ac25d303b2a508e89c3f3306be65d6",
+    "sourceHash": "276cc2e650b61c1f7e5aac63ec9015105218101f",
     "reviewed": false
   },
   "docs/index.md": {
-    "sourceHash": "c7e51a3faffedeaca6809f20a9da9b8c49fdf7b4",
+    "sourceHash": "130937eafc2ae7f1271133be9b51c40d55fc33ff",
     "reviewed": false
   },
   "docs/introduction/advantages-of-hipo.md": {
-    "sourceHash": "459e38bcfcafafe7bb258836dc8e01058ea45ccf",
+    "sourceHash": "dfade432eb51c0ffbc699d92c0cc6f643639f401",
     "reviewed": false
   },
   "docs/introduction/hipo-on-dune.md": {
-    "sourceHash": "912381d1a4629e2b8f3acafd14511a2ecab930e9",
+    "sourceHash": "09a18e55a9d1cb05e0a0732e362f85127049ce67",
     "reviewed": false
   },
   "docs/introduction/hipo-rewards.md": {
@@ -1084,63 +1092,59 @@
     "reviewed": false
   },
   "docs/introduction/hipo-stats.md": {
-    "sourceHash": "f60125dd78151cb335c752623e4845cfbf43840d",
+    "sourceHash": "af9550846aeeef582d918e36a5c3ea9419088abd",
     "reviewed": false
   },
   "docs/introduction/how-does-hipo-work.md": {
-    "sourceHash": "341b05894f7d51d16cef8d6d825d9401075c92f4",
-    "reviewed": false
-  },
-  "docs/introduction/how-does-hipo-work/get-hgram.md": {
-    "sourceHash": "23f65697aefee5ead4c9952d30e7148210bb7ee2",
-    "reviewed": false
-  },
-  "docs/introduction/how-does-hipo-work/stake-gram.md": {
-    "sourceHash": "6fe627cb1f448be7d4c30fbf41ed957c4365dc5a",
+    "sourceHash": "a92f76eb380ab45e08d8f2b1d2300d61bb490cda",
     "reviewed": false
   },
   "docs/introduction/how-does-hipo-work/unstaking.md": {
-    "sourceHash": "ba100995bd8e51e9ee74f6a442045c93b97e92ea",
+    "sourceHash": "51482eccb18116cac5790037ebda6923b41459de",
     "reviewed": false
   },
   "docs/introduction/how-does-hipo-work/validators.md": {
-    "sourceHash": "12b18b0f1d291173fba3e372bf905bf1c981eb6e",
+    "sourceHash": "c48377c6d1ffda6e53caa02c78fad6d10ee53c2a",
     "reviewed": false
   },
   "docs/introduction/liquid-staking.md": {
-    "sourceHash": "e1b26374be2e61df0ce17adac754e6cc884e5765",
-    "reviewed": false
-  },
-  "docs/introduction/liquid-staking/why-ton.md": {
-    "sourceHash": "760ea80236e510d93c84f28e72a9050a22787347",
+    "sourceHash": "6852462372a767d6fe137408f8e9115fd1a44dcc",
     "reviewed": false
   },
   "docs/legal-agreements/privacy-policy.md": {
-    "sourceHash": "fe9d1dc0c2f469dc40b6976760dc554231194d29",
+    "sourceHash": "2223b8b362444d5ce4126ec11d79b1ee63827ffa",
     "reviewed": false
   },
   "docs/legal-agreements/terms-of-use.md": {
-    "sourceHash": "f96049633d6b26e8bec77069d0fc1f9306f3474c",
+    "sourceHash": "edb8c98c4a181c899049378cccf0fbc52b5c0aaa",
     "reviewed": false
   },
   "docs/profit-sharing.md": {
-    "sourceHash": "643520451dd8d93caef03d0a7f6229767d478ddc",
+    "sourceHash": "d4d2432056363bfe6d670d4a49ff961301266ae3",
+    "reviewed": false
+  },
+  "docs/risks.md": {
+    "sourceHash": "c2d666b6679dac1ccb3a72e455b7ea5177c0fa8f",
     "reviewed": false
   },
   "docs/security/phishing-awareness-and-prevention.md": {
-    "sourceHash": "9e2e3a61e8397789ba4d450bccd8b942b73942ea",
+    "sourceHash": "159e859406fec7c0c590677b67432324de190ecb",
     "reviewed": false
   },
   "docs/security/why-your-security-matters.md": {
-    "sourceHash": "9c9150cbf260a183a49ea912383c6155c5a722c1",
+    "sourceHash": "3201f5a8736cd7df13099520eab2cfe3d89f3050",
+    "reviewed": false
+  },
+  "docs/staking-without-the-app.md": {
+    "sourceHash": "e0bc646ea46f1e9db7dba2ccd9b48359d99f4872",
     "reviewed": false
   },
   "docs/tutorials/staking.md": {
-    "sourceHash": "03d4024eb2fa11ca376cd0f77bda702c625612d3",
+    "sourceHash": "b0f42d61a72b31b6e0bd3778c8e1652984dcd15c",
     "reviewed": false
   },
   "docs/tutorials/unstaking.md": {
-    "sourceHash": "683f509f96d770c319fc5cef84ee82fe390cc062",
+    "sourceHash": "01398e4a555ef0e779eddf5d58180a83d9ad34bd",
     "reviewed": false
   },
   "faq.page.sections": {
@@ -1151,20 +1155,12 @@
     "sourceHash": "af90cef80988974dd76636b3adb5f472768f785d",
     "reviewed": false
   },
-  "faq.section.fees.heading": {
-    "sourceHash": "72abbc92844007d6a4694cd3551b9e20a56784a3",
+  "faq.section.gettingStarted.heading": {
+    "sourceHash": "76e7a3a3f9c225fe820ba7e9cff10ea2a73b79a1",
     "reviewed": false
   },
-  "faq.section.fees.nav": {
-    "sourceHash": "72abbc92844007d6a4694cd3551b9e20a56784a3",
-    "reviewed": false
-  },
-  "faq.section.general.heading": {
-    "sourceHash": "9239ee2cda84eca4c3440e2a7b50148af67da3d4",
-    "reviewed": false
-  },
-  "faq.section.general.nav": {
-    "sourceHash": "9239ee2cda84eca4c3440e2a7b50148af67da3d4",
+  "faq.section.gettingStarted.nav": {
+    "sourceHash": "76e7a3a3f9c225fe820ba7e9cff10ea2a73b79a1",
     "reviewed": false
   },
   "faq.section.hgram.heading": {
@@ -1176,19 +1172,27 @@
     "reviewed": false
   },
   "faq.section.hpoToken.heading": {
-    "sourceHash": "9ce01eed1102fa843e0959708ee996970ae851e9",
+    "sourceHash": "f07705b188823779fd5d3e90b896d7dd2fc28231",
     "reviewed": false
   },
   "faq.section.hpoToken.nav": {
-    "sourceHash": "9ce01eed1102fa843e0959708ee996970ae851e9",
+    "sourceHash": "fb1d82327630da6857cb70fc2ba9c674968ed220",
+    "reviewed": false
+  },
+  "faq.section.rewards.heading": {
+    "sourceHash": "0990dbdfc1708471544f49cf7b89b6951fabb31c",
+    "reviewed": false
+  },
+  "faq.section.rewards.nav": {
+    "sourceHash": "0990dbdfc1708471544f49cf7b89b6951fabb31c",
     "reviewed": false
   },
   "faq.section.security.heading": {
-    "sourceHash": "f25ce1b8a399bd8621a57427a20039b4b13935db",
+    "sourceHash": "780180f2a2ab585138f3923c720fa755839b3943",
     "reviewed": false
   },
   "faq.section.security.nav": {
-    "sourceHash": "f25ce1b8a399bd8621a57427a20039b4b13935db",
+    "sourceHash": "780180f2a2ab585138f3923c720fa755839b3943",
     "reviewed": false
   },
   "faq.section.staking.heading": {
@@ -1205,14 +1209,6 @@
   },
   "faq.section.support.nav": {
     "sourceHash": "f32d5a3b17e614297417cc279a7ec1cd02274d65",
-    "reviewed": false
-  },
-  "faq.section.tonLiquidStaking.heading": {
-    "sourceHash": "1aff22bb52d7ca476eb3326a0abdd736df61d20f",
-    "reviewed": false
-  },
-  "faq.section.tonLiquidStaking.nav": {
-    "sourceHash": "1aff22bb52d7ca476eb3326a0abdd736df61d20f",
     "reviewed": false
   },
   "faq.section.unstaking.heading": {
@@ -1404,11 +1400,11 @@
     "reviewed": false
   },
   "hpo.scarcity.seasonal.body": {
-    "sourceHash": "c032d6b52e8b85aca75ae0f954a98e20174e6f9d",
+    "sourceHash": "bbe94331a4d7e4588f98d6de6e537d0912dadc2f",
     "reviewed": false
   },
   "hpo.scarcity.seasonal.title": {
-    "sourceHash": "3beb7310c456eac03e9c215ee3594fb9424a3433",
+    "sourceHash": "f1ba3b0ea15247c0269a5b1fad6938db54c9ba59",
     "reviewed": false
   },
   "hpo.scarcity.subtitle": {
@@ -1492,7 +1488,7 @@
     "reviewed": false
   },
   "hpo.utility.level.body": {
-    "sourceHash": "3807c3f8c3ebe6c91fedb484d0ae5ae61b08c071",
+    "sourceHash": "b19455b119ba986a80fec527f007d671369a857b",
     "reviewed": false
   },
   "hpo.utility.level.title": {
@@ -1763,308 +1759,192 @@
     "sourceHash": "7a2f41e1e1f118038cbc0f8589767ff646489354",
     "reviewed": false
   },
-  "prose/faq/fees/does-hipo-charge-a-management-fee.md": {
-    "sourceHash": "ada702fd8129873a2760c4dc7e0a68086ab926c7",
+  "prose/faq/getting-started/how-does-hipo-work.md": {
+    "sourceHash": "0714d15f16d8f7f5b138297fa876d6592ce770ee",
     "reviewed": false
   },
-  "prose/faq/fees/does-hipo-charge-a-staking-fee.md": {
-    "sourceHash": "ec2af5804f5e483eac8b6d312bc67d1c8b8ef1f5",
+  "prose/faq/getting-started/is-hipo-non-custodial.md": {
+    "sourceHash": "f6f483f2a822e89df6c23fd6f1970d0ab59bd091",
     "reviewed": false
   },
-  "prose/faq/fees/where-can-i-see-current-fees.md": {
-    "sourceHash": "0fab8818075e1f231a40495dedbe81be4fa5c701",
+  "prose/faq/getting-started/what-is-gram-staking.md": {
+    "sourceHash": "d0d4a6a3bb660822c13a611f9f6f946118970fec",
     "reviewed": false
   },
-  "prose/faq/general/how-does-hipo-choose-validators.md": {
-    "sourceHash": "557ba3406797d8358b237225eafdfb0ec344938a",
+  "prose/faq/getting-started/what-is-hipo.md": {
+    "sourceHash": "68354469a0fecd3d5a516847e03419b06fecf239",
     "reviewed": false
   },
-  "prose/faq/general/how-does-hipo-work.md": {
-    "sourceHash": "8363d2491556aa4df4ef88cf9e6b6d18e1bcb210",
+  "prose/faq/getting-started/what-is-liquid-staking.md": {
+    "sourceHash": "e017c556d87d3b84a3aef69855e596224ae11b34",
     "reviewed": false
   },
-  "prose/faq/general/is-hipo-non-custodial.md": {
-    "sourceHash": "dbe5c094e97c5da1187f693b899821e1e75ccba1",
+  "prose/faq/getting-started/which-wallets-are-supported.md": {
+    "sourceHash": "f57778c31ea7f0bf2b5d846784d4ea4a673ef10d",
     "reviewed": false
   },
-  "prose/faq/general/what-happens-behind-the-scenes.md": {
-    "sourceHash": "b834ab447716adf1b724b4c52a53095a8e598353",
-    "reviewed": false
-  },
-  "prose/faq/general/what-is-hipo.md": {
-    "sourceHash": "0cd0a66b5bbfed87622d431d125c23a4e01295d1",
-    "reviewed": false
-  },
-  "prose/faq/general/what-is-liquid-staking.md": {
-    "sourceHash": "056ab10493d6897eb2cd518bb82caa4c50f17132",
-    "reviewed": false
-  },
-  "prose/faq/general/why-should-i-use-hipo.md": {
-    "sourceHash": "3c9a535a21a0243f92867a4e803bf50d8f9e642d",
+  "prose/faq/getting-started/why-should-i-use-hipo.md": {
+    "sourceHash": "5706d01902c7a5ffa8a9013f288461c419a81965",
     "reviewed": false
   },
   "prose/faq/hgram/can-i-sell-hgram.md": {
-    "sourceHash": "46e37353ad813f725cee4265f72365fcd80dbc1e",
-    "reviewed": false
-  },
-  "prose/faq/hgram/can-i-transfer-hgram.md": {
-    "sourceHash": "cb8c881b5d0949920e4f646ac04cc3fee035aa0c",
+    "sourceHash": "8f3ba020613ac9304fe817925f3ec5c27d2ad94e",
     "reviewed": false
   },
   "prose/faq/hgram/can-i-use-hgram-in-defi.md": {
-    "sourceHash": "ac8a572c95ba59e08434efd223adbc91e9651dc9",
-    "reviewed": false
-  },
-  "prose/faq/hgram/does-hgram-earn-rewards.md": {
-    "sourceHash": "0b2cd8be6bd88e4a43f20dea55754b89a0866178",
-    "reviewed": false
-  },
-  "prose/faq/hgram/how-is-the-value-of-hgram-determined.md": {
-    "sourceHash": "66e4a34314ae266b6c75a3372b3027468a078608",
+    "sourceHash": "f66b538da1ac368d4261230e4fef857169c427dc",
     "reviewed": false
   },
   "prose/faq/hgram/is-1-hgram-always-equal-to-1-gram.md": {
-    "sourceHash": "fda0b331e646fd15bc9dbe4f923165bedb6457d7",
+    "sourceHash": "e234800cd6279d7712af9f37b311f745c8cac829",
     "reviewed": false
   },
   "prose/faq/hgram/what-is-hgram.md": {
-    "sourceHash": "e042deff9575dfaccee30c7ae6dbe0ba0c3addd5",
-    "reviewed": false
-  },
-  "prose/faq/hgram/why-do-i-receive-hgram.md": {
-    "sourceHash": "7574c4484f42b2f85a903545a1d65130e1c35956",
-    "reviewed": false
-  },
-  "prose/faq/hpo-token/does-hpo-generate-revenue-for-holders.md": {
-    "sourceHash": "57820c89a8dc7151923dda9f235edb013ddb6b34",
-    "reviewed": false
-  },
-  "prose/faq/hpo-token/how-is-protocol-revenue-generated.md": {
-    "sourceHash": "3d56d4c072ca4c766204b8d8f693fc188180caaa",
+    "sourceHash": "5abf5a125ba1f073af8f34117af537e639cc6da4",
     "reviewed": false
   },
   "prose/faq/hpo-token/what-benefits-do-hpo-holders-receive.md": {
-    "sourceHash": "1bf4494a6fd066c17a9dea0fd88e233900e8fb0b",
+    "sourceHash": "a22d63829febb84280f7f54f8f40ce2a79641f77",
     "reviewed": false
   },
   "prose/faq/hpo-token/what-is-hipo-club.md": {
-    "sourceHash": "9d86aa08bb0a7e9762f8a95e305d96517aa40f73",
+    "sourceHash": "19c7abb5e63cf0852381ce08a2513262881c693b",
     "reviewed": false
   },
   "prose/faq/hpo-token/what-is-hpo.md": {
-    "sourceHash": "b44d286a4a8d43aac4f839e601a5c1bb1a4e7df7",
+    "sourceHash": "081631f1a13d6323a5366f620b3d732b6d666618",
     "reviewed": false
   },
-  "prose/faq/hpo-token/why-was-hpo-created.md": {
-    "sourceHash": "65a06a4e3853fb78bc2a82c07f91a2d55de396fd",
+  "prose/faq/rewards/do-i-need-to-claim-rewards.md": {
+    "sourceHash": "35c9e14485aaaa807d96d8f2f18fd302e124cfd4",
+    "reviewed": false
+  },
+  "prose/faq/rewards/does-hipo-take-a-cut-of-my-rewards.md": {
+    "sourceHash": "6c0c548f97168c356c69a65fdfd9e38bf6ff56e0",
+    "reviewed": false
+  },
+  "prose/faq/rewards/how-are-staking-rewards-distributed.md": {
+    "sourceHash": "5d7da0a1746e41970dcd2767481760083ef52dea",
+    "reviewed": false
+  },
+  "prose/faq/rewards/what-apy-does-hipo-offer.md": {
+    "sourceHash": "8f0b5cfe127db22a766ae5365e33429d20776d6f",
+    "reviewed": false
+  },
+  "prose/faq/rewards/when-do-my-rewards-start.md": {
+    "sourceHash": "1670ca7ccd5347cf99d7a2a5da4063b2cc248968",
     "reviewed": false
   },
   "prose/faq/security/can-i-lose-my-funds.md": {
-    "sourceHash": "c588dc58b1e4f8ebb85d081e5b494e72b8d67e50",
+    "sourceHash": "00f78bec60adb5354d20a8834b76a2d70a6c6f16",
     "reviewed": false
   },
   "prose/faq/security/has-hipo-been-audited.md": {
-    "sourceHash": "442221637ef42f795df3c345e06f6d44f15a000e",
+    "sourceHash": "a227bc46fcf154dda190db98bb3968ed7ca425d3",
     "reviewed": false
   },
   "prose/faq/security/is-hipo-safe.md": {
-    "sourceHash": "8e321aced3af228ea65615238c664a56bb9a3f7b",
-    "reviewed": false
-  },
-  "prose/faq/security/what-risks-should-i-consider.md": {
-    "sourceHash": "b3c87d911d999ccfd4b30040e2180f2d16777eb7",
+    "sourceHash": "ee58ea1b2962ce4d0ee08ecd6bacad24367bae84",
     "reviewed": false
   },
   "prose/faq/security/where-can-i-verify-hipo-transactions.md": {
-    "sourceHash": "4ba4359f9ef98d446b3643ac3558051f772a92e7",
-    "reviewed": false
-  },
-  "prose/faq/staking/can-i-stake-directly-from-my-wallet.md": {
-    "sourceHash": "1c0bb91cee486958b0599375f8e97f7903ab10c3",
-    "reviewed": false
-  },
-  "prose/faq/staking/can-i-stake-more-after-my-initial-deposit.md": {
-    "sourceHash": "41f3d82b763cbe1bb36117f911a652eb08a7cc89",
+    "sourceHash": "a84640550f7d7351adfcf11017275bcf274b7c31",
     "reviewed": false
   },
   "prose/faq/staking/can-i-stake-with-a-multisig-or-cold-wallet.md": {
-    "sourceHash": "595d37ca9d37b6a5540801088ed84b1c6c1b92ef",
-    "reviewed": false
-  },
-  "prose/faq/staking/do-i-need-to-claim-rewards.md": {
-    "sourceHash": "7ea2350a6ff6a2e70e12223bfce65392386088a8",
-    "reviewed": false
-  },
-  "prose/faq/staking/do-i-receive-rewards-immediately.md": {
-    "sourceHash": "eff8b9b8738f4651f16071ee47a10f6465ab1492",
-    "reviewed": false
-  },
-  "prose/faq/staking/how-are-staking-rewards-distributed.md": {
-    "sourceHash": "2ea34cabd513263b8a8068eb193b85ab0fa1f7e4",
+    "sourceHash": "27a3bb93c544ad89ad32e78cbb805202dd4bad3f",
     "reviewed": false
   },
   "prose/faq/staking/how-do-i-stake-gram.md": {
-    "sourceHash": "f18efbda5daa1d918427c22589ea108a7c7c8b00",
+    "sourceHash": "8afd2e3caad2a2593658d8c2fcb0089c13e8045d",
     "reviewed": false
   },
   "prose/faq/staking/how-long-does-it-take-to-receive-hgram.md": {
-    "sourceHash": "5935f503341d73e9bc91175c51ae333953e0cedb",
+    "sourceHash": "ec3644cdee291c055ff66701dee4048cdcd2cc63",
     "reviewed": false
   },
-  "prose/faq/staking/is-apy-fixed.md": {
-    "sourceHash": "2e15fc135694dcc9a7af1e313937c6e9154b9dfd",
-    "reviewed": false
-  },
-  "prose/faq/staking/what-apy-does-hipo-offer.md": {
-    "sourceHash": "3ace9a5c7768554c3fac8b895b11fe87bd3c882a",
+  "prose/faq/staking/what-does-it-cost-to-stake.md": {
+    "sourceHash": "91827477460f78973913b693fba77d9f38a51ec2",
     "reviewed": false
   },
   "prose/faq/staking/what-is-the-minimum-amount-required-to-stake.md": {
-    "sourceHash": "cddfadd0068d32fac69a4b4ee61c8ead15da4fd2",
+    "sourceHash": "86b2e86807f59b950d403dfbf01edcb2521b9955",
     "reviewed": false
   },
   "prose/faq/support/what-should-i-do-if-a-transaction-is-pending.md": {
-    "sourceHash": "a6d63f2e2247578a7d8a5e66e9f6641f1bed7491",
+    "sourceHash": "d86dabf194bbbdf96bf163b21f6cae1277828b09",
     "reviewed": false
   },
   "prose/faq/support/where-can-i-get-support.md": {
-    "sourceHash": "b4003ded8e71cdba64146a477b931df9d5ed9c51",
+    "sourceHash": "ee1c2c3e1e2a3b719f14e92a451b10378d612755",
     "reviewed": false
   },
   "prose/faq/support/where-can-i-learn-more-about-hipo.md": {
-    "sourceHash": "88b455f469e130daa2f5d828f4ace209c3efb16d",
-    "reviewed": false
-  },
-  "prose/faq/support/which-wallets-are-supported.md": {
-    "sourceHash": "be824f9530513bb3927d71f75b6e6ad666252f13",
-    "reviewed": false
-  },
-  "prose/faq/ton-and-liquid-staking/can-i-earn-rewards-and-use-defi-at-the-same-time.md": {
-    "sourceHash": "e62870fc1bf39f235c764661c8d9479528b94851",
-    "reviewed": false
-  },
-  "prose/faq/ton-and-liquid-staking/can-institutions-use-hipo.md": {
-    "sourceHash": "900d2e1f78bec5ccf31f53e7e69628a1f2ba171e",
-    "reviewed": false
-  },
-  "prose/faq/ton-and-liquid-staking/is-liquid-staking-better-than-traditional-staking.md": {
-    "sourceHash": "f704322689a32bea40abf9bb6b1699555f4f6a9b",
-    "reviewed": false
-  },
-  "prose/faq/ton-and-liquid-staking/what-affects-staking-apy.md": {
-    "sourceHash": "0b0af50aa23a9ad6f8c38f289f832ea148623453",
-    "reviewed": false
-  },
-  "prose/faq/ton-and-liquid-staking/what-is-a-liquid-staking-token-lst.md": {
-    "sourceHash": "a52ddec81996146a8ae03210a5a9e4e6d37f2028",
-    "reviewed": false
-  },
-  "prose/faq/ton-and-liquid-staking/what-is-gram-staking.md": {
-    "sourceHash": "4c48539b6ee512a72d359b5ee20500d1905cc54f",
-    "reviewed": false
-  },
-  "prose/faq/ton-and-liquid-staking/what-is-the-difference-between-staking-and-liquid-staking.md": {
-    "sourceHash": "13e72a8254d932d4a276add28651c107274793d6",
-    "reviewed": false
-  },
-  "prose/faq/ton-and-liquid-staking/why-does-apy-change-over-time.md": {
-    "sourceHash": "d5331ffca515360fe88880af5c59b715cfa3ac30",
-    "reviewed": false
-  },
-  "prose/faq/ton-and-liquid-staking/why-does-hipo-often-offer-higher-apy-than-other-staking-protocols-on-ton.md": {
-    "sourceHash": "99a3bb4021e086d738c051e4497223587eb34d9f",
+    "sourceHash": "989047d3df290abaecc34b99ebcb078f611d75c2",
     "reviewed": false
   },
   "prose/faq/unstaking/are-there-any-unstaking-fees.md": {
-    "sourceHash": "e6bc3fc697e19df86f654d044770ccc0b0dcb83f",
-    "reviewed": false
-  },
-  "prose/faq/unstaking/does-hipo-support-instant-unstaking.md": {
-    "sourceHash": "a8bc910703da4dc92089b8863485552c6ffb2a60",
+    "sourceHash": "62fb3347d0720bed27ee678cbfcd71c5545f48b4",
     "reviewed": false
   },
   "prose/faq/unstaking/how-do-i-unstake-my-gram.md": {
-    "sourceHash": "4feb6bcc6307d53b8e0013f1fb0ccce1b36c4af2",
+    "sourceHash": "23b55580ad9556000a7438d232e6a0daced4c295",
     "reviewed": false
   },
   "prose/faq/unstaking/how-long-does-unstaking-take.md": {
-    "sourceHash": "74e71b00d932c855e25e5c1272f47e48d7c922f2",
+    "sourceHash": "16421555b2d0c0183ddf882b5f8f164b6c7fe146",
     "reviewed": false
   },
   "prose/faq/unstaking/what-is-the-difference-between-full-and-instant-unstaking.md": {
-    "sourceHash": "fe95379fe7e9a416e38918cd0fb2779833c3fc14",
+    "sourceHash": "c222c36a2c026507a9272a804c6543431c711126",
     "reviewed": false
   },
   "prose/faq/unstaking/why-is-instant-unstaking-sometimes-unavailable.md": {
-    "sourceHash": "55ab733227167526e78d1450ee4ae3f637450490",
+    "sourceHash": "0d2b2f6edacb0c0d0fce9621304f302039916ebd",
     "reviewed": false
   },
   "prose/faq/unstaking/will-i-continue-earning-rewards-while-waiting-for-unstaking.md": {
-    "sourceHash": "b55897e0e924728055904866853ca069e1827ca3",
-    "reviewed": false
-  },
-  "prose/faq/validators-and-staking-marketplace/can-any-validator-participate-in-hipo.md": {
-    "sourceHash": "f9f1d517eba634c12207bafb5aa7ae3dcdf1311b",
+    "sourceHash": "253c0bfed99e4630e1caf6792541dfc1b8fddd40",
     "reviewed": false
   },
   "prose/faq/validators-and-staking-marketplace/how-does-hipo-select-validators.md": {
-    "sourceHash": "39c10a71e0775e5e47476fbd7e80493da911795a",
-    "reviewed": false
-  },
-  "prose/faq/validators-and-staking-marketplace/how-does-the-validator-auction-work.md": {
-    "sourceHash": "9cade788695e1a6f31bb1f0006604d0092e4b99a",
-    "reviewed": false
-  },
-  "prose/faq/validators-and-staking-marketplace/what-collateral-do-validators-provide.md": {
-    "sourceHash": "7f6070f02e50e56d8a6d8bb580439101f41e99ae",
+    "sourceHash": "90e526676c2701777e3246101eab7ac291a87676",
     "reviewed": false
   },
   "prose/faq/validators-and-staking-marketplace/what-happens-if-a-validator-underperforms.md": {
-    "sourceHash": "7d4082de46283fd71960c11427dcb92be8997814",
-    "reviewed": false
-  },
-  "prose/faq/validators-and-staking-marketplace/what-makes-hipo-different-from-traditional-staking-protocols.md": {
-    "sourceHash": "fc3d33fe995838910481bdddaa002f04f02aa195",
+    "sourceHash": "1fe28b1c8ae7b628b3638db6a6c7c72982473db2",
     "reviewed": false
   },
   "prose/faq/validators-and-staking-marketplace/why-can-hipo-offer-competitive-staking-rewards.md": {
-    "sourceHash": "e87f76f0ad498e79a640915ac34aa9707abc1212",
+    "sourceHash": "83aab23710262cc4e2f735c6c90561d4be379ad5",
     "reviewed": false
   },
   "prose/hpo-faq/01-what-is-hpo.md": {
-    "sourceHash": "c3b59bf01293bc4f968eb8777a848a5512068f78",
+    "sourceHash": "73c00647ffa5223b371d002e2791be5086e68fc4",
     "reviewed": false
   },
   "prose/hpo-faq/02-what-makes-hpo-valuable.md": {
-    "sourceHash": "80401a9445da266197369280f4bd0c985b5b429f",
+    "sourceHash": "2c3f3d15c82dc1ab82ea1675c078f51e2031e3b1",
     "reviewed": false
   },
-  "prose/hpo-faq/03-is-the-hpo-supply-fixed-what-gets-burned.md": {
-    "sourceHash": "e68db5775c48d687b968ea8f3aea294e76591558",
+  "prose/hpo-faq/03-how-many-hpo-exist-and-how-many-are-burned.md": {
+    "sourceHash": "cbddf2fbc6e72525448eda09387cf7d16e278a5d",
     "reviewed": false
   },
   "prose/hpo-faq/04-when-did-hpo-launch.md": {
     "sourceHash": "2c1e90c566264e898e2f4e95d2c1bb9fbd069d7e",
     "reviewed": false
   },
-  "prose/hpo-faq/05-how-can-i-become-a-hpo-holder.md": {
-    "sourceHash": "7e9d7d70ba14c479888b250b3176d9e2336ccbae",
+  "prose/hpo-faq/05-how-do-i-get-hpo.md": {
+    "sourceHash": "bbe8e07ed9c7f0688686cdd3df70466d8062ccda",
     "reviewed": false
   },
-  "prose/hpo-faq/06-how-do-i-earn-hpo-by-staking.md": {
-    "sourceHash": "b52d9e60c0aa6a4d04ab1f27899a6b31fa176cf6",
+  "prose/hpo-faq/06-how-do-i-earn-hpo-and-get-paid.md": {
+    "sourceHash": "922f8f3a3b958e9454aba3190e8c4f846b8a90ad",
     "reviewed": false
   },
-  "prose/hpo-faq/07-how-can-i-become-eligible-for-hpo-airdrops.md": {
-    "sourceHash": "ef39e455ae3e9e6fdc11511de6096952873a5d48",
-    "reviewed": false
-  },
-  "prose/hpo-faq/08-how-to-buy-hpo.md": {
-    "sourceHash": "a5b1498fb8f2b178eb99b8427d114d03a29535c5",
-    "reviewed": false
-  },
-  "prose/hpo-faq/09-how-do-you-manage-sell-pressure-after-airdrops.md": {
-    "sourceHash": "15acb478d3a3904c2a25367f6357c5eab9db1f00",
+  "prose/hpo-faq/07-how-do-i-vote-on-hipo-proposals.md": {
+    "sourceHash": "7421180d9addb027572ff18042b545fe595e156b",
     "reviewed": false
   },
   "prose/shell/defi/cards/01-a-defi-compatible-token.md": {
@@ -2172,7 +2052,7 @@
     "reviewed": false
   },
   "prose/shell/unstake/cards/04-learn-more.md": {
-    "sourceHash": "cca558c3c93e2ab908cfccb90bacdd97c3b19a5a",
+    "sourceHash": "3ae06ae267b2b6a1b34fcb670803c64b64232d53",
     "reviewed": false
   },
   "prose/shell/unstake/faq/01-which-unstake-option-should-i-choose.md": {
@@ -2212,7 +2092,7 @@
     "reviewed": false
   },
   "seo.hpo.title": {
-    "sourceHash": "3e373a5f9f67673d8303a7b775dee087eca85526",
+    "sourceHash": "08bd2b7f4437b2e9dde610c830bc5e9859be4766",
     "reviewed": false
   },
   "seo.rewards.description": {
@@ -2245,6 +2125,14 @@
   },
   "seo.unstake.title": {
     "sourceHash": "cd5db9974f58aab741ada943b9ea611c6bb90bb9",
+    "reviewed": false
+  },
+  "site.anchor.copied": {
+    "sourceHash": "c2e98476efb5e35f50dae898c1b56d7085eee7da",
+    "reviewed": false
+  },
+  "site.anchor.copy": {
+    "sourceHash": "2f84eea5d45da4f1ce1760b85db18a854f4e1b39",
     "reviewed": false
   },
   "site.app.loading": {

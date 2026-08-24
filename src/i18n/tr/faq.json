@@ -1,0 +1,22 @@
+{
+  "faq.page.title": "Sıkça sorulan sorular",
+  "faq.page.sections": "Bölümler",
+  "faq.section.gettingStarted.heading": "Başlarken",
+  "faq.section.gettingStarted.nav": "Başlarken",
+  "faq.section.staking.heading": "Staking",
+  "faq.section.staking.nav": "Staking",
+  "faq.section.rewards.heading": "Ödüller ve APY",
+  "faq.section.rewards.nav": "Ödüller ve APY",
+  "faq.section.hgram.heading": "hGRAM",
+  "faq.section.hgram.nav": "hGRAM",
+  "faq.section.unstaking.heading": "Unstake",
+  "faq.section.unstaking.nav": "Unstake",
+  "faq.section.security.heading": "Güvenlik ve riskler",
+  "faq.section.security.nav": "Güvenlik ve riskler",
+  "faq.section.validators.heading": "Validatörler ve Staking Pazarı",
+  "faq.section.validators.nav": "Validatörler ve Pazar",
+  "faq.section.hpoToken.heading": "HPO ve Hipo Club",
+  "faq.section.hpoToken.nav": "HPO ve Club",
+  "faq.section.support.heading": "Destek",
+  "faq.section.support.nav": "Destek"
+}

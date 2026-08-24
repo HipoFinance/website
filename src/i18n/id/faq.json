@@ -1,0 +1,22 @@
+{
+  "faq.page.title": "Pertanyaan yang sering diajukan",
+  "faq.page.sections": "Bagian",
+  "faq.section.gettingStarted.heading": "Memulai",
+  "faq.section.gettingStarted.nav": "Memulai",
+  "faq.section.staking.heading": "Staking",
+  "faq.section.staking.nav": "Staking",
+  "faq.section.rewards.heading": "Imbalan & APY",
+  "faq.section.rewards.nav": "Imbalan & APY",
+  "faq.section.hgram.heading": "hGRAM",
+  "faq.section.hgram.nav": "hGRAM",
+  "faq.section.unstaking.heading": "Unstaking",
+  "faq.section.unstaking.nav": "Unstaking",
+  "faq.section.security.heading": "Keamanan & risiko",
+  "faq.section.security.nav": "Keamanan & risiko",
+  "faq.section.validators.heading": "Validator & Marketplace Staking",
+  "faq.section.validators.nav": "Validator & Marketplace",
+  "faq.section.hpoToken.heading": "HPO & Hipo Club",
+  "faq.section.hpoToken.nav": "HPO & Club",
+  "faq.section.support.heading": "Dukungan",
+  "faq.section.support.nav": "Dukungan"
+}
