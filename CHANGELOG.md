@@ -7,6 +7,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-25 — [detailed report](changelog/2026-08-25-yearly-hpo-reward-round-count.md)
+
+- "Rewards after a year" annualized the per-round HPO with a hardcoded
+  `20 * 12` = 240 rounds, a stale ~36-hour round, halving the figure.
+- The count now comes from the live round boundaries, as the `apy` getter
+  already did.
+- The same fix in the legacy `webapp` repo is stuck: GitHub has it archived
+  and read-only.
+- Reported by a user, who diagnosed the old reward cycle correctly from the
+  ratio alone.
+
 ## 2026-08-25 — [detailed report](changelog/2026-08-25-banner-cls.md)
 
 - Decided the promo banner's visibility before the first paint instead of
