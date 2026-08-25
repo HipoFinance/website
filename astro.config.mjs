@@ -51,6 +51,7 @@ const docsSidebar = [
       { label: '🗳️ DAO', link: '/docs/dao/' },
       { label: '💲 Profit Sharing', link: '/docs/profit-sharing/' },
       { label: '⭐ Hipo Club', link: '/docs/giveaways-and-prizes/hipo-club/' },
+      { label: '👛 Using Multiple Wallets', link: '/docs/wallets-and-rewards/' },
     ],
   },
   {

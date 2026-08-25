@@ -7,6 +7,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-25 — [detailed report](changelog/2026-08-25-multiple-wallets-docs.md)
+
+- New `/docs/wallets-and-rewards/` page: how rewards follow wallets, and the
+  airdrop rule that resets a club level when a different wallet is connected.
+- Written in all ten locales, with the sidebar entry under Tokens & Governance.
+- Prompted by a large holder's support question; the underlying check reads
+  only the most recently connected wallet.
+
 ## 2026-08-25 — [detailed report](changelog/2026-08-25-yearly-hpo-reward-round-count.md)
 
 - "Rewards after a year" annualized the per-round HPO with a hardcoded

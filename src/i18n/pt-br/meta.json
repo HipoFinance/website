@@ -939,6 +939,10 @@
     "sourceHash": "c125ec158ba831873ea536508007f76b89135411",
     "reviewed": false
   },
+  "docs-sidebar//docs/wallets-and-rewards/": {
+    "sourceHash": "ccec0273dad86c6d56cc83421b6cc59692d46ca9",
+    "reviewed": false
+  },
   "docs-sidebar/group:🎩 Hipo Gang (ended 2025)": {
     "sourceHash": "941eeaf4f09f3aa56d1ebac81cb3ec897a8eea2d",
     "reviewed": false
@@ -1145,6 +1149,10 @@
   },
   "docs/tutorials/unstaking.md": {
     "sourceHash": "01398e4a555ef0e779eddf5d58180a83d9ad34bd",
+    "reviewed": false
+  },
+  "docs/wallets-and-rewards.md": {
+    "sourceHash": "a6908076004663a87ae3ebec72a0b1f8889caa64",
     "reviewed": false
   },
   "faq.page.sections": {
