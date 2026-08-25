@@ -191,5 +191,7 @@
   "app.wait.stakedTitle": "Başarıyla stake edildi",
   "app.wait.timeoutMessage": "Birden fazla denememize rağmen işlemi bulamadık.",
   "app.wait.timeoutTitle": "İşleminiz bulunamıyor",
+  "app.wait.unreachableMessage": "İşleminiz yine de gerçekleşmiş olabilir. Tekrar denemeden önce cüzdanınızı kontrol edin.",
+  "app.wait.unreachableTitle": "Ağa ulaşılamıyor",
   "app.wait.unstakedTitle": "Başarıyla unstake edildi"
 }

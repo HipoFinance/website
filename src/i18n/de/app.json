@@ -191,5 +191,7 @@
   "app.wait.stakedTitle": "Erfolgreich gestakt",
   "app.wait.timeoutMessage": "Trotz mehrerer Versuche konnten wir sie nicht finden.",
   "app.wait.timeoutTitle": "Transaktion nicht gefunden",
+  "app.wait.unreachableMessage": "Ihre Transaktion wurde möglicherweise trotzdem ausgeführt. Prüfen Sie Ihre Wallet, bevor Sie es erneut versuchen.",
+  "app.wait.unreachableTitle": "Netzwerk nicht erreichbar",
   "app.wait.unstakedTitle": "Erfolgreich geunstakt"
 }

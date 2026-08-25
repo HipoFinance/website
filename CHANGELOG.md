@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-25 — [detailed report](changelog/2026-08-25-unreachable-message.md)
+
+- Added an `unreachable` wait state so a failed read no longer claims the
+  transaction did not happen.
+- The poll loop now rides out read failures for the whole `validUntil` window.
+- New `app.wait.unreachable*` strings in all ten locales.
+
 ## 2026-08-25 — [detailed report](changelog/2026-08-25-retry-backoff.md)
 
 - `retry` rescheduled failed attempts with no delay, spending all ten in a

@@ -191,5 +191,7 @@
   "app.wait.stakedTitle": "Berhasil di-stake",
   "app.wait.timeoutMessage": "Meski sudah dicoba berkali-kali, kami tidak dapat menemukannya.",
   "app.wait.timeoutTitle": "Transaksi Anda tidak ditemukan",
+  "app.wait.unreachableMessage": "Transaksi Anda mungkin tetap berhasil. Periksa dompet Anda sebelum mencoba lagi.",
+  "app.wait.unreachableTitle": "Tidak dapat terhubung ke jaringan",
   "app.wait.unstakedTitle": "Berhasil di-unstake"
 }

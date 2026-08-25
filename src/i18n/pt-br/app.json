@@ -191,5 +191,7 @@
   "app.wait.stakedTitle": "Staking realizado com sucesso",
   "app.wait.timeoutMessage": "Apesar de várias tentativas, não conseguimos localizá-la.",
   "app.wait.timeoutTitle": "Não foi possível encontrar sua transação",
+  "app.wait.unreachableMessage": "Sua transação pode ter sido concluída mesmo assim. Verifique sua carteira antes de tentar novamente.",
+  "app.wait.unreachableTitle": "Não foi possível conectar à rede",
   "app.wait.unstakedTitle": "Unstake realizado com sucesso"
 }

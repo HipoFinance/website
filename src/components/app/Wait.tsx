@@ -22,11 +22,23 @@ const Wait = observer(({ model }: Props) => {
     )
     heading = <h1 className='font-fredoka text-center text-xl font-semibold'>{t('app.wait.finalizingTitle')}</h1>
     message = <p className='text-text-muted mt-4 text-center text-sm'>{t('app.wait.finalizingMessage')}</p>
-  } else if (model.waitForTransaction === 'timeout') {
+  } else if (model.waitForTransaction === 'timeout' || model.waitForTransaction === 'unreachable') {
+    // Same shape, different claim. 'timeout' means the chain was answering and the transaction never
+    // showed up; 'unreachable' means we never got to look, so it may well have gone through — and
+    // saying otherwise on a screen about someone's money is the mistake worth avoiding here.
+    const unreachable = model.waitForTransaction === 'unreachable'
     img = <img src='/images/app/warning-dark.svg' alt='' className='m-4 mx-auto h-16' />
     progress = <></>
-    heading = <h1 className='font-fredoka text-center text-xl font-semibold'>{t('app.wait.timeoutTitle')}</h1>
-    message = <p className='text-text-muted mt-4 text-center text-sm'>{t('app.wait.timeoutMessage')}</p>
+    heading = (
+      <h1 className='font-fredoka text-center text-xl font-semibold'>
+        {t(unreachable ? 'app.wait.unreachableTitle' : 'app.wait.timeoutTitle')}
+      </h1>
+    )
+    message = (
+      <p className='text-text-muted mt-4 text-center text-sm'>
+        {t(unreachable ? 'app.wait.unreachableMessage' : 'app.wait.timeoutMessage')}
+      </p>
+    )
     button = (
       <button
         className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover mt-6 h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold'

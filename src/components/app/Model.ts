@@ -51,7 +51,11 @@ type UnstakeOption = 'best' | 'instant'
 // Absent for the old-wallet upgrade, which also waits for a transaction but is not a stake.
 type PendingTx = { kind: 'stake' | 'unstake'; amountGram: number; unstakeType?: UnstakeOption }
 
-type WaitForTransaction = 'no' | 'signed' | 'sent' | 'timeout' | 'done'
+// 'timeout': the validUntil window passed with the chain answering and the transaction never
+// appearing. 'unreachable': we could not read the chain at all, which says nothing either way —
+// keeping them apart matters, because telling someone their transaction did not happen when it did
+// is the worst thing this screen can say.
+type WaitForTransaction = 'no' | 'signed' | 'sent' | 'timeout' | 'unreachable' | 'done'
 
 type AmountAlert = 'none' | 'stake-max' | 'unstake-max' | 'instant-unstake-max'
 
@@ -2207,7 +2211,7 @@ export class Model {
     const address = this.address
 
     if (tonClient == null || address == null) {
-      this.setWaitForTransaction('timeout')
+      this.setWaitForTransaction('unreachable')
       return
     }
 
@@ -2219,17 +2223,31 @@ export class Model {
       // Poll until the transaction's validUntil window has passed, after which it can
       // no longer land on-chain.
       const deadline = Date.now() + txValidUntil * 1000
+
+      // Whether the chain answered even once. A wait that never managed a single read cannot claim
+      // the transaction is missing — only that we could not look.
+      let everRead = false
+
       while (Date.now() < deadline) {
         await sleep(waitForCompletionDelay)
 
-        const lastBlock = (await retry(() => tonClient.getLastBlock())).last.seqno
-        const last = (await retry(() => tonClient.getAccountLite(lastBlock, address))).account.last
-        if (last == null) {
+        let txs
+        try {
+          const lastBlock = (await retry(() => tonClient.getLastBlock())).last.seqno
+          const last = (await retry(() => tonClient.getAccountLite(lastBlock, address))).account.last
+          everRead = true
+          if (last == null) {
+            continue
+          }
+          txs = await retry(() =>
+            tonClient.getAccountTransactions(address, BigInt(last.lt), Buffer.from(last.hash, 'base64')),
+          )
+        } catch {
+          // One failed read says nothing about the transaction, so keep polling until validUntil
+          // passes rather than abandoning the wait. Before 2026-08-25 this rejection escaped to the
+          // catch below and ended the wait seconds after a stake that had in fact landed.
           continue
         }
-        const txs = await retry(() =>
-          tonClient.getAccountTransactions(address, BigInt(last.lt), Buffer.from(last.hash, 'base64')),
-        )
 
         for (const txBlock of txs) {
           const tx = txBlock.tx
@@ -2269,9 +2287,9 @@ export class Model {
         }
       }
 
-      this.setWaitForTransaction('timeout')
+      this.setWaitForTransaction(everRead ? 'timeout' : 'unreachable')
     } catch {
-      this.setWaitForTransaction('timeout')
+      this.setWaitForTransaction('unreachable')
     } finally {
       this.timeoutReadLastBlock = setTimeout(() => void this.readLastBlock(), updateLastBlockDelay)
     }

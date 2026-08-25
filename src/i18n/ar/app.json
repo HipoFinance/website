@@ -191,5 +191,7 @@
   "app.wait.stakedTitle": "تم الإيداع في الستاكينغ بنجاح",
   "app.wait.timeoutMessage": "رغم عدة محاولات، لم نتمكن من العثور عليها.",
   "app.wait.timeoutTitle": "تعذّر العثور على معاملتك",
+  "app.wait.unreachableMessage": "قد تكون معاملتك قد تمت بالفعل. تحقّق من محفظتك قبل المحاولة مرة أخرى.",
+  "app.wait.unreachableTitle": "تعذّر الوصول إلى الشبكة",
   "app.wait.unstakedTitle": "تم إلغاء الستاكينغ بنجاح"
 }

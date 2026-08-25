@@ -191,5 +191,7 @@
   "app.wait.stakedTitle": "सफलतापूर्वक स्टेक हो गया",
   "app.wait.timeoutMessage": "कई कोशिशों के बावजूद हम इसे ढूँढ नहीं पाए।",
   "app.wait.timeoutTitle": "आपकी ट्रांज़ैक्शन नहीं मिली",
+  "app.wait.unreachableMessage": "हो सकता है आपकी ट्रांज़ैक्शन फिर भी पूरी हो गई हो। दोबारा कोशिश करने से पहले अपना वॉलेट देखें।",
+  "app.wait.unreachableTitle": "नेटवर्क से कनेक्ट नहीं हो पा रहा",
   "app.wait.unstakedTitle": "सफलतापूर्वक अनस्टेक हो गया"
 }

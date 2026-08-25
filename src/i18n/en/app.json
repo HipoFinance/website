@@ -191,5 +191,7 @@
   "app.wait.stakedTitle": "Successfully staked",
   "app.wait.timeoutMessage": "Despite multiple attempts, we could not locate it.",
   "app.wait.timeoutTitle": "Cannot find your transaction",
+  "app.wait.unreachableMessage": "Your transaction may still have gone through. Check your wallet before trying again.",
+  "app.wait.unreachableTitle": "Cannot reach the network",
   "app.wait.unstakedTitle": "Successfully unstaked"
 }

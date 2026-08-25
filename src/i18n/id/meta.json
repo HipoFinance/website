@@ -767,6 +767,14 @@
     "sourceHash": "0a2adfc939bbef4e71830e23ad0500b2d2618f6a",
     "reviewed": false
   },
+  "app.wait.unreachableMessage": {
+    "sourceHash": "21ec0a318372d5ee69f4658a529485bde2fd8a4f",
+    "reviewed": false
+  },
+  "app.wait.unreachableTitle": {
+    "sourceHash": "c8754df487f02d771cdcc122df7be4b56891a16b",
+    "reviewed": false
+  },
   "app.wait.unstakedTitle": {
     "sourceHash": "ca073b8a2659a6117fbf7f0b1b03ff5579ec001c",
     "reviewed": false

@@ -191,5 +191,7 @@
   "app.wait.stakedTitle": "با موفقیت استیک شد",
   "app.wait.timeoutMessage": "با وجود چند بار تلاش، نتوانستیم آن را پیدا کنیم.",
   "app.wait.timeoutTitle": "تراکنش شما پیدا نشد",
+  "app.wait.unreachableMessage": "ممکن است تراکنش شما با موفقیت انجام شده باشد. پیش از تلاش دوباره، کیف پول خود را بررسی کنید.",
+  "app.wait.unreachableTitle": "شبکه در دسترس نیست",
   "app.wait.unstakedTitle": "با موفقیت آن‌استیک شد"
 }

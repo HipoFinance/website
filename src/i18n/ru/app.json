@@ -191,5 +191,7 @@
   "app.wait.stakedTitle": "Стейкинг выполнен",
   "app.wait.timeoutMessage": "Несмотря на несколько попыток, найти её не удалось.",
   "app.wait.timeoutTitle": "Не удаётся найти вашу транзакцию",
+  "app.wait.unreachableMessage": "Ваша транзакция могла всё же пройти. Проверьте кошелёк, прежде чем пробовать снова.",
+  "app.wait.unreachableTitle": "Не удаётся подключиться к сети",
   "app.wait.unstakedTitle": "Вывод из стейкинга выполнен"
 }
