@@ -515,6 +515,7 @@ export class Model {
       unstakeMoreThanInstantBurnable: computed,
       htonBalanceInTon: computed,
       htonBalanceInTonAfterOneYear: computed,
+      roundsPerYear: computed,
       profitAfterOneYear: computed,
       profitAfterOneYearOnLastLevel: computed,
       oldWalletTokensFormatted: computed,
@@ -925,6 +926,18 @@ export class Model {
     }
   }
 
+  // The HPO reward is paid once per validation round, so a year's worth of rewards is
+  // however many rounds fit in a year. The round length is a network parameter that has
+  // changed before (it used to be ~36h, it is ~18h now), so read it from the live round
+  // boundaries instead of hardcoding a count, and fall back to the current length until
+  // the times are fetched.
+  get roundsPerYear() {
+    const year = 365 * 24 * 60 * 60
+    const times = this.times
+    const duration = times != null ? Number(times.nextRoundSince - times.currentRoundSince) : 0
+    return duration > 0 ? year / duration : year / 65536
+  }
+
   get profitAfterOneYear() {
     const apy = this.apy
     const state = this.treasuryState
@@ -940,7 +953,7 @@ export class Model {
 
     const hton = Number(this.walletState.tokens ?? 0n)
     const ton = hton * exchangeRate * apy
-    const hpo = hton * exchangeRate * rewardRate * rewardCoefficient * 20 * 12
+    const hpo = hton * exchangeRate * rewardRate * rewardCoefficient * this.roundsPerYear
 
     if (hpo > 0.01) {
       return this.t('app.model.gramPlusHpo', {
@@ -964,7 +977,7 @@ export class Model {
     const rewardCoefficient = rewardCoefficients[rewardCoefficients.length - 1]
 
     const hton = Number(this.walletState.tokens ?? 0n)
-    const hpo = hton * exchangeRate * rewardRate * rewardCoefficient * 20 * 12
+    const hpo = hton * exchangeRate * rewardRate * rewardCoefficient * this.roundsPerYear
 
     return this.withUnit('app.model.hpo', this.formatNano(hpo))
   }
