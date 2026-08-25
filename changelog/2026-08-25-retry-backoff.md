@@ -88,7 +88,12 @@ step, and it is now visible for the whole sequence.
 
 ## Follow-ups
 
-- Split the "cannot reach the network" and "transaction not found" messages,
-  across all ten locales.
-- If `waitForCompletion` should distinguish them properly, the read failure
-  wants its own state rather than reusing `'timeout'`.
+- ~~Split the "cannot reach the network" and "transaction not found" messages,
+  across all ten locales.~~ Done the same day — changelog
+  2026-08-25-unreachable-message.md. The two new strings still want a native
+  review, which is tracked there.
+- ~~If `waitForCompletion` should distinguish them properly, the read failure
+  wants its own state rather than reusing `'timeout'`.~~ Done: `'unreachable'`.
+  The same change also made the poll loop ride out failed reads for the whole
+  `validUntil` window, which is the more complete form of this fix — the retry
+  budget here is no longer what bounds a wait.
