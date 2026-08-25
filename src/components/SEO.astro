@@ -6,6 +6,7 @@
 // here and get their own page noindex'd below, so a drafts build never changes what crawlers see.
 import { DEFAULT_LOCALE, LOCALES, indexableLocales } from '../i18n/registry.mjs'
 import { langOf, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
+import Analytics from './Analytics.astro'
 
 interface Props {
   title: string
@@ -79,3 +80,8 @@ const isDraft = LOCALES[locale]?.status === 'draft'
 <!-- JSON-LD: `<` is escaped as \u003c (still valid JSON) so no string in the payload can close the
      inline script or open a comment. -->
 {jsonLd && <script type='application/ld+json' set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
+
+<!-- ANALYTICS -->
+<!-- Here rather than in the three layouts so a new layout cannot forget it. Starlight does not
+     render this component and gets Analytics.astro through its own Head override instead. -->
+<Analytics />

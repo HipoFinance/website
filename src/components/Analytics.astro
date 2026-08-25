@@ -1,0 +1,61 @@
+---
+// Google Analytics 4. Rendered into the <head> of every page: the three layouts get it through
+// SEO.astro, /docs/ through src/components/starlight/Head.astro, and 404.astro imports it directly
+// (it hand-rolls its own <head>).
+//
+// The measurement ID is not a secret — it is in the page source of every GA-instrumented site on
+// the web — so it lives here rather than in an env var, which would have to become a GitHub Actions
+// secret just to reach the build.
+const GA_MEASUREMENT_ID = 'G-3VEWCJ55NM'
+---
+
+<!-- Host-gated at runtime rather than by `import.meta.env.PROD`, matching the Telegram-analytics
+     script in AppLayout.astro: dev, `npm run preview` and any fork's GitHub Pages copy render the
+     same markup as production but send nothing, so the property only ever sees real traffic. -->
+<script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+  ;(function () {
+    if (window.location.host !== 'hipo.finance') return
+
+    // The app pages navigate through Astro's ClientRouter, which preserves head elements whose
+    // markup is unchanged — this script among them. The flag is belt-and-braces for the case where
+    // a future head change makes Astro re-run it: re-initialising would double every hit.
+    if (window.__hipoGa) return
+    window.__hipoGa = true
+
+    // Set by the probe at the top of AppLayout's <head>, which is why that probe must stay above
+    // <SEO> (this component's only render site for the app pages). Undefined everywhere else —
+    // the landing, HPO, docs and 404 pages do not run it and are only ever reached in a browser.
+    var tma = window.__hipoTma
+    var platform = tma === 'telegram' || tma === 'forced' ? 'telegram_mini_app' : 'web'
+
+    window.dataLayer = window.dataLayer || []
+    function gtag() {
+      window.dataLayer.push(arguments)
+    }
+    window.gtag = gtag
+
+    gtag('js', new Date())
+    // Parameters given to `config` ride along on every event sent to this measurement ID, so
+    // hipo_platform lands on the page_view below and on anything added later. It needs a matching
+    // event-scoped custom dimension in GA4 (Admin → Custom definitions) to appear in reports.
+    gtag('config', GA_MEASUREMENT_ID, { hipo_platform: platform })
+
+    var s = document.createElement('script')
+    s.async = true
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID
+    document.head.appendChild(s)
+
+    // `gtag('config', …)` reports one page_view on load, which is all a normal page needs. Inside
+    // the dApp, moving between /stake/, /unstake/, /rewards/, /stats/ and /defi/ — or between
+    // locales — is a ClientRouter swap with no document load, so GA would otherwise record the
+    // whole session as a single page view. `astro:after-swap` fires only on those swaps, never on
+    // first load, so there is no overlap with the config hit above.
+    document.addEventListener('astro:after-swap', function () {
+      gtag('event', 'page_view', {
+        page_location: window.location.href,
+        page_title: document.title,
+        hipo_platform: platform,
+      })
+    })
+  })()
+</script>

@@ -7,6 +7,7 @@
 // noindex meta on pages whose own locale is a draft. Wired via astro.config.mjs
 // `starlight({ components: { Head: ... } })`.
 import { isLocaleKey, LOCALES } from '../../i18n/registry.mjs'
+import Analytics from '../Analytics.astro'
 
 const { head } = Astro.locals.starlightRoute
 const routeLocale = Astro.locals.starlightRoute.locale
@@ -30,3 +31,6 @@ const filteredHead = head.filter((entry) => {
 
 {filteredHead.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
 {isDraft && <meta name='robots' content='noindex, nofollow' />}
+
+{/* Starlight never renders SEO.astro, where every other section picks analytics up. */}
+<Analytics />
