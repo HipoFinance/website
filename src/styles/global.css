@@ -14,21 +14,106 @@
   --font-heebo: 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --font-fredoka: 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
 
-  /* Warm Dark palette (see changelog 2026-08-11). The site is single-theme dark; there is no
-     light mode and no dark: variant anywhere. */
+  /* Warm Dark palette (see changelog 2026-08-11). This is the authored base; the light palette
+     lives in the `prefers-color-scheme: light` block further down, which re-declares these same
+     custom properties. There is no toggle — the OS setting is the only input (changelog
+     2026-08-22). Dark stays the base so a browser without `prefers-color-scheme` keeps the
+     original design. */
   --color-bg: #201b1a;
   --color-surface: #2b2423;
   --color-surface-deep: #171312;
   --color-border: #3d3331;
+  /* One step in from --color-border, for hover on the small `bg-border` chips in the app. */
+  --color-border-strong: #4a3f3c;
   --color-text: #f5efe8;
   --color-text-muted: #c2b5ac;
   --color-text-faint: #8d7f76;
-  --color-body-strong: #d9cfc6;
+
+  /* Coral plays two roles and they diverge in light mode.
+     As a FOREGROUND (links, the hero highlight, the APY stat, hover states) it has to earn its
+     contrast against the page, so it darkens to #e0574b on cream — that is `--color-accent`.
+     As a SOLID FILL behind --color-on-accent text (buttons, the banner, the step numerals) it is
+     the fixed brand coral in both themes — that is `--color-accent-fill`. */
   --color-accent: #ff7e73;
   --color-accent-hover: #ff958c;
+  --color-accent-fill: #ff7e73;
+  --color-accent-fill-hover: #ff958c;
   --color-accent-shadow: #c1544a;
   --color-on-accent: #291f20;
+
   --color-positive: #4ade80;
+
+  /* Fixed in both themes: the cream disc behind the monochrome auditor marks (Quantstamp,
+     TonTech), and the label on the colored auditor avatars, which sit on their own gradient
+     rather than on the page. */
+  --color-mark-chip: #f5efe8;
+  --color-on-gradient: #fffdf8;
+}
+
+:root {
+  /* Not surface colors, so they stay out of the --color-* namespace and are read through var()
+     from arbitrary utilities and inline styles instead of generating utilities of their own. */
+  --hero-glow: rgba(255, 126, 115, 0.28);
+  --art-shadow: rgba(0, 0, 0, 0.45);
+  --art-shadow-soft: rgba(0, 0, 0, 0.4);
+
+  /* Form controls, scrollbars and the like. `dark light` = both are supported, dark wins when
+     the user expressed no preference — same default as the palette above. */
+  color-scheme: dark light;
+}
+
+/* The light palette. Tailwind emits the @theme block into `@layer theme`, and unlayered rules
+   beat layered ones whatever the source order, so these plain overrides always win. Mapping from
+   the dark values above is 1:1 except where noted. */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg: #faf6ef;
+    --color-surface: #ffffff;
+    --color-surface-deep: #f1e9de;
+    --color-border: #e7dccf;
+    --color-border-strong: #dbcdb9;
+    --color-text: #291f20;
+    --color-text-muted: #6f6058;
+    /* --color-text-faint keeps #8d7f76: it reads as a faint label on both grounds. */
+
+    --color-accent: #e0574b;
+    --color-accent-hover: #c9483c;
+    /* --color-accent-fill, its hover, --color-accent-shadow and --color-on-accent are brand
+       constants and deliberately not re-declared. */
+
+    --color-positive: #16a34a;
+
+    /* The mascot and the HPO coin cast a warm brown shadow on cream rather than a black one, and
+       the coral glow behind the mascot has to push harder to register. */
+    --hero-glow: rgba(255, 126, 115, 0.35);
+    --art-shadow: rgba(70, 45, 40, 0.22);
+    --art-shadow-soft: rgba(70, 45, 40, 0.2);
+
+    color-scheme: light;
+  }
+}
+
+/* The hippo mark is a cream body with dark linework, which only reads on the dark page; the
+   light page gets hipo-light.svg, the same drawing as warm-dark line art on a transparent body.
+   Both <img>s are in the markup at every logo site (SiteHeader, SiteFooter, app Header,
+   TmaHeader) and `prefers-color-scheme` picks one. Starlight's own header does the same thing
+   through `logo: { light, dark }` in astro.config.mjs. */
+.logo-on-dark {
+  display: inline-block;
+}
+
+.logo-on-light {
+  display: none;
+}
+
+@media (prefers-color-scheme: light) {
+  .logo-on-dark {
+    display: none;
+  }
+
+  .logo-on-light {
+    display: inline-block;
+  }
 }
 
 /* Bidi isolation for formatted values (amounts, percentages, deltas) so RTL text doesn't reorder

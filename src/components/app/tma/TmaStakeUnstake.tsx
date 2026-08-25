@@ -27,7 +27,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
           aria-pressed={stake}
           className={
             'flex-1 cursor-pointer rounded-full py-2 text-center ' +
-            (stake ? 'bg-accent text-on-accent' : 'text-text-muted')
+            (stake ? 'bg-accent-fill text-on-accent' : 'text-text-muted')
           }
           onClick={() => {
             model.navigateToTab('stake')
@@ -40,7 +40,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
           aria-pressed={!stake}
           className={
             'flex-1 cursor-pointer rounded-full py-2 text-center ' +
-            (!stake ? 'bg-accent text-on-accent' : 'text-text-muted')
+            (!stake ? 'bg-accent-fill text-on-accent' : 'text-text-muted')
           }
           onClick={() => {
             model.navigateToTab('unstake')
@@ -200,7 +200,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
       <div className='mt-auto flex flex-col gap-2.5 pt-2'>
         <button
           id='submit'
-          className='bg-accent text-on-accent w-full cursor-pointer rounded-[14px] py-[15px] text-[17px] font-semibold disabled:cursor-not-allowed disabled:opacity-60'
+          className='bg-accent-fill text-on-accent w-full cursor-pointer rounded-[14px] py-[15px] text-[17px] font-semibold disabled:cursor-not-allowed disabled:opacity-60'
           disabled={!model.isButtonEnabled}
           onClick={(e) => {
             const target = e.target as HTMLInputElement

@@ -9,7 +9,7 @@ const ErrorDisplay = observer(({ model }: Props) => {
   return (
     <div
       className={
-        'font-body bg-accent text-on-accent fixed start-6 bottom-20 z-50 flex max-w-screen-sm rounded-2xl p-2 drop-shadow sm:bottom-2' +
+        'font-body bg-accent-fill text-on-accent fixed start-6 bottom-20 z-50 flex max-w-screen-sm rounded-2xl p-2 drop-shadow sm:bottom-2' +
         (model.errorMessage === '' ? ' hidden' : '')
       }
     >

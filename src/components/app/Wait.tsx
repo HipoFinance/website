@@ -17,7 +17,7 @@ const Wait = observer(({ model }: Props) => {
     img = <img src='/images/app/loading-dark.svg' alt='' className='m-4 mx-auto h-16 animate-spin' />
     progress = (
       <div className='border-border my-4 w-full overflow-hidden rounded-full border'>
-        <div className={'bg-accent h-1' + (sent ? ' w-1/2' : ' w-1/6')}></div>
+        <div className={'bg-accent-fill h-1' + (sent ? ' w-1/2' : ' w-1/6')}></div>
       </div>
     )
     heading = <h1 className='font-fredoka text-center text-xl font-semibold'>{t('app.wait.finalizingTitle')}</h1>
@@ -29,7 +29,7 @@ const Wait = observer(({ model }: Props) => {
     message = <p className='text-text-muted mt-4 text-center text-sm'>{t('app.wait.timeoutMessage')}</p>
     button = (
       <button
-        className='bg-accent text-on-accent hover:bg-accent-hover mt-6 h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold'
+        className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover mt-6 h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold'
         onClick={() => {
           model.setWaitForTransaction('no')
         }}
@@ -47,7 +47,7 @@ const Wait = observer(({ model }: Props) => {
     )
     button = (
       <button
-        className='bg-accent text-on-accent hover:bg-accent-hover mt-6 h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold'
+        className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover mt-6 h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold'
         onClick={() => {
           model.setWaitForTransaction('no')
         }}

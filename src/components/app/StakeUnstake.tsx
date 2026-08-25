@@ -28,7 +28,7 @@ const StakeUnstake = observer(({ model }: Props) => {
           aria-pressed={stake}
           className={
             'min-h-11 flex-1 cursor-pointer rounded-full px-9 py-2 text-center ' +
-            (stake ? 'bg-accent text-on-accent' : 'text-text-muted hover:text-accent')
+            (stake ? 'bg-accent-fill text-on-accent' : 'text-text-muted hover:text-accent')
           }
           onClick={() => {
             model.navigateToTab('stake')
@@ -41,7 +41,7 @@ const StakeUnstake = observer(({ model }: Props) => {
           aria-pressed={!stake}
           className={
             'min-h-11 flex-1 cursor-pointer rounded-full px-9 py-2 text-center ' +
-            (!stake ? 'bg-accent text-on-accent' : 'text-text-muted hover:text-accent')
+            (!stake ? 'bg-accent-fill text-on-accent' : 'text-text-muted hover:text-accent')
           }
           onClick={() => {
             model.navigateToTab('unstake')
@@ -139,7 +139,7 @@ const StakeUnstake = observer(({ model }: Props) => {
               />
               <button
                 type='button'
-                className='bg-border text-text-muted hover:text-text cursor-pointer rounded-lg px-2.5 py-1.5 text-xs font-semibold hover:bg-[#4a3f3c]'
+                className='bg-border text-text-muted hover:text-text hover:bg-border-strong cursor-pointer rounded-lg px-2.5 py-1.5 text-xs font-semibold'
                 onClick={model.setAmountToMax}
               >
                 {t('app.common.max')}
@@ -223,7 +223,7 @@ const StakeUnstake = observer(({ model }: Props) => {
 
           <button
             id='submit'
-            className='bg-accent text-on-accent hover:bg-accent-hover h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold disabled:cursor-not-allowed disabled:opacity-60'
+            className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold disabled:cursor-not-allowed disabled:opacity-60'
             disabled={!model.isButtonEnabled}
             onClick={(e) => {
               const target = e.target as HTMLInputElement

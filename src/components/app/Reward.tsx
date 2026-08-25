@@ -28,7 +28,7 @@ const Reward = observer(({ model }: Props) => {
         <p className='text-text-faint num text-center text-[12.5px]'>{model.claimableRewardsFormatted}</p>
       )}
       <a
-        className='bg-accent text-on-accent hover:bg-accent-hover block h-14 w-full rounded-2xl text-center text-[17px] leading-14 font-semibold'
+        className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover block h-14 w-full rounded-2xl text-center text-[17px] leading-14 font-semibold'
         href='https://t.me/HipoFinanceBot/join'
         target='_blank'
         rel='noopener noreferrer'
@@ -108,7 +108,7 @@ const Reward = observer(({ model }: Props) => {
               </p>
               {!tma && <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />}
               <button
-                className='bg-accent text-on-accent hover:bg-accent-hover h-14 w-full cursor-pointer rounded-2xl text-[17px] font-semibold'
+                className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover h-14 w-full cursor-pointer rounded-2xl text-[17px] font-semibold'
                 onClick={(e) => {
                   model.connect()
                   const target = e.target as HTMLInputElement
@@ -200,7 +200,7 @@ const Reward = observer(({ model }: Props) => {
                 <p className='text-text-muted text-center text-sm'>{t('app.reward.startStaking')}</p>
                 <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />
                 <button
-                  className='bg-accent text-on-accent hover:bg-accent-hover h-14 w-full cursor-pointer rounded-2xl text-[17px] font-semibold'
+                  className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover h-14 w-full cursor-pointer rounded-2xl text-[17px] font-semibold'
                   onClick={() => {
                     model.navigateToTab('stake')
                   }}

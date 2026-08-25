@@ -40,6 +40,15 @@ here — `git log` remains the complete record.
   Without the App pages.
 - Rewrote `/docs/` as a hub.
 
+## 2026-08-23 — [detailed report](changelog/2026-08-23-footer-cta.md)
+
+- Replaced the footer's "Join Hipo on Telegram" strip with a "Start Staking
+  GRAM" CTA linking to `/stake/`.
+- Hid that footer CTA on the app pages, where it duplicates the page you are
+  already on.
+- Rewrote the 404 page around the hippo artwork, keeping its two links.
+- Added the missing `<meta name="viewport">` to the 404 page.
+
 ## 2026-08-23 — [detailed report](changelog/2026-08-23-faq-restructure.md)
 
 - Restructured the site FAQ from 67 questions in 10 sections to 40 in 9, with
@@ -60,6 +69,21 @@ here — `git log` remains the complete record.
 - Re-pointed the DEX swap links in `Model.ts` and the unstaking tutorial off
   the pre-rename `hTON` symbol.
 - Mirrored every change in the fa, ru and hi twins and refreshed their hashes.
+
+## 2026-08-22 — [detailed report](changelog/2026-08-22-light-theme.md)
+
+- Added a site-wide light palette (landing, dApp, docs, 404, Mini App),
+  selected by `prefers-color-scheme` only — no toggle.
+- Split coral into `--color-accent` (foreground, darkens on cream) and
+  `--color-accent-fill` (solid brand coral); swept `bg-accent` accordingly.
+- Added `hipo-light.svg`, and started the docs on `data-theme` from the media
+  query instead of pinning it to dark.
+- Turned the home page's "How Hipo works" steps into a snapping horizontal
+  carousel below `sm`.
+- Moved the security-audits section to the end of the home page and dropped
+  `/join` from the Hipo Club button.
+- Closed the "How Hipo works" row with a "Start Staking GRAM" CTA card linking
+  to `/stake/`.
 
 ## 2026-08-22 — [detailed report](changelog/2026-08-22-multi-language-site.md)
 

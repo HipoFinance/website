@@ -87,7 +87,7 @@ const why = [
       <div class='flex flex-wrap items-center gap-3.5'>
         <a
           href={localizedPath('/stake/', locale)}
-          class='bg-accent text-on-accent hover:bg-accent-hover rounded-full px-8 py-[15px] text-[17px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
+          class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover rounded-full px-8 py-[15px] text-[17px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
         >
           {t('landing.hero.stakeNow')}
         </a>
@@ -100,13 +100,13 @@ const why = [
     <div class='relative hidden justify-center lg:flex'>
       <div
         class='absolute inset-[8%_6%] rounded-full'
-        style='background: radial-gradient(closest-side, rgba(255,126,115,.28), rgba(255,126,115,0));'
+        style='background: radial-gradient(closest-side, var(--hero-glow), rgba(255,126,115,0));'
       >
       </div>
       <img
         src='/images/hipo-bank.webp'
         alt={t('landing.hero.imageAlt')}
-        class='relative w-[420px] max-w-full drop-shadow-[0_20px_40px_rgba(0,0,0,0.45)]'
+        class='relative w-[420px] max-w-full drop-shadow-[0_20px_40px_var(--art-shadow)]'
       />
     </div>
   </section>
@@ -139,18 +139,28 @@ const why = [
     <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>{t('landing.how.title')}</h2>
     <p class='text-text-muted mb-7 text-lg'>{t('landing.how.subtitle')}</p>
 
-    <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
+    <!-- Below sm the four steps plus the closing CTA are a snapping horizontal carousel rather than
+         a five-deep stack (design handoff, Home.dc.html). The negative margin cancels the section's
+         px-6 so cards can bleed to the screen edge while the first one still lines up with the
+         heading, and scroll-p-6 puts the snapped card back on that line. Card width is
+         min(260px, 78vw), which always leaves the next card peeking as the scroll affordance — that
+         peek is why the scrollbar can be hidden. From sm up this reverts to the plain responsive
+         grid, where the CTA spans the full width on its own row instead of squeezing the steps into
+         a fifth column. -->
+    <div
+      class='-mx-6 grid snap-x snap-mandatory scroll-p-6 [scrollbar-width:none] auto-cols-[minmax(min(260px,78vw),1fr)] grid-flow-col gap-4 overflow-x-auto px-6 pb-2 sm:mx-0 sm:grid-flow-row sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden'
+    >
+      <div class='border-border bg-surface flex snap-start flex-col gap-3 rounded-[20px] border p-6'>
         <img src='/images/gram-3d.svg' alt='GRAM' class='size-[52px]' />
         <div class='font-fredoka text-text text-xl font-semibold'>{t('landing.how.step1.title')}</div>
         <div class='text-text-muted text-[15px] leading-[1.55]'>{t('landing.how.step1.body')}</div>
       </div>
-      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
+      <div class='border-border bg-surface flex snap-start flex-col gap-3 rounded-[20px] border p-6'>
         <img src='/images/hgram-3d.svg' alt='hGRAM' class='size-[52px]' />
         <div class='font-fredoka text-text text-xl font-semibold'>{t('landing.how.step2.title')}</div>
         <div class='text-text-muted text-[15px] leading-[1.55]'>{t('landing.how.step2.body')}</div>
       </div>
-      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
+      <div class='border-border bg-surface flex snap-start flex-col gap-3 rounded-[20px] border p-6'>
         <img src='/hpo.png' alt='HPO' class='size-[52px]' />
         <div class='font-fredoka text-text text-xl font-semibold'>{t('landing.how.step3.title')}</div>
         <div class='text-text-muted text-[15px] leading-[1.55]'>
@@ -158,57 +168,30 @@ const why = [
           <a href='#hipo-club' class='text-accent hover:text-accent-hover'>{t('landing.how.step3.link')}</a>
         </div>
       </div>
-      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
+      <div class='border-border bg-surface flex snap-start flex-col gap-3 rounded-[20px] border p-6'>
         <img src='/images/gram.svg' alt={t('landing.how.step4.imageAlt')} class='size-[52px]' />
         <div class='font-fredoka text-text text-xl font-semibold'>{t('landing.how.step4.title')}</div>
         <div class='text-text-muted text-[15px] leading-[1.55]'>{t('landing.how.step4.body')}</div>
       </div>
-    </div>
-  </section>
 
-  <!-- Security audits -->
-  <section id='audits' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
-    <div class='flex flex-wrap items-baseline justify-between gap-2'>
-      <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>{t('landing.audits.title')}</h2>
-      <a
-        href='https://github.com/HipoFinance/audits'
-        target='_blank'
-        rel='noopener noreferrer'
-        class='text-accent hover:text-accent-hover text-[15px] font-medium'
+      <!-- Closing CTA, not a fifth step: the carousel ends on the way into the app. -->
+      <div
+        class='border-border flex snap-start flex-col items-start justify-between gap-4 rounded-[20px] border p-6 sm:col-span-2 sm:flex-row sm:items-center sm:gap-8 sm:p-8 lg:col-span-4'
+        style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
       >
-        {t('landing.audits.allReports')}
-      </a>
-    </div>
-    <p class='text-text-muted mb-7 text-lg'>{t('landing.audits.subtitle')}</p>
-
-    <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
-      {
-        audits.map((audit) => (
-          <a
-            href={audit.href}
-            target='_blank'
-            rel='noopener noreferrer'
-            class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
-          >
-            <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
-              {audit.logo ? (
-                <span class='bg-text flex size-[26px] items-center justify-center rounded-full'>
-                  <img src={audit.logo} alt='' class='h-4' />
-                </span>
-              ) : (
-                <span
-                  class={`flex size-[26px] items-center justify-center rounded-full bg-gradient-to-t ${audit.gradient} text-[11px] font-light`}
-                >
-                  {audit.initials}
-                </span>
-              )}
-              {audit.name}
-            </span>
-            <span class='text-text-muted text-[15px]'>{audit.scope}</span>
-            <span class='text-text-faint text-[13px]'>{audit.date}</span>
-          </a>
-        ))
-      }
+        <div class='flex flex-col gap-2.5'>
+          <div class='font-fredoka text-text text-xl font-semibold sm:text-[28px]'>{t('landing.how.cta.title')}</div>
+          <div class='text-text-muted text-[15px] leading-[1.55] sm:text-[17px] sm:leading-[1.6]'>
+            {t('landing.how.cta.body')}
+          </div>
+        </div>
+        <a
+          href={localizedPath('/stake/', locale)}
+          class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
+        >
+          {t('landing.how.cta.button')}
+        </a>
+      </div>
     </div>
   </section>
 
@@ -230,7 +213,7 @@ const why = [
         href='https://t.me/hipo_chat'
         target='_blank'
         rel='noopener noreferrer'
-        class='bg-accent text-on-accent hover:bg-accent-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold'
+        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold'
       >
         {t('landing.community.cta')}
       </a>
@@ -258,7 +241,7 @@ const why = [
         href='https://t.me/HipoFinanceBot/join'
         target='_blank'
         rel='noopener noreferrer'
-        class='bg-accent text-on-accent hover:bg-accent-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold'
+        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover flex-none rounded-full px-[30px] py-3.5 text-base font-semibold'
       >
         {t('landing.club.cta')}
       </a>
@@ -294,7 +277,7 @@ const why = [
             href='https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=HPO'
             target='_blank'
             rel='noopener noreferrer'
-            class='bg-accent text-on-accent hover:bg-accent-hover rounded-full px-7 py-[13px] text-base font-semibold'
+            class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover rounded-full px-7 py-[13px] text-base font-semibold'
           >
             {t('landing.hpo.buy')}
           </a>
@@ -308,14 +291,14 @@ const why = [
         <img
           src='/hpo.png'
           alt={t('landing.hpo.imageAlt')}
-          class='w-[220px] drop-shadow-[0_16px_32px_rgba(0,0,0,0.4)]'
+          class='w-[220px] drop-shadow-[0_16px_32px_var(--art-shadow-soft)]'
         />
       </div>
     </div>
   </section>
 
   <!-- Why Hipo -->
-  <section id='why-hipo' class='mx-auto w-full max-w-[1280px] px-6 pt-12 pb-18 md:px-12'>
+  <section id='why-hipo' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
     <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>{t('landing.why.title')}</h2>
     <p class='text-text-muted mb-7 text-lg'>{t('landing.why.subtitle')}</p>
 
@@ -327,6 +310,51 @@ const why = [
             <div class='font-fredoka text-text text-[19px] font-semibold'>{t(`landing.why.${key}.title`)}</div>
             <div class='text-text-muted text-[15px] leading-[1.55]'>{t(`landing.why.${key}.body`)}</div>
           </div>
+        ))
+      }
+    </div>
+  </section>
+  <!-- Security audits -->
+  <section id='audits' class='mx-auto w-full max-w-[1280px] px-6 pt-12 pb-18 md:px-12'>
+    <div class='flex flex-wrap items-baseline justify-between gap-2'>
+      <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>{t('landing.audits.title')}</h2>
+      <a
+        href='https://github.com/HipoFinance/audits'
+        target='_blank'
+        rel='noopener noreferrer'
+        class='text-accent hover:text-accent-hover text-[15px] font-medium'
+      >
+        {t('landing.audits.allReports')}
+      </a>
+    </div>
+    <p class='text-text-muted mb-7 text-lg'>{t('landing.audits.subtitle')}</p>
+
+    <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
+      {
+        audits.map((audit) => (
+          <a
+            href={audit.href}
+            target='_blank'
+            rel='noopener noreferrer'
+            class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
+          >
+            <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
+              {audit.logo ? (
+                <span class='bg-mark-chip flex size-[26px] items-center justify-center rounded-full'>
+                  <img src={audit.logo} alt='' class='h-4' />
+                </span>
+              ) : (
+                <span
+                  class={`text-on-gradient flex size-[26px] items-center justify-center rounded-full bg-gradient-to-t ${audit.gradient} text-[11px] font-light`}
+                >
+                  {audit.initials}
+                </span>
+              )}
+              {audit.name}
+            </span>
+            <span class='text-text-muted text-[15px]'>{audit.scope}</span>
+            <span class='text-text-faint text-[13px]'>{audit.date}</span>
+          </a>
         ))
       }
     </div>

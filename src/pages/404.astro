@@ -1,14 +1,14 @@
 ---
 // The one site-wide 404 (GitHub Pages serves only /404.html, so there is no per-locale copy).
 // Rendered in English; when the site has released non-English locales, a tiny inline script swaps
-// lang/dir and the six strings if the first path segment is one of them (spec §H), so
+// lang/dir and the five strings if the first path segment is one of them (spec §H), so
 // /fa/nonexistent/ reads in Persian. With no released locale the map is empty and the script a no-op.
 import '../styles/global.css'
 import { DEFAULT_LOCALE, releasedLocales } from '../i18n/registry.mjs'
 import { dirOf, langOf } from '../i18n/locale.ts'
 import { getT } from '../i18n/t.ts'
 
-const STRINGS = ['title', 'heading', 'body', 'backHome', 'support', 'chat'] as const
+const STRINGS = ['title', 'headline', 'lead', 'backHome', 'askChat'] as const
 
 const { t } = getT(DEFAULT_LOCALE, ['site'])
 
@@ -32,39 +32,54 @@ const locales = Object.fromEntries(
 <html lang={langOf(DEFAULT_LOCALE)} dir={dirOf(DEFAULT_LOCALE)} class='scroll-smooth'>
   <head>
     <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
     <title>{t('site.notFound.title')}</title>
     <meta name='robots' content='noindex' />
     <link rel='icon' href={`${import.meta.env.BASE_URL}favicon.ico`} />
   </head>
 
-  <body class='bg-bg font-body text-text flex min-h-screen items-center justify-center px-6'>
-    <div class='w-full max-w-sm text-center'>
-      <div class='font-fredoka text-accent text-6xl font-semibold'>404</div>
+  <body class='bg-bg font-body text-text flex min-h-screen items-center justify-center px-6 py-16'>
+    <div class='flex w-full max-w-[520px] flex-col items-center text-center'>
+      <!-- Same glow-behind-artwork treatment as the home page hero, at a smaller size. -->
+      <div class='relative flex justify-center'>
+        <div
+          class='absolute inset-[10%_4%] rounded-full'
+          style='background: radial-gradient(closest-side, var(--hero-glow), rgba(255,126,115,0));'
+        >
+        </div>
+        <img
+          src='/images/hipo-bank.webp'
+          alt=''
+          class='relative w-[220px] max-w-full -rotate-6 drop-shadow-[0_20px_40px_var(--art-shadow)]'
+        />
+      </div>
 
-      <h1 class='font-fredoka text-text mt-4 text-xl font-semibold' data-i18n='heading'>
-        {t('site.notFound.heading')}
+      <div class='font-fredoka text-accent num mt-2 text-[64px] leading-none font-semibold'>404</div>
+
+      <h1 class='font-fredoka text-text mt-3 text-2xl font-semibold' data-i18n='headline'>
+        {t('site.notFound.headline')}
       </h1>
 
-      <p class='text-text-muted mt-2 text-[15px]' data-i18n='body'>{t('site.notFound.body')}</p>
+      <p class='text-text-muted mt-2.5 max-w-[380px] text-[15px] leading-[1.6]' data-i18n='lead'>
+        {t('site.notFound.lead')}
+      </p>
 
-      <a
-        href='/'
-        data-i18n='backHome'
-        class='bg-accent text-on-accent hover:bg-accent-hover mt-6 inline-block rounded-full px-6 py-3 text-[15px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)]'
-      >
-        {t('site.notFound.backHome')}
-      </a>
-
-      <div class='border-border bg-surface mt-8 rounded-2xl border p-4'>
-        <p class='text-text-muted mb-2 text-sm' data-i18n='support'>{t('site.notFound.support')}</p>
+      <div class='mt-7 flex flex-wrap items-center justify-center gap-3.5'>
+        <a
+          href='/'
+          data-i18n='backHome'
+          class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover inline-block rounded-full px-7 py-3 text-[15px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)]'
+        >
+          {t('site.notFound.backHome')}
+        </a>
         <a
           href='https://t.me/hipo_chat'
           target='_blank'
           rel='noreferrer'
-          class='text-accent hover:text-accent-hover text-sm'
-          data-i18n='chat'
+          class='text-text hover:text-accent px-4 py-3 text-[15px] font-medium'
+          data-i18n='askChat'
         >
-          {t('site.notFound.chat')}
+          {t('site.notFound.askChat')}
         </a>
       </div>
     </div>
@@ -88,7 +103,7 @@ const locales = Object.fromEntries(
 
 <style is:global>
   ::selection {
-    background: var(--color-accent);
+    background: var(--color-accent-fill);
     color: var(--color-on-accent);
   }
 </style>

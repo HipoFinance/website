@@ -51,7 +51,8 @@ const Header = observer(({ model }: Props) => {
     <div className='font-body text-text w-full'>
       <div className='mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-6 py-5 md:px-12'>
         <a href={model.localizedPath('/')} className='flex flex-none items-center gap-2.5'>
-          <img src='/images/hipo.svg' alt='Hipo' className='size-9' />
+          <img src='/images/hipo.svg' alt='Hipo' className='logo-on-dark size-9' />
+          <img src='/images/hipo-light.svg' alt='Hipo' className='logo-on-light size-9' />
           <span className='font-fredoka text-2xl font-semibold'>Hipo</span>
         </a>
 
@@ -89,7 +90,7 @@ const Header = observer(({ model }: Props) => {
           ) : (
             <button
               type='button'
-              className='bg-accent text-on-accent hover:bg-accent-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold'
+              className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold'
               onClick={model.connect}
             >
               {model.t('app.common.connectWallet')}

@@ -1623,6 +1623,18 @@
     "sourceHash": "d4da51bae90273ef16030cef3dad25b094e072a3",
     "reviewed": false
   },
+  "landing.how.cta.body": {
+    "sourceHash": "c13c60fa14d15b6b9d2495c5452e4c8320df2834",
+    "reviewed": false
+  },
+  "landing.how.cta.button": {
+    "sourceHash": "8f089fec3222dc32fb0c606f937cdd390053c850",
+    "reviewed": false
+  },
+  "landing.how.cta.title": {
+    "sourceHash": "b10e88f3c1e209ed7d4b2547e4f048112e5b6a78",
+    "reviewed": false
+  },
   "landing.how.step1.body": {
     "sourceHash": "268d8dec4bfdaa1e4eb0653250b26fb3e5959bd1",
     "reviewed": false
@@ -2195,6 +2207,18 @@
     "sourceHash": "0b9d2b2362bc33581ba11fddcb0cf0590ebd3a7a",
     "reviewed": false
   },
+  "site.footer.ctaBody": {
+    "sourceHash": "c13c60fa14d15b6b9d2495c5452e4c8320df2834",
+    "reviewed": false
+  },
+  "site.footer.ctaButton": {
+    "sourceHash": "8f089fec3222dc32fb0c606f937cdd390053c850",
+    "reviewed": false
+  },
+  "site.footer.ctaTitle": {
+    "sourceHash": "b10e88f3c1e209ed7d4b2547e4f048112e5b6a78",
+    "reviewed": false
+  },
   "site.footer.docs": {
     "sourceHash": "68a4194227be4ab74bc3d32363417c0fc1f30055",
     "reviewed": false
@@ -2209,14 +2233,6 @@
   },
   "site.footer.helpSupport": {
     "sourceHash": "722ec052a1a3c8b2924eeea804119b29460fb34f",
-    "reviewed": false
-  },
-  "site.footer.joinNow": {
-    "sourceHash": "e1312e129a1c35e7a16cc5a2d811f2d820a655b0",
-    "reviewed": false
-  },
-  "site.footer.joinPrompt": {
-    "sourceHash": "12288c5936ee761ec69cd7f21bad48ec58356424",
     "reviewed": false
   },
   "site.footer.social": {
@@ -2283,24 +2299,20 @@
     "sourceHash": "be763e9aba2af6b8baabada85d5e26c043c93fed",
     "reviewed": false
   },
+  "site.notFound.askChat": {
+    "sourceHash": "537700ed47cb9bafa92f8a83210ef2953e25d8f9",
+    "reviewed": false
+  },
   "site.notFound.backHome": {
     "sourceHash": "34ac37f56e147bf65348041b11e13fc683dfb136",
     "reviewed": false
   },
-  "site.notFound.body": {
-    "sourceHash": "a27cb1c3e7077766fce6184706e95ae87516d74e",
+  "site.notFound.headline": {
+    "sourceHash": "722e0c3ffe89adba9bf0879313cb33a0140825c1",
     "reviewed": false
   },
-  "site.notFound.chat": {
-    "sourceHash": "96efe53dee50385e229f98c90edf8852b4d97e6a",
-    "reviewed": false
-  },
-  "site.notFound.heading": {
-    "sourceHash": "bc3023b36063a7681db24681472b54fa11f0d4ec",
-    "reviewed": false
-  },
-  "site.notFound.support": {
-    "sourceHash": "cf7b5dbc4002f31546765ac0e376a2f8e0abe95e",
+  "site.notFound.lead": {
+    "sourceHash": "8a6c18c2fec27501a33a759a073c920155751652",
     "reviewed": false
   },
   "site.notFound.title": {

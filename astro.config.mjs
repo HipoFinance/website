@@ -270,7 +270,10 @@ export default defineConfig({
     starlight({
       title: 'Hipo Docs',
       description: 'Documentation for Hipo, the liquid staking protocol on TON. Stake GRAM, receive hGRAM.',
-      logo: { src: './public/images/hipo.svg', alt: 'Hipo' },
+      // Two marks, one per scheme: the cream-bodied hippo on the dark page, the warm-dark
+      // line-art one on the light page. Starlight renders both and hides one via data-theme,
+      // which src/components/starlight/ThemeProvider.astro sets from prefers-color-scheme.
+      logo: { dark: './public/images/hipo.svg', light: './public/images/hipo-light.svg', alt: 'Hipo' },
       favicon: '/favicon.ico',
       // src/pages/404.astro already serves the whole site.
       disable404Route: true,

@@ -15,7 +15,7 @@ sitemap, but with no visible language dropdown or suggestion banner.
 
 | Commit    | Subject                              |
 | --------- | ------------------------------------ |
-| `pending` | Translate the site into nine locales |
+| `33abe5f` | Translate the site into nine locales |
 
 ## What changed
 

@@ -23,7 +23,8 @@ const TmaHeader = observer(({ model }: Props) => {
 
   return (
     <header className='flex shrink-0 flex-row items-center gap-2.5 px-4 pt-3.5 pb-2'>
-      <img src='/images/hipo.svg' alt='Hipo' className='h-[34px] w-[34px] shrink-0' />
+      <img src='/images/hipo.svg' alt='Hipo' className='logo-on-dark h-[34px] w-[34px] shrink-0' />
+      <img src='/images/hipo-light.svg' alt='Hipo' className='logo-on-light h-[34px] w-[34px] shrink-0' />
 
       <div className='min-w-0'>
         <div className='font-fredoka truncate text-[17px] leading-tight font-semibold'>{title}</div>

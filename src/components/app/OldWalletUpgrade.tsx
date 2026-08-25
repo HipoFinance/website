@@ -26,7 +26,7 @@ const OldWalletUpgrade = observer(({ model }: Props) => {
         </p>
         <p className='text-text-muted max-w-xl py-1 text-sm'>{t('app.oldWallet.patience')}</p>
         <button
-          className='bg-accent text-on-accent hover:bg-accent-hover mt-5 cursor-pointer rounded-2xl px-16 py-3 text-lg font-semibold'
+          className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover mt-5 cursor-pointer rounded-2xl px-16 py-3 text-lg font-semibold'
           onClick={model.upgradeOldWallet}
         >
           {t('app.oldWallet.upgrade')}

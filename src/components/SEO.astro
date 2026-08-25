@@ -43,6 +43,16 @@ const isDraft = LOCALES[locale]?.status === 'draft'
 {alternates.map((alt) => <link rel='alternate' hreflang={alt.lang} href={alt.href} />)}
 <link rel='alternate' hreflang='x-default' href={englishUrl} />
 
+<!-- THEME -->
+<!-- The site follows `prefers-color-scheme` and has no toggle, so the browser chrome can be
+     declared statically. `dark light` puts dark first: that is the palette a browser with no
+     preference gets, matching the base @theme block in src/styles/global.css. Kept here rather
+     than in CSS so it applies before the stylesheet lands. Starlight owns its own <head> and does
+     not render this component; it sets the same thing itself from `data-theme`. -->
+<meta name='color-scheme' content='dark light' />
+<meta name='theme-color' content='#201b1a' media='(prefers-color-scheme: dark)' />
+<meta name='theme-color' content='#faf6ef' media='(prefers-color-scheme: light)' />
+
 <!-- OPEN GRAPH -->
 <meta property='og:type' content='website' />
 <meta property='og:title' content={title} />

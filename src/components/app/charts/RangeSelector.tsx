@@ -21,7 +21,7 @@ const RangeSelector = ({ value, onChange, t }: Props) => (
         aria-pressed={range === value}
         className={
           'num cursor-pointer rounded-full px-3.5 py-1.5 ' +
-          (range === value ? 'bg-accent text-on-accent' : 'text-text-muted hover:text-accent')
+          (range === value ? 'bg-accent-fill text-on-accent' : 'text-text-muted hover:text-accent')
         }
         onClick={() => onChange(range)}
       >
