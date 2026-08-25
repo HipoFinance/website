@@ -7,6 +7,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-25 — [detailed report](changelog/2026-08-25-dapp-analytics-events.md)
+
+- Added `wallet_connect`, `stake_initiated`, `stake_confirmed` and
+  `unstake_confirmed` GA4 events to the dApp.
+- Gated `wallet_connect` on `connectionRestored` so restored sessions are not
+  counted as new connects.
+- Added `src/components/app/analytics.ts`, a no-op when `gtag` is absent.
+
 ## 2026-08-25 — [detailed report](changelog/2026-08-25-multiple-wallets-docs.md)
 
 - New `/docs/wallets-and-rewards/` page: how rewards follow wallets, and the

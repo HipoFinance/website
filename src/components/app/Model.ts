@@ -28,6 +28,7 @@ import {
   createUnstakeMessage,
 } from '@hipo-finance/sdk'
 import { OldTreasury } from './OldTreasury'
+import { track } from './analytics'
 import { detectTmaMode, initTelegramChrome, telegramLanguageCode, tmaClass, type TmaMode } from './tma/telegram'
 import { DEFAULT_LOCALE, LOCALES, isReleased } from '../../i18n/registry.mjs'
 import { dirOf, langOf, localizedPath, matchLocale, stripLocale, type Locale } from '../../i18n/locale.ts'
@@ -44,6 +45,11 @@ type ActiveTab = 'stake' | 'unstake'
 export type StatsRange = '24h' | '7d' | '30d' | '90d' | '1y'
 
 type UnstakeOption = 'best' | 'instant'
+
+// What `send` handed to `waitForCompletion`, so the confirmation event can name the amount and the
+// kind after the fact — by then `clearAmount` has run and `unstakeOption` may have been changed.
+// Absent for the old-wallet upgrade, which also waits for a transaction but is not a stake.
+type PendingTx = { kind: 'stake' | 'unstake'; amountGram: number; unstakeType?: UnstakeOption }
 
 type WaitForTransaction = 'no' | 'signed' | 'sent' | 'timeout' | 'done'
 
@@ -408,6 +414,10 @@ export class Model {
   amount = ''
   amountInvalid = false
   unstakeOption: UnstakeOption = 'best'
+
+  // The connected wallet's app name ('tonkeeper', 'mytonwallet', …) for the analytics events.
+  // Deliberately not observable: no UI reads it, and making it so would re-render on connect.
+  connectedWalletName?: string
   waitForTransaction: WaitForTransaction = 'no'
   amountAlert: AmountAlert = 'none'
   ongoingRequests = 0
@@ -2154,9 +2164,24 @@ export class Model {
         from: this.address.toRawString(),
         messages: [message],
       }
+      // Read before sending: `clearAmount` runs on completion, and the unstake option is a live
+      // control the user can still move while the wallet dialog is open.
+      const isStake = this.isStakeTabActive
+      const pending: PendingTx = {
+        kind: isStake ? 'stake' : 'unstake',
+        // hGRAM for an unstake, GRAM for a stake — the spec asks for `amount_gram` on both.
+        amountGram: Number(fromNano(this.amountInNano)),
+        unstakeType: isStake ? undefined : this.unstakeOption,
+      }
+      // Fired here rather than on success, so the funnel counts everyone who reached the wallet
+      // dialog — the ones who never sign are exactly the number worth knowing.
+      if (isStake) {
+        track('stake_initiated', { amount_gram: pending.amountGram })
+      }
+
       void this.guardedSendTransaction(tx).then(
         () =>
-          this.waitForCompletion(queryId).then(() => {
+          this.waitForCompletion(queryId, pending).then(() => {
             this.clearAmount()
           }),
         (e: unknown) => {
@@ -2168,7 +2193,7 @@ export class Model {
     }
   }
 
-  waitForCompletion = async (queryId: bigint) => {
+  waitForCompletion = async (queryId: bigint, pending?: PendingTx) => {
     const tonClient = this.tonClient
     const address = this.address
 
@@ -2210,6 +2235,13 @@ export class Model {
               await this.readLastBlock()
               clearTimeout(this.timeoutReadLastBlock)
               this.setWaitForTransaction('done')
+              if (pending != null) {
+                track(pending.kind === 'stake' ? 'stake_confirmed' : 'unstake_confirmed', {
+                  amount_gram: pending.amountGram,
+                  wallet_name: pending.kind === 'stake' ? this.connectedWalletName : undefined,
+                  unstake_type: pending.unstakeType,
+                })
+              }
               return
             }
           }
@@ -2335,8 +2367,22 @@ export class Model {
         },
       },
     })
+    // TonConnect replays onStatusChange on page load while it restores a stored session. Those are
+    // not connections the visitor just made, and counting them would bury the funnel's first step
+    // under returning users. `connectionRestored` settles once that replay is over, so a wallet
+    // arriving after it is a real connect.
+    let restored = false
+    void this.tonConnectUI.connectionRestored.then(() => {
+      restored = true
+    })
     this.tonConnectUI.onStatusChange((wallet) => {
-      this.setAddress(wallet == null ? undefined : Address.parseRaw(wallet.account.address))
+      const address = wallet == null ? undefined : Address.parseRaw(wallet.account.address)
+      const isNewAddress = address != null && (this.address == null || !this.address.equals(address))
+      this.connectedWalletName = wallet?.device.appName
+      this.setAddress(address)
+      if (restored && isNewAddress) {
+        track('wallet_connect', { wallet_name: wallet?.device.appName })
+      }
     })
     // The modal is long-lived (it survives ClientRouter swaps, see keepRuntimeStyles), so a
     // scheme change while the app is open has to be pushed into it.
