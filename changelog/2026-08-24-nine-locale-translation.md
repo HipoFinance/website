@@ -131,6 +131,18 @@ which is exactly why it is dangerous), the 404 page's `::selection` still used t
 the Persian 404 CTA had an unmirrored `→` among nine mirrored `←` siblings, and `CHANGELOG.md` needed
 a `prettier` pass after the entry lists were interleaved.
 
+### llms.txt
+
+`public/llms.txt` stays English for every language (decision 8), but it now has to describe the ten
+of them: a "Languages and localized URLs" section listing each prefix and its direction, the rule that
+any English URL has a twin at the same path behind a prefix, and the caveats an LLM needs — English is
+authoritative while translations await native review, product and contract names are never translated,
+addresses and code are byte-identical, and `fa`/`ar` numerals and Jalali dates are not different
+values. One correction found while writing it: `/faq/` and `/hpo/` anchors really are the same English
+slugs in every locale, but Starlight generates docs heading anchors from the _translated_ heading
+(`/fa/docs/…` has `id="استیک-کردن-گام‌به‌گام"` where English has `id="staking-step-by-step"`), so a
+`/docs/` fragment is only valid for its own language. The file says so.
+
 ## Verification performed
 
 - `node scripts/check-i18n.mjs` — 583/583 items in all nine locales: `missing 0`, `stale 0`,

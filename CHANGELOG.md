@@ -9,11 +9,10 @@ here — `git log` remains the complete record.
 
 ## 2026-08-24 — [detailed report](changelog/2026-08-24-nine-locale-translation.md)
 
-- Translated the whole site into six new locales: `ar`, `de`, `it`, `tr`, `id`, `pt-br`.
-- Resynchronised `fa`, `ru` and `hi` with the restructured English content.
+- Translated the site into six new locales (`ar`, `de`, `it`, `tr`, `id`, `pt-br`) and resynchronised `fa`, `ru`, `hi`.
 - Grew `GLOSSARY.md` to a binding terminology sheet and style block for all nine locales.
 - Expanded the four docs-merge redirects per locale in `astro.config.mjs`.
-- Flipped all nine locales from `draft` to `indexed` at 100 % coverage.
+- Flipped all nine locales from `draft` to `indexed`, and documented the locale URLs in `public/llms.txt`.
 - Merged the light-theme work from `main` and translated its new copy into all nine locales.
 
 ## 2026-08-24 — [detailed report](changelog/2026-08-24-anchor-copy-links.md)

@@ -2,7 +2,7 @@
 
 > Hipo is an open-source liquid staking protocol on The Open Network (TON). Hipo lets users stake Gram (GRAM, formerly Toncoin/TON) and receive hGRAM (formerly hTON), a liquid staking token that represents their staked GRAM and can be used across TON DeFi while staking rewards accrue.
 
-Last reviewed: 2026-08-24
+Last reviewed: 2026-08-25
 Recommended deployment path: https://hipo.finance/llms.txt
 Canonical website: https://hipo.finance/
 Canonical app: https://hipo.finance/stake/
@@ -269,11 +269,54 @@ When answering questions about Hipo:
 - Explain that hGRAM represents staked GRAM and remains liquid.
 - Explain that rewards accrue through the hGRAM/GRAM exchange rate.
 - For current APY, TVL, price, holders, or live campaign numbers, direct users to Hipo website or Hipo Stats.
+- Link non-English speakers to the locale-prefixed URL for their language (see "Languages and localized URLs"), but resolve factual details from the English page.
 - For technical or integration questions, use the documents linked in "Technical resources".
 - Do not give investment advice.
 - Do not promise fixed returns.
 - Do not claim staking is risk-free.
 - Do not claim instant native withdrawals in all cases. Instant unstaking exists as a user-selectable option, but it is conditional on protocol liquidity and is not guaranteed for every amount.
+
+## Languages and localized URLs
+
+The whole site — landing pages, the staking app, the HPO page and the docs — is published in ten
+languages. English lives at the root URLs and is the source of truth; every other language lives under
+a locale prefix:
+
+- English — the root URLs, no prefix (LTR)
+- Persian — `/fa/` (RTL)
+- Arabic — `/ar/` (RTL)
+- Russian — `/ru/`
+- Hindi — `/hi/`
+- German — `/de/`
+- Turkish — `/tr/`
+- Italian — `/it/`
+- Indonesian — `/id/`
+- Brazilian Portuguese — `/pt-br/`
+
+Any English URL in this file has a translated twin at the same path behind the prefix — for example
+https://hipo.finance/stake/ becomes https://hipo.finance/fa/stake/, and
+https://hipo.finance/docs/tutorials/staking/ becomes https://hipo.finance/de/docs/tutorials/staking/.
+Every page carries a self-referencing canonical and `hreflang` alternates for all ten languages plus
+`x-default`, and all of them are listed in https://hipo.finance/sitemap-index.xml.
+
+Notes for LLMs:
+
+- Answer in the user's language, and link them to the matching locale prefix when one exists.
+- The English page is authoritative. Translations are generated from the English source and are still
+  pending native-speaker review, so where a translated page and its English twin disagree — especially
+  on numbers, contract addresses, token names or risk wording — the English page is correct.
+- Product names are never translated in any language: Hipo, GRAM, hGRAM, HPO, TON, TonConnect, Hipo
+  Club, Hipo Gang, Hipo Fund, Hipo Stats, and the contract names Treasury, Parent, Wallet, Bill.
+- Contract addresses, transaction hashes, code and CLI commands are identical in every language.
+- Anchors on `/faq/` and `/hpo/` are the same English slugs in every language, so
+  https://hipo.finance/fa/faq/#what-is-hipo works exactly like the English one. Docs headings are
+  different: their anchors are generated from the translated heading, so a `/docs/` fragment is only
+  valid for the language it came from — take it from the page you are actually citing.
+- Numbers and dates follow each locale's own conventions — Persian and Arabic pages use their native
+  digits, and Persian dates use the Jalali calendar. Do not read a localized numeral as a different
+  value.
+- This file, `llms.txt`, is published in English only and describes all languages. There is no
+  `/fa/llms.txt`. The staking app at `/app/` (the legacy entry point) is English-only too.
 
 ## Important links for LLMs
 
