@@ -13,9 +13,10 @@ sitemap, but with no visible language dropdown or suggestion banner.
 
 ## Commits
 
-| Commit    | Subject                              |
-| --------- | ------------------------------------ |
-| `33abe5f` | Translate the site into nine locales |
+| Commit    | Subject                                                             |
+| --------- | ------------------------------------------------------------------- |
+| `33abe5f` | Translate the site into nine locales                                |
+| `fb449fc` | Merge remote-tracking branch 'origin/main' into i18n-multi-language |
 
 ## What changed
 
@@ -98,6 +99,37 @@ Each was repaired by a dedicated structural-fix pass rather than a re-translatio
 With the tree clean, all nine locales were flipped from `draft` to `indexed` in
 `src/i18n/registry.mjs`. They are built, `hreflang`-linked and in the sitemap; the language
 dropdowns and the suggestion banner stay dormant, since those need two `public` locales.
+
+## Merging the light-theme work
+
+`origin/main` had moved twelve commits ahead while this branch ran — a site-wide light palette plus
+new copy — so the branch merged it before going back. Fourteen files conflicted; the rule was to keep
+theirs for design and new copy and ours for i18n and RTL. Two integration consequences:
+
+- **New English copy needs new keys.** The footer's Telegram strip became a "Start Staking GRAM" CTA,
+  the steps row gained a matching CTA card, and the 404 page was rewritten. That is nine new catalog
+  keys (`site.footer.cta*`, `site.notFound.headline`/`lead`/`askChat`, `landing.how.cta.*`) and six
+  retired ones (`site.footer.joinPrompt`/`joinNow`, `site.notFound.heading`/`body`/`support`/`chat`),
+  translated into all nine locales — the item count went 583 → 586.
+- **The accent split reaches i18n-touched markup.** `bg-accent` became `bg-accent-fill` and the logo
+  became a `logo-on-dark`/`logo-on-light` pair; both had to be re-applied on top of our `t(...)`,
+  `localizedPath(...)` and logical-utility edits in the same lines.
+
+A review of the resolution caught two defects a build cannot see, both fixed in the merge commit:
+
+- `syncTonConnectTheme` assigned `uiOptions` without `actionsConfiguration`. TonConnect's setter
+  assigns that field wholesale (`this.actionsConfiguration = options.actionsConfiguration`, no `in`
+  guard), so every OS light/dark flip cleared `twaReturnUrl` and the next signed transaction would
+  strand a Mini App user in their wallet. The branch already documented this invariant next to
+  `applyTonConnectLanguage`; the newly merged theme sync did not honour it.
+- The merge reverted the auditor rename from the content-accuracy session — the March 2024 card was
+  back to "Ender Ting" while still keyed `landing.audits.programCrafterDate`. Restored to
+  ProgramCrafter / `PC`.
+
+Four smaller items went in with them: `CLAUDE.md` claimed `bg-accent` "does not exist" (it compiles,
+which is exactly why it is dangerous), the 404 page's `::selection` still used the foreground coral,
+the Persian 404 CTA had an unmirrored `→` among nine mirrored `←` siblings, and `CHANGELOG.md` needed
+a `prettier` pass after the entry lists were interleaved.
 
 ## Verification performed
 
