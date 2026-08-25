@@ -130,6 +130,15 @@ const retryWalletRewardsDelay = 5 * 1000
 const updateTimesDelay = 5 * 60 * 1000
 const updateLastBlockDelay = 30 * 1000
 const retryDelay = 3 * 1000
+
+// A read that fails is retried on a fixed 1s gap, 30 times — half a minute for a hiccup to clear.
+// Not to be confused with retryDelay above, which is how long a *whole* failed read waits before
+// being scheduled again. Until 2026-08-25 the gap here was zero (`setTimeout(attempt)` with no
+// delay), so all attempts burned within milliseconds of each other: any brief network failure
+// during waitForCompletion exhausted them at once and told the user "Cannot find your transaction"
+// seconds after a stake that had in fact landed on-chain.
+const retryAttemptDelay = 1000
+const retryAttempts = 30
 const waitForCompletionDelay = 250 // roughly one block time, since TON's fast blocks
 const txValidUntil = 5 * 60
 
@@ -2460,11 +2469,11 @@ function sleep(ms: number) {
   return new Promise((r) => setTimeout(r, ms))
 }
 
-function retry<T>(fn: () => Promise<T>, retries = 10): Promise<T> {
+function retry<T>(fn: () => Promise<T>, retries = retryAttempts): Promise<T> {
   return new Promise(function (resolve, reject) {
     let err: Error | undefined
     const attempt = () => {
-      if (retries < 10) {
+      if (retries < retryAttempts) {
         console.warn('retry', retries)
       }
       if (retries <= 0) {
@@ -2475,7 +2484,7 @@ function retry<T>(fn: () => Promise<T>, retries = 10): Promise<T> {
           .catch((e: unknown) => {
             retries -= 1
             err = e as Error
-            setTimeout(attempt)
+            setTimeout(attempt, retryAttemptDelay)
           })
       }
     }

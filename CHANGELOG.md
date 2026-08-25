@@ -7,6 +7,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-25 — [detailed report](changelog/2026-08-25-retry-backoff.md)
+
+- `retry` rescheduled failed attempts with no delay, spending all ten in a
+  couple of seconds.
+- Reads now retry 30 times, 1 second apart, so a hiccup no longer surfaces as
+  "Cannot find your transaction" after a stake that landed.
+- `console.warn('retry', …)` now fires from the first failed attempt.
+
 ## 2026-08-25 — [detailed report](changelog/2026-08-25-dapp-analytics-events.md)
 
 - Added `wallet_connect`, `stake_initiated`, `stake_confirmed` and
