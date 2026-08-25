@@ -32,49 +32,44 @@ HPO und hGRAM in einer Wallet, die Sie **nie** verbunden haben, verdienen überh
 
 ## Nachdem Sie einen Hipo-Club-Airdrop erhalten haben
 
-Wenn Sie einen Club-Airdrop erhalten, hält Hipo den Betrag fest, den Sie **behalten** sollen. Hipo Club belohnt das Halten: verlässt dieses HPO Ihre Wallet, wird Ihre Stufe auf Stufe 1 zurückgesetzt und Ihr Reward-Koeffizient sinkt entsprechend.
+Wenn Sie einen Club-Airdrop erhalten, hält Hipo den Betrag fest, den Sie **behalten** sollen. Hipo Club belohnt das Halten: verlässt dieses HPO Ihre Wallets, wird Ihre Stufe auf Stufe 1 zurückgesetzt und Ihr Reward-Koeffizient sinkt entsprechend.
 
-**Worauf Sie achten müssen:** Diese Prüfung sieht **eine** Wallet an — die zuletzt in der Hipo-Club-App verbundene. Sie zählt Ihre Wallets nicht zusammen.
+**Der Betrag wird über alle Ihre Hipo-Club-Wallets zusammengezählt.** Es spielt keine Rolle, welche davon das HPO hält oder welche Sie zuletzt verbunden haben — verschieben Sie es zwischen Ihren verbundenen Wallets, so oft Sie möchten.
 
-Das heißt, das Folgende sieht für Hipo identisch aus und setzt Ihre Stufe jeweils zurück:
+Was Ihre Stufe zurücksetzt:
 
 - Ihr verdientes HPO verkaufen.
-- Ihr verdientes HPO in eine andere Wallet verschieben.
-- Eine andere Wallet in der Club-App verbinden, wenn diese Wallet nicht selbst den vollen zu haltenden Betrag enthält.
-
-Der letzte Punkt ist die Überraschung. Eine zweite in der Club-App verbundene Wallet wird zu Ihrer aktuellen Wallet, und wenn sie kein HPO enthält, liest es sich, als hätten Sie alles verkauft.
+- Es an eine Börse senden oder an eine Wallet, die Sie nicht in Hipo Club verbunden haben.
 
 :::note
-Wallets in der [Hipo-App](/stake/) auf hipo.finance zu verbinden oder zu wechseln, wirkt sich darauf **nicht** aus. Nur die Hipo-Club-App bestimmt, welche Wallet Ihre aktuelle ist. Wallets auf der Website für Rewards zu registrieren, ist immer sicher.
+Eine Wallet in der [Hipo-App](/stake/) auf hipo.finance zu verbinden, registriert sie für Rewards, macht sie aber nicht zu einer Ihrer Hipo-Club-Wallets. Nur in der Club-App verbundene Wallets zählen zu dem Betrag, den Sie behalten sollen — verbinden Sie die Wallet mit Ihrem verdienten HPO also auch dort.
 :::
 
-## Schritt für Schritt: eine Wallet sicher hinzufügen
+## Schritt für Schritt: eine Wallet hinzufügen
 
 1. **Registrieren Sie die neue Wallet für Rewards.** Verbinden Sie sie in der Hipo-App und öffnen Sie die [Rewards-Seite](/rewards/) einmal. Sie verdient nun HPO auf alles, was sie hält. Wenn Sie nie einen Club-Airdrop erhalten haben, sind Sie fertig.
-2. **Prüfen Sie, was Sie behalten sollen.** Öffnen Sie Hipo Club und sehen Sie sich Ihre Stufe und Ihr erforderliches HPO-Guthaben an.
-3. **Wenn die neue Wallet auch in der Club-App sein soll, verbinden Sie sie dort — und verbinden Sie danach als Letztes wieder Ihre HPO-Hauptwallet.** Ihre aktuelle Wallet ist immer die zuletzt verbundene; zum Schluss die Wallet mit Ihrem HPO zu verbinden, lässt die Prüfung auf die richtige Stelle zeigen.
-4. **Behalten Sie Ihr verdientes HPO in dieser einen Wallet.** Verteilen Sie hGRAM auf so viele Wallets, wie Sie möchten; halten Sie das zu haltende HPO zusammen in Ihrer aktuellen Wallet.
-5. **Prüfen Sie danach Ihre Stufe.** Zeigt Hipo Club weiterhin Ihre Stufe, ist nichts durcheinandergeraten.
+2. **Verbinden Sie sie auch in Hipo Club, wenn sie verdientes HPO von Ihnen hält.** Erst dadurch zählt ihr Guthaben zu dem Betrag, den Sie behalten sollen. Die Reihenfolge, in der Sie Wallets verbinden, spielt keine Rolle.
+3. **Prüfen Sie danach Ihre Stufe.** Zeigt Hipo Club weiterhin Ihre Stufe, ist alles in Ordnung.
 
 ## Wenn Ihre Stufe auf Stufe 1 gefallen ist
 
-Hipo Club zeigt die Differenz an — wie viel HPO Ihrer aktuellen Wallet fehlt.
+Hipo Club zeigt die Differenz an — wie viel HPO über Ihre verbundenen Wallets hinweg fehlt.
 
-1. Verschieben Sie genug HPO zurück in Ihre **aktuelle** Wallet, um den erforderlichen Betrag zu decken.
-2. Warten Sie die nächste Validierungsrunde ab (~18 Stunden). Ihre Stufe wird automatisch wiederhergestellt.
+Verschieben Sie entweder genug HPO zurück in eine beliebige in Hipo Club verbundene Wallet, oder verbinden Sie die Wallet, die es bereits hält. Warten Sie dann die nächste Validierungsrunde ab (~18 Stunden); Ihre Stufe wird automatisch wiederhergestellt.
 
 Zwei Dinge sind während einer Zurücksetzung wichtig: der erforderliche Betrag **wächst um 1 % pro Tag**, bis Sie ihn wiederherstellen — früher zu handeln kostet also weniger — und der höhere Betrag wird nach der Wiederherstellung zu Ihrem neuen zu haltenden Betrag.
 
 ## Kurzübersicht
 
-| Was Sie tun                                           | Wirkung auf die Rewards                                 |
-| ----------------------------------------------------- | ------------------------------------------------------- |
-| Eine neue Wallet auf hipo.finance verbinden           | Sie beginnt zu verdienen. Sonst ändert sich nichts.     |
-| Die Rewards-Seite mit einer Wallet öffnen             | Registriert diese Wallet für HPO-Rewards                |
-| Eine 2. Wallet in Hipo Club verbinden                 | Sie wird Ihre aktuelle Wallet — siehe die Airdrop-Regel |
-| hGRAM auf mehrere Wallets verteilen                   | Keine Änderung der Gesamt-Rewards                       |
-| Verdientes HPO aus Ihrer aktuellen Wallet verschieben | Stufe wird auf Stufe 1 zurückgesetzt                    |
-| HPO in einer nie verbundenen Wallet halten            | Verdient nichts                                         |
+| Was Sie tun                                                  | Wirkung auf die Rewards                             |
+| ------------------------------------------------------------ | --------------------------------------------------- |
+| Eine neue Wallet auf hipo.finance verbinden                  | Sie beginnt zu verdienen. Sonst ändert sich nichts. |
+| Die Rewards-Seite mit einer Wallet öffnen                    | Registriert diese Wallet für HPO-Rewards            |
+| Eine weitere Wallet in Hipo Club verbinden                   | Ihr HPO zählt zu dem, was Sie behalten sollen       |
+| hGRAM auf mehrere Wallets verteilen                          | Keine Änderung der Gesamt-Rewards                   |
+| Verdientes HPO zwischen Ihren Club-Wallets verschieben       | Keine Auswirkung auf Ihre Stufe                     |
+| Verdientes HPO verkaufen oder aus Ihren Wallets heraussenden | Stufe wird auf Stufe 1 zurückgesetzt                |
+| HPO in einer nie verbundenen Wallet halten                   | Verdient nichts und zählt nicht zum Behalten        |
 
 ## Verwandt
 

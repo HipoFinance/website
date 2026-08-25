@@ -7,6 +7,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-25 — [detailed report](changelog/2026-08-25-retention-counts-all-wallets.md)
+
+- Retention now sums HPO across all of a user's club wallets, so the page no
+  longer asks them to connect the HPO-holding wallet last.
+- Five steps became three; recovery gained "connect the wallet that already
+  holds it" as an option.
+- New caveat the page has to carry: only wallets connected in the Club app
+  count toward retention, not ones registered on the website.
+
 ## 2026-08-25 — [detailed report](changelog/2026-08-25-unreachable-message.md)
 
 - Added an `unreachable` wait state so a failed read no longer claims the

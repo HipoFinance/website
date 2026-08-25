@@ -32,49 +32,44 @@ HPO and hGRAM sitting in a wallet you have **never** connected earn no HPO rewar
 
 ## After you receive a Hipo Club airdrop
 
-When you receive a Club airdrop, Hipo records the amount you are expected to **keep**. Hipo Club rewards holding, so if that HPO leaves your wallet your level resets to Level 1 and your reward coefficient drops with it.
+When you receive a Club airdrop, Hipo records the amount you are expected to **keep**. Hipo Club rewards holding, so if that HPO leaves your wallets your level resets to Level 1 and your reward coefficient drops with it.
 
-**The part to be careful about:** this check looks at **one** wallet — the one most recently connected in the Hipo Club app. It does not add up your wallets.
+**The amount is counted across all of your Hipo Club wallets, added together.** It does not matter which one holds the HPO, or which you connected most recently — move it between your own connected wallets as freely as you like.
 
-That means the following all look identical to Hipo, and all reset your level:
+What does reset your level:
 
 - Selling your rewarded HPO.
-- Moving your rewarded HPO to another wallet.
-- Connecting a different wallet in the Club app, if that wallet does not itself hold the full amount you are expected to keep.
-
-The last one is the surprise. Connecting a second wallet in the Club app makes it your current wallet, and if it holds no HPO, it reads as though you sold everything.
+- Sending it to an exchange, or to any wallet you have not connected in Hipo Club.
 
 :::note
-Connecting or switching wallets in the [Hipo app](/stake/) on hipo.finance does **not** affect this. Only the Hipo Club app decides which wallet is your current one. Registering wallets for rewards on the website is always safe.
+Connecting a wallet in the [Hipo app](/stake/) on hipo.finance registers it for rewards, but does not make it one of your Hipo Club wallets. Only wallets connected in the Club app count toward the amount you are expected to keep — so connect the wallet that holds your rewarded HPO there too.
 :::
 
-## Step by step: adding a wallet safely
+## Step by step: adding a wallet
 
 1. **Register the new wallet for rewards.** Connect it in the Hipo app and open the [Rewards page](/rewards/) once. It now earns HPO on whatever it holds. If you never received a Club airdrop, you are done.
-2. **Check what you are expected to keep.** Open Hipo Club and look at your level and your required HPO balance.
-3. **If you want the new wallet in the Club app too, connect it there — then connect your main HPO wallet again, last.** Your current wallet is whichever you connected most recently, so finishing on the wallet that holds your HPO leaves the check pointing at the right place.
-4. **Keep your rewarded HPO in that one wallet.** Spread hGRAM across as many wallets as you like; keep the HPO you are expected to hold together in your current wallet.
-5. **Check your level afterwards.** If Hipo Club still shows your level, nothing was disturbed.
+2. **Connect it in Hipo Club as well, if it holds any of your rewarded HPO.** That is what makes its balance count toward the amount you are expected to keep. The order you connect wallets in does not matter.
+3. **Check your level afterwards.** If Hipo Club still shows your level, everything is in order.
 
 ## If your level dropped to Level 1
 
-Hipo Club will show the shortfall — how much HPO your current wallet is missing.
+Hipo Club will show the shortfall — how much HPO you are missing across your connected wallets.
 
-1. Move enough HPO back into your **current** wallet to cover the required amount.
-2. Wait for the next validation round (~18 hours). Your level is restored automatically.
+Either move enough HPO back into any wallet you have connected in Hipo Club, or connect the wallet that already holds it. Then wait for the next validation round (~18 hours); your level is restored automatically.
 
 Two things worth knowing while a reset is active: the required amount **grows by 1% per day** until you restore it, so acting sooner costs less, and once restored, that higher figure becomes your new amount to keep.
 
 ## Quick reference
 
-| What you do                                  | Effect on rewards                                     |
-| -------------------------------------------- | ----------------------------------------------------- |
-| Connect a new wallet on hipo.finance         | It starts earning. Nothing else changes.              |
-| Open the Rewards page with a wallet          | Registers that wallet for HPO rewards                 |
-| Connect a 2nd wallet in Hipo Club            | It becomes your current wallet — see the airdrop rule |
-| Split hGRAM across wallets                   | No change to total rewards                            |
-| Move rewarded HPO out of your current wallet | Level resets to Level 1                               |
-| Hold HPO in a wallet you never connected     | Earns nothing                                         |
+| What you do                                        | Effect on rewards                                |
+| -------------------------------------------------- | ------------------------------------------------ |
+| Connect a new wallet on hipo.finance               | It starts earning. Nothing else changes.         |
+| Open the Rewards page with a wallet                | Registers that wallet for HPO rewards            |
+| Connect another wallet in Hipo Club                | Its HPO counts toward what you must keep         |
+| Split hGRAM across wallets                         | No change to total rewards                       |
+| Move rewarded HPO between your Club wallets        | No effect on your level                          |
+| Sell rewarded HPO, or send it outside your wallets | Level resets to Level 1                          |
+| Hold HPO in a wallet you never connected           | Earns nothing, and does not count toward keeping |
 
 ## Related
 

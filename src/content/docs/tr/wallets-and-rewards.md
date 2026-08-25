@@ -32,49 +32,44 @@ Bundan sonra cüzdan kendi bakiyesi üzerinden kazanmaya devam eder. Bu kaydı h
 
 ## Bir Hipo Club airdrop'u aldıktan sonra
 
-Bir Club airdrop'u aldığınızda Hipo, **elinizde tutmanız** beklenen miktarı kaydeder. Hipo Club tutmayı ödüllendirir: o HPO cüzdanınızdan çıkarsa seviyeniz Seviye 1'e döner ve ödül katsayınız da onunla birlikte düşer.
+Bir Club airdrop'u aldığınızda Hipo, **elinizde tutmanız** beklenen miktarı kaydeder. Hipo Club tutmayı ödüllendirir: o HPO cüzdanlarınızdan çıkarsa seviyeniz Seviye 1'e döner ve ödül katsayınız da onunla birlikte düşer.
 
-**Dikkat edilmesi gereken nokta:** bu kontrol **tek bir** cüzdana bakar — Hipo Club uygulamasında en son bağladığınız cüzdana. Cüzdanlarınızı toplamaz.
+**Miktar, tüm Hipo Club cüzdanlarınız toplanarak hesaplanır.** HPO'nun hangi cüzdanda durduğu ya da en son hangisini bağladığınız fark etmez — bağlı cüzdanlarınız arasında dilediğiniz gibi taşıyabilirsiniz.
 
-Yani aşağıdakilerin hepsi Hipo açısından aynı görünür ve hepsi seviyenizi sıfırlar:
+Seviyenizi sıfırlayan şeyler:
 
 - Ödül olarak aldığınız HPO'yu satmak.
-- Ödül olarak aldığınız HPO'yu başka bir cüzdana taşımak.
-- Club uygulamasında başka bir cüzdan bağlamak — eğer o cüzdanda tutmanız gereken miktarın tamamı yoksa.
-
-Sonuncusu sürpriz olanı. Club uygulamasında ikinci bir cüzdan bağlamak onu güncel cüzdanınız yapar ve o cüzdanda HPO yoksa sistem bunu her şeyi satmışsınız gibi okur.
+- Onu bir borsaya ya da Hipo Club'da bağlamadığınız herhangi bir cüzdana göndermek.
 
 :::note
-hipo.finance üzerindeki [Hipo uygulamasında](/stake/) cüzdan bağlamak veya değiştirmek bunu **etkilemez**. Güncel cüzdanınızın hangisi olduğuna yalnızca Hipo Club uygulaması karar verir. Web sitesinde cüzdanları ödüller için kaydetmek her zaman güvenlidir.
+hipo.finance üzerindeki [Hipo uygulamasında](/stake/) bir cüzdan bağlamak onu ödüller için kaydeder, ancak Hipo Club cüzdanlarınızdan biri yapmaz. Tutmanız gereken miktara yalnızca Club uygulamasında bağlanan cüzdanlar sayılır — bu yüzden ödül HPO'nuzu tutan cüzdanı orada da bağlayın.
 :::
 
-## Adım adım: bir cüzdanı güvenle ekleme
+## Adım adım: cüzdan ekleme
 
 1. **Yeni cüzdanı ödüller için kaydedin.** Hipo uygulamasında bağlayın ve [Ödüller sayfasını](/rewards/) bir kez açın. Artık içinde tuttuğu her şey üzerinden HPO kazanır. Hiç Club airdrop'u almadıysanız işiniz bitti.
-2. **Ne kadar tutmanız gerektiğini kontrol edin.** Hipo Club'ı açın; seviyenize ve gereken HPO bakiyenize bakın.
-3. **Yeni cüzdanı Club uygulamasında da istiyorsanız orada bağlayın — sonra en son olarak ana HPO cüzdanınızı tekrar bağlayın.** Güncel cüzdanınız her zaman en son bağladığınızdır; HPO'nuzu tutan cüzdanla bitirmek kontrolün doğru yeri göstermesini sağlar.
-4. **Ödül HPO'nuzu o tek cüzdanda tutun.** hGRAM'ı dilediğiniz kadar cüzdana dağıtın; tutmanız gereken HPO'yu güncel cüzdanınızda bir arada tutun.
-5. **Sonrasında seviyenizi kontrol edin.** Hipo Club hâlâ seviyenizi gösteriyorsa hiçbir şey bozulmamıştır.
+2. **Ödül HPO'nuzun bir kısmını tutuyorsa Hipo Club'da da bağlayın.** Bakiyesinin, tutmanız gereken miktara sayılmasını sağlayan şey budur. Cüzdanları hangi sırayla bağladığınız fark etmez.
+3. **Sonrasında seviyenizi kontrol edin.** Hipo Club hâlâ seviyenizi gösteriyorsa her şey yolundadır.
 
 ## Seviyeniz Seviye 1'e düştüyse
 
-Hipo Club eksiği gösterir — güncel cüzdanınızda ne kadar HPO eksik olduğunu.
+Hipo Club eksiği gösterir — bağlı cüzdanlarınızın tamamında ne kadar HPO eksik olduğunu.
 
-1. Gereken miktarı karşılayacak kadar HPO'yu **güncel** cüzdanınıza geri taşıyın.
-2. Bir sonraki doğrulama turunu bekleyin (~18 saat). Seviyeniz otomatik olarak geri gelir.
+Ya Hipo Club'da bağladığınız herhangi bir cüzdana yeterli HPO geri taşıyın, ya da o HPO'yu zaten tutan cüzdanı bağlayın. Sonra bir sonraki doğrulama turunu bekleyin (~18 saat); seviyeniz otomatik olarak geri gelir.
 
 Sıfırlama sürerken bilinmesi gereken iki şey: gereken miktar siz geri yükleyene kadar **günde %1 artar**, yani erken davranmak daha ucuza gelir; geri yüklendikten sonra da bu yüksek tutar yeni tutmanız gereken miktar olur.
 
 ## Hızlı başvuru
 
-| Yaptığınız şey                           | Ödüller üzerindeki etkisi                       |
-| ---------------------------------------- | ----------------------------------------------- |
-| hipo.finance'te yeni bir cüzdan bağlamak | Kazanmaya başlar. Başka bir şey değişmez.       |
-| Bir cüzdanla Ödüller sayfasını açmak     | O cüzdanı HPO ödülleri için kaydeder            |
-| Hipo Club'da 2. bir cüzdan bağlamak      | Güncel cüzdanınız olur — airdrop kuralına bakın |
-| hGRAM'ı cüzdanlara bölmek                | Toplam ödüllerde değişiklik olmaz               |
-| Ödül HPO'yu güncel cüzdandan çıkarmak    | Seviye, Seviye 1'e döner                        |
-| Hiç bağlanmamış bir cüzdanda HPO tutmak  | Hiçbir şey kazanmaz                             |
+| Yaptığınız şey                                           | Ödüller üzerindeki etkisi                       |
+| -------------------------------------------------------- | ----------------------------------------------- |
+| hipo.finance'te yeni bir cüzdan bağlamak                 | Kazanmaya başlar. Başka bir şey değişmez.       |
+| Bir cüzdanla Ödüller sayfasını açmak                     | O cüzdanı HPO ödülleri için kaydeder            |
+| Hipo Club'da başka bir cüzdan bağlamak                   | HPO'su, tutmanız gereken miktara sayılır        |
+| hGRAM'ı cüzdanlara bölmek                                | Toplam ödüllerde değişiklik olmaz               |
+| Ödül HPO'yu Club cüzdanlarınız arasında taşımak          | Seviyenize etkisi yok                           |
+| Ödül HPO'yu satmak veya cüzdanlarınızın dışına göndermek | Seviye, Seviye 1'e döner                        |
+| Hiç bağlanmamış bir cüzdanda HPO tutmak                  | Hiçbir şey kazanmaz ve tutma miktarına sayılmaz |
 
 ## İlgili
 

@@ -32,49 +32,44 @@ HPO e hGRAM in un wallet che non hai **mai** connesso non guadagnano alcuna rico
 
 ## Dopo aver ricevuto un airdrop di Hipo Club
 
-Quando ricevi un airdrop del Club, Hipo registra l'importo che ci si aspetta tu **conservi**. Hipo Club premia chi detiene: se quell'HPO lascia il tuo wallet, il tuo livello torna al Livello 1 e il coefficiente di ricompensa scende di conseguenza.
+Quando ricevi un airdrop del Club, Hipo registra l'importo che ci si aspetta tu **conservi**. Hipo Club premia chi detiene: se quell'HPO lascia i tuoi wallet, il tuo livello torna al Livello 1 e il coefficiente di ricompensa scende di conseguenza.
 
-**Il punto a cui fare attenzione:** questo controllo guarda **un solo** wallet — quello connesso più di recente nell'app Hipo Club. Non somma i tuoi wallet.
+**L'importo viene sommato su tutti i tuoi wallet di Hipo Club.** Non importa quale di essi contenga l'HPO, né quale hai connesso più di recente: spostalo fra i tuoi wallet connessi quanto vuoi.
 
-Questo significa che quanto segue appare identico a Hipo, e in ogni caso azzera il tuo livello:
+Cosa azzera il tuo livello:
 
 - Vendere l'HPO ricevuto come ricompensa.
-- Spostare l'HPO ricevuto in un altro wallet.
-- Connettere un wallet diverso nell'app Club, se quel wallet non contiene a sua volta l'intero importo che devi conservare.
-
-L'ultimo è quello che sorprende. Connettere un secondo wallet nell'app Club lo rende il tuo wallet corrente, e se non contiene HPO, il sistema legge la situazione come se avessi venduto tutto.
+- Inviarlo a un exchange, o a un wallet che non hai connesso in Hipo Club.
 
 :::note
-Connettere o cambiare wallet nell'[app Hipo](/stake/) su hipo.finance **non** ha alcun effetto su questo. Solo l'app Hipo Club decide quale wallet è quello corrente. Registrare i wallet per le ricompense sul sito è sempre sicuro.
+Connettere un wallet nell'[app Hipo](/stake/) su hipo.finance lo registra per le ricompense, ma non lo rende uno dei tuoi wallet di Hipo Club. Solo i wallet connessi nell'app Club contano ai fini dell'importo che devi conservare: connetti anche lì il wallet che contiene il tuo HPO ricevuto.
 :::
 
-## Passo per passo: aggiungere un wallet in sicurezza
+## Passo per passo: aggiungere un wallet
 
 1. **Registra il nuovo wallet per le ricompense.** Connettilo nell'app Hipo e apri una volta la [pagina Ricompense](/rewards/). Ora guadagna HPO su ciò che detiene. Se non hai mai ricevuto un airdrop del Club, hai finito.
-2. **Controlla quanto devi conservare.** Apri Hipo Club e guarda il tuo livello e il saldo HPO richiesto.
-3. **Se vuoi il nuovo wallet anche nell'app Club, connettilo lì — poi riconnetti per ultimo il tuo wallet HPO principale.** Il tuo wallet corrente è sempre quello connesso più di recente: finire con il wallet che contiene il tuo HPO lascia il controllo puntato nel posto giusto.
-4. **Tieni l'HPO ricevuto in quell'unico wallet.** Distribuisci hGRAM su quanti wallet vuoi; tieni insieme nel wallet corrente l'HPO che devi conservare.
-5. **Controlla il livello dopo.** Se Hipo Club mostra ancora il tuo livello, non è cambiato nulla.
+2. **Connettilo anche in Hipo Club, se contiene parte del tuo HPO ricevuto.** È questo a far contare il suo saldo ai fini dell'importo che devi conservare. L'ordine in cui connetti i wallet non conta.
+3. **Controlla il livello dopo.** Se Hipo Club mostra ancora il tuo livello, va tutto bene.
 
 ## Se il tuo livello è sceso al Livello 1
 
-Hipo Club mostra la differenza — quanto HPO manca al tuo wallet corrente.
+Hipo Club mostra la differenza: quanto HPO manca sull'insieme dei tuoi wallet connessi.
 
-1. Riporta abbastanza HPO nel tuo wallet **corrente** da coprire l'importo richiesto.
-2. Attendi il round di validazione successivo (~18 ore). Il tuo livello viene ripristinato automaticamente.
+Riporta abbastanza HPO in un qualsiasi wallet che hai connesso in Hipo Club, oppure connetti il wallet che già lo contiene. Poi attendi il round di validazione successivo (~18 ore): il tuo livello viene ripristinato automaticamente.
 
 Due cose da sapere mentre un azzeramento è attivo: l'importo richiesto **cresce dell'1% al giorno** finché non lo ripristini, quindi agire prima costa meno, e una volta ripristinato quell'importo più alto diventa il nuovo importo da conservare.
 
 ## Riferimento rapido
 
-| Cosa fai                                        | Effetto sulle ricompense                                     |
-| ----------------------------------------------- | ------------------------------------------------------------ |
-| Connetti un nuovo wallet su hipo.finance        | Inizia a guadagnare. Nient'altro cambia.                     |
-| Apri la pagina Ricompense con un wallet         | Registra quel wallet per le ricompense in HPO                |
-| Connetti un 2º wallet in Hipo Club              | Diventa il tuo wallet corrente — vedi la regola sull'airdrop |
-| Dividi hGRAM su più wallet                      | Nessuna variazione delle ricompense totali                   |
-| Sposti l'HPO ricevuto fuori dal wallet corrente | Il livello torna al Livello 1                                |
-| Detieni HPO in un wallet mai connesso           | Non guadagna nulla                                           |
+| Cosa fai                                              | Effetto sulle ricompense                            |
+| ----------------------------------------------------- | --------------------------------------------------- |
+| Connetti un nuovo wallet su hipo.finance              | Inizia a guadagnare. Nient'altro cambia.            |
+| Apri la pagina Ricompense con un wallet               | Registra quel wallet per le ricompense in HPO       |
+| Connetti un altro wallet in Hipo Club                 | Il suo HPO conta per l'importo da conservare        |
+| Dividi hGRAM su più wallet                            | Nessuna variazione delle ricompense totali          |
+| Sposti l'HPO ricevuto fra i tuoi wallet del Club      | Nessun effetto sul livello                          |
+| Vendi l'HPO ricevuto o lo invii fuori dai tuoi wallet | Il livello torna al Livello 1                       |
+| Detieni HPO in un wallet mai connesso                 | Non guadagna nulla e non conta per la conservazione |
 
 ## Correlati
 

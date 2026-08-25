@@ -32,49 +32,44 @@ HPO e hGRAM em uma carteira que você **nunca** conectou não rendem nenhuma rec
 
 ## Depois de receber um airdrop do Hipo Club
 
-Quando você recebe um airdrop do Club, a Hipo registra o valor que espera que você **mantenha**. O Hipo Club recompensa quem segura: se esse HPO sair da sua carteira, seu nível volta para o Nível 1 e seu coeficiente de recompensa cai junto.
+Quando você recebe um airdrop do Club, a Hipo registra o valor que espera que você **mantenha**. O Hipo Club recompensa quem segura: se esse HPO sair das suas carteiras, seu nível volta para o Nível 1 e seu coeficiente de recompensa cai junto.
 
-**O ponto que exige atenção:** essa verificação olha para **uma** carteira — a conectada mais recentemente no app do Hipo Club. Ela não soma suas carteiras.
+**O valor é somado entre todas as suas carteiras do Hipo Club.** Não importa qual delas guarda o HPO, nem qual você conectou por último — mova-o entre as suas carteiras conectadas à vontade.
 
-Ou seja, tudo o que segue parece idêntico para a Hipo, e zera o seu nível:
+O que zera o seu nível:
 
 - Vender o HPO recebido como recompensa.
-- Mover o HPO recebido para outra carteira.
-- Conectar outra carteira no app do Club, se essa carteira não tiver ela mesma o valor total que você deve manter.
-
-O último é o que surpreende. Conectar uma segunda carteira no app do Club a torna sua carteira atual e, se ela não tiver HPO, o sistema lê como se você tivesse vendido tudo.
+- Enviá-lo para uma exchange, ou para qualquer carteira que você não tenha conectado no Hipo Club.
 
 :::note
-Conectar ou trocar de carteira no [app da Hipo](/stake/) em hipo.finance **não** afeta isso. Só o app do Hipo Club define qual é a sua carteira atual. Registrar carteiras para recompensas no site é sempre seguro.
+Conectar uma carteira no [app da Hipo](/stake/) em hipo.finance a registra para recompensas, mas não a torna uma das suas carteiras do Hipo Club. Só as carteiras conectadas no app do Club contam para o valor que você deve manter — então conecte lá também a carteira que guarda o seu HPO recebido.
 :::
 
-## Passo a passo: adicionar uma carteira com segurança
+## Passo a passo: adicionar uma carteira
 
 1. **Registre a nova carteira para recompensas.** Conecte-a no app da Hipo e abra a [página de Recompensas](/rewards/) uma vez. Ela já rende HPO sobre o que guardar. Se você nunca recebeu um airdrop do Club, terminou aqui.
-2. **Veja quanto você precisa manter.** Abra o Hipo Club e confira seu nível e o saldo de HPO exigido.
-3. **Se quiser a nova carteira também no app do Club, conecte-a lá — e depois reconecte sua carteira principal de HPO, por último.** Sua carteira atual é sempre a conectada mais recentemente; terminar pela carteira que guarda seu HPO deixa a verificação apontando para o lugar certo.
-4. **Mantenha o HPO recebido nessa única carteira.** Espalhe hGRAM por quantas carteiras quiser; mantenha junto, na carteira atual, o HPO que você precisa segurar.
-5. **Confira seu nível depois.** Se o Hipo Club ainda mostra seu nível, nada foi alterado.
+2. **Conecte-a também no Hipo Club, se ela guardar parte do seu HPO recebido.** É isso que faz o saldo dela contar para o valor que você deve manter. A ordem em que você conecta as carteiras não importa.
+3. **Confira seu nível depois.** Se o Hipo Club ainda mostra seu nível, está tudo certo.
 
 ## Se seu nível caiu para o Nível 1
 
-O Hipo Club mostra a diferença — quanto HPO falta na sua carteira atual.
+O Hipo Club mostra a diferença — quanto HPO falta somando as suas carteiras conectadas.
 
-1. Traga HPO de volta para a sua carteira **atual** até cobrir o valor exigido.
-2. Aguarde a próxima rodada de validação (~18 horas). Seu nível é restaurado automaticamente.
+Traga HPO de volta para qualquer carteira que você tenha conectado no Hipo Club, ou conecte a carteira que já o guarda. Depois aguarde a próxima rodada de validação (~18 horas); seu nível é restaurado automaticamente.
 
 Duas coisas valem saber enquanto a redefinição está ativa: o valor exigido **cresce 1% por dia** até você restaurá-lo, então agir antes custa menos, e, uma vez restaurado, esse valor maior passa a ser o novo valor a manter.
 
 ## Referência rápida
 
-| O que você faz                                   | Efeito nas recompensas                                |
-| ------------------------------------------------ | ----------------------------------------------------- |
-| Conectar uma nova carteira em hipo.finance       | Ela começa a render. Nada mais muda.                  |
-| Abrir a página de Recompensas com uma carteira   | Registra essa carteira para recompensas em HPO        |
-| Conectar uma 2ª carteira no Hipo Club            | Ela vira sua carteira atual — veja a regra do airdrop |
-| Dividir hGRAM entre carteiras                    | Nenhuma mudança no total de recompensas               |
-| Mover o HPO recebido para fora da carteira atual | O nível volta para o Nível 1                          |
-| Guardar HPO em uma carteira nunca conectada      | Não rende nada                                        |
+| O que você faz                                       | Efeito nas recompensas                         |
+| ---------------------------------------------------- | ---------------------------------------------- |
+| Conectar uma nova carteira em hipo.finance           | Ela começa a render. Nada mais muda.           |
+| Abrir a página de Recompensas com uma carteira       | Registra essa carteira para recompensas em HPO |
+| Conectar outra carteira no Hipo Club                 | O HPO dela conta para o que você deve manter   |
+| Dividir hGRAM entre carteiras                        | Nenhuma mudança no total de recompensas        |
+| Mover o HPO recebido entre as suas carteiras do Club | Nenhum efeito no seu nível                     |
+| Vender o HPO recebido, ou enviá-lo para fora         | O nível volta para o Nível 1                   |
+| Guardar HPO em uma carteira nunca conectada          | Não rende nada e não conta para a manutenção   |
 
 ## Relacionados
 
