@@ -7,6 +7,7 @@ import '../styles/global.css'
 import { DEFAULT_LOCALE, releasedLocales } from '../i18n/registry.mjs'
 import { dirOf, langOf } from '../i18n/locale.ts'
 import { getT } from '../i18n/t.ts'
+import Analytics from '../components/Analytics.astro'
 
 const STRINGS = ['title', 'headline', 'lead', 'backHome', 'askChat'] as const
 
@@ -36,6 +37,9 @@ const locales = Object.fromEntries(
     <title>{t('site.notFound.title')}</title>
     <meta name='robots' content='noindex' />
     <link rel='icon' href={`${import.meta.env.BASE_URL}favicon.ico`} />
+
+    <!-- This page builds its own <head> and so does not get SEO.astro's copy. -->
+    <Analytics />
   </head>
 
   <body class='bg-bg font-body text-text flex min-h-screen items-center justify-center px-6 py-16'>

@@ -1,8 +1,4 @@
-const BANNER_KEY = 'site_banner_hidden'
-
-// Change this code and deploy the site to show the banner. It's better not to use
-// previous used codes. It's suggested to increment it for new banners.
-const HIDDEN_CODE = '1'
+import { BANNER_KEY, HIDDEN_CODE, OFF_CLASS } from './banner-constants.js'
 
 // The visitor's language choice (spec §J): the locale key they picked from the suggestion, or 'en' when
 // they dismissed it. Any value means "asked and answered" — the suggestion never shows again.
@@ -108,9 +104,18 @@ function initLanguageSuggestion() {
   return true
 }
 
-// Re-runs on astro:page-load because the app pages swap the whole body through Astro's
-// ClientRouter — the module itself is only evaluated once, but each swapped-in page carries a
-// fresh #site-banner that starts hidden and needs this to decide its state.
+// The banner's visibility on a normal page load is settled before paint by the inline script in
+// Banner.astro; this only has to keep that true across ClientRouter swaps, which is why it runs on
+// astro:after-swap rather than astro:page-load. Astro rebuilds <html>'s attributes from the
+// incoming document during a swap, dropping the class the inline script set — and after-swap is
+// the last moment before the new page is painted, so re-applying here shifts nothing. (This is the
+// same hook a theme class would use.)
+let applyBannerState = () => {
+  document.documentElement.classList.toggle(OFF_CLASS, readStorage(BANNER_KEY) === HIDDEN_CODE)
+}
+
+// Listener wiring, which can safely wait until the page is interactive. Re-runs per swap because
+// each swapped-in page carries a fresh #close-banner.
 let initBanner = () => {
   const suggested = initLanguageSuggestion()
 
@@ -119,18 +124,20 @@ let initBanner = () => {
     return
   }
 
-  // The language suggestion takes precedence: one bar at a time.
-  if (suggested || readStorage(BANNER_KEY) === HIDDEN_CODE) {
-    banner.classList.add('hidden')
-  } else {
-    banner.classList.remove('hidden')
+  // The language suggestion takes precedence: one bar at a time. This path can still shift the
+  // page, because whether the suggestion applies depends on navigator.languages and cannot be
+  // decided from storage alone — but #lang-suggest only renders once a second locale is `public`,
+  // so today it never runs. See the follow-up in changelog/2026-08-25-banner-cls.md.
+  if (suggested) {
+    document.documentElement.classList.add(OFF_CLASS)
   }
 
   document.getElementById('close-banner')?.addEventListener('click', () => {
-    banner.classList.add('hidden')
+    document.documentElement.classList.add(OFF_CLASS)
     writeStorage(BANNER_KEY, HIDDEN_CODE)
   })
 }
 
 initBanner()
+document.addEventListener('astro:after-swap', applyBannerState)
 document.addEventListener('astro:page-load', initBanner)
