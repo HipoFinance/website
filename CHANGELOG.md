@@ -7,6 +7,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-25 — [detailed report](changelog/2026-08-25-banner-cls.md)
+
+- Decided the promo banner's visibility before the first paint instead of
+  revealing it after load, removing the home page's main layout shift.
+- Moved the banner's storage key and codes into `src/scripts/banner-constants.js`.
+- Re-applied the banner state on `astro:after-swap`, which ClientRouter would
+  otherwise strip from `<html>`.
+
 ## 2026-08-25 — [detailed report](changelog/2026-08-25-google-analytics.md)
 
 - Added Google Analytics 4 to every page, including `/docs/`, which Starlight

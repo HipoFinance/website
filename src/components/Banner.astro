@@ -2,6 +2,7 @@
 import { LOCALES, publicLocales } from '../i18n/registry.mjs'
 import { langOf, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
 import { getT } from '../i18n/t.ts'
+import { BANNER_KEY, HIDDEN_CODE, OFF_CLASS } from '../scripts/banner-constants.js'
 
 const locale = localeOf(Astro)
 const { t } = getT(locale, ['site'])
@@ -38,6 +39,21 @@ const suggestTargets = suggest
 
 <script src='/src/scripts/banner.js'></script>
 
+<!-- Runs while the parser is still above the banner below, so the bar is either painted from the
+     first frame or never painted at all — no post-load reveal, no layout shift. Deliberately
+     is:inline and unbundled: a module script is deferred, which would put it after the paint and
+     defeat the purpose. banner.js handles everything that can wait (the dismiss click, and
+     re-applying this across ClientRouter swaps). -->
+<script is:inline define:vars={{ BANNER_KEY, HIDDEN_CODE, OFF_CLASS }}>
+  try {
+    if (window.localStorage.getItem(BANNER_KEY) === HIDDEN_CODE) {
+      document.documentElement.classList.add(OFF_CLASS)
+    }
+  } catch (e) {
+    // Storage blocked: the banner shows, which is the safe default.
+  }
+</script>
+
 {
   suggest && (
     <div
@@ -61,7 +77,7 @@ const suggestTargets = suggest
   )
 }
 
-<div id='site-banner' class='bg-accent-fill text-on-accent hidden'>
+<div id='site-banner' class='bg-accent-fill text-on-accent'>
   <div
     class='relative mx-auto flex max-w-[1280px] items-center justify-center gap-2 px-12 py-2.5 text-center text-[15px] font-medium'
   >

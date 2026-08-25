@@ -116,6 +116,16 @@
   }
 }
 
+/* The promo banner decides its own visibility before the first paint: the inline script in
+   Banner.astro reads localStorage and puts .banner-off on <html> while the parser is still above
+   the banner markup. Hiding it through a class on <html> is what makes that possible — the old
+   approach shipped the bar with Tailwind's `hidden` and had JavaScript remove it on load, which
+   inserted a full-width bar at the top of an already-painted page and was the site's main source
+   of layout shift (Search Console CWV, 2026-08-25). */
+.banner-off #site-banner {
+  display: none;
+}
+
 /* Bidi isolation for formatted values (amounts, percentages, deltas) so RTL text doesn't reorder
    them around bidi-neutral characters like %, $, ≈, +/−. See specs/multi-language-site.md §F. */
 @utility num {
