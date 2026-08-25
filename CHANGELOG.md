@@ -13,8 +13,8 @@ here — `git log` remains the complete record.
   `20 * 12` = 240 rounds, a stale ~36-hour round, halving the figure.
 - The count now comes from the live round boundaries, as the `apy` getter
   already did.
-- The same fix in the legacy `webapp` repo is stuck: GitHub has it archived
-  and read-only.
+- The legacy `webapp` carries the same bug but is archived and read-only;
+  confirmed retired, so the fix was not needed there.
 - Reported by a user, who diagnosed the old reward cycle correctly from the
   ratio alone.
 

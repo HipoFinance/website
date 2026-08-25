@@ -14,10 +14,10 @@ every 18 hours, they expected roughly 43.6k HPO a year and the app showed
 | `e59c18e` | Derive the yearly HPO reward from the live round length |
 
 The same one-line fix was made in the legacy `webapp` repo (`43bf74a`), which
-carries a near-identical `Model.ts`, but that repository is **archived on GitHub
-and read-only**, so the commit sits unpushed on a local `main`. If
-`app.hipo.finance` — the domain in its `CNAME` — is still serving traffic, it is
-still serving the halved figure and this fix has no route to it.
+carries a near-identical `Model.ts`, but pushing it failed: that repository is
+archived on GitHub and read-only. The maintainer confirmed the archive is
+correct — `webapp` is no longer used and the local clone has been deleted — so
+that commit is gone and this repo's dApp is the only place the fix was needed.
 
 ## What was wrong
 
@@ -90,20 +90,17 @@ network's round length now carries through on its own.
 
 ### Follow-ups
 
-- **`webapp` cannot be pushed.** `git push` returns "This repository was archived
-  so it is read-only." Either the archive is deliberate and `app.hipo.finance`
-  is dead (in which case the local commit can be dropped), or it needs
-  unarchiving to ship. Worth settling, because the same `Model.ts` bug lives
+- ~~**`webapp` cannot be pushed.**~~ Settled: the archive is deliberate,
+  `webapp` is retired, and its local clone has been removed. Nothing to ship
   there.
-
-- **Not verified against a live wallet.** The reasoning is from the code and the
-  reporter's figures; nobody loaded the page with a connected wallet and read the
-  new number. The Hipo MCP server was unreachable this session
-  (`get_round_timing` closed the socket), so the round length is taken from the
-  protocol constant rather than a live query.
+- ~~**Not verified against a live wallet.**~~ Settled: the maintainer checked a
+  connected wallet after the deploy and the figure is correct. The reasoning
+  here was from the code and the reporter's numbers alone — the Hipo MCP server
+  was unreachable this session (`get_round_timing` closed the socket), so the
+  round length came from the protocol constant rather than a live query.
 - The `mcp` package computes round duration correctly and has a test for it
-  (`mcp/src/protocol.test.ts`); `Model.ts` has no tests at all, in either repo.
+  (`mcp/src/protocol.test.ts`); `Model.ts` has no tests at all.
   A test around `roundsPerYear` would be the natural place to start if that ever
   changes.
-- Nothing was said back to the reporter. Worth telling them they were right —
-  they diagnosed it correctly from the outside.
+- Still open: nothing has been said back to the reporter. Worth telling them
+  they were right — they diagnosed it correctly from the outside.
