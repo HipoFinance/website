@@ -33,11 +33,13 @@ Es gibt zwei Wege, aufzusteigen:
 - **Sofort-Upgrade:** Zahlen Sie die Stufenaufstiegs-Gebühr, und Ihre Stufe steigt sofort.
 - **Saisonales Upgrade:** Beanspruchen Sie Ihre verdienten Rewards mindestens einmal während der Season; Ihre Stufe steigt dann am Ende automatisch, basierend auf Ihrer Aktivität.
 
-Der Verkauf von erhaltenem HPO setzt Ihre Stufe jederzeit auf Stufe 1 zurück.
+Der Verkauf Ihres erhaltenen HPO — oder das Senden aus Ihren Hipo-Club-Wallets heraus — setzt Ihre Stufe auf Stufe 1 zurück.
 
 ## Verantwortlichkeiten der Club-Mitglieder
 
-Hipo Club belohnt das Halten. Es gibt kein Verkaufskontingent: Stattdessen setzt der Verkauf von erhaltenem HPO Ihre Stufe jederzeit auf Stufe 1 zurück, und Sie steigen von dort erneut auf.
+Hipo Club belohnt das Halten. Es gibt kein Verkaufskontingent: Stattdessen wird erwartet, dass Sie das HPO, das Sie erhalten haben, behalten, und verlässt es Ihre Wallets, wird Ihre Stufe auf Stufe 1 zurückgesetzt, und Sie steigen von dort erneut auf.
+
+Der Betrag wird über alle Ihre in Hipo Club verbundenen Wallets zusammengezählt, sodass das Verschieben von HPO zwischen Ihren eigenen verbundenen Wallets nichts kostet. Zurückgesetzt wird Ihre Stufe, wenn Sie es verkaufen oder an eine Börse oder an eine Wallet senden, die Sie nicht verbunden haben — siehe [Mehrere Wallets verwenden](/docs/wallets-and-rewards/) für die vollständige Regel und wie Sie eine verlorene Stufe wiederherstellen.
 
 ## Rewards auszahlen
 

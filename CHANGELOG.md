@@ -7,6 +7,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-26 — [detailed report](changelog/2026-08-26-club-page-cross-link.md)
+
+- The Hipo Club page no longer says selling is the only way to lose a level; it
+  names both ways and links to Using Multiple Wallets.
+- The retention rule is now stated on the Club page too: the amount is summed
+  across all connected Club wallets, so moving HPO between your own is free.
+- Same edit in all ten locales, hashes regenerated.
+- Closed four follow-ups settled by the maintainer: backend deployed, translations
+  ship without native review, `borrower.yaml` on v2, reporter thanked.
+
 ## 2026-08-25 — [detailed report](changelog/2026-08-25-settle-v1.md)
 
 - Counted protocol v1 on mainnet before deciding it: 211 holders left, ~291 GRAM

@@ -63,12 +63,11 @@ untouched and kept their review state.
 
 ### Follow-ups
 
-- **Publish only after the backend is deployed.** Until `5d270b4` is running,
-  the page describes behaviour production does not have, and a reader following
-  it could connect a second wallet and be penalised — the exact harm the first
-  version existed to prevent. Held for that reason.
-- The nine translations remain LLM-drafted and unreviewed, and this revision
-  reset their review state again.
-- The Hipo Club page still says only that "selling rewarded HPO at any time
-  resets your level to Level 1", which is now the whole rule rather than a
-  partial one. It could link here instead of restating it.
+- ~~**Publish only after the backend is deployed.**~~ Confirmed deployed
+  2026-08-26 — the page and production agree.
+- ~~The nine translations remain LLM-drafted and unreviewed.~~ Settled
+  2026-08-26: no native review will happen, by decision; readers are the
+  correction channel.
+- ~~The Hipo Club page still says only that "selling rewarded HPO at any time
+  resets your level to Level 1".~~ Done 2026-08-26 — see
+  [2026-08-26-club-page-cross-link](2026-08-26-club-page-cross-link.md).

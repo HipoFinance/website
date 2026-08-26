@@ -33,11 +33,13 @@ Ada dua cara untuk naik level:
 - **Upgrade instan:** bayar biaya upgrade level dan level Anda langsung naik.
 - **Upgrade musiman:** klaim imbalan yang Anda peroleh setidaknya sekali selama season; level Anda kemudian naik secara otomatis di akhir season, berdasarkan aktivitas Anda.
 
-Menjual HPO hasil imbalan kapan saja akan mengatur ulang level Anda ke Level 1.
+Menjual HPO hasil imbalan Anda — atau mengirimnya keluar dari dompet-dompet Hipo Club Anda — mengatur ulang level Anda ke Level 1.
 
 ## Tanggung Jawab Anggota Club
 
-Hipo Club memberi imbalan atas holding. Tidak ada allowance jual: sebagai gantinya, menjual HPO hasil imbalan kapan saja akan mengatur ulang level Anda ke Level 1, dan Anda naik lagi dari sana.
+Hipo Club memberi imbalan atas holding. Tidak ada allowance jual: sebagai gantinya, Anda diharapkan menyimpan HPO yang Anda terima sebagai imbalan, dan jika HPO itu meninggalkan dompet-dompet Anda, level Anda kembali ke Level 1 dan Anda naik lagi dari sana.
+
+Jumlahnya dihitung dari seluruh dompet Hipo Club yang telah Anda hubungkan, dijumlahkan, sehingga memindahkan HPO di antara dompet-dompet Anda sendiri yang terhubung tidak dikenakan biaya apa pun. Yang mengatur ulang level Anda adalah menjualnya, atau mengirimnya ke bursa atau ke dompet yang belum Anda hubungkan — lihat [Menggunakan beberapa dompet](/docs/wallets-and-rewards/) untuk aturan lengkap dan cara memulihkan level yang hilang.
 
 ## Menarik Imbalan
 

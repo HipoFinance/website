@@ -33,11 +33,13 @@ Seviye atlamanın iki yolu vardır:
 - **Anında yükseltme:** seviye atlama ücretini ödersiniz ve seviyeniz hemen yükselir.
 - **Sezonluk yükseltme:** sezon boyunca kazandığınız ödülleri en az bir kez talep edin; seviyeniz sezon sonunda aktifliğinize göre otomatik olarak yükselir.
 
-Ödül olarak aldığınız HPO'yu herhangi bir zamanda satmanız, seviyenizi 1. seviyeye sıfırlar.
+Ödül olarak aldığınız HPO'yu satmanız — veya onu Hipo Club cüzdanlarınızın dışına göndermeniz — seviyenizi 1. seviyeye sıfırlar.
 
 ## Kulüp üyelerinin sorumlulukları
 
-Hipo Club, elde tutmayı ödüllendirir. Satış hakkı yoktur: bunun yerine, ödül olarak aldığınız HPO'yu herhangi bir zamanda satmanız seviyenizi 1. seviyeye sıfırlar ve oradan yeniden yükselirsiniz.
+Hipo Club, elde tutmayı ödüllendirir. Satış hakkı yoktur: bunun yerine, ödül olarak aldığınız HPO'yu elinizde tutmanız beklenir; o cüzdanlarınızdan çıkarsa seviyeniz 1. seviyeye sıfırlanır ve oradan yeniden yükselirsiniz.
+
+Miktar, Hipo Club'da bağladığınız tüm cüzdanlarınız toplanarak hesaplanır, bu yüzden HPO'yu kendi bağlı cüzdanlarınız arasında taşımanın hiçbir maliyeti yoktur. Seviyenizi sıfırlayan şey onu satmanız ya da bir borsaya veya bağlamadığınız bir cüzdana göndermenizdir — tam kuralı ve kaybettiğiniz bir seviyeyi nasıl geri kazanacağınızı öğrenmek için bkz. [Birden fazla cüzdan kullanma](/docs/wallets-and-rewards/).
 
 ## Ödülleri çekme
 

@@ -33,11 +33,13 @@ Ci sono due modi per salire di livello:
 - **Avanzamento istantaneo:** paghi la commissione di avanzamento e il tuo livello aumenta subito.
 - **Avanzamento stagionale:** riscuoti le ricompense guadagnate almeno una volta durante la stagione; il tuo livello aumenta poi automaticamente alla fine della stagione, in base alla tua attività.
 
-Vendere gli HPO ricevuti come ricompensa, in qualsiasi momento, riporta il tuo livello al Livello 1.
+Vendere gli HPO ricevuti come ricompensa — o inviarli fuori dai tuoi wallet di Hipo Club — riporta il tuo livello al Livello 1.
 
 ## Responsabilità dei membri del Club
 
-Hipo Club premia chi detiene. Non esiste una soglia di vendita consentita: vendere gli HPO ricevuti come ricompensa, in qualsiasi momento, riporta il tuo livello al Livello 1, e da lì si ricomincia a salire.
+Hipo Club premia chi detiene. Non esiste una soglia di vendita consentita: ci si aspetta invece che tu conservi l'HPO ricevuto come ricompensa, e se lascia i tuoi wallet il tuo livello torna al Livello 1 e riparti a salire da lì.
+
+L'importo viene sommato su tutti i wallet che hai connesso in Hipo Club: spostare l'HPO fra i tuoi stessi wallet connessi non ti costa nulla. Ciò che azzera il tuo livello è venderlo, oppure inviarlo a un exchange o a un wallet che non hai connesso — vedi [Usare più wallet](/docs/wallets-and-rewards/) per la regola completa e come recuperare un livello perso.
 
 ## Prelevare le ricompense
 

@@ -33,11 +33,13 @@ Há duas formas de subir:
 - **Upgrade instantâneo:** pague a taxa de subida de nível e o seu nível aumenta na hora.
 - **Upgrade sazonal:** resgate as recompensas que você ganhou pelo menos uma vez durante a temporada; o seu nível então aumenta automaticamente no fim dela, de acordo com a sua atividade.
 
-Vender o HPO recebido como recompensa, a qualquer momento, reinicia o seu nível para o nível 1.
+Vender o HPO recebido como recompensa — ou enviá-lo para fora das suas carteiras do Hipo Club — reinicia o seu nível para o nível 1.
 
 ## Responsabilidades dos membros do Club
 
-O Hipo Club recompensa quem segura os tokens. Não existe cota de venda: em vez disso, vender o HPO recebido como recompensa, a qualquer momento, reinicia o seu nível para o nível 1, e você sobe de novo a partir dali.
+O Hipo Club recompensa quem segura os tokens. Não existe cota de venda: em vez disso, espera-se que você mantenha o HPO que recebeu como recompensa, e se ele sair das suas carteiras, o seu nível volta para o nível 1 e você sobe de novo a partir dali.
+
+O valor é somado entre todas as carteiras do Hipo Club que você conectou, então mover o HPO entre as suas próprias carteiras conectadas não custa nada. O que reinicia o seu nível é vendê-lo, ou enviá-lo para uma exchange ou para uma carteira que você não conectou — veja [Usando várias carteiras](/docs/wallets-and-rewards/) para a regra completa e como recuperar um nível perdido.
 
 ## Sacar recompensas
 

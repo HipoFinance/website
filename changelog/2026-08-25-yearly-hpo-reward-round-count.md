@@ -102,5 +102,5 @@ network's round length now carries through on its own.
   (`mcp/src/protocol.test.ts`); `Model.ts` has no tests at all.
   A test around `roundsPerYear` would be the natural place to start if that ever
   changes.
-- Still open: nothing has been said back to the reporter. Worth telling them
-  they were right — they diagnosed it correctly from the outside.
+- ~~Still open: nothing has been said back to the reporter.~~ Done 2026-08-26 —
+  the maintainer told them they were right and thanked them.

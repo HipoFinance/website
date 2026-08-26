@@ -82,14 +82,15 @@ the new entries as unreviewed, like the rest of the translated corpus.
 
 ### Follow-ups
 
-- **The nine translations are LLM-drafted and unreviewed**, like the rest of the
-  corpus. This page carries money-affecting instructions, so it is a better
-  candidate for native review than most.
-- **The retention check arguably wants fixing, not just documenting.** Summing
-  HPO across a user's connected wallets, instead of reading `current_wallet`
-  alone, would remove the trap entirely and make this page half as necessary.
-  Not attempted here: it changes who is penalised, which is a product decision.
-- The Hipo Club page's "selling … resets your level" line still stands alone; it
-  could link here.
+- ~~**The nine translations are LLM-drafted and unreviewed.**~~ Settled
+  2026-08-26: there are no resources for native review, and reader feedback is
+  the intended correction channel. Not a release gate, here or anywhere.
+- ~~**The retention check arguably wants fixing, not just documenting.**~~ Done
+  the same day — `HipoGang/app` `e1902c0`/`5d270b4` sum HPO across all of a
+  user's Club wallets, and the page was rewritten to match; see
+  [2026-08-25-retention-counts-all-wallets](2026-08-25-retention-counts-all-wallets.md).
+- ~~The Hipo Club page's "selling … resets your level" line still stands
+  alone.~~ Done 2026-08-26 — it now names both ways to lose a level and links
+  here; see [2026-08-26-club-page-cross-link](2026-08-26-club-page-cross-link.md).
 - Nothing checked against the reporter's live account — the club's Redis is not
   reachable from a dev machine.

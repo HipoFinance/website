@@ -33,11 +33,13 @@ There are two ways to move up:
 - **Instant upgrade:** pay the level-up fee and your level increases immediately.
 - **Seasonal upgrade:** claim your earned rewards at least once during the season; your level then increases automatically at the end of it, based on your activity.
 
-Selling rewarded HPO at any time resets your level to Level 1.
+Selling your rewarded HPO — or sending it outside your Hipo Club wallets — resets your level to Level 1.
 
 ## Responsibilities of Club Members
 
-Hipo Club rewards holding. There is no sell allowance: instead, selling rewarded HPO at any time resets your level to Level 1, and you climb again from there.
+Hipo Club rewards holding. There is no sell allowance: instead, you are expected to keep the HPO you were rewarded, and if it leaves your wallets your level resets to Level 1 and you climb again from there.
+
+The amount is counted across all of the wallets you have connected in Hipo Club, added together, so moving HPO between your own connected wallets costs you nothing. What resets your level is selling it, or sending it to an exchange or to a wallet you have not connected — see [Using Multiple Wallets](/docs/wallets-and-rewards/) for the full rule and how to restore a level you have lost.
 
 ## Withdrawing Rewards
 
