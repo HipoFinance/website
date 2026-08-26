@@ -7,6 +7,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-25 — [detailed report](changelog/2026-08-25-settle-v1.md)
+
+- Counted protocol v1 on mainnet before deciding it: 211 holders left, ~291 GRAM
+  (~$422) in total, largest position ~$12.
+- Removed the v1→v2 upgrade path from the dApp — `OldWalletUpgrade.tsx`,
+  `OldTreasury.ts` and their whole `Model.ts` surface.
+- Dropped the five `app.oldWallet.*` keys from all ten locales and regenerated
+  the nine `meta.json` sidecars.
+- `readLastBlock` no longer awaits a legacy-contract read, so a dead v1 endpoint
+  can no longer trip the healthy v2 error path.
+
 ## 2026-08-25 — [detailed report](changelog/2026-08-25-retention-counts-all-wallets.md)
 
 - Retention now sums HPO across all of a user's club wallets, so the page no

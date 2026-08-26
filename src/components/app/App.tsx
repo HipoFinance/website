@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react-lite'
 
 import Header from './Header.tsx'
-import OldWalletUpgrade from './OldWalletUpgrade.tsx'
 import StakeUnstake from './StakeUnstake.tsx'
 import Defi from './Defi.tsx'
 import Reward from './Reward.tsx'
@@ -51,7 +50,6 @@ const App = observer(() => {
 
   let page = (
     <>
-      <OldWalletUpgrade model={model} />
       <StakeUnstake model={model} />
       <AmountAlert model={model} />
       <MultisigGuidance model={model} />

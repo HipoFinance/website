@@ -343,26 +343,6 @@
     "sourceHash": "be763e9aba2af6b8baabada85d5e26c043c93fed",
     "reviewed": false
   },
-  "app.oldWallet.balances": {
-    "sourceHash": "6e97f7979bce7254a0dce37d024af2a0e9634341",
-    "reviewed": false
-  },
-  "app.oldWallet.patience": {
-    "sourceHash": "d8f95232c00edd254e03e50e75f47899d2ee3d22",
-    "reviewed": false
-  },
-  "app.oldWallet.pressUpgrade": {
-    "sourceHash": "c98da2d8f89d63ee660be4e38f9a95cafed56adf",
-    "reviewed": false
-  },
-  "app.oldWallet.title": {
-    "sourceHash": "099ae4616ffa71a1da7bcd3503d0179216aa4691",
-    "reviewed": false
-  },
-  "app.oldWallet.upgrade": {
-    "sourceHash": "a6f47e00e036c5589eb12e237894b37fb015d365",
-    "reviewed": false
-  },
   "app.reward.afterYear": {
     "sourceHash": "293662a6705530f2225e35c1c32d385dbafad554",
     "reviewed": false

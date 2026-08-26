@@ -4,7 +4,6 @@ import { Model } from '../Model'
 import TmaHeader from './TmaHeader.tsx'
 import TmaTabs from './TmaTabs.tsx'
 import TmaStakeUnstake from './TmaStakeUnstake.tsx'
-import OldWalletUpgrade from '../OldWalletUpgrade.tsx'
 import AmountAlert from '../AmountAlert.tsx'
 import MultisigGuidance from '../MultisigGuidance.tsx'
 import Defi from '../Defi.tsx'
@@ -36,7 +35,6 @@ const TmaApp = observer(({ model }: Props) => {
 
   let page = (
     <>
-      <OldWalletUpgrade model={model} />
       <TmaStakeUnstake model={model} />
     </>
   )

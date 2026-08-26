@@ -10,7 +10,7 @@ import {
   type TonConnectUiOptions,
 } from '@tonconnect/ui'
 import { action, autorun, computed, makeObservable, observable, runInAction } from 'mobx'
-import { Address, Dictionary, type OpenedContract, TonClient4, beginCell, fromNano, toNano } from '@ton/ton'
+import { Address, Dictionary, type OpenedContract, TonClient4, fromNano, toNano } from '@ton/ton'
 import {
   ParticipationState,
   type Times,
@@ -20,14 +20,12 @@ import {
   type TreasuryConfig,
   type WalletState,
   maxAmountToStake,
-  opUnstakeTokens,
   treasuryAddresses,
   feeStake,
   feeUnstake,
   createDepositMessage,
   createUnstakeMessage,
 } from '@hipo-finance/sdk'
-import { OldTreasury } from './OldTreasury'
 import { track } from './analytics'
 import { detectTmaMode, initTelegramChrome, telegramLanguageCode, tmaClass, type TmaMode } from './tma/telegram'
 import { DEFAULT_LOCALE, LOCALES, isReleased } from '../../i18n/registry.mjs'
@@ -48,7 +46,6 @@ type UnstakeOption = 'best' | 'instant'
 
 // What `send` handed to `waitForCompletion`, so the confirmation event can name the amount and the
 // kind after the fact — by then `clearAmount` has run and `unstakeOption` may have been changed.
-// Absent for the old-wallet upgrade, which also waits for a transaction but is not a stake.
 type PendingTx = { kind: 'stake' | 'unstake'; amountGram: number; unstakeType?: UnstakeOption }
 
 // 'timeout': the validUntil window passed with the chain answering and the transaction never
@@ -177,8 +174,6 @@ const averageStakeFee = 15000000n
 const averageUnstakeFee = 42000000n
 
 const treasuryAddress = treasuryAddresses.get('mainnet')
-
-const oldTreasuryAddress = Address.parse('EQBNo5qAG8I8J6IxGaz15SfQVB-kX98YhKV_mT36Xo5vYxUa')
 
 // multisig-contract-v2 code hashes (base64, as returned by TonClient4), computed from the
 // v2.0 build artifact; the same hash is registered as the multisig interface in tonkeeper/tongo
@@ -412,9 +407,6 @@ export class Model {
   walletAddress?: Address
   wallet?: OpenedContract<Wallet>
   walletState?: WalletState
-  oldWalletAddress?: Address
-  oldWalletTokens?: bigint
-  newWalletTokens?: bigint
   activePage: ActivePage = defaultActivePage
   activeTab: ActiveTab = defaultActiveTab
   statsRange: StatsRange = defaultStatsRange
@@ -502,9 +494,6 @@ export class Model {
       walletAddress: observable,
       wallet: observable,
       walletState: observable,
-      oldWalletAddress: observable,
-      oldWalletTokens: observable,
-      newWalletTokens: observable,
       activePage: observable,
       activeTab: observable,
       amountRaw: observable,
@@ -541,8 +530,6 @@ export class Model {
       roundsPerYear: computed,
       profitAfterOneYear: computed,
       profitAfterOneYearOnLastLevel: computed,
-      oldWalletTokensFormatted: computed,
-      newWalletTokensFormatted: computed,
       unstakingInProgressFormatted: computed,
       unstakingInProgressDetails: computed,
       stakingInProgressFormatted: computed,
@@ -1003,18 +990,6 @@ export class Model {
     const hpo = hton * exchangeRate * rewardRate * rewardCoefficient * this.roundsPerYear
 
     return this.withUnit('app.model.hpo', this.formatNano(hpo))
-  }
-
-  get oldWalletTokensFormatted() {
-    if (this.oldWalletTokens != null) {
-      return this.withUnit('app.model.hgram', this.formatNano(this.oldWalletTokens))
-    }
-  }
-
-  get newWalletTokensFormatted() {
-    if (this.newWalletTokens != null) {
-      return this.withUnit('app.model.hgram', this.formatNano(this.newWalletTokens))
-    }
   }
 
   get unstakingInProgressFormatted() {
@@ -1549,9 +1524,6 @@ export class Model {
     this.walletAddress = undefined
     this.wallet = undefined
     this.walletState = undefined
-    this.oldWalletAddress = undefined
-    this.oldWalletTokens = undefined
-    this.newWalletTokens = undefined
     this.lastBlock = 0
     this.walletRewardsFetchState = 'init'
     this.walletRewards = undefined
@@ -1891,9 +1863,6 @@ export class Model {
         this.walletAddress = undefined
         this.wallet = undefined
         this.walletState = undefined
-        this.oldWalletAddress = undefined
-        this.oldWalletTokens = undefined
-        this.newWalletTokens = undefined
       })
       return
     }
@@ -1986,8 +1955,6 @@ export class Model {
         this.walletState = walletState
         this.lastBlock = lastBlock
       })
-
-      await this.readOldWallet(tonClient, lastBlock, treasuryState)
     } catch {
       this.setErrorMessage(this.t('app.model.errorTonAccess'), retryDelay - 500)
       clearTimeout(this.timeoutReadLastBlock)
@@ -1997,49 +1964,6 @@ export class Model {
     } finally {
       this.endRequest()
     }
-  }
-
-  readOldWallet = async (tonClient: TonClient4, lastBlock: number, treasuryState: TreasuryConfig) => {
-    const address = this.address
-
-    const readOldWallet: Promise<[Address | undefined, bigint | undefined, bigint | undefined]> =
-      address == null || this.oldWalletAddress != null
-        ? Promise.resolve([this.oldWalletAddress, this.oldWalletTokens, this.newWalletTokens])
-        : Promise.resolve(tonClient.openAt(lastBlock, OldTreasury.createFromAddress(oldTreasuryAddress))).then(
-            async (oldTreasury) => {
-              const oldWalletAddress = await retry(() => oldTreasury.getWalletAddress(address))
-              const oldWallet = tonClient.openAt(lastBlock, Wallet.createFromAddress(oldWalletAddress))
-              const oldWalletTokens =
-                (await retry(() =>
-                  oldWallet
-                    .getWalletState()
-                    .then((walletState) => walletState.tokens)
-                    .catch((e: unknown) => {
-                      if (e instanceof Error && 'message' in e && e.message === 'Exit code: -256') {
-                        return undefined // wallet does not exists
-                      } else {
-                        throw e
-                      }
-                    }),
-                )) ?? 0n
-              let newWalletTokens = 0n
-              if (oldWalletTokens > 0n) {
-                const [oldTotalCoins, oldTotalTokens] = await retry(oldTreasury.getTotalCoinsAndTokens)
-                if (oldTotalTokens > 0n && treasuryState.totalCoins > 0n) {
-                  const coins = (oldWalletTokens * oldTotalCoins) / oldTotalTokens
-                  newWalletTokens = (coins * treasuryState.totalTokens) / treasuryState.totalCoins
-                }
-              }
-              return [oldWalletAddress, oldWalletTokens, newWalletTokens]
-            },
-          )
-    const [oldWalletAddress, oldWalletTokens, newWalletTokens] = await readOldWallet
-
-    runInAction(() => {
-      this.oldWalletAddress = oldWalletAddress
-      this.oldWalletTokens = oldWalletTokens
-      this.newWalletTokens = newWalletTokens
-    })
   }
 
   pause = () => {
@@ -2098,54 +2022,6 @@ export class Model {
       throw e
     } finally {
       clearTimeout(timer)
-    }
-  }
-
-  upgradeOldWallet = () => {
-    if (
-      this.address != null &&
-      this.oldWalletAddress != null &&
-      this.tonConnectUI != null &&
-      this.tonBalance != null &&
-      this.oldWalletTokens != null
-    ) {
-      const queryId = generateRandomQueryId()
-
-      const tx: SendTransactionRequest = {
-        validUntil: Math.floor(Date.now() / 1000) + txValidUntil,
-        network: CHAIN.MAINNET,
-        from: this.address.toRawString(),
-        messages: [
-          {
-            address: this.oldWalletAddress.toString(),
-            amount: feeUnstake.toString(),
-            payload: beginCell()
-              .storeUint(opUnstakeTokens, 32)
-              .storeUint(queryId, 64)
-              .storeCoins(this.oldWalletTokens)
-              .storeAddress(undefined)
-              .storeMaybeRef(undefined)
-              .endCell()
-              .toBoc()
-              .toString('base64'),
-          },
-        ],
-      }
-      void this.guardedSendTransaction(tx).then(
-        () =>
-          this.waitForCompletion(queryId).then(() => {
-            runInAction(() => {
-              this.oldWalletAddress = undefined
-              this.oldWalletTokens = undefined
-              this.newWalletTokens = undefined
-            })
-          }),
-        (e: unknown) => {
-          if (!(e instanceof StaleSessionError) && !(e instanceof WalletNotConnectedError)) {
-            this.showMultisigHint()
-          }
-        },
-      )
     }
   }
 
