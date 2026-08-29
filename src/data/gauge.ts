@@ -16,7 +16,7 @@
 // A missing field, a failed fetch or a slow gauge must never produce a fake or stale-looking
 // number: every value is optional and the caller falls back to the placeholder already in the
 // markup. The build never fails because of this module.
-import { formatCompact, formatNumber, formatPercent, formatUsd } from '../i18n/format.ts'
+import { formatCompact, formatNumber, formatPercent, formatRate, formatUsd } from '../i18n/format.ts'
 import type { Locale } from '../i18n/locale.ts'
 
 const GAUGE_URL = 'https://gauge.hipo.finance/data'
@@ -132,6 +132,61 @@ export function appStats(locale: Locale, data: GaugeData | undefined): AppStats 
   }
 
   return stats
+}
+
+// The four headline cards on /stats/. Same formatters, and the same contract-then-gauge
+// preference, as Model's statsStakedCompact / statsApyFormatted / statsHoldersFormatted /
+// statsRateFormatted / statsTvlUsdFormatted / statsStakedExact / protocolFee — the shell renders
+// these and the island reproduces them from the same two seeds, so nothing moves on mount. The
+// rate has no gauge equivalent and comes from the Prometheus seed instead.
+export interface StatsCards {
+  staked?: string
+  stakedExact?: string
+  tvlUsd?: string
+  apy?: string
+  protocolFee?: string
+  holders?: string
+  rate?: string
+}
+
+export function statsCards(locale: Locale, data: GaugeData | undefined, rate: number | undefined): StatsCards {
+  const cards: StatsCards = {}
+
+  if (rate != null) {
+    cards.rate = formatRate(locale, rate)
+  }
+  if (data === undefined) {
+    return cards
+  }
+
+  const apy = data.treasury?.current_apy
+  if (apy != null) {
+    cards.apy = formatPercent(locale, apy / 100, 2)
+  }
+
+  const fee = data.treasury?.protocol_fee
+  if (fee != null) {
+    cards.protocolFee = formatPercent(locale, fee / 100, 2)
+  }
+
+  const stakedNano = data.treasury?.current_tvl
+  if (stakedNano != null) {
+    const staked = stakedNano / 1000000000
+    cards.staked = formatCompact(locale, staked, 1)
+    cards.stakedExact = formatNumber(locale, staked, { maximumFractionDigits: 0 })
+
+    const gramPrice = data.ton?.market?.current_price?.usd
+    if (positive(gramPrice)) {
+      cards.tvlUsd = formatUsd(locale, staked * gramPrice, { notation: 'compact', maximumFractionDigits: 1 })
+    }
+  }
+
+  const holders = data.hton?.holders_count
+  if (positive(holders)) {
+    cards.holders = formatCompact(locale, holders, 1)
+  }
+
+  return cards
 }
 
 export function gaugeValues(locale: Locale, data: GaugeData | undefined): GaugeValues {

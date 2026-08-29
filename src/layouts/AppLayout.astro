@@ -11,7 +11,8 @@ import AppShell from '../components/app/shell/AppShell.astro'
 import type { ShellPage } from '../components/pages/shellJsonLd'
 import { dirOf, langOf, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
 import { getAppCatalog, getT } from '../i18n/t.ts'
-import { appStats, fetchGauge } from '../data/gauge.ts'
+import { appStats, fetchGauge, statsCards } from '../data/gauge.ts'
+import { fetchStatsSeed } from '../data/stats.ts'
 
 interface Props {
   title: string
@@ -62,6 +63,14 @@ const appCatalogJson = locale === 'en' ? undefined : JSON.stringify(getAppCatalo
 const gauge = await fetchGauge()
 const gaugeJson = gauge === undefined ? undefined : JSON.stringify(gauge).replace(/</g, '\\u003c')
 const stats = appStats(locale, gauge)
+
+// The Stats page needs two figures the gauge does not carry — the hGRAM/GRAM rate and the three
+// "over 1M" deltas — so /stats/ additionally fetches a compact Prometheus seed at build time and
+// inlines it. Only that page: the other four have no card that reads it, and the seed is fetched
+// once per build regardless of how many pages ask.
+const seed = page === 'stats' ? await fetchStatsSeed() : undefined
+const seedJson = seed === undefined ? undefined : JSON.stringify(seed).replace(/</g, '\\u003c')
+const cards = page === 'stats' ? statsCards(locale, gauge, seed?.rate) : {}
 
 // Footer nav under the shell copy. /docs/ goes through localizedPath like every other internal link (the
 // SiteFooter's Documentation link already does); docs get their per-locale routes in phase 4, and until
@@ -156,6 +165,10 @@ const footerNav = [
            fresh copy without a request. */
         gaugeJson && <script type='application/json' id='gauge-data' set:html={gaugeJson} />
       }
+      {
+        /* The Stats page's rate/delta seed (Model.readInlineStats), emitted on /stats/ only. */
+        seedJson && <script type='application/json' id='stats-data' set:html={seedJson} />
+      }
       <AppIsland client:only='react' transition:persist='app-island' />
       <!-- The app's chrome, painted before the island arrives so the page does not go from a
            spinner to a full layout. App.tsx removes everything marked data-app-loading the moment
@@ -163,7 +176,7 @@ const footerNav = [
            desktop chrome: inside Telegram the island renders TmaApp instead, and the inline script
            in <head> has already set html.tma so this never paints there. -->
       <div data-app-loading data-tma-hide>
-        <AppShell locale={locale} page={page} stats={stats} />
+        <AppShell locale={locale} page={page} stats={stats} cards={cards} seed={seed} />
       </div>
     </main>
 

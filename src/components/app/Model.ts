@@ -16,6 +16,7 @@ import { action, autorun, computed, makeObservable, observable, runInAction } fr
 // island used to ship eagerly. See the changelog entry for 2026-08-29.
 import type { Address, OpenedContract, TonClient4 } from '@ton/ton'
 import type { Times, Treasury, TreasuryConfig, Wallet, WalletState } from '@hipo-finance/sdk'
+import type { SeededDelta, StatsSeed } from '../../data/stats.ts'
 import { track } from './analytics'
 import { detectTmaMode, initTelegramChrome, telegramLanguageCode, tmaClass, type TmaMode } from './tma/telegram'
 import { DEFAULT_LOCALE, LOCALES, isReleased } from '../../i18n/registry.mjs'
@@ -87,6 +88,8 @@ interface HipoGaugeToken {
 interface HipoGaugeTreasury {
   current_tvl?: number
   current_apy?: number
+  // A plain percentage number (0 for 0%), like current_apy — not the contract's /65535 ratio.
+  protocol_fee?: number
 }
 
 // Wire shape of https://gauge.hipo.finance/data. This is the only place the pre-rename names
@@ -445,6 +448,30 @@ function readInlineGauge(): HipoGaugeResponse | undefined {
 // Read once: the Model is constructed once per island and persists across ClientRouter swaps, and
 // loadHipoGauge() owns every value from then on.
 const inlineGauge = readInlineGauge()
+
+// The Stats page's other build-time seed (src/data/stats.ts): the hGRAM/GRAM rate and the three
+// "over 1M" deltas, none of which the gauge carries. Emitted on /stats/ only, so this is
+// undefined everywhere else — and by the time a visitor navigates to /stats/ from another page,
+// ChartsStore has the real history anyway.
+const inlineStatsId = 'stats-data'
+
+function readInlineStats(): StatsSeed | undefined {
+  if (typeof document === 'undefined') {
+    return undefined
+  }
+  const text = document.getElementById(inlineStatsId)?.textContent ?? ''
+  if (text.trim() === '') {
+    return undefined
+  }
+  try {
+    const parsed: unknown = JSON.parse(text)
+    return typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed) ? (parsed as StatsSeed) : undefined
+  } catch {
+    return undefined
+  }
+}
+
+const inlineStats = readInlineStats()
 
 function readInlineCatalogText(): string {
   if (typeof document === 'undefined') {
@@ -1415,6 +1442,12 @@ export class Model {
     if (governanceFee != null) {
       return this.formatPercent(Number(governanceFee) / 65535)
     }
+    // Same contract → gauge fallback as statsApyFormatted below, and the same reason: the gauge
+    // answers before the block poller has read the treasury. 0 is a real fee, so no `> 0` guard.
+    const fee = this.gauge?.treasury?.protocol_fee
+    if (this.useGauge && fee != null) {
+      return this.formatPercent(fee / 100)
+    }
   }
 
   get currentlyStaked() {
@@ -1439,6 +1472,17 @@ export class Model {
   // mid-session.
   get useGauge() {
     return this.gauge != null
+  }
+
+  // Unobserved: the seed is read once at module load and never changes.
+  readonly statsSeed = inlineStats
+
+  // The build-time delta for one of the three cards, or undefined once it would be misleading.
+  // The card's line names its window ("▲ +3.2% over 1M"), so the seed is only good while the
+  // selected range is still the one it was computed for; switching to 24H drops back to nothing
+  // until ChartsStore has that range's history.
+  seededDelta = (key: 'staked' | 'holders' | 'rate'): SeededDelta | undefined => {
+    return this.statsSeed?.range === this.statsRange ? this.statsSeed.deltas[key] : undefined
   }
 
   // The stats getters below prefer the on-chain treasury state and fall back to the gauge, not
@@ -1527,6 +1571,11 @@ export class Model {
     const state = this.treasuryState
     if (state != null) {
       return this.formatRate(Number(state.totalCoins) / Number(state.totalTokens) || 1)
+    }
+    // The gauge has no rate, so this is the one card figure that needs the Prometheus seed. Same
+    // quantity the rate chart plots (hipo_treasury_hton_rate), so the card and its delta agree.
+    if (this.statsSeed?.rate != null) {
+      return this.formatRate(this.statsSeed.rate)
     }
   }
 

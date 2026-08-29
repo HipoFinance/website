@@ -7,6 +7,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-29 — [detailed report](changelog/2026-08-29-stats-cards-seed.md)
+
+- The Stats page's hGRAM/GRAM rate, staking fee and three "over 1M" deltas are
+  now in the HTML instead of filling in after load.
+- New `src/data/stats.ts` seeds them from a build-time Prometheus fetch, keeping
+  only the endpoints each delta needs rather than ~70 KB of history.
+- `protocolFee` falls back to the gauge, which already carried it.
+- The static shell now covers `/stats/`: title, range pills and all four cards.
+
 ## 2026-08-29 — [detailed report](changelog/2026-08-29-static-app-shell.md)
 
 - The dApp pages now paint the app chrome at build time instead of a spinner —

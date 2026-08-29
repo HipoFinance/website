@@ -207,7 +207,7 @@ const StatsPage = observer(({ model }: Props) => {
         <StatCard
           value={model.statsStakedCompact}
           label={tvlLabel}
-          delta={hasHistory ? cardDelta(computeDelta(stakedPoints, '%')) : undefined}
+          delta={cardDelta(hasHistory ? computeDelta(stakedPoints, '%') : model.seededDelta('staked'))}
           exact={
             model.statsStakedExact != null
               ? t('app.statsPage.exactly', {
@@ -229,13 +229,13 @@ const StatsPage = observer(({ model }: Props) => {
         <StatCard
           value={model.statsHoldersFormatted}
           label={t('app.statsPage.activeStakers')}
-          delta={hasHistory ? cardDelta(computeDelta(holdersPoints, '%')) : undefined}
+          delta={cardDelta(hasHistory ? computeDelta(holdersPoints, '%') : model.seededDelta('holders'))}
         />
         <StatCard
           value={model.statsRateFormatted}
           label={t('app.statsPage.rateLabel')}
           caption={t('app.statsPage.onlyGoesUp')}
-          delta={hasHistory ? cardDelta(computeDelta(ratePoints, '%')) : undefined}
+          delta={cardDelta(hasHistory ? computeDelta(ratePoints, '%') : model.seededDelta('rate'))}
         />
       </div>
 

@@ -1,0 +1,150 @@
+---
+// Static mirror of the four headline cards at the top of src/components/app/StatsPage.tsx, plus
+// its title block. The charts below are left to the island — they have their own in-card loading
+// state and there is nothing useful to draw before their history arrives.
+//
+// Every figure here is available at build time: three come from the gauge, the hGRAM/GRAM rate
+// and the three "over 1M" delta lines from the Prometheus seed (src/data/stats.ts). The island
+// reproduces all of them on its first paint from the same two inlined payloads, so the cards do
+// not blink. Classes are copied from StatsPage.tsx and must stay copied; see ShellHeader.astro.
+import type { Locale } from '../../../i18n/locale.ts'
+import { getT } from '../../../i18n/t.ts'
+import type { StatsCards } from '../../../data/gauge.ts'
+import type { SeededDelta, StatsSeed } from '../../../data/stats.ts'
+import { formatNumber } from '../../../i18n/format.ts'
+import { isolate } from '../../../i18n/format.ts'
+
+interface Props {
+  locale: Locale
+  cards: StatsCards
+  seed: StatsSeed | undefined
+}
+
+const { locale, cards, seed } = Astro.props
+const { t } = getT(locale, ['app'])
+
+// The range pills. The island's RangeSelector owns the real interaction; this paints the same row
+// with the seed's range selected, which is Model's default.
+const ranges: { key: string; label: string }[] = [
+  { key: '24h', label: t('app.chart.range24h') },
+  { key: '7d', label: t('app.chart.range1w') },
+  { key: '30d', label: t('app.chart.range1m') },
+  { key: '90d', label: t('app.chart.range3m') },
+  { key: '1y', label: t('app.chart.range1y') },
+]
+const activeRange = seed?.range ?? '30d'
+const rangeLabel = ranges.find((r) => r.key === activeRange)?.label ?? ''
+
+// Same shape as StatsPage's cardDelta(): the arrow, a signed one-decimal percent, and the range
+// name — and nothing at all when the change is flat or was not computable.
+function deltaLine(delta: SeededDelta | undefined): { text: string; direction: 'up' | 'down' } | undefined {
+  if (delta == null || delta.direction === 'flat') {
+    return undefined
+  }
+  const value = formatNumber(locale, delta.value / 100, {
+    style: 'percent',
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+    signDisplay: 'always',
+  })
+  return {
+    text: t('app.statsPage.deltaOver', {
+      delta: (delta.direction === 'up' ? '▲ ' : '▼ ') + isolate(value),
+      range: rangeLabel,
+    }),
+    direction: delta.direction,
+  }
+}
+
+const tvlLabel =
+  cards.tvlUsd != null
+    ? t('app.statsPage.tvlLabelWithUsd', { usd: isolate(cards.tvlUsd) })
+    : t('app.statsPage.tvlLabel')
+
+const statCards: {
+  value?: string
+  label: string
+  caption?: string
+  accent?: boolean
+  delta?: { text: string; direction: 'up' | 'down' }
+  exact?: string
+}[] = [
+  {
+    value: cards.staked,
+    label: tvlLabel,
+    delta: deltaLine(seed?.deltas.staked),
+    exact:
+      cards.stakedExact == null
+        ? undefined
+        : t('app.statsPage.exactly', {
+            value: isolate(t('app.model.gram', { amount: isolate(cards.stakedExact) })),
+          }),
+  },
+  {
+    value: cards.apy,
+    label: t('app.statsPage.apyLastRound'),
+    caption: cards.protocolFee == null ? undefined : t('app.statsPage.stakingFee', { fee: isolate(cards.protocolFee) }),
+    accent: true,
+  },
+  {
+    value: cards.holders,
+    label: t('app.statsPage.activeStakers'),
+    delta: deltaLine(seed?.deltas.holders),
+  },
+  {
+    value: cards.rate,
+    label: t('app.statsPage.rateLabel'),
+    caption: t('app.statsPage.onlyGoesUp'),
+    delta: deltaLine(seed?.deltas.rate),
+  },
+]
+---
+
+<div class='font-body text-text mx-auto w-full max-w-[1180px] px-6 pt-6 pb-8 sm:px-12'>
+  <div class='flex flex-row flex-wrap items-baseline justify-between gap-3 pb-7'>
+    <div>
+      <h1 class='font-fredoka mb-1.5 text-3xl font-semibold sm:text-[44px]' set:text={t('app.statsPage.title')} />
+      <p class='text-text-muted text-base' set:text={t('app.statsPage.subtitle')} />
+    </div>
+    <div
+      class='border-border bg-surface inline-flex flex-row gap-1.5 rounded-full border p-1 text-[13px] font-semibold'
+      role='group'
+      aria-label={t('app.chart.rangeGroup')}
+    >
+      {
+        ranges.map(({ key, label }) => (
+          <span
+            class={
+              'num cursor-pointer rounded-full px-3.5 py-1.5 ' +
+              (key === activeRange ? 'bg-accent-fill text-on-accent' : 'text-text-muted hover:text-accent')
+            }
+            set:text={label}
+          />
+        ))
+      }
+    </div>
+  </div>
+
+  <div class='grid grid-cols-1 gap-4 pb-6 sm:grid-cols-2 lg:grid-cols-4'>
+    {
+      statCards.map(({ value, label, caption, accent, delta, exact }) => (
+        <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
+          <div
+            class={'font-fredoka num text-[30px] font-semibold ' + (accent === true ? 'text-accent' : 'text-text')}
+            set:text={value ?? '—'}
+          />
+          <div class='text-text-muted text-sm' set:text={label} />
+          {delta != null ? (
+            <div
+              class={'pt-1 text-[13px] font-medium ' + (delta.direction === 'up' ? 'text-positive' : 'text-accent')}
+              set:text={delta.text}
+            />
+          ) : (
+            caption != null && <div class='text-text-faint pt-1 text-[13px] font-medium' set:text={caption} />
+          )}
+          {exact != null && <div class='text-text-faint pt-1 text-[13px]' set:text={exact} />}
+        </div>
+      ))
+    }
+  </div>
+</div>

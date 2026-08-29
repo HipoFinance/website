@@ -1,21 +1,15 @@
 import type { StatsRange } from '../Model'
 
-// This code runs in the visitor's browser, so the base must be a public HTTPS URL — never a
-// swarm-internal name like prometheus1. The route is an nginx path-mount on the gauge host that
-// proxies only /api/v1/query_range to the internal prometheus1/prometheus2 pair (see
-// specs/app-stats-charts.md and specs/metrics-proxy-nginx.conf). Until it is deployed every
-// chart shows its quiet in-card error state — by design, nothing else on the page is affected.
-// For local testing against a tunnelled or mock Prometheus, override at dev/build time:
-//   PUBLIC_PROM_BASE=http://localhost:9090 npm run dev
-export const PROM_BASE =
-  (import.meta.env.PUBLIC_PROM_BASE as string | undefined) ?? 'https://gauge.hipo.finance/prometheus'
-
-// Single fixed query string across every range (only start/end/step vary) so a reverse-proxy
-// allowlist and cache can match on it verbatim. `by (__name__)` keeps the metric name as the
+// Single fixed query string across every range (only start/end/step vary) so the reverse-proxy
+// allowlist and cache can match on it verbatim; `by (__name__)` keeps the metric name as the
 // series key and dedups an HA scrape pair. Metric names use the pre-rename tokens: `hton` =
-// hGRAM, `ton` = GRAM.
-const QUERY =
-  'max by (__name__) ({__name__=~"hipo_treasury_apy|hipo_treasury_total_coins|hipo_treasury_hton_rate|hipo_treasury_protocol_fee|hipo_hton_holders_count|hipo_hton_current_price|hipo_hpo_current_price|hipo_ton_current_price"})'
+// hGRAM, `ton` = GRAM. Both constants live in src/data/prometheus-query.ts because the
+// build-time seed fetch (src/data/stats.ts) and the nginx allowlist have to agree with them —
+// see the note there. Until that proxy is deployed every chart shows its quiet in-card error
+// state, by design; nothing else on the page is affected.
+import { PROM_BASE, PROM_QUERY as QUERY } from '../../../data/prometheus-query.ts'
+
+export { PROM_BASE }
 
 export type MetricName =
   | 'hipo_treasury_apy'
