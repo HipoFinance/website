@@ -49,7 +49,7 @@ As recompensas são acumuladas continuamente e podem ser sacadas sempre que o se
 
 :::note
 
-## O que mudou na temporada 4
+## O que mudou desde a temporada 4
 
 As temporadas 1–3 funcionavam com outro modelo: 6 níveis, resgates de HPO com desconto no fim de cada temporada e uma cota de venda por nível. A partir da **temporada 4**, o Hipo Club funciona como descrito acima — 10 níveis, recompensas diretas em HPO por rodada, sem desconto no resgate, sem cota de venda e com reinício de nível quando o HPO recebido como recompensa é vendido.
 :::

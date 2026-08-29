@@ -49,7 +49,7 @@ Imbalan terkumpul secara berkelanjutan dan dapat ditarik kapan saja saldo terkum
 
 :::note
 
-## Apa yang berubah di Season 4
+## Apa yang berubah sejak Season 4
 
 Season 1–3 berjalan dengan model yang berbeda: 6 level, klaim HPO dengan diskon di akhir setiap season, dan allowance jual per level. Mulai **Season 4** dan seterusnya, Hipo Club bekerja seperti dijelaskan di atas — 10 level, imbalan HPO langsung per putaran, tanpa diskon klaim, tanpa allowance jual, dan reset level ketika HPO hasil imbalan dijual.
 :::

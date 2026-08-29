@@ -49,7 +49,7 @@ Rewards fallen kontinuierlich an und können ausgezahlt werden, sobald Ihr aufge
 
 :::note
 
-## Was sich in Season 4 geändert hat
+## Was sich seit Season 4 geändert hat
 
 Season 1–3 liefen nach einem anderen Modell: 6 Stufen, vergünstigte HPO-Claims am Ende jeder Season und ein Verkaufskontingent pro Stufe. Ab **Season 4** funktioniert Hipo Club wie oben beschrieben — 10 Stufen, direkte HPO-Rewards pro Runde, kein Claim-Rabatt, kein Verkaufskontingent und ein Stufen-Reset, wenn erhaltenes HPO verkauft wird.
 :::

@@ -49,7 +49,7 @@ Le ricompense maturano di continuo e possono essere prelevate ogni volta che il 
 
 :::note
 
-## Che cosa è cambiato nella Stagione 4
+## Che cosa è cambiato dalla Stagione 4
 
 Le stagioni 1–3 seguivano un modello diverso: 6 livelli, riscossione scontata degli HPO alla fine di ogni stagione e una soglia di vendita per livello. Dalla **Stagione 4** in poi Hipo Club funziona come descritto sopra: 10 livelli, ricompense in HPO dirette a ogni round, nessuno sconto sul reclamo, nessuna soglia di vendita e azzeramento del livello quando gli HPO ricevuti come ricompensa vengono venduti.
 :::

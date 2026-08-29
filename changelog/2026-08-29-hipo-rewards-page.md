@@ -184,9 +184,12 @@ reads as _one point zero five five_ in half of them.
 - **The level spreadsheet contradicts itself** — its table says Level 6 = 4×, its
   worked example says 4.2. The table is right (the API confirms 4). It also still
   says `hTON`.
-- **`hipo-club.md`'s note is still headed "What changed in Season 4"** while now
-  describing a Season 5 rule. Needs rewriting once the rest of the Season 5
-  changes are known.
+- **`hipo-club.md`'s Season 4 note.** Its heading is now "What changed **since**
+  Season 4" in all ten locales, matching the body text, which already said "From
+  Season 4 onwards" — the note covers a Season 5 rule too, so "in" was wrong.
+  Each locale needed its own construction rather than a word swap (fa "from …
+  onwards", tr's ablative `-dan beri`, ru "starting from"). The note still needs
+  a proper rewrite once the rest of the Season 5 changes are known.
 - **`coefficient` has no `GLOSSARY.md` row** and the Hindi corpus renders it two
   ways (`गुणांक`, `कोएफ़िशिएंट`).
 - The marketing package's `llms-txt-additions.md`, `vs.astro` and `verify.astro`

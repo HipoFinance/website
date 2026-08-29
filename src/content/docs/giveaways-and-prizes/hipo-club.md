@@ -49,7 +49,7 @@ Rewards accrue continuously and can be withdrawn whenever your accrued balance i
 
 :::note
 
-## What changed in Season 4
+## What changed since Season 4
 
 Seasons 1–3 ran on a different model: 6 levels, discounted HPO claims at the end of each season, and a per-level sell allowance. From **Season 4** onwards Hipo Club works as described above — 10 levels, direct per-round HPO rewards, no claim discount, no sell allowance, and a level reset when rewarded HPO is sold.
 :::

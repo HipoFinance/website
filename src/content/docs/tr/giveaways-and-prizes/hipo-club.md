@@ -49,7 +49,7 @@ Miktar, Hipo Club'da bağladığınız tüm cüzdanlarınız toplanarak hesaplan
 
 :::note
 
-## 4. sezonda neler değişti
+## 4. sezondan beri neler değişti
 
 1.–3. sezonlar farklı bir modelle işledi: 6 seviye, her sezonun sonunda indirimli HPO talebi ve seviye başına bir satış hakkı. **4. sezon** itibarıyla Hipo Club yukarıda anlatıldığı gibi işler — 10 seviye, tur başına doğrudan HPO ödülleri, talep indirimi yok, satış hakkı yok ve ödül olarak alınan HPO satıldığında seviye sıfırlanır.
 :::
