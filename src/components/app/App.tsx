@@ -16,7 +16,7 @@ import '@fontsource/heebo/400.css'
 import '@fontsource/heebo/500.css'
 import '@fontsource/heebo/700.css'
 import { Model } from './Model'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useLayoutEffect } from 'react'
 import AmountAlert from './AmountAlert.tsx'
 import MultisigGuidance from './MultisigGuidance.tsx'
 import TmaApp from './tma/TmaApp.tsx'
@@ -35,7 +35,15 @@ const App = observer(() => {
   // The static shell renders a loading placeholder (AppLayout's [data-app-loading]) so slow
   // connections see that an app is coming; drop it as soon as this island is live, and again
   // after every ClientRouter navigation, since each swapped-in page carries a fresh copy.
-  useEffect(() => {
+  //
+  // useLayoutEffect, not useEffect, and that distinction is the whole point: React flushes passive
+  // effects after the browser has painted, so a useEffect here left a frame in which this island's
+  // tree and the shell were BOTH laid out. The island renders into <astro-island>, which precedes
+  // [data-app-loading] in AppLayout's markup, so that frame is a document roughly twice its real
+  // height — and on /rewards/ and /defi/, whose shell is a header inside `min-h-screen`, removing
+  // it then pulls the content up by about a viewport. A layout effect runs before that paint, so
+  // the shell is gone in the same frame the island first appears in and nothing shifts.
+  useLayoutEffect(() => {
     const clear = () => {
       document.querySelectorAll('[data-app-loading]').forEach((el) => {
         el.remove()

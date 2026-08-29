@@ -220,6 +220,20 @@ export default defineConfig({
 
   trailingSlash: 'always',
 
+  // Starlight sets `prefetch: { prefetchAll: true }` for the whole site if the config does not
+  // (node_modules/@astrojs/starlight/index.ts), which leaves Astro's default strategy of 'hover'.
+  // Astro's hover listener is `mouseenter`/`focusin` only, so on a touchscreen nothing was ever
+  // prefetched: every tap on the dApp's bottom tab bar was a cold document fetch, and with
+  // ClientRouter holding the paint through the view transition, that whole round trip lands in
+  // the tap's INP.
+  //
+  // 'viewport' prefetches in-view links with `<link rel="prefetch">` after a 300 ms dwell, at low
+  // priority and off the idle queue. It is self-limiting on the connections where it would hurt:
+  // `canPrefetchUrl` refuses on a slow connection or when offline, and `elMatchesStrategy` turns
+  // the 'tap' strategy on automatically there instead — so a 3G visitor gets the touchstart head
+  // start rather than a sidebar's worth of speculative requests.
+  prefetch: { prefetchAll: true, defaultStrategy: 'viewport' },
+
   // Meta-refresh stubs (with noindex) for the four docs URLs retired by the 2026-08 restructure
   // (specs/docs-restructure.md § Merges). GitHub Pages has no server redirects, and
   // docs.hipo.finance 301s legacy GitBook paths here, so these URLs must keep resolving. Both

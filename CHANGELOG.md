@@ -7,6 +7,20 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-29 — [detailed report](changelog/2026-08-29-cwv-fonts-and-inp.md)
+
+- Search Console's mobile LCP and CLS issues name only `/`, so the fix is the landing page's font
+  chain, not this morning's dApp work: new `FontPreload.astro` preloads the first screen's faces
+  per locale, ahead of the stylesheet.
+- The 107 KB hero art is now a `<picture>` with a `media` source, so phones — where it is
+  `hidden` — stop fetching it, and it carries its intrinsic dimensions.
+- First pass at INP: Astro's prefetch was on `hover`, which never fires on a touchscreen, so every
+  tap was a cold fetch; `defaultStrategy` is now `viewport`.
+- The static shell's Connect and menu buttons are `disabled` — inert mirrors that registered taps
+  while the island hydrated.
+- `App.tsx` drops the shell in a `useLayoutEffect`, closing a frame where it and the island were
+  both laid out.
+
 ## 2026-08-29 — [detailed report](changelog/2026-08-29-hipo-rewards-page.md)
 
 - Rewrote Hipo Rewards with the HPO boost formula, the level-coefficient table, a

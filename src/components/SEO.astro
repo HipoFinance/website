@@ -7,6 +7,7 @@
 import { DEFAULT_LOCALE, LOCALES, indexableLocales } from '../i18n/registry.mjs'
 import { langOf, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
 import Analytics from './Analytics.astro'
+import FontPreload from './FontPreload.astro'
 
 interface Props {
   title: string
@@ -44,6 +45,10 @@ const isDraft = LOCALES[locale]?.status === 'draft'
 <meta name='description' content={description} />
 <meta name='viewport' content='width=device-width, initial-scale=1' />
 {isDraft && <meta name='robots' content='noindex, nofollow' />}
+
+<!-- Above the stylesheet links Astro injects below, which is the point: the first screen's faces
+     start downloading in parallel with the CSS instead of after it. -->
+<FontPreload locale={locale} />
 <link rel='canonical' href={url} />
 {alternates.map((alt) => <link rel='alternate' hreflang={alt.lang} href={alt.href} />)}
 {localized && <link rel='alternate' hreflang='x-default' href={englishUrl} />}

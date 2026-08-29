@@ -112,11 +112,22 @@ const why = [
         style='background: radial-gradient(closest-side, var(--hero-glow), rgba(255,126,115,0));'
       >
       </div>
-      <img
-        src='/images/hipo-bank.webp'
-        alt={t('landing.hero.imageAlt')}
-        class='relative w-[420px] max-w-full drop-shadow-[0_20px_40px_var(--art-shadow)]'
-      />
+      <!-- The wrapper above is `hidden lg:flex`, so this art never appears on a phone — but a bare
+           <img src> is fetched by the preload scanner before any CSS says so, which spent 107 KB of
+           a mobile visitor's bandwidth against the LCP paint. The <source media> is honoured by the
+           scanner itself, so narrow viewports resolve to the 1x1 data URI and request nothing;
+           desktop still gets the webp eagerly, high priority, exactly as before.
+           width/height carry the intrinsic 800x800 so the box is reserved before the bytes land. -->
+      <picture>
+        <source media='(min-width: 1024px)' srcset='/images/hipo-bank.webp' type='image/webp' />
+        <img
+          src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+          alt={t('landing.hero.imageAlt')}
+          width='800'
+          height='800'
+          class='relative w-[420px] max-w-full drop-shadow-[0_20px_40px_var(--art-shadow)]'
+        />
+      </picture>
     </div>
   </section>
 

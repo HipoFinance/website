@@ -66,14 +66,27 @@ const tabs: { page: Props['activePage']; label: string; icon: 'coins' | 'gift' |
     </nav>
 
     <div class='flex flex-none items-center gap-4'>
+      <!-- `disabled` on both: these two are mirrors with no handler behind them, and until the
+           island replaces them a tap does nothing at all. Left enabled they still registered as
+           interactions, so the visitor tapped again — and every one of those taps landed while the
+           main thread was busy hydrating and fetching chain.ts, which is exactly the window INP
+           measures. A disabled button dispatches no click and takes no focus, so the shell now
+           reads as not-yet-ready instead of as broken.
+           Deliberately WITHOUT Header.tsx's `disabled:cursor-progress disabled:opacity-70`, the
+           one place this file's copy-the-classes rule is broken on purpose: there those fire only
+           while the wallet chunk is in flight, here the button is disabled for its whole life, so
+           copying them would dim a button the island then paints at full opacity — the exact
+           mismatch the rule exists to prevent. Leave them off when syncing this against Header.tsx. -->
       <button
         type='button'
+        disabled
         class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold'
         set:text={t('app.common.connectWallet')}
       />
 
       <button
         type='button'
+        disabled
         class='text-text cursor-pointer lg:hidden'
         title={t('app.header.toggleMenu')}
         aria-label={t('app.header.toggleMenu')}
