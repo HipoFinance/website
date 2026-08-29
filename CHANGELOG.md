@@ -10,13 +10,13 @@ here — `git log` remains the complete record.
 ## 2026-08-29 — [detailed report](changelog/2026-08-29-locale-font-popularity.md)
 
 - Re-picked the per-script fonts for popularity: `ar` → Cairo, `fa` display →
-  Lalezar, `ru` body → Roboto, `hi` body → Poppins.
+  Lalezar, `ru` → Roboto + Nunito, `hi` body → Poppins.
 - Arabic no longer borrows Persian's Vazirmatn; it has its own `html[lang='ar']`
   block and runs Cairo in both roles.
 - Dropped Tajawal after finding it lacks the Arabic decimal and thousands
   separators that `Intl` emits in every `ar` number.
-- Swapped four fontsource packages out and four in; Latin locales keep Heebo +
-  Fredoka.
+- Replaced Comfortaa with Nunito after browser checks showed Russian headings
+  rendering their Cyrillic and Latin halves at visibly different weights.
 - Dropped the duplicate `--font-heebo` token; `HpoLayout` now uses `font-body`
   like the other two layouts.
 

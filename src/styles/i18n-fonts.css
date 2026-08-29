@@ -77,7 +77,11 @@
     U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
 }
 
-/* ---------- Cyrillic: Roboto (body) + Comfortaa (display) — ru ---------- */
+/* ---------- Cyrillic: Roboto (body) + Nunito (display) — ru ----------
+ * Nunito replaces Comfortaa as the display face. Comfortaa is a much lighter typeface than Fredoka at
+ * the same nominal weight, so every heading mixing Cyrillic with Latin (`Как работает Hipo`,
+ * `Стейкинг GRAM № 1`) rendered the two halves at visibly different stroke weights. Nunito is rounded
+ * like Fredoka, carries conventional Cyrillic letterforms, and reaches 1000 on the weight axis. */
 
 @font-face {
   font-family: 'Roboto Variable';
@@ -98,20 +102,20 @@
 }
 
 @font-face {
-  font-family: 'Comfortaa Variable';
+  font-family: 'Nunito Variable';
   font-style: normal;
   font-display: swap;
-  font-weight: 300 700;
-  src: url('@fontsource-variable/comfortaa/files/comfortaa-cyrillic-wght-normal.woff2') format('woff2-variations');
+  font-weight: 200 1000;
+  src: url('@fontsource-variable/nunito/files/nunito-cyrillic-wght-normal.woff2') format('woff2-variations');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
 @font-face {
-  font-family: 'Comfortaa Variable';
+  font-family: 'Nunito Variable';
   font-style: normal;
   font-display: swap;
-  font-weight: 300 700;
-  src: url('@fontsource-variable/comfortaa/files/comfortaa-cyrillic-ext-wght-normal.woff2') format('woff2-variations');
+  font-weight: 200 1000;
+  src: url('@fontsource-variable/nunito/files/nunito-cyrillic-ext-wght-normal.woff2') format('woff2-variations');
   unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
@@ -190,9 +194,9 @@ html[lang='ar'] {
 
 html[lang='ru'] {
   --font-body: 'Roboto Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-fredoka: 'Comfortaa Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
+  --font-fredoka: 'Nunito Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
   --sl-font: 'Roboto Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --hipo-font-display: 'Comfortaa Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
+  --hipo-font-display: 'Nunito Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
 }
 
 html[lang='hi'] {

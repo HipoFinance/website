@@ -37,12 +37,12 @@ against each candidate's `cmap` with fontTools.
 | ar     | display | Baloo Bhaijaan 2      | Cairo   | same                                      |
 | fa     | display | Baloo Bhaijaan 2      | Lalezar | overall #353, vs Baloo Bhaijaan 2 at #774 |
 | ru     | body    | Rubik                 | Roboto  | overall #2, vs Rubik at #26               |
+| ru     | display | Comfortaa             | Nunito  | overall #22, vs Comfortaa at #138         |
 | hi     | body    | Hind                  | Poppins | #1 of 57 Devanagari (overall #7)          |
 
 Unchanged: `fa` body stays **Vazirmatn** (the de-facto Persian web standard —
-IRANSans is more used in Iran but is proprietary), `ru` display stays
-**Comfortaa**, `hi` display stays **Baloo 2**, and the six Latin locales keep
-**Heebo + Fredoka**.
+IRANSans is more used in Iran but is proprietary), `hi` display stays **Baloo 2**,
+and the six Latin locales keep **Heebo + Fredoka**.
 
 `@fontsource/tajawal`, `@fontsource-variable/baloo-bhaijaan-2`,
 `@fontsource-variable/rubik` and `@fontsource/hind` were removed;
@@ -108,6 +108,37 @@ declaration in `global.css` and four in `i18n-fonts.css`. Nothing else in the re
 it. The stylesheet comment describing the tokens claimed `--font-heebo` lived in `global.css` and
 `app.css`; `app.css` never declared it, so that comment was already wrong and is corrected too.
 
+## What the browser showed, and the one thing it caught
+
+All four locales were rendered at 1440px in the light scheme, from a local
+`astro preview` of the built `dist/`, and inspected at 3x zoom.
+
+`fa`, `ar` and `hi` came out clean. Lalezar renders as a real face on the Persian
+hero with no synthetic-bold artefacts, which was the specific risk in declaring a
+single-weight font over `400 700`. Cairo in both Arabic roles does not read flat —
+size and weight carry the hierarchy — and every Arabic number renders in one face,
+separators included, which is what dropping Tajawal was for. Baloo 2 matches
+Fredoka's density on the Hindi hero and Poppins reads cleanly at 16px, so the
+legibility concern about choosing Poppins over Mukta did not materialise.
+
+Russian did not. Comfortaa is a much lighter typeface than Fredoka at the same
+nominal weight — both are `wght 300-700` and both render at 600 from
+`font-semibold`, but Comfortaa's 700 is about as dark as Fredoka's 500. Every
+heading that mixes scripts showed the two halves at visibly different stroke
+weights: "Как работает **Hipo**", "Стейкинг **GRAM** № **1** … сети **TON**", the
+Latin roughly twice as thick. Comfortaa also draws Cyrillic `т` and `и` in
+cursive-derived forms, so "по доходности в сети" rendered with `m`- and `u`-shaped
+letters.
+
+Nunito replaces it: rounded like Fredoka, conventional Cyrillic letterforms, a
+`200-1000` weight axis, and considerably more popular (#22 vs #138), so the swap
+serves the session's criterion as well as the visual problem. Re-rendered, the
+weights sit close enough that `Hipo` reads as brand emphasis rather than a
+mismatch.
+
+This is the argument for rendering rather than reasoning about type: the Comfortaa
+problem is invisible in the CSS, in the coverage tests, and in the popularity data.
+
 ### Verification performed
 
 - `npm run build` — clean, 512 pages, `prebuild` i18n gate passed. No content
@@ -118,6 +149,14 @@ it. The stylesheet comment describing the tokens claimed `--font-heebo` lived in
   Devanagari. Zero misses.
 - The four `html[lang=…]` token blocks in the built CSS name the intended
   families, in all three stylesheet compilations.
+- Rendered `/fa/`, `/ru/`, `/hi/` and `/ar/` in headless Chrome against a local
+  preview; `/ru/` re-rendered after the Nunito swap to confirm the fix.
+- Runtime numerals checked separately from static content, since `Intl` emits
+  codepoints no content file contains: Vazirmatn and Lalezar cover all of fa's
+  (۰-۹, ٪ ٫ ٬), Cairo all of ar's, and Poppins and Baloo 2 both map `U+0970`, the
+  abbreviation sign in Hindi's compact `क॰` notation. Cairo does not map `U+061C`
+  (Arabic Letter Mark), but that is category `Cf` — an invisible control with no
+  glyph — and none of the Arabic faces map it.
 - Tajawal, Baloo Bhaijaan 2, Rubik and Hind appear nowhere in `dist/_astro/*.css`.
 - After the `font-heebo` removal: a second clean build, `.font-heebo` no longer emitted anywhere in
   `dist/_astro/*.css`, `.font-body{font-family:var(--font-body)}` unchanged, the four per-locale
@@ -130,10 +169,10 @@ it. The stylesheet comment describing the tokens claimed `--font-heebo` lived in
 
 ### Follow-ups
 
-- **None of this has been looked at in a browser.** The four new faces need a
-  native reader's eye per locale, especially: Lalezar at `font-semibold` on the
-  Persian hero headline (the synthetic-bold workaround above), and Poppins at
-  16px for Hindi body copy.
+- Still unrendered: the **dark scheme** (Warm Dark is the authored base and only
+  light was checked), mobile widths, and the `/docs/` and dApp pages.
+- A native reader per locale is still worth having before any of these flip from
+  `indexed` to `public` — rendering correctly is not the same as reading well.
 - Hindi now ships four Poppins Devanagari statics (~154 KB total) plus Baloo 2
   (112 KB) — the heaviest locale by some margin. Worth trimming a weight if it
   shows up in field data.
