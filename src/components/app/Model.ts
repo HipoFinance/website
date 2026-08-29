@@ -417,6 +417,35 @@ function readDocumentLocale(): Locale {
 const inlineCatalogId = 'i18n-app'
 const emptyCatalog: Catalog = Object.freeze({})
 
+// The gauge payload AppLayout bakes into the page (see src/data/gauge.ts). Reading it at
+// construction is what lets the island's FIRST paint carry the same APY, staked and holder figures
+// as the static shell it replaces — without it the island would mount showing dashes and then fill
+// them in a moment later, which is a worse flash than the one the shell was added to remove.
+// loadHipoGauge() still runs and takes over with fresher numbers.
+const inlineGaugeId = 'gauge-data'
+
+function readInlineGauge(): HipoGaugeResponse | undefined {
+  if (typeof document === 'undefined') {
+    return undefined
+  }
+  const text = document.getElementById(inlineGaugeId)?.textContent ?? ''
+  if (text.trim() === '') {
+    return undefined
+  }
+  try {
+    const parsed: unknown = JSON.parse(text)
+    return typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)
+      ? (parsed as HipoGaugeResponse)
+      : undefined
+  } catch {
+    return undefined
+  }
+}
+
+// Read once: the Model is constructed once per island and persists across ClientRouter swaps, and
+// loadHipoGauge() owns every value from then on.
+const inlineGauge = readInlineGauge()
+
 function readInlineCatalogText(): string {
   if (typeof document === 'undefined') {
     return ''
@@ -489,8 +518,8 @@ export class Model {
   isMultisig = false
   showMultisigGuidance = false
   multisigHint = false
-  holdersCount?: number
-  gauge?: HipoGauge
+  holdersCount?: number = inlineGauge?.hton?.holders_count
+  gauge?: HipoGauge = inlineGauge === undefined ? undefined : toHipoGauge(inlineGauge)
   isGaugeRefreshing = false
   // True while the wallet layer is being fetched, so the header's Connect button can show that the
   // press registered — on a slow connection the chunk is a few hundred KB.

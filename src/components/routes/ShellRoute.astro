@@ -27,6 +27,6 @@ const description = t(`seo.${page}.description`)
 const jsonLd = await shellJsonLd({ page, title, description, locale })
 ---
 
-<Layout title={title} description={description} jsonLd={jsonLd}>
+<Layout title={title} description={description} page={page} jsonLd={jsonLd}>
   <Page />
 </Layout>

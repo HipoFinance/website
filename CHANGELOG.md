@@ -7,6 +7,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-29 — [detailed report](changelog/2026-08-29-static-app-shell.md)
+
+- The dApp pages now paint the app chrome at build time instead of a spinner —
+  new Astro mirrors of the island's markup in `src/components/app/shell/`.
+- The stats tiles carry real figures: `AppLayout` inlines the gauge payload as
+  `#gauge-data` and the island seeds itself from it, so nothing blinks.
+- Crawlers now get the app UI and its live numbers where they used to get
+  "Loading the Hipo app…".
+- Settled the `@ton/crypto` follow-up: it cannot be trimmed from this repo, the
+  `@ton/ton` barrel arrives through `@hipo-finance/sdk`'s own require.
+
 ## 2026-08-29 — [detailed report](changelog/2026-08-29-app-island-code-splitting.md)
 
 - The app island dropped from 312 KB to 48 KB gzipped: the TonConnect and TON

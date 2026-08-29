@@ -7,12 +7,16 @@ import AppIsland from '../components/app/AppIsland.tsx'
 import SiteFooter from '../components/SiteFooter.astro'
 import Banner from '../components/Banner.astro'
 import LanguageSwitcher from '../components/LanguageSwitcher.astro'
+import AppShell from '../components/app/shell/AppShell.astro'
+import type { ShellPage } from '../components/pages/shellJsonLd'
 import { dirOf, langOf, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
 import { getAppCatalog, getT } from '../i18n/t.ts'
+import { appStats, fetchGauge } from '../data/gauge.ts'
 
 interface Props {
   title: string
   description: string
+  page: ShellPage
   jsonLd?: Record<string, any>
 }
 
@@ -26,6 +30,7 @@ const { path: pagePath } = stripLocale(Astro.url.pathname)
 const {
   title,
   description,
+  page,
   jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -48,6 +53,15 @@ const {
 // the island, so the tag is emitted for other locales only. `<` is escaped so no catalog value can close
 // the script element.
 const appCatalogJson = locale === 'en' ? undefined : JSON.stringify(getAppCatalog(locale)).replace(/</g, '\\u003c')
+
+// Live protocol figures, fetched once per build (src/data/gauge.ts). They are rendered into the
+// static shell below AND inlined as JSON so the island can seed itself from the same payload —
+// that is what stops the numbers blinking when React mounts. Escaped like the catalog above so no
+// value can close the script element. Absent when the gauge was unreachable at build time, in
+// which case the shell shows dashes and the island's own fetch fills them in as before.
+const gauge = await fetchGauge()
+const gaugeJson = gauge === undefined ? undefined : JSON.stringify(gauge).replace(/</g, '\\u003c')
+const stats = appStats(locale, gauge)
 
 // Footer nav under the shell copy. /docs/ goes through localizedPath like every other internal link (the
 // SiteFooter's Documentation link already does); docs get their per-locale routes in phase 4, and until
@@ -136,13 +150,20 @@ const footerNav = [
            catalog with no request. */
         appCatalogJson && <script type='application/json' id='i18n-app' set:html={appCatalogJson} />
       }
+      {
+        /* The gauge payload the island seeds itself from (Model.readInlineGauge). Kept next to the
+           catalog tag, inside the static shell, so a ClientRouter swap hands the persisted island a
+           fresh copy without a request. */
+        gaugeJson && <script type='application/json' id='gauge-data' set:html={gaugeJson} />
+      }
       <AppIsland client:only='react' transition:persist='app-island' />
-      <!-- Removed by App.tsx the moment the island hydrates (and again after every ClientRouter
-           swap). On slow connections this is what tells the user an app is coming, instead of the
-           bare SEO copy below reading as the whole page. -->
-      <div data-app-loading class='flex min-h-[55vh] flex-col items-center justify-center gap-4'>
-        <div class='border-border border-t-accent size-10 animate-spin rounded-full border-4'></div>
-        <p class='text-text-muted font-body text-sm'>{t('site.app.loading')}</p>
+      <!-- The app's chrome, painted before the island arrives so the page does not go from a
+           spinner to a full layout. App.tsx removes everything marked data-app-loading the moment
+           it hydrates (and again after every ClientRouter swap). data-tma-hide because this is the
+           desktop chrome: inside Telegram the island renders TmaApp instead, and the inline script
+           in <head> has already set html.tma so this never paints there. -->
+      <div data-app-loading data-tma-hide>
+        <AppShell locale={locale} page={page} stats={stats} />
       </div>
     </main>
 

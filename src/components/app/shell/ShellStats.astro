@@ -1,0 +1,50 @@
+---
+// Static mirror of src/components/app/Stats.tsx — the three tiles under the stake form.
+//
+// This is the one part of the shell that carries real data: the figures come from the gauge
+// payload baked in at build time, and the island reproduces them on its first paint from the same
+// payload (Model seeds `gauge` from #gauge-data), so the numbers do not blink when React mounts.
+// A missing figure renders the same em dash Tile does.
+import type { Locale } from '../../../i18n/locale.ts'
+import { getT } from '../../../i18n/t.ts'
+import type { AppStats } from '../../../data/gauge.ts'
+
+interface Props {
+  locale: Locale
+  stats: AppStats
+}
+
+const { locale, stats } = Astro.props
+const { t } = getT(locale, ['app'])
+
+const tiles: { label: string; tooltip: string; value?: string; accent?: boolean }[] = [
+  { label: t('app.stats.apyLastRound'), tooltip: t('app.stats.apyTooltip'), value: stats.apy, accent: true },
+  { label: t('app.stats.gramStaked'), tooltip: t('app.stats.gramStakedTooltip'), value: stats.staked },
+  { label: t('app.stats.hgramHolders'), tooltip: t('app.stats.hgramHoldersTooltip'), value: stats.holders },
+]
+---
+
+<div class='font-body text-text mx-auto w-full max-w-[1120px] px-6 pb-12'>
+  <div class='mx-auto w-full max-w-[480px]'>
+    <div class='grid grid-cols-1 gap-3 sm:grid-cols-3'>
+      {
+        tiles.map(({ label, tooltip, value, accent }) => (
+          <div class='border-border bg-surface rounded-[20px] border px-5 py-4'>
+            <p
+              class={'font-fredoka num text-2xl font-semibold ' + (accent === true ? 'text-accent' : 'text-text')}
+              set:text={value ?? '—'}
+            />
+            <p class='text-text-muted text-sm' title={tooltip} set:text={label} />
+          </div>
+        ))
+      }
+    </div>
+
+    <div class='mt-4 flex flex-row justify-center'>
+      <span class='text-text-faint text-[13px]'>
+        {t('app.stats.moreStats')}
+        <span class='inline-block rtl:-scale-x-100'>→</span>
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+---
+// The app's chrome, rendered statically at build time and painted before the island arrives.
+//
+// It replaces the spinner that used to fill this space. The island's own markup lands on top a
+// moment later: App.tsx removes everything marked `data-app-loading` the instant it hydrates (and
+// again after every ClientRouter swap), so this is a first paint, not a fallback that lingers.
+//
+// The point is that the two renders agree. Every mirror component here reproduces the island's
+// FIRST-paint state — no wallet connected, nothing read from the chain yet — rather than its
+// eventual state, because a shell showing figures the island then blanks would be a worse flash
+// than the spinner was. The one exception is the stats strip, whose figures come from the gauge:
+// AppLayout inlines that payload as #gauge-data and Model seeds itself from it, so the island
+// reproduces those numbers on its first paint too.
+//
+// Only /stake/ and /unstake/ get a body mirror so far. /rewards/ needs a connected wallet before
+// it shows anything, and /stats/ and /defi/ are large enough to deserve their own pass — those
+// three get the header and nothing else, which is still an improvement on a bare spinner.
+import type { Locale } from '../../../i18n/locale.ts'
+import type { AppStats } from '../../../data/gauge.ts'
+import type { ShellPage } from '../../pages/shellJsonLd'
+import ShellHeader from './ShellHeader.astro'
+import ShellStakeForm from './ShellStakeForm.astro'
+import ShellStats from './ShellStats.astro'
+
+interface Props {
+  locale: Locale
+  page: ShellPage
+  stats: AppStats
+}
+
+const { locale, page, stats } = Astro.props
+
+// Model's route table maps /rewards/ to the internal id 'reward'; the header's active state and
+// the bottom tab bar both key off that id, so the mapping has to match.
+const activePage = { stake: 'stake', unstake: 'stake', rewards: 'reward', stats: 'stats', defi: 'defi' }[page] as
+  | 'stake'
+  | 'reward'
+  | 'stats'
+  | 'defi'
+
+const isStakeForm = page === 'stake' || page === 'unstake'
+---
+
+<div class='flex min-h-screen flex-col'>
+  <ShellHeader locale={locale} activePage={activePage} />
+  {
+    isStakeForm && (
+      <>
+        <ShellStakeForm locale={locale} tab={page === 'unstake' ? 'unstake' : 'stake'} />
+        <ShellStats locale={locale} stats={stats} />
+      </>
+    )
+  }
+</div>

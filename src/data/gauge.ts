@@ -98,6 +98,42 @@ function positive(value: number | undefined): value is number {
   return value != null && value > 0
 }
 
+// The three figures the dApp's stats strip shows under the stake form, and the same three on the
+// Stats page's headline cards. Formatted to match Model's `statsApyFormatted`,
+// `statsStakedCompact` and `statsHoldersFormatted` exactly — NOT gaugeValues() above, which
+// rounds the landing page's copies differently (2 fraction digits on the staked figure, an exact
+// holder count). The static app shell renders these and the island's first paint reproduces them
+// from the same payload, inlined as #gauge-data, so nothing moves when React mounts.
+export interface AppStats {
+  apy?: string
+  staked?: string
+  holders?: string
+}
+
+export function appStats(locale: Locale, data: GaugeData | undefined): AppStats {
+  const stats: AppStats = {}
+  if (data === undefined) {
+    return stats
+  }
+
+  const apy = data.treasury?.current_apy
+  if (apy != null) {
+    stats.apy = formatPercent(locale, apy / 100, 2)
+  }
+
+  const stakedNano = data.treasury?.current_tvl
+  if (stakedNano != null) {
+    stats.staked = formatCompact(locale, stakedNano / 1000000000, 1)
+  }
+
+  const holders = data.hton?.holders_count
+  if (positive(holders)) {
+    stats.holders = formatCompact(locale, holders, 1)
+  }
+
+  return stats
+}
+
 export function gaugeValues(locale: Locale, data: GaugeData | undefined): GaugeValues {
   const values: GaugeValues = {}
   if (data === undefined) {

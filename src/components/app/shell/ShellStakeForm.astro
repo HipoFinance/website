@@ -1,0 +1,189 @@
+---
+// Static mirror of src/components/app/StakeUnstake.tsx in its first-paint state: no wallet
+// connected, the amount field empty, and every chain-derived figure blank — which is exactly what
+// the island renders before the chain layer lands, so the two line up and nothing jumps.
+//
+// The balances drawer is deliberately present-but-collapsed (`max-h-0`), like the island's, so the
+// card sits at the same offset. The rows under the button are rendered with empty values rather
+// than omitted, for the same reason: they occupy their final height from the first paint. Their
+// figures are all gated on `treasuryState` in Model and cannot be baked — the gauge carries no
+// exchange rate, and quoting a fee before the treasury has answered would be inventing one.
+//
+// Classes are copied from StakeUnstake.tsx and must stay copied; see ShellHeader.astro.
+import { localizedPath, type Locale } from '../../../i18n/locale.ts'
+import { getT } from '../../../i18n/t.ts'
+import ShellIcon from './ShellIcon.astro'
+
+interface Props {
+  locale: Locale
+  tab: 'stake' | 'unstake'
+}
+
+const { locale, tab } = Astro.props
+const { t, tHtml } = getT(locale, ['app'])
+const stake = tab === 'stake'
+
+const pill = 'min-h-11 flex-1 cursor-pointer rounded-full px-9 py-2 text-center '
+const active = 'bg-accent-fill text-on-accent'
+const idle = 'text-text-muted hover:text-accent'
+---
+
+<div class='font-body text-text mx-auto flex w-full max-w-[1120px] flex-col items-center px-6 pt-10 pb-8'>
+  <div class='pb-7 text-center'>
+    <h1
+      class='font-fredoka mb-2 text-3xl font-semibold sm:text-[34px]'
+      set:text={stake ? t('app.stake.titleStake') : t('app.stake.titleUnstake')}
+    />
+    <p
+      class='text-text-muted text-base'
+      set:text={stake ? t('app.stake.subtitleStake') : t('app.stake.subtitleUnstake')}
+    />
+  </div>
+
+  <div
+    class='border-border bg-surface mb-7 flex flex-row gap-1.5 rounded-full border p-[5px] text-[15px] font-semibold select-none'
+  >
+    <a
+      href={localizedPath('/stake/', locale)}
+      class={pill + (stake ? active : idle)}
+      set:text={t('app.common.stake')}
+    />
+    <a
+      href={localizedPath('/unstake/', locale)}
+      class={pill + (!stake ? active : idle)}
+      set:text={t('app.common.unstake')}
+    />
+  </div>
+
+  <div class='flex w-full max-w-[480px] flex-col'>
+    <div class='max-h-0 overflow-hidden transition-all duration-700 motion-reduce:transition-none'></div>
+
+    <div class='border-border bg-surface relative flex flex-col gap-4 rounded-[20px] border p-7'>
+      <div class='text-base font-medium' set:text={stake ? t('app.common.stake') : t('app.common.unstake')} />
+
+      <label>
+        <div class='bg-surface-deep border-border flex flex-row items-center gap-3 rounded-[14px] border px-4 py-3.5'>
+          <img src={stake ? '/images/app/gram.svg' : '/images/app/hgram.svg'} alt='' class='h-7 w-7' />
+          <input
+            type='text'
+            inputmode='decimal'
+            placeholder={t('app.stake.amountPlaceholder')}
+            size='1'
+            dir='ltr'
+            disabled
+            class='placeholder:text-text-faint text-text h-full w-full min-w-0 flex-1 bg-transparent text-start text-[19px] font-medium focus:outline-none'
+          />
+          <span
+            class='bg-border text-text-muted rounded-lg px-2.5 py-1.5 text-xs font-semibold'
+            set:text={t('app.common.max')}
+          />
+        </div>
+      </label>
+
+      {
+        !stake && (
+          <>
+            <div class='grid grid-cols-2 gap-3'>
+              <div class='bg-surface-deep border-accent flex cursor-pointer flex-col gap-2 rounded-[14px] border-2 p-3.5 select-none'>
+                <div class='flex flex-row items-center gap-2'>
+                  <ShellIcon name='clock' class='text-accent size-4' />
+                  <p class='text-[15px] font-semibold' set:text={t('app.stake.optionFull')} />
+                  <span class='text-accent ms-auto font-bold'>✓</span>
+                </div>
+                <p class='text-text-muted text-[12.5px] leading-[1.45]'>
+                  {t('app.stake.optionFullLine1')}
+                  <br />
+                  {t('app.stake.optionFullLine2')}
+                </p>
+              </div>
+
+              <div class='bg-surface-deep border-border flex cursor-pointer flex-col gap-2 rounded-[14px] border-2 p-3.5 select-none'>
+                <div class='flex flex-row items-center gap-2'>
+                  <ShellIcon name='zap' class='text-accent size-4' />
+                  <p class='text-[15px] font-semibold' set:text={t('app.stake.optionInstant')} />
+                  <span class='text-accent invisible ms-auto font-bold'>✓</span>
+                </div>
+                <p class='text-text-muted text-[12.5px] leading-[1.45]'>
+                  {t('app.stake.optionInstantLine1')}
+                  <br />
+                  {t('app.stake.optionInstantLine2')}
+                </p>
+              </div>
+            </div>
+
+            <div class='text-text-faint -mt-2.5 text-[12.5px]'>&nbsp;</div>
+          </>
+        )
+      }
+
+      <span
+        class='bg-accent-fill text-on-accent flex h-14 w-full items-center justify-center rounded-2xl text-lg font-semibold'
+        set:text={t('app.model.buttonConnect')}
+      />
+
+      {
+        !stake && (
+          <div class='-mt-2 flex flex-row'>
+            <a
+              href='https://groypfi.io/swap/EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w/ton'
+              target='hipo_swap'
+              class='text-text-faint hover:text-accent ms-auto flex flex-row items-center gap-1 text-sm'
+            >
+              <span set:text={t('app.stake.swapOnExchange')} />
+              <ShellIcon name='arrow-right' class='h-4 w-4 rtl:-scale-x-100' />
+            </a>
+          </div>
+        )
+      }
+
+      <div class='text-text-muted flex flex-col gap-2.5 pt-2.5 text-sm'>
+        <div class='flex flex-row flex-wrap'>
+          <p set:text={t('app.stake.youWillReceive')} />
+          <p class='text-text num ms-auto font-medium'></p>
+        </div>
+        <div class='flex flex-row flex-wrap'>
+          <p set:text={t('app.stake.exchangeRate')} />
+          <p class='text-text num ms-auto font-medium'></p>
+        </div>
+        <div class='flex flex-row flex-wrap'>
+          <p set:text={t('app.stake.yearlyRewards')} />
+          <p class='text-positive num ms-auto font-semibold'></p>
+        </div>
+        <div class='relative flex flex-row flex-wrap'>
+          <p set:text={t('app.stake.transactionCost')} />
+          <img src='/images/app/question-dark.svg' tabindex='0' class='peer ms-1 w-4' alt='' />
+          <p
+            class='border-border bg-surface-deep text-text-muted absolute start-1/3 top-6 z-10 hidden -translate-x-1/4 rounded-xl border p-4 text-xs font-normal shadow-xl peer-hover:block peer-focus:block rtl:translate-x-1/4'
+            set:text={t('app.stake.transactionCostTooltip')}
+          />
+          <p class='text-text num ms-auto font-medium'></p>
+        </div>
+      </div>
+    </div>
+
+    <p
+      class='text-text-faint pt-5 text-center text-[13px]'
+      set:html={tHtml('app.stake.questions', {
+        link: `<a class="text-accent hover:text-accent-hover" href="https://t.me/hipo_chat" target="_blank" rel="noopener noreferrer">${t('app.stake.askOnTelegram')}</a>`,
+      })}
+    />
+
+    <div class='text-text-faint flex flex-row flex-wrap justify-center gap-x-6 gap-y-2 pt-3 text-[13px]'>
+      <a class='hover:text-accent' href={localizedPath('/docs/', locale)} set:text={t('app.stake.docs')} />
+      <a class='hover:text-accent' href={localizedPath('/faq/', locale)} set:text={t('app.stake.faq')} />
+      <a
+        class='hover:text-accent'
+        href='https://github.com/HipoFinance/audits'
+        target='_blank'
+        rel='noopener noreferrer'
+        set:text={t('app.stake.audits')}
+      />
+      <a
+        class='hover:text-accent'
+        href='https://tonviewer.com/'
+        target='hipo_explorer'
+        set:text={t('app.stake.treasuryOnExplorer')}
+      />
+    </div>
+  </div>
+</div>
