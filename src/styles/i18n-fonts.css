@@ -4,11 +4,12 @@
  * Imported by all three stylesheet compilations (global.css, app.css, docs.css), so it must stand on
  * its own: no Tailwind directives, no dependency on global.css. Two things happen here:
  *
- *   1. @font-face rules for the *script subset only* of each added family (Arabic for fa/ar, Cyrillic
- *      for ru, Devanagari for hi), with the `unicode-range` each fontsource package declares. Fontsource
- *      5.3 ships its variable families as a single `wght.css` covering every subset, and Hind's
- *      `devanagari-<weight>.css` files omit `unicode-range`, so the rules are written out here against
- *      the packages' woff2 files instead of `@import`ed. A browser downloads a face only when a
+ *   1. @font-face rules for the *script subset only* of each added family (Arabic for fa and, with a
+ *      different pair, ar; Cyrillic for ru; Devanagari for hi), with the `unicode-range` each fontsource
+ *      package declares. Fontsource 5.3 ships its variable families as a single `wght.css` covering every
+ *      subset, and the static families' per-subset stylesheets (Poppins's `devanagari-<weight>.css`, Lalezar's
+ *      `arabic-400.css`) omit `unicode-range`, so the rules are written out here against the packages'
+ *      woff2 files instead of `@import`ed. A browser downloads a face only when a
  *      rendered font-family names it *and* a glyph falls in its range — English pages never name these
  *      families, so they cost English visitors nothing but the CSS below. Latin glyphs on a translated
  *      page fall through to Heebo / Fredoka, which stay in every stack.
@@ -20,7 +21,7 @@
  * Swapping a family for a locale is a package swap plus an edit to the matching block below.
  */
 
-/* ---------- Arabic script: Vazirmatn (body) + Baloo Bhaijaan 2 (display) — fa, ar ---------- */
+/* ---------- Arabic script, Persian: Vazirmatn (body) + Lalezar (display) — fa ---------- */
 
 @font-face {
   font-family: 'Vazirmatn Variable';
@@ -37,13 +38,15 @@
     U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
 }
 
+/* Lalezar is the popular Persian display face and ships a single weight. Declaring it over the range
+ * 400-700 lets `font-semibold` (600) match this face directly instead of synthesizing a fake bold —
+ * it is already heavy by design. */
 @font-face {
-  font-family: 'Baloo Bhaijaan 2 Variable';
+  font-family: 'Lalezar';
   font-style: normal;
   font-display: swap;
-  font-weight: 400 800;
-  src: url('@fontsource-variable/baloo-bhaijaan-2/files/baloo-bhaijaan-2-arabic-wght-normal.woff2')
-    format('woff2-variations');
+  font-weight: 400 700;
+  src: url('@fontsource/lalezar/files/lalezar-arabic-400-normal.woff2') format('woff2');
   unicode-range:
     U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F,
     U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF,
@@ -53,23 +56,44 @@
     U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
 }
 
-/* ---------- Cyrillic: Rubik (body) + Comfortaa (display) — ru ---------- */
+/* ---------- Arabic script, Arabic: Cairo (body + display) — ar ----------
+ * Cairo is the most-used Arabic-designed face on Google Fonts and covers the whole Arabic content set
+ * including U+066B/U+066C, the decimal and thousands separators `Intl.NumberFormat('ar-u-nu-arab')`
+ * emits in every formatted amount. Tajawal, tried here first, lacks both, which split each number
+ * across two faces — so ar runs one family and gets its hierarchy from weight and size instead. */
 
 @font-face {
-  font-family: 'Rubik Variable';
+  font-family: 'Cairo Variable';
   font-style: normal;
   font-display: swap;
-  font-weight: 300 900;
-  src: url('@fontsource-variable/rubik/files/rubik-cyrillic-wght-normal.woff2') format('woff2-variations');
+  font-weight: 200 1000;
+  src: url('@fontsource-variable/cairo/files/cairo-arabic-wght-normal.woff2') format('woff2-variations');
+  unicode-range:
+    U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F,
+    U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC4, U+10EFC-10EFF,
+    U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B,
+    U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D,
+    U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89,
+    U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+}
+
+/* ---------- Cyrillic: Roboto (body) + Comfortaa (display) — ru ---------- */
+
+@font-face {
+  font-family: 'Roboto Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('@fontsource-variable/roboto/files/roboto-cyrillic-wght-normal.woff2') format('woff2-variations');
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
 @font-face {
-  font-family: 'Rubik Variable';
+  font-family: 'Roboto Variable';
   font-style: normal;
   font-display: swap;
-  font-weight: 300 900;
-  src: url('@fontsource-variable/rubik/files/rubik-cyrillic-ext-wght-normal.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  src: url('@fontsource-variable/roboto/files/roboto-cyrillic-ext-wght-normal.woff2') format('woff2-variations');
   unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
@@ -91,44 +115,44 @@
   unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
-/* ---------- Devanagari: Hind (body, static 300/400/500/700 like Heebo) + Baloo 2 (display) — hi ---------- */
+/* ---------- Devanagari: Poppins (body, static 300/400/500/700 like Heebo) + Baloo 2 (display) — hi ---------- */
 
 @font-face {
-  font-family: 'Hind';
+  font-family: 'Poppins';
   font-style: normal;
   font-display: swap;
   font-weight: 300;
-  src: url('@fontsource/hind/files/hind-devanagari-300-normal.woff2') format('woff2');
+  src: url('@fontsource/poppins/files/poppins-devanagari-300-normal.woff2') format('woff2');
   unicode-range:
     U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
 }
 
 @font-face {
-  font-family: 'Hind';
+  font-family: 'Poppins';
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url('@fontsource/hind/files/hind-devanagari-400-normal.woff2') format('woff2');
+  src: url('@fontsource/poppins/files/poppins-devanagari-400-normal.woff2') format('woff2');
   unicode-range:
     U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
 }
 
 @font-face {
-  font-family: 'Hind';
+  font-family: 'Poppins';
   font-style: normal;
   font-display: swap;
   font-weight: 500;
-  src: url('@fontsource/hind/files/hind-devanagari-500-normal.woff2') format('woff2');
+  src: url('@fontsource/poppins/files/poppins-devanagari-500-normal.woff2') format('woff2');
   unicode-range:
     U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
 }
 
 @font-face {
-  font-family: 'Hind';
+  font-family: 'Poppins';
   font-style: normal;
   font-display: swap;
   font-weight: 700;
-  src: url('@fontsource/hind/files/hind-devanagari-700-normal.woff2') format('woff2');
+  src: url('@fontsource/poppins/files/poppins-devanagari-700-normal.woff2') format('woff2');
   unicode-range:
     U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
 }
@@ -149,28 +173,36 @@
  * --hipo-font-display the docs display face (docs.css). Heebo / Fredoka stay in every stack for the
  * Latin glyphs the script subsets above don't carry. */
 
-html[lang='fa'],
-html[lang='ar'] {
+html[lang='fa'] {
   --font-body: 'Vazirmatn Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --font-heebo: 'Vazirmatn Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-fredoka: 'Baloo Bhaijaan 2 Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
+  --font-fredoka: 'Lalezar', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
   --sl-font: 'Vazirmatn Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --hipo-font-display: 'Baloo Bhaijaan 2 Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
+  --hipo-font-display: 'Lalezar', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
+}
+
+/* Arabic runs a different family from Persian: Cairo in both roles (see the section above). */
+html[lang='ar'] {
+  --font-body: 'Cairo Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
+  --font-heebo: 'Cairo Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
+  --font-fredoka: 'Cairo Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
+  --sl-font: 'Cairo Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
+  --hipo-font-display: 'Cairo Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
 }
 
 html[lang='ru'] {
-  --font-body: 'Rubik Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-heebo: 'Rubik Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Roboto Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
+  --font-heebo: 'Roboto Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --font-fredoka: 'Comfortaa Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
-  --sl-font: 'Rubik Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
+  --sl-font: 'Roboto Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --hipo-font-display: 'Comfortaa Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
 }
 
 html[lang='hi'] {
-  --font-body: 'Hind', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-heebo: 'Hind', 'Heebo', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Poppins', 'Heebo', ui-sans-serif, system-ui, sans-serif;
+  --font-heebo: 'Poppins', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --font-fredoka: 'Baloo 2 Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
-  --sl-font: 'Hind', 'Heebo', ui-sans-serif, system-ui, sans-serif;
+  --sl-font: 'Poppins', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --hipo-font-display: 'Baloo 2 Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
 }
 
