@@ -21,6 +21,7 @@ import {
   formatDate,
   formatDuration,
   parseNumberInput,
+  keypadDecimalOf,
   formatInput,
   formatAsciiNano,
   isolate,
@@ -304,6 +305,62 @@ check('parseNumberInput', () => {
   assert.equal(p('en', '1.234567891'), '1.234567891')
   assert.equal(p('en', '1.2345678901'), undefined)
   assert.equal(p('fa', '۱٫۲۳۴۵۶۷۸۹۰۱'), undefined)
+})
+
+// A mobile numeric keypad follows the DEVICE's region, not the page's: on the English site a phone set
+// to a comma-decimal region shows a "," key and no "." at all, so "0,3" was the only decimal the
+// visitor could type and every prefix of it was rejected as a malformed thousands group (reported from
+// the stake form, 2026-08-29). Model passes that key as parseNumberInput's third argument.
+check('keypadDecimalOf', () => {
+  // A device that disagrees with the page, and whose symbol this parser knows.
+  assert.equal(keypadDecimalOf('en', 'de-DE'), ',')
+  assert.equal(keypadDecimalOf('en', 'tr-TR'), ',')
+  assert.equal(keypadDecimalOf('de', 'en-US'), '.')
+  assert.equal(keypadDecimalOf('en', 'fa-IR'), '\u066b')
+  // A device that agrees with the page contributes nothing, so nothing changes for it.
+  assert.equal(keypadDecimalOf('en', 'en-GB'), undefined)
+  assert.equal(keypadDecimalOf('de', 'ru-RU'), undefined)
+  // Unusable input never throws.
+  assert.equal(keypadDecimalOf('en', undefined), undefined)
+  assert.equal(keypadDecimalOf('en', ''), undefined)
+  assert.equal(keypadDecimalOf('en', '   '), undefined)
+  assert.equal(keypadDecimalOf('en', 'not a tag'), undefined)
+  assert.equal(keypadDecimalOf('en', 'C'), undefined)
+})
+
+check('parseNumberInput with a foreign keypad', () => {
+  const p = parseNumberInput
+  const u = undefined
+  // The reported bug: an English page on a comma-decimal phone. Every prefix of "0,3" now reads.
+  assert.equal(p('en', '0,3', ','), '0.3')
+  assert.equal(p('en', '0,', ','), '0.')
+  assert.equal(p('en', '1,5', ','), '1.5')
+  assert.equal(p('en', '1234,5', ','), '1234.5')
+  assert.equal(p('en', '0,000000001', ','), '0.000000001')
+  // The mirror image: a period-decimal phone on the German page.
+  assert.equal(p('de', '0.3', '.'), '0.3')
+  assert.equal(p('de', '1.5', '.'), '1.5')
+  // What must NOT change: a string that still reads exactly as one thousands group is a group, even
+  // on a foreign keypad — otherwise "1,000" copied off our own English page would stake 1 GRAM.
+  assert.equal(p('en', '1,000', ','), '1000')
+  assert.equal(p('de', '1.000', '.'), '1000')
+  assert.equal(p('en', '1,234,567', ','), '1234567')
+  assert.equal(p('hi', '12,34,567', ','), '1234567')
+  // The locale's own decimal still wins, and real garbage stays garbage.
+  assert.equal(p('en', '1.5', ','), '1.5')
+  assert.equal(p('en', '1,234.5', ','), '1234.5')
+  assert.equal(p('en', '1,2,3', ','), u)
+  assert.equal(p('en', '0,123,456', ','), u)
+  assert.equal(p('en', '1,2345678901', ','), u)
+  assert.equal(p('en', 'a,3', ','), u)
+  // A keypad symbol that is already the page's decimal, or is not a separator at all, changes nothing.
+  assert.equal(p('en', '1,5', '.'), u)
+  assert.equal(p('en', '1,5', 'x'), u)
+  // Without the argument every locale behaves exactly as it did before.
+  assert.equal(p('en', '1,5'), u)
+  assert.equal(p('en', '0,3'), u)
+  assert.equal(p('de', '1.5'), u)
+  assert.equal(p('en', '1,000'), '1000')
 })
 
 // Keystroke sequences through the amount input. Model.setAmount keeps the typed text verbatim and

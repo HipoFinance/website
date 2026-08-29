@@ -18,6 +18,8 @@ here — `git log` remains the complete record.
 - `SEO.astro` and `LandingLayout` take a `localized` prop, so English-only pages
   stop emitting `hreflang` for locale URLs that do not exist.
 - `public/llms.txt` points at `/verify/` for the anti-impersonation list.
+- Amount inputs read the decimal key the visitor's own keypad offers, so a
+  comma-decimal phone can type `0,3` on the English site.
 
 ## 2026-08-29 — [detailed report](changelog/2026-08-29-sdk-ton-core.md)
 

@@ -1,4 +1,4 @@
-# 2026-08-29 — Two English-only pages: `/verify/` and `/vs/`
+# 2026-08-29 — Two English-only pages, and the comma-keypad amount bug
 
 Sixth session of the day, following `changelog/2026-08-29-sdk-ton-core.md`. Two
 new standalone pages arrived as drafts from the outreach work and were adapted
@@ -16,9 +16,10 @@ ways worth recording.
 
 ## Commits
 
-| Commit | Description                                 |
-| ------ | ------------------------------------------- |
-| (this) | Add the `/verify/` and `/vs/` landing pages |
+| Commit    | Description                                          |
+| --------- | ---------------------------------------------------- |
+| `ad74eb9` | Add the `/verify/` and `/vs/` landing pages          |
+| (this)    | Read a foreign keypad's decimal key in amount inputs |
 
 ## What the drafts assumed, and what is actually here
 
@@ -141,3 +142,73 @@ session fixed for `treasury.protocol_fee`.
   key in all ten released locales, so it was left for whoever decides the page
   is permanent.
 - Neither page has an OG image of its own; both fall back to `/og/default.png`.
+
+---
+
+## The comma-keypad amount bug
+
+Reported mid-session with a screenshot: the stake form on the English site, an
+amount of `0,3` shown in the invalid colour, the Stake button dead, and an iOS
+numeric keypad whose only separator key is `,`.
+
+**The cause is that a mobile numeric keypad follows the device's region, not the
+page's.** A phone set to a comma-decimal region shows `,` and no `.` at all. On
+`/stake/` the page locale is `en`, where `,` is the group symbol, and
+`parseNumberInput` has a deliberate rule — with its own test, `"the typo a
+reviewer feared"` — that the locale's group symbol is _only_ ever a group:
+`1,000` is 1000 and the states on the way there (`1,` `1,0` `1,00`) are invalid
+rather than a thousand-fold smaller amount. `0,3` fails that rule too (`0` is
+not a valid group head), so the visitor could type integers and no decimal at
+all. Same bug mirrored on the German page for a period-decimal phone.
+
+**The rule was right; it was just missing an input.** `parseNumberInput` gained
+an optional third argument, `keypadDecimal` — the separator this device's keypad
+emits — and uses it in exactly one place: a single occurrence of the page
+locale's group symbol, in a string that **cannot** be read as a thousands group,
+is the decimal. Everything else is untouched:
+
+- `1,000` on the English page is still 1000, whatever the device does. This is
+  the case that matters, because it is the shape a visitor gets by copying a
+  figure off our own pages.
+- A device that agrees with the page contributes nothing: `keypadDecimalOf`
+  returns `undefined` when the device decimal equals the page's, so the
+  two-argument behaviour — and every existing test — is bit-for-bit unchanged.
+- Ambiguous foreign separators (`1,500` on a Persian page) still resolve to
+  invalid, not to a guess.
+
+`keypadDecimalOf(locale, navigator.language)` derives the symbol through
+`Intl.NumberFormat().formatToParts` and returns `undefined` for an unparseable
+tag, a symbol the parser does not treat as a separator, or a device that already
+matches. `Model` reads it once per locale rather than per keystroke, and it is
+deliberately not observable — `navigator.language` cannot change without a
+reload.
+
+### Trade-off accepted
+
+`navigator.language` is the system language and region, which is what the keypad
+follows on iOS and Android, but it is not the keyboard itself: someone running
+an English phone with a German third-party keyboard still gets the old
+behaviour. That is the previous state, not a regression, and the alternative —
+accepting `,` as a decimal for everyone — would have made `1,0` mean 1.0 on the
+English page for every visitor, which is the reading the original rule exists to
+prevent.
+
+### Verification performed
+
+- `node --experimental-strip-types scripts/i18n-selftest.mjs` — 17 groups (two
+  new: `keypadDecimalOf` and `parseNumberInput with a foreign keypad`). The
+  pre-existing keystroke tables, including `"1,5"` in `en` being invalid without
+  the argument, still pass untouched.
+- New cases cover the report exactly (`0,` `0,3` `1,5` on `en` with `,`), the
+  mirror image on `de`, the group shapes that must not move (`1,000`,
+  `1,234,567`, Hindi `12,34,567`), and garbage (`1,2,3`, `0,123,456`,
+  10 fraction digits).
+- `npm run build` — 514 pages. `tsc --noEmit` reports the same four pre-existing
+  `Model.ts` errors as before the change and no new ones.
+
+### Follow-ups
+
+- The field keeps the text exactly as typed, so a comma-keypad visitor sees
+  `0,3` while the model holds `0.3`. That is correct — reformatting per
+  keystroke would rewrite a half-typed group — but it does mean the displayed
+  separator and `formatInput`'s output can differ for these visitors.

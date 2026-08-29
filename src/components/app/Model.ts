@@ -535,6 +535,10 @@ export class Model {
   amountInvalid = false
   unstakeOption: UnstakeOption = 'best'
 
+  // Memo for `keypadDecimal`, recomputed when the locale switches. Deliberately not observable.
+  private keypadDecimalCache?: string
+  private keypadDecimalFor?: Locale
+
   // The connected wallet's app name ('tonkeeper', 'mytonwallet', …) for the analytics events.
   // Deliberately not observable: no UI reads it, and making it so would re-render on connect.
   connectedWalletName?: string
@@ -810,8 +814,25 @@ export class Model {
   }
 
   // Anything the user may type in this locale → ASCII "1234.5", or undefined when it is not a number.
+  // The third argument is the decimal key this device's numeric keypad offers, which follows the
+  // system region rather than the page: without it, a visitor whose phone is set to a comma-decimal
+  // region cannot type a decimal amount on the English site at all — its keypad has no "." key, and
+  // "0,3" reads as a malformed thousands group. Read once, not per keystroke; `undefined` whenever the
+  // device agrees with the page, which leaves every existing reading exactly as it was.
   parseNumberInput = (raw: string): string | undefined => {
-    return fmt.parseNumberInput(this.locale, raw)
+    return fmt.parseNumberInput(this.locale, raw, this.keypadDecimal)
+  }
+
+  // Not observable: `navigator.language` cannot change without a reload, and no UI reads it.
+  private get keypadDecimal(): string | undefined {
+    if (this.keypadDecimalFor !== this.locale) {
+      this.keypadDecimalFor = this.locale
+      this.keypadDecimalCache = fmt.keypadDecimalOf(
+        this.locale,
+        typeof navigator === 'undefined' ? undefined : navigator.language,
+      )
+    }
+    return this.keypadDecimalCache
   }
 
   // Bidi isolation (FSI … PDI) for values interpolated into Model-composed strings (spec §F), so
