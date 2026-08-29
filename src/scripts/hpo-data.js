@@ -1,23 +1,29 @@
-// Fetches https://gauge.hipo.finance/data and fills in the live numbers on the HPO page: the
-// hero market card (#hpoMarketCap #hpoVolume #hpoHolders) and the "Impressive metrics" card
-// (#hpoTvlGram #hpoTvlUsd #hpoStakers). Every value starts as an em dash ("—") in the markup and
-// is only overwritten when the fetch succeeds — a missing field or a failed fetch must never
-// write a fake or stale number, it just leaves the dash in place.
+// Refreshes the live numbers on the HPO page: the hero market card (#hpoMarketCap #hpoVolume
+// #hpoHolders) and the "Impressive metrics" card (#hpoTvlGram #hpoTvlUsd #hpoStakers), re-polled
+// every 5 minutes.
+//
+// These values are already IN the HTML: src/components/Hpo.astro bakes them at build time via
+// src/data/gauge.ts, and this script formats through the very same gaugeValues(), so a refresh
+// that finds unchanged numbers writes back exactly what was baked. A field the gauge omits comes
+// back undefined and is SKIPPED rather than written, so a partial payload can never blank out a
+// good baked value; a failed fetch leaves the page as built and retries.
+//
+// #hpoBurned is the exception and stays purely client-side: it comes from a TON v4 run, not the
+// gauge, and its count-up animation starts at zero — baking the final figure would make it visibly
+// reset on load.
 //
 // Numbers follow the page's locale (spec §E): `<html lang>` is mapped back to its registry key and
 // every value goes through src/i18n/format.ts, so `/fa/` gets Persian digits without any change here.
 
 import { LOCALES } from '../i18n/registry.mjs'
-import { formatCompact, formatNumber, formatUsd } from '../i18n/format.ts'
+import { formatNumber } from '../i18n/format.ts'
+import { gaugeValues } from '../data/gauge.ts'
 
 const locale = pageLocale()
 
-let elMarketCap = document.getElementById('hpoMarketCap')
-let elHpoVolume = document.getElementById('hpoVolume')
-let elHpoHolders = document.getElementById('hpoHolders')
-let elTvlGram = document.getElementById('hpoTvlGram')
-let elTvlUsd = document.getElementById('hpoTvlUsd')
-let elStakers = document.getElementById('hpoStakers')
+// Every GaugeValues key that names an element on this page.
+const IDS = ['hpoMarketCap', 'hpoVolume', 'hpoHolders', 'hpoTvlGram', 'hpoTvlUsd', 'hpoStakers']
+
 let elBurned = document.getElementById('hpoBurned')
 let elBurnArc = document.getElementById('hpoBurnArc')
 let elBurnChart = document.getElementById('hpoTokenomicsChart')
@@ -115,37 +121,9 @@ let updateHpoData = () => {
       if (!res.ok) {
         return
       }
-      const result = res.result
-
-      const marketCap = result.hpo?.market?.market_cap?.usd
-      if (marketCap != null && marketCap > 0) {
-        SetText(elMarketCap, FormatCompactUsd(marketCap))
-      }
-
-      const volume = result.hpo?.market?.total_volume?.usd
-      if (volume != null && volume > 0) {
-        SetText(elHpoVolume, FormatCompactUsd(volume))
-      }
-
-      const holders = result.hpo?.holders_count
-      if (holders != null && holders > 0) {
-        SetText(elHpoHolders, FormatCompact1Fraction(holders))
-      }
-
-      const stakedNano = result.treasury?.current_tvl
-      if (stakedNano != null) {
-        const staked = stakedNano / 1000000000
-        SetText(elTvlGram, FormatCompact2Fraction(staked))
-
-        const gramPrice = result.ton?.market?.current_price?.usd
-        if (gramPrice != null && gramPrice > 0) {
-          SetText(elTvlUsd, FormatCompactUsd(staked * gramPrice))
-        }
-      }
-
-      const stakers = result.hton?.holders_count
-      if (stakers != null && stakers > 0) {
-        SetText(elStakers, FormatCompact1Fraction(stakers))
+      const values = gaugeValues(locale, res.result)
+      for (const id of IDS) {
+        SetText(document.getElementById(id), values[id])
       }
     })
     .catch(() => {
@@ -155,7 +133,7 @@ let updateHpoData = () => {
 }
 
 let SetText = (el, text) => {
-  if (el != null) {
+  if (el != null && text !== undefined) {
     el.textContent = text
   }
 }
@@ -165,19 +143,6 @@ function pageLocale() {
   const lang = document.documentElement.lang
   const match = Object.entries(LOCALES).find(([, info]) => info.lang === lang)
   return match === undefined ? 'en' : match[0]
-}
-
-let FormatCompact1Fraction = (n) => {
-  return formatCompact(locale, n, 1)
-}
-
-let FormatCompact2Fraction = (n) => {
-  return formatCompact(locale, n, 2)
-}
-
-// "$1.2M" in English; the currency sign goes wherever the locale puts it.
-let FormatCompactUsd = (n) => {
-  return formatUsd(locale, n, { notation: 'compact', maximumFractionDigits: 1 })
 }
 
 updateHpoData()

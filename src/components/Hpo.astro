@@ -5,6 +5,7 @@ import { getT } from '../i18n/t.ts'
 import { formatNumber, formatPercent } from '../i18n/format.ts'
 import { hpoFaqAnchor } from './hpoFaq.ts'
 import AnchorLink from './AnchorLink.astro'
+import { fetchGauge, gaugeValues } from '../data/gauge.ts'
 
 // HPO token page content. Recreates design/HPO.dc.html in the Warm Dark tokens defined in
 // src/styles/global.css. Owned by src/pages/hpo/index.astro only. Every visible string comes from
@@ -12,6 +13,12 @@ import AnchorLink from './AnchorLink.astro'
 // interpolated through tHtml so translators can move the pieces.
 const locale = localeOf(Astro)
 const { t, tHtml } = getT(locale, ['hpo'])
+
+// Live market and protocol numbers, baked in at build time and refreshed in the browser by
+// src/scripts/hpo-data.js through the same gaugeValues(); each falls back to the em dash the page
+// used to always ship. #hpoBurned is deliberately NOT baked: it comes from a TON v4 run rather
+// than the gauge, and its count-up animation would visibly reset a pre-rendered figure to zero.
+const gauge = gaugeValues(locale, await fetchGauge())
 
 // The HPO allocation per docs/hipo-tokens/hipo-governance-token-hpo/ — percentages of
 // the 1B minted, so they always sum to 100 regardless of burns. Rendered as an inline SVG donut
@@ -123,15 +130,15 @@ const hpoFaq = await Promise.all(
 
       <div class='flex justify-between gap-3'>
         <div>
-          <div id='hpoMarketCap' class='font-fredoka text-[22px] font-semibold'>—</div>
+          <div id='hpoMarketCap' class='font-fredoka text-[22px] font-semibold' set:text={gauge.hpoMarketCap ?? '—'} />
           <div class='text-text-muted text-[13px]'>{t('hpo.hero.marketCap')}</div>
         </div>
         <div>
-          <div id='hpoVolume' class='font-fredoka text-[22px] font-semibold'>—</div>
+          <div id='hpoVolume' class='font-fredoka text-[22px] font-semibold' set:text={gauge.hpoVolume ?? '—'} />
           <div class='text-text-muted text-[13px]'>{t('hpo.hero.volume')}</div>
         </div>
         <div>
-          <div id='hpoHolders' class='font-fredoka text-[22px] font-semibold'>—</div>
+          <div id='hpoHolders' class='font-fredoka text-[22px] font-semibold' set:text={gauge.hpoHolders ?? '—'} />
           <div class='text-text-muted text-[13px]'>{t('hpo.hero.holders')}</div>
         </div>
       </div>
@@ -284,13 +291,13 @@ const hpoFaq = await Promise.all(
         <div class='flex flex-col gap-2 text-[15px] leading-[1.5]'>
           <span
             set:html={tHtml('hpo.investors.metrics.tvl', {
-              tvl: '<strong class="text-text font-bold"><span id="hpoTvlGram">—</span> GRAM</strong>',
-              usd: '<span id="hpoTvlUsd">—</span>',
+              tvl: `<strong class="text-text font-bold"><span id="hpoTvlGram">${gauge.hpoTvlGram ?? '—'}</span> GRAM</strong>`,
+              usd: `<span id="hpoTvlUsd">${gauge.hpoTvlUsd ?? '—'}</span>`,
             })}
           />
           <span
             set:html={tHtml('hpo.investors.metrics.stakers', {
-              stakers: '<strong id="hpoStakers" class="text-text font-bold">—</strong>',
+              stakers: `<strong id="hpoStakers" class="text-text font-bold">${gauge.hpoStakers ?? '—'}</strong>`,
               link: link(localizedPath('/stats/', locale), t('hpo.investors.metrics.liveStats')),
             })}
           />

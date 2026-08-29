@@ -1,13 +1,22 @@
 ---
 // Landing page body. Every visible string comes from src/i18n/<locale>/landing.json; the live
-// numbers (#heroApy, #statStaked, ...) are filled by src/scripts/landing-data.js and start as an
-// em dash. Where a sentence wraps a live element or an accent span, the element is built here
-// and interpolated into the catalog sentence via tHtml, so translators can move it freely.
+// numbers (#heroApy, #statStaked, ...) are baked in at build time by src/data/gauge.ts and then
+// refreshed in the browser by src/scripts/landing-data.js, which formats them through the very
+// same gaugeValues() — so the client write is character-identical and nothing visibly flips. Each
+// one falls back to the placeholder it used to always ship when the gauge is unreachable. Where a
+// sentence wraps a live element or an accent span, the element is built here and interpolated into
+// the catalog sentence via tHtml, so translators can move it freely.
 import { localeOf, localizedPath } from '../i18n/locale.ts'
 import { getT } from '../i18n/t.ts'
+import { fetchGauge, gaugeValues } from '../data/gauge.ts'
 
 const locale = localeOf(Astro)
 const { t, tHtml } = getT(locale, ['landing'])
+
+const gauge = gaugeValues(locale, await fetchGauge())
+// Pre-rendered attribute for the two staked figures, whose compact value carries the exact amount
+// as a tooltip (landing-data.js sets the same title on both when it refreshes).
+const stakedTitle = gauge.stakedExact === undefined ? '' : ` title="${gauge.stakedExact}"`
 
 const audits = [
   {
@@ -64,8 +73,8 @@ const why = [
         <span class='bg-positive inline-block size-2 rounded-full'></span>
         <Fragment
           set:html={tHtml('landing.hero.pill', {
-            apy: '<strong id="heroApy" class="text-text">—</strong>',
-            fee: '<span id="heroFee">—</span>',
+            apy: `<strong id="heroApy" class="text-text">${gauge.heroApy ?? '—'}</strong>`,
+            fee: `<span id="heroFee">${gauge.heroFee ?? '—'}</span>`,
           })}
         />
       </div>
@@ -80,7 +89,7 @@ const why = [
       <p
         class='text-text-muted max-w-[460px] text-[17px] leading-[1.6] lg:text-[19px]'
         set:html={tHtml('landing.hero.lead', {
-          holders: `<span id="heroHolders">${t('landing.hero.holdersPlaceholder')}</span>`,
+          holders: `<span id="heroHolders">${gauge.heroHolders ?? t('landing.hero.holdersPlaceholder')}</span>`,
         })}
       />
 
@@ -114,22 +123,33 @@ const why = [
   <!-- Stats row -->
   <section class='mx-auto grid w-full max-w-[1280px] grid-cols-2 gap-4 px-6 pt-2 pb-12 md:px-12 lg:grid-cols-4'>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
-      <div id='statStakedUsd' class='font-fredoka text-text text-[30px] font-semibold'>—</div>
+      <div
+        id='statStakedUsd'
+        title={gauge.stakedExact}
+        class='font-fredoka text-text text-[30px] font-semibold'
+        set:text={gauge.statStakedUsd ?? '—'}
+      />
       <div
         class='text-text-muted text-sm'
-        set:html={tHtml('landing.stats.stakedCaption', { amount: '<span id="statStaked">—</span>' })}
+        set:html={tHtml('landing.stats.stakedCaption', {
+          amount: `<span id="statStaked"${stakedTitle}>${gauge.statStaked ?? '—'}</span>`,
+        })}
       />
     </div>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
-      <div id='statApy' class='font-fredoka text-accent text-[30px] font-semibold'>—</div>
+      <div id='statApy' class='font-fredoka text-accent text-[30px] font-semibold' set:text={gauge.statApy ?? '—'} />
       <div class='text-text-muted text-sm'>{t('landing.stats.apyCaption')}</div>
     </div>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
-      <div id='statHolders' class='font-fredoka text-text text-[30px] font-semibold'>—</div>
+      <div
+        id='statHolders'
+        class='font-fredoka text-text text-[30px] font-semibold'
+        set:text={gauge.statHolders ?? '—'}
+      />
       <div class='text-text-muted text-sm'>{t('landing.stats.holdersCaption')}</div>
     </div>
     <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
-      <div id='statFee' class='font-fredoka text-text text-[30px] font-semibold'>—</div>
+      <div id='statFee' class='font-fredoka text-text text-[30px] font-semibold' set:text={gauge.statFee ?? '—'} />
       <div class='text-text-muted text-sm'>{t('landing.stats.feeCaption')}</div>
     </div>
   </section>
@@ -259,15 +279,27 @@ const why = [
 
         <div class='flex flex-wrap gap-7 py-1.5'>
           <div>
-            <div id='hpoMarketCap' class='font-fredoka text-text text-2xl font-semibold'>—</div>
+            <div
+              id='hpoMarketCap'
+              class='font-fredoka text-text text-2xl font-semibold'
+              set:text={gauge.hpoMarketCap ?? '—'}
+            />
             <div class='text-text-muted text-[13px]'>{t('landing.hpo.marketCap')}</div>
           </div>
           <div>
-            <div id='hpoVolume' class='font-fredoka text-text text-2xl font-semibold'>—</div>
+            <div
+              id='hpoVolume'
+              class='font-fredoka text-text text-2xl font-semibold'
+              set:text={gauge.hpoVolume ?? '—'}
+            />
             <div class='text-text-muted text-[13px]'>{t('landing.hpo.volume')}</div>
           </div>
           <div>
-            <div id='hpoHolders' class='font-fredoka text-text text-2xl font-semibold'>—</div>
+            <div
+              id='hpoHolders'
+              class='font-fredoka text-text text-2xl font-semibold'
+              set:text={gauge.hpoHolders ?? '—'}
+            />
             <div class='text-text-muted text-[13px]'>{t('landing.hpo.holders')}</div>
           </div>
         </div>

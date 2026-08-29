@@ -7,6 +7,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-29 — [detailed report](changelog/2026-08-29-bake-live-numbers.md)
+
+- Live APY, TVL and holder counts are now baked into the landing and HPO pages
+  at build time, so crawlers see real numbers instead of an em dash.
+- Both client scripts now format through the same `gaugeValues()` as the build,
+  so the browser refresh writes back exactly what was baked.
+- The deploy workflow rebuilds every 6 hours to keep those numbers fresh.
+- Declined a proposed SSR rewrite: measurements put ~77% of the app island in
+  the TON/wallet stack, which SSR would ship unchanged.
+
 ## 2026-08-29 — [detailed report](changelog/2026-08-29-locale-font-popularity.md)
 
 - Re-picked the per-script fonts for popularity: `ar` → Cairo, `fa` display →
