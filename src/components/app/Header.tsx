@@ -88,9 +88,15 @@ const Header = observer(({ model }: Props) => {
               {model.t('app.header.disconnect')}
             </button>
           ) : (
+            // Pressing Connect fetches the wallet layer before the modal can open, so the button
+            // dims and stops taking presses until it lands. Deliberately no new label: the wait is
+            // usually imperceptible, and a "Loading…" string would need translating into all ten
+            // locales to say less than the disabled state already does.
             <button
               type='button'
-              className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold'
+              disabled={model.isWalletLoading}
+              aria-busy={model.isWalletLoading}
+              className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold disabled:cursor-progress disabled:opacity-70'
               onClick={model.connect}
             >
               {model.t('app.common.connectWallet')}

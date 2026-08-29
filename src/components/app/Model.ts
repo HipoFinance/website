@@ -1,13 +1,14 @@
 import { navigate } from 'astro:transitions/client'
-import {
+// Types only. @tonconnect/ui and its @tonconnect/sdk dependency are ~750 KB of source — a third
+// of this island — and nothing needs them until a wallet is actually in play, so the module is
+// fetched by loadTonConnect() below rather than statically imported. See the changelog entry for
+// 2026-08-29 (app island code splitting).
+import type {
   TonConnectUI,
-  THEME,
-  CHAIN,
-  WalletNotConnectedError,
-  type Locales as TonConnectLanguage,
-  type SendTransactionRequest,
-  type SendTransactionResponse,
-  type TonConnectUiOptions,
+  Locales as TonConnectLanguage,
+  SendTransactionRequest,
+  SendTransactionResponse,
+  TonConnectUiOptions,
 } from '@tonconnect/ui'
 import { action, autorun, computed, makeObservable, observable, runInAction } from 'mobx'
 import { Address, Dictionary, type OpenedContract, TonClient4, fromNano, toNano } from '@ton/ton'
@@ -218,6 +219,44 @@ function routeForState(activePage: ActivePage, activeTab: ActiveTab): Route {
   )
 }
 
+type TonConnectModule = typeof import('@tonconnect/ui')
+
+// Resolved once the wallet layer has been fetched; every use below is either inside a path that
+// awaited loadTonConnect() or guarded by `tonConnectUI != null`, which implies the same.
+let tonConnect: TonConnectModule | undefined
+let tonConnectPending: Promise<TonConnectModule> | undefined
+
+function loadTonConnect(): Promise<TonConnectModule> {
+  tonConnectPending ??= import('@tonconnect/ui').then((module) => {
+    tonConnect = module
+    return module
+  })
+  return tonConnectPending
+}
+
+// The key @tonconnect/sdk keeps a restored bridge session under (verified against the installed
+// package). Its presence is the cheap synchronous answer to "will this visitor's wallet come
+// back?", which decides whether the wallet layer is fetched on load or left until they ask for
+// it. Safari's private mode falls back to in-memory storage, where there is no stored session to
+// restore anyway, so the miss is correct. Any throw (storage disabled) means the same: defer.
+const tonConnectSessionKey = 'ton-connect-storage_bridge-connection'
+
+function hasStoredWalletSession(): boolean {
+  try {
+    return window.localStorage.getItem(tonConnectSessionKey) != null
+  } catch {
+    return false
+  }
+}
+
+// Thrown in place of TonConnect's own WalletNotConnectedError when there is no wallet layer yet to
+// throw it; isNotConnectedError treats the two alike.
+class NotConnectedError extends Error {}
+
+function isNotConnectedError(e: unknown): boolean {
+  return e instanceof NotConnectedError || (tonConnect != null && e instanceof tonConnect.WalletNotConnectedError)
+}
+
 // TonConnect's UI takes one fixed theme, so the site's `prefers-color-scheme` rule is translated
 // into THEME.DARK / THEME.LIGHT here and kept in sync by Model.syncTonConnectTheme. matchMedia is
 // guarded because this module is also imported in environments without it.
@@ -226,7 +265,8 @@ const tonConnectThemeQuery = () =>
     ? undefined
     : window.matchMedia('(prefers-color-scheme: light)')
 
-const preferredTonConnectTheme = () => (tonConnectThemeQuery()?.matches === true ? THEME.LIGHT : THEME.DARK)
+const preferredTonConnectTheme = (module: TonConnectModule) =>
+  tonConnectThemeQuery()?.matches === true ? module.THEME.LIGHT : module.THEME.DARK
 
 // TonConnect's own connect-button widget is no longer rendered: the header draws a custom
 // button from Model state instead (see Header.tsx), driven by openModal()/disconnect(). So no
@@ -237,6 +277,21 @@ const preferredTonConnectTheme = () => (tonConnectThemeQuery()?.matches === true
 // document.body, which the ClientRouter replaces wholesale on every navigation, taking the
 // wallet and transaction modals with it.
 const tonConnectWidgetRootId = 'ton-connect-widget-root'
+
+// Resolves once the island has painted the given element. Replaces the old initTonConnect
+// setTimeout self-poll, with the same 10 ms cadence.
+function waitForElement(id: string): Promise<void> {
+  return new Promise((resolve) => {
+    const check = () => {
+      if (document.getElementById(id) != null) {
+        resolve()
+      } else {
+        setTimeout(check, 10)
+      }
+    }
+    check()
+  })
+}
 
 // Marks <html> while the Telegram locale override rewrites its lang/dir (see Model.syncLocale and
 // keepRuntimeStyles below).
@@ -433,6 +488,9 @@ export class Model {
   holdersCount?: number
   gauge?: HipoGauge
   isGaugeRefreshing = false
+  // True while the wallet layer is being fetched, so the header's Connect button can show that the
+  // press registered — on a slow connection the chunk is a few hundred KB.
+  isWalletLoading = false
   walletRewardsFetchState: WalletRewardsFetchState = 'init'
   walletRewards?: WalletRewards
 
@@ -449,6 +507,8 @@ export class Model {
   telegramLocale?: Locale
   telegramCatalogText = ''
   tonConnectUI?: TonConnectUI
+  // In flight fetch of the wallet layer, so concurrent callers share one load.
+  walletPending?: Promise<void>
   lastBlock = 0
   // Endpoint state is deliberately not observable — nothing renders it — and in-memory only, so a
   // fresh page load always starts on the primary.
@@ -510,6 +570,7 @@ export class Model {
       holdersCount: observable,
       gauge: observable,
       isGaugeRefreshing: observable,
+      isWalletLoading: observable,
       walletRewardsFetchState: observable,
       walletRewards: observable,
       statsRange: observable,
@@ -1999,7 +2060,7 @@ export class Model {
   guardedSendTransaction = async (tx: SendTransactionRequest): Promise<SendTransactionResponse> => {
     const tonConnectUI = this.tonConnectUI
     if (tonConnectUI == null) {
-      throw new WalletNotConnectedError()
+      throw new NotConnectedError()
     }
 
     let timer: ReturnType<typeof setTimeout> | undefined = undefined
@@ -2015,7 +2076,7 @@ export class Model {
       return await Promise.race([send, timeout])
     } catch (e) {
       send.catch(() => undefined)
-      if (e instanceof StaleSessionError || e instanceof WalletNotConnectedError) {
+      if (e instanceof StaleSessionError || isNotConnectedError(e)) {
         void tonConnectUI.disconnect()
         this.setErrorMessage(this.t('app.model.errorSessionExpired'), 10000)
       }
@@ -2049,7 +2110,7 @@ export class Model {
 
       const tx: SendTransactionRequest = {
         validUntil: Math.floor(Date.now() / 1000) + txValidUntil,
-        network: CHAIN.MAINNET,
+        network: tonConnect!.CHAIN.MAINNET,
         from: this.address.toRawString(),
         messages: [message],
       }
@@ -2074,7 +2135,7 @@ export class Model {
             this.clearAmount()
           }),
         (e: unknown) => {
-          if (!(e instanceof StaleSessionError) && !(e instanceof WalletNotConnectedError)) {
+          if (!(e instanceof StaleSessionError) && !isNotConnectedError(e)) {
             this.showMultisigHint()
           }
         },
@@ -2171,18 +2232,52 @@ export class Model {
     }
   }
 
+  // Called on init. A visitor with a stored session gets the wallet layer fetched straight away,
+  // so the header's pill resolves to their address without them doing anything — that restore is
+  // the only reason this ran eagerly before. Everyone else pays nothing until they press Connect,
+  // which is the whole point: on a first visit the ~750 KB never loads at all.
   initTonConnect = () => {
-    if (document.getElementById(tonConnectWidgetRootId) != null) {
-      this.connectWallet()
-    } else {
-      setTimeout(this.initTonConnect, 10)
+    if (hasStoredWalletSession()) {
+      void this.ensureWallet()
+    }
+  }
+
+  // Fetches the wallet layer (once) and constructs TonConnectUI (once). Every caller awaits this
+  // before touching `tonConnectUI`.
+  ensureWallet = (): Promise<void> => {
+    if (this.tonConnectUI != null) {
+      return Promise.resolve()
+    }
+    if (this.walletPending != null) {
+      return this.walletPending
+    }
+    runInAction(() => {
+      this.isWalletLoading = true
+    })
+    this.walletPending = this.loadWallet().finally(() => {
+      this.walletPending = undefined
+      runInAction(() => {
+        this.isWalletLoading = false
+      })
+    })
+    return this.walletPending
+  }
+
+  private loadWallet = async (): Promise<void> => {
+    const module = await loadTonConnect()
+    // TonConnect mounts into the widget root, which the island renders (App.tsx). On a very early
+    // call the React tree may not have painted it yet; the old initTonConnect polled for exactly
+    // this reason, so keep waiting rather than letting TonConnect fall back to document.body.
+    await waitForElement(tonConnectWidgetRootId)
+    if (this.tonConnectUI == null) {
+      this.connectWallet(module)
     }
   }
 
   connect = () => {
-    if (this.tonConnectUI != null) {
-      void this.tonConnectUI.openModal()
-    }
+    void this.ensureWallet().then(() => {
+      void this.tonConnectUI?.openModal()
+    })
   }
 
   // Drives the header's custom wallet pill. TonConnect's own button widget (which used to own
@@ -2193,8 +2288,8 @@ export class Model {
     }
   }
 
-  connectWallet = () => {
-    this.tonConnectUI = new TonConnectUI({
+  connectWallet = (module: TonConnectModule) => {
+    this.tonConnectUI = new module.TonConnectUI({
       manifestUrl: 'https://hipo.finance/tonconnect-manifest.json',
       // No buttonRootId on purpose: the header renders its own wallet button.
       widgetRootId: tonConnectWidgetRootId,
@@ -2205,9 +2300,9 @@ export class Model {
       // the site (src/styles/global.css). TonConnect has no "system" theme of its own, so the
       // media query is read here and re-applied on change via uiOptions.
       uiPreferences: {
-        theme: preferredTonConnectTheme(),
+        theme: preferredTonConnectTheme(module),
         colorsSet: {
-          [THEME.DARK]: {
+          [module.THEME.DARK]: {
             connectButton: {
               background: '#ff7e73',
               foreground: '#291f20',
@@ -2236,7 +2331,7 @@ export class Model {
             },
             accent: '#ff7e73', // coral
           },
-          [THEME.LIGHT]: {
+          [module.THEME.LIGHT]: {
             // connectButton and `accent` are the coral fill with dark text on it, so they are the
             // brand coral here too; everything that is a page surface or a piece of text flips.
             connectButton: {
@@ -2297,7 +2392,7 @@ export class Model {
       // actionsConfiguration is re-sent for the same reason applyTonConnectLanguage re-sends it:
       // the uiOptions setter assigns that field wholesale, so omitting it drops twaReturnUrl.
       this.tonConnectUI.uiOptions = {
-        uiPreferences: { theme: preferredTonConnectTheme() },
+        uiPreferences: { theme: preferredTonConnectTheme(tonConnect!) },
         actionsConfiguration: tonConnectActionsConfiguration,
       }
     }
