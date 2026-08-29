@@ -7,6 +7,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-29 — [detailed report](changelog/2026-08-29-app-island-code-splitting.md)
+
+- The app island dropped from 312 KB to 48 KB gzipped: the TonConnect and TON
+  chain stacks are now behind dynamic imports.
+- The wallet layer loads on a Connect press, or up front only when a stored
+  session is found; the chain layer loads on every page except `/defi/`.
+- New `src/components/app/chain.ts` owns every runtime value from `@ton/*` and
+  the sdk; `Model.ts` keeps only type imports. `pollyfills.ts` moved there too.
+- Corrected the previous entry: `/stats/` does read the chain, so it was not a
+  candidate for a wallet-free island.
+
 ## 2026-08-29 — [detailed report](changelog/2026-08-29-bake-live-numbers.md)
 
 - Live APY, TVL and holder counts are now baked into the landing and HPO pages

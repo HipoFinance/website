@@ -11,22 +11,11 @@ import type {
   TonConnectUiOptions,
 } from '@tonconnect/ui'
 import { action, autorun, computed, makeObservable, observable, runInAction } from 'mobx'
-import { Address, Dictionary, type OpenedContract, TonClient4, fromNano, toNano } from '@ton/ton'
-import {
-  ParticipationState,
-  type Times,
-  Treasury,
-  Wallet,
-  Parent,
-  type TreasuryConfig,
-  type WalletState,
-  maxAmountToStake,
-  treasuryAddresses,
-  feeStake,
-  feeUnstake,
-  createDepositMessage,
-  createUnstakeMessage,
-} from '@hipo-finance/sdk'
+// Types only, like @tonconnect/ui above. Every value from these packages comes through
+// ./chain.ts, which loadChain() fetches on demand — they are roughly two thirds of what the
+// island used to ship eagerly. See the changelog entry for 2026-08-29.
+import type { Address, OpenedContract, TonClient4 } from '@ton/ton'
+import type { Times, Treasury, TreasuryConfig, Wallet, WalletState } from '@hipo-finance/sdk'
 import { track } from './analytics'
 import { detectTmaMode, initTelegramChrome, telegramLanguageCode, tmaClass, type TmaMode } from './tma/telegram'
 import { DEFAULT_LOCALE, LOCALES, isReleased } from '../../i18n/registry.mjs'
@@ -174,8 +163,6 @@ class StaleSessionError extends Error {}
 const averageStakeFee = 15000000n
 const averageUnstakeFee = 42000000n
 
-const treasuryAddress = treasuryAddresses.get('mainnet')
-
 // multisig-contract-v2 code hashes (base64, as returned by TonClient4), computed from the
 // v2.0 build artifact; the same hash is registered as the multisig interface in tonkeeper/tongo
 const multisigCodeHashes = ['09FNqaYn8Ow1MzQYKXYq+SuVQLIb8DZl+sCcK0bqu6w=']
@@ -217,6 +204,23 @@ function routeForState(activePage: ActivePage, activeTab: ActiveTab): Route {
   return (
     routes.find((route) => route.activePage === activePage && (route.activeTab ?? activeTab) === activeTab) ?? routes[0]
   )
+}
+
+type ChainModule = typeof import('./chain')
+
+// Resolved once the chain layer has been fetched. Reads below are either inside a path that
+// awaited loadChain() or guarded by `isChainReady` / a state field that only exists after the
+// load, so the non-null assertions are safe; `isChainReady` is the observable that makes MobX
+// recompute the guarded getters when the module lands.
+let chain: ChainModule | undefined
+let chainPending: Promise<ChainModule> | undefined
+
+function loadChain(): Promise<ChainModule> {
+  chainPending ??= import('./chain').then((module) => {
+    chain = module
+    return module
+  })
+  return chainPending
 }
 
 type TonConnectModule = typeof import('@tonconnect/ui')
@@ -491,6 +495,10 @@ export class Model {
   // True while the wallet layer is being fetched, so the header's Connect button can show that the
   // press registered — on a slow connection the chunk is a few hundred KB.
   isWalletLoading = false
+  // Flips once ./chain.ts has landed. Observable because the amount field, the fee lines and the
+  // staking-in-progress rows are all computed and must recompute when it does; until then they
+  // report "not ready" rather than a wrong number, and StakeUnstake disables the form.
+  isChainReady = false
   walletRewardsFetchState: WalletRewardsFetchState = 'init'
   walletRewards?: WalletRewards
 
@@ -571,6 +579,7 @@ export class Model {
       gauge: observable,
       isGaugeRefreshing: observable,
       isWalletLoading: observable,
+      isChainReady: observable,
       walletRewardsFetchState: observable,
       walletRewards: observable,
       statsRange: observable,
@@ -915,6 +924,15 @@ export class Model {
     this.initTonConnect()
     this.loadHipoGauge()
 
+    // /defi/ is a page of links: it reads nothing from the chain, so a visitor who lands there
+    // never fetches the chain layer at all. Every other page starts it right away, and this stays
+    // an autorun so navigating away from /defi/ starts it then.
+    autorun(() => {
+      if (this.activePage !== 'defi') {
+        void this.ensureChain()
+      }
+    })
+
     autorun(() => {
       this.connectTonEndpoint()
     })
@@ -1065,7 +1083,7 @@ export class Model {
     let time = undefined
     const firstParticipationKey = this.treasuryState.participations.keys()[0] ?? 0n
     const firstParticipationValue = this.treasuryState.participations.get(firstParticipationKey)
-    if ((firstParticipationValue?.state ?? ParticipationState.Open) >= ParticipationState.Staked) {
+    if ((firstParticipationValue?.state ?? chain!.ParticipationState.Open) >= chain!.ParticipationState.Staked) {
       time = firstParticipationValue?.stakeHeldUntil
     }
     return {
@@ -1076,7 +1094,10 @@ export class Model {
 
   get stakingInProgressFormatted() {
     let result = 0n
-    const empty = Dictionary.empty(Dictionary.Keys.BigUint(32), Dictionary.Values.BigVarUint(4))
+    if (!this.isChainReady) {
+      return this.withUnit('app.model.gram', this.formatNano(result))
+    }
+    const empty = chain!.Dictionary.empty(chain!.Dictionary.Keys.BigUint(32), chain!.Dictionary.Values.BigVarUint(4))
     const staking = this.walletState?.staking ?? empty
     const times = staking.keys()
     for (const time of times) {
@@ -1090,7 +1111,10 @@ export class Model {
 
   get stakingInProgressDetails() {
     const result = []
-    const empty = Dictionary.empty(Dictionary.Keys.BigUint(32), Dictionary.Values.BigVarUint(4))
+    if (!this.isChainReady) {
+      return result
+    }
+    const empty = chain!.Dictionary.empty(chain!.Dictionary.Keys.BigUint(32), chain!.Dictionary.Values.BigVarUint(4))
     const staking = this.walletState?.staking ?? empty
     const times = staking.keys()
     for (const time of times) {
@@ -1112,7 +1136,7 @@ export class Model {
     const walletState = this.walletState
     if (isStakeTabActive) {
       // reserve enough GRAM for user's ton wallet storage fee + enough funds for future unstake
-      return maxAmountToStake(tonBalance ?? 0n)
+      return chain == null ? 0n : chain.maxAmountToStake(tonBalance ?? 0n)
     } else {
       return walletState?.tokens ?? 0n
     }
@@ -1124,7 +1148,10 @@ export class Model {
   // is deliberately NOT re-parsed through parseNumberInput here — ASCII "1.500" would read as a German
   // thousands group. Empty stays 0n, which is what toNano('') always returned.
   get amountInNano() {
-    if (this.amountInvalid) {
+    // No chain layer yet means no toNano, and this is the money path: report "not sendable"
+    // rather than improvising a decimal-to-nano conversion. init() starts the fetch immediately,
+    // and StakeUnstake keeps the form disabled while isChainReady is false.
+    if (this.amountInvalid || !this.isChainReady) {
       return undefined
     }
     const amount = this.amount.trim()
@@ -1135,13 +1162,20 @@ export class Model {
       return undefined
     }
     try {
-      return toNano(amount)
+      return chain!.toNano(amount)
     } catch {
       return undefined
     }
   }
 
   get isAmountValid() {
+    // While the chain layer is still downloading, amountInNano is undefined for want of toNano —
+    // not because the visitor typed something wrong. Painting the field in its error colour then
+    // would be a lie, so only the parse flag counts until the converter is here. isAmountPositive
+    // stays false either way, so the stake button remains disabled.
+    if (!this.isChainReady) {
+      return !this.amountInvalid
+    }
     const nano = this.amountInNano
     return nano != null && nano >= 0n && (this.tonBalance == null || nano <= this.maxAmount)
   }
@@ -1260,8 +1294,8 @@ export class Model {
         if (
           participation?.stakeHeldUntil != null &&
           state != null &&
-          state > ParticipationState.Open &&
-          state < ParticipationState.Burning
+          state > chain!.ParticipationState.Open &&
+          state < chain!.ParticipationState.Burning
         ) {
           const remain = this.remainUntil(participation.stakeHeldUntil)
           if (remain != null) {
@@ -1276,8 +1310,10 @@ export class Model {
     return 'https://tonviewer.com/' + this.treasuryAddressFormatted
   }
 
+  // Reads isChainReady so this recomputes when the chain layer lands; the '' fallback is the same
+  // one that was already here for a missing address.
   get treasuryAddressFormatted() {
-    return treasuryAddress?.toString() ?? ''
+    return this.isChainReady ? (chain!.treasuryAddress?.toString() ?? '') : ''
   }
 
   get multisigComment() {
@@ -1287,11 +1323,11 @@ export class Model {
   get multisigTransferAmount() {
     if (this.isStakeTabActive) {
       if (this.isAmountValid && this.isAmountPositive && this.amountInNano != null) {
-        return this.amountInNano + feeStake
+        return this.amountInNano + chain!.feeStake
       }
       return undefined
     }
-    return feeUnstake
+    return this.isChainReady ? chain!.feeUnstake : undefined
   }
 
   // ASCII digits on purpose: the user retypes this into a multisig UI that takes nothing else.
@@ -1564,7 +1600,7 @@ export class Model {
   }
 
   setTonClient = (endpoint: string) => {
-    this.tonClient = new TonClient4({ endpoint, timeout: tonClientTimeout })
+    this.tonClient = new chain!.TonClient4({ endpoint, timeout: tonClientTimeout })
   }
 
   // TonConnect re-emits onStatusChange for the SAME account — connection restore, bridge
@@ -1687,7 +1723,10 @@ export class Model {
   }
 
   setAmountToMax = () => {
-    this.amount = fromNano(this.maxAmount)
+    if (!this.isChainReady) {
+      return
+    }
+    this.amount = chain!.fromNano(this.maxAmount)
     this.amountRaw = this.formatInput(this.amount)
     this.amountInvalid = false
   }
@@ -1818,7 +1857,13 @@ export class Model {
 
   // TonAccess is dead, so the endpoint is picked here instead of discovered: primary first, with
   // automatic failover to the public one. Runs once, from an autorun with no observable inputs.
+  // Reading isChainReady inside the autorun that calls this is what restarts the polling chain
+  // once ./chain.ts lands: setTonClient needs TonClient4, and the readTimes/readLastBlock autoruns
+  // then re-run off the `tonClient` observable it sets.
   connectTonEndpoint = () => {
+    if (!this.isChainReady) {
+      return
+    }
     this.switchTonEndpoint(forcedEndpoint ?? primaryEndpoint)
   }
 
@@ -1868,7 +1913,7 @@ export class Model {
       return
     }
     try {
-      const client = new TonClient4({ endpoint: primaryEndpoint, timeout: tonClientTimeout })
+      const client = new chain!.TonClient4({ endpoint: primaryEndpoint, timeout: tonClientTimeout })
       const lastBlock = await client.getLastBlock()
       if (isStaleBlock(lastBlock.now)) {
         throw new Error('stale block')
@@ -1887,12 +1932,12 @@ export class Model {
     }
     this.timeoutReadTimes = setTimeout(this.readTimes, updateTimesDelay)
 
-    if (tonClient == null || treasuryAddress == null) {
+    if (tonClient == null || chain?.treasuryAddress == null) {
       this.setTimes(undefined)
       return
     }
 
-    const openedTreasury = tonClient.open(Treasury.createFromAddress(treasuryAddress))
+    const openedTreasury = tonClient.open(chain!.Treasury.createFromAddress(chain!.treasuryAddress))
     retry(openedTreasury.getTimes)
       .then((times) => {
         this.tonEndpointFailures = 0
@@ -1916,7 +1961,7 @@ export class Model {
     }
     this.timeoutReadLastBlock = setTimeout(() => void this.readLastBlock(), updateLastBlockDelay)
 
-    if (tonClient == null || treasuryAddress == null) {
+    if (tonClient == null || chain?.treasuryAddress == null) {
       runInAction(() => {
         this.tonBalance = undefined
         this.treasury = undefined
@@ -1942,7 +1987,7 @@ export class Model {
       if (lastBlock < this.lastBlock) {
         throw new Error('older block')
       }
-      const treasury = tonClient.openAt(lastBlock, Treasury.createFromAddress(treasuryAddress))
+      const treasury = tonClient.openAt(lastBlock, chain!.Treasury.createFromAddress(chain!.treasuryAddress))
 
       const readTreasuryState = retry(treasury.getTreasuryState)
 
@@ -1962,9 +2007,11 @@ export class Model {
           ? Promise.resolve(undefined)
           : (this.walletAddress != null
               ? Promise.resolve(this.walletAddress)
-              : retry(() => tonClient.openAt(lastBlock, Parent.createFromAddress(lastParent)).getWalletAddress(address))
+              : retry(() =>
+                  tonClient.openAt(lastBlock, chain!.Parent.createFromAddress(lastParent)).getWalletAddress(address),
+                )
             ).then(async (walletAddress) => {
-              const wallet = tonClient.openAt(lastBlock, Wallet.createFromAddress(walletAddress))
+              const wallet = tonClient.openAt(lastBlock, chain!.Wallet.createFromAddress(walletAddress))
               const walletState = await wallet.getWalletState().catch((e: unknown) => {
                 if (e instanceof Error && 'message' in e && e.message === 'Exit code: -256') {
                   return undefined // wallet does not exists
@@ -1986,10 +2033,10 @@ export class Model {
 
       if (walletAddress == null && address != null && treasuryState.parent != null) {
         try {
-          const openedParent = tonClient.openAt(lastBlock, Parent.createFromAddress(treasuryState.parent))
+          const openedParent = tonClient.openAt(lastBlock, chain!.Parent.createFromAddress(treasuryState.parent))
           ;[walletAddress, wallet, walletState] = await retry(() => openedParent.getWalletAddress(address)).then(
             async (walletAddress) => {
-              const wallet = tonClient.openAt(lastBlock, Wallet.createFromAddress(walletAddress))
+              const wallet = tonClient.openAt(lastBlock, chain!.Wallet.createFromAddress(walletAddress))
               const walletState = await wallet.getWalletState().catch((e: unknown) => {
                 if (e instanceof Error && 'message' in e && e.message === 'Exit code: -256') {
                   return undefined // wallet does not exists
@@ -2105,8 +2152,8 @@ export class Model {
       const queryId = generateRandomQueryId()
 
       const message = this.isStakeTabActive
-        ? createDepositMessage(this.treasury.address, this.amountInNano, queryId)
-        : createUnstakeMessage(this.wallet.address, this.amountInNano, this.unstakeOption, queryId)
+        ? chain!.createDepositMessage(this.treasury.address, this.amountInNano, queryId)
+        : chain!.createUnstakeMessage(this.wallet.address, this.amountInNano, this.unstakeOption, queryId)
 
       const tx: SendTransactionRequest = {
         validUntil: Math.floor(Date.now() / 1000) + txValidUntil,
@@ -2120,7 +2167,7 @@ export class Model {
       const pending: PendingTx = {
         kind: isStake ? 'stake' : 'unstake',
         // hGRAM for an unstake, GRAM for a stake — the spec asks for `amount_gram` on both.
-        amountGram: Number(fromNano(this.amountInNano)),
+        amountGram: Number(chain!.fromNano(this.amountInNano)),
         unstakeType: isStake ? undefined : this.unstakeOption,
       }
       // Fired here rather than on success, so the funnel counts everyone who reached the wallet
@@ -2242,6 +2289,19 @@ export class Model {
     }
   }
 
+  // Fetches the chain layer (once). Started from init() on every page but /defi/, which needs no
+  // chain data at all, and from ensureWallet(), because reading a connected account's address
+  // needs Address.parseRaw.
+  ensureChain = async (): Promise<void> => {
+    if (this.isChainReady) {
+      return
+    }
+    await loadChain()
+    runInAction(() => {
+      this.isChainReady = true
+    })
+  }
+
   // Fetches the wallet layer (once) and constructs TonConnectUI (once). Every caller awaits this
   // before touching `tonConnectUI`.
   ensureWallet = (): Promise<void> => {
@@ -2264,7 +2324,9 @@ export class Model {
   }
 
   private loadWallet = async (): Promise<void> => {
-    const module = await loadTonConnect()
+    // connectWallet's onStatusChange parses the account address, so the chain layer has to be in
+    // place before TonConnect can report a wallet.
+    const [module] = await Promise.all([loadTonConnect(), this.ensureChain()])
     // TonConnect mounts into the widget root, which the island renders (App.tsx). On a very early
     // call the React tree may not have painted it yet; the old initTonConnect polled for exactly
     // this reason, so keep waiting rather than letting TonConnect fall back to document.body.
@@ -2374,7 +2436,7 @@ export class Model {
       restored = true
     })
     this.tonConnectUI.onStatusChange((wallet) => {
-      const address = wallet == null ? undefined : Address.parseRaw(wallet.account.address)
+      const address = wallet == null ? undefined : chain!.Address.parseRaw(wallet.account.address)
       const isNewAddress = address != null && (this.address == null || !this.address.equals(address))
       this.connectedWalletName = wallet?.device.appName
       this.setAddress(address)
