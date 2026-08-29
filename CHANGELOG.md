@@ -17,6 +17,8 @@ here — `git log` remains the complete record.
   separators that `Intl` emits in every `ar` number.
 - Swapped four fontsource packages out and four in; Latin locales keep Heebo +
   Fredoka.
+- Dropped the duplicate `--font-heebo` token; `HpoLayout` now uses `font-body`
+  like the other two layouts.
 
 ## 2026-08-26 — [detailed report](changelog/2026-08-26-club-page-cross-link.md)
 

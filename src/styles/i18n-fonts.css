@@ -168,14 +168,13 @@
 }
 
 /* ---------- Family tokens per locale ----------
- * --font-body / --font-heebo / --font-fredoka are the Tailwind @theme tokens behind `font-body`,
- * `font-heebo` and `font-fredoka` (global.css, app.css). --sl-font is Starlight's body face and
+ * --font-body / --font-fredoka are the Tailwind @theme tokens behind `font-body` and `font-fredoka`
+ * (global.css, app.css). --sl-font is Starlight's body face and
  * --hipo-font-display the docs display face (docs.css). Heebo / Fredoka stay in every stack for the
  * Latin glyphs the script subsets above don't carry. */
 
 html[lang='fa'] {
   --font-body: 'Vazirmatn Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-heebo: 'Vazirmatn Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --font-fredoka: 'Lalezar', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
   --sl-font: 'Vazirmatn Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --hipo-font-display: 'Lalezar', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
@@ -184,7 +183,6 @@ html[lang='fa'] {
 /* Arabic runs a different family from Persian: Cairo in both roles (see the section above). */
 html[lang='ar'] {
   --font-body: 'Cairo Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-heebo: 'Cairo Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --font-fredoka: 'Cairo Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
   --sl-font: 'Cairo Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --hipo-font-display: 'Cairo Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
@@ -192,7 +190,6 @@ html[lang='ar'] {
 
 html[lang='ru'] {
   --font-body: 'Roboto Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-heebo: 'Roboto Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --font-fredoka: 'Comfortaa Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
   --sl-font: 'Roboto Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --hipo-font-display: 'Comfortaa Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
@@ -200,7 +197,6 @@ html[lang='ru'] {
 
 html[lang='hi'] {
   --font-body: 'Poppins', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-heebo: 'Poppins', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --font-fredoka: 'Baloo 2 Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
   --sl-font: 'Poppins', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --hipo-font-display: 'Baloo 2 Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;

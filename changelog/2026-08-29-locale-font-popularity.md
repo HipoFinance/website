@@ -94,6 +94,20 @@ typo.
   is no meaningful ranking to follow; Russian sites use Latin-primary families
   with good Cyrillic, which is what both Roboto and Comfortaa are.
 
+## A stray token, found while writing this up
+
+`HpoLayout.astro` set its `<body>` face with `font-heebo` where `LandingLayout.astro:48` and
+`AppLayout.astro:116` both use `font-body`. The two Tailwind tokens behind those utilities,
+`--font-body` and `--font-heebo`, were declared byte-identically in `global.css` and in all four
+locale blocks, so nothing ever rendered differently — but it meant every per-locale override had to
+set the same value twice, and the second copy was one edit away from silently drifting out of sync
+with the first.
+
+`HpoLayout` now uses `font-body` like the other two layouts, and `--font-heebo` is deleted: one
+declaration in `global.css` and four in `i18n-fonts.css`. Nothing else in the repository referenced
+it. The stylesheet comment describing the tokens claimed `--font-heebo` lived in `global.css` and
+`app.css`; `app.css` never declared it, so that comment was already wrong and is corrected too.
+
 ### Verification performed
 
 - `npm run build` — clean, 512 pages, `prebuild` i18n gate passed. No content
@@ -105,6 +119,11 @@ typo.
 - The four `html[lang=…]` token blocks in the built CSS name the intended
   families, in all three stylesheet compilations.
 - Tajawal, Baloo Bhaijaan 2, Rubik and Hind appear nowhere in `dist/_astro/*.css`.
+- After the `font-heebo` removal: a second clean build, `.font-heebo` no longer emitted anywhere in
+  `dist/_astro/*.css`, `.font-body{font-family:var(--font-body)}` unchanged, the four per-locale
+  `--font-body` declarations intact, and `/hpo/` and `/fa/hpo/` both carrying
+  `<body class="bg-bg font-body text-text …">`. No rendering change — the two tokens held identical
+  values.
 - Heebo and Fredoka both ship `latin-ext`, so Turkish `ğ ş İ`, German umlauts and
   Portuguese diacritics were already covered — checked while auditing, no change
   needed.

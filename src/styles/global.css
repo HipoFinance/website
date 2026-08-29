@@ -11,7 +11,6 @@
   /* Warm Dark faces: `font-body` (Heebo) for text, `font-fredoka` for display/headings.
      Tailwind 4 derives font-* utilities from the --font-* namespace. */
   --font-body: 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-heebo: 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --font-fredoka: 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
 
   /* Warm Dark palette (see changelog 2026-08-11). This is the authored base; the light palette
