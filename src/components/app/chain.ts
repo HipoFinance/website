@@ -11,7 +11,18 @@
 // the polyfill first. (It used to be the island's first import — see AppIsland.tsx.)
 import './pollyfills.ts'
 
-export { Address, Dictionary, TonClient4, fromNano, toNano } from '@ton/ton'
+// Everything but the client comes from @ton/core directly, and the client from its own module
+// rather than @ton/ton's entry point. That is deliberate and it is what keeps this chunk small:
+// @ton/ton is CommonJS with no `module` field and no `exports` map, so a bundler cannot
+// tree-shake its barrel — importing the entry pulls the wallet contracts, the multisig helpers
+// and the mnemonic tooling, none of which this site uses. Reaching past it, together with
+// @hipo-finance/sdk 4.4.0 doing the same, took this chunk from 144 KB to 122 KB gzipped.
+//
+// The deep path is unversioned: @ton/ton publishes no exports map, so nothing enforces it. Check
+// that dist/client/TonClient4 still exists when bumping @ton/ton, and expect a build-time
+// resolution error rather than a runtime surprise if it moves.
+export { Address, Dictionary, fromNano, toNano } from '@ton/core'
+export { TonClient4 } from '@ton/ton/dist/client/TonClient4.js'
 export {
   ParticipationState,
   Treasury,

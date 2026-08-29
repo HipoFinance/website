@@ -7,6 +7,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-29 — [detailed report](changelog/2026-08-29-sdk-ton-core.md)
+
+- `@hipo-finance/sdk` 4.4.0 depends on `@ton/core` instead of the untree-shakable
+  `@ton/ton` barrel; `chain.ts` now takes `TonClient4` off it too.
+- The chain chunk drops from 144 KB to 122 KB gzipped; the wallet contracts,
+  multisig helpers and mnemonic tooling are gone from it.
+- Both importers had to change before anything shrank — fixing only the website
+  had previously measured a 28-byte saving.
+
 ## 2026-08-29 — [detailed report](changelog/2026-08-29-stats-cards-seed.md)
 
 - The Stats page's hGRAM/GRAM rate, staking fee and three "over 1M" deltas are
