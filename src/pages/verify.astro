@@ -1,0 +1,236 @@
+---
+// `/verify/` — the canonical list of Hipo's official identities, linked from outreach messages so
+// a recipient can check that a message really came from us.
+//
+// This is a permanent reference page and it should stay boring: a flat, scannable list, no live
+// data, no island. The addresses below are the ones in src/content/docs/contracts-and-audits.md
+// and in @hipo-finance/sdk's Constants — change them in all three places or in none.
+//
+// English only, with no `[locale]` twin, hence `localized={false}` on the layout.
+import Layout from '../layouts/LandingLayout.astro'
+import Banner from '../components/Banner.astro'
+import Header from '../components/SiteHeader.astro'
+import Footer from '../components/SiteFooter.astro'
+
+const wallets = [
+  { name: 'hipo.ton', use: 'Main wallet. Where communication with users comes from.' },
+  { name: 'hipofinance.ton', use: 'Outreach campaigns. Sends informational messages only.' },
+]
+
+const contracts = [
+  {
+    name: 'Treasury',
+    note: 'The main protocol contract: it receives deposits and holds staked GRAM.',
+    addr: 'EQCLyZHP4Xe8fpchQz76O-_RmUhaVc_9BAoGyJrwJrcbz2eZ',
+  },
+  {
+    name: 'hGRAM jetton',
+    // Same caveat the docs carry: the parent address changes on a protocol upgrade, and the
+    // contract repository README is the source of truth when it does.
+    note: 'The liquid staking token you receive. This address can change on a protocol upgrade.',
+    addr: 'EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w',
+  },
+  {
+    name: 'HPO jetton',
+    note: 'The governance token. There is only one HPO; check before you swap.',
+    addr: 'EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM',
+  },
+]
+
+const channels = [
+  { label: 'Announcements', handle: '@HipoFinance', url: 'https://t.me/HipoFinance' },
+  { label: 'Community chat', handle: '@hipo_chat', url: 'https://t.me/hipo_chat' },
+]
+
+const team = [
+  { handle: '@milibilij', url: 'https://t.me/milibilij' },
+  { handle: '@behrang', url: 'https://t.me/behrang' },
+]
+
+const socials = [
+  { label: 'X', host: 'x.com/hipofinance', url: 'https://x.com/hipofinance' },
+  { label: 'GitHub', host: 'github.com/HipoFinance', url: 'https://github.com/HipoFinance' },
+  { label: 'Medium', host: 'medium.com/@hipofinance', url: 'https://medium.com/@hipofinance' },
+  { label: 'YouTube', host: 'youtube.com/@HipoFinance', url: 'https://www.youtube.com/@HipoFinance' },
+]
+
+const never = [
+  'Ask you to connect your wallet to claim a reward or an airdrop',
+  'Ask you to sign a transaction you did not start yourself',
+  'Ask for your seed phrase or private key, for any reason',
+  'Send you tokens you did not expect, or ask you to send tokens to "verify" a wallet',
+  'Message you first from a team member’s personal account',
+  'Offer support in direct messages',
+]
+
+const title = 'Official Hipo Addresses and Accounts | Hipo'
+const description =
+  'The authoritative list of Hipo official wallet addresses, contracts, TON DNS names, Telegram ' +
+  'channels and social accounts. Check here before you trust a message that claims to be from Hipo.'
+---
+
+<Layout title={title} description={description} localized={false}>
+  <Banner />
+
+  <Header />
+
+  <main class='mx-auto w-full max-w-[760px] px-6 pb-4 md:px-12'>
+    <header class='py-12'>
+      <h1 class='font-fredoka text-text mb-5 text-[36px] leading-[1.1] font-semibold tracking-[-0.5px] sm:text-[44px]'>
+        Official Hipo addresses and accounts
+      </h1>
+      <p class='text-text-muted text-[17px] leading-[1.6] lg:text-[19px]'>
+        Impersonation is common on TON. This page is the only authoritative list. If something claims to be Hipo and is
+        not on it, it is not us.
+      </p>
+    </header>
+
+    <!-- The warning goes first: it is the most useful thing on the page. -->
+    <section class='border-border bg-surface mb-10 rounded-[20px] border p-6 sm:p-8'>
+      <h2 class='font-fredoka text-text mb-4 text-2xl font-semibold'>Hipo will never</h2>
+      <ul class='text-text-muted space-y-2.5 text-[15px] leading-[1.6]'>
+        {
+          never.map((item) => (
+            <li class='flex gap-3'>
+              <span class='text-accent shrink-0' aria-hidden='true'>
+                —
+              </span>
+              <span>{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class='text-text-muted mt-5 text-[15px] leading-[1.6]'>
+        A message that does any of these is a scam, whatever name or picture it carries. Report it in
+        <a href='https://t.me/hipo_chat' class='text-accent hover:text-accent-hover underline'>@hipo_chat</a>, and see
+        <a
+          href='/docs/security/phishing-awareness-and-prevention/'
+          class='text-accent hover:text-accent-hover underline'
+        >
+          phishing awareness
+        </a> for the longer version.
+      </p>
+    </section>
+
+    <section class='mb-10'>
+      <h2 class='font-fredoka text-text mb-4 text-2xl font-semibold'>Wallets</h2>
+      <ul class='space-y-3'>
+        {
+          wallets.map((wallet) => (
+            <li class='border-border bg-surface rounded-[20px] border p-5'>
+              <div class='text-accent mb-1 font-semibold'>{wallet.name}</div>
+              <div class='text-text-muted text-[15px] leading-[1.6]'>{wallet.use}</div>
+            </li>
+          ))
+        }
+      </ul>
+      <p class='text-text-muted mt-3 text-[15px] leading-[1.6]'>
+        These are the only wallets Hipo uses to contact people. What we send is informational and never asks you to do
+        anything with your wallet.
+      </p>
+    </section>
+
+    <section class='mb-10'>
+      <h2 class='font-fredoka text-text mb-4 text-2xl font-semibold'>Contracts</h2>
+      <ul class='space-y-3'>
+        {
+          contracts.map((contract) => (
+            <li class='border-border bg-surface rounded-[20px] border p-5'>
+              <div class='text-text mb-1 font-semibold'>{contract.name}</div>
+              <a
+                href={`https://tonviewer.com/${contract.addr}`}
+                class='text-accent hover:text-accent-hover block font-mono text-[13px] break-all underline'
+              >
+                {contract.addr}
+              </a>
+              <div class='text-text-muted mt-2 text-[15px] leading-[1.6]'>{contract.note}</div>
+            </li>
+          ))
+        }
+      </ul>
+      <p class='text-text-muted mt-3 text-[15px] leading-[1.6]'>
+        The same list, with the audit reports, is in
+        <a href='/docs/contracts-and-audits/' class='text-accent hover:text-accent-hover underline'>
+          Contracts &amp; Audits
+        </a>.
+      </p>
+    </section>
+
+    <section class='mb-10'>
+      <h2 class='font-fredoka text-text mb-4 text-2xl font-semibold'>Telegram</h2>
+      <ul class='mb-6 space-y-3'>
+        {
+          channels.map((channel) => (
+            <li class='border-border bg-surface flex flex-wrap items-baseline gap-2 rounded-[20px] border p-5'>
+              <a href={channel.url} class='text-accent hover:text-accent-hover font-semibold'>
+                {channel.handle}
+              </a>
+              <span class='text-text-muted text-[15px]'>— {channel.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h3 class='font-fredoka text-text mb-2 text-lg font-semibold'>Team accounts</h3>
+      <p class='text-text-muted mb-3 text-[15px] leading-[1.6]'>
+        These are real team members. <strong class='text-text'>They will never message you first</strong>, and they
+        never offer support in direct messages. If one of these names contacts you out of nowhere, it is an impersonator
+        copying the name and the photo.
+      </p>
+      <ul class='flex flex-wrap gap-2'>
+        {
+          team.map((member) => (
+            <li>
+              <a
+                href={member.url}
+                class='border-border bg-surface text-accent hover:border-border-strong inline-block rounded-full border px-5 py-2.5 text-[15px] font-medium'
+              >
+                {member.handle}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class='mb-10'>
+      <h2 class='font-fredoka text-text mb-4 text-2xl font-semibold'>Website and social accounts</h2>
+      <ul class='mb-4 space-y-3'>
+        <li class='border-border bg-surface rounded-[20px] border p-5'>
+          <span class='text-accent font-semibold'>hipo.finance</span>
+          <span class='text-text-muted text-[15px] leading-[1.6]'>
+            — the only official website. The docs are at hipo.finance/docs/ and the app at hipo.finance/stake/;
+            docs.hipo.finance redirects here.
+          </span>
+        </li>
+        {
+          socials.map((social) => (
+            <li class='border-border bg-surface rounded-[20px] border p-5'>
+              <a href={social.url} class='text-accent hover:text-accent-hover font-semibold'>
+                {social.host}
+              </a>
+              <span class='text-text-muted text-[15px] leading-[1.6]'> — {social.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class='text-text-muted text-[15px] leading-[1.6]'>
+        Hipo runs no other website, no token sale and no "support portal". There is no Hipo app anywhere but
+        hipo.finance.
+      </p>
+    </section>
+
+    <section
+      class='border-border mb-14 rounded-[20px] border p-6 sm:p-8'
+      style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
+    >
+      <h2 class='font-fredoka text-text mb-2 text-xl font-semibold sm:text-2xl'>Not sure about something?</h2>
+      <p class='text-text-muted text-[15px] leading-[1.6]'>
+        Ask in <a href='https://t.me/hipo_chat' class='text-accent hover:text-accent-hover underline'>@hipo_chat</a>
+        before you act on it. Nobody there will mind, and it takes a minute.
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

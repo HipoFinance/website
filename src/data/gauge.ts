@@ -30,7 +30,10 @@ export interface GaugeData {
   treasury?: { current_tvl?: number; current_apy?: number; protocol_fee?: number }
   ton?: { market?: { current_price?: { usd?: number } } }
   hton?: { holders_count?: number }
-  hpo?: { holders_count?: number; market?: { market_cap?: { usd?: number }; total_volume?: { usd?: number } } }
+  hpo?: {
+    holders_count?: number
+    market?: { current_price?: { usd?: number }; market_cap?: { usd?: number }; total_volume?: { usd?: number } }
+  }
 }
 
 // The formatted strings, keyed by the DOM id that displays each. `stakedExact` is not an id: it is

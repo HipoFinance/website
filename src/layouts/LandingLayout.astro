@@ -7,6 +7,8 @@ interface Props {
   title: string
   description: string
   jsonLd?: Record<string, any>
+  // Forwarded to SEO.astro; false on the English-only pages that have no `[locale]` twin.
+  localized?: boolean
 }
 
 const locale = localeOf(Astro)
@@ -16,6 +18,7 @@ const locale = localeOf(Astro)
 const {
   title,
   description,
+  localized = true,
   jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -40,7 +43,7 @@ const {
   <head>
     <meta charset='UTF-8' />
 
-    <SEO title={title} description={description} jsonLd={jsonLd} />
+    <SEO title={title} description={description} jsonLd={jsonLd} localized={localized} />
 
     <link rel='icon' href={`${import.meta.env.BASE_URL}favicon.ico`} />
   </head>

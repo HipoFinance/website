@@ -1,0 +1,306 @@
+---
+// `/vs/` — the landing page for the on-chain outreach campaign.
+//
+// Every figure on this page is baked into the static HTML at build time: the APY, the protocol
+// fee, the staked total, both reward tables and the value of the HPO boost. Recipients arrive here
+// straight from a wallet message, often through a link preview crawler, so nothing that matters may
+// wait for the client island. Keep it that way — new numbers come from src/data/, never from a
+// script tag.
+//
+// English only, with no `[locale]` twin, hence `localized={false}`: hreflang must not advertise
+// `/fa/vs/` and friends, which do not exist.
+import Layout from '../layouts/LandingLayout.astro'
+import Banner from '../components/Banner.astro'
+import Header from '../components/SiteHeader.astro'
+import Footer from '../components/SiteFooter.astro'
+import { localeOf } from '../i18n/locale.ts'
+import { formatNumber, formatPercent } from '../i18n/format.ts'
+import { fetchGauge } from '../data/gauge.ts'
+import { fetchClubRewards, hpoBoostPoints, hpoPerYear } from '../data/club.ts'
+
+const locale = localeOf(Astro)
+
+const [gauge, club] = await Promise.all([fetchGauge(), fetchClubRewards()])
+
+const apy = gauge?.treasury?.current_apy
+// The 0% headline is the whole argument of this page, so the fee is rendered from the contract
+// rather than typed in: if governance ever sets one, the tables stop saying zero and the copy
+// above them needs rewriting the same day.
+const fee = gauge?.treasury?.protocol_fee
+const stakedNano = gauge?.treasury?.current_tvl
+const staked = stakedNano == null ? undefined : stakedNano / 1000000000
+const gramUsd = gauge?.ton?.market?.current_price?.usd
+const hpoUsd = gauge?.hpo?.market?.current_price?.usd
+
+const apyText = apy == null ? undefined : formatPercent(locale, apy / 100, 2)
+const feeText = fee == null ? undefined : formatPercent(locale, fee / 100, 2)
+// The exact total, not the landing page's compact "8M": this page's whole claim is that its
+// figures are the real ones, and a rounded headline undercuts that.
+const stakedText = staked == null ? undefined : formatNumber(locale, staked, { maximumFractionDigits: 0 })
+
+const gram = (value: number) => formatNumber(locale, value, { maximumFractionDigits: 0 })
+const gramPerYear = (stake: number) => (apy == null ? undefined : gram(stake * (apy / 100)))
+
+// The Club level curve is not linear (1, 1.2, 1.6, … 10), so the two columns name their levels and
+// read the multipliers out of the live array rather than assuming level === multiplier.
+const topLevel = club.coefficients.length
+const topCoefficient = club.coefficients[topLevel - 1]
+const boostLow = hpoBoostPoints(club, 1, hpoUsd, gramUsd)
+const boostHigh = hpoBoostPoints(club, topLevel, hpoUsd, gramUsd)
+const points = (value: number) => formatNumber(locale, value, { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+
+const examples = [1000, 5000, 10000, 50000]
+
+const title =
+  apyText == null ? 'GRAM Staking with a 0% Fee | Hipo' : `GRAM Staking with a 0% Fee — ${apyText} APY | Hipo`
+const description =
+  'Hipo charges a 0% protocol fee, so stakers keep 100% of their GRAM staking rewards. ' +
+  (apyText == null ? '' : `Live APY ${apyText}. `) +
+  'Open source, audited, and you can withdraw at any time.'
+---
+
+<Layout title={title} description={description} localized={false}>
+  <Banner />
+
+  <Header />
+
+  <main class='mx-auto w-full max-w-[900px] px-6 pb-4 md:px-12'>
+    <!-- Hero: the two numbers the campaign is about, in static HTML. -->
+    <section class='flex flex-col gap-[22px] py-12'>
+      <div
+        class='border-border bg-surface text-text-muted flex w-fit items-center gap-2 rounded-full border px-3.5 py-[7px] text-sm font-medium'
+      >
+        <span class='bg-positive inline-block size-2 rounded-full'></span>
+        Liquid staking on TON
+      </div>
+
+      <h1
+        class='font-fredoka text-text text-[36px] leading-[1.1] font-semibold tracking-[-0.5px] sm:text-[48px] lg:leading-[1.08]'
+      >
+        Keep <span class='text-accent'>100%</span> of your GRAM staking rewards
+      </h1>
+
+      <p class='text-text-muted max-w-[560px] text-[17px] leading-[1.6] lg:text-[19px]'>
+        Hipo takes a <strong class='text-text'>0% protocol fee</strong>. Every GRAM of staking reward a validator earns
+        goes to the stakers. Most liquid staking protocols take a cut of that reward before you ever see it.
+      </p>
+
+      <dl class='grid grid-cols-2 gap-4 sm:grid-cols-3'>
+        <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
+          <dt class='text-text-muted mb-1 text-sm'>Current APY</dt>
+          <dd class='font-fredoka text-accent num text-[30px] font-semibold'>{apyText ?? '—'}</dd>
+        </div>
+        <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
+          <dt class='text-text-muted mb-1 text-sm'>Protocol fee</dt>
+          <dd class='font-fredoka text-positive num text-[30px] font-semibold'>{feeText ?? '—'}</dd>
+        </div>
+        <div class='border-border bg-surface col-span-2 rounded-[20px] border px-6 py-5 sm:col-span-1'>
+          <dt class='text-text-muted mb-1 text-sm'>Total staked</dt>
+          <dd class='font-fredoka text-text num text-[26px] font-semibold sm:text-[30px]'>{stakedText ?? '—'}</dd>
+        </div>
+      </dl>
+
+      <p class='text-text-faint text-[13px] leading-[1.6]'>
+        Live protocol data, read from the contracts when this page was built. APY is derived from recent on-chain
+        validation rounds and is not a guarantee.
+      </p>
+    </section>
+
+    <!-- What the fee is worth. Hipo's own numbers only — no claims about anyone else's product. -->
+    <section class='pb-14'>
+      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>What 0% is worth</h2>
+      <p class='text-text-muted mb-6 max-w-[560px] text-[17px] leading-[1.6]'>
+        {apyText == null ? 'At the current APY, this' : `At today's ${apyText} APY, this`} is what a stake earns over a year
+        with no protocol fee taken out. If you stake somewhere else, compare it against what you actually receive after your
+        provider's cut.
+      </p>
+
+      <div class='border-border bg-surface overflow-x-auto rounded-[20px] border'>
+        <table class='w-full min-w-[420px] text-start'>
+          <thead>
+            <tr class='border-border bg-surface-deep border-b'>
+              <th class='text-text-faint p-4 text-xs font-medium tracking-wider uppercase'>You stake</th>
+              <th class='text-text-faint p-4 text-end text-xs font-medium tracking-wider uppercase'>
+                You earn / year
+              </th>
+              <th class='text-text-faint p-4 text-end text-xs font-medium tracking-wider uppercase'>Fee we take</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              examples.map((amount) => (
+                <tr class='border-border border-b last:border-0'>
+                  <td class='text-text num p-4'>{gram(amount)} GRAM</td>
+                  <td class='text-accent num p-4 text-end font-semibold'>
+                    {gramPerYear(amount) === undefined ? '—' : `≈ ${gramPerYear(amount)} GRAM`}
+                  </td>
+                  <td class='text-positive num p-4 text-end'>{feeText ?? '—'}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <p class='text-text-faint mt-3 text-[13px] leading-[1.6]'>
+        Illustrative, at the current rate. Rewards accrue in the hGRAM exchange rate rather than as a separate payout,
+        and the rate changes every validation round.
+      </p>
+    </section>
+
+    <!-- The HPO boost, valued honestly: a big token count means nothing without its price. -->
+    <section class='pb-14'>
+      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>Plus HPO rewards</h2>
+      <p class='text-text-muted mb-6 max-w-[560px] text-[17px] leading-[1.6]'>
+        On top of the GRAM staking reward, stakers earn HPO — Hipo's governance token — through
+        <a href='/docs/giveaways-and-prizes/hipo-club/' class='text-accent hover:text-accent-hover underline'>
+          Hipo Club
+        </a>. Your Club level multiplies it, from {club.coefficients[0]}× at Level 1 up to {topCoefficient}× at Level{
+          ' '
+        }
+        {topLevel}.
+      </p>
+
+      <div class='border-border bg-surface overflow-x-auto rounded-[20px] border'>
+        <table class='w-full min-w-[420px] text-start'>
+          <thead>
+            <tr class='border-border bg-surface-deep border-b'>
+              <th class='text-text-faint p-4 text-xs font-medium tracking-wider uppercase'>You stake</th>
+              <th class='text-text-faint p-4 text-end text-xs font-medium tracking-wider uppercase'>
+                HPO / year, Level 1
+              </th>
+              <th class='text-text-faint p-4 text-end text-xs font-medium tracking-wider uppercase'>
+                HPO / year, Level {topLevel}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              examples.map((amount) => (
+                <tr class='border-border border-b last:border-0'>
+                  <td class='text-text num p-4'>{gram(amount)} GRAM</td>
+                  <td class='text-text-muted num p-4 text-end'>≈ {gram(hpoPerYear(club, amount, 1))}</td>
+                  <td class='text-accent num p-4 text-end font-semibold'>
+                    ≈ {gram(hpoPerYear(club, amount, topLevel))}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      {
+        boostLow !== undefined && boostHigh !== undefined && (
+          <p class='text-text-muted mt-4 max-w-[560px] text-[15px] leading-[1.6]'>
+            <strong class='text-text'>What that is worth:</strong> HPO has a market price and it moves. At the price
+            when this page was built, the boost adds about{' '}
+            <strong class='text-text num'>{points(boostLow)} percentage points</strong> to your annual return at Level
+            1, and about <strong class='text-text num'>{points(boostHigh)} points</strong> at Level {topLevel}. We put
+            it this way because a large token number on its own does not tell you what you are earning.
+          </p>
+        )
+      }
+
+      <p class='text-text-faint mt-2 text-[13px] leading-[1.6]'>
+        Per validation round, a stake earns its GRAM value × {club.rewardRate} × its Club multiplier in HPO, and a round runs
+        about {formatNumber(locale, 24 / (club.roundsPerYear / 365), { maximumFractionDigits: 0 })} hours, so roughly {
+          formatNumber(locale, club.roundsPerYear, { maximumFractionDigits: 0 })
+        } rounds fit in a year. The rate is set by governance and can change. Selling rewarded HPO resets you to Level 1.
+      </p>
+    </section>
+
+    <!-- Getting out. The question this audience asks second. -->
+    <section class='pb-14'>
+      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>Getting your GRAM back</h2>
+      <p class='text-text-muted mb-6 max-w-[560px] text-[17px] leading-[1.6]'>
+        You are never locked in, and unstaking costs no fee. There are two ways out, both inside the protocol — you do
+        not depend on anyone being willing to buy your tokens.
+      </p>
+
+      <div class='grid gap-4 md:grid-cols-2'>
+        <div class='border-border bg-surface rounded-[20px] border p-6'>
+          <h3 class='font-fredoka text-text mb-2 text-xl font-semibold'>Full unstake — typically under 18 hours</h3>
+          <p class='text-text-muted text-[15px] leading-[1.6]'>
+            Settled once the current validation round ends, so you keep earning until it does and get the better rate.
+            Any amount, always succeeds. The worst case is 36 hours, when every round is locked and your request just
+            misses a window.
+          </p>
+        </div>
+        <div class='border-border bg-surface rounded-[20px] border p-6'>
+          <h3 class='font-fredoka text-text mb-2 text-xl font-semibold'>Instant unstake — seconds</h3>
+          <p class='text-text-muted text-[15px] leading-[1.6]'>
+            Paid straight out of the protocol's free GRAM, at a slightly lower rate. How much is available changes every
+            round, and the app shows the live maximum before you confirm.
+          </p>
+        </div>
+      </div>
+
+      <p class='text-text-faint mt-3 text-[13px] leading-[1.6]'>
+        Hipo charges nothing to unstake. Network gas is prepaid and the unused part is refunded.
+      </p>
+    </section>
+
+    <!-- Credibility, which is what this audience actually checks. -->
+    <section class='pb-14'>
+      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>Independent, and checkable</h2>
+      <ul class='grid gap-3 md:grid-cols-2'>
+        <li class='border-border bg-surface rounded-[20px] border p-6'>
+          <strong class='font-fredoka text-text mb-1 block text-lg font-semibold'>Not owned by a wallet</strong>
+          <span class='text-text-muted text-[15px] leading-[1.6]'>
+            Hipo is governed on-chain by HPO holders, not by a company that also happens to run the wallet you stake
+            from.
+          </span>
+        </li>
+        <li class='border-border bg-surface rounded-[20px] border p-6'>
+          <strong class='font-fredoka text-text mb-1 block text-lg font-semibold'>Open source and audited</strong>
+          <span class='text-text-muted text-[15px] leading-[1.6]'>
+            The contracts, the SDK and this website are public on
+            <a href='https://github.com/HipoFinance' class='text-accent hover:text-accent-hover underline'>GitHub</a>,
+            and the
+            <a href='/docs/contracts-and-audits/' class='text-accent hover:text-accent-hover underline'>
+              audit reports
+            </a> name what was reviewed and when.
+          </span>
+        </li>
+        <li class='border-border bg-surface rounded-[20px] border p-6'>
+          <strong class='font-fredoka text-text mb-1 block text-lg font-semibold'>Non-custodial</strong>
+          <span class='text-text-muted text-[15px] leading-[1.6]'>
+            You hold hGRAM in your own wallet. Hipo never takes custody of your GRAM.
+          </span>
+        </li>
+        <li class='border-border bg-surface rounded-[20px] border p-6'>
+          <strong class='font-fredoka text-text mb-1 block text-lg font-semibold'>Live data, not marketing</strong>
+          <span class='text-text-muted text-[15px] leading-[1.6]'>
+            Every figure above comes from the contracts, and
+            <a href='/stats/' class='text-accent hover:text-accent-hover underline'>the stats page</a> serves the same getters
+            to anyone who wants to check them.
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    <section
+      class='border-border mb-14 rounded-[20px] border p-8 text-center'
+      style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
+    >
+      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>Stake from 1 GRAM</h2>
+      <p class='text-text-muted mx-auto mb-6 max-w-[460px] text-[17px] leading-[1.6]'>
+        Connect any TON wallet. You receive hGRAM straight away, and it grows in value against GRAM every validation
+        round.
+      </p>
+      <a
+        href='/stake/'
+        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover inline-block rounded-full px-8 py-[15px] text-[17px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
+      >
+        Stake GRAM
+      </a>
+      <p class='text-text-faint mt-4 text-[13px] leading-[1.6]'>
+        Validators borrow from the protocol and lock their own GRAM as collateral, covering the round's maximum slashing
+        penalty. A penalty comes out of that collateral, not out of staked GRAM.
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

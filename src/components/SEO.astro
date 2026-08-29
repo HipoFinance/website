@@ -15,9 +15,13 @@ interface Props {
   publishedTime?: string
   author?: string
   jsonLd?: Record<string, any>
+  // English-only pages (/verify/, /vs/) set this to false: they have no `[locale]` twin, so
+  // pointing hreflang at `/fa/verify/` would advertise URLs that 404. Everything else keeps the
+  // default and gets the full alternate set.
+  localized?: boolean
 }
 
-const { title, description, image = '/og/default.png', publishedTime, author, jsonLd } = Astro.props
+const { title, description, image = '/og/default.png', publishedTime, author, jsonLd, localized = true } = Astro.props
 
 const locale = localeOf(Astro)
 const url = Astro.url.href
@@ -26,7 +30,7 @@ const imageUrl = new URL(image, Astro.site).href
 // The same page in every indexable locale, for hreflang and og:locale:alternate — draft locales
 // (built only when I18N_INCLUDE_DRAFTS=1) are never linked, even in a drafts build.
 const { path } = stripLocale(Astro.url.pathname)
-const alternates = indexableLocales().map((l) => ({
+const alternates = (localized ? indexableLocales() : []).map((l) => ({
   locale: l,
   lang: langOf(l),
   href: new URL(localizedPath(path, l), Astro.site).href,
@@ -42,7 +46,7 @@ const isDraft = LOCALES[locale]?.status === 'draft'
 {isDraft && <meta name='robots' content='noindex, nofollow' />}
 <link rel='canonical' href={url} />
 {alternates.map((alt) => <link rel='alternate' hreflang={alt.lang} href={alt.href} />)}
-<link rel='alternate' hreflang='x-default' href={englishUrl} />
+{localized && <link rel='alternate' hreflang='x-default' href={englishUrl} />}
 
 <!-- THEME -->
 <!-- The site follows `prefers-color-scheme` and has no toggle, so the browser chrome can be

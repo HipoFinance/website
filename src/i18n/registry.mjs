@@ -43,6 +43,8 @@ export const RESERVED_SEGMENTS = [
   'defi',
   'hpo',
   'app',
+  'verify',
+  'vs',
   'i18n',
   'og',
   'images',

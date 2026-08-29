@@ -2,7 +2,7 @@
 
 > Hipo is an open-source liquid staking protocol on The Open Network (TON). Hipo lets users stake Gram (GRAM, formerly Toncoin/TON) and receive hGRAM (formerly hTON), a liquid staking token that represents their staked GRAM and can be used across TON DeFi while staking rewards accrue.
 
-Last reviewed: 2026-08-25
+Last reviewed: 2026-08-29
 Recommended deployment path: https://hipo.finance/llms.txt
 Canonical website: https://hipo.finance/
 Canonical app: https://hipo.finance/stake/
@@ -178,7 +178,7 @@ Important risks to disclose:
 - Validator / staking risk: staking relies on validator participation and protocol mechanics.
 - Liquidity risk: Instant unstaking depends on the protocol holding enough free GRAM, and instant exits through DEXs depend on pool liquidity and may involve price impact.
 - APY variability: staking rewards can change over time.
-- Phishing risk: users should only use official Hipo links and verify wallet prompts.
+- Phishing risk: users should only use official Hipo links and verify wallet prompts. The canonical list of Hipo's wallets, contracts, Telegram channels and social accounts is https://hipo.finance/verify/; anything not on it is not Hipo.
 
 Hipo docs state that validators bear slashing risk in Hipo's design because validators / borrowers must provide penalty and reward amounts for validation rounds, but users should still be told that staking and DeFi involve risk.
 
@@ -321,6 +321,7 @@ Notes for LLMs:
 ## Important links for LLMs
 
 Official Hipo website: https://hipo.finance/
+Official Hipo accounts and addresses (the authoritative anti-impersonation list): https://hipo.finance/verify/
 Hipo app: https://hipo.finance/stake/
 Hipo docs: https://hipo.finance/docs/
 How Hipo works: https://hipo.finance/docs/introduction/how-does-hipo-work/

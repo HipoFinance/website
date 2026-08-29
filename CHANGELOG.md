@@ -7,6 +7,18 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-29 — [detailed report](changelog/2026-08-29-verify-and-vs-pages.md)
+
+- New `/verify/`, the canonical list of Hipo's official wallets, contracts,
+  Telegram channels and social accounts, linked from outreach messages.
+- New `/vs/`, the campaign landing page for the 0% protocol fee, with every
+  figure baked into the HTML at build time.
+- New `src/data/club.ts` reads the Hipo Club reward rate and level coefficients
+  at build time; the draft's linear `× level` formula was wrong.
+- `SEO.astro` and `LandingLayout` take a `localized` prop, so English-only pages
+  stop emitting `hreflang` for locale URLs that do not exist.
+- `public/llms.txt` points at `/verify/` for the anti-impersonation list.
+
 ## 2026-08-29 — [detailed report](changelog/2026-08-29-sdk-ton-core.md)
 
 - `@hipo-finance/sdk` 4.4.0 depends on `@ton/core` instead of the untree-shakable
