@@ -4,21 +4,97 @@ title: 'Hipo Rewards'
 
 Our goal is to build Hipo as a truly community-driven protocol, where value and decision-making move to the community.
 
-Here is how Hipo rewards work:
+Staking GRAM with Hipo pays you in three separate streams, on three different clocks:
 
-- **Stake GRAM → receive hGRAM**\
-  No lock-up, full flexibility
 - **Base rewards**\
-  GRAM staking rewards, reflected in hGRAM's exchange rate against GRAM\
-  (see the [current rate](/stats/))
+  GRAM staking rewards, reflected in hGRAM's exchange rate against GRAM — settled **every validation round** (~18 h), nothing to claim
 - **Boosted rewards**\
-  Extra HPO on the hGRAM you hold, at a rate set by your [Hipo Club](https://t.me/HipoFinanceBot/join) level
+  Extra HPO on the GRAM value of your stake, at a coefficient set by your [Hipo Club](https://t.me/HipoFinanceBot/join) level — accrues **every validation round**, withdrawable once your balance passes 1,000 HPO
 - **Extra rewards**\
-  Hold HPO → receive a share of protocol revenue
+  Hold HPO → receive a share of protocol revenue — paid **at the end of each Hipo Club season**
+
+All three are trackable in the [Hipo app](/rewards/) and [Hipo Club](https://t.me/HipoFinanceBot/join).
+
+## Base rewards: the exchange rate
+
+You stake GRAM and receive hGRAM. There is no lock-up and nothing to claim: validation rewards accumulate inside the protocol, so each hGRAM becomes worth more GRAM over time. Your hGRAM balance never changes — its value does.
+
+This is the main stream, and it is the one the APY on the [Stats page](/stats/) refers to. Because Hipo takes no cut of your stake and the [governance fee](/docs/fees-and-gas/) is currently 0%, the whole validation reward flows into the exchange rate.
+
+## Boosted rewards: HPO from Hipo Club
+
+On top of the exchange rate, [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) pays you HPO for holding hGRAM. This stream is separate, it is paid in HPO rather than GRAM, and you withdraw it in the Club.
+
+### The formula
+
+Every validation round, each member earns:
+
+```
+HPO reward = GRAM value of your stake × HPOrewardRate × LevelRate
+```
+
+- **HPOrewardRate** is currently **0.0021902**. It is set by governance and can change.
+- **LevelRate** is the coefficient attached to your Hipo Club level.
+
+A validation round lasts 65,536 seconds — about 18.2 hours — so there are roughly **481 rounds a year**. At the current rate, each GRAM in your stake earns about **1.05 HPO a year** at Level 1.
+
+The base is what your stake is **worth in GRAM right now** — your hGRAM balance at the current exchange rate — not the amount you originally deposited. Because base rewards push that value up every round, your HPO rewards grow with it: the two streams compound together.
+
+### Level coefficients
+
+The coefficient is not the level number — it starts at 1× and accelerates as you climb:
+
+| Level | 1    | 2    | 3    | 4    | 5   | 6   | 7    | 8    | 9    | 10  |
+| ----- | ---- | ---- | ---- | ---- | --- | --- | ---- | ---- | ---- | --- |
+| Rate  | 1.0× | 1.2× | 1.6× | 2.2× | 3×  | 4×  | 5.2× | 6.6× | 8.2× | 10× |
+
+Each level is worth more than the one before it: moving from Level 1 to Level 2 adds 0.2×, while moving from Level 9 to Level 10 adds 1.8× — nine times as much. The reward for climbing is back-loaded.
+
+### What that works out to
+
+Annual HPO rewards at the current rate:
+
+| Stake (GRAM) | Level 1 (1×) | Level 5 (3×) | Level 10 (10×) |
+| ------------ | ------------ | ------------ | -------------- |
+| 1,000        | ~1,055 HPO   | ~3,164 HPO   | ~10,546 HPO    |
+| 5,000        | ~5,273 HPO   | ~15,819 HPO  | ~52,732 HPO    |
+| 10,000       | ~10,546 HPO  | ~31,639 HPO  | ~105,463 HPO   |
+| 50,000       | ~52,732 HPO  | ~158,195 HPO | ~527,316 HPO   |
+
+### What it is worth
+
+HPO rewards are paid in a token with a market price, and that price moves. Valued at HPO's market price on 29 August 2026, the boost adds roughly **0.18 percentage points** to your effective annual return at Level 1, and roughly **1.8 percentage points** at Level 10.
+
+So a staker at Level 10 earns approximately the GRAM staking APY on the [Stats page](/stats/), **plus about 1.8%** in HPO terms.
 
 :::note
-Three streams, three clocks: base rewards settle **every validation round** (~18 h) into the hGRAM exchange rate, with nothing to claim; Hipo Club HPO accrues **every validation round** and can be withdrawn once your balance passes 1,000 HPO; profit shares for HPO holders are paid **at the end of each Hipo Club season**.\
-All three are trackable in the [Hipo app](/rewards/) and [Hipo Club](https://t.me/HipoFinanceBot/join).
+We state it this way deliberately. A large HPO number on its own does not tell you what you are earning, and the HPO market is small — the token is thinly traded, so the value of a large HPO position is not the same as the value of a small one. We would rather you know that than be surprised by it.
 :::
 
-The more you participate, the more you earn, and the bigger your role in shaping Hipo’s future.
+### Levels
+
+Your level multiplies everything above: at Level 10 the same stake earns ten times what it earns at Level 1. You also earn 1% of the HPO rewards generated by people you invite.
+
+There are two ways to level up:
+
+- **Seasonal upgrade** — claim your earned rewards at least once during the season; your level rises automatically at the end of it.
+- **Instant upgrade** — pay the level-up fee and your level rises immediately.
+
+Two rules matter:
+
+- **Selling rewarded HPO resets you to Level 1.** The Club is designed to reward people who hold, and this is the mechanism. Sending rewarded HPO to an exchange, or to a wallet you have not connected to the Club, counts as selling; moving it between your own connected wallets does not — see [Using Multiple Wallets](/docs/wallets-and-rewards/).
+- **There is no claiming window.** Rewards accrue every round and can be withdrawn whenever your balance is at least **1,000 HPO**.
+
+## Extra rewards: profit sharing
+
+HPO is Hipo's governance token. Holding it gives you a vote in the [DAO](/docs/dao/) and a share of protocol revenue, distributed at the end of each Hipo Club season — see [Profit Sharing](/docs/profit-sharing/).
+
+:::note
+While the [governance fee](/docs/fees-and-gas/) is **0%**, the protocol collects no revenue, so there is nothing to distribute in this stream. Profit sharing resumes when the fee does. The 0% fee is what makes the base rewards as high as they are.
+:::
+
+The more you participate, the more you earn, and the bigger your role in shaping Hipo's future.
+
+---
+
+_The HPOrewardRate, the level thresholds, the hGRAM exchange rate and the HPO market price all change. The figures on this page are current as of the last review and are not a guarantee of future rewards. Live protocol figures are always on the [Stats page](/stats/)._

@@ -9,11 +9,11 @@ Hipo Club ist eine Initiative, die eine starke, verantwortungsbewusste und infor
 
 ## Was ist Hipo Club?
 
-Hipo Club ist ein Stufensystem, das aktive Teilnehmer und langfristige Unterstützer von Hipo belohnen soll. Es hat **10 Stufen**, und Ihre Stufe legt den HPO-Reward-Koeffizienten fest, den Sie auf Ihr gehaltenes hGRAM erhalten.
+Hipo Club ist ein Stufensystem, das aktive Teilnehmer und langfristige Unterstützer von Hipo belohnen soll. Es hat **10 Stufen**, und Ihre Stufe legt den HPO-Reward-Koeffizienten fest, den Sie auf den GRAM-Wert Ihres hGRAM erhalten.
 
 ### Wichtige Vorteile nach Stufe
 
-- **Höherer Reward-Koeffizient:** Mit jeder Stufe steigt das HPO, das Sie pro Validierungsrunde auf Ihr hGRAM erhalten.
+- **Höherer Reward-Koeffizient:** Mit jeder Stufe steigt das HPO, das Sie pro Validierungsrunde auf den GRAM-Wert Ihres hGRAM erhalten.
 - **Empfehlungsanteil:** Sie erhalten 1 % der HPO-Rewards, die von den Freunden generiert werden, die Sie einladen.
 
 ## Seasons & Rewards
@@ -24,7 +24,9 @@ Gewinnbeteiligungen für HPO-Inhaber sind ein separater Strom, der am Ende jeder
 
 ## So verdienen Sie XP
 
-XP misst, wie aktiv Sie im Hipo Club sind. Sie verdienen es, indem Sie GRAM über Hipo staken — je mehr Sie staken, desto mehr XP — und indem Sie die Aufgaben des Clubs im Bot erledigen: den **täglichen Reward** abholen, **Quizze** beantworten, **Hipos YouTube-Videos ansehen**, Freunde einladen (Sie erhalten 5 % von deren Staking-XP) und die übrigen im Bot aufgeführten Aufgaben. XP fließt in Ihren saisonalen Stufenaufstieg ein (siehe _So funktioniert der Stufenaufstieg_).
+XP misst, wie aktiv Sie im Hipo Club sind. Sie verdienen es, indem Sie die Aufgaben des Clubs im Bot erledigen: den **täglichen Reward** abholen, **Quizze** beantworten, **Hipos YouTube-Videos ansehen**, Freunde einladen und die übrigen im Bot aufgeführten Aufgaben. XP fließt in Ihren saisonalen Stufenaufstieg ein (siehe _So funktioniert der Stufenaufstieg_).
+
+**Staken bringt keine XP.** Ihr gestaktes GRAM verdient stattdessen HPO über den Reward-Koeffizienten Ihrer Stufe — ein separater Mechanismus, beschrieben unter [Hipo Rewards](/docs/introduction/hipo-rewards/). Bei XP geht es um Aktivität im Club, beim Koeffizienten darum, was Ihr Stake wert ist.
 
 ## So funktioniert der Stufenaufstieg
 

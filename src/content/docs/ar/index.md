@@ -40,7 +40,7 @@ Hipo هو بروتوكول ستاكينغ سائل مفتوح المصدر عل�
 - [توزيع HPO والمحافظ](/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/) — أين ذهب المعروض.
 - [DAO](/docs/dao/) — التصويت بـ HPO على ton.vote.
 - [تقاسم الأرباح](/docs/profit-sharing/) — كيف يتقاسم حاملو HPO إيرادات البروتوكول.
-- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — البرنامج متعدد المستويات الذي يمنح HPO مقابل ما تحمله من hGRAM.
+- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — البرنامج متعدد المستويات الذي يمنح HPO مقابل قيمة ما تحمله من hGRAM بـ GRAM.
 
 ## تحقّق بنفسك
 

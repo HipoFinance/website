@@ -40,7 +40,7 @@ Hipo verspricht keine festen Renditen, ist nicht risikofrei und garantiert nicht
 - [HPO-Verteilung & Wallets](/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/) — wohin das Angebot geflossen ist.
 - [DAO](/docs/dao/) — Abstimmen mit HPO auf ton.vote.
 - [Gewinnbeteiligung](/docs/profit-sharing/) — wie HPO-Inhaber an den Protokollerlösen beteiligt werden.
-- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — das Stufenprogramm, das HPO auf das von Ihnen gehaltene hGRAM auszahlt.
+- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — das Stufenprogramm, das HPO auf den GRAM-Wert Ihres hGRAM auszahlt.
 
 ## Selbst überprüfen
 

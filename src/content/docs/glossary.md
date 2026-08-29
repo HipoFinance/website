@@ -15,7 +15,7 @@ The terms used across the Hipo docs, app and FAQ, each linking the page that exp
 - **Governance fee** — a governance fee on validation rewards, set by the [Hipo DAO](/docs/dao/), currently 0% — see [Fees & Gas](/docs/fees-and-gas/).
 - **GRAM** — TON’s native token, formerly Toncoin / TON.
 - **hGRAM** — Hipo Staked Gram, the liquid staking token you receive for staking GRAM, formerly hTON — see [hGRAM](/docs/hipo-tokens/hipo-staked-gram-hgram/).
-- **Hipo Club** — the tiered programme whose level sets the HPO reward coefficient on the hGRAM you hold — see [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **Hipo Club** — the tiered programme whose level sets the HPO reward coefficient on the GRAM value of your hGRAM — see [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
 - **HPO** — Hipo’s governance and profit-sharing token — see [HPO](/docs/hipo-tokens/hipo-governance-token-hpo/).
 - **Jetton** — TON’s fungible-token standard (TEP-74); hGRAM and HPO are both jettons.
 - **Liquid staking** — staking that issues a transferable token representing the staked position, so it stays usable while it earns — see [Liquid Staking](/docs/introduction/liquid-staking/).
@@ -24,4 +24,4 @@ The terms used across the Hipo docs, app and FAQ, each linking the page that exp
 - **Treasury** — Hipo’s main smart contract: it holds deposited GRAM and lends it to borrowers — see [Contracts & Audits](/docs/contracts-and-audits/).
 - **TVL** — total value locked: the GRAM staked through Hipo — see the live figure on the [Stats page](/stats/).
 - **Validation round** — TON’s roughly 18-hour cycle in which validators secure the network and earn rewards; stakes stay frozen for about 9 hours after a round ends — see [How Hipo Works](/docs/introduction/how-does-hipo-work/).
-- **XP** — the activity score in Hipo Club, earned by staking and by the bot’s tasks; it drives the seasonal level-up — see [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **XP** — the activity score in Hipo Club, earned by the bot’s tasks; staking does not earn XP. It drives the seasonal level-up — see [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).

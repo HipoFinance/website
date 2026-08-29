@@ -9,11 +9,11 @@ Hipo Club è un'iniziativa nata per costruire una community solida, responsabile
 
 ## Che cos'è Hipo Club?
 
-Hipo Club è un sistema a livelli pensato per premiare i partecipanti attivi e i sostenitori di lungo periodo di Hipo. Ha **10 livelli** e il tuo livello determina il coefficiente di ricompensa in HPO che guadagni sugli hGRAM che detieni.
+Hipo Club è un sistema a livelli pensato per premiare i partecipanti attivi e i sostenitori di lungo periodo di Hipo. Ha **10 livelli** e il tuo livello determina il coefficiente di ricompensa in HPO che guadagni sul valore in GRAM dei tuoi hGRAM.
 
 ### Vantaggi principali per livello
 
-- **Coefficiente di ricompensa più alto:** ogni livello in più aumenta gli HPO che guadagni sui tuoi hGRAM a ogni round di validazione.
+- **Coefficiente di ricompensa più alto:** ogni livello in più aumenta gli HPO che guadagni sul valore in GRAM dei tuoi hGRAM a ogni round di validazione.
 - **Quota da referral:** guadagni l'1 % delle ricompense in HPO generate dagli amici che inviti.
 
 ## Stagioni e ricompense
@@ -24,7 +24,9 @@ Le quote di profitto per i detentori di HPO sono un flusso separato, pagato alla
 
 ## Come guadagnare XP
 
-Gli XP misurano quanto sei attivo in Hipo Club. Li guadagni facendo staking di GRAM tramite Hipo — più fai staking, più XP ottieni — e svolgendo le attività del Club nel bot: ritirare la **ricompensa giornaliera**, rispondere ai **quiz**, **guardare i video YouTube di Hipo**, invitare amici (guadagni il 5 % dei loro XP di staking) e le altre attività elencate dal bot. Gli XP alimentano il tuo avanzamento di livello stagionale (vedi _Come funziona l'avanzamento di livello_).
+Gli XP misurano quanto sei attivo in Hipo Club. Li guadagni svolgendo le attività del Club nel bot: ritirare la **ricompensa giornaliera**, rispondere ai **quiz**, **guardare i video YouTube di Hipo**, invitare amici e le altre attività elencate dal bot. Gli XP alimentano il tuo avanzamento di livello stagionale (vedi _Come funziona l'avanzamento di livello_).
+
+**Fare staking non fa guadagnare XP.** I tuoi GRAM in staking guadagnano invece HPO attraverso il coefficiente di ricompensa del tuo livello: un meccanismo separato, descritto in [Ricompense Hipo](/docs/introduction/hipo-rewards/). Gli XP riguardano l'attività nel Club; il coefficiente riguarda quanto vale il tuo capitale in staking.
 
 ## Come funziona l'avanzamento di livello
 

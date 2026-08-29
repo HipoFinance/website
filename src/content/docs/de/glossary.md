@@ -15,7 +15,7 @@ Die Begriffe, die in den Hipo Docs, in der App und im FAQ vorkommen — jeweils 
 - **Governance-Gebühr** — eine Governance-Gebühr auf Validierungs-Rewards, festgelegt von der [Hipo DAO](/docs/dao/), derzeit 0 % — siehe [Gebühren & Gas](/docs/fees-and-gas/).
 - **GRAM** — der native Token von TON, früher Toncoin / TON.
 - **hGRAM** — Hipo Staked Gram, der Liquid-Staking-Token, den Sie für das Staken von GRAM erhalten, früher hTON — siehe [hGRAM](/docs/hipo-tokens/hipo-staked-gram-hgram/).
-- **Hipo Club** — das Stufenprogramm, dessen Level den HPO-Reward-Koeffizienten für das von Ihnen gehaltene hGRAM bestimmt — siehe [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **Hipo Club** — das Stufenprogramm, dessen Level den HPO-Reward-Koeffizienten auf den GRAM-Wert Ihres hGRAM bestimmt — siehe [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
 - **HPO** — der Governance- und Gewinnbeteiligungs-Token von Hipo — siehe [HPO](/docs/hipo-tokens/hipo-governance-token-hpo/).
 - **Jetton** — der Standard für fungible Token auf TON (TEP-74); hGRAM und HPO sind beide Jettons.
 - **Liquid Staking** — Staking, bei dem ein übertragbarer Token für die gestakte Position ausgegeben wird, sodass sie nutzbar bleibt, während sie Rewards erwirtschaftet — siehe [Liquid Staking](/docs/introduction/liquid-staking/).
@@ -24,4 +24,4 @@ Die Begriffe, die in den Hipo Docs, in der App und im FAQ vorkommen — jeweils 
 - **Treasury** — der wichtigste Smart Contract von Hipo: Er hält das eingezahlte GRAM und verleiht es an Kreditnehmer — siehe [Smart Contracts & Audits](/docs/contracts-and-audits/).
 - **TVL** — Total Value Locked: das über Hipo gestakte GRAM — den aktuellen Wert finden Sie auf der [Stats-Seite](/stats/).
 - **Validierungsrunde** — der rund 18 Stunden lange Zyklus von TON, in dem Validatoren das Netzwerk sichern und Rewards verdienen; die Einlagen bleiben nach dem Ende einer Runde noch etwa 9 Stunden eingefroren — siehe [So funktioniert Hipo](/docs/introduction/how-does-hipo-work/).
-- **XP** — der Aktivitätswert im Hipo Club, verdient durch Staken und durch die Aufgaben des Bots; er bestimmt den Aufstieg innerhalb der Season — siehe [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **XP** — der Aktivitätswert im Hipo Club, verdient durch die Aufgaben des Bots; Staken bringt keine XP. Er bestimmt den Aufstieg innerhalb der Season — siehe [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).

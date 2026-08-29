@@ -9,11 +9,11 @@ Hipo Club, Hipo Finance için uzun vadeli bir vizyonu paylaşan güçlü, soruml
 
 ## Hipo Club nedir?
 
-Hipo Club, Hipo'nun aktif katılımcılarını ve uzun vadeli destekçilerini ödüllendirmek için tasarlanmış kademeli bir sistemdir. **10 seviyesi** vardır ve seviyeniz, elinizde tuttuğunuz hGRAM üzerinden kazandığınız HPO ödül katsayısını belirler.
+Hipo Club, Hipo'nun aktif katılımcılarını ve uzun vadeli destekçilerini ödüllendirmek için tasarlanmış kademeli bir sistemdir. **10 seviyesi** vardır ve seviyeniz, hGRAM'ınızın GRAM cinsinden değeri üzerinden kazandığınız HPO ödül katsayısını belirler.
 
 ### Seviyeye göre başlıca avantajlar
 
-- **Daha yüksek ödül katsayısı:** her seviye atlayışınız, her doğrulama turunda hGRAM'ınız üzerinden kazandığınız HPO miktarını artırır.
+- **Daha yüksek ödül katsayısı:** her seviye atlayışınız, her doğrulama turunda hGRAM'ınızın GRAM cinsinden değeri üzerinden kazandığınız HPO miktarını artırır.
 - **Referans payı:** davet ettiğiniz arkadaşlarınızın ürettiği HPO ödüllerinin %1'ini kazanırsınız.
 
 ## Sezonlar ve ödüller
@@ -24,7 +24,9 @@ HPO sahiplerine yapılan kâr payı ödemeleri ayrı bir akıştır ve her sezon
 
 ## XP nasıl kazanılır
 
-XP, Hipo Club'da ne kadar aktif olduğunuzu ölçer. XP'yi Hipo üzerinden GRAM stake ederek — ne kadar çok stake ederseniz o kadar çok XP — ve bottaki Club görevlerini yaparak kazanırsınız: **günlük ödülü** toplamak, **quizleri** yanıtlamak, **Hipo'nun YouTube videolarını izlemek**, arkadaş davet etmek (onların staking XP'sinin %5'ini kazanırsınız) ve botun listelediği diğer görevler. XP, sezonluk seviye atlayışınızı besler (bkz. _Seviye atlama nasıl işler_).
+XP, Hipo Club'da ne kadar aktif olduğunuzu ölçer. XP'yi, bottaki Club görevlerini yaparak kazanırsınız: **günlük ödülü** toplamak, **quizleri** yanıtlamak, **Hipo'nun YouTube videolarını izlemek**, arkadaş davet etmek ve botun listelediği diğer görevler. XP, sezonluk seviye atlayışınızı besler (bkz. _Seviye atlama nasıl işler_).
+
+**Staking XP kazandırmaz.** Stake ettiğiniz GRAM bunun yerine seviyenizin ödül katsayısı üzerinden HPO kazandırır — bu ayrı bir mekanizmadır ve [Hipo Ödülleri](/docs/introduction/hipo-rewards/) sayfasında anlatılır. XP, Club'daki aktifliğinizle ilgilidir; katsayı ise stake'inizin ne ettiğiyle.
 
 ## Seviye atlama nasıl işler
 

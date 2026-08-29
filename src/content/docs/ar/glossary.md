@@ -15,7 +15,7 @@ description: 'تعريفات موجزة للمصطلحات المستخدمة ف
 - **رسوم الحوكمة (Governance fee)** — رسوم حوكمة على مكافآت التحقق، يحدّدها [Hipo DAO](/docs/dao/)، وهي حاليًا ٠٪ — راجع [الرسوم والغاز](/docs/fees-and-gas/).
 - **GRAM** — العملة الأصلية لشبكة TON، وكانت تُعرف سابقًا باسم Toncoin / TON.
 - **hGRAM** — اختصار Hipo Staked Gram، توكن الستاكينغ السائل الذي تستلمه مقابل إيداع GRAM في الستاكينغ، وكان يُعرف سابقًا باسم hTON — راجع [hGRAM](/docs/hipo-tokens/hipo-staked-gram-hgram/).
-- **Hipo Club** — البرنامج متعدد المستويات الذي يحدّد مستواك معامل مكافأة HPO على hGRAM الذي تحمله — راجع [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **Hipo Club** — البرنامج متعدد المستويات الذي يحدّد مستواك معامل مكافأة HPO على قيمة ما تحمله من hGRAM بـ GRAM — راجع [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
 - **HPO** — توكن الحوكمة وتقاسم الأرباح الخاص بـ Hipo — راجع [HPO](/docs/hipo-tokens/hipo-governance-token-hpo/).
 - **جيتون (Jetton)** — معيار التوكنات القابلة للاستبدال في TON (TEP-74)؛ كلٌّ من hGRAM و HPO جيتون.
 - **الستاكينغ السائل (Liquid staking)** — ستاكينغ يُصدِر توكنًا قابلًا للتحويل يمثّل المركز المودَع، بحيث يبقى قابلًا للاستخدام أثناء تحقيقه للمكافآت — راجع [الستاكينغ السائل](/docs/introduction/liquid-staking/).
@@ -24,4 +24,4 @@ description: 'تعريفات موجزة للمصطلحات المستخدمة ف
 - **الخزينة (Treasury)** — العقد الذكي الرئيسي لـ Hipo: يحتفظ بـ GRAM المودَع ويقرضه للمقترضين — راجع [العقود والتدقيقات الأمنية](/docs/contracts-and-audits/).
 - **TVL** — إجمالي القيمة المقفلة: GRAM المودَع في الستاكينغ عبر Hipo — راجع الرقم المباشر في [صفحة Stats](/stats/).
 - **جولة التحقق (Validation round)** — دورة TON التي تستغرق نحو ١٨ ساعة، يؤمِّن خلالها الفاليديتورات الشبكة ويكسبون المكافآت؛ تبقى المبالغ المودَعة مجمَّدة نحو ٩ ساعات بعد انتهاء الجولة — راجع [كيف يعمل Hipo](/docs/introduction/how-does-hipo-work/).
-- **XP** — نقاط النشاط في Hipo Club، تُكتسَب من الستاكينغ ومن مهام البوت؛ وهي التي تدفع الترقية الموسمية للمستوى — راجع [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **XP** — نقاط النشاط في Hipo Club، تُكتسَب من مهام البوت؛ والستاكينغ لا يكسب نقاط XP. وهي التي تدفع الترقية الموسمية للمستوى — راجع [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).

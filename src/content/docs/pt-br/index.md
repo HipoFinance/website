@@ -40,7 +40,7 @@ O Hipo não promete retornos fixos, não é livre de riscos e não garante saque
 - [Distribuição e carteiras do HPO](/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/) — para onde foi a oferta.
 - [DAO](/docs/dao/) — votação com HPO no ton.vote.
 - [Participação nos lucros](/docs/profit-sharing/) — como os holders de HPO dividem a receita do protocolo.
-- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — o programa por níveis que paga HPO sobre o hGRAM que você mantém.
+- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — o programa por níveis que paga HPO sobre o valor em GRAM do seu hGRAM.
 
 ## Verifique por conta própria
 

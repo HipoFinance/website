@@ -9,11 +9,11 @@ O Hipo Club é uma iniciativa criada para construir uma comunidade forte, respon
 
 ## O que é o Hipo Club?
 
-O Hipo Club é um sistema de níveis feito para recompensar participantes ativos e apoiadores de longo prazo do Hipo. Ele tem **10 níveis**, e o seu nível define o coeficiente de recompensa em HPO que você ganha sobre os hGRAM que possui.
+O Hipo Club é um sistema de níveis feito para recompensar participantes ativos e apoiadores de longo prazo do Hipo. Ele tem **10 níveis**, e o seu nível define o coeficiente de recompensa em HPO que você ganha sobre o valor em GRAM do seu hGRAM.
 
 ### Principais benefícios por nível
 
-- **Coeficiente de recompensa maior:** cada nível a mais aumenta o HPO que você ganha sobre os seus hGRAM a cada rodada de validação.
+- **Coeficiente de recompensa maior:** cada nível a mais aumenta o HPO que você ganha sobre o valor em GRAM do seu hGRAM a cada rodada de validação.
 - **Participação por indicação:** você ganha 1 % das recompensas em HPO geradas pelos amigos que convidar.
 
 ## Temporadas e recompensas
@@ -24,7 +24,9 @@ A participação nos lucros para holders de HPO é um fluxo separado, pago no fi
 
 ## Como ganhar XP
 
-O XP mede o quanto você é ativo no Hipo Club. Você ganha XP fazendo staking de GRAM pelo Hipo — quanto mais você faz staking, mais XP — e cumprindo as tarefas do Club no bot: coletar a **recompensa diária**, responder **quizzes**, **assistir aos vídeos do Hipo no YouTube**, convidar amigos (você ganha 5 % do XP de staking deles) e as demais tarefas que o bot lista. O XP alimenta a subida de nível da temporada (veja _Como funciona a subida de nível_).
+O XP mede o quanto você é ativo no Hipo Club. Você ganha XP cumprindo as tarefas do Club no bot: coletar a **recompensa diária**, responder **quizzes**, **assistir aos vídeos do Hipo no YouTube**, convidar amigos e as demais tarefas que o bot lista. O XP alimenta a subida de nível da temporada (veja _Como funciona a subida de nível_).
+
+**Fazer staking não gera XP.** O seu GRAM em staking rende HPO pelo coeficiente de recompensa do seu nível — um mecanismo separado, descrito em [Recompensas do Hipo](/docs/introduction/hipo-rewards/). O XP é sobre atividade no Club; o coeficiente é sobre quanto vale o que você tem em staking.
 
 ## Como funciona a subida de nível
 

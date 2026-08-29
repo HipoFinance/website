@@ -40,7 +40,7 @@ Hipo не обещает фиксированную доходность, не �
 - [Распределение HPO и кошельки](/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/) — куда пошло предложение токена.
 - [DAO](/docs/dao/) — голосование HPO на ton.vote.
 - [Распределение прибыли](/docs/profit-sharing/) — как держатели HPO получают долю дохода протокола.
-- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — многоуровневая программа, начисляющая HPO за удерживаемый hGRAM.
+- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — многоуровневая программа, начисляющая HPO на стоимость вашего hGRAM в GRAM.
 
 ## Проверьте сами
 

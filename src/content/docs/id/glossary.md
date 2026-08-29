@@ -15,7 +15,7 @@ Istilah-istilah yang dipakai di seluruh dokumen, aplikasi, dan FAQ Hipo, masing-
 - **Biaya tata kelola** — biaya tata kelola atas imbalan validasi, yang ditetapkan oleh [Hipo DAO](/docs/dao/), saat ini 0% — lihat [Biaya & Gas](/docs/fees-and-gas/).
 - **GRAM** — token asli TON, sebelumnya Toncoin / TON.
 - **hGRAM** — Hipo Staked Gram, token liquid staking yang Anda terima karena men-stake GRAM, sebelumnya hTON — lihat [hGRAM](/docs/hipo-tokens/hipo-staked-gram-hgram/).
-- **Hipo Club** — program berjenjang yang levelnya menentukan koefisien imbalan HPO atas hGRAM yang Anda pegang — lihat [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **Hipo Club** — program berjenjang yang levelnya menentukan koefisien imbalan HPO atas nilai GRAM dari hGRAM Anda — lihat [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
 - **HPO** — token tata kelola dan bagi hasil milik Hipo — lihat [HPO](/docs/hipo-tokens/hipo-governance-token-hpo/).
 - **Jetton** — standar token fungible milik TON (TEP-74); hGRAM dan HPO keduanya adalah jetton.
 - **Liquid staking** — staking yang menerbitkan token yang dapat dipindahtangankan sebagai wakil posisi yang di-stake, sehingga tetap dapat dipakai selagi menghasilkan — lihat [Liquid staking](/docs/introduction/liquid-staking/).
@@ -24,4 +24,4 @@ Istilah-istilah yang dipakai di seluruh dokumen, aplikasi, dan FAQ Hipo, masing-
 - **Treasury** — smart contract utama Hipo: menyimpan GRAM yang disetor dan meminjamkannya kepada peminjam — lihat [Kontrak & Audit](/docs/contracts-and-audits/).
 - **TVL** — total value locked: GRAM yang di-stake melalui Hipo — lihat angka terkini di [halaman Statistik](/stats/).
 - **Putaran validasi** — siklus TON yang berlangsung sekitar 18 jam, ketika validator mengamankan jaringan dan memperoleh imbalan; stake tetap dibekukan sekitar 9 jam setelah satu putaran berakhir — lihat [Cara kerja Hipo](/docs/introduction/how-does-hipo-work/).
-- **XP** — skor aktivitas di Hipo Club, diperoleh dari staking dan dari tugas-tugas bot; skor ini yang mendorong kenaikan level musiman — lihat [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **XP** — skor aktivitas di Hipo Club, diperoleh dari tugas-tugas bot; staking tidak menghasilkan XP. Skor ini yang mendorong kenaikan level musiman — lihat [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).

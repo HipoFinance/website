@@ -40,7 +40,7 @@ Hipo निश्चित रिटर्न का वादा नहीं �
 - [HPO वितरण और वॉलेट्स](/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/) — सप्लाई कहाँ गई।
 - [DAO](/docs/dao/) — ton.vote पर HPO से वोटिंग।
 - [प्रॉफ़िट शेयरिंग](/docs/profit-sharing/) — HPO होल्डर्स प्रोटोकॉल रेवेन्यू कैसे साझा करते हैं।
-- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — वह टियर्ड प्रोग्राम जो आपके पास रखे hGRAM पर HPO देता है।
+- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — वह टियर्ड प्रोग्राम जो आपके hGRAM के GRAM मूल्य पर HPO देता है।
 
 ## खुद जाँच करें
 

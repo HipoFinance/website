@@ -40,7 +40,7 @@ Hipo does not promise fixed returns, is not risk-free, and does not guarantee in
 - [HPO Distribution & Wallets](/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/) — where the supply went.
 - [DAO](/docs/dao/) — voting with HPO on ton.vote.
 - [Profit Sharing](/docs/profit-sharing/) — how HPO holders share protocol revenue.
-- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — the tiered programme that pays HPO on the hGRAM you hold.
+- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — the tiered programme that pays HPO on the GRAM value of your hGRAM.
 
 ## Verify for yourself
 

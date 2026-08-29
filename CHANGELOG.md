@@ -7,6 +7,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-29 — [detailed report](changelog/2026-08-29-hipo-rewards-page.md)
+
+- Rewrote Hipo Rewards with the HPO boost formula, the level-coefficient table, a
+  worked annual-reward table and the boost's value in percentage points.
+- Corrected the reward base to the current GRAM value of the stake, verified
+  against reward history and the backend.
+- Fixed the level coefficients: Level 5 is 3×, not 5×.
+- Dropped the staking-XP claim from the Club page and the glossary — Season 5
+  grants no XP for staking.
+- Same changes in all nine locales, hashes regenerated.
+
 ## 2026-08-29 — [detailed report](changelog/2026-08-29-verify-and-vs-pages.md)
 
 - New `/verify/`, the canonical list of Hipo's official wallets, contracts,

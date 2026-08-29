@@ -40,7 +40,7 @@ Hipo بازده ثابتی وعده نمی‌دهد، بدون ریسک نیست
 - [توزیع HPO و کیف پول‌ها](/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/) — عرضه کجا رفت.
 - [DAO](/docs/dao/) — رأی دادن با HPO روی ton.vote .
 - [تقسیم سود](/docs/profit-sharing/) — دارندگان HPO چگونه در درآمد پروتکل سهیم می‌شوند.
-- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — برنامهٔ سطح‌بندی‌شده‌ای که بابت hGRAM در اختیارتان HPO می‌پردازد.
+- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — برنامهٔ سطح‌بندی‌شده‌ای که روی ارزش hGRAM شما بر حسب GRAM به شما HPO می‌پردازد.
 
 ## خودتان راستی‌آزمایی کنید
 

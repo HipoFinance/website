@@ -15,7 +15,7 @@ Hipo dokümanlarında, uygulamasında ve SSS'de kullanılan terimler; her biri, 
 - **Yönetişim komisyonu** — [Hipo DAO](/docs/dao/) tarafından belirlenen, doğrulama ödülleri üzerinden alınan bir yönetişim komisyonu; şu anda %0 — bkz. [Komisyonlar ve Gaz](/docs/fees-and-gas/).
 - **GRAM** — TON'un yerel tokeni, eski adıyla Toncoin / TON.
 - **hGRAM** — Hipo Staked Gram; GRAM stake ettiğinizde aldığınız likit staking tokeni, eski adıyla hTON — bkz. [hGRAM](/docs/hipo-tokens/hipo-staked-gram-hgram/).
-- **Hipo Club** — seviyesi, elinizde tuttuğunuz hGRAM üzerindeki HPO ödül katsayısını belirleyen katmanlı program — bkz. [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **Hipo Club** — seviyesi, hGRAM'ınızın GRAM cinsinden değeri üzerindeki HPO ödül katsayısını belirleyen katmanlı program — bkz. [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
 - **HPO** — Hipo'nun yönetişim ve kâr paylaşımı tokeni — bkz. [HPO](/docs/hipo-tokens/hipo-governance-token-hpo/).
 - **Jetton** — TON'un değiştirilebilir token standardı (TEP-74); hGRAM ve HPO'nun ikisi de birer jettondur.
 - **Likit staking** — stake edilen pozisyonu temsil eden, devredilebilir bir token veren staking türü; böylece kazanç sağlarken de kullanılabilir kalır — bkz. [Likit Staking](/docs/introduction/liquid-staking/).
@@ -24,4 +24,4 @@ Hipo dokümanlarında, uygulamasında ve SSS'de kullanılan terimler; her biri, 
 - **Treasury** — Hipo'nun ana akıllı sözleşmesi (hazine): yatırılan GRAM'ı tutar ve borç alanlara ödünç verir — bkz. [Sözleşmeler ve Denetimler](/docs/contracts-and-audits/).
 - **TVL** — toplam kilitli değer: Hipo aracılığıyla stake edilmiş GRAM — canlı rakamı [İstatistikler sayfasında](/stats/) görün.
 - **Doğrulama turu** — validatörlerin ağı güvence altına aldığı ve ödül kazandığı, TON'un yaklaşık 18 saatlik döngüsü; bir tur sona erdikten sonra stake'ler yaklaşık 9 saat donuk kalır — bkz. [Hipo Nasıl Çalışır](/docs/introduction/how-does-hipo-work/).
-- **XP** — Hipo Club'daki, staking yaparak ve botun görevleriyle kazanılan aktivite puanı; sezonluk seviye atlamayı belirler — bkz. [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **XP** — Hipo Club'daki, botun görevleriyle kazanılan aktivite puanı; staking XP kazandırmaz. Sezonluk seviye atlamayı belirler — bkz. [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).

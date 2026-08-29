@@ -40,7 +40,7 @@ Hipo sabit getiri vaat etmez, risksiz değildir ve her durumda anında yerel çe
 - [HPO dağılımı ve cüzdanlar](/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/) — arzın nereye gittiği.
 - [DAO](/docs/dao/) — ton.vote üzerinde HPO ile oy verme.
 - [Kâr paylaşımı](/docs/profit-sharing/) — HPO sahipleri protokol gelirini nasıl paylaşır.
-- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — elinizde tuttuğunuz hGRAM üzerinden HPO ödeyen kademeli program.
+- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — hGRAM'ınızın GRAM cinsinden değeri üzerinden HPO ödeyen kademeli program.
 
 ## Kendiniz doğrulayın
 

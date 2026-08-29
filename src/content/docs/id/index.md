@@ -40,7 +40,7 @@ Hipo tidak menjanjikan imbal hasil tetap, tidak bebas risiko, dan tidak menjamin
 - [Distribusi HPO & dompet](/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/) — ke mana suplai itu pergi.
 - [DAO](/docs/dao/) — memilih dengan HPO di ton.vote.
 - [Bagi hasil](/docs/profit-sharing/) — cara pemegang HPO berbagi pendapatan protokol.
-- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — program berjenjang yang membayar HPO atas hGRAM yang Anda pegang.
+- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — program berjenjang yang membayar HPO atas nilai GRAM dari hGRAM Anda.
 
 ## Verifikasi sendiri
 
