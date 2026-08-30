@@ -1,8 +1,7 @@
 ---
-title: 'Laporan Kuartalan: 18 Desember 2025'
+title: 'Laporan Hipo Fund — Desember 2025'
+description: 'Hipo Fund pada Q4 2025: buyback HPO, klaim Season 3, dan pergeseran ke stablecoin, dengan dana berada di $110.875,29 setelah harga GRAM turun.'
 ---
-
-## 🟣 Hipo Fund – Laporan Kuartalan
 
 **18 Desember 2025**
 

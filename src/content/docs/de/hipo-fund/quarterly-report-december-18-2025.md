@@ -1,8 +1,7 @@
 ---
-title: 'Quartalsbericht: 18. Dezember 2025'
+title: 'Hipo-Fund-Bericht — Dezember 2025'
+description: 'Der Hipo Fund in Q4 2025: HPO-Rückkäufe, der Season-3-Claim und eine Verschiebung hin zu Stablecoins; der Fonds steht nach dem Rückgang des GRAM-Preises bei 110.875,29 $.'
 ---
-
-## 🟣 Hipo Fund – Quartalsbericht
 
 **18. Dezember 2025**
 

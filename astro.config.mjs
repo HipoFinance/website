@@ -73,15 +73,15 @@ const docsSidebar = [
     items: [
       { label: 'Overview', link: '/docs/hipo-fund/' },
       {
-        label: 'Quarterly Report: August 1, 2025',
+        label: 'Report: August 2025',
         link: '/docs/hipo-fund/quarterly-report-august-1-2025/',
       },
       {
-        label: 'Quarterly Report: December 18, 2025',
+        label: 'Report: December 2025',
         link: '/docs/hipo-fund/quarterly-report-december-18-2025/',
       },
       {
-        label: 'Quarterly Report: August 24, 2026',
+        label: 'Report: August 2026',
         link: '/docs/hipo-fund/quarterly-report-august-24-2026/',
       },
     ],

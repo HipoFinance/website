@@ -1,8 +1,7 @@
 ---
-title: 'Üç Aylık Rapor: 18 Aralık 2025'
+title: 'Hipo Fund raporu — Aralık 2025'
+description: "2025'in 4. çeyreğinde Hipo Fund: HPO geri alımları, Sezon 3 Claim ve stablecoin'lere kayış; GRAM fiyatındaki düşüşün ardından fon 110.875,29 $ seviyesinde."
 ---
-
-## 🟣 Hipo Fund – Üç Aylık Rapor
 
 **18 Aralık 2025**
 

@@ -1,8 +1,7 @@
 ---
-title: 'Relatório trimestral: 18 de dezembro de 2025'
+title: 'Relatório do Hipo Fund — dezembro de 2025'
+description: 'O Hipo Fund no quarto trimestre de 2025: recompras de HPO, o resgate da Temporada 3 e a migração para stablecoins, com o fundo em US$ 110.875,29 depois da queda do preço do GRAM.'
 ---
-
-## 🟣 Hipo Fund – Relatório trimestral
 
 **18 de dezembro de 2025**
 

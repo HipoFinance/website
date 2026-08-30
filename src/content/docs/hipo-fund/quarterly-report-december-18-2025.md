@@ -1,8 +1,7 @@
 ---
-title: 'Quarterly Report: December 18, 2025'
+title: 'Hipo Fund Report — December 2025'
+description: 'Hipo Fund in Q4 2025: HPO buybacks, the Season 3 claim and a shift into stablecoins, with the fund at $110,875.29 after the GRAM price fell.'
 ---
-
-## 🟣 Hipo Fund – Quarterly Report
 
 **December 18, 2025**
 

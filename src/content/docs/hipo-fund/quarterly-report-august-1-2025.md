@@ -1,8 +1,7 @@
 ---
-title: 'Quarterly Report: August 1, 2025'
+title: 'Hipo Fund Report — August 2025'
+description: 'Hipo Fund from April to August 2025: the Season 2 claim, HPO market purchases and staking rewards take the fund to $227,434.64.'
 ---
-
-🟣 Hipo Fund – Quarterly Report
 
 **August 1, 2025**
 
@@ -40,9 +39,9 @@ The Hipo Fund remains fully transparent, DeFi-native, and focused on **supportin
 
 | Asset        | Amount       | Allocation | Value (USD) | Notes                                         |
 | ------------ | ------------ | ---------- | ----------- | --------------------------------------------- |
-| hGRAM        | 36,677.16    | 59.82%     | $136,076.81 | Staked GRAM from Hipo (incl. new claim)       |
+| hGRAM        | 36,677.16    | 59.83%     | $136,076.81 | Staked GRAM from Hipo (incl. new claim)       |
 | USDT         | 3,304.14     | 1.45%      | $3,304.14   | Capital preservation & liquidity              |
-| HPO          | 8,772,336.41 | 38.58%     | $87,723.36  | Governance & profit-sharing token             |
+| HPO          | 8,772,336.41 | 38.57%     | $87,723.36  | Governance & profit-sharing token             |
 | Other (GRAM) | 95.75        | 0.15%      | $330.33     | Minimal direct GRAM exposure after conversion |
 
 > Percentages are based on current market values.
@@ -55,10 +54,20 @@ _(Values in % of total fund)_
 
 | Asset        | April 18, 2025 | August 1, 2025 |
 | ------------ | -------------- | -------------- |
-| hGRAM        | 59.55%         | 59.82%         |
+| hGRAM        | 59.59%         | 59.83%         |
 | USDT         | 1.77%          | 1.45%          |
-| HPO          | 38.95%         | 38.58%         |
+| HPO          | 38.64%         | 38.57%         |
 | Other (GRAM) | 0.01%          | 0.15%          |
+
+_Percentages are rounded to two decimals and may not sum to exactly 100._
+
+:::note[Correction, August 29, 2026]
+Both columns have been recalculated from the USD values behind them — April's from the corrected opening
+table on the [Hipo Fund overview](/docs/hipo-fund/), August's from the allocation table above. The April 18,
+2025 column previously read 59.55% (hGRAM), 1.77% (USDT), 38.95% (HPO) and 0.01% (GRAM), which summed to
+100.28%. In the August 1, 2025 column, hGRAM was published as 59.82% and HPO as 38.58%, each 0.01 off the
+value its USD figure gives. No balances or valuations in this report have changed.
+:::
 
 ---
 
@@ -67,6 +76,15 @@ _(Values in % of total fund)_
 - **April 18, 2025:** $186,963.96
 - **August 1, 2025:** $227,434.64
 - **Growth:** **+$40,470.68** (**+21.64%**)
+
+:::note[Note added August 29, 2026]
+The +21.64% figure above is the change in total fund value, not an investment return: it includes the
+9,147.33 GRAM Season 2 claim contributed during the period. Excluding contributed capital, the fund returned
+approximately 4.8% over this period — a simple return on the opening capital, not a Modified Dietz figure.
+From the
+[August 2026 report](/docs/hipo-fund/quarterly-report-august-24-2026/) onward, Hipo Fund reports performance
+using Modified Dietz, which separates contributions from returns.
+:::
 
 <figure><img src="/docs/images/hipo-fund-quarterly-report-august-1-2025-1.jpg" alt="Charts comparing the fund's April vs August 2025 asset allocation and its capital growth from $186,963.96 to $227,434.64."></figure>
 

@@ -828,15 +828,15 @@
     "reviewed": false
   },
   "docs-sidebar//docs/hipo-fund/quarterly-report-august-1-2025/": {
-    "sourceHash": "4b5599e506b19992e99b7b383a46ccc252821e50",
+    "sourceHash": "654c2aeb88016e64c3a692038ce4686bf92320ef",
     "reviewed": false
   },
   "docs-sidebar//docs/hipo-fund/quarterly-report-august-24-2026/": {
-    "sourceHash": "f47ecd20a3183e8775c80729304a3bbfd59260ff",
+    "sourceHash": "8cabedde1bdd4913d265b9abfc928da23fb831be",
     "reviewed": false
   },
   "docs-sidebar//docs/hipo-fund/quarterly-report-december-18-2025/": {
-    "sourceHash": "360815469d255f2ae4ef4b400e5422cf9b17e8a9",
+    "sourceHash": "0229aae099fe04012b60051137f088069beeb67b",
     "reviewed": false
   },
   "docs-sidebar//docs/hipo-mcp-server/": {
@@ -1032,19 +1032,19 @@
     "reviewed": false
   },
   "docs/hipo-fund.md": {
-    "sourceHash": "fabafd5e7fd0e44abb99f4fec15fa077014458eb",
+    "sourceHash": "b8de3b0f75f6245428fa0ea6ddb4d65f4c5c9bcc",
     "reviewed": false
   },
   "docs/hipo-fund/quarterly-report-august-1-2025.md": {
-    "sourceHash": "a3d3ae64f66eb86a875c6a7229d554cd86377ca1",
+    "sourceHash": "b8b7b5758c8a52ca4827edc82b37fa578754148a",
     "reviewed": false
   },
   "docs/hipo-fund/quarterly-report-august-24-2026.md": {
-    "sourceHash": "c2c0074220dc106198fc55a6f2a99fd10cf4a4aa",
+    "sourceHash": "516eb68e82dc5409a47b1ab2b5d4c4e223a8275e",
     "reviewed": false
   },
   "docs/hipo-fund/quarterly-report-december-18-2025.md": {
-    "sourceHash": "7f5b53790e80e77619a24be690aadac94d8d5bad",
+    "sourceHash": "9f22019634eef01efdfba7028c187ec166acf5b0",
     "reviewed": false
   },
   "docs/hipo-mcp-server.md": {

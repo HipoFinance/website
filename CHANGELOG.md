@@ -7,6 +7,18 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-30 — [detailed report](changelog/2026-08-30-hipo-fund-docs-rewrite.md)
+
+- Rewrote the Hipo Fund overview and expanded the August 2026 report; no snapshot
+  figure changed.
+- Corrected three published tables that did not reconcile, and the GRAM benchmark.
+- Added an editor's note to the August 2025 report, whose +21.64% "Growth" counted
+  the Season 2 claim as return; the real figure is about 4.8%.
+- Retitled all four fund pages and their sidebar entries, with unique meta
+  descriptions.
+- Synced all nine released locales through both rounds; figures verified identical
+  across every digit set.
+
 ## 2026-08-29 — [detailed report](changelog/2026-08-29-cwv-fonts-and-inp.md)
 
 - Search Console's mobile LCP and CLS issues name only `/`, so the fix is the landing page's font
