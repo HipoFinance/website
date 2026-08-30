@@ -7,6 +7,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-30 — [detailed report](changelog/2026-08-30-sitemap-lastmod.md)
+
+- Dated every sitemap URL with a `<lastmod>` taken from the git history of that
+  page's content inputs, not the build time.
+- Excluded layouts, components and the shared `site.json`/`seo.json`/`app.json`
+  from a page's date, so a refactor no longer claims pages changed.
+- Guarded against shallow clones and uniform histories by emitting no dates at all.
+- Set `fetch-depth: 0` on the deploy workflow's checkout.
+
 ## 2026-08-30 — [detailed report](changelog/2026-08-30-hipo-fund-docs-rewrite.md)
 
 - Rewrote the Hipo Fund overview and expanded the August 2026 report; no snapshot

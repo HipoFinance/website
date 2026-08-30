@@ -39,6 +39,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          # Full history, not the default shallow fetch-depth: 1. The sitemap's per-URL <lastmod>
+          # is the newest commit date of each page's content inputs (src/data/lastmod.mjs), and in a
+          # shallow clone every file reports the tip commit — which would tell Google that all ~512
+          # URLs changed on every deploy and get the signal distrusted site-wide. The module refuses
+          # to emit any lastmod when it detects a shallow clone, so the visible symptom of losing
+          # this line is a sitemap with no dates at all.
+          fetch-depth: 0
       - name: Set up Node
         uses: actions/setup-node@v7
         with:

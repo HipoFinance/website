@@ -4,6 +4,7 @@ import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import starlight from '@astrojs/starlight'
 import { existsSync, readFileSync } from 'node:fs'
+import { lastmodFor } from './src/data/lastmod.mjs'
 import { DEFAULT_LOCALE, LOCALES, builtLocales, indexableLocales } from './src/i18n/registry.mjs'
 import remarkLocalizeLinks from './src/i18n/remark-localize-links.mjs'
 
@@ -280,6 +281,15 @@ export default defineConfig({
       i18n: {
         defaultLocale: DEFAULT_LOCALE,
         locales: Object.fromEntries(indexableLocales().map((key) => [key, LOCALES[key].lang])),
+      },
+      // `<lastmod>` per URL, from the git history of that page's content inputs — see
+      // src/data/lastmod.mjs for what counts as an input and why a wrong date is worse than none.
+      // @astrojs/sitemap derives the sitemap index's own lastmod from the newest of these, so the
+      // index gets a truthful date for free. `changefreq` and `priority` stay unset: Google has said
+      // for years that it ignores both.
+      serialize: (item) => {
+        const lastmod = lastmodFor(new URL(item.url).pathname)
+        return lastmod === undefined ? item : { ...item, lastmod }
       },
     }),
     starlight({
