@@ -15,9 +15,10 @@ a sitemap fetch. What the site was actually missing was `lastmod`: all 510 URLs 
 plus their `xhtml:link` alternates, so Google had no cheap way to tell which pages had changed and was
 left to re-derive that by fetching and comparing.
 
-| Commit      | Subject                                                       |
-| ----------- | ------------------------------------------------------------- |
-| _(pending)_ | Date the sitemap's URLs from the git history of their content |
+| Commit    | Description                                                   |
+| --------- | ------------------------------------------------------------- |
+| `9e48ef7` | Date the sitemap's URLs from the git history of their content |
+| (this)    | Record the sitemap-lastmod commit hash in the changelog       |
 
 ## What changed
 
