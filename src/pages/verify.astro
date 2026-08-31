@@ -3,19 +3,47 @@
 // a recipient can check that a message really came from us.
 //
 // This is a permanent reference page and it should stay boring: a flat, scannable list, no live
-// data, no island. The addresses below are the ones in src/content/docs/contracts-and-audits.md
-// and in @hipo-finance/sdk's Constants — change them in all three places or in none.
+// data, no island. The contract addresses below are the ones in
+// src/content/docs/contracts-and-audits.md and in @hipo-finance/sdk's Constants — change them in
+// all three places or in none.
 //
 // English only, with no `[locale]` twin, hence `localized={false}` on the layout.
+import { Address } from '@ton/core'
 import Layout from '../layouts/LandingLayout.astro'
 import Banner from '../components/Banner.astro'
 import Header from '../components/SiteHeader.astro'
 import Footer from '../components/SiteFooter.astro'
 
+// The raw address matters more than the TON DNS name: a wallet receiving a message from us shows
+// the address, not the domain, so the name is the one string a suspicious recipient cannot search
+// for. Both user-friendly forms are printed because explorers disagree about which to show — they
+// encode the same account and differ only in the bounceable flag, and therefore in the checksum.
+//
+// Only the UQ form is written down; the pair is derived at build time. A second hand-copied string
+// is a checksum waiting to be one character wrong, and a wrong address here is worse than no
+// address at all. `@ton/core` is a build-time import — this page ships no JS beyond the shared
+// copy-to-clipboard module.
 const wallets = [
-  { name: 'hipo.ton', use: 'Main wallet. Where communication with users comes from.' },
-  { name: 'hipofinance.ton', use: 'Outreach campaigns. Sends informational messages only.' },
-]
+  {
+    name: 'hipo.ton',
+    use: 'Main wallet. Where communication with users comes from.',
+    address: 'UQCSlnhRIHYCAlt1FoQVlBHzxmaQOMj9Efu80DwoggSlt6UI',
+  },
+  {
+    name: 'hipofinance.ton',
+    use: 'Outreach campaigns. Sends informational messages only.',
+    address: 'UQA-_KVxC_rkwmACpXDChgb0tkpHH2ZfYNXcSnT6afMgoX-O',
+  },
+].map((wallet) => {
+  const parsed = Address.parse(wallet.address)
+  return {
+    ...wallet,
+    forms: [
+      { label: 'UQ', value: parsed.toString({ urlSafe: true, bounceable: false }) },
+      { label: 'EQ', value: parsed.toString({ urlSafe: true, bounceable: true }) },
+    ],
+  }
+})
 
 const contracts = [
   {
@@ -120,6 +148,62 @@ const description =
             <li class='border-border bg-surface rounded-[20px] border p-5'>
               <div class='text-accent mb-1 font-semibold'>{wallet.name}</div>
               <div class='text-text-muted text-[15px] leading-[1.6]'>{wallet.use}</div>
+              <ul class='mt-4 space-y-2'>
+                {wallet.forms.map((form) => (
+                  <li class='border-border bg-surface-deep flex items-center gap-2 rounded-xl border p-2'>
+                    <span class='text-text-faint w-7 shrink-0 text-center font-mono text-[11px]' aria-hidden='true'>
+                      {form.label}
+                    </span>
+                    {/* select-all makes one click (or one tap) take the whole address, which is the
+                        only way to select it reliably on a phone once it has wrapped. set:text keeps
+                        the element's text node exactly the address — formatted-in whitespace would
+                        otherwise ride along on that selection. */}
+                    <code
+                      class='text-text min-w-0 flex-1 font-mono text-[13px] leading-[1.5] break-all select-all'
+                      set:text={form.value}
+                    />
+                    <button
+                      type='button'
+                      class='copy-address bg-border text-text-muted hover:bg-border-strong shrink-0 cursor-pointer rounded-lg p-2'
+                      data-copy-text={form.value}
+                      aria-label={`Copy the ${form.label} form of ${wallet.name}`}
+                    >
+                      {/* lucide `copy` and `check`, copied from node_modules/lucide-react/dist/esm/icons/. */}
+                      <svg
+                        class='copy-address-icon copy-address-idle'
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='24'
+                        height='24'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='currentColor'
+                        stroke-width='2'
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        aria-hidden='true'
+                      >
+                        <rect width='14' height='14' x='8' y='8' rx='2' ry='2' />
+                        <path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' />
+                      </svg>
+                      <svg
+                        class='copy-address-icon copy-address-done'
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='24'
+                        height='24'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='currentColor'
+                        stroke-width='2'
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        aria-hidden='true'
+                      >
+                        <path d='M20 6 9 17l-5-5' />
+                      </svg>
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </li>
           ))
         }
@@ -127,6 +211,12 @@ const description =
       <p class='text-text-muted mt-3 text-[15px] leading-[1.6]'>
         These are the only wallets Hipo uses to contact people. What we send is informational and never asks you to do
         anything with your wallet.
+      </p>
+      <p class='text-text-muted mt-3 text-[15px] leading-[1.6]'>
+        Your wallet shows you the address, not the name above it — so check the address. Each wallet is listed twice
+        because TON writes one address two ways: <code class='font-mono text-[13px]'>UQ…</code> and
+        <code class='font-mono text-[13px]'>EQ…</code> are the same account, and explorers differ over which they display.
+        Either one is correct, and neither will match a lookalike.
       </p>
     </section>
 
@@ -234,3 +324,22 @@ const description =
 
   <Footer />
 </Layout>
+
+<script src='/src/scripts/anchor-copy.ts'></script>
+
+<style>
+  /* The button swaps its glyph for a tick while `is-copied` is on it — set for a moment after a
+     successful copy by src/scripts/anchor-copy.ts, the same feedback the anchor icons use. */
+  .copy-address-icon {
+    inline-size: 16px;
+    block-size: 16px;
+  }
+  .copy-address-done,
+  .copy-address.is-copied .copy-address-idle {
+    display: none;
+  }
+  .copy-address.is-copied .copy-address-done {
+    display: block;
+    color: var(--color-positive);
+  }
+</style>

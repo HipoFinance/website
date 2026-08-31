@@ -2251,6 +2251,10 @@
     "sourceHash": "046ac9a354bb9efc0c701683cf51178b38ec1926",
     "reviewed": false
   },
+  "site.footer.verify": {
+    "sourceHash": "dda6ac27b9d3b234a68e8b2c412e90ab5a03a4e1",
+    "reviewed": false
+  },
   "site.header.menuToggle": {
     "sourceHash": "21f9064a33f2f9661789a128a6be46933bbf4bf0",
     "reviewed": false

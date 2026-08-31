@@ -7,6 +7,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-08-31 — [detailed report](changelog/2026-08-31-verify-addresses-and-footer-link.md)
+
+- `/verify/` prints each wallet's raw address, in both the `UQ…` and `EQ…` forms,
+  derived at build time from one string with `@ton/core`.
+- The addresses are selectable monospace with a copy button, reusing the clipboard
+  core in `src/scripts/anchor-copy.ts` via a new `data-copy-text` hook.
+- `SiteFooter.astro` links `/verify/` on every page in every locale; a new Starlight
+  `Footer` override adds the same link under `/docs/`.
+- `site.footer.verify` added to all ten catalogs, English string everywhere, since
+  `/verify/` itself is English-only.
+
 ## 2026-08-30 — [detailed report](changelog/2026-08-30-sitemap-lastmod.md)
 
 - Dated every sitemap URL with a `<lastmod>` taken from the git history of that

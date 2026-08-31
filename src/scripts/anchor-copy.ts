@@ -1,4 +1,10 @@
-// Click-to-copy for the link icons rendered by src/components/AnchorLink.astro (/faq/ and /hpo/).
+// Click-to-copy, in two flavours, sharing one clipboard core.
+//
+//  * `a[data-anchor-copy]` — the link icons rendered by src/components/AnchorLink.astro (/faq/ and
+//    /hpo/), which copy the heading's absolute URL. Described below.
+//  * `[data-copy-text]` — anything that copies the literal text in that attribute. /verify/ uses it
+//    for the raw wallet addresses, where what the reader wants on the clipboard is the string
+//    itself, not a URL.
 //
 // The icon is a plain <a href="#id">: without this module it just jumps to the anchor, and a
 // modified click (new tab, new window, "copy link address") keeps working. A plain left click is
@@ -65,9 +71,27 @@ async function copyAnchor(link: HTMLAnchorElement) {
   }
 }
 
+async function copyLiteral(button: HTMLElement) {
+  const text = button.dataset.copyText ?? ''
+  // Nothing to fall back to when the clipboard is unavailable: the text is already on the page and
+  // selectable, so a silent no-op leaves the reader exactly where they were.
+  if (text !== '' && (await copy(text))) {
+    flash(button)
+  }
+}
+
 function onClick(event: MouseEvent) {
-  const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[data-anchor-copy]')
-  if (link === null || link === undefined) return
+  const target = (event.target as Element | null) ?? null
+  if (target === null) return
+
+  const button = target.closest<HTMLElement>('[data-copy-text]')
+  if (button !== null) {
+    void copyLiteral(button)
+    return
+  }
+
+  const link = target.closest<HTMLAnchorElement>('a[data-anchor-copy]')
+  if (link === null) return
   // Leave "open in a new tab", middle clicks and the like to the browser.
   if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
   event.preventDefault()

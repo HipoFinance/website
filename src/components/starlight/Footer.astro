@@ -1,0 +1,41 @@
+---
+// Adds the /verify/ link to the docs footer. The docs are a separate section with their own chrome
+// — Starlight renders this footer, not src/components/SiteFooter.astro — so without this override
+// the link is missing from every page under /docs/, which is more than half the site and includes
+// the phishing-awareness page a worried reader is most likely to be reading.
+//
+// The label is the same gated catalog string the site footer uses (`site.footer.verify`) rather
+// than a new key in the Starlight i18n collection, so there is one place to change it. `/verify/`
+// is English-only and has no `[locale]` twin, hence the un-prefixed href in every locale.
+import Default from '@astrojs/starlight/components/Footer.astro'
+import { isLocaleKey } from '../../i18n/registry.mjs'
+import { getT } from '../../i18n/t.ts'
+
+// Starlight reports `undefined` for the root locale; our locale keys double as Starlight's.
+const routeLocale = Astro.locals.starlightRoute.locale
+const locale = routeLocale !== undefined && isLocaleKey(routeLocale) ? routeLocale : 'en'
+const { t } = getT(locale, ['site'])
+---
+
+<Default><slot /></Default>
+
+<p class='hipo-verify print:hidden'>
+  <a href='/verify/'>{t('site.footer.verify')}</a>
+</p>
+
+<style>
+  @layer starlight.core {
+    .hipo-verify {
+      margin: 0 auto 1.5rem;
+      font-size: var(--sl-text-xs);
+      text-align: center;
+    }
+    .hipo-verify a {
+      color: var(--sl-color-gray-3);
+      text-decoration: none;
+    }
+    .hipo-verify a:hover {
+      color: var(--sl-color-white);
+    }
+  }
+</style>

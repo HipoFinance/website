@@ -320,6 +320,9 @@ export default defineConfig({
         // Renders nothing until a non-English locale is `public` (spec §G/§J); then lists public
         // locales only.
         LanguageSelect: './src/components/starlight/LanguageSelect.astro',
+        // Adds the /verify/ link, which reaches the docs no other way: Starlight renders its own
+        // footer, not src/components/SiteFooter.astro.
+        Footer: './src/components/starlight/Footer.astro',
       },
       // Imported GitBook pages use h3/h4 for their section headings.
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 4 },
