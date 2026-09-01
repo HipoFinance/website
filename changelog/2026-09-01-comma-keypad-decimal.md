@@ -19,7 +19,7 @@ inverted.
 | --------- | ----------------------------------------------------------- |
 | `3833c0e` | Read a group symbol as the decimal where it cannot group    |
 | `e6ecc60` | Record the comma-keypad commit hash, and the declined rules |
-| (this)    | Refuse a keystroke that types the amount into a dead end    |
+| `a678ab4` | Refuse a keystroke that types the amount into a dead end    |
 
 ## Why the August fix did not cover it
 
