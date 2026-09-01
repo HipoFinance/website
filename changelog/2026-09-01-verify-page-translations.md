@@ -17,7 +17,9 @@ written in the reader's language, and until now our rebuttal was not.
 | Commit    | Description                                             |
 | --------- | ------------------------------------------------------- |
 | `3bf2c61` | Translate `/verify/` into every released locale         |
-| (this)    | Record the verify-translation commit hash in the report |
+| `1e0d6ab` | Record the verify-translation commit hash in the report |
+| `be73561` | Add `@HipoGuru` to the team accounts on `/verify/`      |
+| (this)    | Record the `@HipoGuru` commit hash in the report        |
 
 ## What changed
 
@@ -79,6 +81,17 @@ source hash moved for it.
 `src/data/lastmod.mjs` gained `verify: { catalogs: ['verify.json'], prose: [] }` in `ROUTES` and lost
 its `ENGLISH_ONLY` entry, so all ten `/verify/` URLs are dated by the git history of their own
 catalogs. `vs` is the only remaining `ENGLISH_ONLY` page.
+
+### A third team account
+
+`@HipoGuru` joined `@milibilij` and `@behrang` in the team-accounts list later the same day. Handles
+are literals in `VerifyRoute.astro`, not catalog strings, so one edit covers all ten locales and no
+translation work follows — which is the point of having kept the structural data out of the catalog.
+
+Note that this does not move the page's `<lastmod>`: `src/data/lastmod.mjs` dates a page by its
+content inputs, and a component is deliberately not one. That is the documented trade — the module
+would rather under-report a change than mass-bump every page on a refactor — and one added handle is
+not the kind of change Google's staleness model is asking about.
 
 ## Translation notes
 

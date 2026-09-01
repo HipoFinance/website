@@ -18,6 +18,7 @@ here — `git log` remains the complete record.
 - Latin addresses, handles and hostnames on the page carry `dir='ltr'` so they hold
   their order in Persian and Arabic.
 - `/verify/` moved from `ENGLISH_ONLY` to `ROUTES` in `src/data/lastmod.mjs`.
+- `@HipoGuru` added to the team accounts on `/verify/`, in all ten locales.
 
 ## 2026-08-31 — [detailed report](changelog/2026-08-31-verify-addresses-and-footer-link.md)
 
