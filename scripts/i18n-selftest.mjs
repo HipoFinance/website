@@ -21,6 +21,7 @@ import {
   formatDate,
   formatDuration,
   parseNumberInput,
+  isViablePrefix,
   formatInput,
   formatAsciiNano,
   isolate,
@@ -401,6 +402,118 @@ check('amount input keystrokes', () => {
   // formatInput is what Max / a locale switch write back into the field; it re-parses to the same value.
   assert.equal(parseNumberInput('fa', formatInput('fa', '1000.5')), '1000.5')
   assert.equal(parseNumberInput('de', formatInput('de', '1000.5')), '1000.5')
+  // en "1,000" (a finished group, 1000) and "1,0000" (four digits after the comma can never be a
+  // thousands group, so it falls through to the decimal reading, 1.0000 — the same fallback that
+  // makes "22,22" parse above) are BOTH viable, so isViablePrefix does not touch the 1000× cliff:
+  // normalizeAmount on blur remains the only guard for it.
+  assert.equal(isViablePrefix('en', '1,000'), true)
+  assert.equal(isViablePrefix('en', '1,0000'), true)
+})
+
+// ---------------------------------------------------------------------------------------------------
+// isViablePrefix: could `raw` still become a valid amount by typing more? This is the predicate
+// setAmount's guard uses to drop a keystroke the field can never recover from (see the comment above
+// setAmount in Model.ts and above isViablePrefix in format.ts).
+check('isViablePrefix — the states the amount input accepts', () => {
+  const v = (locale, s) => isViablePrefix(locale, s)
+  // The report (2026-09-01): the field accumulated "0,,,546164,", red and unsendable. A head of "0"
+  // can never be a GROUP_HEAD, so the moment a second symbol forces one of them to group, no
+  // completion exists at all — the first comma is the last viable keystroke.
+  assert.equal(v('en', '0'), true)
+  assert.equal(v('en', '0,'), true) // "0,5" is 0.5
+  assert.equal(v('en', '0,,'), false) // <- the keystroke the input now drops
+  assert.equal(v('en', '0,546164'), true) // 0.546164
+  assert.equal(v('en', '0,546164,'), false)
+  assert.equal(v('en', '0,,,546164,'), false)
+  // Mid-typing states on the way to a real amount: every one of these must survive.
+  for (const s of ['', ',', '.', '1', '1,', '1,2', '1,23', '1,234', '1,234,', '1,234,5', '1,234,56', '1,234,567'])
+    assert.equal(v('en', s), true, `en "${s}"`)
+  for (const s of ['1,234.', '1,234.5', '1.', '.5', '12.', '22,22', '1,0000', '1.234567890']) {
+    assert.equal(v('en', s), true, `en "${s}"`)
+  }
+  // A second decimal is dead as soon as the digits between the symbols cannot be a thousands group.
+  assert.equal(v('en', '1.'), true)
+  assert.equal(v('en', '1..'), false)
+  assert.equal(v('en', '1.5.'), false)
+  // …but not before: en reads "1.234.567,8" as 1234567.8, so "1.50." is still on its way there.
+  assert.equal(v('en', '1.50.'), true)
+  assert.equal(v('en', '1.500.000,'), true)
+  // Leading zeros, unknown characters, more than MAX_FRACTION_DIGITS.
+  assert.equal(v('en', '01'), false)
+  assert.equal(v('en', '00'), false)
+  assert.equal(v('en', '1a'), false)
+  assert.equal(v('en', '1.2345678901'), false)
+  // hi lakh grouping: an unfinished 2-digit middle run is viable, a 4-digit one is not.
+  assert.equal(v('hi', '12,34'), true)
+  assert.equal(v('hi', '12,34,'), true)
+  assert.equal(v('hi', '12,34,567'), true)
+  assert.equal(v('hi', '1,23,456'), true)
+  assert.equal(v('hi', '1,2345'), true) // still readable as the decimal 1.2345
+  assert.equal(v('hi', '1,2345,'), false) // …but not once a second symbol makes that run a group
+  // de groups with "." — "1.500." is on the way to 1.500.000, "1,5," is not on the way to anything.
+  assert.equal(v('de', '1.500.'), true)
+  assert.equal(v('de', '1,5,'), false)
+  // fa/ar group with U+066C and ru with whitespace: unconditional group marks, so they can never
+  // follow a "0" head or open the string, and runs of them collapse (so a repeat is NOT dead).
+  assert.equal(v('fa', '۱٬'), true)
+  assert.equal(v('fa', '۱٬٬'), true) // collapses to one mark: still on the way to "۱٬٬۰۰۰"
+  assert.equal(v('fa', '۰٬'), false)
+  assert.equal(v('fa', '٬۱'), false)
+  assert.equal(v('fa', '۱٫٫'), false)
+  assert.equal(v('ru', '1 '), true)
+  assert.equal(v('ru', '1 0'), true)
+  assert.equal(v('ru', '1 0 '), false) // a middle run of one digit is closed and wrong
+  assert.equal(v('ru', '1 ,'), false)
+  assert.equal(v('ru', '0 '), true) // "0 " itself parses as 0, so it is viable by definition
+})
+
+// Alphabet: one representative per class the tokeniser distinguishes (a zero, a non-zero digit, the
+// four separators, whitespace); locales: one per (decimal, group) pair in the registry — en/hi,
+// de/tr/it/id/pt-br, fa/ar, ru.
+const VIABLE_ALPHABET = ['0', '5', '.', ',', '٫', '،', ' ']
+const VIABLE_SHAPES = ['en', 'de', 'fa', 'ru']
+
+check('isViablePrefix — never blocks a prefix of a valid amount', () => {
+  // Exhaustive to length 6: every string with a valid continuation must be viable. A predicate that
+  // blocked one would make a reachable amount untypeable — strictly worse than the bug it fixes.
+  const blocked = []
+  for (const locale of VIABLE_SHAPES) {
+    const walk = (s, depth) => {
+      let reachesValid = parseNumberInput(locale, s) !== undefined
+      if (depth < 6) for (const ch of VIABLE_ALPHABET) if (walk(s + ch, depth + 1)) reachesValid = true
+      if (reachesValid && !isViablePrefix(locale, s)) blocked.push(`${locale} ${JSON.stringify(s)}`)
+      return reachesValid
+    }
+    walk('', 0)
+  }
+  assert.deepEqual(blocked, [])
+})
+
+check('isViablePrefix — never allows a string with no completion', () => {
+  // The converse, on the strings the exhaustive sweep blocks: appending up to 4 characters (the
+  // longest completion any viable prefix needs — "1.234." reaches "1.234.567," in exactly 4) must
+  // find nothing that parses.
+  const completes = (locale, s, budget) => {
+    if (parseNumberInput(locale, s) !== undefined) return true
+    if (budget === 0) return false
+    for (const ch of VIABLE_ALPHABET) if (completes(locale, s + ch, budget - 1)) return true
+    return false
+  }
+  const wrong = []
+  let tested = 0
+  for (const locale of VIABLE_SHAPES) {
+    const walk = (s, depth) => {
+      if (!isViablePrefix(locale, s)) {
+        tested++
+        if (completes(locale, s, 4)) wrong.push(`${locale} ${JSON.stringify(s)}`)
+        return // every extension of a dead string is dead too; no need to walk into it
+      }
+      if (depth < 3) for (const ch of VIABLE_ALPHABET) walk(s + ch, depth + 1)
+    }
+    walk('', 0)
+  }
+  assert.deepEqual(wrong, [])
+  assert.ok(tested > 400, `only ${tested} blocked strings tested`)
 })
 
 check('formatAsciiNano', () => {

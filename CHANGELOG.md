@@ -18,6 +18,9 @@ here — `git log` remains the complete record.
   `ru`, whose group marks never reach the branch.
 - The amount field normalises on blur, so the number the parser read is visible
   before Stake is pressed.
+- A keystroke that types the amount into a dead end is refused, so the field can
+  no longer accumulate `0,,,546164,`; the new `isViablePrefix` is brute-forced in
+  both directions by the selftest.
 
 ## 2026-09-01 — [detailed report](changelog/2026-09-01-verify-page-translations.md)
 

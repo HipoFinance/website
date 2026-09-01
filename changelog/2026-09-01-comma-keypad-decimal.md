@@ -15,9 +15,11 @@ inverted.
 
 ## Commits
 
-| Commit    | Description                                              |
-| --------- | -------------------------------------------------------- |
-| `3833c0e` | Read a group symbol as the decimal where it cannot group |
+| Commit    | Description                                                 |
+| --------- | ----------------------------------------------------------- |
+| `3833c0e` | Read a group symbol as the decimal where it cannot group    |
+| `e6ecc60` | Record the comma-keypad commit hash, and the declined rules |
+| (this)    | Refuse a keystroke that types the amount into a dead end    |
 
 ## Why the August fix did not cover it
 
@@ -205,6 +207,90 @@ cost of what shipped: rule 1 **does** remove the lone-separator cliff completely
 It was judged not worth a silent misread of a correct input, since the cliff only
 punishes a mid-typing state the user escapes by finishing the number.
 
+## The input filter
+
+The reporter confirmed the fix works. The owner then sent a second screenshot —
+`0,,,546164,` sitting in the field, red and rejected, but _typeable_ — and asked
+that the field stop accepting a separator that cannot lead anywhere.
+
+`setAmount` now refuses a keystroke that appends a character no continuation can
+rescue, using a new predicate in `format.ts`:
+
+```ts
+export function isViablePrefix(locale: Locale, raw: string): boolean
+```
+
+**Could this string still become a number by typing more?** `"0,"` is viable — it
+is on its way to `"0,5"` — but `"0,,"` is not, and neither is `"0,546164,"`: a
+head of `0` can never satisfy `GROUP_HEAD`, so as soon as a second symbol forces
+one of them to group, nothing saves it. Typing the reported string now leaves
+`0,546164` in the field, live and valid at 0.546164; the extra commas never land.
+
+The predicate is exact rather than heuristic. `parseNumberInput` decides two
+things about a finished string — which symbol groups and which is the decimal —
+so `isViablePrefix` enumerates every role assignment the locale could end up with
+and asks whether the typed text is consistent with one of them. Each clause of
+`canComplete` mirrors a rule the parser will apply, and the code names which.
+
+### The invariant, and why it is the whole design
+
+**Every prefix of every string `parseNumberInput` accepts must be viable.** A
+filter that blocks one makes a reachable amount untypeable, which is strictly
+worse than the bug it fixes. Both directions are brute-forced: 26.9 M enumerated
+(locale, string) pairs over the locales with distinct separator pairs, 7.2 M
+prefixes of valid amounts, and the two sweeps are kept in the selftest rather
+than run once and discarded.
+
+That bar earned its keep immediately. The first draft trimmed trailing whitespace
+the way `parseNumberInput` does, and the sweep found it in 35 seconds: trailing
+trim is **not prefix-stable**. `"1 "` parses as 1, but the instant a character
+follows, that space is a group mark — `"1 " + "000"` is 1000, `"1 " + ","` is
+dead. Only the leading trim survives, hence `LEAD_WHITESPACE`; `parseNumberInput`
+is consulted first so a string that already parses stays viable regardless.
+
+### Why it filters only single-character appends
+
+The guard fires only when the change is one character appended onto a state that
+was itself viable. Three consequences, all deliberate:
+
+- **The caret cannot jump.** The rejected character is the last one, which is
+  where the caret already was. This is what made the obvious objection to
+  keystroke filtering — a bouncing caret mid-string — evaporate rather than need
+  mitigating.
+- **Backspacing out of a dead state still works.** Deleting the `4` from
+  `"1,234.5"` gives `"1,23.5"`, which is itself dead; it must still land in the
+  field for the next backspace to reach it. A deletion is never an append, so it
+  passes through.
+- **A dead paste does not freeze the field.** Requiring the prior state to be
+  viable means only the keystroke that _first_ kills viability is refused, once.
+
+`onAmountInput` (`src/components/app/amountInput.ts`, shared by both inputs) puts
+the DOM value and caret back when the model refuses, since nothing else forces a
+re-render when `amountRaw` did not change.
+
+### What this deliberately does not do
+
+- **"Only one `.`" is not literally implementable on the English page**, because
+  the grammar genuinely accepts `1.234.567,8`. So `1.50.` stays typeable — every
+  string that is dead on arrival is blocked, but a second dot that could still
+  lead somewhere is not. Tightening that is a change to which formats we accept,
+  not to the filter.
+- **Mid-string insertion is unfiltered**, by design: filtering there is exactly
+  what would cost a caret jump and break legitimate edits.
+- **`"0"` then `"1"` now swallows the `1`** (`"01"` is dead), where it previously
+  showed red. Making it replace the zero the way a calculator does was left out
+  for now: it changes a value rather than declining a keystroke, which is a
+  different kind of act on the money path.
+- **The filter does not touch the 1000× cliff.** `en "1,000"` and `en "1,0000"`
+  are both viable, so blur normalisation remains the only guard for that; the
+  selftest records this so a future reader does not assume otherwise.
+
+Stripping the dead tail on blur instead was **declined**. It does not fix the
+complaint (the garbage is still typeable, and on a phone blur often does not fire
+until Stake is tapped), and worse, it would silently rewrite a completed number on
+the money path: `"1,0000"` → `"1,000"` turns 1.0000 into 1000. Refusing a
+keystroke changes no value; it only declines to accept one.
+
 ## Verification performed
 
 - `node --experimental-strip-types scripts/i18n-selftest.mjs` — 15 groups passed
@@ -228,6 +314,26 @@ keypad` whose assertions were folded into the main group, since they now hold
 - `npm run build` — passes, including the `check-i18n` prebuild gate. No catalog
   strings change, so no locale work was needed.
 - `grep -rn keypadDecimal src scripts` — no matches.
+
+For the input filter:
+
+- `node --experimental-strip-types scripts/i18n-selftest.mjs` — 18 groups passed
+  (three new). Runtime goes from 0.24 s to ~3.4 s, dominated by the two sweeps;
+  accepted deliberately rather than shrinking their bounds.
+- The two sweeps are the invariant, kept in the suite: an exhaustive DFS to
+  length 6 over the symbol alphabet × `en`/`de`/`fa`/`ru` (one locale per distinct
+  (decimal, group) pair) asserting no prefix of a reachable amount is blocked, and
+  a walk of the blocked frontier to length 3 confirming none has a valid
+  completion within 4 appended characters.
+- Typing simulated through the guard: `en "0,,,546164,"` → `0,546164` (3 dropped);
+  `en "1,234,567.8"`, `en "1.234.567,8"`, `de "1.500,25"`, `fa "۱٬۰۰۰٫۵"`,
+  `ru "1 000,5"`, `hi "12,34,567"` → nothing dropped in any of them.
+- Separately re-checked the no-over-blocking direction against the three shapes
+  that actually reach the field — `formatInput` output (Max and blur), the grouped
+  `Intl` rendering shown on the balance line, and plain ASCII — over 2,300
+  prefixes × 10 locales: 0 over-blocks.
+- `npm run build` — passes. No catalog, prose or doc strings change, so
+  `check-i18n` needed no work.
 
 ## Follow-ups
 

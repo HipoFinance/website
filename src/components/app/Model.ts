@@ -1801,7 +1801,33 @@ export class Model {
   // exactly that: a lone group mark has no digits after it yet, so it can only ever read as a decimal,
   // and once formatted back as the locale's decimal symbol the grouping is unreachable — fa "۱٬۰۰۰"
   // became 1.000 GRAM, never 1000.
+  //
+  // A second guard sits in front of that: a single character appended onto a viable state that leaves
+  // no valid amount reachable (fmt.isViablePrefix) is refused outright, so the field can no longer
+  // accumulate a dead string like "0,,,546164," (reported 2026-09-01) — the second comma is simply
+  // never accepted. Both extra terms on the condition are load-bearing:
+  //   - `raw.length === this.amountRaw.length + 1 && raw.startsWith(this.amountRaw)` restricts the
+  //     guard to a single-character append. Anything else — a paste, or a deletion — goes through
+  //     unfiltered, so backspacing OUT of a dead state still works: deleting the "4" from "1,234.5"
+  //     gives "1,23.5", which is itself dead, but it must still land in the field for the next
+  //     backspace to reach it.
+  //   - `fmt.isViablePrefix(this.locale, this.amountRaw)` requires the state being typed onto to have
+  //     been viable itself. Without it, a paste that is already dead (or a value carried over from a
+  //     locale switch) would refuse every subsequent keystroke and the field would feel frozen — this
+  //     way it only blocks the keystroke that FIRST kills viability, exactly once.
+  // relocalizeAmount passes this same amountRaw back through setAmount unchanged, so the guard's
+  // append check never fires for it (raw.length is never amountRaw.length + 1). setAmountToMax and
+  // normalizeAmount don't call setAmount at all — they write formatInput's output straight into
+  // amountRaw, which always parses.
   setAmount = (raw: string) => {
+    if (
+      raw.length === this.amountRaw.length + 1 &&
+      raw.startsWith(this.amountRaw) &&
+      !fmt.isViablePrefix(this.locale, raw) &&
+      fmt.isViablePrefix(this.locale, this.amountRaw)
+    ) {
+      return
+    }
     this.amountRaw = raw
     if (raw.trim() === '') {
       this.amount = ''

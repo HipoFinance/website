@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite'
 import { Clock, Zap } from 'lucide-react'
 import { Model } from '../Model'
 import { nodes } from '../Interpolate'
+import { onAmountInput } from '../amountInput'
 
 interface Props {
   model: Model
@@ -79,9 +80,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
               (model.isAmountValid ? 'text-text' : 'text-accent')
             }
             value={model.amountRaw}
-            onInput={(e) => {
-              model.setAmount(e.currentTarget.value)
-            }}
+            onInput={(e) => onAmountInput(model, e)}
             onBlur={model.normalizeAmount}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && model.isButtonEnabled) {

@@ -294,6 +294,123 @@ export function parseNumberInput(locale: Locale, raw: string): string | undefine
   return result
 }
 
+// Leading whitespace is trimmed the way parseNumberInput trims it; TRAILING whitespace is not, and
+// that difference is the whole subtlety of the predicate below — see isViablePrefix.
+const LEAD_WHITESPACE = /^[\s\u00a0\u202f\u2009]+/
+const GROUP_ONLY_CHAR = /[\s\u00a0\u202f\u2009\u066c]/
+
+// Could `raw` still become a number by typing more? The amount input drops a keystroke that appends
+// a character no continuation can rescue, so the field stops accumulating text that is only ever
+// rejected ("0,,,546164," was reported sitting in it, red, on 2026-09-01). "0," is viable — it is on
+// its way to "0,5" — but "0,," is not, and neither is "0,546164,": a head of "0" can never satisfy
+// GROUP_HEAD, so as soon as a second symbol forces one of them to group, nothing can save it.
+//
+// The predicate is exact, not a heuristic, and both directions are brute-forced in
+// scripts/i18n-selftest.mjs: EVERY prefix of EVERY string parseNumberInput accepts is viable (a
+// filter that blocked one would make a reachable amount untypeable — strictly worse than the bug it
+// fixes), and every string it rejects really has no completion.
+//
+// Note the asymmetry with parseNumberInput's normalisation: a trailing whitespace run is trimmed
+// there ("1 " is 1) but must be kept here, because the moment anything follows it, it is a group
+// mark ("1 " + "000" is 1000, "1 " + "," is dead). parseNumberInput is therefore consulted first, so
+// a string that already parses is always viable whatever its trailing whitespace does.
+export function isViablePrefix(locale: Locale, raw: string): boolean {
+  if (parseNumberInput(locale, raw) !== undefined) {
+    return true
+  }
+  const symbols = symbolsOf(locale)
+  const cleaned = raw
+    .replace(NATIVE_DIGITS, toAsciiDigit)
+    .replace(BIDI_MARKS, '')
+    .replace(LEAD_WHITESPACE, '')
+    .replace(GROUP_ONLY, GROUP_MARK)
+  if (cleaned === '') {
+    return true
+  }
+  const separators: { ch: string; index: number }[] = []
+  for (let i = 0; i < cleaned.length; i++) {
+    const ch = cleaned[i]
+    if (ch >= '0' && ch <= '9') {
+      continue
+    }
+    if (ch === GROUP_MARK || SEPARATORS.has(ch) || ch === symbols.decimal || ch === symbols.group) {
+      separators.push({ ch, index: i })
+      continue
+    }
+    return false // an unknown character: the tokeniser's `return undefined`, and no append undoes it
+  }
+  // What parseNumberInput will make of the finished string comes down to two choices: which symbol
+  // groups, and which one is the decimal. Try every pair this locale could end up with — the prefix
+  // is viable if a completion exists under any one of them.
+  const decimals = [...new Set([...SEPARATORS, symbols.decimal, symbols.group])].filter(
+    (ch) => !GROUP_ONLY_CHAR.test(ch),
+  )
+  for (const group of [undefined, GROUP_MARK, ...decimals]) {
+    for (const decimal of [undefined, ...decimals]) {
+      if ((group === undefined || group !== decimal) && canComplete(cleaned, separators, group, decimal, symbols)) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
+// Can `cleaned` be finished into a string parseNumberInput reads with this group symbol (undefined:
+// no grouping at all) and this decimal symbol (undefined: no decimal)? Every clause below is a rule
+// parseNumberInput applies to the finished string, checked against the part already typed.
+function canComplete(
+  cleaned: string,
+  separators: { ch: string; index: number }[],
+  group: string | undefined,
+  decimal: string | undefined,
+  symbols: Symbols,
+): boolean {
+  // Every symbol typed so far has to play one of the two roles: a third kind is rejected outright,
+  // and so is a group mark next to a second kind (`distinct.length === 2 && !spaced`).
+  if (separators.some((s) => s.ch !== group && s.ch !== decimal)) {
+    return false
+  }
+  const decimalCount = decimal === undefined ? 0 : separators.filter((s) => s.ch === decimal).length
+  // The decimal occurs exactly once (`count(ch) !== 1` never yields a decimal) and is the last
+  // symbol in the string: a group after it fails `s.index > decimalAt`.
+  if (decimalCount > 1 || (decimalCount === 1 && separators[separators.length - 1].ch !== decimal)) {
+    return false
+  }
+  // …which also means a group symbol not typed yet can no longer be added once the decimal is in.
+  const groupCount = group === undefined ? 0 : separators.filter((s) => s.ch === group).length
+  if (group !== undefined && groupCount === 0 && decimalCount === 1) {
+    return false
+  }
+  // The locale's own decimal symbol, alone in the string, is always read as the decimal (`ch ===
+  // symbols.decimal`) and repeated it is rejected — so it can only group if a second kind arrives to
+  // take the decimal role ("1.234.567,8" in en).
+  if (group !== undefined && group !== GROUP_MARK && decimal === undefined && group === symbols.decimal) {
+    return false
+  }
+  const decimalAt = decimalCount === 1 ? separators[separators.length - 1].index : -1
+  if (decimalAt !== -1 && cleaned.length - decimalAt - 1 > MAX_FRACTION_DIGITS) {
+    return false
+  }
+  const integer = decimalAt === -1 ? cleaned : cleaned.slice(0, decimalAt)
+  if (group === undefined) {
+    return !/^0[0-9]/.test(integer) // the leading-zero rejection, applied to the result
+  }
+  const runs = integer.split(group)
+  const head = runs[0]
+  if (runs.length === 1) {
+    // No group symbol typed yet, so the head is still open: it has to be able to reach GROUP_HEAD.
+    return head.length <= 3 && head[0] !== '0'
+  }
+  // Closed runs are fixed for good: GROUP_HEAD on the head, 2–3 (Hindi lakh) in the middle. The last
+  // run is either closed by the decimal, and must already be 3, or still open, and must be able to
+  // reach 3 — as a middle run of a longer number, or as the last one.
+  return (
+    GROUP_HEAD.test(head) &&
+    !runs.slice(1, -1).some((run) => run.length < 2 || run.length > 3) &&
+    (decimalAt === -1 ? runs[runs.length - 1].length <= 3 : runs[runs.length - 1].length === 3)
+  )
+}
+
 // ASCII "1234.5" → the locale's digits and decimal symbol, no grouping (for the amount input display).
 // English is returned unchanged. Round-trips through parseNumberInput for every registry locale.
 export function formatInput(locale: Locale, ascii: string): string {
