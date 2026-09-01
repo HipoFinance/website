@@ -7,6 +7,18 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-01 — [detailed report](changelog/2026-09-01-verify-page-translations.md)
+
+- `/verify/` moved into `src/components/routes/VerifyRoute.astro` with a `[locale]`
+  twin, so it is built and `hreflang`-linked in all ten locales.
+- New `verify` catalog namespace, plus `seo.verify.*`, translated into all nine
+  released locales.
+- `site.footer.verify` translated in every locale; the site and docs footers now
+  link `/<locale>/verify/` through `localizedPath`.
+- Latin addresses, handles and hostnames on the page carry `dir='ltr'` so they hold
+  their order in Persian and Arabic.
+- `/verify/` moved from `ENGLISH_ONLY` to `ROUTES` in `src/data/lastmod.mjs`.
+
 ## 2026-08-31 — [detailed report](changelog/2026-08-31-verify-addresses-and-footer-link.md)
 
 - `/verify/` prints each wallet's raw address, in both the `UQ…` and `EQ…` forms,

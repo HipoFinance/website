@@ -1,0 +1,331 @@
+---
+// The whole `/verify/` document, shared by the English and the `[locale]` route (spec §B).
+//
+// `/verify/` is the canonical list of Hipo's official identities, linked from outreach messages and
+// from the footer of every page so a recipient can check that a message really came from us. Someone
+// who has just been messaged by an impersonator reads it in a hurry and in their own language, which
+// is why it is translated — the page it warns about is written in the reader's language too.
+//
+// This is a permanent reference page and it should stay boring: a flat, scannable list, no live
+// data, no island. The contract addresses below are the ones in
+// src/content/docs/contracts-and-audits.md and in @hipo-finance/sdk's Constants — change them in
+// all three places or in none.
+//
+// Addresses, handles, domains and tickers are never translated (src/i18n/GLOSSARY.md) and carry
+// `dir='ltr'` so they keep their order inside Persian and Arabic sentences.
+import { Address } from '@ton/core'
+import Layout from '../../layouts/LandingLayout.astro'
+import Banner from '../Banner.astro'
+import Header from '../SiteHeader.astro'
+import Footer from '../SiteFooter.astro'
+import { localeOf } from '../../i18n/locale.ts'
+import { getT } from '../../i18n/t.ts'
+
+const locale = localeOf(Astro)
+const { t, tHtml } = getT(locale, ['seo', 'verify'])
+
+// The raw address matters more than the TON DNS name: a wallet receiving a message from us shows
+// the address, not the domain, so the name is the one string a suspicious recipient cannot search
+// for. Both user-friendly forms are printed because explorers disagree about which to show — they
+// encode the same account and differ only in the bounceable flag, and therefore in the checksum.
+//
+// Only the UQ form is written down; the pair is derived at build time. A second hand-copied string
+// is a checksum waiting to be one character wrong, and a wrong address here is worse than no
+// address at all. `@ton/core` is a build-time import — this page ships no JS beyond the shared
+// copy-to-clipboard module.
+const wallets = [
+  {
+    name: 'hipo.ton',
+    use: t('verify.wallets.main'),
+    address: 'UQCSlnhRIHYCAlt1FoQVlBHzxmaQOMj9Efu80DwoggSlt6UI',
+  },
+  {
+    name: 'hipofinance.ton',
+    use: t('verify.wallets.outreach'),
+    address: 'UQA-_KVxC_rkwmACpXDChgb0tkpHH2ZfYNXcSnT6afMgoX-O',
+  },
+].map((wallet) => {
+  const parsed = Address.parse(wallet.address)
+  return {
+    ...wallet,
+    forms: [
+      { label: 'UQ', value: parsed.toString({ urlSafe: true, bounceable: false }) },
+      { label: 'EQ', value: parsed.toString({ urlSafe: true, bounceable: true }) },
+    ],
+  }
+})
+
+const contracts = [
+  {
+    name: 'Treasury',
+    note: t('verify.contracts.treasury'),
+    addr: 'EQCLyZHP4Xe8fpchQz76O-_RmUhaVc_9BAoGyJrwJrcbz2eZ',
+  },
+  {
+    name: 'hGRAM jetton',
+    // Same caveat the docs carry: the parent address changes on a protocol upgrade, and the
+    // contract repository README is the source of truth when it does.
+    note: t('verify.contracts.hgram'),
+    addr: 'EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w',
+  },
+  {
+    name: 'HPO jetton',
+    note: t('verify.contracts.hpo'),
+    addr: 'EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM',
+  },
+]
+
+const channels = [
+  { label: t('verify.telegram.announcements'), handle: '@HipoFinance', url: 'https://t.me/HipoFinance' },
+  { label: t('verify.telegram.chat'), handle: '@hipo_chat', url: 'https://t.me/hipo_chat' },
+]
+
+const team = [
+  { handle: '@milibilij', url: 'https://t.me/milibilij' },
+  { handle: '@behrang', url: 'https://t.me/behrang' },
+]
+
+// Platform names, never translated — the label is the product, not a description of it.
+const socials = [
+  { label: 'X', host: 'x.com/hipofinance', url: 'https://x.com/hipofinance' },
+  { label: 'GitHub', host: 'github.com/HipoFinance', url: 'https://github.com/HipoFinance' },
+  { label: 'Medium', host: 'medium.com/@hipofinance', url: 'https://medium.com/@hipofinance' },
+  { label: 'YouTube', host: 'youtube.com/@HipoFinance', url: 'https://www.youtube.com/@HipoFinance' },
+]
+
+const never = [1, 2, 3, 4, 5, 6].map((n) => t(`verify.never.item${n}`))
+
+const title = t('seo.verify.title')
+const description = t('seo.verify.description')
+---
+
+<Layout title={title} description={description}>
+  <Banner />
+
+  <Header />
+
+  <main class='mx-auto w-full max-w-[760px] px-6 pb-4 md:px-12'>
+    <header class='py-12'>
+      <h1 class='font-fredoka text-text mb-5 text-[36px] leading-[1.1] font-semibold tracking-[-0.5px] sm:text-[44px]'>
+        {t('verify.title')}
+      </h1>
+      <p class='text-text-muted text-[17px] leading-[1.6] lg:text-[19px]'>{t('verify.lead')}</p>
+    </header>
+
+    <!-- The warning goes first: it is the most useful thing on the page. -->
+    <section class='border-border bg-surface mb-10 rounded-[20px] border p-6 sm:p-8'>
+      <h2 class='font-fredoka text-text mb-4 text-2xl font-semibold'>{t('verify.never.heading')}</h2>
+      <ul class='text-text-muted space-y-2.5 text-[15px] leading-[1.6]'>
+        {
+          never.map((item) => (
+            <li class='flex gap-3'>
+              <span class='text-accent shrink-0' aria-hidden='true'>
+                —
+              </span>
+              <span>{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p
+        class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover mt-5 text-[15px] leading-[1.6] [&_a]:underline'
+        set:html={tHtml('verify.never.note')}
+      />
+    </section>
+
+    <section class='mb-10'>
+      <h2 class='font-fredoka text-text mb-4 text-2xl font-semibold'>{t('verify.wallets.heading')}</h2>
+      <ul class='space-y-3'>
+        {
+          wallets.map((wallet) => (
+            <li class='border-border bg-surface rounded-[20px] border p-5'>
+              <div class='text-accent mb-1 font-semibold' dir='ltr'>
+                {wallet.name}
+              </div>
+              <div class='text-text-muted text-[15px] leading-[1.6]'>{wallet.use}</div>
+              <ul class='mt-4 space-y-2'>
+                {wallet.forms.map((form) => (
+                  <li class='border-border bg-surface-deep flex items-center gap-2 rounded-xl border p-2'>
+                    <span class='text-text-faint w-7 shrink-0 text-center font-mono text-[11px]' aria-hidden='true'>
+                      {form.label}
+                    </span>
+                    {/* select-all makes one click (or one tap) take the whole address, which is the
+                        only way to select it reliably on a phone once it has wrapped. set:text keeps
+                        the element's text node exactly the address — formatted-in whitespace would
+                        otherwise ride along on that selection. */}
+                    <code
+                      class='text-text min-w-0 flex-1 font-mono text-[13px] leading-[1.5] break-all select-all'
+                      dir='ltr'
+                      set:text={form.value}
+                    />
+                    <button
+                      type='button'
+                      class='copy-address bg-border text-text-muted hover:bg-border-strong shrink-0 cursor-pointer rounded-lg p-2'
+                      data-copy-text={form.value}
+                      aria-label={t('verify.wallets.copy', { form: form.label, name: wallet.name })}
+                    >
+                      {/* lucide `copy` and `check`, copied from node_modules/lucide-react/dist/esm/icons/. */}
+                      <svg
+                        class='copy-address-icon copy-address-idle'
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='24'
+                        height='24'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='currentColor'
+                        stroke-width='2'
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        aria-hidden='true'
+                      >
+                        <rect width='14' height='14' x='8' y='8' rx='2' ry='2' />
+                        <path d='M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2' />
+                      </svg>
+                      <svg
+                        class='copy-address-icon copy-address-done'
+                        xmlns='http://www.w3.org/2000/svg'
+                        width='24'
+                        height='24'
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='currentColor'
+                        stroke-width='2'
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        aria-hidden='true'
+                      >
+                        <path d='M20 6 9 17l-5-5' />
+                      </svg>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+      <p class='text-text-muted mt-3 text-[15px] leading-[1.6]'>{t('verify.wallets.note1')}</p>
+      <p
+        class='text-text-muted mt-3 text-[15px] leading-[1.6] [&_code]:font-mono [&_code]:text-[13px]'
+        set:html={tHtml('verify.wallets.note2')}
+      />
+    </section>
+
+    <section class='mb-10'>
+      <h2 class='font-fredoka text-text mb-4 text-2xl font-semibold'>{t('verify.contracts.heading')}</h2>
+      <ul class='space-y-3'>
+        {
+          contracts.map((contract) => (
+            <li class='border-border bg-surface rounded-[20px] border p-5'>
+              <div class='text-text mb-1 font-semibold' dir='ltr'>
+                {contract.name}
+              </div>
+              <a
+                href={`https://tonviewer.com/${contract.addr}`}
+                class='text-accent hover:text-accent-hover block font-mono text-[13px] break-all underline'
+                dir='ltr'
+              >
+                {contract.addr}
+              </a>
+              <div class='text-text-muted mt-2 text-[15px] leading-[1.6]'>{contract.note}</div>
+            </li>
+          ))
+        }
+      </ul>
+      <p
+        class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover mt-3 text-[15px] leading-[1.6] [&_a]:underline'
+        set:html={tHtml('verify.contracts.note')}
+      />
+    </section>
+
+    <section class='mb-10'>
+      <h2 class='font-fredoka text-text mb-4 text-2xl font-semibold'>{t('verify.telegram.heading')}</h2>
+      <ul class='mb-6 space-y-3'>
+        {
+          channels.map((channel) => (
+            <li class='border-border bg-surface flex flex-wrap items-baseline gap-2 rounded-[20px] border p-5'>
+              <a href={channel.url} class='text-accent hover:text-accent-hover font-semibold' dir='ltr'>
+                {channel.handle}
+              </a>
+              <span class='text-text-muted text-[15px]'>— {channel.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <h3 class='font-fredoka text-text mb-2 text-lg font-semibold'>{t('verify.telegram.teamHeading')}</h3>
+      <p
+        class='text-text-muted [&_strong]:text-text mb-3 text-[15px] leading-[1.6]'
+        set:html={tHtml('verify.telegram.teamBody')}
+      />
+      <ul class='flex flex-wrap gap-2'>
+        {
+          team.map((member) => (
+            <li>
+              <a
+                href={member.url}
+                class='border-border bg-surface text-accent hover:border-border-strong inline-block rounded-full border px-5 py-2.5 text-[15px] font-medium'
+                dir='ltr'
+              >
+                {member.handle}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class='mb-10'>
+      <h2 class='font-fredoka text-text mb-4 text-2xl font-semibold'>{t('verify.web.heading')}</h2>
+      <ul class='mb-4 space-y-3'>
+        <li class='border-border bg-surface rounded-[20px] border p-5'>
+          <span class='text-accent font-semibold' dir='ltr'>hipo.finance</span>
+          <span class='text-text-muted text-[15px] leading-[1.6]'> {t('verify.web.site')}</span>
+        </li>
+        {
+          socials.map((social) => (
+            <li class='border-border bg-surface rounded-[20px] border p-5'>
+              <a href={social.url} class='text-accent hover:text-accent-hover font-semibold' dir='ltr'>
+                {social.host}
+              </a>
+              <span class='text-text-muted text-[15px] leading-[1.6]'> — {social.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class='text-text-muted text-[15px] leading-[1.6]'>{t('verify.web.note')}</p>
+    </section>
+
+    <section
+      class='border-border mb-14 rounded-[20px] border p-6 sm:p-8'
+      style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
+    >
+      <h2 class='font-fredoka text-text mb-2 text-xl font-semibold sm:text-2xl'>{t('verify.ask.heading')}</h2>
+      <p
+        class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover text-[15px] leading-[1.6] [&_a]:underline'
+        set:html={tHtml('verify.ask.body')}
+      />
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script src='/src/scripts/anchor-copy.ts'></script>
+
+<style>
+  /* The button swaps its glyph for a tick while `is-copied` is on it — set for a moment after a
+     successful copy by src/scripts/anchor-copy.ts, the same feedback the anchor icons use. */
+  .copy-address-icon {
+    inline-size: 16px;
+    block-size: 16px;
+  }
+  .copy-address-done,
+  .copy-address.is-copied .copy-address-idle {
+    display: none;
+  }
+  .copy-address.is-copied .copy-address-done {
+    display: block;
+    color: var(--color-positive);
+  }
+</style>

@@ -1,5 +1,5 @@
 // Catalog lookup: `t('site.nav.stake')`. Catalogs are flat JSON files at src/i18n/<locale>/<ns>.json
-// (namespaces site, landing, hpo, faq, seo, app — see the contract in specs/multi-language-site.md §C).
+// (namespaces site, landing, hpo, faq, verify, seo, app — see the contract in specs/multi-language-site.md §C).
 // English is the source of truth and the fallback for every other locale; a key missing everywhere
 // comes back as the key itself (never throws) with a console warning in dev.
 //
@@ -19,10 +19,11 @@ export type CatalogKey =
   | keyof typeof import('./en/landing.json')
   | keyof typeof import('./en/hpo.json')
   | keyof typeof import('./en/faq.json')
+  | keyof typeof import('./en/verify.json')
   | keyof typeof import('./en/seo.json')
   | keyof typeof import('./en/app.json')
 
-export const NAMESPACES = ['site', 'landing', 'hpo', 'faq', 'seo', 'app'] as const
+export const NAMESPACES = ['site', 'landing', 'hpo', 'faq', 'verify', 'seo', 'app'] as const
 export type Namespace = (typeof NAMESPACES)[number]
 
 // All catalogs, statically imported at build time. meta.json (review sidecar) and docs-sidebar.json are

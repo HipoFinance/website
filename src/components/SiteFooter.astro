@@ -28,10 +28,10 @@ const docsLinks = [
   { href: localizedPath('/hpo/', locale), label: t('site.footer.aboutHpo'), external: false },
   { href: localizedPath('/stats/', locale), label: t('site.footer.stats'), external: false },
   { href: localizedPath('/faq/', locale), label: t('site.footer.faq'), external: false },
-  // Not localizedPath: /verify/ is deliberately English-only (no `[locale]` twin), so every locale
-  // links to the root URL. The link has to be on every page — the page only helps someone who was
-  // just sent a suspicious message, and they reach it by navigating, not by already having a link.
-  { href: '/verify/', label: t('site.footer.verify'), external: false },
+  // The link has to be on every page — /verify/ only helps someone who was just sent a suspicious
+  // message, and they reach it by navigating, not by already having a link. Localized since
+  // 2026-09-01: that reader is in a hurry and reads the warning in their own language.
+  { href: localizedPath('/verify/', locale), label: t('site.footer.verify'), external: false },
   { href: 'https://t.me/hipo_chat', label: t('site.footer.helpSupport'), external: true },
 ]
 ---

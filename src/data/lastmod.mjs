@@ -42,6 +42,7 @@ const ROOTS = ['src/i18n', 'src/content/prose', 'src/content/docs', 'src/pages']
 const ROUTES = {
   '': { catalogs: ['landing.json'], prose: [] },
   faq: { catalogs: ['faq.json'], prose: ['faq'] },
+  verify: { catalogs: ['verify.json'], prose: [] },
   hpo: { catalogs: ['hpo.json'], prose: ['hpo-faq'] },
   // The five app pages take their date from their own explainer cards only. app.json is deliberately
   // NOT an input: one flat 190-key namespace shared by all five, so a label changed on /defi/ would
@@ -55,10 +56,10 @@ const ROUTES = {
   defi: { catalogs: [], prose: ['shell/defi'] },
 }
 
-// Two English-only pages whose copy is written inline in the page file rather than in a catalog
-// (both say so in their own header comments). One file each, so no mass-bump risk.
+// The one English-only page whose copy is written inline in the page file rather than in a catalog
+// (it says so in its own header comment). One file, so no mass-bump risk. `/verify/` used to be here
+// too; it moved into ROUTES above when it was translated (2026-09-01).
 const ENGLISH_ONLY = {
-  verify: 'src/pages/verify.astro',
   vs: 'src/pages/vs.astro',
 }
 

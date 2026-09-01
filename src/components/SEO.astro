@@ -16,9 +16,9 @@ interface Props {
   publishedTime?: string
   author?: string
   jsonLd?: Record<string, any>
-  // English-only pages (/verify/, /vs/) set this to false: they have no `[locale]` twin, so
-  // pointing hreflang at `/fa/verify/` would advertise URLs that 404. Everything else keeps the
-  // default and gets the full alternate set.
+  // English-only pages (/vs/) set this to false: they have no `[locale]` twin, so pointing
+  // hreflang at `/fa/vs/` would advertise a URL that 404s. Everything else keeps the default and
+  // gets the full alternate set.
   localized?: boolean
 }
 

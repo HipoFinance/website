@@ -2135,6 +2135,14 @@
     "sourceHash": "cd5db9974f58aab741ada943b9ea611c6bb90bb9",
     "reviewed": false
   },
+  "seo.verify.description": {
+    "sourceHash": "fc6d5f95b2e82c2aae262730512f848870b1cc2d",
+    "reviewed": false
+  },
+  "seo.verify.title": {
+    "sourceHash": "95a1ec8c34b32cb45df27ba58def6832382145b6",
+    "reviewed": false
+  },
   "site.anchor.copied": {
     "sourceHash": "c2e98476efb5e35f50dae898c1b56d7085eee7da",
     "reviewed": false
@@ -2341,6 +2349,130 @@
   },
   "site.switcher.label": {
     "sourceHash": "89b86ab0e66f527166d98df92ddbcf5416ed58f6",
+    "reviewed": false
+  },
+  "verify.ask.body": {
+    "sourceHash": "5ad73e34672d89d0ca177b6daaa55fc72171c7d1",
+    "reviewed": false
+  },
+  "verify.ask.heading": {
+    "sourceHash": "25d669ed4bf9bf8a6af5075cf57e9eb4b87b2abd",
+    "reviewed": false
+  },
+  "verify.contracts.heading": {
+    "sourceHash": "32767bc87ce3ae8cd973b35c715a2ae94be49543",
+    "reviewed": false
+  },
+  "verify.contracts.hgram": {
+    "sourceHash": "2e4feebb6a360b979a981cfc54f1f15ddcaac123",
+    "reviewed": false
+  },
+  "verify.contracts.hpo": {
+    "sourceHash": "ebde2d86d03fa4993dc6071d522acded81eb1137",
+    "reviewed": false
+  },
+  "verify.contracts.note": {
+    "sourceHash": "c0f8acfeff37db4ce7b19b2e740a8c5cb8624fdc",
+    "reviewed": false
+  },
+  "verify.contracts.treasury": {
+    "sourceHash": "7d53517a816afda11a18e998b5e18cb0679498ba",
+    "reviewed": false
+  },
+  "verify.lead": {
+    "sourceHash": "9c442fa0b9d03af90c61865590797e653839966c",
+    "reviewed": false
+  },
+  "verify.never.heading": {
+    "sourceHash": "a6134f8c6796c41199fa6ee0268247e22b1ef18a",
+    "reviewed": false
+  },
+  "verify.never.item1": {
+    "sourceHash": "18da9a58376c80caeb926252b0543e0083b5d99a",
+    "reviewed": false
+  },
+  "verify.never.item2": {
+    "sourceHash": "8a481badbecccad11e9e3a58158960e660c97de3",
+    "reviewed": false
+  },
+  "verify.never.item3": {
+    "sourceHash": "358a47c033d6a1fe7cc4d66add580e6d965ee52e",
+    "reviewed": false
+  },
+  "verify.never.item4": {
+    "sourceHash": "fe8301064e40f1c3d0922cceb1ecd23f4bc16975",
+    "reviewed": false
+  },
+  "verify.never.item5": {
+    "sourceHash": "b81d894aedf41d20ca935d451828c828d1411f1e",
+    "reviewed": false
+  },
+  "verify.never.item6": {
+    "sourceHash": "973efbdce10a0014d977c9175559a9db9d90314f",
+    "reviewed": false
+  },
+  "verify.never.note": {
+    "sourceHash": "573fc669e86e6ed67b519f273dea89c106ec8ec2",
+    "reviewed": false
+  },
+  "verify.telegram.announcements": {
+    "sourceHash": "06b01c44a6f7b2519075dcccf01d9ba0cca20e87",
+    "reviewed": false
+  },
+  "verify.telegram.chat": {
+    "sourceHash": "c2f4d4164ba546ae7f5d884902abf8eb79ef2453",
+    "reviewed": false
+  },
+  "verify.telegram.heading": {
+    "sourceHash": "edbea9ff1a787818a7119cda6ab9799959a5d9fa",
+    "reviewed": false
+  },
+  "verify.telegram.teamBody": {
+    "sourceHash": "b812db1693f0d4c449ec3c1d73ba8fbe8863cc40",
+    "reviewed": false
+  },
+  "verify.telegram.teamHeading": {
+    "sourceHash": "93a719910a5bf88e4469371ccf29ac970be43533",
+    "reviewed": false
+  },
+  "verify.title": {
+    "sourceHash": "8dc5c4e5b33a690862ca62fc4bf7dfafe55811d8",
+    "reviewed": false
+  },
+  "verify.wallets.copy": {
+    "sourceHash": "4fed89d5a285e4c3e5ce0194f0a3b36103751663",
+    "reviewed": false
+  },
+  "verify.wallets.heading": {
+    "sourceHash": "98d5a197e598bd2bd463f7fbcdda3a73de1515af",
+    "reviewed": false
+  },
+  "verify.wallets.main": {
+    "sourceHash": "7ae6faf309f7b1adb025507984d41770745b4efb",
+    "reviewed": false
+  },
+  "verify.wallets.note1": {
+    "sourceHash": "14ef36a6475b17c8bd748ef0993276580fcbcd22",
+    "reviewed": false
+  },
+  "verify.wallets.note2": {
+    "sourceHash": "1139c0edbc90320599b61861002d388abe796846",
+    "reviewed": false
+  },
+  "verify.wallets.outreach": {
+    "sourceHash": "e884f0a3bce60e653c3d9f31ab4aff099acc8920",
+    "reviewed": false
+  },
+  "verify.web.heading": {
+    "sourceHash": "98fdd8e3406fe85735cf93b3394fdedb272b5c17",
+    "reviewed": false
+  },
+  "verify.web.note": {
+    "sourceHash": "dd8f63ac1f2993c04cd94b0de4f6d46829b962cf",
+    "reviewed": false
+  },
+  "verify.web.site": {
+    "sourceHash": "68c914a8bc2993c9cc0f105cdaeec755c38bcd50",
     "reviewed": false
   }
 }
