@@ -535,10 +535,6 @@ export class Model {
   amountInvalid = false
   unstakeOption: UnstakeOption = 'best'
 
-  // Memo for `keypadDecimal`, recomputed when the locale switches. Deliberately not observable.
-  private keypadDecimalCache?: string
-  private keypadDecimalFor?: Locale
-
   // The connected wallet's app name ('tonkeeper', 'mytonwallet', …) for the analytics events.
   // Deliberately not observable: no UI reads it, and making it so would re-render on connect.
   connectedWalletName?: string
@@ -721,6 +717,7 @@ export class Model {
       setAmountToMax: action,
       clearAmount: action,
       relocalizeAmount: action,
+      normalizeAmount: action,
       setWaitForTransaction: action,
       setAmountAlert: action,
       beginRequest: action,
@@ -814,25 +811,8 @@ export class Model {
   }
 
   // Anything the user may type in this locale → ASCII "1234.5", or undefined when it is not a number.
-  // The third argument is the decimal key this device's numeric keypad offers, which follows the
-  // system region rather than the page: without it, a visitor whose phone is set to a comma-decimal
-  // region cannot type a decimal amount on the English site at all — its keypad has no "." key, and
-  // "0,3" reads as a malformed thousands group. Read once, not per keystroke; `undefined` whenever the
-  // device agrees with the page, which leaves every existing reading exactly as it was.
   parseNumberInput = (raw: string): string | undefined => {
-    return fmt.parseNumberInput(this.locale, raw, this.keypadDecimal)
-  }
-
-  // Not observable: `navigator.language` cannot change without a reload, and no UI reads it.
-  private get keypadDecimal(): string | undefined {
-    if (this.keypadDecimalFor !== this.locale) {
-      this.keypadDecimalFor = this.locale
-      this.keypadDecimalCache = fmt.keypadDecimalOf(
-        this.locale,
-        typeof navigator === 'undefined' ? undefined : navigator.language,
-      )
-    }
-    return this.keypadDecimalCache
+    return fmt.parseNumberInput(this.locale, raw)
   }
 
   // Bidi isolation (FSI … PDI) for values interpolated into Model-composed strings (spec §F), so
@@ -911,6 +891,17 @@ export class Model {
     if (this.amountInvalid || focused) {
       this.setAmount(this.amountRaw)
     } else {
+      this.amountRaw = this.formatInput(this.amount)
+    }
+  }
+
+  // Blur normalisation: once the user leaves the field, show them the value the parser actually read.
+  // "12,345" on the English page snaps to "12345", and one keystroke earlier, "12,34" would have snapped
+  // to "12.34" — the 1000x step between two adjacent keystrokes (the German page reads "1.50" as 1.50
+  // but "1.500" as 1500) is visible before the amount is sent rather than after. Only on blur: rewriting
+  // per keystroke would jump the caret and make an unfinished thousands group unreachable (see setAmount).
+  normalizeAmount = () => {
+    if (!this.amountInvalid && this.amount !== '') {
       this.amountRaw = this.formatInput(this.amount)
     }
   }
@@ -1803,12 +1794,13 @@ export class Model {
   // The amount input's handler. The text stays in the field exactly as typed (the view renders
   // `amountRaw`) and the WHOLE string is re-read on every keystroke — native or ASCII digits, any
   // separator the locale uses (spec §E) — into canonical ASCII `amount`. Text that does not parse,
-  // including a thousands group the user is still typing ("1," "1,0" "1,00" on the way to "1,000"),
-  // marks amountInvalid: the field turns the invalid colour and amountInNano is undefined, so it can
-  // never be sent as a thousand-fold smaller number. Rewriting the field from the canonical value on
-  // each keystroke (as an earlier version did) would do exactly that: a lone group mark has no digits
-  // after it yet, so it can only ever read as a decimal, and once formatted back as the locale's decimal
-  // symbol the grouping is unreachable — fa "۱٬۰۰۰" became 1.000 GRAM, never 1000.
+  // including a second thousands group the user is still typing ("1,234,5" is not yet 3 digits after
+  // the second comma, on the way to "1,234,567"), marks amountInvalid: the field turns the invalid
+  // colour and amountInNano is undefined, so it can never be sent as a thousand-fold smaller number.
+  // Rewriting the field from the canonical value on each keystroke (as an earlier version did) would do
+  // exactly that: a lone group mark has no digits after it yet, so it can only ever read as a decimal,
+  // and once formatted back as the locale's decimal symbol the grouping is unreachable — fa "۱٬۰۰۰"
+  // became 1.000 GRAM, never 1000.
   setAmount = (raw: string) => {
     this.amountRaw = raw
     if (raw.trim() === '') {

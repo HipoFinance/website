@@ -7,6 +7,18 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-01 — [detailed report](changelog/2026-09-01-comma-keypad-decimal.md)
+
+- A group symbol that cannot possibly group now reads as the decimal, so `22,22`
+  and `0,3` are valid on the English page for every visitor, not just ones whose
+  device region matched.
+- `keypadDecimalOf` and its `Model` memo deleted; `navigator.language` is the
+  system region, not the keyboard, and could not answer the question.
+- `1,000`, `1,234,567` and Hindi `12,34,567` are unchanged, as are `fa`, `ar` and
+  `ru`, whose group marks never reach the branch.
+- The amount field normalises on blur, so the number the parser read is visible
+  before Stake is pressed.
+
 ## 2026-09-01 — [detailed report](changelog/2026-09-01-verify-page-translations.md)
 
 - `/verify/` moved into `src/components/routes/VerifyRoute.astro` with a `[locale]`

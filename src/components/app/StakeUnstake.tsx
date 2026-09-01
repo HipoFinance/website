@@ -126,6 +126,7 @@ const StakeUnstake = observer(({ model }: Props) => {
                 onInput={(e) => {
                   model.setAmount(e.currentTarget.value)
                 }}
+                onBlur={model.normalizeAmount}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && model.isButtonEnabled) {
                     const button = document.querySelector<HTMLInputElement>('#submit')

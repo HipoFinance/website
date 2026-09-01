@@ -160,26 +160,19 @@ const MAX_FRACTION_DIGITS = 9
 // The digits before the first group symbol: 1–3, never leading-zero ("0.123" is a decimal in any locale).
 const GROUP_HEAD = /^[1-9][0-9]{0,2}$/
 
-// `keypadDecimal` is the decimal separator the VISITOR'S DEVICE produces, when it is known and differs
-// from the page locale's (Model passes it; see `keypadDecimalOf`). A mobile numeric keypad follows the
-// device's region, not the page's: on the English site a device set to a comma-decimal region offers a
-// "," key and no "." at all, so without this the visitor cannot type a decimal amount at all — every
-// state of "0,3" is rejected as a malformed thousands group. It only ever rescues states that CANNOT be
-// read as a group; "1,000" stays 1000 on the English page whatever the device does.
-//
 // Returns ASCII "1234.5" (a trailing "." is kept so a controlled input can show "12." mid-typing; a
 // leading "." becomes "0."), or undefined for empty input, unknown characters or an unparseable mix of
 // separators. Decimal-vs-group rules (spec §E; the money path, so ambiguity resolves to "invalid",
 // never to a guess):
-//   - whitespace between digits and '٬' U+066C are always thousands separators ("1 234,5" ru,
-//     "۱٬۰۰۰" in any locale);
-//   - the locale's group symbol is ONLY ever a group: "1,000" in en is 1000, and the states typed on
-//     the way there — "1," "1,0" "1,00" — are invalid (undefined) rather than 1, 1.0, 1.00, so an
-//     unfinished group can never be sent as a thousand-fold smaller amount. Likewise "1.5" in de is
-//     invalid (de's decimal is ",") — the field shows the invalid colour until the user fixes it.
-//     The ONE exception is `keypadDecimal`: when the visitor's own keypad emits that character as its
-//     decimal, "1,5" and "0,3" in en are read as 1.5 and 0.3, because on that device they cannot be
-//     anything else. A string that still looks exactly like a group ("1,000") is a group even then;
+//   - whitespace between digits and '٬' U+066C remain unconditional group marks in every locale — they
+//     are never read as a decimal, so "fa '۱٬'" / "'۱٬۰'" and "ru '1 0'" stay invalid;
+//   - the locale's group symbol is a group only where the string CAN actually be one: "1,000" in en is
+//     1000. But a string en's own grouping rules could never produce as a group — "22,22", "0,3", "1,",
+//     "1234,5" — has no other possible reading, so the symbol falls through as the decimal instead of
+//     being rejected. This matters because a mobile numeric keypad follows the device's region, not the
+//     page's: on the English site a device set to a comma-decimal region offers a "," key and no "." at
+//     all, so without this fallback such a visitor could never type a decimal amount at all. Likewise
+//     "1.5" in de is invalid (de's decimal is ",") — the field shows the invalid colour until fixed;
 //   - the locale's decimal symbol, alone, is the decimal ("1,5" de, "1.000" en = 1.000);
 //   - a single FOREIGN separator (neither the locale's group nor its decimal: "1.5" ru, "۱.۵" / "۱،۵" fa)
 //     is the decimal too — unless it sits where a thousands group would ("1,500" in fa: a 1–3 digit
@@ -189,10 +182,10 @@ const GROUP_HEAD = /^[1-9][0-9]{0,2}$/
 //   - two different separators: the last one (occurring once) is the decimal, the other the group
 //     ("1,234.5" en, "1.234,5" de); three kinds (or whitespace plus two) is garbage.
 // Group symbols must separate plausible groups: head 1–3 digits without a leading zero, middle runs
-// 2–3 (Hindi lakh), the last exactly 3, none after the decimal. Rejects "1.2,3", "1,2,3", ",234",
+// 2–3 (Hindi lakh), the last exactly 3, none after the decimal. Rejects "1.2,3", "1,2,3",
 // "0,123,456", "1,000,00". More than 9 fraction digits (MAX_FRACTION_DIGITS) is rejected too, since
 // toNano could not represent it.
-export function parseNumberInput(locale: Locale, raw: string, keypadDecimal?: string): string | undefined {
+export function parseNumberInput(locale: Locale, raw: string): string | undefined {
   const symbols = symbolsOf(locale)
   const cleaned = raw
     .replace(NATIVE_DIGITS, toAsciiDigit)
@@ -234,9 +227,10 @@ export function parseNumberInput(locale: Locale, raw: string, keypadDecimal?: st
         // Group-only marks already group, so anything else is the decimal; the locale's decimal always is.
         decimal = ch
       } else if (ch === symbols.group) {
-        // The locale's group symbol is a group (validated below) — unless it is also the only decimal
-        // key this visitor's keypad has, and the string cannot be a group anyway.
-        decimal = !looksGrouped && ch === keypadDecimal ? ch : undefined
+        // The locale's group symbol groups only where it CAN be a group: "1,000" is 1000 on the
+        // English page, whatever device typed it. A single one in a string that cannot be a thousands
+        // group ("22,22", "0,3", "1,", "1234,5") has no other possible reading, so it is the decimal.
+        decimal = looksGrouped ? undefined : ch
       } else if (looksGrouped) {
         // A foreign separator that looks exactly like a thousands group: ambiguous, so not a guess.
         return undefined
@@ -298,31 +292,6 @@ export function parseNumberInput(locale: Locale, raw: string, keypadDecimal?: st
     return undefined
   }
   return result
-}
-
-// The decimal separator this visitor's device would put on a numeric keypad, for `parseNumberInput`'s
-// third argument. `tag` is what the browser reports (`navigator.language`), which on iOS and Android
-// carries the system region — the same setting the keypad's decimal key follows.
-//
-// Returns undefined unless the answer is both usable and worth acting on: an unparseable tag, a symbol
-// this parser does not recognise as a separator, or a device that already agrees with the page locale
-// all yield undefined, so the caller can pass the result straight through and a matching device leaves
-// every existing reading untouched.
-export function keypadDecimalOf(locale: Locale, tag: string | undefined): string | undefined {
-  if (tag == null || tag.trim() === '') {
-    return undefined
-  }
-  let device: string
-  try {
-    device = new Intl.NumberFormat(tag).formatToParts(1.5).find((part) => part.type === 'decimal')?.value ?? '.'
-  } catch {
-    // An invalid tag ("C", "posix") throws RangeError; the page locale's own rules then apply.
-    return undefined
-  }
-  if (!SEPARATORS.has(device) || device === symbolsOf(locale).decimal) {
-    return undefined
-  }
-  return device
 }
 
 // ASCII "1234.5" → the locale's digits and decimal symbol, no grouping (for the amount input display).

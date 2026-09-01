@@ -21,7 +21,6 @@ import {
   formatDate,
   formatDuration,
   parseNumberInput,
-  keypadDecimalOf,
   formatInput,
   formatAsciiNano,
   isolate,
@@ -173,17 +172,17 @@ check('isolate', () => {
 
 check('parseNumberInput', () => {
   const p = parseNumberInput
-  // Locales whose group symbol is "." (so a lone "." is never a decimal there) and ",".
-  const dotGroup = ['de', 'tr', 'it', 'id', 'pt-br']
-  const commaGroup = ['en', 'hi']
-  // ASCII in any locale
+  // ASCII in any locale. "1234.5" / "1234,5" used to be undefined on the locales whose group symbol
+  // was the character used ("." for de/tr/it/id/pt-br, "," for en/hi): a 4-digit head can never be a
+  // valid thousands group, so it now has no other reading and falls back to the decimal — the same
+  // fallback that makes "22,22" work on the English page (see below).
   for (const l of locales) {
-    assert.equal(p(l, '1234.5'), dotGroup.includes(l) ? undefined : '1234.5', l)
-    assert.equal(p(l, '1234,5'), commaGroup.includes(l) ? undefined : '1234.5', l)
+    assert.equal(p(l, '1234.5'), '1234.5', l)
+    assert.equal(p(l, '1234,5'), '1234.5', l)
     assert.equal(p(l, '1234'), '1234', l)
     assert.equal(p(l, ' 12 '), '12', l)
-    assert.equal(p(l, '0.5'), dotGroup.includes(l) ? undefined : '0.5', l)
-    assert.equal(p(l, '0,5'), commaGroup.includes(l) ? undefined : '0.5', l)
+    assert.equal(p(l, '0.5'), '0.5', l)
+    assert.equal(p(l, '0,5'), '0.5', l)
     assert.equal(p(l, ''), undefined, l)
     assert.equal(p(l, '   '), undefined, l)
     assert.equal(p(l, 'abc'), undefined, l)
@@ -199,7 +198,7 @@ check('parseNumberInput', () => {
     assert.equal(p(l, '۱٬۲۳۴٫۵'), '1234.5', l)
     assert.equal(p(l, '١٢٣٤٫٥'), '1234.5', l)
     assert.equal(p(l, '۱۲۳۴،۵'), '1234.5', 'arabic comma ' + l)
-    assert.equal(p(l, '१२३४.५'), dotGroup.includes(l) ? undefined : '1234.5', 'devanagari ' + l)
+    assert.equal(p(l, '१२३४.५'), '1234.5', 'devanagari ' + l)
   }
   // Separators that are neither the locale's decimal nor its group symbol are decimals.
   assert.equal(p('en', '1234.5'), '1234.5')
@@ -221,6 +220,15 @@ check('parseNumberInput', () => {
   assert.equal(p('en', '1,234.5'), '1234.5')
   assert.equal(p('en', '1,234,567.89'), '1234567.89')
   assert.equal(p('en', '1,000'), '1000')
+  // One digit either side of the cliff: "1,000" is exactly a group (1000); "1,0000" has 4 digits after
+  // the comma, which no thousands group is, so it falls back to the decimal instead of being rejected.
+  assert.equal(p('en', '1,0000'), '1.0000')
+  // The same cliff one keystroke earlier: 2 digits after the separator can only be a decimal reading,
+  // 3 digits can only be a group — this is what makes normalizeAmount's blur snap jump 1000x in Model.ts.
+  assert.equal(p('de', '1.50'), '1.50')
+  assert.equal(p('de', '1.500'), '1500')
+  assert.equal(p('en', '12,34'), '12.34')
+  assert.equal(p('en', '12,345'), '12345')
   assert.equal(p('hi', '12,34,567.5'), '1234567.5')
   assert.equal(p('hi', '12,34,567'), '1234567')
   assert.equal(p('ru', '1 234,5'), '1234.5')
@@ -249,6 +257,8 @@ check('parseNumberInput', () => {
   assert.equal(p('en', '۱٬۵۰۰٫۵'), '1500.5')
   assert.equal(p('en', '۱٬۵'), undefined)
   // A foreign single separator placed exactly like a thousands group is ambiguous → invalid, not 1.5.
+  // Unaffected by this change: these separators are foreign to fa/ru, not their own group symbol, so
+  // they never reach the fallback rule below.
   assert.equal(p('fa', '1,500'), undefined)
   assert.equal(p('ar', '1,500'), undefined)
   assert.equal(p('fa', '1,234'), undefined)
@@ -256,33 +266,45 @@ check('parseNumberInput', () => {
   assert.equal(p('fa', '1,50'), '1.50')
   assert.equal(p('fa', '1,5000'), '1.5000')
   assert.equal(p('fa', '0,500'), '0.500')
-  assert.equal(p('en', '1,5'), undefined)
   // …but the locale's own decimal symbol never is.
   assert.equal(p('en', '1.000'), '1.000')
   assert.equal(p('ru', '1,000'), '1.000')
   assert.equal(p('de', '1.500'), '1500')
   assert.equal(p('de', '1,500'), '1.500')
-  // The locale's group symbol is never a decimal: unfinished groups are invalid, not a smaller number.
-  assert.equal(p('en', '1,'), undefined)
-  assert.equal(p('en', '1,0'), undefined)
-  assert.equal(p('en', '1,00'), undefined)
-  assert.equal(p('en', '1,0000'), undefined)
-  assert.equal(p('en', '1234,5'), undefined)
-  assert.equal(p('de', '1.5'), undefined)
-  assert.equal(p('de', '12.'), undefined)
-  assert.equal(p('de', '.5'), undefined)
-  assert.equal(p('hi', '1,00'), undefined)
+  // The locale's OWN group symbol groups only where the string CAN actually be a thousands group.
+  // Short of that — an unfinished group, a leading-zero head, or one digit too many after it — there is
+  // no other possible reading, so the symbol falls back to being the decimal instead of being rejected.
+  // This is the fix: a mobile keypad follows the device's region, not the page's, so a comma-decimal
+  // phone on the English site has no "." key at all and, before this, could not type a decimal amount —
+  // reported from the stake form as "22,22" refusing to parse (2026-08-29).
+  assert.equal(p('en', '1,'), '1.')
+  assert.equal(p('en', '1,0'), '1.0')
+  assert.equal(p('en', '1,00'), '1.00')
+  assert.equal(p('en', '1,5'), '1.5')
+  assert.equal(p('en', '1234,5'), '1234.5')
+  assert.equal(p('en', '22,22'), '22.22', 'the reported bug')
+  assert.equal(p('en', ',234'), '0.234')
+  assert.equal(p('en', '0,000'), '0.000')
+  assert.equal(p('de', '1.5'), '1.5')
+  assert.equal(p('de', '12.'), '12.')
+  assert.equal(p('de', '.5'), '0.5')
+  assert.equal(p('hi', '1,00'), '1.00')
+  assert.equal(p('hi', '12,34'), '12.34')
+  // Group-only marks (whitespace, U+066C) are different: they are NEVER a decimal in any locale, so a
+  // lone one still leaves an unfinished group invalid rather than falling back like the ASCII separators
+  // above — unaffected by this change.
   assert.equal(p('fa', '۱٬'), undefined)
   assert.equal(p('fa', '۱٬۰'), undefined)
   assert.equal(p('fa', '۱٬۰۰'), undefined)
   assert.equal(p('ru', '1 0'), undefined)
   assert.equal(p('ru', '1 00'), undefined)
-  // A leading-zero head is never a thousands group, whatever the locale's group symbol is.
+  // A leading-zero head is never a thousands group, whatever the locale's group symbol is — so it too
+  // has no group reading and falls back to the decimal.
   assert.equal(p('de', '0,123'), '0.123')
-  assert.equal(p('de', '0.123'), undefined)
+  assert.equal(p('de', '0.123'), '0.123')
   assert.equal(p('en', '0.123'), '0.123')
-  assert.equal(p('en', '0,123'), undefined)
-  assert.equal(p('hi', '0,123'), undefined)
+  assert.equal(p('en', '0,123'), '0.123')
+  assert.equal(p('hi', '0,123'), '0.123')
   assert.equal(p('de', '12.345'), '12345')
   assert.equal(p('en', '0.001'), '0.001')
   // Implausible groupings are rejected, not silently renumbered.
@@ -305,62 +327,18 @@ check('parseNumberInput', () => {
   assert.equal(p('en', '1.234567891'), '1.234567891')
   assert.equal(p('en', '1.2345678901'), undefined)
   assert.equal(p('fa', '۱٫۲۳۴۵۶۷۸۹۰۱'), undefined)
-})
-
-// A mobile numeric keypad follows the DEVICE's region, not the page's: on the English site a phone set
-// to a comma-decimal region shows a "," key and no "." at all, so "0,3" was the only decimal the
-// visitor could type and every prefix of it was rejected as a malformed thousands group (reported from
-// the stake form, 2026-08-29). Model passes that key as parseNumberInput's third argument.
-check('keypadDecimalOf', () => {
-  // A device that disagrees with the page, and whose symbol this parser knows.
-  assert.equal(keypadDecimalOf('en', 'de-DE'), ',')
-  assert.equal(keypadDecimalOf('en', 'tr-TR'), ',')
-  assert.equal(keypadDecimalOf('de', 'en-US'), '.')
-  assert.equal(keypadDecimalOf('en', 'fa-IR'), '\u066b')
-  // A device that agrees with the page contributes nothing, so nothing changes for it.
-  assert.equal(keypadDecimalOf('en', 'en-GB'), undefined)
-  assert.equal(keypadDecimalOf('de', 'ru-RU'), undefined)
-  // Unusable input never throws.
-  assert.equal(keypadDecimalOf('en', undefined), undefined)
-  assert.equal(keypadDecimalOf('en', ''), undefined)
-  assert.equal(keypadDecimalOf('en', '   '), undefined)
-  assert.equal(keypadDecimalOf('en', 'not a tag'), undefined)
-  assert.equal(keypadDecimalOf('en', 'C'), undefined)
-})
-
-check('parseNumberInput with a foreign keypad', () => {
-  const p = parseNumberInput
-  const u = undefined
-  // The reported bug: an English page on a comma-decimal phone. Every prefix of "0,3" now reads.
-  assert.equal(p('en', '0,3', ','), '0.3')
-  assert.equal(p('en', '0,', ','), '0.')
-  assert.equal(p('en', '1,5', ','), '1.5')
-  assert.equal(p('en', '1234,5', ','), '1234.5')
-  assert.equal(p('en', '0,000000001', ','), '0.000000001')
-  // The mirror image: a period-decimal phone on the German page.
-  assert.equal(p('de', '0.3', '.'), '0.3')
-  assert.equal(p('de', '1.5', '.'), '1.5')
-  // What must NOT change: a string that still reads exactly as one thousands group is a group, even
-  // on a foreign keypad — otherwise "1,000" copied off our own English page would stake 1 GRAM.
-  assert.equal(p('en', '1,000', ','), '1000')
-  assert.equal(p('de', '1.000', '.'), '1000')
-  assert.equal(p('en', '1,234,567', ','), '1234567')
-  assert.equal(p('hi', '12,34,567', ','), '1234567')
-  // The locale's own decimal still wins, and real garbage stays garbage.
-  assert.equal(p('en', '1.5', ','), '1.5')
-  assert.equal(p('en', '1,234.5', ','), '1234.5')
-  assert.equal(p('en', '1,2,3', ','), u)
-  assert.equal(p('en', '0,123,456', ','), u)
-  assert.equal(p('en', '1,2345678901', ','), u)
-  assert.equal(p('en', 'a,3', ','), u)
-  // A keypad symbol that is already the page's decimal, or is not a separator at all, changes nothing.
-  assert.equal(p('en', '1,5', '.'), u)
-  assert.equal(p('en', '1,5', 'x'), u)
-  // Without the argument every locale behaves exactly as it did before.
-  assert.equal(p('en', '1,5'), u)
-  assert.equal(p('en', '0,3'), u)
-  assert.equal(p('de', '1.5'), u)
-  assert.equal(p('en', '1,000'), '1000')
+  // The reported bug, spelled out: every prefix of "0,3" now reads on the English page, whatever
+  // keypad typed it — there is no longer a device-specific code path, so this holds for every visitor.
+  assert.equal(p('en', '0,3'), '0.3')
+  assert.equal(p('en', '0,'), '0.')
+  assert.equal(p('en', '0,000000001'), '0.000000001')
+  assert.equal(p('de', '0.3'), '0.3')
+  // What must NOT change, confirmed still exact: a string that reads exactly as one thousands group is
+  // still a group ("1,000" en, "1.000" de, "1,234,567" en, Hindi "12,34,567" — all asserted above), and
+  // real garbage stays garbage.
+  assert.equal(p('en', '1,2,3'), undefined)
+  assert.equal(p('en', '1,2345678901'), undefined)
+  assert.equal(p('en', 'a,3'), undefined)
 })
 
 // Keystroke sequences through the amount input. Model.setAmount keeps the typed text verbatim and
@@ -386,20 +364,29 @@ check('amount input keystrokes', () => {
   }
   const u = undefined
   const finals = [
-    sequence('en', '1,000.5', ['1', u, u, u, '1000', '1000.', '1000.5']),
-    sequence('de', '1.000,5', ['1', u, u, u, '1000', '1000.', '1000.5']),
+    // Every prefix before the 4th digit after the separator now reads as the decimal it can only be
+    // ("1." "1.0" "1.00"), then flips to the group once a 3-digit run completes it — the same cliff
+    // Model.normalizeAmount documents.
+    sequence('en', '1,000.5', ['1', '1.', '1.0', '1.00', '1000', '1000.', '1000.5']),
+    sequence('de', '1.000,5', ['1', '1.', '1.0', '1.00', '1000', '1000.', '1000.5']),
+    // fa's group mark is U+066C, unconditional in every locale — unaffected by this change.
     sequence('fa', '۱٬۰۰۰٫۵', ['1', u, u, u, '1000', '1000.', '1000.5']),
     // (a trailing space is trimmed, so "1 " still reads as 1 — the right number for what is typed)
+    // ru groups with whitespace, also unconditional — unaffected by this change.
     sequence('ru', '1 000,5', ['1', '1', u, u, '1000', '1000.', '1000.5']),
     sequence('ru', '1 000,5', ['1', '1', u, u, '1000', '1000.', '1000.5']),
-    sequence('hi', '1,000.5', ['1', u, u, u, '1000', '1000.', '1000.5']),
+    sequence('hi', '1,000.5', ['1', '1.', '1.0', '1.00', '1000', '1000.', '1000.5']),
   ]
   for (const final of finals) assert.equal(toNano(final), 1000_500_000_000n)
-  // Hindi lakh grouping: 12,34,567 → 1234567, invalid at every unfinished group.
-  assert.equal(sequence('hi', '12,34,567', ['1', '12', u, u, u, u, u, u, '1234567']), '1234567')
-  // The typo a reviewer feared: the group mark typed alone then digits never reads as a decimal.
-  assert.equal(sequence('en', '1,5', ['1', u, u]), u)
+  // Hindi lakh grouping: 12,34,567 → 1234567. Each unfinished group reads as the decimal it can only
+  // be until the group completes — invalid only once a second, incomplete group makes it ambiguous.
+  assert.equal(sequence('hi', '12,34,567', ['1', '12', '12.', '12.3', '12.34', u, u, u, '1234567']), '1234567')
+  // fa's group mark, typed alone then digits, never reads as a decimal — unaffected by this change.
   assert.equal(sequence('fa', '۱٬۵', ['1', u, u]), u)
+  // The bug this session fixes: en's group symbol, typed alone then one digit, cannot become a group
+  // ("1,5" can never grow into "1,500"), so it now falls back to the decimal instead of staying invalid
+  // — reported from the stake form as "22,22" refusing to parse on a comma-only keypad (2026-08-29).
+  assert.equal(sequence('en', '1,5', ['1', '1.', '1.5']), '1.5')
   // The locale's decimal mark is a decimal from the first keystroke.
   assert.equal(sequence('en', '1.5', ['1', '1.', '1.5']), '1.5')
   assert.equal(sequence('de', '1,5', ['1', '1.', '1.5']), '1.5')
