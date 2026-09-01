@@ -236,10 +236,14 @@ and asks whether the typed text is consistent with one of them. Each clause of
 
 **Every prefix of every string `parseNumberInput` accepts must be viable.** A
 filter that blocks one makes a reachable amount untypeable, which is strictly
-worse than the bug it fixes. Both directions are brute-forced: 26.9 M enumerated
-(locale, string) pairs over the locales with distinct separator pairs, 7.2 M
-prefixes of valid amounts, and the two sweeps are kept in the selftest rather
-than run once and discarded.
+worse than the bug it fixes. Both directions are brute-forced: ~29.9 M enumerated
+(locale, string) pairs and 7.2 M prefixes of valid amounts, with zero over-blocks
+and zero under-blocks. The bulk is an exhaustive sweep to depth 8 over a 7-symbol
+alphabet; a further 40,000 pairs across all ten locales widen it to letters, the
+Arabic-Indic / Persian / Devanagari digit sets, bidi marks and the three
+whitespace kinds, each cross-checked against an exhaustive 4-character completion
+search. The two sweeps are kept in the selftest rather than run once and
+discarded.
 
 That bar earned its keep immediately. The first draft trimmed trailing whitespace
 the way `parseNumberInput` does, and the sweep found it in 35 seconds: trailing
