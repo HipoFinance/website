@@ -15,9 +15,9 @@ inverted.
 
 ## Commits
 
-| Commit | Description                                              |
-| ------ | -------------------------------------------------------- |
-| (this) | Read a group symbol as the decimal where it cannot group |
+| Commit    | Description                                              |
+| --------- | -------------------------------------------------------- |
+| `3833c0e` | Read a group symbol as the decimal where it cannot group |
 
 ## Why the August fix did not cover it
 
@@ -142,6 +142,68 @@ yet and would make grouping unreachable.
   locales through the `check-i18n` gate for no residual benefit. The echo it
   wanted to add already exists as `youWillReceive`, now backed by blur
   normalisation.
+
+## Declined after shipping: locale-independent separator rules
+
+Reviewing the above, the owner proposed replacing the locale-aware logic with
+three locale-independent rules: one separator symbol → it is the decimal; two →
+the later is the decimal and the earlier the group, invalid if the later repeats;
+more than two → invalid. The appeal is real — it deletes the page locale from the
+parsing decision, and "the page locale does not match how this person types" is
+the root of the bug class reported twice in three days.
+
+Rules 2 and 3 were adopted in the sense that they are already, character for
+character, what `parseNumberInput` does. **Rule 1 was declined.** Measured over
+303,470 `(locale, input)` pairs — every literal and keystroke prefix in the test
+suite, every locale's rendering of realistic amounts, plus ~30,000 random
+strings — rule 1 produces exactly one value→different-value transformation, and
+it is always 1000× **smaller**:
+
+| input         | intent | today |  rule 1 |
+| ------------- | -----: | ----: | ------: |
+| `en "1,000"`  |   1000 |  1000 |   **1** |
+| `en "10,000"` |  10000 | 10000 |  **10** |
+| `de "1.500"`  |   1500 |  1500 | **1.5** |
+
+Two facts decided it. `en` is the only `public` locale, so this lands on the main
+traffic path, on round thousands — the modal stake amount. And the grouped form
+is what our own UI hands the user: `StakeUnstake.tsx:67` and `:85` print the
+balance through `formatNano` → `Intl` **with grouping on**, a few pixels above the
+input. (`formatInput`, and therefore `setAmountToMax` and `normalizeAmount`, never
+group — so the field's own writers are safe under any reading. The exposure is
+what the user copies off the line above it.)
+
+Blur normalisation is too weak to license it: `1,000` → `1.000` moves one
+punctuation mark, and in `fa`/`ar` it is invisible — `۱٬۰۰۰` (U+066C) and `۱٫۰۰۰`
+(U+066B) differ only in the dot's vertical position. That is exactly the
+regression `setAmount`'s comment records as never to be repeated.
+
+The two sub-readings, for the record. Reading the rule as "one distinct **kind**"
+is separately incoherent: it makes `1,234,567` invalid while `1,234,567.8` stays
+valid — appending a decimal rescues a string the same rules just rejected — and
+it kills Hindi lakh grouping (16 shapes go value→invalid). Reading it as "one
+**occurrence**" is coherent and well-behaved (0 value→invalid), but only moves the
+cliff: `1,000,000` typed out reads 1 · 1. · 1.0 · 1.00 · 1.000 · invalid ·
+invalid · invalid · 1000000, replacing a 1000× step with a 10⁶ one.
+
+A third option — making the lone-separator rule locale-independent from the other
+side, treating `X,YYY` as a group in **every** locale — was also declined. It is
+tidier (one rule for a lone separator, no locale lookup) and its errors are rarer,
+but they run 1000× **larger** (`en "1.000"` → 1000), and larger is the only
+direction that can overspend; `isAmountValid`'s cap at `maxAmount` does not bind
+for a user with a large balance.
+
+Two amendments from the proposal are kept as invariants, because the data on them
+is unambiguous. **Whitespace and `٬` U+066C are always thousands separators**,
+never decimals — taken verbatim, rule 1 reads `ru "1 000"` and `fa "۱٬۰۰۰"` as 1.
+And **group-shape validation must stay** (head 1–3 digits, no leading zero, tail
+exactly 3): without it `ru "1 0"` becomes a valid 10, and `en "1,5."` — one stray
+keystroke past the state the reporter was in — becomes 15.
+
+The honest point in the proposal's favour, recorded because it is the residual
+cost of what shipped: rule 1 **does** remove the lone-separator cliff completely.
+It was judged not worth a silent misread of a correct input, since the cliff only
+punishes a mid-typing state the user escapes by finishing the number.
 
 ## Verification performed
 
