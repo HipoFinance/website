@@ -14,9 +14,10 @@ have a decision to make in the next minute. Everything else on the site can affo
 fallback; a list of things Hipo will never ask you to do cannot. The impersonation message itself is
 written in the reader's language, and until now our rebuttal was not.
 
-| Commit | Description                                                      |
-| ------ | ---------------------------------------------------------------- |
-| (this) | Translate `/verify/` into every released locale, footer link too |
+| Commit    | Description                                             |
+| --------- | ------------------------------------------------------- |
+| `3bf2c61` | Translate `/verify/` into every released locale         |
+| (this)    | Record the verify-translation commit hash in the report |
 
 ## What changed
 
