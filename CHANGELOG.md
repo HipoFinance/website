@@ -14,7 +14,9 @@ here — `git log` remains the complete record.
 - The copy fields and the `d`/`w` comment protocol became the fallback for when
   no wallet app opens, detected by the page still being in front.
 - A dismissible note names the connected multisig after hand-off, because
-  Tonkeeper does not preselect it and a wrong-wallet stake mints to the signer.
+  Tonkeeper does not preselect it and the position lands in whichever wallet pays.
+- The amount field clears once a wallet app has taken the link, and keeps its
+  value when nothing did.
 - Twelve catalog keys retired, two added, and the docs and FAQ now lead with the
   wallet-app flow in English and all nine released locales.
 

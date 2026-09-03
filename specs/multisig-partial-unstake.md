@@ -32,7 +32,8 @@ wallet app with no dialog at all, and the copy fields plus the `d`/`w` comment p
 fallback for when nothing opens. One defect remains: Tonkeeper does not preselect the connected
 multisig, so the selected-wallet warning is now load-bearing rather than a footnote.
 
-Requirements 1–3, 5–8 and 12–14 stand as written; 4, 9, 10 and 11 are replaced, and 16–19 are new.
+Requirements 1–3, 5–8 and 12–14 stand as written; 4, 9, 10 and 11 are replaced; 15–18 and 20 are
+new; and 19 is the verification that prompted all of it.
 
 ## Requirements
 
@@ -91,19 +92,25 @@ amountInNano, unstakeOption, queryId)` call the TonConnect path uses, so the two
     matching change MUST ship in all nine `indexed` locales**, or `scripts/check-i18n.mjs` fails the
     build.
 15. Because handing over a deep link reports nothing back, the app MUST detect that no wallet took
-    it — the document still visible and focused a short moment later — and raise the fallback
-    dialog then. The snapshot MUST NOT be recaptured for it, so the order shown is the one the link
-    carried, query id included.
+    it and raise the fallback dialog then. The snapshot MUST NOT be recaptured for it, so the order
+    shown is the one the link carried, query id included.
 16. After a link is handed over, the app MUST raise the selected-wallet warning as a dismissible
     note, not a dialog: Tonkeeper does not preselect the connected multisig, and the user needs to
-    read this while switching to an app that is already opening. For a stake this is the difference
-    between hGRAM minted to the multisig and hGRAM minted to a signer's personal wallet.
+    read this while switching to an app that is already opening. What is at stake is which account
+    the position ends up in — payer and receiver stay the same party either way (requirement 20's
+    note explains why).
 17. Catalog keys left unreferenced by the revision MUST be deleted from English and from all nine
     released locales, not left dangling — `check-i18n` reports an unused locale key as `extra`.
 18. The deep-link watchdog timer MUST be cleared by `Model.pause`, alongside the other timers, so it
-    cannot fire into a paused island.
+    cannot fire into a paused island, and any listener it installed MUST be removed with it.
+19. Once a wallet app has taken the link, the amount field MUST be cleared, matching what the
+    TonConnect path does on completion; a multisig request can wait days for its remaining
+    signatures, so there is nothing to wait on first. It MUST NOT be cleared when nothing took the
+    link — the user is not finished with it then. Detecting which happened MUST NOT rely on sampling
+    visibility once when the timer fires: a hidden page's timers can be deferred until it is
+    foregrounded, and that single late sample would read as "nothing opened".
 
-19. ~~Before merge~~ **(done, 2026-09-03)** One real partial unstake MUST be executed by hand on mainnet through
+20. ~~Before merge~~ **(done, 2026-09-03)** One real partial unstake MUST be executed by hand on mainnet through
     **multisig.ton.org**'s "Arbitrary order" form, confirming the three copied values are accepted
     verbatim and that the order executes. Separately, **Tonkeeper's in-app multisig** MUST be tested
     against the deep link: it is undocumented whether Tonkeeper builds a multisig order from a `bin=`
@@ -265,20 +272,14 @@ Base64)` — precisely the three values requirement 3 produces. This is what de-
   sender parameter, so the user must switch wallets themselves. Requirement 17 warns them. A real
   fix would pin the recipient inside the message rather than rely on the sender — see the follow-up
   below — but the SDK exposes no builder for it.
-- **Not done: pinning the deposit `owner`.** `createDepositMessage` hardcodes the owner field to
-  null, meaning "whoever sent it", and the SDK offers no builder that sets it. Pinning it to the
-  connected multisig would make a wrong-wallet stake mint hGRAM to the multisig anyway, which would
-  close the requirement-17 footgun for the stake side. It needs a hand-built body and a new
-  `chain.ts` export, against requirement 2, so it is deliberately left out of this revision.
-- **Assumption: snapshot-on-open rather than live values** (requirement 6). This changes today's
-  stake modal, which shows a live amount. The rationale is that a copyable payload must not drift
-  under the user; flagged because it is a deliberate behaviour change on the stake side too.
-- **Assumption: the whole-balance `w` method stays in the modal** as a secondary. The interview chose
-  "paste a base64 payload" over "payload with a fallback", but removing `w` would strand holders whose
-  multisig UI cannot paste a payload. Confirm this reading.
-- **Declined: dropping the multisig divert.** Considered, and declined once `cc84d32` showed the
-  divert exists because signing always fails, not because connecting fails. Revisit only with
-  hands-on evidence that a multisig can sign a dApp transaction.
+- **Refuted: pinning the deposit `owner`.** Raised as a follow-up, and wrong. `createDepositMessage`
+  stores a null owner, which the treasury reads as "the sender" — so whoever pays the GRAM receives
+  the hGRAM, which is both the intended behaviour and what `/docs/staking-without-the-app/` already
+  documents ("The hGRAM is sent back to the same address the transfer came from"). Pinning the owner
+  to the connected multisig would _introduce_ a payer-receiver split rather than close one: a
+  signer's personal wallet would pay and the multisig would receive. The wrong-wallet case is
+  therefore not a misdirection of funds, only a stake made from the wrong account of the same party.
+  No change.
 - **Refuted: a jetton-transfer route.** Sending hGRAM to the treasury as a standard jetton transfer
   would have let a multisig use its ordinary "send jetton" form with no payload paste at all. The
   protocol owner confirmed on 2026-09-03 that the treasury does not accept any incoming hGRAM

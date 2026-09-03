@@ -600,6 +600,7 @@ export class Model {
   timeoutHipoGauge?: ReturnType<typeof setTimeout>
   timeoutMultisigHint?: ReturnType<typeof setTimeout>
   timeoutDeepLink?: ReturnType<typeof setTimeout>
+  cleanupDeepLink?: () => void
   timeoutWalletRewards?: ReturnType<typeof setTimeout>
 
   // Telegram Mini App chrome. Detected synchronously here — the Model is constructed during the
@@ -2023,14 +2024,38 @@ export class Model {
     this.showMultisigGuidance = false
     this.multisigWalletHint = true
     clearTimeout(this.timeoutDeepLink)
+    this.cleanupDeepLink?.()
+
+    // Handing over a link is fire-and-forget: nothing reports back whether an app took it. The page
+    // going away is the only evidence one did, and it has to be watched for rather than sampled at
+    // the end — a hidden page's timers can be deferred until it is foregrounded, and a callback
+    // that only looked at that moment would see a visible page and wrongly conclude nothing opened.
+    let handedOver = false
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        handedOver = true
+      }
+    }
+    document.addEventListener('visibilitychange', onVisibilityChange)
+    this.cleanupDeepLink = () => {
+      document.removeEventListener('visibilitychange', onVisibilityChange)
+      this.cleanupDeepLink = undefined
+    }
+
     window.location.href = link
-    // Handing over a link is fire-and-forget: nothing reports back whether an app took it. Still
-    // holding the page a moment later means nothing did — a desktop browser with no ton:// handler,
-    // or a wallet that ignores the scheme — and that is the only signal there is, so it is what
-    // raises the manual instructions. The snapshot is deliberately not recaptured, so the order
-    // shown is the same one the link carried, down to the query id.
+
     this.timeoutDeepLink = setTimeout(() => {
-      if (document.visibilityState === 'visible' && document.hasFocus()) {
+      this.cleanupDeepLink?.()
+      if (handedOver || document.visibilityState !== 'visible' || !document.hasFocus()) {
+        // The order is the wallet app's now, so the field has done its job. Cleared here rather
+        // than on completion the way the TonConnect path does it, because a multisig request can
+        // sit for days waiting on its remaining signatures — there is nothing to wait for.
+        this.clearAmount()
+      } else {
+        // Nothing took the link: a desktop browser with no ton:// handler, or a wallet that
+        // ignores the scheme. The snapshot is deliberately not recaptured, so the order shown is
+        // the one the link carried, down to the query id — and the amount stays in the field,
+        // since the user has not finished with it yet.
         this.showMultisigFallback()
       }
     }, 2500)
@@ -2360,6 +2385,7 @@ export class Model {
 
   pause = () => {
     clearTimeout(this.timeoutDeepLink)
+    this.cleanupDeepLink?.()
     clearTimeout(this.timeoutReadTimes)
     clearTimeout(this.timeoutReadLastBlock)
     clearTimeout(this.timeoutEndpointProbe)

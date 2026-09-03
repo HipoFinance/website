@@ -53,14 +53,16 @@ symmetric:
 
 - A wrong-wallet **unstake** is harmless. The order is accepted only by the hGRAM wallet it was built
   for, so sent from anything else it bounces and nothing is burned.
-- A wrong-wallet **stake** succeeds, and mints hGRAM to the signer's personal wallet rather than the
-  multisig. Recoverable, since the same people own both, but wrong.
+- A wrong-wallet **stake** succeeds, and the hGRAM lands in the wallet that paid — the signer's
+  personal wallet rather than the multisig. Payer and receiver still match, so nothing is
+  misdirected; the position is simply held by the wrong account of the same party.
 
 So the app raises a dismissible note naming the connected multisig immediately after the hand-off,
 and repeats the warning under the fallback's retry button. `app.multisig.transferNote` was reused
 unchanged for both: written for `1c51dc1`, it already said exactly the right thing.
 
-The proper fix is named as a follow-up rather than attempted here.
+There is no protocol-level fix to reach for: the sender is the owner by design, and that is the
+behaviour we want. The note is the mitigation.
 
 ## Copy
 
@@ -80,12 +82,13 @@ with the wallet-app request; all of it shipped in the nine `indexed` locales.
 
 ### Follow-ups
 
-- **Pin the deposit `owner` to the connected multisig.** `createDepositMessage` hardcodes the owner
-  field to null — "whoever sent it" — and the SDK exposes no builder that sets it. Pinning it would
-  mean a wrong-wallet stake still mints hGRAM to the multisig, closing the asymmetry above for the
-  stake side. It needs a hand-built body and a new `chain.ts` export, against requirement 2 of the
-  spec, so it was deliberately left out of a change that was about to be tested. Worth doing as its
-  own change.
+- ~~Pin the deposit `owner` to the connected multisig.~~ **Withdrawn — the premise was wrong.**
+  `createDepositMessage` stores a null owner, which the treasury reads as "the sender", so whoever
+  pays the GRAM receives the hGRAM. That is the intended behaviour and what the docs already say.
+  Pinning the owner would have _created_ a payer-receiver split instead of closing one: a signer's
+  personal wallet paying while the multisig received. The wrong-wallet case is a stake from the
+  wrong account, not a misdirection of funds — payer and receiver are the same party throughout.
+  Nothing to fix.
 - **The 2.5 s watchdog is a guess.** No wallet reports back, so the delay is tuned to feel prompt on
   desktop without tripping on a slow app launch. If reports come in of the fallback appearing after
   Tonkeeper opened, raise it or add a `visibilitychange` listener that cancels the timer outright.
