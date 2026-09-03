@@ -10,7 +10,8 @@
     "prebuild": "node scripts/check-i18n.mjs",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "brand-kit": "node scripts/build-brand-kit.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.7",
@@ -47,7 +48,8 @@
     "@types/node": "^26.0.0",
     "prettier": "^3.8.4",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.8.0"
+    "prettier-plugin-tailwindcss": "^0.8.0",
+    "sharp": "^0.34.5"
   },
   "overrides": {
     "vite": "^7"
