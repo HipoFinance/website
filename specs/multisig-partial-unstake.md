@@ -19,6 +19,21 @@ deep link carrying the same body, so the holder can reproduce it as a multisig o
 gets the same treatment as an alternative to the `d` comment, and the docs and FAQ — which currently
 state that partial unstake is impossible — are corrected across all released locales.
 
+## Revision — 2026-09-03, after hands-on verification
+
+Requirement 15 was answered by testing against a real multisig in Tonkeeper, and the answer inverted
+the design. Tonkeeper **does** build a multisig request from a `ton://transfer` link with a `bin`
+body: it preserves the payload, holds the request for the remaining signers, and executes on-chain
+once they sign. So the deep link is not a convenience beside the copy fields — it is the flow, and
+the dialog full of fields was a long and frightening thing to put in front of it.
+
+The requirements below are revised accordingly: pressing Stake or Unstake hands the order to the
+wallet app with no dialog at all, and the copy fields plus the `d`/`w` comment protocol become the
+fallback for when nothing opens. One defect remains: Tonkeeper does not preselect the connected
+multisig, so the selected-wallet warning is now load-bearing rather than a footnote.
+
+Requirements 1–3, 5–8 and 12–14 stand as written; 4, 9, 10 and 11 are replaced, and 16–19 are new.
+
 ## Requirements
 
 1. The multisig guidance modal MUST offer a **partial unstake** for any valid amount the user has
@@ -37,11 +52,12 @@ amountInNano, unstakeOption, queryId)` call the TonConnect path uses, so the two
    (`src/index.ts` in `ton-blockchain/multisig`). The copy SHOULD name those field labels, so the
    holder can see which box each value goes in.
 
-4. The modal MUST also offer a `ton://transfer/` deep link carrying the same body, so a wallet app
-   that understands a binary payload can prefill the order. `bin` is a documented parameter of the
-   scheme — docs.ton.org defines it as "a URL-encoded base64 BoC which will be attached as a body to
-   internal message" — and `amount` is mandatory whenever `bin` is present. Whether Tonkeeper turns
-   such a link into a _multisig order_ is the part still unverified; see requirement 15.
+4. **(revised)** Pressing the main button with a detected multisig MUST hand the `ton://transfer/`
+   deep link to the wallet app immediately, with no dialog in between — for stake and unstake alike.
+   `bin` is a documented parameter of the scheme (docs.ton.org: "a URL-encoded base64 BoC which will
+   be attached as a body to internal message"), `amount` is mandatory alongside it, and Tonkeeper is
+   verified to turn such a link into a multisig request that keeps the payload and waits for the
+   remaining signatures.
 5. The `unstakeOption` currently selected on screen (`best` / `instant`) MUST be encoded into the
    generated payload, matching the TonConnect path's behaviour.
 6. The amount, the unstake mode and the `queryId` MUST be **snapshotted when the modal opens** and
@@ -55,14 +71,14 @@ amountInNano, unstakeOption, queryId)` call the TonConnect path uses, so the two
 8. The existing selected-wallet warning (`app.multisig.transferNote`, added in `1c51dc1`) MUST be
    retained wherever a deep link is offered: `ton://transfer` carries no sender, so the wallet app
    sends from whichever account is selected.
-9. Whole-balance unstake via the `w` comment MUST remain available as a clearly secondary option, for
-   multisig UIs that cannot accept a raw payload.
-10. When no valid amount has been entered on `/unstake/`, the modal MUST prompt for one (mirroring
-    today's `stakeInstructionsNoAmount` behaviour) rather than silently offering the whole-balance
-    method as if it were the answer.
-11. The stake side MUST keep the `d` text-comment method as its primary instruction — it needs no
-    payload paste and already handles any amount — and MAY offer the `createDepositMessage` payload
-    as an equal alternative so a holder can use one mechanism for both directions.
+9. **(revised)** The `d`/`w` comment protocol MUST survive only inside the fallback dialog, for
+   wallets that neither handle a `ton://` link nor accept a pasted payload. It MUST NOT be the
+   primary instruction for either tab any more.
+10. **(revised)** The fallback dialog MUST be short. It is what a user sees when something already
+    went wrong, so it carries the retry button, the three order fields and the comment protocol —
+    and nothing that merely explains the situation at length.
+11. **(revised)** Stake MUST use the same deep-link mechanism as unstake, built from
+    `createDepositMessage`. The two tabs differ only in the message, not in the flow.
 12. The pre-emptive divert at `Model.ts:2265` (`if (this.isMultisig) { openMultisigGuidance() }`)
     MUST stay. Multisig signing has not been shown to work, and removing the divert would regress
     these users to the generic "Transaction canceled" that `cc84d32` was written to eliminate.
@@ -74,7 +90,20 @@ amountInNano, unstakeOption, queryId)` call the TonConnect path uses, so the two
     three currently tell readers that unstaking a part of the balance is not possible — **and the
     matching change MUST ship in all nine `indexed` locales**, or `scripts/check-i18n.mjs` fails the
     build.
-15. Before merge, one real partial unstake MUST be executed by hand on mainnet through
+15. Because handing over a deep link reports nothing back, the app MUST detect that no wallet took
+    it — the document still visible and focused a short moment later — and raise the fallback
+    dialog then. The snapshot MUST NOT be recaptured for it, so the order shown is the one the link
+    carried, query id included.
+16. After a link is handed over, the app MUST raise the selected-wallet warning as a dismissible
+    note, not a dialog: Tonkeeper does not preselect the connected multisig, and the user needs to
+    read this while switching to an app that is already opening. For a stake this is the difference
+    between hGRAM minted to the multisig and hGRAM minted to a signer's personal wallet.
+17. Catalog keys left unreferenced by the revision MUST be deleted from English and from all nine
+    released locales, not left dangling — `check-i18n` reports an unused locale key as `extra`.
+18. The deep-link watchdog timer MUST be cleared by `Model.pause`, alongside the other timers, so it
+    cannot fire into a paused island.
+
+19. ~~Before merge~~ **(done, 2026-09-03)** One real partial unstake MUST be executed by hand on mainnet through
     **multisig.ton.org**'s "Arbitrary order" form, confirming the three copied values are accepted
     verbatim and that the order executes. Separately, **Tonkeeper's in-app multisig** MUST be tested
     against the deep link: it is undocumented whether Tonkeeper builds a multisig order from a `bin=`
@@ -229,10 +258,18 @@ Base64)` — precisely the three values requirement 3 produces. This is what de-
   it. Tonkeeper and Tonhub both implement it. MyTonWallet's support is described only in secondary
   sources (its documentation URL currently 404s) and Telegram Wallet's is undocumented entirely —
   neither is a target here, but neither should be promised in the copy.
-- **Still open: Tonkeeper in-app multisig behaviour with a `bin=` link.** Undocumented; Tonkeeper's
-  multisig help describes order creation only through its own Send button and Requests tab, and says
-  nothing about deep links or TonConnect. Requirement 15 resolves this by testing, and names the
-  fallback if the answer is bad.
+- **Answered: Tonkeeper builds a real multisig request from a `bin=` link.** Verified by hand on
+  2026-09-03: the payload survives, the request waits for the other signers, and signing sends it
+  on-chain. This is what promoted the deep link from convenience to primary flow.
+- **Still open: Tonkeeper does not preselect the connected multisig.** `ton://transfer` has no
+  sender parameter, so the user must switch wallets themselves. Requirement 17 warns them. A real
+  fix would pin the recipient inside the message rather than rely on the sender — see the follow-up
+  below — but the SDK exposes no builder for it.
+- **Not done: pinning the deposit `owner`.** `createDepositMessage` hardcodes the owner field to
+  null, meaning "whoever sent it", and the SDK offers no builder that sets it. Pinning it to the
+  connected multisig would make a wrong-wallet stake mint hGRAM to the multisig anyway, which would
+  close the requirement-17 footgun for the stake side. It needs a hand-built body and a new
+  `chain.ts` export, against requirement 2, so it is deliberately left out of this revision.
 - **Assumption: snapshot-on-open rather than live values** (requirement 6). This changes today's
   stake modal, which shows a live amount. The rationale is that a copyable payload must not drift
   under the user; flagged because it is a deliberate behaviour change on the stake side too.

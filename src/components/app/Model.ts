@@ -556,6 +556,9 @@ export class Model {
   isMultisig = false
   showMultisigGuidance = false
   multisigHint = false
+  // Shown after the wallet app was handed a link. ton://transfer carries no sender, and Tonkeeper
+  // does not preselect the connected multisig, so this is the one thing the user must check.
+  multisigWalletHint = false
   multisigSnapshot?: MultisigSnapshot
   holdersCount?: number = inlineGauge?.hton?.holders_count
   gauge?: HipoGauge = inlineGauge === undefined ? undefined : toHipoGauge(inlineGauge)
@@ -596,6 +599,7 @@ export class Model {
   timeoutErrorMessage?: ReturnType<typeof setTimeout>
   timeoutHipoGauge?: ReturnType<typeof setTimeout>
   timeoutMultisigHint?: ReturnType<typeof setTimeout>
+  timeoutDeepLink?: ReturnType<typeof setTimeout>
   timeoutWalletRewards?: ReturnType<typeof setTimeout>
 
   // Telegram Mini App chrome. Detected synchronously here — the Model is constructed during the
@@ -643,6 +647,7 @@ export class Model {
       isMultisig: observable,
       showMultisigGuidance: observable,
       multisigHint: observable,
+      multisigWalletHint: observable,
       multisigSnapshot: observable,
       holdersCount: observable,
       gauge: observable,
@@ -746,7 +751,11 @@ export class Model {
       beginRequest: action,
       endRequest: action,
       setErrorMessage: action,
+      captureMultisigSnapshot: action,
+      sendViaWalletApp: action,
+      showMultisigFallback: action,
       openMultisigGuidance: action,
+      hideMultisigWalletHint: action,
       closeMultisigGuidance: action,
       showMultisigHint: action,
       hideMultisigHint: action,
@@ -1815,6 +1824,7 @@ export class Model {
     this.isMultisig = false
     this.showMultisigGuidance = false
     this.multisigHint = false
+    this.multisigWalletHint = false
     this.multisigSnapshot = undefined
     this.walletAddress = undefined
     this.wallet = undefined
@@ -1988,11 +1998,9 @@ export class Model {
     }
   }
 
-  openMultisigGuidance = () => {
-    this.multisigHint = false
-    this.showMultisigGuidance = true
-    // Frozen here, not read live — see MultisigSnapshot. An amount that does not currently convert
-    // is recorded as absent, which is what makes the dialog ask for one instead of guessing.
+  // Frozen here, not read live — see MultisigSnapshot. An amount that does not currently convert
+  // is recorded as absent, which is what makes the fallback ask for one instead of guessing.
+  captureMultisigSnapshot = () => {
     this.multisigSnapshot = {
       isStake: this.isStakeTabActive,
       amountInNano: this.isAmountValid && this.isAmountPositive ? this.amountInNano : undefined,
@@ -2001,9 +2009,51 @@ export class Model {
     }
   }
 
+  // The multisig path. Tonkeeper turns this link into a multisig order that keeps the payload and
+  // waits for the remaining signatures, so the happy path is one press and no dialog at all.
+  sendViaWalletApp = () => {
+    this.captureMultisigSnapshot()
+    const link = this.multisigPayloadDeepLink
+    if (link == null) {
+      this.multisigHint = false
+      this.showMultisigGuidance = true
+      return
+    }
+    this.multisigHint = false
+    this.showMultisigGuidance = false
+    this.multisigWalletHint = true
+    clearTimeout(this.timeoutDeepLink)
+    window.location.href = link
+    // Handing over a link is fire-and-forget: nothing reports back whether an app took it. Still
+    // holding the page a moment later means nothing did — a desktop browser with no ton:// handler,
+    // or a wallet that ignores the scheme — and that is the only signal there is, so it is what
+    // raises the manual instructions. The snapshot is deliberately not recaptured, so the order
+    // shown is the same one the link carried, down to the query id.
+    this.timeoutDeepLink = setTimeout(() => {
+      if (document.visibilityState === 'visible' && document.hasFocus()) {
+        this.showMultisigFallback()
+      }
+    }, 2500)
+  }
+
+  showMultisigFallback = () => {
+    this.multisigHint = false
+    this.showMultisigGuidance = true
+  }
+
+  openMultisigGuidance = () => {
+    this.captureMultisigSnapshot()
+    this.multisigHint = false
+    this.showMultisigGuidance = true
+  }
+
   closeMultisigGuidance = () => {
     this.showMultisigGuidance = false
     this.multisigSnapshot = undefined
+  }
+
+  hideMultisigWalletHint = () => {
+    this.multisigWalletHint = false
   }
 
   showMultisigHint = () => {
@@ -2309,6 +2359,7 @@ export class Model {
   }
 
   pause = () => {
+    clearTimeout(this.timeoutDeepLink)
     clearTimeout(this.timeoutReadTimes)
     clearTimeout(this.timeoutReadLastBlock)
     clearTimeout(this.timeoutEndpointProbe)
@@ -2379,7 +2430,7 @@ export class Model {
       this.tonBalance != null
     ) {
       if (this.isMultisig) {
-        this.openMultisigGuidance()
+        this.sendViaWalletApp()
         return
       }
 

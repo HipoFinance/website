@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import { Model } from './Model'
 import { Copy, Check, X } from 'lucide-react'
 import { Num, nodes } from './Interpolate'
@@ -40,6 +40,17 @@ const CopyField = observer(({ model, label, value }: { model: Model; label: stri
   )
 })
 
+// A bottom-left note rather than a dialog: both of these say something about an app that is either
+// already open or about to be, so neither may stand in front of it.
+const Toast = ({ model, children, onDismiss }: { model: Model; children: ReactNode; onDismiss: () => void }) => (
+  <div className='font-body border-border bg-surface-deep text-text-muted fixed start-6 bottom-20 z-50 flex max-w-screen-sm items-start rounded-2xl border p-3 drop-shadow sm:bottom-2'>
+    <p className='mx-1 text-sm'>{children}</p>
+    <button className='ms-1 shrink-0 cursor-pointer' aria-label={model.t('app.multisig.dismiss')} onClick={onDismiss}>
+      <X className='size-4' />
+    </button>
+  </div>
+)
+
 // The three values of a raw order, in the field order multisig.ton.org's "Arbitrary order" form
 // asks for them. Rendered only when the snapshot produced a message — never with a guessed address.
 const OrderFields = observer(({ model }: Props) => {
@@ -72,11 +83,52 @@ const OrderFields = observer(({ model }: Props) => {
       )}
       <CopyField model={model} label={t('app.multisig.tonAmount')} value={amount} />
       <CopyField model={model} label={t('app.multisig.orderBoc')} value={payload} />
+      {!model.multisigIsStake && (
+        <>
+          <p className='text-text-faint mt-4 text-xs'>{t('app.multisig.orderSafetyNote')}</p>
+          {model.multisigUnstakeOption === 'instant' && (
+            <p className='text-text-faint mt-2 text-xs'>{t('app.multisig.orderRateWarning')}</p>
+          )}
+        </>
+      )}
     </>
   )
 })
 
-const DeepLinkButton = observer(({ model, href }: { model: Model; href: string }) => (
+// The text-comment protocol, kept for wallets that neither handle a ton:// link nor accept a pasted
+// payload. It is the only method here that cannot express a partial amount.
+const CommentFallback = observer(({ model }: Props) => {
+  const t = model.t
+  const comment = <span className='font-medium'>{model.multisigComment}</span>
+  return (
+    <>
+      <p className='text-text-muted mt-4 text-sm'>
+        {model.multisigIsStake
+          ? model.multisigTransferAmountFormatted != null
+            ? nodes(t('app.multisig.stakeInstructions'), {
+                amount: <Num className='font-medium'>{model.multisigTransferAmountFormatted}</Num>,
+                comment,
+              })
+            : nodes(t('app.multisig.stakeInstructionsNoAmount'), {
+                amount: <span className='font-medium'>{t('app.multisig.amountYouWantToStake')}</span>,
+                comment,
+              })
+          : nodes(t('app.multisig.unstakeInstructions'), {
+              // ASCII digits on purpose (formatAsciiNano): retyped into a multisig UI that takes nothing else.
+              amount: (
+                <Num className='font-medium'>{model.withUnit('app.model.gram', formatAsciiNano(100_000_000n))}</Num>
+              ),
+              comment,
+              entire: <span className='font-medium'>{t('app.multisig.entire')}</span>,
+            })}
+      </p>
+      <CopyField model={model} label={t('app.multisig.treasuryAddress')} value={model.treasuryAddressFormatted} />
+      <CopyField model={model} label={t('app.multisig.textComment')} value={model.multisigComment} />
+    </>
+  )
+})
+
+const OpenWalletButton = observer(({ model, href }: { model: Model; href: string }) => (
   <>
     <a
       className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover mt-6 block h-14 w-full rounded-2xl text-center text-lg leading-14 font-semibold'
@@ -92,129 +144,50 @@ const DeepLinkButton = observer(({ model, href }: { model: Model; href: string }
 
 const MultisigGuidance = observer(({ model }: Props) => {
   const t = model.t
-  const stake = model.multisigIsStake
 
+  // Raised after a link was handed over, because ton://transfer carries no sender and Tonkeeper
+  // does not preselect the connected multisig.
+  const walletHint = model.multisigWalletHint && (
+    <Toast model={model} onDismiss={model.hideMultisigWalletHint}>
+      {nodes(t('app.multisig.transferNote'), { address: <Num>{model.connectedAddressShort}</Num> })}
+    </Toast>
+  )
+
+  // Raised when a wallet we could not identify as a multisig rejected the transaction, since the
+  // symptom is identical and the manual route is the same.
   const hint = model.multisigHint && (
-    <div className='font-body border-border bg-surface-deep text-text-muted fixed start-6 bottom-20 z-50 flex max-w-screen-sm items-start rounded-2xl border p-3 drop-shadow sm:bottom-2'>
-      <p className='mx-1 text-sm'>
-        {stake ? t('app.multisig.hintStake') : t('app.multisig.hintUnstake')}{' '}
-        <button className='text-accent cursor-pointer font-medium underline' onClick={model.openMultisigGuidance}>
-          {t('app.multisig.showInstructions')}
-        </button>
-      </p>
-      <button
-        className='ms-1 shrink-0 cursor-pointer'
-        aria-label={t('app.multisig.dismiss')}
-        onClick={model.hideMultisigHint}
-      >
-        <X className='size-4' />
+    <Toast model={model} onDismiss={model.hideMultisigHint}>
+      {model.isStakeTabActive ? t('app.multisig.hintStake') : t('app.multisig.hintUnstake')}{' '}
+      <button className='text-accent cursor-pointer font-medium underline' onClick={model.openMultisigGuidance}>
+        {t('app.multisig.showInstructions')}
       </button>
-    </div>
+    </Toast>
   )
 
   if (!model.showMultisigGuidance) {
-    return hint
+    return (
+      <>
+        {walletHint}
+        {hint}
+      </>
+    )
   }
-
-  const comment = <span className='font-medium'>{model.multisigComment}</span>
-  const hasOrder = model.multisigPayload != null
-
-  // Stake: the 'd' comment stays primary — it needs no payload paste and already takes any amount.
-  // The raw order is offered underneath so a holder can use one mechanism for both directions.
-  const stakeBody = (
-    <>
-      <p className='mt-4 text-sm'>{t('app.multisig.introStake')}</p>
-      <p className='mt-4 text-sm'>
-        {model.multisigTransferAmountFormatted != null
-          ? nodes(t('app.multisig.stakeInstructions'), {
-              amount: <Num className='font-medium'>{model.multisigTransferAmountFormatted}</Num>,
-              comment,
-            })
-          : nodes(t('app.multisig.stakeInstructionsNoAmount'), {
-              amount: <span className='font-medium'>{t('app.multisig.amountYouWantToStake')}</span>,
-              comment,
-            })}
-      </p>
-      <CopyField model={model} label={t('app.multisig.treasuryAddress')} value={model.treasuryAddressFormatted} />
-      <CopyField model={model} label={t('app.multisig.textComment')} value={model.multisigComment} />
-      {model.multisigDeepLink != null && <DeepLinkButton model={model} href={model.multisigDeepLink} />}
-      {hasOrder && (
-        <div className='border-border mt-8 border-t pt-4'>
-          <h2 className='font-fredoka text-base font-semibold'>{t('app.multisig.orderTitleStake')}</h2>
-          <p className='text-text-muted mt-2 text-sm'>{t('app.multisig.orderIntroStake')}</p>
-          <OrderFields model={model} />
-          {model.multisigPayloadDeepLink != null && (
-            <DeepLinkButton model={model} href={model.multisigPayloadDeepLink} />
-          )}
-        </div>
-      )}
-    </>
-  )
-
-  // Unstake: the raw order is primary, because it is the only thing that can unstake a part of the
-  // balance. The 'w' comment drops to a secondary block for UIs that cannot paste a payload.
-  const unstakeBody = (
-    <>
-      {hasOrder ? (
-        <>
-          <p className='mt-4 text-sm'>
-            {nodes(t('app.multisig.orderIntroUnstake'), {
-              amount: <Num className='font-medium'>{model.multisigSnapshotAmountFormatted ?? ''}</Num>,
-            })}
-          </p>
-          <p className='text-text-muted mt-4 text-sm'>
-            {nodes(t('app.multisig.orderRate'), {
-              mode: (
-                <span className='font-medium'>
-                  {model.multisigUnstakeOption === 'instant'
-                    ? t('app.multisig.modeInstant')
-                    : t('app.multisig.modeBest')}
-                </span>
-              ),
-            })}{' '}
-            {model.multisigUnstakeOption === 'instant' && t('app.multisig.orderRateWarning')}
-          </p>
-          <OrderFields model={model} />
-          <p className='text-text-faint mt-4 text-xs'>{t('app.multisig.orderSafetyNote')}</p>
-          {model.multisigPayloadDeepLink != null && (
-            <DeepLinkButton model={model} href={model.multisigPayloadDeepLink} />
-          )}
-        </>
-      ) : (
-        <>
-          <p className='mt-4 text-sm'>{t('app.multisig.introUnstake')}</p>
-          <p className='mt-4 text-sm'>{t('app.multisig.enterAmountUnstake')}</p>
-        </>
-      )}
-      <div className='border-border mt-8 border-t pt-4'>
-        <h2 className='font-fredoka text-base font-semibold'>{t('app.multisig.wholeBalanceTitle')}</h2>
-        <p className='text-text-muted mt-2 text-sm'>
-          {nodes(t('app.multisig.unstakeInstructions'), {
-            // ASCII digits on purpose (formatAsciiNano): this is retyped into a multisig UI that takes nothing else.
-            amount: (
-              <Num className='font-medium'>{model.withUnit('app.model.gram', formatAsciiNano(100_000_000n))}</Num>
-            ),
-            comment,
-            entire: <span className='font-medium'>{t('app.multisig.entire')}</span>,
-          })}
-        </p>
-        <CopyField model={model} label={t('app.multisig.treasuryAddress')} value={model.treasuryAddressFormatted} />
-        <CopyField model={model} label={t('app.multisig.textComment')} value={model.multisigComment} />
-        {model.multisigDeepLink != null && <DeepLinkButton model={model} href={model.multisigDeepLink} />}
-      </div>
-    </>
-  )
 
   return (
     <>
       <div className='font-body text-text fixed start-0 top-0 z-1000 flex h-full w-full overflow-y-auto bg-black/60 p-8'>
         <div className='border-border bg-surface m-auto w-96 max-w-sm rounded-[20px] border p-8 shadow-2xl'>
-          <h1 className='font-fredoka text-center text-xl font-semibold'>
-            {stake ? t('app.multisig.titleStake') : t('app.multisig.titleUnstake')}
-          </h1>
-          {stake ? stakeBody : unstakeBody}
+          <h1 className='font-fredoka text-center text-xl font-semibold'>{t('app.multisig.titleFallback')}</h1>
+          <p className='mt-4 text-sm'>{t('app.multisig.introFallback')}</p>
+          {model.multisigPayloadDeepLink != null && (
+            <OpenWalletButton model={model} href={model.multisigPayloadDeepLink} />
+          )}
+          <OrderFields model={model} />
+          <div className='border-border mt-8 border-t pt-4'>
+            <CommentFallback model={model} />
+          </div>
           <button
-            className='border-accent text-accent hover:bg-accent-fill hover:text-on-accent mt-4 h-14 w-full cursor-pointer rounded-2xl border text-lg font-semibold'
+            className='border-accent text-accent hover:bg-accent-fill hover:text-on-accent mt-6 h-14 w-full cursor-pointer rounded-2xl border text-lg font-semibold'
             onClick={model.closeMultisigGuidance}
             onKeyDown={(e) => {
               if (e.key == 'Escape') {
@@ -228,7 +201,6 @@ const MultisigGuidance = observer(({ model }: Props) => {
           </button>
         </div>
       </div>
-      {hint}
     </>
   )
 })
