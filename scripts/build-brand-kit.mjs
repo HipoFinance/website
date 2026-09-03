@@ -306,6 +306,17 @@ function writeZip() {
   // failing partway must not leave the tracked artifact deleted.
   execFileSync('zip', ['-9', '-X', '-q', '-@', built], { cwd: staging, input: list, env: { ...process.env, TZ: 'UTC' } })
   renameSync(built, zipPath)
+
+  // Read the artifact back before claiming success. `zip` exiting 0 is not proof the file is on
+  // disk and intact, and an absent ZIP is the one failure that reaches visitors as a 404 while
+  // every local check still passes — `git add` on a tracked path that has gone missing stages a
+  // deletion silently, so the build goes green and the download disappears.
+  const entries = execFileSync('unzip', ['-Z1', zipPath], { encoding: 'utf8' })
+    .split('\n')
+    .filter((l) => l && !l.endsWith('/'))
+  if (entries.length !== files.length) {
+    throw new Error(`writeZip: staged ${files.length} files but the archive holds ${entries.length}`)
+  }
   return files.length
 }
 
