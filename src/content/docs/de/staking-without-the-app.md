@@ -5,7 +5,7 @@ description: 'Staken und Unstaken mit Hipo per einfacher Wallet-Überweisung —
 
 ## Wann Sie das brauchen
 
-Diese Seite richtet sich an Wallets, die keine Dapp-Transaktionen signieren können — Multisig-Wallets und manche Cold Wallets. Alle anderen sollten die [Hipo-App](/stake/) verwenden, die günstiger ist und die genaue Schätzung anzeigt, bevor Sie bestätigen. Wenn eine Multisig-Wallet mit der Hipo-App verbunden wird, zeigt die App dieselben Anweisungen mit den zum Kopieren bereiten Adressen und Werten.
+Diese Seite richtet sich an Wallets, die keine Dapp-Transaktionen signieren können — Multisig-Wallets und manche Cold Wallets. Alle anderen sollten die [Hipo-App](/stake/) verwenden, die günstiger ist und die genaue Schätzung anzeigt, bevor Sie bestätigen. Wenn eine Multisig-Wallet mit der Hipo-App verbunden ist, übergibt ein Klick auf Staken oder Unstaken die Order direkt an Ihre Wallet-App; diese Anleitung ist die Ersatzlösung für den Fall, dass das nicht funktioniert.
 
 ## Staken — der Kommentar „d“
 
@@ -37,7 +37,7 @@ Dies unstaked das **gesamte** hGRAM-Guthaben dieser Wallet. Um nur einen Teil da
 
 Ein Textkommentar kann nur nach allem fragen, weil er keinen Platz für einen Betrag hat. Ein teilweiser Unstake ist eine gewöhnliche Nachricht mit binärem Inhalt, daher braucht es eine Wallet oder Multisig, die eine solche senden kann — multisig.ton.org nennt das einen „Arbitrary order“, und dessen Formular verlangt genau die drei Werte unten.
 
-Öffnen Sie die [Hipo-App](/unstake/) mit verbundener Multisig, geben Sie den Betrag ein, den Sie unstaken möchten, und drücken Sie Unstake. Die App erstellt die Order und zeigt die drei Werte zum Kopieren an:
+Öffnen Sie die [Hipo-App](/unstake/) mit verbundener Multisig, geben Sie den Betrag ein, den Sie unstaken möchten, und drücken Sie Unstake. Die App übergibt die Order an Ihre Wallet-App, die daraus einen Multisig-Request für die anderen Unterzeichner erstellt. **Prüfen Sie vor dem Signieren, dass Ihre Multisig die ausgewählte Wallet ist** — der Link kann sie nicht für Sie auswählen. Öffnet sich keine Wallet-App, zeigt die App stattdessen die drei Werte an, sodass Sie die Order von Hand erstellen können:
 
 - **Destination Address** (Zieladresse) — Ihr eigener hGRAM-Wallet-Contract. Das ist nicht die Treasury: Es ist der Contract, der Ihr hGRAM hält, abgeleitet von Ihrer Multisig-Adresse. Prüfen Sie ihn auf Tonviewer, bevor Sie signieren; die App verlinkt dorthin.
 - **TON Amount** (TON-Betrag) — 0,1 GRAM, dieselbe Gas-Vorauszahlung wie überall sonst, erstattet abzüglich des verbrauchten Anteils.

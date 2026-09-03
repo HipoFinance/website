@@ -5,7 +5,7 @@ description: 'Dapp işlemlerini imzalayamayan multisig, soğuk ve diğer cüzdan
 
 ## Buna ne zaman ihtiyaç duyarsınız
 
-Bu sayfa, dapp işlemlerini imzalayamayan cüzdanlar — multisig cüzdanlar ve bazı soğuk cüzdanlar — içindir. Diğer herkes daha ucuz olan ve onaylamadan önce tam tahmini gösteren [Hipo uygulamasını](/stake/) kullanmalıdır. Bir multisig cüzdan Hipo uygulamasına bağlandığında uygulama, kopyalanmaya hazır adresler ve değerlerle birlikte bu aynı yönergeleri gösterir.
+Bu sayfa, dapp işlemlerini imzalayamayan cüzdanlar — multisig cüzdanlar ve bazı soğuk cüzdanlar — içindir. Diğer herkes daha ucuz olan ve onaylamadan önce tam tahmini gösteren [Hipo uygulamasını](/stake/) kullanmalıdır. Bir multisig cüzdan Hipo uygulamasına bağlandığında, Stake veya Unstake'e basmak emri doğrudan cüzdan uygulamanıza teslim eder; bu yönergeler, bunun çalışmadığı durumlar için yedek çözümdür.
 
 ## Stake — “d” yorumu
 
@@ -37,7 +37,7 @@ Bu işlem, o cüzdanın **tüm** hGRAM bakiyesini stake'ten çıkarır. Yalnızc
 
 Bir metin yorumu yalnızca her şeyi isteyebilir, çünkü içine bir miktar koyacak yeri yoktur. Kısmi bir unstake, ikili (binary) gövdeli sıradan bir mesajdır, bu yüzden bunu gönderebilen bir cüzdan veya multisig gerekir — multisig.ton.org buna “Arbitrary order” der ve formu tam olarak aşağıdaki üç değeri ister.
 
-Multisig'iniz bağlıyken [Hipo uygulamasını](/unstake/) açın, unstake etmek istediğiniz miktarı yazın ve Unstake'e basın. Uygulama emri oluşturur ve kopyalamaya hazır üç değeri gösterir:
+Multisig'iniz bağlıyken [Hipo uygulamasını](/unstake/) açın, unstake etmek istediğiniz miktarı yazın ve Unstake'e basın. Uygulama emri cüzdan uygulamanıza teslim eder, o da bunu diğer imzalayanların onaylaması için bir multisig talebi olarak oluşturur. **İmzalamadan önce seçili cüzdanın multisig'iniz olduğunu kontrol edin** — bağlantı bunu sizin için seçemez. Hiçbir cüzdan uygulaması açılmazsa, uygulama bunun yerine üç değeri gösterir, böylece emri elle oluşturabilirsiniz:
 
 - **Destination Address** (Hedef Adres) — kendi hGRAM cüzdan sözleşmeniz. Bu, hazine değildir: multisig adresinizden türetilen, hGRAM'ınızı tutan sözleşmedir. İmzalamadan önce Tonviewer'da doğrulayın; uygulama oraya bağlantı verir.
 - **TON Amount** (TON Miktarı) — 0,1 GRAM, her yerdeki aynı ağ ücreti ön ödemesi, harcanan kısım dışında iade edilir.

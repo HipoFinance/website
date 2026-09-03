@@ -5,7 +5,7 @@ description: 'Men-stake dan meng-unstake di Hipo dengan transfer dompet biasa �
 
 ## Kapan Anda membutuhkan ini
 
-Halaman ini ditujukan untuk dompet yang tidak dapat menandatangani transaksi dapp — dompet multisig dan sebagian cold wallet. Selain itu, sebaiknya gunakan [aplikasi Hipo](/stake/), yang lebih murah dan menampilkan perkiraan yang tepat sebelum Anda mengonfirmasi. Ketika dompet multisig terhubung ke aplikasi Hipo, aplikasi menampilkan instruksi yang sama ini beserta alamat-alamat dan nilai yang siap disalin.
+Halaman ini ditujukan untuk dompet yang tidak dapat menandatangani transaksi dapp — dompet multisig dan sebagian cold wallet. Selain itu, sebaiknya gunakan [aplikasi Hipo](/stake/), yang lebih murah dan menampilkan perkiraan yang tepat sebelum Anda mengonfirmasi. Ketika dompet multisig terhubung ke aplikasi Hipo, menekan Stake atau Unstake menyerahkan order langsung ke aplikasi dompet Anda; instruksi ini adalah cadangan untuk saat itu tidak berhasil.
 
 ## Stake — komentar "d"
 
@@ -37,7 +37,7 @@ Ini meng-unstake **seluruh** saldo hGRAM dompet tersebut. Untuk meng-unstake han
 
 Komentar teks hanya bisa meminta semuanya, karena tidak ada tempat untuk mencantumkan jumlah. Unstake sebagian adalah pesan biasa dengan isi biner, sehingga membutuhkan dompet atau multisig yang bisa mengirimkannya — multisig.ton.org menyebut ini "Arbitrary order", dan formulirnya membutuhkan persis tiga nilai di bawah ini.
 
-Buka [aplikasi Hipo](/unstake/) dengan multisig Anda terhubung, ketik jumlah yang ingin Anda unstake, dan tekan Unstake. Aplikasi akan membuat order dan menampilkan tiga nilai yang siap disalin:
+Buka [aplikasi Hipo](/unstake/) dengan multisig Anda terhubung, ketik jumlah yang ingin Anda unstake, dan tekan Unstake. Aplikasi menyerahkan order ke aplikasi dompet Anda, yang membuatnya sebagai permintaan multisig untuk disetujui penanda tangan lain. **Pastikan multisig Anda adalah dompet yang terpilih sebelum menandatangani** — tautan ini tidak bisa memilihkannya untuk Anda. Jika tidak ada aplikasi dompet yang terbuka, aplikasi akan menampilkan tiga nilai tersebut sebagai gantinya, sehingga Anda bisa membuat order secara manual:
 
 - **Alamat Tujuan (Destination Address)** — kontrak dompet hGRAM Anda sendiri. Ini bukan treasury: ini adalah kontrak yang menyimpan hGRAM Anda, diturunkan dari alamat multisig Anda. Verifikasi di Tonviewer sebelum Anda menandatangani; aplikasi menautkan ke sana.
 - **Jumlah TON (TON Amount)** — 0,1 GRAM, prabayar gas yang sama seperti di tempat lain, dikembalikan kecuali bagian yang terpakai.

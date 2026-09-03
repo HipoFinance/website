@@ -5,7 +5,7 @@ description: 'Faça staking e unstake com o Hipo usando transferências comuns d
 
 ## Quando você precisa disso
 
-Esta página é para carteiras que não conseguem assinar transações de dapp — carteiras multisig e algumas carteiras frias. Todo mundo mais deve usar o [app do Hipo](/stake/), que é mais barato e mostra a estimativa exata antes de você confirmar. Quando uma carteira multisig se conecta ao app do Hipo, o app mostra estas mesmas instruções com os endereços e valores prontos para copiar.
+Esta página é para carteiras que não conseguem assinar transações de dapp — carteiras multisig e algumas carteiras frias. Todo mundo mais deve usar o [app do Hipo](/stake/), que é mais barato e mostra a estimativa exata antes de você confirmar. Quando uma carteira multisig se conecta ao app do Hipo, clicar em Stake ou Unstake entrega a ordem direto para o seu app de carteira; estas instruções são o recurso alternativo para quando isso não funciona.
 
 ## Fazer staking — o comentário "d"
 
@@ -37,7 +37,7 @@ Isso faz unstake do saldo **inteiro** de hGRAM daquela carteira. Para fazer unst
 
 Um comentário de texto só pode pedir tudo, porque não tem onde colocar um valor. Um unstake parcial é uma mensagem comum com um corpo binário, então precisa de uma carteira ou multisig que consiga enviar uma — o multisig.ton.org chama isso de "Arbitrary order", e o formulário dele pede exatamente os três valores abaixo.
 
-Abra o [app do Hipo](/unstake/) com sua multisig conectada, digite o valor que você quer tirar do staking e clique em Unstake. O app monta a ordem e mostra os três valores prontos para copiar:
+Abra o [app do Hipo](/unstake/) com sua multisig conectada, digite o valor que você quer tirar do staking e clique em Unstake. O app entrega a ordem para o seu app de carteira, que a cria como uma solicitação multisig para os outros signatários aprovarem. **Confira se sua multisig é a carteira selecionada antes de assinar** — o link não pode escolhê-la por você. Se nenhum app de carteira abrir, o app mostra os três valores em vez disso, para que você possa criar a ordem manualmente:
 
 - **Endereço de destino (Destination Address)** — o contrato da sua própria carteira hGRAM. Não é a tesouraria: é o contrato que guarda seu hGRAM, derivado do endereço da sua multisig. Confira no Tonviewer antes de assinar; o app linka para ele.
 - **Valor em TON (TON Amount)** — 0,1 GRAM, o mesmo pré-pagamento de gas de sempre, devolvido menos a fração gasta.

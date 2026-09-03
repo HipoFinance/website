@@ -5,7 +5,7 @@ description: 'Fai staking e unstaking con Hipo usando semplici trasferimenti dal
 
 ## Quando serve
 
-Questa pagina è pensata per i wallet che non possono firmare transazioni dapp: i wallet multisig e alcuni cold wallet. Per tutti gli altri è meglio usare l'[app Hipo](/stake/), che costa meno e mostra la stima esatta prima della conferma. Quando un wallet multisig si connette all'app Hipo, l'app mostra queste stesse istruzioni con gli indirizzi e i valori pronti da copiare.
+Questa pagina è pensata per i wallet che non possono firmare transazioni dapp: i wallet multisig e alcuni cold wallet. Per tutti gli altri è meglio usare l'[app Hipo](/stake/), che costa meno e mostra la stima esatta prima della conferma. Quando un wallet multisig si connette all'app Hipo, premere Stake o Unstake consegna l'ordine direttamente alla tua app wallet; queste istruzioni sono il ripiego per quando questo non funziona.
 
 ## Staking — il commento «d»
 
@@ -37,7 +37,7 @@ In questo modo viene ritirato dallo staking l'**intero** saldo di hGRAM di quel 
 
 Un commento di testo può chiedere solo tutto, perché non c'è modo di indicarvi un importo. Un unstaking parziale è un messaggio ordinario con un corpo binario, quindi serve un wallet o un multisig in grado di inviarne uno — multisig.ton.org lo chiama «Arbitrary order», e il suo modulo richiede esattamente i tre valori qui sotto.
 
-Apri l'[app Hipo](/unstake/) con il tuo multisig connesso, digita l'importo che vuoi ritirare dallo staking e premi Unstake. L'app crea l'ordine e mostra i tre valori pronti da copiare:
+Apri l'[app Hipo](/unstake/) con il tuo multisig connesso, digita l'importo che vuoi ritirare dallo staking e premi Unstake. L'app consegna l'ordine alla tua app wallet, che lo crea come richiesta multisig da approvare per gli altri firmatari. **Verifica che il tuo multisig sia il wallet selezionato prima di firmare** — il link non può sceglierlo al posto tuo. Se non si apre nessuna app wallet, l'app mostra invece i tre valori, così puoi creare l'ordine a mano:
 
 - **Indirizzo di destinazione (Destination Address)** — il contratto del tuo wallet hGRAM. Non è la tesoreria: è il contratto che detiene i tuoi hGRAM, derivato dall'indirizzo del tuo multisig. Verificalo su Tonviewer prima di firmare; l'app include il link.
 - **Importo TON (TON Amount)** — 0,1 GRAM, lo stesso anticipo per il gas usato ovunque, rimborsato tranne la frazione spesa.

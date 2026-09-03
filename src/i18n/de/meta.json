@@ -259,10 +259,6 @@
     "sourceHash": "70afe9eff3f2888493d9b5169fec8331af1810de",
     "reviewed": false
   },
-  "app.multisig.enterAmountUnstake": {
-    "sourceHash": "9dbdde4bb8e039329f83a1d4672b65122dd25743",
-    "reviewed": false
-  },
   "app.multisig.entire": {
     "sourceHash": "747761a820ea0860b14fc6679787e58916623a88",
     "reviewed": false
@@ -275,20 +271,8 @@
     "sourceHash": "e2ec28c57233fd3c8bf222e74e9b4ae0a790bbbd",
     "reviewed": false
   },
-  "app.multisig.introStake": {
-    "sourceHash": "62679d0b660c0611c4d7e29aa81729973d33287f",
-    "reviewed": false
-  },
-  "app.multisig.introUnstake": {
-    "sourceHash": "b9d092edd98831d0f80538a0af287106baa62a29",
-    "reviewed": false
-  },
-  "app.multisig.modeBest": {
-    "sourceHash": "503e6b20204b470d831219dcacca77b94d50bd5d",
-    "reviewed": false
-  },
-  "app.multisig.modeInstant": {
-    "sourceHash": "6a370268c37496bd02e9935f38b1a759eabc038c",
+  "app.multisig.introFallback": {
+    "sourceHash": "cf11e00b1feab8d130be286c0d50b83c494893aa",
     "reviewed": false
   },
   "app.multisig.openInWallet": {
@@ -299,28 +283,12 @@
     "sourceHash": "9c61106d6680a1333ddb045369a7517d8ebafa66",
     "reviewed": false
   },
-  "app.multisig.orderIntroStake": {
-    "sourceHash": "72ddbeff71f94bd8136807ac62ea74d42e738efb",
-    "reviewed": false
-  },
-  "app.multisig.orderIntroUnstake": {
-    "sourceHash": "816f72bb04f6d1544911780fad1bd67c614673f2",
-    "reviewed": false
-  },
-  "app.multisig.orderRate": {
-    "sourceHash": "78172cee9ce16b34e7808f9a4de5339707fe96df",
-    "reviewed": false
-  },
   "app.multisig.orderRateWarning": {
     "sourceHash": "316f06e9d7ebc35efbeed55f845b036c2ac7fad5",
     "reviewed": false
   },
   "app.multisig.orderSafetyNote": {
     "sourceHash": "3ead2603bfefbf9f96362d44d1d7de01a7943fcc",
-    "reviewed": false
-  },
-  "app.multisig.orderTitleStake": {
-    "sourceHash": "37c732097b2129c7cbb00a2b48b1143d0a55e5d3",
     "reviewed": false
   },
   "app.multisig.showInstructions": {
@@ -339,12 +307,8 @@
     "sourceHash": "14596bbf3b03f683344db0592fcead8377a4465d",
     "reviewed": false
   },
-  "app.multisig.titleStake": {
-    "sourceHash": "1da3927c905471043bfbe3518cefbdef66015c51",
-    "reviewed": false
-  },
-  "app.multisig.titleUnstake": {
-    "sourceHash": "8c2bd0c943fb1a2a03c3ad6910fe7e5a0a80e7ec",
+  "app.multisig.titleFallback": {
+    "sourceHash": "265578955bc0feea32130a17725da98633ae0e5f",
     "reviewed": false
   },
   "app.multisig.tonAmount": {
@@ -369,10 +333,6 @@
   },
   "app.multisig.verifyDestinationLink": {
     "sourceHash": "e82b30928515e14242de05b823972127ab9f3936",
-    "reviewed": false
-  },
-  "app.multisig.wholeBalanceTitle": {
-    "sourceHash": "31a47bfe8ddd541135222281d7f96abb1d603894",
     "reviewed": false
   },
   "app.nav.defi": {
@@ -1192,7 +1152,7 @@
     "reviewed": false
   },
   "docs/staking-without-the-app.md": {
-    "sourceHash": "27e1458b1c14778b8d42c7283b4b5594e1da0ac1",
+    "sourceHash": "b580cee14e120b018d9a28fa4984e80cdbcd1c81",
     "reviewed": false
   },
   "docs/tutorials/staking.md": {
@@ -1852,7 +1812,7 @@
     "reviewed": false
   },
   "prose/faq/getting-started/which-wallets-are-supported.md": {
-    "sourceHash": "91d449f079e2fe927cef6c64bc225cc16c1f72b9",
+    "sourceHash": "1015840779201cae4b4e64ad9dc11d9688aecf49",
     "reviewed": false
   },
   "prose/faq/getting-started/why-should-i-use-hipo.md": {
@@ -1924,7 +1884,7 @@
     "reviewed": false
   },
   "prose/faq/staking/can-i-stake-with-a-multisig-or-cold-wallet.md": {
-    "sourceHash": "5dc0a92bf8a944cea09626f2552255e970b58913",
+    "sourceHash": "9c908012361d5ead7d7825eb9eedf2ea12ada4bf",
     "reviewed": false
   },
   "prose/faq/staking/how-do-i-stake-gram.md": {
