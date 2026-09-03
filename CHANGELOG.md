@@ -17,6 +17,8 @@ here — `git log` remains the complete record.
   its own in coral, cream and ink.
 - App icons, a palette sheet with CSS and text, and a README of brand rules added.
 - `/docs/brand-kit/` copy rewritten in English and all nine released locales.
+- The first deploy shipped a 404 — the ZIP was staged as a deletion; restored,
+  and the build now reads the archive back before reporting success.
 
 ## 2026-09-01 — [detailed report](changelog/2026-09-01-comma-keypad-decimal.md)
 

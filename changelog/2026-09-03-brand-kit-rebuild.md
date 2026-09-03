@@ -15,10 +15,12 @@ out of that.
 
 ## Commits
 
-| Commit    | Description                                   |
-| --------- | --------------------------------------------- |
-| `d830ec7` | Generate the brand kit instead of curating it |
-| `a1aabb6` | Describe what the brand kit now contains      |
+| Commit    | Description                                                         |
+| --------- | ------------------------------------------------------------------- |
+| `d830ec7` | Generate the brand kit instead of curating it                       |
+| `a1aabb6` | Describe what the brand kit now contains                            |
+| `2ccb0f7` | Record the brand kit rebuild, and close the hTON follow-up          |
+| `7cc5919` | Restore the brand kit ZIP, and read it back before claiming success |
 
 ## What the kit is now
 
@@ -143,6 +145,35 @@ palette sheet's near-black swatches sit on a light plate instead of vanishing in
 its warm-dark ground; and `sharp` is a declared devDependency rather than a
 hoisted transitive of Astro, behind `npm run brand-kit`.
 
+## The first deploy shipped a 404
+
+`d830ec7` deleted the ZIP instead of updating it, and nothing caught it until the
+download was tried on the live site.
+
+The ZIP was absent from the working tree at the moment that commit was staged.
+`git add` on a **tracked** path that has gone missing does not error — it stages
+a deletion. So the commit removed the old 506 KB blob and never added the new
+1.98 MB one, `git status` came back clean afterwards (index and disk agreed the
+file was gone), the build was green, the docs page rendered, and the deploy
+faithfully published a tree with no ZIP in it. `/docs/brand-kit/` returned 200
+and its download returned 404.
+
+What made it invisible is that every check ran on the wrong side of the problem.
+`npm run brand-kit` reported "61 files, 1.98 MB" because `zip` exited 0; the
+site build passed because nothing links a `public/` file to a build failure; and
+the post-commit `git status` was clean for the same reason the commit was wrong.
+
+Verified afterwards that neither the script nor `astro build` removes it — the
+ZIP survives a full build untouched — so the disappearance was environmental,
+between the last rebuild and the commit. That does not matter much: the lesson is
+that the pipeline had no step that looked at the artifact rather than at an exit
+code.
+
+`writeZip` now lists the archive back off disk with `unzip -Z1` and compares the
+entry count against what it staged. And the check that would have caught it at
+the other end — the artifact being present in git — is the one below under
+follow-ups.
+
 ## Decisions taken
 
 **The ZIP is generated, never edited.** Recorded in `CLAUDE.md` under Other
@@ -199,7 +230,10 @@ the mark over `#201b1a` with the site's own coral `--hero-glow`.
   pre-redesign drawing: `#776464` linework where every other icon on the site is
   `#0e0e0e`. The kit no longer copies it, but the site still serves it. The
   `ico()` helper in `scripts/build-brand-kit.mjs` will write a correct one.
-- Nothing detects that the committed ZIP is stale. The build does not regenerate
+- Nothing detects that the committed ZIP is missing or stale. The read-back in
+  `writeZip` catches a bad build, not a bad commit — a `public/` file that a docs
+  page links to can still vanish from git without the site build noticing, which
+  is exactly how `d830ec7` shipped a 404. The build does not regenerate
   it and `prebuild` does not check it, so editing a mark under `public/` and
   forgetting `npm run brand-kit` reintroduces exactly the drift this session
   removed — now less visibly, because the docs assert the ZIP is generated. A
