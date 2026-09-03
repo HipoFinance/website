@@ -83,9 +83,12 @@ the next person to touch this will have the same instinct. The gateway allows **
 (`rate=120r/m` in the nginx repo's `nginx.conf`) and a tick fans out five or six reads, which
 `limit_req` counts _before_ `proxy_cache` — cache hits buy no headroom. That puts 10s at ~36 r/m,
 which survives a second tab; 5s would put two open tabs over the limit, and three consecutive 429s
-is exactly what trips the failover to the public endpoint. Separately, TON's masterchain blocks are
-~5s apart and `/block/latest` carries a 1-5s micro-cache, so polling faster than 10s mostly re-reads
-a block already seen.
+is exactly what trips the failover to the public endpoint. Separately, `/block/latest` carries a
+1-5s micro-cache upstream, so a sub-5s poll would partly re-read what it had just been given.
+
+Block time is _not_ a reason, though this session first wrote it down as one. TON produces blocks in
+roughly 400ms now, far below any interval worth polling at — `waitForCompletionDelay = 250` in
+`Model.ts` had that right all along, fifteen lines from where the wrong figure was added.
 
 The constant carries that reasoning, and both the `ton-v4-read-endpoint` spec and the nginx config
 comment cite the polling figure — the spec is updated here; see the follow-up for the other.
