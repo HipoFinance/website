@@ -5,7 +5,7 @@ description: 'Stake and unstake with Hipo using plain wallet transfers — for m
 
 ## When you need this
 
-This page is for wallets that cannot sign dapp transactions — multisig wallets and some cold wallets. Everyone else should use the [Hipo app](/stake/), which is cheaper and shows the exact estimate before you confirm. When a multisig wallet connects to the Hipo app, the app shows these same instructions with the treasury address ready to copy.
+This page is for wallets that cannot sign dapp transactions — multisig wallets and some cold wallets. Everyone else should use the [Hipo app](/stake/), which is cheaper and shows the exact estimate before you confirm. When a multisig wallet connects to the Hipo app, the app shows these same instructions with the addresses and values ready to copy.
 
 ## Stake — the “d” comment
 
@@ -31,7 +31,19 @@ Send 0.1 GRAM to the same treasury address with the text comment:
 w
 ```
 
-This unstakes the **entire** hGRAM balance of that wallet — there is no partial amount. The unstake settles under the normal protocol rules, so the Full-unstake timing applies — see [How Unstaking Works](/docs/introduction/how-does-hipo-work/unstaking/) and [How long does unstaking take?](/faq/#how-long-does-unstaking-take)
+This unstakes the **entire** hGRAM balance of that wallet. To unstake only a part of it, use a raw order instead — see the next section. The unstake settles under the normal protocol rules, so the Full-unstake timing applies — see [How Unstaking Works](/docs/introduction/how-does-hipo-work/unstaking/) and [How long does unstaking take?](/faq/#how-long-does-unstaking-take)
+
+## Unstake a part — a raw order
+
+A text comment can only ask for everything, because it has nowhere to put an amount. A partial unstake is an ordinary message with a binary body, so it needs a wallet or multisig that can send one — multisig.ton.org calls this an “Arbitrary order”, and its form takes exactly the three values below.
+
+Open the [Hipo app](/unstake/) with your multisig connected, type the amount you want to unstake, and press Unstake. The app builds the order and shows the three values ready to copy:
+
+- **Destination Address** — your own hGRAM wallet contract. This is not the treasury: it is the contract that holds your hGRAM, derived from your multisig address. Verify it on Tonviewer before you sign; the app links to it.
+- **TON Amount** — 0.1 GRAM, the same gas prepayment as everywhere else, refunded apart from the fraction spent.
+- **Order BOC** — the message body, in base64.
+
+Two things worth knowing. Only your own hGRAM wallet contract accepts this order, so if it is signed from a different wallet by mistake it simply bounces and nothing is burned — unlike the “w” comment, which would unstake whatever balance the sending wallet happens to hold. And if you chose the instant rate, how much can be redeemed instantly moves with every round: sign promptly, or pick the best rate for an order that has to wait for other signatures.
 
 ## Burn hGRAM via the minter
 
@@ -52,6 +64,7 @@ hGRAM pools exist on DeDust, STON.fi, TONCO, GroypFi and swap.coffee — the cur
 - Verify the treasury address against [Contracts & Audits](/docs/contracts-and-audits/) — never trust an address from a forwarded message; see [Phishing Awareness](/docs/security/phishing-awareness-and-prevention/).
 - The comment must be plain text, exactly `d` or `w`.
 - A transfer with no comment, or the wrong comment, is not a stake or unstake request.
+- For a raw order, check the destination is your own hGRAM wallet contract and not an address from somewhere else.
 
 ## More in the FAQ
 
