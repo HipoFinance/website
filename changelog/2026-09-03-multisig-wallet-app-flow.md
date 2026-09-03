@@ -93,6 +93,21 @@ roughly 400ms now, far below any interval worth polling at — `waitForCompletio
 The constant carries that reasoning, and both the `ton-v4-read-endpoint` spec and the nginx config
 comment cite the polling figure — the spec is updated here; see the follow-up for the other.
 
+### The Stats page reads once
+
+The 10s poll is right for the stake form, where balances, the rate and the fee lines move under
+someone mid-decision. It is wrong for `/stats/`, which is a snapshot to read rather than a number
+being acted on, and where a repeating read buys nothing.
+
+`Model.scheduleNextBlockRead` is now the single place the next poll is armed, and it declines to arm
+one while `activePage` is `stats`. Nothing else had to change for the page to refresh on return:
+`controlBackgroundJobs` already calls `resume()` both on an in-app navigation and on the browser tab
+regaining visibility, and `resume()` reads immediately.
+
+The failure path deliberately does not route through the new helper. A read that failed still
+retries on `retryDelay` wherever it happened, because a Stats page that stopped after one failed read
+would sit on an error with nothing to clear it.
+
 ### Verification performed
 
 - `npm run build` — clean, 523 pages, `check-i18n` passing.

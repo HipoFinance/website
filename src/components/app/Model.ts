@@ -2270,6 +2270,21 @@ export class Model {
       })
   }
 
+  // The stake form needs a live view: balances, the rate and the fee lines move under someone who
+  // is mid-decision, so it keeps polling. The Stats page does not — it is a snapshot to read, not a
+  // number being acted on — so it reads once when shown and stops there. Coming back re-reads
+  // either way, since controlBackgroundJobs calls resume() on an in-app navigation and on the
+  // browser tab regaining visibility, and resume() reads immediately. The failure path in
+  // readLastBlock deliberately does not go through here: a read that failed must still be retried,
+  // or the page would sit on an error forever.
+  scheduleNextBlockRead = () => {
+    clearTimeout(this.timeoutReadLastBlock)
+    if (this.activePage === 'stats') {
+      return
+    }
+    this.timeoutReadLastBlock = setTimeout(() => void this.readLastBlock(), updateLastBlockDelay)
+  }
+
   readLastBlock = async () => {
     const tonClient = this.tonClient
     const address = this.address
@@ -2277,7 +2292,7 @@ export class Model {
     if (document.hidden) {
       return
     }
-    this.timeoutReadLastBlock = setTimeout(() => void this.readLastBlock(), updateLastBlockDelay)
+    this.scheduleNextBlockRead()
 
     if (tonClient == null || chain?.treasuryAddress == null) {
       runInAction(() => {
@@ -2595,7 +2610,7 @@ export class Model {
     } catch {
       this.setWaitForTransaction('unreachable')
     } finally {
-      this.timeoutReadLastBlock = setTimeout(() => void this.readLastBlock(), updateLastBlockDelay)
+      this.scheduleNextBlockRead()
     }
   }
 
