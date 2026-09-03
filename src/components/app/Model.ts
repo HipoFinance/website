@@ -170,6 +170,17 @@ const averageUnstakeFee = 42000000n
 // v2.0 build artifact; the same hash is registered as the multisig interface in tonkeeper/tongo
 const multisigCodeHashes = ['09FNqaYn8Ow1MzQYKXYq+SuVQLIb8DZl+sCcK0bqu6w=']
 
+// What the guidance dialog was opened with. The multisig user copies these values into an order that
+// is signed minutes or days later, so they are frozen when the dialog opens rather than read live:
+// a payload that changes after it was copied is a silent wrong-amount bug, and there is no wallet
+// dialog here to catch it.
+interface MultisigSnapshot {
+  isStake: boolean
+  amountInNano?: bigint
+  unstakeOption: UnstakeOption
+  queryId: bigint
+}
+
 const defaultActivePage: ActivePage = 'stake'
 const defaultActiveTab: ActiveTab = 'stake'
 const defaultStatsRange: StatsRange = '30d'
@@ -545,6 +556,7 @@ export class Model {
   isMultisig = false
   showMultisigGuidance = false
   multisigHint = false
+  multisigSnapshot?: MultisigSnapshot
   holdersCount?: number = inlineGauge?.hton?.holders_count
   gauge?: HipoGauge = inlineGauge === undefined ? undefined : toHipoGauge(inlineGauge)
   isGaugeRefreshing = false
@@ -631,6 +643,7 @@ export class Model {
       isMultisig: observable,
       showMultisigGuidance: observable,
       multisigHint: observable,
+      multisigSnapshot: observable,
       holdersCount: observable,
       gauge: observable,
       isGaugeRefreshing: observable,
@@ -679,11 +692,21 @@ export class Model {
       explorerHref: computed,
       treasuryAddressFormatted: computed,
       connectedAddressShort: computed,
+      multisigIsStake: computed,
       multisigComment: computed,
       multisigTransferAmount: computed,
       multisigTransferAmountFormatted: computed,
       activePath: computed,
       multisigDeepLink: computed,
+      multisigMessage: computed,
+      multisigPayload: computed,
+      multisigPayloadDestination: computed,
+      multisigPayloadAmountAscii: computed,
+      multisigPayloadAmountFormatted: computed,
+      multisigPayloadExplorerHref: computed,
+      multisigPayloadDeepLink: computed,
+      multisigSnapshotAmountFormatted: computed,
+      multisigUnstakeOption: computed,
       apy: computed,
       apyFormatted: computed,
       protocolFee: computed,
@@ -1384,18 +1407,25 @@ export class Model {
     return this.isChainReady ? (chain!.treasuryAddress?.toString() ?? '') : ''
   }
 
+  // The tab the dialog was opened on. Navigating tabs behind an open dialog must not rewrite the
+  // order the user is halfway through copying, so the snapshot wins while it exists.
+  get multisigIsStake() {
+    return this.multisigSnapshot?.isStake ?? this.isStakeTabActive
+  }
+
   get multisigComment() {
-    return this.isStakeTabActive ? 'd' : 'w'
+    return this.multisigIsStake ? 'd' : 'w'
   }
 
   get multisigTransferAmount() {
-    if (this.isStakeTabActive) {
-      if (this.isAmountValid && this.isAmountPositive && this.amountInNano != null) {
-        return this.amountInNano + chain!.feeStake
-      }
+    const snapshot = this.multisigSnapshot
+    if (!this.isChainReady || snapshot == null) {
       return undefined
     }
-    return this.isChainReady ? chain!.feeUnstake : undefined
+    if (snapshot.isStake) {
+      return snapshot.amountInNano == null ? undefined : snapshot.amountInNano + chain!.feeStake
+    }
+    return chain!.feeUnstake
   }
 
   // ASCII digits on purpose: the user retypes this into a multisig UI that takes nothing else.
@@ -1427,6 +1457,83 @@ export class Model {
       link = 'ton://transfer/' + address + '?amount=' + amount.toString() + '&text=' + this.multisigComment
     }
     return link
+  }
+
+  // The exact message the TonConnect path would have sent, built from the frozen snapshot with the
+  // same SDK helpers — so the copied order and a signed transaction can never disagree. Reads
+  // isChainReady like the other guarded getters: no chain layer means no message, not a wrong one.
+  get multisigMessage() {
+    const snapshot = this.multisigSnapshot
+    if (!this.isChainReady || snapshot == null || snapshot.amountInNano == null) {
+      return undefined
+    }
+    if (snapshot.isStake) {
+      const treasury = this.treasury
+      return treasury == null
+        ? undefined
+        : chain!.createDepositMessage(treasury.address, snapshot.amountInNano, snapshot.queryId)
+    }
+    // An owner-specific destination, and that is the safety property: this message is only accepted
+    // by the hGRAM wallet of the multisig it was built for, so a transfer sent from the wrong wallet
+    // bounces instead of burning that wallet's balance the way a 'w' comment would.
+    const walletAddress = this.walletAddress
+    return walletAddress == null
+      ? undefined
+      : chain!.createUnstakeMessage(walletAddress, snapshot.amountInNano, snapshot.unstakeOption, snapshot.queryId)
+  }
+
+  get multisigPayload() {
+    return this.multisigMessage?.payload
+  }
+
+  get multisigPayloadDestination() {
+    return this.multisigMessage?.address
+  }
+
+  // ASCII digits on purpose, like multisigTransferAmountFormatted: retyped into a multisig UI.
+  // Bare, because this one goes in a copy field next to a "TON Amount" label that supplies the unit.
+  get multisigPayloadAmountAscii() {
+    const amount = this.multisigMessage?.amount
+    return amount == null ? undefined : fmt.formatAsciiNano(BigInt(amount))
+  }
+
+  // The same figure with its unit, for the sentence rather than the copy field.
+  get multisigPayloadAmountFormatted() {
+    const amount = this.multisigPayloadAmountAscii
+    if (amount != null) {
+      return this.withUnit('app.model.gram', amount)
+    }
+  }
+
+  get multisigPayloadExplorerHref() {
+    const address = this.multisigPayloadDestination
+    return address == null ? undefined : 'https://tonviewer.com/' + address
+  }
+
+  // ton://transfer carries the body as standard base64 — not base64url — percent-encoded, and
+  // requires `amount` whenever `bin` is present (docs.ton.org, "Deep Links"). So the SDK's payload
+  // goes in unchanged apart from encodeURIComponent; unlike the text-comment link above, which gets
+  // away with raw interpolation only because its comment is a single ASCII letter.
+  get multisigPayloadDeepLink() {
+    const message = this.multisigMessage
+    if (message?.payload == null) {
+      return undefined
+    }
+    return (
+      'ton://transfer/' + message.address + '?amount=' + message.amount + '&bin=' + encodeURIComponent(message.payload)
+    )
+  }
+
+  // What the order unstakes, in hGRAM — the snapshot's amount, not the live field.
+  get multisigSnapshotAmountFormatted() {
+    const amount = this.multisigSnapshot?.amountInNano
+    return amount == null ? undefined : this.withUnit('app.model.hgram', fmt.formatAsciiNano(amount))
+  }
+
+  // Which rate option the snapshot froze, so the dialog can name it — the user cannot see the
+  // on-screen toggle once they are in their multisig UI.
+  get multisigUnstakeOption() {
+    return this.multisigSnapshot?.unstakeOption
   }
 
   get apy() {
@@ -1708,6 +1815,7 @@ export class Model {
     this.isMultisig = false
     this.showMultisigGuidance = false
     this.multisigHint = false
+    this.multisigSnapshot = undefined
     this.walletAddress = undefined
     this.wallet = undefined
     this.walletState = undefined
@@ -1883,10 +1991,19 @@ export class Model {
   openMultisigGuidance = () => {
     this.multisigHint = false
     this.showMultisigGuidance = true
+    // Frozen here, not read live — see MultisigSnapshot. An amount that does not currently convert
+    // is recorded as absent, which is what makes the dialog ask for one instead of guessing.
+    this.multisigSnapshot = {
+      isStake: this.isStakeTabActive,
+      amountInNano: this.isAmountValid && this.isAmountPositive ? this.amountInNano : undefined,
+      unstakeOption: this.unstakeOption,
+      queryId: generateRandomQueryId(),
+    }
   }
 
   closeMultisigGuidance = () => {
     this.showMultisigGuidance = false
+    this.multisigSnapshot = undefined
   }
 
   showMultisigHint = () => {
