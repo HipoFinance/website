@@ -50,9 +50,9 @@ Today the panel's APY and Staked are contract-derived: `model.apy` from
 `model.currentlyStaked` from `treasuryState.totalCoins` (`Model.ts:623-631`).
 `treasuryState` is referenced 33 times across the model — it drives the
 exchange rate, fee estimates and unstake options — so it is read from the chain
-every 10s on the stake form whether or not the Stats page uses it. (Since 2026-09-03 the Stats page
-itself reads once when shown rather than polling — `Model.scheduleNextBlockRead` — so on that page
-the read is a single one, not a repeating cost.)
+every 10s on the stake form whether or not the Stats page uses it. (Since 2026-09-03 the Stats page polls at
+5min rather than 10s — `Model.scheduleNextBlockRead` — matching the gauge, since only
+`statsRateFormatted` and `protocolFee` on that page come off the block poller at all.)
 
 Page components follow a shared shape: a `max-w-5xl p-4 pb-32` wrapper, a
 centred `text-3xl font-bold` title and a one-line subtitle (`Reward.tsx:10-12`,
@@ -297,7 +297,7 @@ a legitimate state. Covered by the mid-session criterion.
 because the exchange rate, fee estimates and unstake options depend on it. The
 change consolidates where the _statistics_ come from; it does not remove a
 fetch. (As of 2026-09-03 that read repeats every 10s only on the stake form; the
-Stats page takes it once when shown.)
+Stats page takes it every 5min, matching the gauge.)
 
 **Gauge lag.** The gauge mirrors the contract. Spot-checked during this
 session, `current_apy` and `current_tvl` matched the contract getters exactly,

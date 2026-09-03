@@ -93,20 +93,28 @@ roughly 400ms now, far below any interval worth polling at — `waitForCompletio
 The constant carries that reasoning, and both the `ton-v4-read-endpoint` spec and the nginx config
 comment cite the polling figure — the spec is updated here; see the follow-up for the other.
 
-### The Stats page reads once
+### The Stats page polls at 5 minutes
 
 The 10s poll is right for the stake form, where balances, the rate and the fee lines move under
 someone mid-decision. It is wrong for `/stats/`, which is a snapshot to read rather than a number
-being acted on, and where a repeating read buys nothing.
+being acted on.
 
-`Model.scheduleNextBlockRead` is now the single place the next poll is armed, and it declines to arm
-one while `activePage` is `stats`. Nothing else had to change for the page to refresh on return:
-`controlBackgroundJobs` already calls `resume()` both on an in-app navigation and on the browser tab
-regaining visibility, and `resume()` reads immediately.
+The first attempt stopped that page's polling altogether, on the reasoning that its figures come
+from elsewhere. Mostly they do — APY, staked, holders, TVL and the token stats are gauge data on a
+5 minute refresh, and the charts are Prometheus on 300s — but two are not. `statsRateFormatted`
+reads the treasury and has **no gauge equivalent**, only the build-time Prometheus seed;
+`protocolFee` does the same with a gauge fallback. So the page cannot stop reading the chain, it
+just has no use for the form's cadence. It now polls at 5 minutes, matching the gauge, so the whole
+page moves in one rhythm instead of two.
 
-The failure path deliberately does not route through the new helper. A read that failed still
-retries on `retryDelay` wherever it happened, because a Stats page that stopped after one failed read
-would sit on an error with nothing to clear it.
+`Model.scheduleNextBlockRead` is the single place the next poll is armed and the only place that
+cadence is chosen. Nothing had to change for the page to refresh on return: `controlBackgroundJobs`
+already calls `resume()` both on an in-app navigation and on the browser tab regaining visibility,
+and `resume()` reads immediately.
+
+The failure path deliberately does not route through the helper. A read that failed still retries on
+`retryDelay` wherever it happened, because a page that stopped after one failed read would sit on an
+error with nothing to clear it.
 
 ### Verification performed
 

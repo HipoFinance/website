@@ -21,8 +21,8 @@ here — `git log` remains the complete record.
   wallet-app flow in English and all nine released locales.
 - The block poller now runs every 10s instead of 30s, sized against the
   gateway's 120 r/m per-IP limit rather than lowered to 5s.
-- `/stats/` reads once when shown instead of polling, and re-reads on the way
-  back in.
+- `/stats/` polls at 5min instead of the form's 10s, matching the gauge, since
+  only the rate card and the protocol fee there come off the block poller.
 
 ## 2026-09-03 — [detailed report](changelog/2026-09-03-multisig-partial-unstake.md)
 

@@ -132,6 +132,11 @@ const updateTimesDelay = 5 * 60 * 1000
 // carries a 1-5s micro-cache upstream, so a sub-5s poll would partly re-read what it just got.
 // Changing this means re-checking that headroom, and the comment in the nginx repo citing it.
 const updateLastBlockDelay = 10 * 1000
+// The Stats page's own cadence. Most of that page is gauge data on a 5 minute refresh and chart
+// data on 300s, but two figures come off the block poller — statsRateFormatted, which has no gauge
+// equivalent at all, and protocolFee — so it does need reading, just not at the form's rate.
+// Matching the gauge means the page moves as one rather than in two rhythms.
+const updateLastBlockStatsDelay = 5 * 60 * 1000
 const retryDelay = 3 * 1000
 
 // A read that fails is retried on a fixed 1s gap, 30 times — half a minute for a hiccup to clear.
@@ -2271,18 +2276,17 @@ export class Model {
   }
 
   // The stake form needs a live view: balances, the rate and the fee lines move under someone who
-  // is mid-decision, so it keeps polling. The Stats page does not — it is a snapshot to read, not a
-  // number being acted on — so it reads once when shown and stops there. Coming back re-reads
-  // either way, since controlBackgroundJobs calls resume() on an in-app navigation and on the
-  // browser tab regaining visibility, and resume() reads immediately. The failure path in
-  // readLastBlock deliberately does not go through here: a read that failed must still be retried,
-  // or the page would sit on an error forever.
+  // is mid-decision. The Stats page is a snapshot to read, so it polls at the gauge's 5 minute
+  // cadence instead — it cannot stop reading altogether, because statsRateFormatted comes off the
+  // treasury and has no gauge fallback. Either way, coming back re-reads at once:
+  // controlBackgroundJobs calls resume() on an in-app navigation and on the browser tab regaining
+  // visibility, and resume() reads immediately. The failure path in readLastBlock deliberately does
+  // not come through here — a read that failed must still be retried on retryDelay, or a page would
+  // sit on an error with nothing to clear it.
   scheduleNextBlockRead = () => {
     clearTimeout(this.timeoutReadLastBlock)
-    if (this.activePage === 'stats') {
-      return
-    }
-    this.timeoutReadLastBlock = setTimeout(() => void this.readLastBlock(), updateLastBlockDelay)
+    const delay = this.activePage === 'stats' ? updateLastBlockStatsDelay : updateLastBlockDelay
+    this.timeoutReadLastBlock = setTimeout(() => void this.readLastBlock(), delay)
   }
 
   readLastBlock = async () => {
