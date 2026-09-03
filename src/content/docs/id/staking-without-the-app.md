@@ -5,7 +5,7 @@ description: 'Men-stake dan meng-unstake di Hipo dengan transfer dompet biasa �
 
 ## Kapan Anda membutuhkan ini
 
-Halaman ini ditujukan untuk dompet yang tidak dapat menandatangani transaksi dapp — dompet multisig dan sebagian cold wallet. Selain itu, sebaiknya gunakan [aplikasi Hipo](/stake/), yang lebih murah dan menampilkan perkiraan yang tepat sebelum Anda mengonfirmasi. Ketika dompet multisig terhubung ke aplikasi Hipo, aplikasi menampilkan instruksi yang sama ini beserta alamat treasury yang siap disalin.
+Halaman ini ditujukan untuk dompet yang tidak dapat menandatangani transaksi dapp — dompet multisig dan sebagian cold wallet. Selain itu, sebaiknya gunakan [aplikasi Hipo](/stake/), yang lebih murah dan menampilkan perkiraan yang tepat sebelum Anda mengonfirmasi. Ketika dompet multisig terhubung ke aplikasi Hipo, aplikasi menampilkan instruksi yang sama ini beserta alamat-alamat dan nilai yang siap disalin.
 
 ## Stake — komentar "d"
 
@@ -31,7 +31,19 @@ Kirim 0,1 GRAM ke alamat treasury yang sama dengan komentar teks:
 w
 ```
 
-Ini meng-unstake **seluruh** saldo hGRAM dompet tersebut — tidak ada jumlah sebagian. Unstake diselesaikan menurut aturan protokol yang normal, jadi ketentuan waktu unstake Penuh berlaku — lihat [Cara kerja unstaking](/docs/introduction/how-does-hipo-work/unstaking/) dan [Berapa lama unstaking berlangsung?](/faq/#how-long-does-unstaking-take)
+Ini meng-unstake **seluruh** saldo hGRAM dompet tersebut. Untuk meng-unstake hanya sebagian saldo, gunakan raw order sebagai gantinya — lihat bagian berikutnya. Unstake diselesaikan menurut aturan protokol yang normal, jadi ketentuan waktu unstake Penuh berlaku — lihat [Cara kerja unstaking](/docs/introduction/how-does-hipo-work/unstaking/) dan [Berapa lama unstaking berlangsung?](/faq/#how-long-does-unstaking-take)
+
+## Unstake sebagian — raw order
+
+Komentar teks hanya bisa meminta semuanya, karena tidak ada tempat untuk mencantumkan jumlah. Unstake sebagian adalah pesan biasa dengan isi biner, sehingga membutuhkan dompet atau multisig yang bisa mengirimkannya — multisig.ton.org menyebut ini "Arbitrary order", dan formulirnya membutuhkan persis tiga nilai di bawah ini.
+
+Buka [aplikasi Hipo](/unstake/) dengan multisig Anda terhubung, ketik jumlah yang ingin Anda unstake, dan tekan Unstake. Aplikasi akan membuat order dan menampilkan tiga nilai yang siap disalin:
+
+- **Alamat Tujuan (Destination Address)** — kontrak dompet hGRAM Anda sendiri. Ini bukan treasury: ini adalah kontrak yang menyimpan hGRAM Anda, diturunkan dari alamat multisig Anda. Verifikasi di Tonviewer sebelum Anda menandatangani; aplikasi menautkan ke sana.
+- **Jumlah TON (TON Amount)** — 0,1 GRAM, prabayar gas yang sama seperti di tempat lain, dikembalikan kecuali bagian yang terpakai.
+- **BOC Order (Order BOC)** — isi pesan, dalam base64.
+
+Dua hal yang perlu diketahui. Hanya kontrak dompet hGRAM Anda sendiri yang menerima order ini, jadi jika secara tidak sengaja ditandatangani dari dompet lain, order tersebut akan bounce dan tidak ada yang di-burn — berbeda dengan komentar "w", yang akan meng-unstake berapa pun saldo yang kebetulan dimiliki dompet pengirim. Selain itu, jika Anda memilih kurs instan, jumlah yang bisa ditebus secara instan berubah setiap putaran: tanda tangani segera, atau pilih kurs terbaik untuk order yang harus menunggu tanda tangan lain.
 
 ## Burn hGRAM melalui minter
 
@@ -52,6 +64,7 @@ Pool hGRAM tersedia di DeDust, STON.fi, TONCO, GroypFi, dan swap.coffee — daft
 - Verifikasi alamat treasury terhadap [Kontrak & audit](/docs/contracts-and-audits/) — jangan pernah percaya alamat dari pesan yang diteruskan; lihat [Kesadaran phishing](/docs/security/phishing-awareness-and-prevention/).
 - Komentar harus berupa teks biasa, persis `d` atau `w`.
 - Transfer tanpa komentar, atau dengan komentar yang salah, bukan merupakan permintaan stake atau unstake.
+- Untuk raw order, pastikan tujuannya adalah kontrak dompet hGRAM Anda sendiri, bukan alamat dari tempat lain.
 
 ## Selengkapnya di FAQ
 
