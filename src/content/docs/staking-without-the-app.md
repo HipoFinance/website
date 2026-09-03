@@ -5,7 +5,7 @@ description: 'Stake and unstake with Hipo using plain wallet transfers — for m
 
 ## When you need this
 
-This page is for wallets that cannot sign dapp transactions — multisig wallets and some cold wallets. Everyone else should use the [Hipo app](/stake/), which is cheaper and shows the exact estimate before you confirm. When a multisig wallet connects to the Hipo app, the app shows these same instructions with the addresses and values ready to copy.
+This page is for wallets that cannot sign dapp transactions — multisig wallets and some cold wallets. Everyone else should use the [Hipo app](/stake/), which is cheaper and shows the exact estimate before you confirm. When a multisig wallet connects to the Hipo app, pressing Stake or Unstake hands the order straight to your wallet app; these instructions are the fallback for when that does not work.
 
 ## Stake — the “d” comment
 
@@ -37,7 +37,7 @@ This unstakes the **entire** hGRAM balance of that wallet. To unstake only a par
 
 A text comment can only ask for everything, because it has nowhere to put an amount. A partial unstake is an ordinary message with a binary body, so it needs a wallet or multisig that can send one — multisig.ton.org calls this an “Arbitrary order”, and its form takes exactly the three values below.
 
-Open the [Hipo app](/unstake/) with your multisig connected, type the amount you want to unstake, and press Unstake. The app builds the order and shows the three values ready to copy:
+Open the [Hipo app](/unstake/) with your multisig connected, type the amount you want to unstake, and press Unstake. The app hands the order to your wallet app, which creates it as a multisig request for the other signers to approve. **Check that your multisig is the selected wallet before signing** — the link cannot choose it for you. If no wallet app opens, the app shows the three values instead, so you can create the order by hand:
 
 - **Destination Address** — your own hGRAM wallet contract. This is not the treasury: it is the contract that holds your hGRAM, derived from your multisig address. Verify it on Tonviewer before you sign; the app links to it.
 - **TON Amount** — 0.1 GRAM, the same gas prepayment as everywhere else, refunded apart from the fraction spent.
