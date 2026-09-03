@@ -7,6 +7,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-03 — [detailed report](changelog/2026-09-03-multisig-wallet-app-flow.md)
+
+- Tonkeeper builds a real multisig request from the order link, so pressing Stake
+  or Unstake now opens the wallet app directly, with no dialog.
+- The copy fields and the `d`/`w` comment protocol became the fallback for when
+  no wallet app opens, detected by the page still being in front.
+- A dismissible note names the connected multisig after hand-off, because
+  Tonkeeper does not preselect it and a wrong-wallet stake mints to the signer.
+- Twelve catalog keys retired, two added, and the docs and FAQ now lead with the
+  wallet-app flow in English and all nine released locales.
+
 ## 2026-09-03 — [detailed report](changelog/2026-09-03-multisig-partial-unstake.md)
 
 - A multisig can now unstake part of its hGRAM: the app builds the order and
