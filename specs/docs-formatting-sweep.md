@@ -154,3 +154,8 @@ All answered by the user on 2026-08-24; recorded here as decisions.
 
 Out of scope, recorded as a follow-up: the main brand kit contains `hTON Token Logo.png/.svg`, which predates
 the hGRAM rename. Replacing it needs a new asset from the team — this batch does not re-author assets.
+
+_Closed 2026-09-03_ (`changelog/2026-09-03-brand-kit-rebuild.md`): no new asset was needed. The hGRAM mark
+already lived in `public/` as the site's own icon, and the kit is now generated from those files by
+`scripts/build-brand-kit.mjs` rather than curated by hand, so hTON is labelled legacy and hGRAM ships
+alongside it.
