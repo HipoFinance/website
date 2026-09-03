@@ -71,6 +71,25 @@ reports an unused locale key as `extra`, so a locale keeping them would fail the
 added (`titleFallback`, `introFallback`), leaving 25. The docs page and both FAQ entries now lead
 with the wallet-app request; all of it shipped in the nine `indexed` locales.
 
+## Polling every 10s
+
+Unrelated to the multisig work but reported in the same session: the app felt slow to refresh. The
+block poller was on a 30s cycle, and it now runs every 10s. The multisig flow makes that more
+visible than it was — a request lands whenever its last signature does, with no `waitForCompletion`
+watching for it, so the poll is the only thing that will notice.
+
+It was not lowered to the 5s that was also on the table, for two reasons worth writing down since
+the next person to touch this will have the same instinct. The gateway allows **120 r/m per IP**
+(`rate=120r/m` in the nginx repo's `nginx.conf`) and a tick fans out five or six reads, which
+`limit_req` counts _before_ `proxy_cache` — cache hits buy no headroom. That puts 10s at ~36 r/m,
+which survives a second tab; 5s would put two open tabs over the limit, and three consecutive 429s
+is exactly what trips the failover to the public endpoint. Separately, TON's masterchain blocks are
+~5s apart and `/block/latest` carries a 1-5s micro-cache, so polling faster than 10s mostly re-reads
+a block already seen.
+
+The constant carries that reasoning, and both the `ton-v4-read-endpoint` spec and the nginx config
+comment cite the polling figure — the spec is updated here; see the follow-up for the other.
+
 ### Verification performed
 
 - `npm run build` — clean, 523 pages, `check-i18n` passing.
@@ -89,6 +108,11 @@ with the wallet-app request; all of it shipped in the nine `indexed` locales.
   personal wallet paying while the multisig received. The wrong-wallet case is a stake from the
   wrong account, not a misdirection of funds — payer and receiver are the same party throughout.
   Nothing to fix.
+- **The nginx repo's comment still says 30s.** `config/v4.hipo.finance.conf` explains its
+  `limit_req` sizing with "The island polls every 30s"; the rate limit itself still holds at 10s
+  (~36 r/m against 120 r/m), so nothing needs reconfiguring, but that comment and this repo's
+  `specs/ton-v4-nginx.conf` copy are now stale and should be corrected together, since the two are
+  meant to stay in sync.
 - **The 2.5 s watchdog is a guess.** No wallet reports back, so the delay is tuned to feel prompt on
   desktop without tripping on a slow app launch. If reports come in of the fallback appearing after
   Tonkeeper opened, raise it or add a `visibilitychange` listener that cancels the timer outright.

@@ -122,7 +122,15 @@ const updateHipoGaugeDelay = 5 * 60 * 1000
 const retryHipoGaugeDelay = 5 * 1000
 const retryWalletRewardsDelay = 5 * 1000
 const updateTimesDelay = 5 * 60 * 1000
-const updateLastBlockDelay = 30 * 1000
+// 10s, not the 30s this was until 2026-09-03: balances and the rate felt stale, and a multisig
+// order in particular lands whenever its last signature does, with no waitForCompletion watching
+// for it. Not lower, for two reasons. The gateway allows 120 r/m per IP (rate=120r/m in the nginx
+// repo's nginx.conf) and each tick fans out ~5-6 reads, which limit_req counts before the cache —
+// so 10s is ~36 r/m and survives a second tab, where 5s would put two tabs over the limit and fail
+// them over to the public endpoint. And TON's masterchain blocks are ~5s with a 1-5s micro-cache on
+// /block/latest, so polling faster than this mostly re-reads the same block. Changing it means
+// re-checking that headroom, and the comment in the nginx repo that cites this number.
+const updateLastBlockDelay = 10 * 1000
 const retryDelay = 3 * 1000
 
 // A read that fails is retried on a fixed 1s gap, 30 times — half a minute for a hiccup to clear.

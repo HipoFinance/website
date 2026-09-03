@@ -36,9 +36,11 @@ swap plus failover logic; no library changes.
    - `GET`/`HEAD`/`OPTIONS` only;
    - CORS locked to `https://hipo.finance` (same header discipline as the Prometheus route:
      hide upstream CORS headers, add our own);
-   - per-IP rate limiting sized for the app's polling pattern (the island polls every 30 s and
-     fans out several reads per block; start at ~120 r/m with burst headroom and tune after
-     observing real traffic);
+   - per-IP rate limiting sized for the app's polling pattern (the island polls every 10 s — 30 s
+     until 2026-09-03 — and fans out several reads per block; start at ~120 r/m with burst headroom
+     and tune after observing real traffic). At 10 s a tab costs ~36 r/m, so the 120 r/m zone still
+     holds a second tab; note `limit_req` counts requests before `proxy_cache`, so cache hits do
+     not buy headroom here;
    - `proxy_cache` honoring upstream `Cache-Control` — the v4 API is designed for this:
      block-keyed responses (`/block/{seqno}/…`, `/account/{seqno}/…`) are immutable and cache
      indefinitely, while `/block/latest` gets only a seconds-scale micro-cache.

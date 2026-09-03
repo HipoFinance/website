@@ -19,6 +19,8 @@ here — `git log` remains the complete record.
   value when nothing did.
 - Twelve catalog keys retired, two added, and the docs and FAQ now lead with the
   wallet-app flow in English and all nine released locales.
+- The block poller now runs every 10s instead of 30s, sized against the
+  gateway's 120 r/m per-IP limit rather than lowered to 5s.
 
 ## 2026-09-03 — [detailed report](changelog/2026-09-03-multisig-partial-unstake.md)
 

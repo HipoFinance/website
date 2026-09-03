@@ -50,7 +50,7 @@ Today the panel's APY and Staked are contract-derived: `model.apy` from
 `model.currentlyStaked` from `treasuryState.totalCoins` (`Model.ts:623-631`).
 `treasuryState` is referenced 33 times across the model — it drives the
 exchange rate, fee estimates and unstake options — so it is read from the chain
-every 30s whether or not the Stats page uses it.
+every 10s whether or not the Stats page uses it.
 
 Page components follow a shared shape: a `max-w-5xl p-4 pb-32` wrapper, a
 centred `text-3xl font-bold` title and a one-line subtitle (`Reward.tsx:10-12`,
@@ -291,7 +291,7 @@ accidentally cleared in the failure path, every mainnet user silently falls back
 to contract values and loses the market sections — with no error, since that is
 a legitimate state. Covered by the mid-session criterion.
 
-**This does not reduce network traffic.** `treasuryState` is read every 30s
+**This does not reduce network traffic.** `treasuryState` is read every 10s
 regardless, because the exchange rate, fee estimates and unstake options depend
 on it. The change consolidates where the _statistics_ come from; it does not
 remove a fetch.
