@@ -78,4 +78,8 @@ hydrated island and watching the form fill in.
 
 - The contract's `get_loan_request` would be better with an explicit found flag than with a
   `stage` whose 0 is overloaded. Worth raising in the contract repo.
+- `webapp` was deliberately **not** fixed: the repo is archived, and `app.hipo.finance` now 301s to
+  `hipo.finance/app/`, the legacy stub in this repo. Nothing it builds is served any more. A bump was
+  prepared and then reverted — worth knowing it also wanted to rename `npm-shrinkwrap.json` to
+  `package-lock.json`, which is not a change to make in an archived repo.
 - `sdk-example` still floats on `^4.3.0` and was not touched.
