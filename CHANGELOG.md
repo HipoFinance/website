@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-05 — [detailed report](changelog/2026-09-05-treasury-abi-realignment.md)
+
+- Bumped `@hipo-finance/sdk` to 4.5.0, which realigns the treasury parsers with
+  today's borrower-fee contract upgrade and unbreaks the stake and unstake forms.
+- The upgrade added `borrower_fee` to the `get_treasury_state` tuple, so the old
+  SDK threw while parsing `collection_codes` and `treasuryState` was never set.
+
 ## 2026-09-03 — [detailed report](changelog/2026-09-03-multisig-wallet-app-flow.md)
 
 - Tonkeeper builds a real multisig request from the order link, so pressing Stake
