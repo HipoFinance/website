@@ -15,7 +15,7 @@ import { action, autorun, computed, makeObservable, observable, runInAction } fr
 // ./chain.ts, which loadChain() fetches on demand — they are roughly two thirds of what the
 // island used to ship eagerly. See the changelog entry for 2026-08-29.
 import type { Address, OpenedContract, TonClient4 } from '@ton/ton'
-import type { Times, Treasury, TreasuryConfig, Wallet, WalletState } from '@hipo-finance/sdk'
+import type { Treasury, TreasuryConfig, Wallet, WalletState } from '@hipo-finance/sdk'
 import type { SeededDelta, StatsSeed } from '../../data/stats.ts'
 import { track } from './analytics'
 import { detectTmaMode, initTelegramChrome, telegramLanguageCode, tmaClass, type TmaMode } from './tma/telegram'
@@ -121,7 +121,6 @@ function toHipoGauge(response: HipoGaugeResponse): HipoGauge {
 const updateHipoGaugeDelay = 5 * 60 * 1000
 const retryHipoGaugeDelay = 5 * 1000
 const retryWalletRewardsDelay = 5 * 1000
-const updateTimesDelay = 5 * 60 * 1000
 // 10s, not the 30s this was until 2026-09-03: balances and the rate felt stale, and a multisig
 // order in particular lands whenever its last signature does, with no waitForCompletion watching
 // for it. Not lower, for two reasons. The gateway allows 120 r/m per IP (rate=120r/m in the nginx
@@ -543,7 +542,6 @@ export class Model {
   treasury?: OpenedContract<Treasury>
   treasuryState?: TreasuryConfig
   maxBurnableTokens?: bigint
-  times?: Times
   walletAddress?: Address
   wallet?: OpenedContract<Wallet>
   walletState?: WalletState
@@ -608,7 +606,6 @@ export class Model {
   tonEndpoint = ''
   tonEndpointFailures = 0
   timeoutEndpointProbe?: ReturnType<typeof setTimeout>
-  timeoutReadTimes?: ReturnType<typeof setTimeout>
   timeoutReadLastBlock?: ReturnType<typeof setTimeout>
   timeoutErrorMessage?: ReturnType<typeof setTimeout>
   timeoutHipoGauge?: ReturnType<typeof setTimeout>
@@ -645,7 +642,6 @@ export class Model {
       treasury: observable,
       treasuryState: observable,
       maxBurnableTokens: observable,
-      times: observable,
       walletAddress: observable,
       wallet: observable,
       walletState: observable,
@@ -751,7 +747,6 @@ export class Model {
 
       setTonClient: action,
       setAddress: action,
-      setTimes: action,
       setActivePage: action,
       setActiveTab: action,
       applyPathState: action,
@@ -1053,10 +1048,6 @@ export class Model {
     })
 
     autorun(() => {
-      this.readTimes()
-    })
-
-    autorun(() => {
       void this.readLastBlock()
     })
 
@@ -1130,15 +1121,14 @@ export class Model {
     }
   }
 
-  // The HPO reward is paid once per validation round, so a year's worth of rewards is
-  // however many rounds fit in a year. The round length is a network parameter that has
-  // changed before (it used to be ~36h, it is ~18h now), so read it from the live round
-  // boundaries instead of hardcoding a count, and fall back to the current length until
-  // the times are fetched.
+  // The HPO reward is paid once per validation round, so a year's worth of rewards is however
+  // many rounds fit in a year. round_duration is what the treasury measured between its last two
+  // settlements, which is the right count even when it is not a round length: rounds the pool did
+  // not lend into never settle, so a skipped round widens it. Falls back to the current ~18h round
+  // until the state is fetched.
   get roundsPerYear() {
     const year = 365 * 24 * 60 * 60
-    const times = this.times
-    const duration = times != null ? Number(times.nextRoundSince - times.currentRoundSince) : 0
+    const duration = Number(this.treasuryState?.roundDuration ?? 0n)
     return duration > 0 ? year / duration : year / 65536
   }
 
@@ -1385,9 +1375,8 @@ export class Model {
   }
 
   get unstakeBestRemain() {
-    const times = this.times
     const participations = this.treasuryState?.participations
-    if (times != null && participations != null) {
+    if (participations != null) {
       const keys = participations.keys().sort()
       const remain = this.remainUntil(participations.get(keys[0] ?? 0n)?.stakeHeldUntil ?? 0n)
       if (remain != null) {
@@ -1397,10 +1386,9 @@ export class Model {
   }
 
   get stakeRemain() {
-    const times = this.times
     const participations = this.treasuryState?.participations
     const instantMint = this.treasuryState?.instantMint ?? true
-    if (times != null && participations != null && !instantMint) {
+    if (participations != null && !instantMint) {
       const keys = participations.keys().sort()
       keys.reverse()
       for (const key of keys) {
@@ -1560,18 +1548,24 @@ export class Model {
     return this.multisigSnapshot?.unstakeOption
   }
 
+  // Both halves of this come from one read now, and they describe the same interval by
+  // construction: the treasury writes round_duration in the same branch that moves the rate pair.
+  // Deriving the denominator from a round length instead would report an unchanged APY for a pool
+  // that had fallen to validating every other round, whose true rate of growth had halved.
   get apy() {
-    const times = this.times
-    const previousRate = this.treasuryState?.previousRate
-    const currentRate = this.treasuryState?.currentRate
-    if (times != null && previousRate != null && currentRate != null) {
-      const duration = Number(times.nextRoundSince - times.currentRoundSince)
-      const year = 365 * 24 * 60 * 60
-      const compoundingFrequency = year / duration
-      const growth = Number(currentRate) / Number(previousRate)
-      const apy = Math.pow(growth, compoundingFrequency) - 1
-      return apy
+    const state = this.treasuryState
+    if (state == null) {
+      return
     }
+    const duration = Number(state.roundDuration)
+    if (duration <= 0) {
+      return
+    }
+    const year = 365 * 24 * 60 * 60
+    const compoundingFrequency = year / duration
+    const growth = Number(state.currentRate) / Number(state.previousRate)
+    const apy = Math.pow(growth, compoundingFrequency) - 1
+    return apy
   }
 
   get apyFormatted() {
@@ -1847,10 +1841,6 @@ export class Model {
     this.lastBlock = 0
     this.walletRewardsFetchState = 'init'
     this.walletRewards = undefined
-  }
-
-  setTimes = (times?: Times) => {
-    this.times = times
   }
 
   // No scrollTo here anymore: a page switch is a real navigation now, so the ClientRouter scrolls
@@ -2181,8 +2171,8 @@ export class Model {
   // TonAccess is dead, so the endpoint is picked here instead of discovered: primary first, with
   // automatic failover to the public one. Runs once, from an autorun with no observable inputs.
   // Reading isChainReady inside the autorun that calls this is what restarts the polling chain
-  // once ./chain.ts lands: setTonClient needs TonClient4, and the readTimes/readLastBlock autoruns
-  // then re-run off the `tonClient` observable it sets.
+  // once ./chain.ts lands: setTonClient needs TonClient4, and the readLastBlock autorun then
+  // re-runs off the `tonClient` observable it sets.
   connectTonEndpoint = () => {
     if (!this.isChainReady) {
       return
@@ -2245,34 +2235,6 @@ export class Model {
     } catch {
       this.scheduleTonEndpointProbe()
     }
-  }
-
-  readTimes = () => {
-    const tonClient = this.tonClient
-    clearTimeout(this.timeoutReadTimes)
-    if (document.hidden) {
-      return
-    }
-    this.timeoutReadTimes = setTimeout(this.readTimes, updateTimesDelay)
-
-    if (tonClient == null || chain?.treasuryAddress == null) {
-      this.setTimes(undefined)
-      return
-    }
-
-    const openedTreasury = tonClient.open(chain!.Treasury.createFromAddress(chain!.treasuryAddress))
-    retry(openedTreasury.getTimes)
-      .then((times) => {
-        this.tonEndpointFailures = 0
-        this.setTimes(times)
-      })
-      // The endpoint hook goes last: a failover restarts this read on the new endpoint, and its
-      // fresh timer must be the one that survives.
-      .catch(() => {
-        clearTimeout(this.timeoutReadTimes)
-        this.timeoutReadTimes = setTimeout(this.readTimes, retryDelay)
-        this.countTonEndpointFailure()
-      })
   }
 
   // The stake form needs a live view: balances, the rate and the fee lines move under someone who
@@ -2414,7 +2376,6 @@ export class Model {
   pause = () => {
     clearTimeout(this.timeoutDeepLink)
     this.cleanupDeepLink?.()
-    clearTimeout(this.timeoutReadTimes)
     clearTimeout(this.timeoutReadLastBlock)
     clearTimeout(this.timeoutEndpointProbe)
   }
@@ -2422,7 +2383,6 @@ export class Model {
   // Re-arming the probe here is what keeps it a single self-scheduling chain: paused with the rest
   // of the polling, and never duplicated by a page swap or a visibility change.
   resume = () => {
-    this.readTimes()
     void this.readLastBlock()
     if (this.tonEndpoint === fallbackEndpoint) {
       this.scheduleTonEndpointProbe()
