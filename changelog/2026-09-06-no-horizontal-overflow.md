@@ -126,9 +126,12 @@ document is never the scroller.
   in Starlight's content.
 - `npx prettier --write` on every touched file — no reformatting beyond the edits.
 
-Not verified in a browser: no headless Chrome is available in this environment and the Claude in
-Chrome extension is not connected, so the 320 px geometry above is computed rather than measured. A
-visual pass at 320 px on `/hpo/` and on an app page in German or Russian is worth doing.
+- After deploying, refetched `https://hipo.finance/hpo/`, followed its stylesheet link and confirmed
+  both rules are served from `_astro/global.DJLpnnFG.css`.
+
+The 320 px geometry quoted throughout is computed, not measured: no headless Chrome is available in
+this environment and the Claude in Chrome extension is not connected. Behrang checked the live pages
+on a phone afterwards and reported them correct, which is what closes that gap.
 
 ### Follow-ups
 
