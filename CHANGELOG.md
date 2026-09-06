@@ -7,6 +7,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-06 — [detailed report](changelog/2026-09-06-no-horizontal-overflow.md)
+
+- Fixed the horizontal scrollbar on `/hpo/`: the jetton address in the first FAQ
+  answer had no wrapping rule behind it.
+- Added the site-wide defence to `global.css` — `overflow-wrap: break-word` on
+  `body`, `anywhere` on inline `code`.
+- Gave the app header's wallet group, the HPO hero stat row and the banner text
+  `min-w-0` so they can shrink instead of widening the page.
+- Bounded the two bottom-left toasts to the viewport instead of `max-w-screen-sm`.
+- Wrote the rule into `CLAUDE.md` after auditing all 523 built pages.
+
 ## 2026-09-05 — [detailed report](changelog/2026-09-05-treasury-abi-realignment.md)
 
 - Bumped `@hipo-finance/sdk` to 4.5.0, which realigns the treasury parsers with
