@@ -65,7 +65,7 @@ const tabs: { page: Props['activePage']; label: string; icon: 'coins' | 'gift' |
       }
     </nav>
 
-    <div class='flex flex-none items-center gap-4'>
+    <div class='flex min-w-0 items-center gap-4'>
       <!-- `disabled` on both: these two are mirrors with no handler behind them, and until the
            island replaces them a tap does nothing at all. Left enabled they still registered as
            interactions, so the visitor tapped again — and every one of those taps landed while the

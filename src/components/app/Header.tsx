@@ -72,7 +72,7 @@ const Header = observer(({ model }: Props) => {
           ))}
         </nav>
 
-        <div className='flex flex-none items-center gap-4'>
+        <div className='flex min-w-0 items-center gap-4'>
           <LanguageSwitcher model={model} className='max-sm:hidden' />
 
           {model.isWalletConnected ? (

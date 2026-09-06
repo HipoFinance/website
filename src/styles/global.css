@@ -125,6 +125,33 @@
   display: none;
 }
 
+/* Nothing may make the document wider than the viewport — a horizontal scrollbar on a phone is a
+   bug, never a layout. The recurring cause on this site is that a TON address, a transaction hash
+   or a bare URL is one unbreakable 48+ character "word", and a browser would rather push the page
+   past the viewport than break one: that is what put a scrollbar on /hpo/ (the jetton address in
+   the first FAQ answer, 2026-09-06).
+
+   `break-word` inherits to everything and only breaks a word that has no line of its own to fit
+   on, so ordinary prose is untouched. `anywhere` additionally shrinks the element's min-content
+   width, which is what a flex or grid child needs before it will agree to be narrower than its
+   longest word — so it goes on `code`, which is how every address on the site is marked up. Code
+   fences are excluded: a code block should scroll inside itself, not rewrap. Markup that holds a
+   long token in something other than a `code` opts in with Tailwind's own `wrap-anywhere` (or
+   `break-all`, as /verify/ does) rather than a new rule here.
+
+   Unlike `@utility num` below, these are plain rules and so do NOT need mirroring into app.css:
+   utilities have to exist in each compilation because each scans its own markup, but a plain rule
+   just ships in this stylesheet, and AppLayout imports it. /docs/ is the only section this misses,
+   and Starlight covers it with its own copies of the pair (its reset.css and markdown.css) — which
+   is what makes docs.css free to keep not importing this file. */
+body {
+  overflow-wrap: break-word;
+}
+
+code:not(pre code) {
+  overflow-wrap: anywhere;
+}
+
 /* Bidi isolation for formatted values (amounts, percentages, deltas) so RTL text doesn't reorder
    them around bidi-neutral characters like %, $, ≈, +/−. See specs/multi-language-site.md §F. */
 @utility num {

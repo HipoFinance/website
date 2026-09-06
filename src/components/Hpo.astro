@@ -129,15 +129,15 @@ const hpoFaq = await Promise.all(
       <svg id='hpoSparkline' viewBox='0 0 400 120' class='h-[120px] w-full' preserveAspectRatio='none'></svg>
 
       <div class='flex justify-between gap-3'>
-        <div>
+        <div class='min-w-0'>
           <div id='hpoMarketCap' class='font-fredoka text-[22px] font-semibold' set:text={gauge.hpoMarketCap ?? '—'} />
           <div class='text-text-muted text-[13px]'>{t('hpo.hero.marketCap')}</div>
         </div>
-        <div>
+        <div class='min-w-0'>
           <div id='hpoVolume' class='font-fredoka text-[22px] font-semibold' set:text={gauge.hpoVolume ?? '—'} />
           <div class='text-text-muted text-[13px]'>{t('hpo.hero.volume')}</div>
         </div>
-        <div>
+        <div class='min-w-0'>
           <div id='hpoHolders' class='font-fredoka text-[22px] font-semibold' set:text={gauge.hpoHolders ?? '—'} />
           <div class='text-text-muted text-[13px]'>{t('hpo.hero.holders')}</div>
         </div>

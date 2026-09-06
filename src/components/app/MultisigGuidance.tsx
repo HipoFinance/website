@@ -43,7 +43,7 @@ const CopyField = observer(({ model, label, value }: { model: Model; label: stri
 // A bottom-left note rather than a dialog: both of these say something about an app that is either
 // already open or about to be, so neither may stand in front of it.
 const Toast = ({ model, children, onDismiss }: { model: Model; children: ReactNode; onDismiss: () => void }) => (
-  <div className='font-body border-border bg-surface-deep text-text-muted fixed start-6 bottom-20 z-50 flex max-w-screen-sm items-start rounded-2xl border p-3 drop-shadow sm:bottom-2'>
+  <div className='font-body border-border bg-surface-deep text-text-muted fixed start-6 bottom-20 z-50 flex max-w-[min(40rem,calc(100vw-3rem))] items-start rounded-2xl border p-3 drop-shadow sm:bottom-2'>
     <p className='mx-1 text-sm'>{children}</p>
     <button className='ms-1 shrink-0 cursor-pointer' aria-label={model.t('app.multisig.dismiss')} onClick={onDismiss}>
       <X className='size-4' />
