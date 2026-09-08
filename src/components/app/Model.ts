@@ -16,9 +16,6 @@ import { action, autorun, computed, makeObservable, observable, runInAction } fr
 // island used to ship eagerly. See the changelog entry for 2026-08-29.
 import type { Address, OpenedContract, TonClient4 } from '@ton/ton'
 import type { Treasury, TreasuryConfig, Wallet, WalletState } from '@hipo-finance/sdk'
-// A value import, unlike the types above: computeApy is a pure function with no chain access,
-// so it costs nothing to pull eagerly and does not belong behind loadChain().
-import { computeApy } from '@hipo-finance/sdk'
 import type { SeededDelta, StatsSeed } from '../../data/stats.ts'
 import { track } from './analytics'
 import { detectTmaMode, initTelegramChrome, telegramLanguageCode, tmaClass, type TmaMode } from './tma/telegram'
@@ -1561,16 +1558,32 @@ export class Model {
     return this.multisigSnapshot?.unstakeOption
   }
 
-  // computeApy rather than the arithmetic inline, since SDK 6.1.0. The formula lived in six copies
-  // across this fleet and they had to agree; one of them did not, and would have published roughly
-  // the square of the real figure. It annualises over window_duration -- two settlement releases,
-  // about two rounds, and NOT roundsPerYear above.
+  // The SDK has computeApy() and this deliberately does not call it. Importing any VALUE from
+  // @hipo-finance/sdk here pulls the package's barrel -- and @ton/core with it -- into the EAGER
+  // island chunk, where the Buffer polyfill has not run: it is a static import at the top of
+  // chain.ts, which is fetched on demand. The TON code then evaluates with no window.Buffer, the
+  // island throws, and every app page silently fails to hydrate. That shipped on 2026-09-08 and
+  // took hipo.finance/stats down; see the changelog entry for that date.
+  //
+  // Purity is not the deciding factor, and assuming it was is exactly how this broke. computeApy
+  // really is a pure function of three bigints, but it is reached through an entry point that
+  // evaluates the chain libraries. Keep this file to `import type` from those packages.
+  //
+  // The arithmetic below must match the SDK's. It annualises over window_duration -- two
+  // settlement releases, about two rounds, and NOT roundsPerYear above.
   get apy() {
     const state = this.treasuryState
     if (state == null) {
       return
     }
-    return computeApy(state) ?? undefined
+    const duration = Number(state.windowDuration)
+    if (duration <= 0) {
+      return
+    }
+    const year = 365 * 24 * 60 * 60
+    const compoundingFrequency = year / duration
+    const growth = Number(state.currentRate) / Number(state.previousRate)
+    return Math.pow(growth, compoundingFrequency) - 1
   }
 
   get apyFormatted() {
