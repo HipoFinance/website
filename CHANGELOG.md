@@ -7,6 +7,19 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-08 — [detailed report](changelog/2026-09-08-eager-sdk-import-broke-the-island.md)
+
+- Adopted SDK 6.1.0's `computeApy()` in place of the inline formula, then reverted
+  it: the value import pulled `@ton/core` into the eager island chunk, where the
+  Buffer polyfill has not run, and every app page stopped hydrating.
+- `AppIsland` went 186 KB → 472 KB and back; `/stats/`, `/stake/`, `/unstake/`,
+  `/rewards/` and `/defi/` served 200 and rendered nothing in between.
+- Renamed `roundDuration` → `windowDuration` with the treasury, and stopped
+  `roundsPerYear` reading it — that one counts HPO payouts and needs a round
+  length, so the rename would have halved every HPO figure on the page.
+- Wrote the rule above the `apy` getter: no value imports from the chain packages
+  in `Model.ts`, whatever the value does.
+
 ## 2026-09-06 — [detailed report](changelog/2026-09-06-no-horizontal-overflow.md)
 
 - Fixed the horizontal scrollbar on `/hpo/`: the jetton address in the first FAQ
