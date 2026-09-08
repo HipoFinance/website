@@ -66,3 +66,25 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+      # A deploy that responds is not a deploy that works. On 2026-09-08 one import moved
+      # @ton/core into the eager island chunk, ahead of the Buffer polyfill behind loadChain(),
+      # and every app page served 200 with a complete shell and then rendered nothing. The build
+      # passed. The deploy passed. Only a person opening the site found it.
+      #
+      # So the last step loads the real pages in the runner's Chrome and fails if they throw during
+      # hydration. Note the thresholds cannot be what catches this: the broken page still rendered
+      # ~1 KB of static shell. The uncaught-exception check is the one that matters -- verified by
+      # rebuilding that exact regression and watching this report "ReferenceError: Buffer is not
+      # defined".
+      #
+      # /stats/ and /stake/ are the two chosen because both read the chain through the island, so a
+      # pass means the lazy chain chunk loaded and hydrated, not merely that Astro emitted HTML.
+      - name: Verify the deployed pages actually render
+        run: |
+          node scripts/render-check.mjs \
+            --min-text=800 \
+            --expect='APY' \
+            --expect='hGRAM' \
+            https://hipo.finance/stats/ \
+            https://hipo.finance/stake/
