@@ -214,6 +214,21 @@ const DOCS_MERGE_REDIRECTS = {
   '/docs/hipo-tokens/hipo-governance-token-hpo/tokenomics/': '/docs/hipo-tokens/hipo-governance-token-hpo/',
 }
 
+// The six GitBook-era group directories. GitBook made every sidebar group a page; the Starlight
+// sidebar links pages by URL and its groups have no link, so these paths never became pages here
+// and 404 in every locale. Nothing on the site points at them, but docs.hipo.finance 301s the
+// legacy group URLs (`docs.hipo.finance/tutorials` -> `/docs/tutorials/`) straight into them, so
+// each one lands on the page a reader arriving from the old docs was looking for. Expanded per
+// locale in `redirects` below, alongside DOCS_MERGE_REDIRECTS.
+const DOCS_SECTION_REDIRECTS = {
+  '/docs/introduction/': '/docs/',
+  '/docs/tutorials/': '/docs/tutorials/staking/',
+  '/docs/security/': '/docs/security/why-your-security-matters/',
+  '/docs/legal-agreements/': '/docs/legal-agreements/terms-of-use/',
+  '/docs/hipo-tokens/': '/docs/hipo-tokens/hipo-staked-gram-hgram/',
+  '/docs/giveaways-and-prizes/': '/docs/giveaways-and-prizes/hipo-incentive-programs/',
+}
+
 export default defineConfig({
   site: 'https://hipo.finance',
   base: '/',
@@ -235,8 +250,9 @@ export default defineConfig({
   // start rather than a sidebar's worth of speculative requests.
   prefetch: { prefetchAll: true, defaultStrategy: 'viewport' },
 
-  // Meta-refresh stubs (with noindex) for the four docs URLs retired by the 2026-08 restructure
-  // (specs/docs-restructure.md § Merges). GitHub Pages has no server redirects, and
+  // Meta-refresh stubs (with noindex) for the docs URLs that must keep resolving without being
+  // pages: the four retired by the 2026-08 restructure (specs/docs-restructure.md § Merges) and
+  // the six GitBook-era group directories. GitHub Pages has no server redirects, and
   // docs.hipo.finance 301s legacy GitBook paths here, so these URLs must keep resolving. Both
   // sides carry a trailing slash to match `trailingSlash: 'always'`. Only ever redirect a path
   // that no longer exists as a page, or the build emits a prerender conflict.
@@ -245,7 +261,7 @@ export default defineConfig({
   // locale gets the same stub under its prefix (`/fa/docs/…/why-ton/`) — those URLs were indexed
   // while fa/ru/hi were released.
   redirects: Object.fromEntries(
-    Object.entries(DOCS_MERGE_REDIRECTS).flatMap(([from, to]) => [
+    Object.entries({ ...DOCS_MERGE_REDIRECTS, ...DOCS_SECTION_REDIRECTS }).flatMap(([from, to]) => [
       [from, to],
       ...builtLocales()
         .filter((key) => key !== DEFAULT_LOCALE)
