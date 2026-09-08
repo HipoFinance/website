@@ -144,6 +144,11 @@ const retryDelay = 3 * 1000
 // delay), so all attempts burned within milliseconds of each other: any brief network failure
 // during waitForCompletion exhausted them at once and told the user "Cannot find your transaction"
 // seconds after a stake that had in fact landed on-chain.
+// TON's validation round, and so Hipo's HPO reward interval. Duplicated from src/data/club.ts
+// rather than imported, to keep this client island free of a build-time data module. The treasury
+// used to publish this and no longer does -- its window_duration now spans two settlement releases
+// -- so if rounds change length again, both copies need get_times. See roundsPerYear below.
+const ROUND_SECONDS = 65536
 const retryAttemptDelay = 1000
 const retryAttempts = 30
 const waitForCompletionDelay = 250 // roughly one block time, since TON's fast blocks
@@ -1122,14 +1127,19 @@ export class Model {
   }
 
   // The HPO reward is paid once per validation round, so a year's worth of rewards is however
-  // many rounds fit in a year. round_duration is what the treasury measured between its last two
-  // settlements, which is the right count even when it is not a round length: rounds the pool did
-  // not lend into never settle, so a skipped round widens it. Falls back to the current ~18h round
-  // until the state is fetched.
+  // many rounds fit in a year. This wants a ROUND LENGTH, which is not the same thing as the
+  // interval the exchange rate grew over -- see the apy getter, which wants the other one.
+  //
+  // This used to read the treasury's round_duration, which was one round while the rate pair
+  // spanned one settlement. It no longer is: the treasury renamed that field window_duration and
+  // widened it to span TWO settlement releases, so reading it here would say rounds take ~36h and
+  // would halve every HPO projection on the page. The treasury does not publish a round length at
+  // all now, so this uses the same constant src/data/club.ts does. If rounds ever change length
+  // again -- they have before, they used to run ~36h -- both need get_times, and the HPO figures
+  // will look off by a factor until then.
   get roundsPerYear() {
     const year = 365 * 24 * 60 * 60
-    const duration = Number(this.treasuryState?.roundDuration ?? 0n)
-    return duration > 0 ? year / duration : year / 65536
+    return year / ROUND_SECONDS
   }
 
   get profitAfterOneYear() {
@@ -1548,16 +1558,19 @@ export class Model {
     return this.multisigSnapshot?.unstakeOption
   }
 
-  // Both halves of this come from one read now, and they describe the same interval by
-  // construction: the treasury writes round_duration in the same branch that moves the rate pair.
-  // Deriving the denominator from a round length instead would report an unchanged APY for a pool
-  // that had fallen to validating every other round, whose true rate of growth had halved.
+  // Both halves of this come from one read, and they describe the same interval by construction:
+  // the treasury writes window_duration in the same branch that moves the rate pair.
+  //
+  // That interval spans TWO settlement releases, so it is about two rounds -- not a round length,
+  // and not roundsPerYear above. Dividing by a round length instead would roughly SQUARE this, on
+  // top of the older error it already avoided: reporting an unchanged APY for a pool that had
+  // fallen to validating every other round, whose true rate of growth had halved.
   get apy() {
     const state = this.treasuryState
     if (state == null) {
       return
     }
-    const duration = Number(state.roundDuration)
+    const duration = Number(state.windowDuration)
     if (duration <= 0) {
       return
     }
