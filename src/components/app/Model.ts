@@ -16,6 +16,9 @@ import { action, autorun, computed, makeObservable, observable, runInAction } fr
 // island used to ship eagerly. See the changelog entry for 2026-08-29.
 import type { Address, OpenedContract, TonClient4 } from '@ton/ton'
 import type { Treasury, TreasuryConfig, Wallet, WalletState } from '@hipo-finance/sdk'
+// A value import, unlike the types above: computeApy is a pure function with no chain access,
+// so it costs nothing to pull eagerly and does not belong behind loadChain().
+import { computeApy } from '@hipo-finance/sdk'
 import type { SeededDelta, StatsSeed } from '../../data/stats.ts'
 import { track } from './analytics'
 import { detectTmaMode, initTelegramChrome, telegramLanguageCode, tmaClass, type TmaMode } from './tma/telegram'
@@ -1558,27 +1561,16 @@ export class Model {
     return this.multisigSnapshot?.unstakeOption
   }
 
-  // Both halves of this come from one read, and they describe the same interval by construction:
-  // the treasury writes window_duration in the same branch that moves the rate pair.
-  //
-  // That interval spans TWO settlement releases, so it is about two rounds -- not a round length,
-  // and not roundsPerYear above. Dividing by a round length instead would roughly SQUARE this, on
-  // top of the older error it already avoided: reporting an unchanged APY for a pool that had
-  // fallen to validating every other round, whose true rate of growth had halved.
+  // computeApy rather than the arithmetic inline, since SDK 6.1.0. The formula lived in six copies
+  // across this fleet and they had to agree; one of them did not, and would have published roughly
+  // the square of the real figure. It annualises over window_duration -- two settlement releases,
+  // about two rounds, and NOT roundsPerYear above.
   get apy() {
     const state = this.treasuryState
     if (state == null) {
       return
     }
-    const duration = Number(state.windowDuration)
-    if (duration <= 0) {
-      return
-    }
-    const year = 365 * 24 * 60 * 60
-    const compoundingFrequency = year / duration
-    const growth = Number(state.currentRate) / Number(state.previousRate)
-    const apy = Math.pow(growth, compoundingFrequency) - 1
-    return apy
+    return computeApy(state) ?? undefined
   }
 
   get apyFormatted() {
