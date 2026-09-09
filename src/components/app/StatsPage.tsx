@@ -164,7 +164,7 @@ const StatsPage = observer(({ model }: Props) => {
       color: positiveColor,
       points: chartsStore.series?.hipo_treasury_apy ?? [],
     },
-    ...(latestApyPoints.length > 0
+    ...(latestApyPoints.length > 1
       ? [
           {
             key: 'latestApy',
@@ -300,7 +300,7 @@ const StatsPage = observer(({ model }: Props) => {
           deltaUnit='pp'
           {...chartCommon}
         />
-        {liquidityPoints.length > 0 && (
+        {liquidityPoints.length > 1 && (
           <LineChart
             title={t('app.statsPage.chartLiquidity')}
             series={liquiditySeries}

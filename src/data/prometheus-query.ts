@@ -11,7 +11,7 @@
 // So a chart change that edits the query needs the nginx map updated in the same deploy, and the
 // metric names must keep this exact order. Everything else about the request (start/end) varies.
 export const PROM_QUERY =
-  'max by (__name__) ({__name__=~"hipo_treasury_apy|hipo_treasury_total_coins|hipo_treasury_hton_rate|hipo_treasury_protocol_fee|hipo_hton_holders_count|hipo_hton_current_price|hipo_hpo_current_price|hipo_ton_current_price"})'
+  'max by (__name__) ({__name__=~"hipo_treasury_apy|hipo_treasury_total_coins|hipo_treasury_hton_rate|hipo_treasury_protocol_fee|hipo_hton_holders_count|hipo_hton_current_price|hipo_hpo_current_price|hipo_ton_current_price|hipo_treasury_latest_apy|hipo_treasury_instant_liquidity"})'
 
 // This code runs in the visitor's browser as well as at build time, so the base must be a public
 // HTTPS URL — never a swarm-internal name like prometheus1. The route is an nginx path-mount on
