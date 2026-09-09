@@ -37,6 +37,14 @@ if (urls.length === 0) {
     process.exit(2)
 }
 
+// The whole point of having no dependencies is the built-in WebSocket, which arrived in Node 22.
+// Failing here with the reason beats failing later with "WebSocket is not defined".
+if (typeof WebSocket === 'undefined') {
+    console.error(`This needs Node 22 or newer for its built-in WebSocket; this is ${process.version}.`)
+    console.error('In Actions, add an actions/setup-node step with node-version: 24 before this one.')
+    process.exit(2)
+}
+
 // Errors that are expected on these sites and say nothing about whether the page rendered. Keep
 // this list short and specific: a broad pattern here would hide the very failure this script is for.
 const benign = [
