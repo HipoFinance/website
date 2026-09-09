@@ -13,6 +13,14 @@ export { PROM_BASE }
 
 export type MetricName =
   | 'hipo_treasury_apy'
+  // The APY of the single most recent settlement release, where hipo_treasury_apy averages the last
+  // two. Both are published so the difference is visible: on 2026-09-07 a round paid 10.7% and the
+  // next 16.8%, while the average read 13.7% -- users reported the gap as a bug.
+  | 'hipo_treasury_latest_apy'
+  // GRAM that could be unstaked instantly, in nanoGRAM. Sawtooths across the round cycle rather
+  // than trending: stake returns from the elector and it jumps, the next round is funded and it
+  // drops, deposits in between raise it.
+  | 'hipo_treasury_instant_liquidity'
   | 'hipo_treasury_total_coins'
   | 'hipo_treasury_hton_rate'
   | 'hipo_treasury_protocol_fee'
@@ -159,8 +167,9 @@ export async function queryRange(
     for (const [t, raw] of item.values ?? []) {
       const v = Number(raw)
       if (Number.isFinite(v)) {
-        // hipo_treasury_total_coins is nanotons; every other metric is already in display units.
-        points.push({ t, v: name === 'hipo_treasury_total_coins' ? v / 1e9 : v })
+        // These two are nano amounts; every other metric is already in display units.
+        const isNano = name === 'hipo_treasury_total_coins' || name === 'hipo_treasury_instant_liquidity'
+        points.push({ t, v: isNano ? v / 1e9 : v })
       }
     }
     series[name] = points

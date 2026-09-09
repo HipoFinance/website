@@ -148,6 +148,15 @@ const StatsPage = observer(({ model }: Props) => {
   const ratePoints: ChartPoint[] = chartsStore.series?.hipo_treasury_hton_rate ?? []
   const hasHistory = chartsStore.status === 'done' || chartsStore.status === 'refreshing'
 
+  // Two series on one chart, and the pairing is the point. The published APY averages two
+  // settlement releases, which is what makes it steady and also what makes it impossible to
+  // reconcile against what a single round paid. Users reported that gap as a bug: on 2026-09-07 a
+  // round returned 10.7% because two borrowers missed it and a third had max_factor
+  // misconfigured, the next paid 16.8%, and the headline read 13.7%. Drawn together, the dip and
+  // the recovery are one obvious shape instead of a discrepancy.
+  //
+  // The per-round line is muted and second, so the smoothed one still reads as the headline.
+  const latestApyPoints: ChartPoint[] = chartsStore.series?.hipo_treasury_latest_apy ?? []
   const apySeries: ChartSeriesInput[] = [
     {
       key: 'apy',
@@ -155,6 +164,30 @@ const StatsPage = observer(({ model }: Props) => {
       color: positiveColor,
       points: chartsStore.series?.hipo_treasury_apy ?? [],
     },
+    ...(latestApyPoints.length > 0
+      ? [
+          {
+            key: 'latestApy',
+            name: t('app.statsPage.seriesLatestApy'),
+            color: inkColor,
+            points: latestApyPoints,
+          },
+        ]
+      : []),
+  ]
+
+  // How much could leave the pool right now. Sawtooths across the round cycle rather than
+  // trending, which is worth knowing before reading a dip as trouble: a round's stake returns from
+  // the elector and this jumps, the next round is funded and it drops, deposits in between raise
+  // it again. A floor that stays near zero across a whole cycle would be the thing to worry about.
+  //
+  // GRAM rather than hGRAM. get_max_burnable_tokens derives tokens FROM (balance - reserve -
+  // borrowers' stake) at the current rate, so the two are one quantity in two units and the rate
+  // moves ~0.03% per round -- plotting both would draw the same line twice. GRAM is the primary
+  // one, matches the TVL chart above, and is what a staker is actually asking.
+  const liquidityPoints: ChartPoint[] = chartsStore.series?.hipo_treasury_instant_liquidity ?? []
+  const liquiditySeries: ChartSeriesInput[] = [
+    { key: 'liquidity', name: t('app.statsPage.seriesLiquidity'), color: accentColor, points: liquidityPoints },
   ]
   const stakedSeries: ChartSeriesInput[] = [
     { key: 'staked', name: t('app.statsPage.seriesStaked'), color: accentColor, points: stakedPoints },
@@ -267,6 +300,17 @@ const StatsPage = observer(({ model }: Props) => {
           deltaUnit='pp'
           {...chartCommon}
         />
+        {liquidityPoints.length > 0 && (
+          <LineChart
+            title={t('app.statsPage.chartLiquidity')}
+            series={liquiditySeries}
+            areaFill={accentAreaFill}
+            valueFormat={formatStakedValue}
+            axisFormat={formatCompactCount}
+            deltaUnit='%'
+            {...chartCommon}
+          />
+        )}
         <LineChart
           title={t('app.statsPage.activeStakers')}
           series={holdersSeries}

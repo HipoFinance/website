@@ -627,6 +627,10 @@
     "sourceHash": "26d5adac40d3a2d3f4e178842b5a6f5bb0170a2e",
     "reviewed": false
   },
+  "app.statsPage.chartLiquidity": {
+    "sourceHash": "959ec327b3e1cb3a1da9c77d0804bb29c62a06a7",
+    "reviewed": false
+  },
   "app.statsPage.chartPrices": {
     "sourceHash": "271d298a1db4bfbb7216d06d3b0e0010890af645",
     "reviewed": false
@@ -681,6 +685,14 @@
   },
   "app.statsPage.seriesHolders": {
     "sourceHash": "c573a6254042dd7b5c211b69abefce33d093c724",
+    "reviewed": false
+  },
+  "app.statsPage.seriesLatestApy": {
+    "sourceHash": "0bf32914d98372ad8a445d49c30fc2189795a143",
+    "reviewed": false
+  },
+  "app.statsPage.seriesLiquidity": {
+    "sourceHash": "c9dbf8d81fbca2351a57ac057f6239904198f00a",
     "reviewed": false
   },
   "app.statsPage.seriesRate": {
