@@ -218,7 +218,7 @@ const StatsPage = observer(({ model }: Props) => {
         />
         <StatCard
           value={model.statsApyFormatted}
-          label={t('app.statsPage.apyLastRound')}
+          label={t('app.statsPage.apyWindow')}
           caption={
             model.protocolFee != null
               ? t('app.statsPage.stakingFee', { fee: model.isolate(model.protocolFee) })

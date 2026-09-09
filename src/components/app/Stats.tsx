@@ -33,7 +33,7 @@ const Stats = observer(({ model }: Props) => {
       <div className='mx-auto w-full max-w-[480px]'>
         <div className='grid grid-cols-1 gap-3 sm:grid-cols-3'>
           <Tile
-            label={t('app.stats.apyLastRound')}
+            label={t('app.stats.apyWindow')}
             tooltip={t('app.stats.apyTooltip')}
             value={model.statsApyFormatted}
             accent

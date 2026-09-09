@@ -18,7 +18,7 @@ const { locale, stats } = Astro.props
 const { t } = getT(locale, ['app'])
 
 const tiles: { label: string; tooltip: string; value?: string; accent?: boolean }[] = [
-  { label: t('app.stats.apyLastRound'), tooltip: t('app.stats.apyTooltip'), value: stats.apy, accent: true },
+  { label: t('app.stats.apyWindow'), tooltip: t('app.stats.apyTooltip'), value: stats.apy, accent: true },
   { label: t('app.stats.gramStaked'), tooltip: t('app.stats.gramStakedTooltip'), value: stats.staked },
   { label: t('app.stats.hgramHolders'), tooltip: t('app.stats.hgramHoldersTooltip'), value: stats.holders },
 ]

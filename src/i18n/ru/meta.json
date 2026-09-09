@@ -568,19 +568,19 @@
     "reviewed": false
   },
   "app.stake.yearlyRewards": {
-    "sourceHash": "bf3ddb5b85edfe99a05731f5e5b424790b5d8f77",
+    "sourceHash": "b4d98f306437c689e4c90ab3ba9716a129e80891",
     "reviewed": false
   },
   "app.stake.youWillReceive": {
     "sourceHash": "4eef2ecfed504a6cbe50f3dcaa7350ee513ab549",
     "reviewed": false
   },
-  "app.stats.apyLastRound": {
-    "sourceHash": "a92657e35b693fbb6a4b0c8c3b59b3b031464064",
+  "app.stats.apyTooltip": {
+    "sourceHash": "92b68077ff92322e39cb7c62b33d140104938dc7",
     "reviewed": false
   },
-  "app.stats.apyTooltip": {
-    "sourceHash": "f5ca5dabe80626263d854fa911f97d8a35bef212",
+  "app.stats.apyWindow": {
+    "sourceHash": "807ce09615f1ad144abc9a5dc65450464704d7a4",
     "reviewed": false
   },
   "app.stats.gramStaked": {
@@ -607,8 +607,8 @@
     "sourceHash": "10ddbf76d9f36c6b91c9928dc861895ba667f176",
     "reviewed": false
   },
-  "app.statsPage.apyLastRound": {
-    "sourceHash": "a92657e35b693fbb6a4b0c8c3b59b3b031464064",
+  "app.statsPage.apyWindow": {
+    "sourceHash": "807ce09615f1ad144abc9a5dc65450464704d7a4",
     "reviewed": false
   },
   "app.statsPage.change24h": {
@@ -616,7 +616,7 @@
     "reviewed": false
   },
   "app.statsPage.chartApy": {
-    "sourceHash": "4dc600d95155c0440906f8bf331cdca658e2d5ed",
+    "sourceHash": "da00f59335979a88e31c1457bedf5cd1adcbd43f",
     "reviewed": false
   },
   "app.statsPage.chartHpoPrice": {
@@ -1736,7 +1736,7 @@
     "reviewed": false
   },
   "landing.stats.apyCaption": {
-    "sourceHash": "bf3ddb5b85edfe99a05731f5e5b424790b5d8f77",
+    "sourceHash": "b4d98f306437c689e4c90ab3ba9716a129e80891",
     "reviewed": false
   },
   "landing.stats.feeCaption": {
