@@ -144,6 +144,7 @@
   "app.stake.yearlyRewards": "Yıllık ödül, son 2 tur",
   "app.stake.youWillReceive": "Alacağınız",
   "app.stats.apyTooltip": "Son 2 doğrulama turunun ortalamasına dayalı yıllık kazancınız.",
+  "app.stats.apyTooltipLatest": "Yalnızca son tur: {latest}.",
   "app.stats.apyWindow": "APY, son 2 tur",
   "app.stats.gramStaked": "Stake edilen GRAM",
   "app.stats.gramStakedTooltip": "Şu anda Hipo'da stake edilen toplam GRAM.",

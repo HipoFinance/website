@@ -34,7 +34,19 @@ const Stats = observer(({ model }: Props) => {
         <div className='grid grid-cols-1 gap-3 sm:grid-cols-3'>
           <Tile
             label={t('app.stats.apyWindow')}
-            tooltip={t('app.stats.apyTooltip')}
+            // The headline averages two rounds, which is what makes it steady and also what makes
+            // it impossible to reconcile against a single round's earnings. The most recent round
+            // on its own goes here: available to anyone who asks, out of the way of everyone who
+            // does not. Appended rather than interpolated into apyTooltip because the same string
+            // is rendered by the static shell at build time, where there is no live value and a
+            // {latest} placeholder would survive into the HTML.
+            tooltip={
+              model.latestApyFormatted == null
+                ? t('app.stats.apyTooltip')
+                : `${t('app.stats.apyTooltip')} ${t('app.stats.apyTooltipLatest', {
+                    latest: model.isolate(model.latestApyFormatted),
+                  })}`
+            }
             value={model.statsApyFormatted}
             accent
           />

@@ -144,6 +144,7 @@
   "app.stake.yearlyRewards": "Yearly rewards, last 2 rounds",
   "app.stake.youWillReceive": "You will receive",
   "app.stats.apyTooltip": "Your yearly earnings, averaged over the last 2 validation rounds.",
+  "app.stats.apyTooltipLatest": "Most recent round on its own: {latest}.",
   "app.stats.apyWindow": "APY, last 2 rounds",
   "app.stats.gramStaked": "GRAM staked",
   "app.stats.gramStakedTooltip": "Total GRAM currently staked in Hipo.",

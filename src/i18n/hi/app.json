@@ -144,6 +144,7 @@
   "app.stake.yearlyRewards": "वार्षिक रिवॉर्ड्स, पिछले 2 राउंड",
   "app.stake.youWillReceive": "आपको मिलेगा",
   "app.stats.apyTooltip": "पिछले 2 वैलिडेशन राउंड के औसत पर आधारित आपकी वार्षिक कमाई।",
+  "app.stats.apyTooltipLatest": "अकेले पिछला राउंड: {latest}।",
   "app.stats.apyWindow": "APY, पिछले 2 राउंड",
   "app.stats.gramStaked": "स्टेक किया हुआ GRAM",
   "app.stats.gramStakedTooltip": "इस समय Hipo में स्टेक किया हुआ कुल GRAM।",

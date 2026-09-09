@@ -740,6 +740,8 @@ export class Model {
 
       useGauge: computed,
       statsApyFormatted: computed,
+      latestApy: computed,
+      latestApyFormatted: computed,
       statsStakedFormatted: computed,
       statsHoldersFormatted: computed,
       statsStakedCompact: computed,
@@ -1589,6 +1591,42 @@ export class Model {
   get apyFormatted() {
     if (this.apy != null) {
       return this.formatPercent(this.apy)
+    }
+  }
+
+  // The APY of the SINGLE most recent settlement release, where `apy` above averages the last two.
+  //
+  // This is the number a staker can reconcile against what they actually earned, and the averaged
+  // one is not. On 2026-09-07 two borrowers missed a round and a third had max_factor
+  // misconfigured: that round returned 10.7% against a fortnight of 16-17%, the next was back at
+  // 16.8%, and the headline showed 13.7% -- correct, and nothing like either round. Users reported
+  // it as a bug. It goes in the APY tooltip rather than beside the headline, because the reason the
+  // window was widened in the first place was that this figure swings several points for reasons
+  // that say nothing about the protocol.
+  //
+  // Same three observations the treasury publishes: previousRate -> midRate -> currentRate. This
+  // pair is the newer half.
+  //
+  // The SDK has computeLatestApy() and this deliberately does not call it, for the reason spelled
+  // out above the `apy` getter: importing a VALUE from that package pulls @ton/core into the eager
+  // island chunk, ahead of the Buffer polyfill, and every app page stops hydrating.
+  get latestApy() {
+    const state = this.treasuryState
+    if (state == null) {
+      return
+    }
+    const duration = Number(state.lastSettledRound - state.midRound)
+    if (duration <= 0 || state.midRate <= 0n) {
+      return
+    }
+    const year = 365 * 24 * 60 * 60
+    const growth = Number(state.currentRate) / Number(state.midRate)
+    return Math.pow(growth, year / duration) - 1
+  }
+
+  get latestApyFormatted() {
+    if (this.latestApy != null) {
+      return this.formatPercent(this.latestApy)
     }
   }
 

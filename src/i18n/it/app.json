@@ -144,6 +144,7 @@
   "app.stake.yearlyRewards": "Ricompense annue, ultimi 2 round",
   "app.stake.youWillReceive": "Riceverai",
   "app.stats.apyTooltip": "I tuoi guadagni annui, calcolati sulla media degli ultimi 2 round di validazione.",
+  "app.stats.apyTooltipLatest": "Solo l'ultimo round: {latest}.",
   "app.stats.apyWindow": "APY, ultimi 2 round",
   "app.stats.gramStaked": "GRAM in staking",
   "app.stats.gramStakedTooltip": "Totale GRAM attualmente in staking su Hipo.",

@@ -144,6 +144,7 @@
   "app.stake.yearlyRewards": "Imbalan tahunan, 2 putaran terakhir",
   "app.stake.youWillReceive": "Anda akan menerima",
   "app.stats.apyTooltip": "Perolehan tahunan Anda, dirata-rata dari 2 putaran validasi terakhir.",
+  "app.stats.apyTooltipLatest": "Putaran terakhir saja: {latest}.",
   "app.stats.apyWindow": "APY, 2 putaran terakhir",
   "app.stats.gramStaked": "GRAM di-stake",
   "app.stats.gramStakedTooltip": "Total GRAM yang saat ini di-stake di Hipo.",

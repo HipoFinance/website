@@ -144,6 +144,7 @@
   "app.stake.yearlyRewards": "Годовая доходность, последние 2 раунда",
   "app.stake.youWillReceive": "Вы получите",
   "app.stats.apyTooltip": "Ваш годовой доход, усреднённый за последние 2 раунда валидации.",
+  "app.stats.apyTooltipLatest": "Только последний раунд: {latest}.",
   "app.stats.apyWindow": "APY, последние 2 раунда",
   "app.stats.gramStaked": "GRAM в стейкинге",
   "app.stats.gramStakedTooltip": "Всего GRAM, находящихся сейчас в стейкинге в Hipo.",

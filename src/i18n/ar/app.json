@@ -144,6 +144,7 @@
   "app.stake.yearlyRewards": "المكافآت السنوية، آخر جولتين",
   "app.stake.youWillReceive": "ستستلم",
   "app.stats.apyTooltip": "أرباحك السنوية، بمتوسط آخر جولتي تحقّق.",
+  "app.stats.apyTooltipLatest": "الجولة الأخيرة وحدها: {latest}.",
   "app.stats.apyWindow": "APY، آخر جولتين",
   "app.stats.gramStaked": "GRAM في الستاكينغ",
   "app.stats.gramStakedTooltip": "إجمالي GRAM المودَع حاليًا في الستاكينغ عبر Hipo.",

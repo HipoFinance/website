@@ -579,6 +579,10 @@
     "sourceHash": "92b68077ff92322e39cb7c62b33d140104938dc7",
     "reviewed": false
   },
+  "app.stats.apyTooltipLatest": {
+    "sourceHash": "e492565fb9231e264fad89676979525c1dae5746",
+    "reviewed": false
+  },
   "app.stats.apyWindow": {
     "sourceHash": "807ce09615f1ad144abc9a5dc65450464704d7a4",
     "reviewed": false
@@ -2056,7 +2060,7 @@
     "reviewed": false
   },
   "prose/shell/stats/cards/01-protocol-metrics.md": {
-    "sourceHash": "24977797273d3e13d046564976f29353a12e96df",
+    "sourceHash": "e295cf53eef414855888253d70b316ee44190f20",
     "reviewed": false
   },
   "prose/shell/stats/cards/02-market-data.md": {
