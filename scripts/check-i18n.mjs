@@ -12,8 +12,14 @@
 // (src/content/prose/<locale>/**), the docs pages (src/content/docs/<locale>/** vs the root English files)
 // and src/i18n/<locale>/docs-sidebar.json when English has one. The sidecar src/i18n/<locale>/meta.json
 // records per item { sourceHash, reviewed, reviewedAt? } (sha1 of the English value or file) so stale
-// and unreviewed translations are surfaced as warnings. Released (indexed|public) locale: missing →
-// error; draft locale: everything is a warning, plus a coverage percentage.
+// translations are surfaced as warnings. Released (indexed|public) locale: missing → error; draft
+// locale: everything is a warning, plus a coverage percentage.
+//
+// The unreviewed count is an INFO line, not a warning. Translations here are machine-adapted and
+// corrected when someone reports a specific string; there is no review pass that would ever drive
+// that number to zero. A warning nobody will ever act on is worse than no warning, because it
+// teaches a reader to skip the block that also carries missing keys, stale hashes and untracked
+// entries -- the three that do mean something and do get fixed.
 
 import { createHash } from 'node:crypto'
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
@@ -226,6 +232,7 @@ function listSome(label, values) {
 function check() {
   const errors = []
   const warnings = []
+  const infos = []
   const englishProblems = []
   const english = readLocale(DEFAULT_LOCALE, englishProblems)
   for (const problem of englishProblems) {
@@ -323,10 +330,13 @@ function check() {
     warnings.push(...listSome(`${tag}: untracked in meta.json (run --update-hashes ${locale})`, untracked))
     warnings.push(...listSome(`${tag}: extra (not in English)`, extra))
     if (unreviewed > 0) {
-      warnings.push(`${tag}: ${unreviewed} translated item(s) not yet reviewed by a native speaker`)
+      infos.push(`${tag}: ${unreviewed} translated item(s) not individually reviewed`)
     }
   }
 
+  for (const info of infos) {
+    console.log(`  info: ${info}`)
+  }
   for (const warning of warnings) {
     console.warn(`  warning: ${warning}`)
   }
