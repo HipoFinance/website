@@ -157,6 +157,7 @@
   "app.statsPage.chartApy": "APY, 2 राउंड का औसत",
   "app.statsPage.chartHpoPrice": "HPO कीमत",
   "app.statsPage.chartLiquidity": "तत्काल अनस्टेकिंग के लिए उपलब्ध",
+  "app.statsPage.chartLiquidityNote": "हर वैलिडेशन राउंड के साथ बदलता है: जब किसी राउंड का स्टेक लौटता है तब ऊँचा, और अगला राउंड फंड होते ही लगभग शून्य।",
   "app.statsPage.chartPrices": "hGRAM और GRAM कीमत",
   "app.statsPage.chartTvl": "कुल लॉक किया गया मूल्य",
   "app.statsPage.circulatingSupply": "सर्कुलेटिंग सप्लाई",

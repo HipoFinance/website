@@ -30,6 +30,16 @@ export interface LineChartProps {
   axisFormat?: (v: number) => string
   deltaUnit: DeltaUnit
   deltaFormat: DeltaFormat
+  // Suppress the first-to-last delta in the header. Set it for a series that CYCLES rather than
+  // trends: instant liquidity swings between millions and near zero on the round cycle, so a
+  // first-to-last comparison picks two arbitrary phases of a wave and reports the gap as a change.
+  // It reads as -100% mid-cycle and as a gain of millions of percent six hours later, in the same
+  // green/coral the page uses for real trends -- and the delta is the number a glancing reader
+  // anchors on. Nothing can make that figure mean something here, so the honest move is to omit
+  // it. Leave unset wherever the series genuinely trends.
+  hideDelta?: boolean
+  // One explanatory line under the title, for a chart whose shape is not self-describing.
+  caption?: string
   rangeLabel: string
   // Catalog lookup (model.t) for the chart's own labels; passed in so this file stays Model-free.
   t: (key: string, params?: Record<string, string | number>) => string
@@ -195,6 +205,8 @@ const LineChart = ({
   axisFormat,
   deltaUnit,
   deltaFormat,
+  hideDelta = false,
+  caption,
   rangeLabel,
   t,
   xTickFormat,
@@ -406,7 +418,7 @@ const LineChart = ({
         {status === 'refreshing' && <RefreshCw className='text-text-faint ms-2 size-4 animate-spin' />}
         {series.length === 1 &&
           (() => {
-            const delta = computeDelta(series[0].points, deltaUnit)
+            const delta = hideDelta ? null : computeDelta(series[0].points, deltaUnit)
             if (delta == null) {
               return <p className='text-text-faint ms-auto text-[13px]'>{rangeLabel}</p>
             }
@@ -426,10 +438,12 @@ const LineChart = ({
           })()}
       </div>
 
+      {caption != null && <p className='text-text-faint mt-1 text-[13px]'>{caption}</p>}
+
       {series.length > 1 && (
         <div className='mt-2 flex flex-row flex-wrap gap-4 text-xs'>
           {series.map((s) => {
-            const delta = computeDelta(s.points, deltaUnit)
+            const delta = hideDelta ? null : computeDelta(s.points, deltaUnit)
             return (
               <div key={s.key} className='text-text-muted flex flex-row items-center gap-1.5'>
                 <span className='inline-block h-0.5 w-3' style={{ backgroundColor: s.color }} />

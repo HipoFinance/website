@@ -157,6 +157,7 @@
   "app.statsPage.chartApy": "APY, media su 2 round",
   "app.statsPage.chartHpoPrice": "Prezzo HPO",
   "app.statsPage.chartLiquidity": "Disponibile per l'unstaking istantaneo",
+  "app.statsPage.chartLiquidityNote": "Oscilla con ogni round di validazione: alto quando lo stake di un round rientra, quasi zero una volta finanziato il round successivo.",
   "app.statsPage.chartPrices": "Prezzo hGRAM e GRAM",
   "app.statsPage.chartTvl": "Valore totale bloccato",
   "app.statsPage.circulatingSupply": "Offerta circolante",

@@ -157,6 +157,7 @@
   "app.statsPage.chartApy": "APY, 2 tur ortalaması",
   "app.statsPage.chartHpoPrice": "HPO fiyatı",
   "app.statsPage.chartLiquidity": "Anında unstake için kullanılabilir",
+  "app.statsPage.chartLiquidityNote": "Her doğrulama turuyla dalgalanır: bir turun stake'i geri döndüğünde yüksek, sonraki tur fonlandığında sıfıra yakın.",
   "app.statsPage.chartPrices": "hGRAM ve GRAM fiyatı",
   "app.statsPage.chartTvl": "Toplam kilitli değer (TVL)",
   "app.statsPage.circulatingSupply": "Dolaşımdaki arz",

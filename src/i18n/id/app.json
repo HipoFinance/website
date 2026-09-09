@@ -157,6 +157,7 @@
   "app.statsPage.chartApy": "APY, rata-rata 2 putaran",
   "app.statsPage.chartHpoPrice": "Harga HPO",
   "app.statsPage.chartLiquidity": "Tersedia untuk unstake instan",
+  "app.statsPage.chartLiquidityNote": "Berfluktuasi setiap putaran validasi: tinggi saat stake sebuah putaran kembali, mendekati nol begitu putaran berikutnya didanai.",
   "app.statsPage.chartPrices": "Harga hGRAM & GRAM",
   "app.statsPage.chartTvl": "Total nilai terkunci",
   "app.statsPage.circulatingSupply": "Suplai beredar",

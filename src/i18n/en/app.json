@@ -157,6 +157,7 @@
   "app.statsPage.chartApy": "APY, 2-round average",
   "app.statsPage.chartHpoPrice": "HPO price",
   "app.statsPage.chartLiquidity": "Available for instant unstaking",
+  "app.statsPage.chartLiquidityNote": "Cycles with each validation round: high when a round's stake returns, near zero once the next round is funded.",
   "app.statsPage.chartPrices": "hGRAM & GRAM price",
   "app.statsPage.chartTvl": "Total value locked",
   "app.statsPage.circulatingSupply": "Circulating supply",

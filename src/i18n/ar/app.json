@@ -157,6 +157,7 @@
   "app.statsPage.chartApy": "APY، متوسط جولتين",
   "app.statsPage.chartHpoPrice": "سعر HPO",
   "app.statsPage.chartLiquidity": "المتاح للسحب الفوري",
+  "app.statsPage.chartLiquidityNote": "يتغيّر مع كل جولة تحقق: مرتفع عند عودة أموال الجولة، وقريب من الصفر بمجرد تمويل الجولة التالية.",
   "app.statsPage.chartPrices": "سعر hGRAM و GRAM",
   "app.statsPage.chartTvl": "إجمالي القيمة المقفلة",
   "app.statsPage.circulatingSupply": "المعروض المتداول",

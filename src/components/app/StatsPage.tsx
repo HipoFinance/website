@@ -303,11 +303,13 @@ const StatsPage = observer(({ model }: Props) => {
         {liquidityPoints.length > 1 && (
           <LineChart
             title={t('app.statsPage.chartLiquidity')}
+            caption={t('app.statsPage.chartLiquidityNote')}
             series={liquiditySeries}
             areaFill={accentAreaFill}
             valueFormat={formatStakedValue}
             axisFormat={formatCompactCount}
             deltaUnit='%'
+            hideDelta
             {...chartCommon}
           />
         )}

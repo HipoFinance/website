@@ -631,6 +631,10 @@
     "sourceHash": "959ec327b3e1cb3a1da9c77d0804bb29c62a06a7",
     "reviewed": false
   },
+  "app.statsPage.chartLiquidityNote": {
+    "sourceHash": "db4014323a0116a75a7acc9f1fd73c6e6df76d5f",
+    "reviewed": false
+  },
   "app.statsPage.chartPrices": {
     "sourceHash": "271d298a1db4bfbb7216d06d3b0e0010890af645",
     "reviewed": false

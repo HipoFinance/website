@@ -157,6 +157,7 @@
   "app.statsPage.chartApy": "APY, Durchschnitt über 2 Runden",
   "app.statsPage.chartHpoPrice": "HPO-Preis",
   "app.statsPage.chartLiquidity": "Für sofortiges Unstaking verfügbar",
+  "app.statsPage.chartLiquidityNote": "Schwankt mit jeder Validierungsrunde: hoch, wenn der Einsatz einer Runde zurückfließt, nahe null, sobald die nächste Runde finanziert ist.",
   "app.statsPage.chartPrices": "hGRAM- & GRAM-Preis",
   "app.statsPage.chartTvl": "Gesperrter Gesamtwert",
   "app.statsPage.circulatingSupply": "Zirkulierendes Angebot",

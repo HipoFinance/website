@@ -157,6 +157,7 @@
   "app.statsPage.chartApy": "APY, média de 2 rodadas",
   "app.statsPage.chartHpoPrice": "Preço do HPO",
   "app.statsPage.chartLiquidity": "Disponível para unstake instantâneo",
+  "app.statsPage.chartLiquidityNote": "Oscila a cada rodada de validação: alto quando o stake de uma rodada retorna, perto de zero assim que a próxima rodada é financiada.",
   "app.statsPage.chartPrices": "Preço de hGRAM e GRAM",
   "app.statsPage.chartTvl": "Valor total bloqueado",
   "app.statsPage.circulatingSupply": "Oferta em circulação",
