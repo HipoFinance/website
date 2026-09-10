@@ -19,6 +19,8 @@ here — `git log` remains the complete record.
 - Fixed a race the feature opened: the button offered to connect while a stored
   session was still restoring, which signed the visitor out and dropped the
   deposit.
+- Cut the post-signature wait: the gateway was serving a head block ~12 s stale,
+  which every read in the wait loop inherited.
 
 ## 2026-09-10 — [detailed report](changelog/2026-09-10-hgram-priced-from-the-rate.md)
 

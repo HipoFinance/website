@@ -17,6 +17,7 @@ the flow turns itself on the day a wallet in the registry says it can.
 | --------- | ------------------------------------------------------------- |
 | `21fed22` | Ask the wallet once: fold the deposit into the connect URL    |
 | `00aad1c` | Don't offer to connect over a session that is still restoring |
+| `488c470` | Stop waiting on a head block that is twelve seconds old       |
 
 ## What the feature actually is
 
@@ -210,6 +211,78 @@ So `dispatched` is now believed only when the wallet that actually connected
 advertises `EmbeddedRequest` in `device.features`. A wallet without it cannot
 have parsed the `e=` parameter, so there is nothing to lose by disbelieving it.
 
+## Thirty seconds to confirm a stake, and where they went
+
+Also reported: the wait dialog took about 30 seconds. TON produces a block every
+400 ms, so the expectation of one or two was reasonable. Almost none of it was
+the protocol.
+
+The deposit pipeline is four hops — user wallet → treasury (`op::deposit_coins`)
+→ parent (`op::proxy_tokens_minted`) → the visitor's hGRAM wallet
+(`op::tokens_minted`) → back to the visitor (`op::transfer_notification`), the
+queryId riding all four. `waitForCompletion` matches that last one, so "done"
+is an honest claim: the hGRAM exists by hop three. Across 112 real mainnet
+deposits from the last twelve days, all four hops completed **in the same
+masterchain block** in 109 of them, and within two seconds in the other three.
+Basechain is unsplit, so the collator runs the whole cascade in one block. Hop
+count costs nothing.
+
+What costs is the read path, and it is ours. `/block/latest` is the one mutable
+resource on the v4 gateway, and it is cached like the immutable ones: nginx
+`proxy_cache_use_stale updating` with `background_update`, plus
+`Cache-Control: public, must-revalidate, max-age=5` on the way out. With the app
+polling every 10 s the entry is always expired on arrival, so every requester is
+handed the stale copy while the refresh happens behind them, and the browser then
+holds that already-old copy for another five seconds. Every read in the wait loop
+is pinned to whatever seqno that returns, so the entire wait inherits the lag.
+
+Measured against `v4.hipo.finance`, polling the way the app does and comparing
+each answer to the same URL with a cache-buster:
+
+```
+t=0s   plain 91832148  busted 91832211   63 blocks behind
+t=10s  plain 91832226  busted 91832236   10
+t=20s  plain 91832226  busted 91832260   34
+t=30s  plain 91832260  busted 91832287   27
+t=40s  plain 91832287  busted 91832310   23
+t=50s  plain 91832310  busted 91832337   27
+```
+
+Average 30.7 blocks, which at the observed 2.5 blocks/s is **12.3 seconds of
+staleness** — and the busted responses came back faster too (~130 ms against
+190–630 ms). That is the thirty seconds.
+
+Three changes here, none of which touch what "done" means:
+
+- The loop asks for the head by a URL neither cache has seen, and falls back to
+  `TonClient4` if that fetch fails for any reason — the client owns endpoint
+  failover, so it stays the authority, just not the default.
+- It skips the rest of an iteration when the head has not moved. The account
+  cannot have changed, and the two reads below it are the expensive half; roughly
+  nine iterations in ten were rescanning a block already scanned.
+- `waitForCompletionDelay` goes from 250 ms to 1 s. Block time was never the
+  constraint — the upstream indexer's own ~1 s cache is — and at 250 ms the loop
+  ran at ~4.7 req/s against the gateway's 120 r/m allowance, so a wait longer
+  than ~25 s started drawing 429s and retrying.
+
+And the success message no longer waits on the balance refresh behind it:
+`setWaitForTransaction('done')` moved above `readLastBlock()`, which is four
+contract reads worth half a second to two seconds.
+
+Two options were measured and rejected. Closing the dialog on the visitor's own
+outgoing message saves **nothing** — that transaction and the notification are
+on the same account in the same block in 109 cases out of 112, so one scan
+returns both — and it would claim success before the treasury had seen the
+deposit, which is flatly wrong on the bill path where hGRAM only appears at
+settlement. Watching the hGRAM wallet or the treasury instead reads through the
+identical stale head, so it is one more address to poll for zero gain.
+
+The real fix is one repository over: `/block/latest` should not be served with
+`use_stale updating` and a five-second browser max-age. That is an nginx change
+and is not in this commit; the client-side work above recovers the same time
+without waiting for it, and the gateway change would additionally fix the
+balances and rate on `/stake/`, which are currently up to 16 s behind.
+
 ## Verification performed
 
 - `npm run build` — clean, 523 pages, prebuild i18n gate at 0 warnings.
@@ -234,6 +307,9 @@ have parsed the `e=` parameter, so there is nothing to lose by disbelieving it.
     ClientRouter, then press the header's Connect: the modal re-opens fully
     styled, still one goober tag, `#ton-connect-widget-root` intact. This is the
     check CLAUDE.md asks for on a TonConnect bump.
+- Head-block staleness measured directly against `v4.hipo.finance`, plain URL
+  versus cache-busted, six samples at the app's own 10 s cadence: 30.7 blocks
+  behind on average, ~12.3 s. Numbers above.
 - Eager island chunk measured against a build of `HEAD`: 51,700 → 52,329 bytes
   gzipped, +629 for this change. `@tonconnect/ui` stays out of it — the bump
   lands entirely in the lazily-fetched chunk.
