@@ -7,6 +7,19 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-10 — [detailed report](changelog/2026-09-10-hgram-priced-from-the-rate.md)
+
+- `/stats/` drew hGRAM below GRAM, which the redemption rate makes impossible:
+  `hipo_hton_current_price` is CoinGecko's weighted average of hGRAM's DEX
+  tickers and most of that weight sits on an inverted STON.fi v1 ticker.
+- Chart 4's hGRAM line is now `hipo_ton_current_price` × `hipo_treasury_hton_rate`,
+  joined on timestamp, which is right across the whole history rather than only
+  from a fix forward.
+- The hGRAM stat card derives the same way from treasury state, and a zero volume
+  from the gauge now renders `—` instead of `$0`.
+- Added a caption naming the source of the hGRAM line, in all nine released
+  locales.
+
 ## 2026-09-08 — [detailed report](changelog/2026-09-08-eager-sdk-import-broke-the-island.md)
 
 - Adopted SDK 6.1.0's `computeApy()` in place of the inline formula, then reverted
