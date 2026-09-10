@@ -152,7 +152,11 @@ const retryDelay = 3 * 1000
 const ROUND_SECONDS = 65536
 const retryAttemptDelay = 1000
 const retryAttempts = 30
-const waitForCompletionDelay = 250 // roughly one block time, since TON's fast blocks
+// Block time is not what bounds this loop — the read endpoint's own ~1s cache is, so polling
+// faster than that returns the same answer and only spends the gateway's rate limit. Measured
+// 2026-09-10: at 250ms the wait loop ran at ~4.7 req/s against a 120r/m allowance and started
+// drawing 429s on any wait longer than ~25s.
+const waitForCompletionDelay = 1000
 const txValidUntil = 5 * 60
 // How long connectAndStake waits for onStatusChange to publish the freshly connected account
 // before it starts reading the chain. The connection is already established by then, so this is
@@ -2752,6 +2756,32 @@ export class Model {
     })
   }
 
+  // The head block is the only mutable read in this loop, and it arrives old. The gateway caches
+  // it with nginx's `use_stale updating` plus a 5s browser max-age, so a visitor who has been
+  // sitting on /stake/ polling every 10s is handed a block 12-16s behind the chain — and every
+  // read below is pinned to that seqno, so the whole wait inherits the lag. Measured 2026-09-10
+  // against v4.hipo.finance: 12.4s median as the app asks for it, 2-3s with both caches defeated.
+  // Hence a URL neither layer has seen. TonClient4 stays the fallback rather than the default,
+  // because it is the one that goes through the caches; it also owns failover, so a fetch that
+  // fails for any reason hands the question back to it rather than guessing.
+  private readHeadSeqno = async (tonClient: TonClient4): Promise<number> => {
+    const endpoint = this.tonEndpoint
+    if (endpoint !== '') {
+      try {
+        const response = await fetch(`${endpoint}/block/latest?_=${Date.now().toString()}`, { cache: 'no-store' })
+        if (response.ok) {
+          const seqno = ((await response.json()) as { last?: { seqno?: number } }).last?.seqno
+          if (typeof seqno === 'number') {
+            return seqno
+          }
+        }
+      } catch {
+        // Fall through to the client below.
+      }
+    }
+    return (await retry(() => tonClient.getLastBlock())).last.seqno
+  }
+
   waitForCompletion = async (queryId: bigint, pending?: PendingTx) => {
     const tonClient = this.tonClient
     const address = this.address
@@ -2774,12 +2804,20 @@ export class Model {
       // the transaction is missing — only that we could not look.
       let everRead = false
 
+      // The account cannot have changed until the head moves, and the two reads below are the
+      // expensive half of an iteration. Scanning the same block again answers the same question.
+      let scannedSeqno = 0
+
       while (Date.now() < deadline) {
         await sleep(waitForCompletionDelay)
 
         let txs
         try {
-          const lastBlock = (await retry(() => tonClient.getLastBlock())).last.seqno
+          const lastBlock = await this.readHeadSeqno(tonClient)
+          if (lastBlock === scannedSeqno) {
+            continue
+          }
+          scannedSeqno = lastBlock
           const last = (await retry(() => tonClient.getAccountLite(lastBlock, address))).account.last
           everRead = true
           if (last == null) {
@@ -2805,9 +2843,12 @@ export class Model {
           if (tx.inMessage.info.type === 'internal' && inPayload.remainingBits >= 32 + 64) {
             inPayload.skip(32)
             if (inPayload.loadUintBig(64) === queryId) {
+              // Say so first. The refresh below is four contract reads that only update the
+              // balances behind the dialog, and holding the success message for them added
+              // half a second to two seconds to every stake.
+              this.setWaitForTransaction('done')
               await this.readLastBlock()
               clearTimeout(this.timeoutReadLastBlock)
-              this.setWaitForTransaction('done')
               if (pending != null) {
                 track(pending.kind === 'stake' ? 'stake_confirmed' : 'unstake_confirmed', {
                   amount_gram: pending.amountGram,
