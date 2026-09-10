@@ -159,6 +159,7 @@
   "app.statsPage.chartLiquidity": "Tersedia untuk unstake instan",
   "app.statsPage.chartLiquidityNote": "Berfluktuasi setiap putaran validasi: tinggi saat stake sebuah putaran kembali, mendekati nol begitu putaran berikutnya didanai.",
   "app.statsPage.chartPrices": "Harga hGRAM & GRAM",
+  "app.statsPage.chartPricesNote": "Harga hGRAM dihitung dari GRAM pada nilai tukar penebusan di atas: yang dibayar treasury untuknya, bukan yang dikutip bursa.",
   "app.statsPage.chartTvl": "Total nilai terkunci",
   "app.statsPage.circulatingSupply": "Suplai beredar",
   "app.statsPage.deltaOver": "{delta} selama {range}",

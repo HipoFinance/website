@@ -159,6 +159,7 @@
   "app.statsPage.chartLiquidity": "Доступно для мгновенного вывода",
   "app.statsPage.chartLiquidityNote": "Меняется с каждым раундом валидации: высокий, когда возвращается стейк раунда, и почти нулевой, как только профинансирован следующий раунд.",
   "app.statsPage.chartPrices": "Цена hGRAM и GRAM",
+  "app.statsPage.chartPricesNote": "Цена hGRAM рассчитывается из цены GRAM по курсу погашения выше: это то, что за него платит казна, а не котировка биржи.",
   "app.statsPage.chartTvl": "Общая заблокированная стоимость",
   "app.statsPage.circulatingSupply": "В обращении",
   "app.statsPage.deltaOver": "{delta} за {range}",

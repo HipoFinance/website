@@ -45,6 +45,14 @@ plus `holders_count` on `hton` and `hpo`. **Its keys still use the pre-rename
 names**: `hton` is hGRAM and `ton` is GRAM. It takes no network parameter and
 serves mainnet figures only.
 
+Since 2026-09-10 the `hton` block is **computed by gauge, not fetched**: hGRAM's
+price is GRAM's times the treasury's redemption rate, its supply and market cap
+come from `total_tokens`/`total_coins`, and `market_cap_rank` and `total_volume`
+are `0` because neither follows from a redemption rate. The app does the same
+substitution itself (`Model.derivedHgram`) rather than waiting on the gauge
+deploy, and reads a `0` volume as "unknown", so the row shows a dash instead of
+`$0`.
+
 Today the panel's APY and Staked are contract-derived: `model.apy` from
 `treasuryState.previousRate`/`currentRate` and `times` (`Model.ts:596-608`),
 `model.currentlyStaked` from `treasuryState.totalCoins` (`Model.ts:623-631`).

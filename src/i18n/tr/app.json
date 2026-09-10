@@ -159,6 +159,7 @@
   "app.statsPage.chartLiquidity": "Anında unstake için kullanılabilir",
   "app.statsPage.chartLiquidityNote": "Her doğrulama turuyla dalgalanır: bir turun stake'i geri döndüğünde yüksek, sonraki tur fonlandığında sıfıra yakın.",
   "app.statsPage.chartPrices": "hGRAM ve GRAM fiyatı",
+  "app.statsPage.chartPricesNote": "hGRAM fiyatı, yukarıdaki geri alım oranıyla GRAM'dan hesaplanır: bir borsanın verdiği kotasyon değil, hazinenin karşılığında ödediği tutar.",
   "app.statsPage.chartTvl": "Toplam kilitli değer (TVL)",
   "app.statsPage.circulatingSupply": "Dolaşımdaki arz",
   "app.statsPage.deltaOver": "{range} içinde {delta}",

@@ -159,6 +159,7 @@
   "app.statsPage.chartLiquidity": "Disponível para unstake instantâneo",
   "app.statsPage.chartLiquidityNote": "Oscila a cada rodada de validação: alto quando o stake de uma rodada retorna, perto de zero assim que a próxima rodada é financiada.",
   "app.statsPage.chartPrices": "Preço de hGRAM e GRAM",
+  "app.statsPage.chartPricesNote": "O preço de hGRAM é calculado a partir de GRAM pela taxa de resgate acima: o que a tesouraria paga por ele, não o que uma exchange cota.",
   "app.statsPage.chartTvl": "Valor total bloqueado",
   "app.statsPage.circulatingSupply": "Oferta em circulação",
   "app.statsPage.deltaOver": "{delta} em {range}",

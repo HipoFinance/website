@@ -7,6 +7,7 @@ import { ChartsStore } from './charts/ChartsStore'
 import LineChart, { type ChartSeriesInput } from './charts/LineChart'
 import RangeSelector from './charts/RangeSelector'
 import { computeDelta, type Delta } from './charts/delta'
+import { deriveHgramPrice } from './charts/derived'
 import type { ChartPoint } from './charts/prometheus'
 import { nodes } from './Interpolate'
 
@@ -198,9 +199,14 @@ const StatsPage = observer(({ model }: Props) => {
   const rateSeries: ChartSeriesInput[] = [
     { key: 'rate', name: t('app.statsPage.seriesRate'), color: accentColor, points: ratePoints },
   ]
+  // hGRAM's line is GRAM's line times the redemption rate plotted just above, not the
+  // hipo_hton_current_price series — see deriveHgramPrice for why that series is not trusted. The
+  // metric is still fetched (the Prometheus query string is matched byte-for-byte by the proxy
+  // allowlist, so it is not free to edit) and is simply no longer what this chart draws.
+  const gramPricePoints: ChartPoint[] = chartsStore.series?.hipo_ton_current_price ?? []
   const priceSeries: ChartSeriesInput[] = [
-    { key: 'hgram', name: 'hGRAM', color: accentColor, points: chartsStore.series?.hipo_hton_current_price ?? [] },
-    { key: 'gram', name: 'GRAM', color: inkColor, points: chartsStore.series?.hipo_ton_current_price ?? [] },
+    { key: 'hgram', name: 'hGRAM', color: accentColor, points: deriveHgramPrice(gramPricePoints, ratePoints) },
+    { key: 'gram', name: 'GRAM', color: inkColor, points: gramPricePoints },
   ]
   const hpoSeries: ChartSeriesInput[] = [
     { key: 'hpo', name: 'HPO', color: positiveColor, points: chartsStore.series?.hipo_hpo_current_price ?? [] },
@@ -330,6 +336,7 @@ const StatsPage = observer(({ model }: Props) => {
         />
         <LineChart
           title={t('app.statsPage.chartPrices')}
+          caption={t('app.statsPage.chartPricesNote')}
           series={priceSeries}
           valueFormat={formatPrice}
           deltaUnit='%'

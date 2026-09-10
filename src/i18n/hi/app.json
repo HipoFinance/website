@@ -159,6 +159,7 @@
   "app.statsPage.chartLiquidity": "तत्काल अनस्टेकिंग के लिए उपलब्ध",
   "app.statsPage.chartLiquidityNote": "हर वैलिडेशन राउंड के साथ बदलता है: जब किसी राउंड का स्टेक लौटता है तब ऊँचा, और अगला राउंड फंड होते ही लगभग शून्य।",
   "app.statsPage.chartPrices": "hGRAM और GRAM कीमत",
+  "app.statsPage.chartPricesNote": "hGRAM की कीमत ऊपर दिखाई गई रिडेम्पशन दर पर GRAM से निकाली जाती है: ट्रेज़री उसके बदले जो देती है, वह — किसी एक्सचेंज का भाव नहीं।",
   "app.statsPage.chartTvl": "कुल लॉक किया गया मूल्य",
   "app.statsPage.circulatingSupply": "सर्कुलेटिंग सप्लाई",
   "app.statsPage.deltaOver": "{range} में {delta}",

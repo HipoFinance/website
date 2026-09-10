@@ -748,6 +748,7 @@ export class Model {
       statsStakedExact: computed,
       statsTvlUsdFormatted: computed,
       statsRateFormatted: computed,
+      derivedHgram: computed,
       hgramStats: computed,
       hpoStats: computed,
       gramStats: computed,
@@ -1773,7 +1774,66 @@ export class Model {
   }
 
   get hgramStats() {
-    return this.useGauge ? this.tokenStats(this.gauge?.hgram) : undefined
+    return this.useGauge ? this.tokenStats(this.derivedHgram) : undefined
+  }
+
+  // hGRAM's figures, computed from GRAM's and the treasury's redemption rate instead of taken from
+  // the gauge's hGRAM block — the same substitution the price chart makes, and for the same reason
+  // (see charts/derived.ts): that block is a volume-weighted average of DEX tickers, one of which
+  // has been reporting its pool inverted, and it has had hGRAM trading below GRAM, which the
+  // protocol does not allow.
+  //
+  // Shaped like a gauge token so tokenStats formats it identically, and holders_count is passed
+  // through untouched — that one comes from TonApi and was never in doubt. Falls back to the gauge
+  // whole when there is no treasury state to convert with, which is the case for the first moments
+  // after the island mounts.
+  //
+  // The gauge derives the same figures server-side now, so this is belt and braces rather than the
+  // only fix — but the two deploy independently, and this is the half that is true the moment it
+  // ships.
+  get derivedHgram(): HipoGaugeToken | undefined {
+    const hgram = this.gauge?.hgram
+    const gram = this.gauge?.gram?.market
+    const state = this.treasuryState
+    const price = gram?.current_price?.usd
+
+    if (price == null || state == null) {
+      return hgram
+    }
+
+    const rate = Number(state.totalCoins) / Number(state.totalTokens)
+    const supply = Number(state.totalTokens) / 1000000000
+    if (!(rate >= 1) || !(supply > 0)) {
+      return hgram
+    }
+
+    return {
+      holders_count: hgram?.holders_count,
+      market: {
+        current_price: { usd: price * rate },
+        // price × supply, written against total_coins because the treasury already holds that
+        // product exactly: the GRAM staked here IS what backs every hGRAM.
+        market_cap: { usd: (price * Number(state.totalCoins)) / 1000000000 },
+        // Trade flow across venues, which nothing here measures. Left out so the row reads "—"
+        // rather than "$0".
+        total_volume: undefined,
+        total_supply: supply,
+        circulating_supply: supply,
+        price_change_percentage_24h: this.hgramChange24h(gram?.price_change_percentage_24h),
+      },
+    }
+  }
+
+  // A day of holding hGRAM is a day of holding GRAM plus a day of the rate rising, and the card
+  // shows two decimal places of a percent, so the second term is visible: at a 13% APY it is
+  // +0.034 pp. Same arithmetic the gauge does, so the two agree to the digit.
+  hgramChange24h = (gramChange?: number): number | undefined => {
+    if (gramChange == null) {
+      return undefined
+    }
+    const apy = this.gauge?.treasury?.current_apy
+    const growth = apy != null && apy > -100 ? Math.pow(1 + apy / 100, 1 / 365) : 1
+    return ((1 + gramChange / 100) * growth - 1) * 100
   }
 
   get hpoStats() {
@@ -1797,7 +1857,13 @@ export class Model {
       change24h: change != null ? this.formatSignedPercent(change / 100) : undefined,
       isChangePositive: (change ?? 0) >= 0,
       marketCap: market?.market_cap?.usd != null ? this.formatUsdCompact(market.market_cap.usd) : undefined,
-      totalVolume: market?.total_volume?.usd != null ? this.formatUsdCompact(market.total_volume.usd) : undefined,
+      // A zero volume is the gauge saying it does not know, never a real observation: a listed
+      // token that traded nothing at all in 24 hours does not happen, and "$0" would read as one
+      // that did.
+      totalVolume:
+        market?.total_volume?.usd != null && market.total_volume.usd > 0
+          ? this.formatUsdCompact(market.total_volume.usd)
+          : undefined,
       supply: market?.circulating_supply != null ? this.formatCompact(market.circulating_supply) : undefined,
       holders: token.holders_count != null ? this.formatCompact(token.holders_count) : undefined,
     }

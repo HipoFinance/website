@@ -639,6 +639,10 @@
     "sourceHash": "271d298a1db4bfbb7216d06d3b0e0010890af645",
     "reviewed": false
   },
+  "app.statsPage.chartPricesNote": {
+    "sourceHash": "1544a09e98a2d4f5161f2431bf482224792cd81f",
+    "reviewed": false
+  },
   "app.statsPage.chartTvl": {
     "sourceHash": "14ca484c4cd1d728accbef187449f76817d2d742",
     "reviewed": false

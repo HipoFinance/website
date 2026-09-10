@@ -101,7 +101,7 @@ is the move.
 | 1 | APY                | `hipo_treasury_apy`                                           | %     | stepped line |
 | 2 | Staked             | `hipo_treasury_total_coins` ÷ 1e9                             | GRAM  | line         |
 | 3 | hGRAM holders      | `hipo_hton_holders_count`                                     | count | line         |
-| 4 | hGRAM & GRAM price | `hipo_hton_current_price`, `hipo_ton_current_price`           | USD   | 2 lines      |
+| 4 | hGRAM & GRAM price | `hipo_ton_current_price` × `hipo_treasury_hton_rate`, `hipo_ton_current_price` | USD | 2 lines |
 | 5 | HPO price          | `hipo_hpo_current_price`                                      | USD   | line         |
 
 - APY is stepped (`H`/`V` path segments): it changes discretely per validator
@@ -109,6 +109,16 @@ is the move.
 - Prices split because HPO (~$0.002) on hGRAM/GRAM's axis (~$3–6) is a flat
   line on the floor; dual axes are forbidden. hGRAM and GRAM share chart 4
   deliberately — their spread is the staking premium.
+- **hGRAM's line is computed, not fetched** (`charts/derived.ts`, 2026-09-10).
+  `hipo_hton_current_price` is CoinGecko's volume-weighted average of hGRAM's DEX
+  tickers, and over the 30 days to 2026-09-10 it sat within 2% of hGRAM's
+  redemption value for 194 of 350 samples and drifted as far as −26.4% for the
+  rest, printing hGRAM *below* GRAM on 16% of them — which the protocol makes
+  impossible. Chart 4 multiplies GRAM's price by chart 6's rate instead, joined on
+  timestamp (never by index), so it is right across the whole history rather than
+  only from the moment a fixed feed starts. The metric is still in `PROM_QUERY`:
+  the query string is matched byte-for-byte by the proxy allowlist, so dropping a
+  name from it is a two-repo deploy, not a chart edit.
 - No area fills anywhere: honest zero-baseline areas would flatten TVL, and
   cropped-baseline areas are an anti-pattern. Lines with ~8% padded auto
   y-domain.

@@ -159,6 +159,7 @@
   "app.statsPage.chartLiquidity": "قابل برداشت فوری",
   "app.statsPage.chartLiquidityNote": "با هر دور اعتبارسنجی نوسان می‌کند: وقتی استیک یک دور برمی‌گردد بالاست و به‌محض تأمین مالی دور بعد نزدیک صفر می‌شود.",
   "app.statsPage.chartPrices": "قیمت hGRAM و GRAM",
+  "app.statsPage.chartPricesNote": "قیمت hGRAM از روی GRAM و با نرخ بازخرید بالا محاسبه می‌شود: چیزی که خزانه بابت آن می‌پردازد، نه نرخی که یک صرافی اعلام می‌کند.",
   "app.statsPage.chartTvl": "کل ارزش قفل‌شده",
   "app.statsPage.circulatingSupply": "عرضه در گردش",
   "app.statsPage.deltaOver": "{delta} در {range}",

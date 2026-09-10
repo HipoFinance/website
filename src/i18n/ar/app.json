@@ -159,6 +159,7 @@
   "app.statsPage.chartLiquidity": "المتاح للسحب الفوري",
   "app.statsPage.chartLiquidityNote": "يتغيّر مع كل جولة تحقق: مرتفع عند عودة أموال الجولة، وقريب من الصفر بمجرد تمويل الجولة التالية.",
   "app.statsPage.chartPrices": "سعر hGRAM و GRAM",
+  "app.statsPage.chartPricesNote": "يُحتسب سعر hGRAM من سعر GRAM بمعدل الاسترداد أعلاه: ما تدفعه الخزينة مقابله، وليس ما تعرضه منصة تداول.",
   "app.statsPage.chartTvl": "إجمالي القيمة المقفلة",
   "app.statsPage.circulatingSupply": "المعروض المتداول",
   "app.statsPage.deltaOver": "{delta} خلال {range}",
