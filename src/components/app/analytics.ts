@@ -2,11 +2,16 @@
 //
 //   wallet_connect      TonConnect returns a wallet the visitor just connected  wallet_name
 //   stake_initiated     the stake form is submitted                            amount_gram
-//   stake_confirmed     the deposit lands on-chain                             amount_gram, wallet_name
-//   unstake_confirmed   the burn lands on-chain                                amount_gram, unstake_type
+//   stake_confirmed     the deposit lands on-chain                             amount_gram, wallet_name, settlement
+//   unstake_confirmed   the burn lands on-chain                                amount_gram, unstake_type, settlement
 //
 // The point of the pair is the drop-off between `stake_initiated` and `stake_confirmed`: everyone
 // in the gap opened their wallet and did not sign.
+//
+// `settlement` was added on 2026-09-10 and is 'instant' or 'queued'. A Full unstake is answered by
+// a bill -- accepted now, paid when the round settles -- and until then every one of those counted
+// as a completed unstake here, which is most of them. An instant unstake that rolled back for want
+// of liquidity now sends no event at all, because nothing happened.
 //
 // The tag itself is src/components/Analytics.astro, which only initialises on hipo.finance — so
 // `window.gtag` is simply absent in dev, in `npm run preview`, and for the many crypto-native

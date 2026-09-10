@@ -49,14 +49,43 @@ const Wait = observer(({ model }: Props) => {
         {t('app.common.okay')}
       </button>
     )
-  } else if (model.waitForTransaction === 'done') {
+  } else if (model.waitForTransaction === 'rejected') {
+    // The instant unstake rolled back for want of liquidity. Nothing moved, and the balance is
+    // exactly as it was — which is the opposite of what this screen used to say here.
+    img = <img src='/images/app/warning-dark.svg' alt='' className='m-4 mx-auto h-16' />
+    progress = <></>
+    heading = <h1 className='font-fredoka text-center text-xl font-semibold'>{t('app.wait.rejectedTitle')}</h1>
+    message = <p className='text-text-muted mt-4 text-center text-sm'>{t('app.wait.rejectedMessage')}</p>
+    button = (
+      <button
+        className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover mt-6 h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold'
+        onClick={() => {
+          model.setWaitForTransaction('no')
+        }}
+      >
+        {t('app.common.okay')}
+      </button>
+    )
+  } else if (model.waitForTransaction === 'done' || model.waitForTransaction === 'queued') {
+    // 'queued' is a bill: the request is accepted and pays out when the round settles. That is
+    // what the Full unstake option asks for, so it is the ordinary outcome there rather than an
+    // edge case — and it is not the same claim as 'done', which means the value has moved.
+    const stake = model.waitKind === 'stake'
+    const queued = model.waitForTransaction === 'queued'
     img = <img src='/images/app/logo-dark.svg' alt='' className='m-4 mx-auto h-32' />
     progress = <></>
     heading = (
       <h1 className='font-fredoka text-center text-xl font-semibold'>
-        {model.isStakeTabActive ? t('app.wait.stakedTitle') : t('app.wait.unstakedTitle')}
+        {queued
+          ? t(stake ? 'app.wait.queuedStakeTitle' : 'app.wait.queuedUnstakeTitle')
+          : t(stake ? 'app.wait.stakedTitle' : 'app.wait.unstakedTitle')}
       </h1>
     )
+    message = queued ? (
+      <p className='text-text-muted mt-4 text-center text-sm'>
+        {t(stake ? 'app.wait.queuedStakeMessage' : 'app.wait.queuedUnstakeMessage')}
+      </p>
+    ) : undefined
     button = (
       <button
         className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover mt-6 h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold'

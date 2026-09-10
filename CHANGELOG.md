@@ -21,6 +21,9 @@ here — `git log` remains the complete record.
   deposit.
 - Cut the post-signature wait: the gateway was serving a head block ~12 s stale,
   which every read in the wait loop inherited.
+- Stopped announcing "Successfully unstaked" for a Full unstake that has only
+  been queued, or for an instant one that rolled back: the wait now reads the op,
+  not just the queryId, and has `queued` and `rejected` screens.
 
 ## 2026-09-10 — [detailed report](changelog/2026-09-10-hgram-priced-from-the-rate.md)
 

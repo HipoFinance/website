@@ -44,7 +44,38 @@ type PendingTx = { kind: 'stake' | 'unstake'; amountGram: number; unstakeType?: 
 // appearing. 'unreachable': we could not read the chain at all, which says nothing either way —
 // keeping them apart matters, because telling someone their transaction did not happen when it did
 // is the worst thing this screen can say.
-type WaitForTransaction = 'no' | 'signed' | 'sent' | 'timeout' | 'unreachable' | 'done'
+// How a request that came back actually ended. 'done' is value in hand — hGRAM minted, or GRAM
+// paid out. 'queued' is accepted and settling with the round, which is what the Full unstake
+// option asks for and therefore the ordinary outcome, not an edge case. 'rejected' is the instant
+// unstake rolling back for want of liquidity: nothing moved at all.
+type TxOutcome = 'done' | 'queued' | 'rejected'
+
+// 'timeout': the validUntil window passed with the chain answering and the transaction never
+// appearing. 'unreachable': we could not read the chain at all, which says nothing either way —
+// keeping them apart matters, because telling someone their transaction did not happen when it did
+// is the worst thing this screen can say.
+type WaitForTransaction = 'no' | 'signed' | 'sent' | 'timeout' | 'unreachable' | TxOutcome
+
+// The ops the protocol sends back to the visitor's own wallet address, from
+// contract/contracts/imports/constants.fc. The wait used to skip straight past this field and
+// match on query_id alone, which meant every one of them was announced as a success.
+const opTransferNotification = 0x7362d09c // hGRAM minted and credited
+const opWithdrawalNotification = 0xf0fa223b // GRAM paid out
+const opOwnershipAssigned = 0x05138d91 // a bill — one nanoton, and a promise for settlement
+const opGasExcess = 0xd53276db // change; on an unstake, the instant rollback
+
+// Which claim wins when a single batch carries more than one of them. Value in hand beats a
+// promise, and a promise beats a rollback — never the other way round.
+const outcomeRank: Record<TxOutcome, number> = { done: 3, queued: 2, rejected: 1 }
+const strongerOutcome = (a: TxOutcome | undefined, b: TxOutcome | undefined) => {
+  if (a == null) {
+    return b
+  }
+  if (b == null) {
+    return a
+  }
+  return outcomeRank[b] > outcomeRank[a] ? b : a
+}
 
 type AmountAlert = 'none' | 'stake-max' | 'unstake-max' | 'instant-unstake-max'
 
@@ -580,6 +611,9 @@ export class Model {
   // Deliberately not observable: no UI reads it, and making it so would re-render on connect.
   connectedWalletName?: string
   waitForTransaction: WaitForTransaction = 'no'
+  // Which request the open dialog is about. Not read off the tab, which the visitor can still
+  // move while it is open.
+  waitKind: PendingTx['kind'] = 'stake'
   amountAlert: AmountAlert = 'none'
   ongoingRequests = 0
   errorMessage = ''
@@ -670,6 +704,7 @@ export class Model {
       amountInvalid: observable,
       unstakeOption: observable,
       waitForTransaction: observable,
+      waitKind: observable,
       amountAlert: observable,
       ongoingRequests: observable,
       errorMessage: observable,
@@ -779,6 +814,7 @@ export class Model {
       relocalizeAmount: action,
       normalizeAmount: action,
       setWaitForTransaction: action,
+      setWaitKind: action,
       setAmountAlert: action,
       beginRequest: action,
       endRequest: action,
@@ -2138,6 +2174,10 @@ export class Model {
     this.waitForTransaction = wait
   }
 
+  setWaitKind = (kind: PendingTx['kind']) => {
+    this.waitKind = kind
+  }
+
   setAmountAlert = (amountAlert: AmountAlert) => {
     this.amountAlert = amountAlert
   }
@@ -2782,9 +2822,36 @@ export class Model {
     return (await retry(() => tonClient.getLastBlock())).last.seqno
   }
 
+  // What a message arriving back at the visitor's own wallet says actually happened. Read from
+  // the request that was sent, not the tab, because the tab is a live control the visitor can
+  // still move while this dialog is open.
+  private outcomeOf = (op: number, kind: PendingTx['kind']): TxOutcome | undefined => {
+    switch (op) {
+      case opTransferNotification:
+      case opWithdrawalNotification:
+        return 'done'
+      case opOwnershipAssigned:
+        // A bill. The request is accepted and pays out when the round settles, which is exactly
+        // what the Full unstake option asks for — so this is the ordinary outcome there, not an
+        // edge case. A deposit only lands here if instant_mint is ever turned off.
+        return 'queued'
+      case opGasExcess:
+        // On an unstake this is the instant rollback: liquidity fell short between the estimate
+        // and the burn, and nothing moved. On a deposit the same op is just change coming back
+        // and says nothing about the outcome, so it is not an answer.
+        return kind === 'stake' ? undefined : 'rejected'
+      default:
+        return undefined
+    }
+  }
+
   waitForCompletion = async (queryId: bigint, pending?: PendingTx) => {
     const tonClient = this.tonClient
     const address = this.address
+    // The tab can move under a wait that is already running, so the request's own kind is what
+    // decides how its answer is read.
+    const kind: PendingTx['kind'] = pending?.kind ?? (this.isStakeTabActive ? 'stake' : 'unstake')
+    this.setWaitKind(kind)
 
     if (tonClient == null || address == null) {
       this.setWaitForTransaction('unreachable')
@@ -2833,6 +2900,11 @@ export class Model {
           continue
         }
 
+        // Transactions come back newest-first and one batch can hold several messages from this
+        // queryId, so read the whole batch and then decide, rather than believing whichever the
+        // endpoint happened to return first.
+        let outcome: TxOutcome | undefined
+
         for (const txBlock of txs) {
           const tx = txBlock.tx
           if (tx.description.type !== 'generic' || tx.inMessage == null) {
@@ -2841,27 +2913,15 @@ export class Model {
 
           const inPayload = tx.inMessage.body.beginParse()
           if (tx.inMessage.info.type === 'internal' && inPayload.remainingBits >= 32 + 64) {
-            inPayload.skip(32)
+            const op = inPayload.loadUint(32)
             if (inPayload.loadUintBig(64) === queryId) {
-              // Say so first. The refresh below is four contract reads that only update the
-              // balances behind the dialog, and holding the success message for them added
-              // half a second to two seconds to every stake.
-              this.setWaitForTransaction('done')
-              await this.readLastBlock()
-              clearTimeout(this.timeoutReadLastBlock)
-              if (pending != null) {
-                track(pending.kind === 'stake' ? 'stake_confirmed' : 'unstake_confirmed', {
-                  amount_gram: pending.amountGram,
-                  wallet_name: pending.kind === 'stake' ? this.connectedWalletName : undefined,
-                  unstake_type: pending.unstakeType,
-                })
-              }
-              return
+              outcome = strongerOutcome(outcome, this.outcomeOf(op, kind))
+              continue
             }
           }
 
           const outMessage = tx.outMessages.get(0)
-          if (this.waitForTransaction === 'signed' && outMessage != null) {
+          if (outcome == null && this.waitForTransaction === 'signed' && outMessage != null) {
             const outPayload = outMessage.body.beginParse()
             if (outPayload.remainingBits >= 32 + 64) {
               outPayload.skip(32)
@@ -2871,6 +2931,26 @@ export class Model {
               }
             }
           }
+        }
+
+        if (outcome != null) {
+          // Say so first. The refresh below is four contract reads that only update the balances
+          // behind the dialog, and holding the message for them added half a second to two
+          // seconds to every stake.
+          this.setWaitForTransaction(outcome)
+          await this.readLastBlock()
+          clearTimeout(this.timeoutReadLastBlock)
+          if (pending != null && outcome !== 'rejected') {
+            track(kind === 'stake' ? 'stake_confirmed' : 'unstake_confirmed', {
+              amount_gram: pending.amountGram,
+              wallet_name: kind === 'stake' ? this.connectedWalletName : undefined,
+              unstake_type: pending.unstakeType,
+              // Without this the funnel counts a Full unstake as completed the moment its bill is
+              // issued, and a Full unstake is most of them. A rollback is not counted at all.
+              settlement: outcome === 'done' ? 'instant' : 'queued',
+            })
+          }
+          return
         }
       }
 

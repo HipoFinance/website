@@ -787,6 +787,30 @@
     "sourceHash": "32dc728d60a3b69e4f7e86653fa37cc3bca1aaa6",
     "reviewed": false
   },
+  "app.wait.queuedStakeMessage": {
+    "sourceHash": "755e32b60230741f67ee065dd66a37c504311a9e",
+    "reviewed": false
+  },
+  "app.wait.queuedStakeTitle": {
+    "sourceHash": "c4c2c760c4fb081c2de628a94cfaca4f43c3e2e0",
+    "reviewed": false
+  },
+  "app.wait.queuedUnstakeMessage": {
+    "sourceHash": "91397c63fa662e4b76311b98cbbb5127078424d2",
+    "reviewed": false
+  },
+  "app.wait.queuedUnstakeTitle": {
+    "sourceHash": "ed9254f2d002190c277f67d7d7d5c26cfbd4d4b0",
+    "reviewed": false
+  },
+  "app.wait.rejectedMessage": {
+    "sourceHash": "8ae3ea5916dbdd8c117ac48c386db9694e2065bc",
+    "reviewed": false
+  },
+  "app.wait.rejectedTitle": {
+    "sourceHash": "12b9841e753e4be8bccd70d0f09dde0fa9689dbb",
+    "reviewed": false
+  },
   "app.wait.stakedTitle": {
     "sourceHash": "be65dded87595581aabd3138798969efb58de994",
     "reviewed": false
