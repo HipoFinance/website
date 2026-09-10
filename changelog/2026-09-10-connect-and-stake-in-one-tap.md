@@ -18,6 +18,7 @@ the flow turns itself on the day a wallet in the registry says it can.
 | `21fed22` | Ask the wallet once: fold the deposit into the connect URL    |
 | `00aad1c` | Don't offer to connect over a session that is still restoring |
 | `488c470` | Stop waiting on a head block that is twelve seconds old       |
+| `c14051d` | Stop calling a queued unstake a completed one                 |
 
 ## What the feature actually is
 
@@ -283,6 +284,73 @@ and is not in this commit; the client-side work above recovers the same time
 without waiting for it, and the gateway change would additionally fix the
 balances and rate on `/stake/`, which are currently up to 16 s behind.
 
+## "Successfully unstaked", for an unstake that had not happened
+
+Chasing something much smaller turned this up. The wait's progress bar sits at
+one sixth for the whole wait and then jumps to the success screen, so the plan
+was to make its middle state (`'sent'`) real. Two things came out of tracing the
+contracts first, and the small one was wrong.
+
+`'sent'` is **not** dead code — it fires routinely, and deleting it would have
+been a mistake. But the state it precedes was making a claim it had not earned.
+
+`waitForCompletion` matched on `query_id` alone: it skipped straight past the op
+(`inPayload.skip(32)`) and treated _any_ message coming back with that queryId
+as success. What actually arrives depends entirely on which branch the treasury
+took:
+
+| path                                            | message back to the visitor's own wallet                     | the dialog said         |
+| ----------------------------------------------- | ------------------------------------------------------------ | ----------------------- |
+| Instant, liquidity available                    | `withdrawal_notification`, carrying the GRAM                 | Successfully unstaked ✓ |
+| **Full**, or instant with a round holding bills | `ownership_assigned` — **one nanoton**, a receipt for a bill | Successfully unstaked ✗ |
+| Instant, liquidity short                        | `gas_excess` — the rollback                                  | Successfully unstaked ✗ |
+
+The middle row is the default. `treasury.fc` takes the instant-payout branch
+only when `mode <= instant || round_since == 0`, and `round_since` is non-zero
+whenever any round holds bills — which is nearly always on a live pool. So a Full
+unstake is answered by a bill, the visitor is told "Successfully unstaked" about
+three seconds later, and the GRAM arrives when the round settles, hours away.
+
+This was confirmed on chain rather than argued from the source. A real mainnet
+unstake from earlier the same day, traced end to end:
+
+```
+unstake_tokens → reserve_tokens → mint_bill → assign_bill → ownership_assigned  value=1
+```
+
+One nanoton, and the whole trace spans **0 seconds** — every hop in the same
+block, which is why the false success arrives so promptly. Across the last 60
+treasury transactions the split was 7 instant payouts (`reserve_tokens →
+proxy_tokens_burned`) to 1 bill (`reserve_tokens → mint_bill`), so neither
+outcome is rare.
+
+The wait now reads the op alongside the queryId and says which of the three
+happened:
+
+- `withdrawal_notification` / `transfer_notification` → `'done'`, as before.
+- `ownership_assigned` → a new `'queued'` state: "Unstake queued — your hGRAM is
+  reserved. Your GRAM arrives when the current round settles." This is a success
+  screen, not a warning: it is what the Full option asks for. A deposit can land
+  here too, though only if `instant_mint` is ever turned off — it is `true`
+  today, which is the only reason the stake side was honest.
+- `gas_excess` on an unstake → a new `'rejected'` state: nothing moved, the
+  hGRAM balance is unchanged. On a _deposit_ the same op is just change coming
+  back and says nothing, so it is not treated as an answer there.
+
+Three details worth keeping:
+
+- A batch is read whole before deciding, rather than trusting whichever message
+  the endpoint returned first. Transactions come back newest-first and one batch
+  can carry several messages from the same queryId, so the outcomes are ranked —
+  value in hand beats a promise, a promise beats a rollback.
+- The op is read against the _request's_ kind, not the active tab, because the
+  tab is a live control the visitor can still move while the dialog is open.
+  `waitKind` is captured when the wait starts, and the dialog's titles now come
+  from it rather than from `isStakeTabActive`.
+- `stake_confirmed`/`unstake_confirmed` gain a `settlement` field, `'instant'` or
+  `'queued'`. Until now every bill counted as a completed unstake in that funnel,
+  and a rollback counted as one too; a rollback now sends no event at all.
+
 ## Verification performed
 
 - `npm run build` — clean, 523 pages, prebuild i18n gate at 0 warnings.
@@ -307,6 +375,11 @@ balances and rate on `/stake/`, which are currently up to 16 s behind.
     ClientRouter, then press the header's Connect: the modal re-opens fully
     styled, still one goober tag, `#ton-connect-widget-root` intact. This is the
     check CLAUDE.md asks for on a TonConnect bump.
+- The three outcomes rendered in a browser, in `en`, `de` and `fa`, by driving
+  the model into each state through a temporary debug hook (added, screenshotted,
+  reverted; the shipped bundle was then checked to confirm it contains no
+  `__hipoModel`). No overflow in any locale — the long German title fits on one
+  line and the RTL layout keeps `hGRAM` in Latin.
 - Head-block staleness measured directly against `v4.hipo.finance`, plain URL
   versus cache-busted, six samples at the app's own 10 s cadence: 30.7 blocks
   behind on average, ~12.3 s. Numbers above.
