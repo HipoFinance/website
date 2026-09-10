@@ -1324,7 +1324,16 @@ export class Model {
   // once an amount is in the field — with an empty field the button stays a plain Connect, which
   // is still the way to see a balance and use Max before deciding on an amount.
   get canConnectAndStake() {
-    return !this.isWalletConnected && this.isStakeTabActive && this.isAmountValid && this.isAmountPositive
+    return (
+      // While the wallet layer is loading, "not connected" is not yet an answer — a stored session
+      // may still be restoring. Offering to connect then would sign the visitor out, so the button
+      // stays a plain Connect until the question is settled.
+      !this.isWalletLoading &&
+      !this.isWalletConnected &&
+      this.isStakeTabActive &&
+      this.isAmountValid &&
+      this.isAmountPositive
+    )
   }
 
   get buttonLabel() {
@@ -2646,6 +2655,16 @@ export class Model {
     }
   }
 
+  // Whether the wallet that just connected can read an embedded request at all. TonConnect's own
+  // desktop and Telegram flows check this before folding one in, but its multi-wallet mobile link
+  // does not: it cannot know which wallet will answer, so it attaches the request either way and
+  // marks it dispatched. Believing that for a wallet with no EmbeddedRequest feature would put the
+  // visitor in front of a five-minute wait for a deposit no wallet ever saw.
+  private get walletTookEmbeddedRequest() {
+    const features = this.tonConnectUI?.wallet?.device.features
+    return features?.some((feature) => typeof feature === 'object' && feature.name === 'EmbeddedRequest') ?? false
+  }
+
   // One wallet round-trip instead of two: the deposit rides inside the connect URL, so the wallet
   // shows the connection and the transaction on a single screen. TonConnect only folds it in when
   // the chosen wallet advertises the EmbeddedRequest feature and the encoded URL stays under its
@@ -2654,6 +2673,18 @@ export class Model {
   // which leaves the visitor exactly where the old Connect button left them.
   connectAndStake = () => {
     void this.ensureWallet().then(() => {
+      // A stored session finished restoring while the press was in flight, so this is an ordinary
+      // Stake after all. send() needs the first account read of the restored address before it will
+      // do anything, so wait for that rather than drop the press on the floor.
+      if (this.isWalletConnected) {
+        void when(() => this.tonBalance != null, { timeout: waitForAccountTimeout })
+          .then(() => {
+            this.send()
+          })
+          .catch(() => undefined)
+        return
+      }
+
       const tonConnectUI = this.tonConnectUI
       const treasury = this.treasury
       const amountInNano = this.amountInNano
@@ -2681,7 +2712,7 @@ export class Model {
           // which is how the normal path decides too, and ends in the same timeout dialog if it
           // never lands. `dispatched: false` means the wallet never saw the deposit at all; the
           // visitor is now connected and the button is a plain Stake from here.
-          if (!result.hasResponse && !result.connectResult.dispatched) {
+          if (!result.hasResponse && !(result.connectResult.dispatched && this.walletTookEmbeddedRequest)) {
             return
           }
           // Fired once the deposit actually reached the wallet, not on the press: unlike the
@@ -2836,11 +2867,14 @@ export class Model {
   // Fetches the wallet layer (once) and constructs TonConnectUI (once). Every caller awaits this
   // before touching `tonConnectUI`.
   ensureWallet = (): Promise<void> => {
-    if (this.tonConnectUI != null) {
-      return Promise.resolve()
-    }
+    // The pending load is checked first because loadWallet sets tonConnectUI part-way through, and
+    // the rest of it — waiting for a stored session to restore — is exactly the part a second
+    // caller must not skip.
     if (this.walletPending != null) {
       return this.walletPending
+    }
+    if (this.tonConnectUI != null) {
+      return Promise.resolve()
     }
     runInAction(() => {
       this.isWalletLoading = true
@@ -2865,10 +2899,25 @@ export class Model {
     if (this.tonConnectUI == null) {
       this.connectWallet(module)
     }
+    // A stored session is not restored the moment TonConnectUI exists, and until it has settled the
+    // app is neither connected nor safely disconnected. Acting in that window is destructive:
+    // TonConnect.connect aborts the restore in flight and writes a pending record over the stored
+    // session, so a returning visitor is signed out and the wallet opens with nothing to approve —
+    // and sendTransaction, seeing `connected === false`, takes that same connect path instead of
+    // sending. So the load is not finished until the answer is in. TonConnect bounds the restore
+    // itself, and a rejection here only means "not connected", which is the assumption anyway.
+    if (hasStoredWalletSession()) {
+      await this.tonConnectUI?.connectionRestored.catch(() => undefined)
+    }
   }
 
   connect = () => {
     void this.ensureWallet().then(() => {
+      // A stored session may have restored while the press was in flight. Opening the picker now
+      // would throw the connection that just arrived away.
+      if (this.isWalletConnected) {
+        return
+      }
       void this.tonConnectUI?.openModal()
     })
   }
