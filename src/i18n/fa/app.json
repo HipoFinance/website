@@ -45,6 +45,7 @@
   "app.header.toggleMenu": "باز و بسته کردن منوی موبایل",
   "app.model.approxGram": "≈ {amount} GRAM",
   "app.model.buttonConnect": "اتصال کیف پول",
+  "app.model.buttonConnectAndStake": "اتصال و استیک",
   "app.model.buttonStake": "استیک",
   "app.model.buttonUnstake": "آن‌استیک",
   "app.model.errorSessionExpired": "اتصال کیف پول منقضی شده است، لطفاً دوباره کیف پول خود را متصل کنید",

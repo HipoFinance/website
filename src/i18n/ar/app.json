@@ -45,6 +45,7 @@
   "app.header.toggleMenu": "تبديل قائمة الجوال",
   "app.model.approxGram": "≈ {amount} GRAM",
   "app.model.buttonConnect": "ربط المحفظة",
+  "app.model.buttonConnectAndStake": "ربط وستاكينغ",
   "app.model.buttonStake": "ستاكينغ",
   "app.model.buttonUnstake": "إلغاء الستاكينغ",
   "app.model.errorSessionExpired": "انتهت صلاحية الاتصال بالمحفظة، يُرجى إعادة ربط محفظتك",

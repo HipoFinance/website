@@ -45,6 +45,7 @@
   "app.header.toggleMenu": "Открыть или закрыть меню",
   "app.model.approxGram": "≈ {amount} GRAM",
   "app.model.buttonConnect": "Подключить кошелёк",
+  "app.model.buttonConnectAndStake": "Подключить и стейкать",
   "app.model.buttonStake": "Стейкать",
   "app.model.buttonUnstake": "Анстейк",
   "app.model.errorSessionExpired": "Подключение кошелька истекло, подключите кошелёк заново",

@@ -45,6 +45,7 @@
   "app.header.toggleMenu": "Alternar menu mobile",
   "app.model.approxGram": "≈ {amount} GRAM",
   "app.model.buttonConnect": "Conectar carteira",
+  "app.model.buttonConnectAndStake": "Conectar e fazer staking",
   "app.model.buttonStake": "Fazer staking",
   "app.model.buttonUnstake": "Fazer unstake",
   "app.model.errorSessionExpired": "A conexão da carteira expirou. Reconecte sua carteira.",

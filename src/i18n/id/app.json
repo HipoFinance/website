@@ -45,6 +45,7 @@
   "app.header.toggleMenu": "Alihkan menu seluler",
   "app.model.approxGram": "≈ {amount} GRAM",
   "app.model.buttonConnect": "Hubungkan dompet",
+  "app.model.buttonConnectAndStake": "Hubungkan & stake",
   "app.model.buttonStake": "Stake",
   "app.model.buttonUnstake": "Unstake",
   "app.model.errorSessionExpired": "Koneksi dompet kedaluwarsa, silakan hubungkan kembali dompet Anda",

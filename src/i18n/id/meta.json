@@ -183,6 +183,10 @@
     "sourceHash": "234d7c851102688be278f674cbd4bb176abc8faf",
     "reviewed": false
   },
+  "app.model.buttonConnectAndStake": {
+    "sourceHash": "1641c8c7cbe088d1a8cde4065c14278bcd161da3",
+    "reviewed": false
+  },
   "app.model.buttonStake": {
     "sourceHash": "78d7103a319e808455d397513279d99f3b3f3768",
     "reviewed": false

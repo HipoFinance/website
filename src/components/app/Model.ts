@@ -6,11 +6,12 @@ import { navigate } from 'astro:transitions/client'
 import type {
   TonConnectUI,
   Locales as TonConnectLanguage,
+  EmbeddedSendTransactionResponse,
   SendTransactionRequest,
   SendTransactionResponse,
   TonConnectUiOptions,
 } from '@tonconnect/ui'
-import { action, autorun, computed, makeObservable, observable, runInAction } from 'mobx'
+import { action, autorun, computed, makeObservable, observable, runInAction, when } from 'mobx'
 // Types only, like @tonconnect/ui above. Every value from these packages comes through
 // ./chain.ts, which loadChain() fetches on demand — they are roughly two thirds of what the
 // island used to ship eagerly. See the changelog entry for 2026-08-29.
@@ -153,6 +154,14 @@ const retryAttemptDelay = 1000
 const retryAttempts = 30
 const waitForCompletionDelay = 250 // roughly one block time, since TON's fast blocks
 const txValidUntil = 5 * 60
+// How long connectAndStake waits for onStatusChange to publish the freshly connected account
+// before it starts reading the chain. The connection is already established by then, so this is
+// a handful of microtasks in practice, never the full second.
+const waitForAddressTimeout = 5000
+// And how long it then waits for the first account read of that address, which is what settles
+// whether the account is a multisig. Bounded so a slow endpoint falls through to the normal
+// on-chain wait rather than stalling the dialog.
+const waitForAccountTimeout = 15000
 
 // Reads go to Hipo's own v4 gateway first and fall back to the public one automatically; see
 // specs/ton-v4-read-endpoint.md. CORS on the primary is production-origin-only, so a localhost dev
@@ -699,6 +708,7 @@ export class Model {
       isAmountValid: computed,
       isAmountPositive: computed,
       isButtonEnabled: computed,
+      canConnectAndStake: computed,
       buttonLabel: computed,
       swapUrl: computed,
       youWillReceive: computed,
@@ -1307,6 +1317,16 @@ export class Model {
     return !this.isWalletConnected || this.isAmountPositive
   }
 
+  // A deposit goes to the fixed treasury address, so nothing in it depends on which wallet is
+  // about to connect — which is what lets TonConnect fold it into the connect URL and ask once
+  // (see connectAndStake). An unstake can never qualify: it is addressed to the user's own hGRAM
+  // wallet, whose address is only known once we have the owner. So this is stake-only, and only
+  // once an amount is in the field — with an empty field the button stays a plain Connect, which
+  // is still the way to see a balance and use Max before deciding on an amount.
+  get canConnectAndStake() {
+    return !this.isWalletConnected && this.isStakeTabActive && this.isAmountValid && this.isAmountPositive
+  }
+
   get buttonLabel() {
     if (this.isWalletConnected) {
       if (this.isStakeTabActive) {
@@ -1314,6 +1334,8 @@ export class Model {
       } else {
         return this.t('app.model.buttonUnstake')
       }
+    } else if (this.canConnectAndStake) {
+      return this.t('app.model.buttonConnectAndStake')
     } else {
       return this.t('app.model.buttonConnect')
     }
@@ -2525,20 +2547,13 @@ export class Model {
   // or browser silently drops this one while the UI still shows the wallet as connected.
   // A request over a dropped session never gets an answer, so bound every request by its
   // validUntil window and drop the stale session when the wallet stays silent.
-  guardedSendTransaction = async (tx: SendTransactionRequest): Promise<SendTransactionResponse> => {
-    const tonConnectUI = this.tonConnectUI
-    if (tonConnectUI == null) {
-      throw new NotConnectedError()
-    }
-
+  private guardSession = async <T>(tonConnectUI: TonConnectUI, send: Promise<T>): Promise<T> => {
     let timer: ReturnType<typeof setTimeout> | undefined = undefined
     const timeout = new Promise<never>((_, reject) => {
       timer = setTimeout(() => {
         reject(new StaleSessionError())
       }, txValidUntil * 1000)
     })
-
-    const send = tonConnectUI.sendTransaction(tx)
 
     try {
       return await Promise.race([send, timeout])
@@ -2552,6 +2567,26 @@ export class Model {
     } finally {
       clearTimeout(timer)
     }
+  }
+
+  guardedSendTransaction = (tx: SendTransactionRequest): Promise<SendTransactionResponse> => {
+    const tonConnectUI = this.tonConnectUI
+    if (tonConnectUI == null) {
+      return Promise.reject(new NotConnectedError())
+    }
+    return this.guardSession(tonConnectUI, tonConnectUI.sendTransaction(tx))
+  }
+
+  // The connect-and-stake half of the same guard. With enableEmbeddedRequest the call no longer
+  // throws when no wallet is connected: it opens the connect modal and folds the deposit into the
+  // connect URL, so the wallet asks once for both. It resolves to an envelope rather than a
+  // response — see connectAndStake for what the three outcomes mean.
+  guardedSendEmbeddedTransaction = (tx: SendTransactionRequest): Promise<EmbeddedSendTransactionResponse> => {
+    const tonConnectUI = this.tonConnectUI
+    if (tonConnectUI == null) {
+      return Promise.reject(new NotConnectedError())
+    }
+    return this.guardSession(tonConnectUI, tonConnectUI.sendTransaction(tx, { enableEmbeddedRequest: true }))
   }
 
   send = () => {
@@ -2609,6 +2644,81 @@ export class Model {
         },
       )
     }
+  }
+
+  // One wallet round-trip instead of two: the deposit rides inside the connect URL, so the wallet
+  // shows the connection and the transaction on a single screen. TonConnect only folds it in when
+  // the chosen wallet advertises the EmbeddedRequest feature and the encoded URL stays under its
+  // 1024-character budget (a deposit request is well under 300), and only over the http bridge —
+  // injected extensions and WalletConnect never take this path. Every other case simply connects,
+  // which leaves the visitor exactly where the old Connect button left them.
+  connectAndStake = () => {
+    void this.ensureWallet().then(() => {
+      const tonConnectUI = this.tonConnectUI
+      const treasury = this.treasury
+      const amountInNano = this.amountInNano
+
+      // Chain or treasury still missing: fall back to a plain connect rather than guess an amount.
+      if (tonConnectUI == null || treasury == null || amountInNano == null || amountInNano <= 0n) {
+        void tonConnectUI?.openModal()
+        return
+      }
+
+      const queryId = generateRandomQueryId()
+      const tx: SendTransactionRequest = {
+        validUntil: Math.floor(Date.now() / 1000) + txValidUntil,
+        network: tonConnect!.CHAIN.MAINNET,
+        // No `from`: the account is only known once the connect half of this same call resolves.
+        messages: [chain!.createDepositMessage(treasury.address, amountInNano, queryId)],
+      }
+      const pending: PendingTx = { kind: 'stake', amountGram: Number(chain!.fromNano(amountInNano)) }
+
+      void this.guardedSendEmbeddedTransaction(tx).then(
+        async (result) => {
+          // `dispatched` means the deposit travelled in the connect URL but no signed result came
+          // back — the wallet may already have submitted it. Resending would risk staking twice,
+          // so hand it to waitForCompletion instead: it decides by finding this queryId on chain,
+          // which is how the normal path decides too, and ends in the same timeout dialog if it
+          // never lands. `dispatched: false` means the wallet never saw the deposit at all; the
+          // visitor is now connected and the button is a plain Stake from here.
+          if (!result.hasResponse && !result.connectResult.dispatched) {
+            return
+          }
+          // Fired once the deposit actually reached the wallet, not on the press: unlike the
+          // connected path, a press here can end in a bare connect, and counting those would
+          // double up against the Stake press that follows.
+          track('stake_initiated', { amount_gram: pending.amountGram })
+          // onStatusChange sets the address as the connection completes, but waitForCompletion
+          // reads the chain as the connected account, so give it the moment it needs rather than
+          // report an unreachable network.
+          await when(() => this.address != null, { timeout: waitForAddressTimeout }).catch(() => undefined)
+
+          // Whether the account is a multisig is only knowable once it is connected, so unlike
+          // send() this path cannot route around one up front. A multisig wallet won't sign a
+          // TonConnect request at all, and waiting five minutes to discover that is no answer:
+          // once the first account read settles the question, say so instead.
+          if (!result.hasResponse) {
+            await when(() => this.tonBalance != null, { timeout: waitForAccountTimeout }).catch(() => undefined)
+            if (this.isMultisig) {
+              this.showMultisigHint()
+              return
+            }
+          }
+
+          await this.waitForCompletion(queryId, pending)
+          this.clearAmount()
+        },
+        (e: unknown) => {
+          // Same reading as the connected path, minus one case it can't have: this press also
+          // covers the connect step, and closing the wallet picker rejects here too. Nothing was
+          // ever signed then, so the multisig hint — which exists to explain a wallet that takes
+          // a transaction and never returns it — would be answering a question nobody asked.
+          if (this.address != null && !(e instanceof StaleSessionError) && !isNotConnectedError(e)) {
+            this.showMultisigHint()
+          }
+        },
+      )
+    })
   }
 
   waitForCompletion = async (queryId: bigint, pending?: PendingTx) => {

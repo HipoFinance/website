@@ -45,6 +45,7 @@
   "app.header.toggleMenu": "Mobil menüyü aç/kapat",
   "app.model.approxGram": "≈ {amount} GRAM",
   "app.model.buttonConnect": "Cüzdanı bağla",
+  "app.model.buttonConnectAndStake": "Bağla ve stake et",
   "app.model.buttonStake": "Stake et",
   "app.model.buttonUnstake": "Unstake et",
   "app.model.errorSessionExpired": "Cüzdan bağlantısının süresi doldu, lütfen cüzdanınızı yeniden bağlayın",

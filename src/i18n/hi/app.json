@@ -45,6 +45,7 @@
   "app.header.toggleMenu": "मोबाइल मेनू टॉगल करें",
   "app.model.approxGram": "≈ {amount} GRAM",
   "app.model.buttonConnect": "वॉलेट कनेक्ट करें",
+  "app.model.buttonConnectAndStake": "कनेक्ट व स्टेक करें",
   "app.model.buttonStake": "स्टेक करें",
   "app.model.buttonUnstake": "अनस्टेक करें",
   "app.model.errorSessionExpired": "वॉलेट कनेक्शन की अवधि समाप्त हो गई, कृपया अपना वॉलेट दोबारा कनेक्ट करें",

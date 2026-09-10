@@ -45,6 +45,7 @@
   "app.header.toggleMenu": "Toggle mobile menu",
   "app.model.approxGram": "≈ {amount} GRAM",
   "app.model.buttonConnect": "Connect Wallet",
+  "app.model.buttonConnectAndStake": "Connect & Stake",
   "app.model.buttonStake": "Stake",
   "app.model.buttonUnstake": "Unstake",
   "app.model.errorSessionExpired": "Wallet connection expired, please reconnect your wallet",

@@ -206,7 +206,11 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
             const target = e.target as HTMLInputElement
             target.blur()
             if (!model.isWalletConnected) {
-              model.connect()
+              if (model.canConnectAndStake) {
+                model.connectAndStake()
+              } else {
+                model.connect()
+              }
             } else if (stake && !model.isAmountValid) {
               model.setAmountAlert('stake-max')
             } else if (!stake && !model.isAmountValid) {

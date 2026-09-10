@@ -45,6 +45,7 @@
   "app.header.toggleMenu": "Mobiles Menü ein-/ausblenden",
   "app.model.approxGram": "≈ {amount} GRAM",
   "app.model.buttonConnect": "Wallet verbinden",
+  "app.model.buttonConnectAndStake": "Verbinden & staken",
   "app.model.buttonStake": "Staken",
   "app.model.buttonUnstake": "Unstaken",
   "app.model.errorSessionExpired": "Die Wallet-Verbindung ist abgelaufen, bitte verbinden Sie Ihre Wallet erneut",
