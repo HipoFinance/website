@@ -13,9 +13,10 @@ the flow turns itself on the day a wallet in the registry says it can.
 
 ## Commits
 
-| Commit    | Description                                                |
-| --------- | ---------------------------------------------------------- |
-| `21fed22` | Ask the wallet once: fold the deposit into the connect URL |
+| Commit    | Description                                                   |
+| --------- | ------------------------------------------------------------- |
+| `21fed22` | Ask the wallet once: fold the deposit into the connect URL    |
+| _pending_ | Don't offer to connect over a session that is still restoring |
 
 ## What the feature actually is
 
@@ -145,6 +146,70 @@ old behaviour, reached whenever the fold does not happen, which today is always.
 The change is inert until the registry entry promotes, and then it is live
 without another deploy.
 
+## The restore window, found in testing
+
+`21fed22` shipped with a race, reported from a browser that was already
+connected: the wallet opened and showed nothing to approve, and only a manual
+disconnect and reconnect put it right.
+
+The first suspicion was that a session persisted by the old SDK was unreadable
+by the new one. It was not, and this is worth recording because it is the
+expensive thing to go looking for: `BridgeConnectionStorage` diffs to zero lines
+between `@tonconnect/sdk` 3.4.1 and 4.0.2 — same key, same record shape, no
+version marker in either direction — `BridgeProvider.restoreConnection` is
+identical, `PROTOCOL_VERSION` is 2 in both, and the protocol package's bump to
+3.0.0 is purely additive. There is nothing to migrate.
+
+The actual cause is a window this feature opened. `isWalletConnected` is
+`address != null`, and the address is set by `onStatusChange`, which only fires
+once TonConnect has finished restoring the stored session. Restoring cannot
+begin until the ~750 KB wallet chunk has downloaded. Between those two moments
+the model reports "not connected" about a visitor who is, in fact, connected —
+and until this feature, that was harmless, because the only thing the button
+offered then was a Connect the visitor would have to mean.
+
+Now it offered a Stake. And the path it takes is destructive:
+`sendTransaction` on a connector whose `connected` is still false takes the
+connect branch, `TonConnect.connect()` aborts the restore in flight and
+`BridgeProvider.connect()` writes a pending record straight over the stored
+session. The visitor is signed out, the wallet opens holding a bare connect
+request, and the deposit is dropped — `hasResponse: false`, `dispatched: false`,
+which the model correctly reads as "nothing was sent" and silently returns from.
+
+The fix is to stop treating "TonConnectUI exists" as "the wallet layer is
+ready". `loadWallet` now awaits `connectionRestored` when a stored session is
+present, so `isWalletLoading` covers the whole window; `canConnectAndStake`
+requires `!isWalletLoading`, so the label cannot flip under a finger; and both
+`connect()` and `connectAndStake()` re-check for a connection after their await,
+because the restore can land between the press and the handler. A press that
+arrives during the window is queued rather than lost — `connectAndStake` waits
+for the first account read and then goes through the ordinary `send()`.
+
+`ensureWallet` also had to check `walletPending` before `tonConnectUI`: the
+field is assigned part-way through `loadWallet`, and the rest of it is now
+exactly the part a second caller must not skip.
+
+The cost is that a **dead** stored record — a session the bridge no longer
+honours — holds the button at Connect Wallet for TonConnect's full 12-second
+restore deadline. Measured at 12.4 s in a browser seeded with a bogus record;
+a live session settles in well under a second. A press in that window is not
+dropped, only queued. That is the right side of the trade: the alternative is
+signing out a visitor whose session was fine.
+
+## An upstream gap worth knowing about
+
+TonConnect's desktop and Telegram connect flows check
+`checkRequiredWalletFeatures(wallet.features, { embeddedRequest: {} })` before
+folding a request into the connect URL. Its multi-wallet **mobile** universal
+link does not — it cannot know which wallet will answer, so it attaches the
+request regardless and marks it consumed. The dApp would then be told
+`dispatched: true` for a deposit no wallet could read, and would sit through a
+five-minute on-chain wait for it.
+
+So `dispatched` is now believed only when the wallet that actually connected
+advertises `EmbeddedRequest` in `device.features`. A wallet without it cannot
+have parsed the `e=` parameter, so there is nothing to lose by disbelieving it.
+
 ## Verification performed
 
 - `npm run build` — clean, 523 pages, prebuild i18n gate at 0 warnings.
@@ -154,6 +219,10 @@ without another deploy.
   properties) and no new ones. There is no TypeScript in the devDependencies and
   the build strips types without checking them, so this was run from a
   throwaway install.
+- Headless Chromium against `npm run preview`, for the restore-window fix: with
+  no stored session the button reads Connect & Stake as soon as an amount is
+  typed; with a seeded stored session it holds at Connect Wallet and only flips
+  once the restore settles (12.4 s for a deliberately dead record).
 - Headless Chromium against `npm run preview`:
   - `/stake/` — static shell removed on hydration, button reads Connect Wallet
     with an empty field and Connect & Stake once an amount is typed, the picker

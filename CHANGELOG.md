@@ -16,6 +16,9 @@ here — `git log` remains the complete record.
   locales; `/unstake/` is unchanged and cannot use the feature.
 - An unanswered embedded request is settled by the existing on-chain queryId
   watch rather than resent, and a multisig account is diverted to its guidance.
+- Fixed a race the feature opened: the button offered to connect while a stored
+  session was still restoring, which signed the visitor out and dropped the
+  deposit.
 
 ## 2026-09-10 — [detailed report](changelog/2026-09-10-hgram-priced-from-the-rate.md)
 
