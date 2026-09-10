@@ -16,7 +16,7 @@ the flow turns itself on the day a wallet in the registry says it can.
 | Commit    | Description                                                   |
 | --------- | ------------------------------------------------------------- |
 | `21fed22` | Ask the wallet once: fold the deposit into the connect URL    |
-| _pending_ | Don't offer to connect over a session that is still restoring |
+| `00aad1c` | Don't offer to connect over a session that is still restoring |
 
 ## What the feature actually is
 
