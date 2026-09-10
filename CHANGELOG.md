@@ -7,6 +7,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-10 — [detailed report](changelog/2026-09-10-connect-and-stake-in-one-tap.md)
+
+- Upgraded `@tonconnect/ui` 2.4.4 → 3.0.2 for its `EmbeddedRequest` support.
+- `/stake/` now folds the deposit into the connect URL, so a first-time staker
+  opens the wallet once instead of twice.
+- The submit button reads Connect & Stake once an amount is typed, in all ten
+  locales; `/unstake/` is unchanged and cannot use the feature.
+- An unanswered embedded request is settled by the existing on-chain queryId
+  watch rather than resent, and a multisig account is diverted to its guidance.
+
 ## 2026-09-10 — [detailed report](changelog/2026-09-10-hgram-priced-from-the-rate.md)
 
 - `/stats/` drew hGRAM below GRAM, which the redemption rate makes impossible:
