@@ -19,6 +19,7 @@ the flow turns itself on the day a wallet in the registry says it can.
 | `00aad1c` | Don't offer to connect over a session that is still restoring |
 | `488c470` | Stop waiting on a head block that is twelve seconds old       |
 | `c14051d` | Stop calling a queued unstake a completed one                 |
+| `77bf60e` | Read a bounce for what it is, not as a missing transaction    |
 
 ## What the feature actually is
 
@@ -351,6 +352,41 @@ Three details worth keeping:
   `'queued'`. Until now every bill counted as a completed unstake in that funnel,
   and a rollback counted as one too; a rollback now sends no event at all.
 
+## A bounce read as a missing transaction
+
+The last path still lying about an outcome, and the cheapest to fix once the op
+was already being read.
+
+If the receiving contract refuses the message — `unstake_tokens` with a fee or
+an amount it will not take — it bounces straight back to the sender. A bounce
+body is `0xFFFFFFFF` followed by the first 256 bits of the message that was
+refused, so the fields sit one slot further in than usual. The old parse skipped
+32 bits and read the next 64 as the queryId, which on a bounce means reading the
+_original op_ glued to the top half of the real queryId. Verified against
+constructed cells rather than assumed:
+
+```
+bounce body, OLD parse:  0x595f07bc01234567   matches queryId? false
+bounce body, NEW parse:  0x123456789abcdef    matches queryId? true
+```
+
+`0x595f07bc` is `op::unstake_tokens`. It can never match, so the wait ran to the
+end of its `validUntil` window and then said "Cannot find your transaction"
+about a request that had failed in the same second — five minutes of spinner for
+an instant, knowable failure.
+
+Bounces are now detected from `info.bounced` (the flag, not a `0xFFFFFFFF`
+sniff) and parsed at the right offset, and get a `'bounced'` state of their own:
+"Unstake not accepted — the contract returned your transaction, so nothing was
+unstaked." Kept separate from `'rejected'` because that one blames instant
+liquidity and this one cannot; nothing about the pool was the problem. On the
+stake side it adds that the GRAM came back less the network fee, which is what a
+bounce does with the value.
+
+The analytics guard flipped from excluding `'rejected'` to naming the two
+outcomes that count, so the next state added to this enum cannot silently start
+reporting itself as a confirmed stake.
+
 ## Verification performed
 
 - `npm run build` — clean, 523 pages, prebuild i18n gate at 0 warnings.
@@ -375,11 +411,15 @@ Three details worth keeping:
     ClientRouter, then press the header's Connect: the modal re-opens fully
     styled, still one goober tag, `#ton-connect-widget-root` intact. This is the
     check CLAUDE.md asks for on a TonConnect bump.
-- The three outcomes rendered in a browser, in `en`, `de` and `fa`, by driving
+- The bounce offsets checked against constructed cells: a normal body still
+  yields its op and queryId, a bounce body yields the queryId only under the new
+  parse, and the body is exactly the 128 bits the length guard requires.
+- All four outcomes rendered in a browser, in `en`, `de`, `fa` and `ru`, by driving
   the model into each state through a temporary debug hook (added, screenshotted,
   reverted; the shipped bundle was then checked to confirm it contains no
-  `__hipoModel`). No overflow in any locale — the long German title fits on one
-  line and the RTL layout keeps `hGRAM` in Latin.
+  `__hipoModel`). Sixteen combinations, no overflow in any of them — the long
+  German title fits on one line, the RTL layout keeps `hGRAM` in Latin, and the
+  `/ru/stake/` pass confirms the copy follows `waitKind` rather than the tab.
 - Head-block staleness measured directly against `v4.hipo.finance`, plain URL
   versus cache-busted, six samples at the app's own 10 s cadence: 30.7 blocks
   behind on average, ~12.3 s. Numbers above.
