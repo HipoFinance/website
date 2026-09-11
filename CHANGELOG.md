@@ -24,6 +24,8 @@ here — `git log` remains the complete record.
 - Stopped announcing "Successfully unstaked" for a Full unstake that has only
   been queued, or for an instant one that rolled back: the wait now reads the op,
   not just the queryId, and has `queued` and `rejected` screens.
+- A bounced transaction is read as a bounce instead of sitting out the full
+  five-minute window and reporting the transaction as missing.
 
 ## 2026-09-10 — [detailed report](changelog/2026-09-10-hgram-priced-from-the-rate.md)
 

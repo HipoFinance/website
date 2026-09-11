@@ -779,6 +779,22 @@
     "sourceHash": "57bc8a38d1f18e877c591a5108a0c31034c102c0",
     "reviewed": false
   },
+  "app.wait.bouncedStakeMessage": {
+    "sourceHash": "a622c098d9bfea3043941011efc599692fce8f2d",
+    "reviewed": false
+  },
+  "app.wait.bouncedStakeTitle": {
+    "sourceHash": "19bdeabe9c60a1e45f5409ccd3bb1ba4cf8a2167",
+    "reviewed": false
+  },
+  "app.wait.bouncedUnstakeMessage": {
+    "sourceHash": "9ce9040fc10e6f72b7a026a2d15c0b735a0bf0b5",
+    "reviewed": false
+  },
+  "app.wait.bouncedUnstakeTitle": {
+    "sourceHash": "359790799e39079623a7707f785fece208c2b2cc",
+    "reviewed": false
+  },
   "app.wait.finalizingMessage": {
     "sourceHash": "95da254bc89277add189c2669f91d6a1bf0e4f14",
     "reviewed": false

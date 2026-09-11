@@ -49,6 +49,33 @@ const Wait = observer(({ model }: Props) => {
         {t('app.common.okay')}
       </button>
     )
+  } else if (model.waitForTransaction === 'bounced') {
+    // The receiving contract refused the message and it bounced straight back, which returns the
+    // value with it. Kept apart from 'rejected' because that one blames instant liquidity, and
+    // this one cannot: nothing about the pool was the problem.
+    const stake = model.waitKind === 'stake'
+    img = <img src='/images/app/warning-dark.svg' alt='' className='m-4 mx-auto h-16' />
+    progress = <></>
+    heading = (
+      <h1 className='font-fredoka text-center text-xl font-semibold'>
+        {t(stake ? 'app.wait.bouncedStakeTitle' : 'app.wait.bouncedUnstakeTitle')}
+      </h1>
+    )
+    message = (
+      <p className='text-text-muted mt-4 text-center text-sm'>
+        {t(stake ? 'app.wait.bouncedStakeMessage' : 'app.wait.bouncedUnstakeMessage')}
+      </p>
+    )
+    button = (
+      <button
+        className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover mt-6 h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold'
+        onClick={() => {
+          model.setWaitForTransaction('no')
+        }}
+      >
+        {t('app.common.okay')}
+      </button>
+    )
   } else if (model.waitForTransaction === 'rejected') {
     // The instant unstake rolled back for want of liquidity. Nothing moved, and the balance is
     // exactly as it was — which is the opposite of what this screen used to say here.

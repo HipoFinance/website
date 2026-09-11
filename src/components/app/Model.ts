@@ -47,8 +47,10 @@ type PendingTx = { kind: 'stake' | 'unstake'; amountGram: number; unstakeType?: 
 // How a request that came back actually ended. 'done' is value in hand — hGRAM minted, or GRAM
 // paid out. 'queued' is accepted and settling with the round, which is what the Full unstake
 // option asks for and therefore the ordinary outcome, not an edge case. 'rejected' is the instant
-// unstake rolling back for want of liquidity: nothing moved at all.
-type TxOutcome = 'done' | 'queued' | 'rejected'
+// unstake rolling back for want of liquidity, and 'bounced' is the receiving contract refusing the
+// message outright: both mean nothing moved, and they are kept apart because only one of them can
+// honestly blame liquidity.
+type TxOutcome = 'done' | 'queued' | 'rejected' | 'bounced'
 
 // 'timeout': the validUntil window passed with the chain answering and the transaction never
 // appearing. 'unreachable': we could not read the chain at all, which says nothing either way —
@@ -66,7 +68,7 @@ const opGasExcess = 0xd53276db // change; on an unstake, the instant rollback
 
 // Which claim wins when a single batch carries more than one of them. Value in hand beats a
 // promise, and a promise beats a rollback — never the other way round.
-const outcomeRank: Record<TxOutcome, number> = { done: 3, queued: 2, rejected: 1 }
+const outcomeRank: Record<TxOutcome, number> = { done: 4, queued: 3, rejected: 2, bounced: 1 }
 const strongerOutcome = (a: TxOutcome | undefined, b: TxOutcome | undefined) => {
   if (a == null) {
     return b
@@ -2911,8 +2913,23 @@ export class Model {
             continue
           }
 
+          const info = tx.inMessage.info
           const inPayload = tx.inMessage.body.beginParse()
-          if (tx.inMessage.info.type === 'internal' && inPayload.remainingBits >= 32 + 64) {
+          if (info.type === 'internal' && info.bounced) {
+            // A bounce carries 0xFFFFFFFF and then the first 256 bits of the message that was
+            // refused, so the queryId is one field further in than usual. Read the plain way it
+            // parses as op 0xFFFFFFFF with the original op standing where the queryId belongs,
+            // matches nothing, and leaves the visitor watching a spinner for the full validUntil
+            // window before being told the transaction could not be found — about a request that
+            // failed in the same second.
+            if (inPayload.remainingBits >= 32 + 32 + 64) {
+              inPayload.skip(32 + 32)
+              if (inPayload.loadUintBig(64) === queryId) {
+                outcome = strongerOutcome(outcome, 'bounced')
+                continue
+              }
+            }
+          } else if (info.type === 'internal' && inPayload.remainingBits >= 32 + 64) {
             const op = inPayload.loadUint(32)
             if (inPayload.loadUintBig(64) === queryId) {
               outcome = strongerOutcome(outcome, this.outcomeOf(op, kind))
@@ -2940,7 +2957,7 @@ export class Model {
           this.setWaitForTransaction(outcome)
           await this.readLastBlock()
           clearTimeout(this.timeoutReadLastBlock)
-          if (pending != null && outcome !== 'rejected') {
+          if (pending != null && (outcome === 'done' || outcome === 'queued')) {
             track(kind === 'stake' ? 'stake_confirmed' : 'unstake_confirmed', {
               amount_gram: pending.amountGram,
               wallet_name: kind === 'stake' ? this.connectedWalletName : undefined,
