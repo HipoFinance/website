@@ -20,7 +20,7 @@ the flow turns itself on the day a wallet in the registry says it can.
 | `488c470` | Stop waiting on a head block that is twelve seconds old       |
 | `c14051d` | Stop calling a queued unstake a completed one                 |
 | `77bf60e` | Read a bounce for what it is, not as a missing transaction    |
-| _pending_ | Let the wait bar say "working", not "one sixth done"          |
+| `f70803c` | Let the wait bar say "working", not "one sixth done"          |
 
 ## What the feature actually is
 
