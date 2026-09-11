@@ -81,3 +81,40 @@ html.tma body {
   unicode-bidi: isolate;
   font-variant-numeric: tabular-nums;
 }
+
+/* The wait dialog's progress bar. It used to fill in fixed steps, from a time when the plan was to
+   follow the deposit's messages from contract to contract and advance a notch at each hop. TON got
+   fast enough that the whole cascade lands in a single block — all four hops, measured on 109 of
+   112 real mainnet deposits — so there are no intermediate moments left to show. A bar that sits at
+   one sixth and then jumps to done is worse than no bar: it reads as stuck for the whole wait.
+   Indeterminate is the honest shape, because the honest claim is "working, and we cannot say for
+   how long".
+
+   inset-inline-start rather than a transform, so the travel follows the writing direction without
+   an RTL special case. */
+@keyframes wait-progress {
+  0% {
+    inset-inline-start: -40%;
+  }
+  100% {
+    inset-inline-start: 100%;
+  }
+}
+
+.wait-progress {
+  position: absolute;
+  top: 0;
+  width: 40%;
+  animation: wait-progress 1.1s ease-in-out infinite;
+}
+
+/* An animation that never stops is exactly what this setting is about. The bar stays, and stays
+   visible, it just holds still. */
+@media (prefers-reduced-motion: reduce) {
+  .wait-progress {
+    animation: none;
+    inset-inline-start: 0;
+    width: 100%;
+    opacity: 0.6;
+  }
+}

@@ -13,11 +13,18 @@ const Wait = observer(({ model }: Props) => {
   let message
   let button
   if (model.waitForTransaction === 'signed' || model.waitForTransaction === 'sent') {
-    const sent = model.waitForTransaction === 'sent'
     img = <img src='/images/app/loading-dark.svg' alt='' className='m-4 mx-auto h-16 animate-spin' />
+    // Indeterminate, and no longer split by 'signed' vs 'sent'. Both mean the same thing to someone
+    // watching — in flight — and the protocol no longer leaves a gap between them worth drawing;
+    // see the note above the keyframes in app.css.
     progress = (
-      <div className='border-border my-4 w-full overflow-hidden rounded-full border'>
-        <div className={'bg-accent-fill h-1' + (sent ? ' w-1/2' : ' w-1/6')}></div>
+      <div
+        className='border-border relative my-4 h-1 w-full overflow-hidden rounded-full border'
+        role='progressbar'
+        aria-busy='true'
+        aria-label={t('app.wait.finalizingTitle')}
+      >
+        <div className='bg-accent-fill wait-progress h-full rounded-full'></div>
       </div>
     )
     heading = <h1 className='font-fredoka text-center text-xl font-semibold'>{t('app.wait.finalizingTitle')}</h1>

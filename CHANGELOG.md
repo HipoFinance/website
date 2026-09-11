@@ -26,6 +26,9 @@ here — `git log` remains the complete record.
   not just the queryId, and has `queued` and `rejected` screens.
 - A bounced transaction is read as a bounce instead of sitting out the full
   five-minute window and reporting the transaction as missing.
+- The wait dialog's progress bar is indeterminate: its per-hop steps described a
+  chain where the hops were observable, and they no longer are.
+- Corrected the eager-island size in `CLAUDE.md`, which had drifted.
 
 ## 2026-09-10 — [detailed report](changelog/2026-09-10-hgram-priced-from-the-rate.md)
 

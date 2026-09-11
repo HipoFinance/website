@@ -20,6 +20,7 @@ the flow turns itself on the day a wallet in the registry says it can.
 | `488c470` | Stop waiting on a head block that is twelve seconds old       |
 | `c14051d` | Stop calling a queued unstake a completed one                 |
 | `77bf60e` | Read a bounce for what it is, not as a missing transaction    |
+| _pending_ | Let the wait bar say "working", not "one sixth done"          |
 
 ## What the feature actually is
 
@@ -387,6 +388,32 @@ The analytics guard flipped from excluding `'rejected'` to naming the two
 outcomes that count, so the next state added to this enum cannot silently start
 reporting itself as a confirmed stake.
 
+## The progress bar, finally
+
+The thing this last stretch set out to do, arrived at last.
+
+The bar was designed to advance a notch as the deposit's messages moved from
+contract to contract — a real design, for a chain where those hops were
+observable moments apart. TON is no longer that chain: with sharding low, all
+four hops land in the same block, on 109 of the 112 mainnet deposits sampled.
+There are no intermediate moments left to draw. What the visitor actually saw
+was a bar frozen at one sixth for the whole wait, then a success screen — which
+reads as stuck, and is worse than no bar at all.
+
+So it is indeterminate now: a segment that travels the track on a loop, saying
+the only thing that is true, which is "working, and we cannot say for how long".
+The `'signed'` / `'sent'` split no longer changes what is drawn — both mean in
+flight to anyone watching, and the protocol no longer leaves a gap between them
+worth a distinct picture. `'sent'` stays in the model, because it is still the
+honest state for the rare transaction that does straddle blocks.
+
+Two details. The travel is animated on `inset-inline-start` rather than a
+transform, so it follows the writing direction with no RTL special case — the
+segment runs right-to-left on `/fa/` without a line of extra code. And an
+animation that never stops is exactly what `prefers-reduced-motion` is about, so
+under that setting the bar holds still as a full-width, dimmed track rather than
+disappearing.
+
 ## Verification performed
 
 - `npm run build` — clean, 523 pages, prebuild i18n gate at 0 warnings.
@@ -411,6 +438,11 @@ reporting itself as a confirmed stake.
     ClientRouter, then press the header's Connect: the modal re-opens fully
     styled, still one goober tag, `#ton-connect-widget-root` intact. This is the
     check CLAUDE.md asks for on a TonConnect bump.
+- The indeterminate bar measured in a browser in three modes, by sampling the
+  fill's x position over time: LTR travels 13 → 351 px, RTL travels 292 → −46 px
+  (direction follows the writing mode), and with `prefers-reduced-motion: reduce`
+  it does not move at all and fills the track. `role="progressbar"` with
+  `aria-busy` and no `aria-valuenow`, which is how indeterminate is spelled.
 - The bounce offsets checked against constructed cells: a normal body still
   yields its op and queryId, a bounce body yields the queryId only under the new
   parse, and the body is exactly the 128 bits the length guard requires.
