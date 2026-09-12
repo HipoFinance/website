@@ -7,6 +7,18 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-12 — [detailed report](changelog/2026-09-12-hipo-fund-investment-policy-statement.md)
+
+- Published Hipo Fund's Investment Policy Statement (draft v1.5) at
+  `/docs/hipo-fund/investment-policy-statement/`, with a `:::caution` marking it
+  not yet in force.
+- Added the sidebar entry between `Overview` and the quarterly reports, plus its
+  label in all ten locales.
+- Translated the page into the nine released locales; `check-i18n` stays at 100%
+  coverage.
+- Reworded the Hipo Fund overview paragraph that announced the policy as a future
+  September 2026 publication — it now links the draft and names no date.
+
 ## 2026-09-10 — [detailed report](changelog/2026-09-10-connect-and-stake-in-one-tap.md)
 
 - Upgraded `@tonconnect/ui` 2.4.4 → 3.0.2 for its `EmbeddedRequest` support.
