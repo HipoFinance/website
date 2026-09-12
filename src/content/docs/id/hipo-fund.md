@@ -32,10 +32,7 @@ Setiap aset yang dipegangnya berada on-chain dan dapat diperiksa oleh siapa pun.
 Dana ini berada di bawah modal awalnya, terutama karena penurunan harga GRAM pada portofolio yang sangat
 terkait GRAM di tahun pertamanya. Perhitungan lengkapnya ada di laporan Agustus 2026.
 
-Kami akan menerbitkan **Investment Policy Statement (pernyataan kebijakan investasi) pada September 2026**,
-yang menetapkan alokasi target, batas risiko, kebutuhan likuiditas, dan aturan rebalancing. Dokumen itu
-dibawa ke komunitas untuk ditinjau, lalu ke pemungutan suara DAO yang mengikat. Itulah kerangka pengelolaan
-Hipo Fund mulai dari sini.
+[**Investment Policy Statement**](/docs/hipo-fund/investment-policy-statement/) menetapkan alokasi target, batas risiko, kebutuhan likuiditas, dan aturan rebalancing. Dokumen ini dipublikasikan sebagai draf untuk ditinjau komunitas, lalu dibawa ke pemungutan suara DAO yang mengikat. Inilah kerangka yang akan menjadi acuan pengelolaan Hipo Fund mulai dari sini.
 
 Tanggal pastinya diumumkan di [kanal Telegram Hipo](https://t.me/HipoFinance) dan di
 [ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv).

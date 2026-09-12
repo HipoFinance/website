@@ -33,9 +33,9 @@ O fundo está abaixo do seu capital inicial, principalmente por causa da queda d
 carteira que, no primeiro ano, era fortemente atrelada ao GRAM. A contabilidade completa está no relatório de
 agosto de 2026.
 
-Vamos publicar uma **Política de Investimento (Investment Policy Statement) em setembro de 2026**, que define
-alocações-alvo, limites de risco, requisitos de liquidez e regras de rebalanceamento. Ela passa por uma
-revisão da comunidade e, depois, vai a uma votação vinculante da DAO. É o marco sob o qual o Hipo Fund será
+A [**Política de Investimento**](/docs/hipo-fund/investment-policy-statement/) (Investment Policy Statement) define
+alocações-alvo, limites de risco, requisitos de liquidez e regras de rebalanceamento. Ela é publicada como rascunho
+para revisão da comunidade e, em seguida, vai a uma votação vinculante da DAO. É o marco sob o qual o Hipo Fund será
 gerido daqui em diante.
 
 As datas exatas são anunciadas no [canal do Hipo no Telegram](https://t.me/HipoFinance) e no

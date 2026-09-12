@@ -919,6 +919,10 @@
     "sourceHash": "0efc2e6be4c23b9a513d7ce0dcff8ed80e8912e7",
     "reviewed": false
   },
+  "docs-sidebar//docs/hipo-fund/investment-policy-statement/": {
+    "sourceHash": "6fe6e41e0f1d4afb7359727ecbbf0740b2f4e170",
+    "reviewed": false
+  },
   "docs-sidebar//docs/hipo-fund/quarterly-report-august-1-2025/": {
     "sourceHash": "654c2aeb88016e64c3a692038ce4686bf92320ef",
     "reviewed": false
@@ -1124,7 +1128,11 @@
     "reviewed": false
   },
   "docs/hipo-fund.md": {
-    "sourceHash": "b8de3b0f75f6245428fa0ea6ddb4d65f4c5c9bcc",
+    "sourceHash": "e361d9f508b06a9092caf25956951bfecbd7a197",
+    "reviewed": false
+  },
+  "docs/hipo-fund/investment-policy-statement.md": {
+    "sourceHash": "c246e37244ea6ec41f46166aaa1308c1deb80a2d",
     "reviewed": false
   },
   "docs/hipo-fund/quarterly-report-august-1-2025.md": {

@@ -33,10 +33,10 @@ Der Fonds liegt unter seinem Anfangskapital. Der Hauptgrund ist der Rückgang de
 Portfolio, das im ersten Jahr stark an GRAM gebunden war. Die vollständige Rechnung steht im Bericht vom
 August 2026.
 
-Wir veröffentlichen im **September 2026 ein Investment Policy Statement (Anlagerichtlinie)**, das
-Zielallokationen, Risikogrenzen, Liquiditätsanforderungen und Rebalancing-Regeln festlegt. Es geht zur Prüfung
-an die Community und danach in eine verbindliche DAO-Abstimmung. Es ist der Rahmen, nach dem der Hipo Fund von
-da an verwaltet wird.
+Das [**Investment Policy Statement**](/docs/hipo-fund/investment-policy-statement/) (Anlagerichtlinie) legt
+Zielallokationen, Risikogrenzen, Liquiditätsanforderungen und Rebalancing-Regeln fest. Es wird als Entwurf zur Prüfung durch die
+Community veröffentlicht und geht danach in eine verbindliche DAO-Abstimmung. Es ist der Rahmen, nach dem der
+Hipo Fund von hier an verwaltet wird.
 
 Die genauen Termine werden im [Telegram-Kanal von Hipo](https://t.me/HipoFinance) und auf
 [ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv) bekannt gegeben.

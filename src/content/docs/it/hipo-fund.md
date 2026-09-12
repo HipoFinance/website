@@ -32,9 +32,10 @@ Ogni asset che detiene è custodito on-chain e può essere verificato da chiunqu
 Il fondo si trova al di sotto del suo capitale iniziale, soprattutto per effetto del calo del prezzo di GRAM
 su un portafoglio fortemente legato a GRAM nel suo primo anno. La contabilità completa è nel report di agosto 2026.
 
-A **settembre 2026 pubblicheremo un Investment Policy Statement** che definisce le allocazioni obiettivo, i
-limiti di rischio, i requisiti di liquidità e le regole di ribilanciamento. Passerà alla revisione della
-community e poi a un voto vincolante della DAO. È il quadro entro cui Hipo Fund sarà gestito d'ora in avanti.
+L'[**Investment Policy Statement**](/docs/hipo-fund/investment-policy-statement/) definisce le allocazioni
+obiettivo, i limiti di rischio, i requisiti di liquidità e le regole di ribilanciamento. Viene pubblicato come
+bozza per la revisione della community e poi passa a un voto vincolante della DAO. È il quadro entro cui Hipo
+Fund sarà gestito d'ora in avanti.
 
 Le date esatte sono annunciate nel [canale Telegram di Hipo](https://t.me/HipoFinance) e su
 [ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv).

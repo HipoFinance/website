@@ -74,6 +74,10 @@ const docsSidebar = [
     items: [
       { label: 'Overview', link: '/docs/hipo-fund/' },
       {
+        label: 'Investment Policy Statement',
+        link: '/docs/hipo-fund/investment-policy-statement/',
+      },
+      {
         label: 'Report: August 2025',
         link: '/docs/hipo-fund/quarterly-report-august-1-2025/',
       },

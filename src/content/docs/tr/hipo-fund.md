@@ -28,7 +28,7 @@ Tuttuğu her varlık zincir üstündedir ve herkes tarafından doğrulanabilir.
 
 Fon, açılış sermayesinin altında; bunun başlıca nedeni, ilk yılında büyük ölçüde GRAM'a bağlı olan bir portföyde GRAM fiyatının düşmesidir. Ayrıntılı hesap Ağustos 2026 raporundadır.
 
-**Eylül 2026'da bir Yatırım Politikası Beyanı** yayımlıyoruz; hedef dağılımları, risk limitlerini, likidite gereksinimlerini ve yeniden dengeleme kurallarını ortaya koyacak. Önce topluluğun incelemesine, ardından bağlayıcı bir DAO oylamasına sunulacak. Hipo Fund bundan sonra bu çerçeve altında yönetilecek.
+[**Yatırım Politikası Beyanı**](/docs/hipo-fund/investment-policy-statement/), hedef dağılımları, risk limitlerini, likidite gereksinimlerini ve yeniden dengeleme kurallarını ortaya koyar. Topluluk incelemesi için bir taslak olarak yayımlanır, ardından bağlayıcı bir DAO oylamasına sunulur. Hipo Fund'ın bundan sonra yönetileceği çerçeve budur.
 
 Kesin tarihler [Hipo'nun Telegram kanalında](https://t.me/HipoFinance) ve [ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv)'da duyurulur.
 

@@ -32,9 +32,10 @@ Every asset it holds sits on-chain and can be checked by anyone.
 The fund is below its opening capital, driven mainly by the fall in the GRAM price across a portfolio that
 was heavily GRAM-linked in its first year. The full accounting is in the August 2026 report.
 
-We are publishing an **Investment Policy Statement in September 2026**, setting out target allocations, risk
-limits, liquidity requirements and rebalancing rules. It goes to the community for review and then to a
-binding DAO vote. It is the framework Hipo Fund will be managed under from here.
+The [**Investment Policy Statement**](/docs/hipo-fund/investment-policy-statement/) sets out target
+allocations, risk limits, liquidity requirements and rebalancing rules. It is published as a draft for
+community review and then goes to a binding DAO vote. It is the framework Hipo Fund will be managed under
+from here.
 
 Exact dates are announced in [Hipo's Telegram channel](https://t.me/HipoFinance) and on
 [ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv).
