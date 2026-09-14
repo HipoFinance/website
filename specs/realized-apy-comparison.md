@@ -688,14 +688,19 @@ a visitor touches it.
 ### Follow-ups
 
 1. ~~The gauge collector~~ — built, see §13.
-2. The `/docs/` methodology page (R8), with its nine translations.
+2. ~~The `/docs/` methodology page (R8)~~ — **closed 2026-09-14, accepted as is.**
+   The on-page "How this is measured" block satisfies what R8 exists for: it
+   names all three contracts, their getters and the ratio, so a reader can
+   repeat the measurement. A separate docs page was judged not to earn its nine
+   translations and sidebar labels.
 3. ~~`/stats/` comparison chart~~ — **resolved: it does not get one.** The chart
    was judged not to add enough value on a page that already carries five, so
    `/stats/` gets a link to `/vs/` in its footer row instead
    (`app.statsPage.compareProtocols`). That is also what makes the comparison
    reachable from inside the dApp at all.
-4. Native review of the nine translations — they are machine-translated, in line
-   with how this site has shipped locales before.
+4. ~~Native review of the nine translations~~ — **closed 2026-09-14, accepted.**
+   Machine-translated and shipped unreviewed, in line with how this site has
+   released every locale; corrections come from reader feedback.
 
 ## 13. Phase 2 — keeping it current (2026-09-14)
 
