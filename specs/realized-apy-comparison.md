@@ -630,12 +630,8 @@ Two consequences for the data:
 
 ## 12. Implementation notes (2026-09-14)
 
-Phases 2 and 3 were not built in the order this spec lays out. The gauge collector
-(phase 2) is **not** implemented: the page ships against the committed baseline
-alone, so its figures are as fresh as the last commit of
-`src/data/lst-rates.json`. Re-running the backfill script and committing is the
-whole update procedure until the gauge actor exists. §5.3 still describes the
-intended end state.
+Phase 3 shipped first, on 2026-09-14, against the committed baseline alone.
+Phase 2 — the gauge collector — followed the same day and is described in §13.
 
 ### What shipped
 
@@ -691,9 +687,85 @@ a visitor touches it.
 
 ### Follow-ups
 
-1. The gauge collector, its Redis shape and the `/lst-rates` endpoint (phase 2).
-   Until then the dataset only moves when someone re-runs the backfill.
+1. ~~The gauge collector~~ — built, see §13.
 2. The `/docs/` methodology page (R8), with its nine translations.
-3. `/stats/` still has no comparison chart; §9 question 6 is still open.
+3. ~~`/stats/` comparison chart~~ — **resolved: it does not get one.** The chart
+   was judged not to add enough value on a page that already carries five, so
+   `/stats/` gets a link to `/vs/` in its footer row instead
+   (`app.statsPage.compareProtocols`). That is also what makes the comparison
+   reachable from inside the dApp at all.
 4. Native review of the nine translations — they are machine-translated, in line
    with how this site has shipped locales before.
+
+## 13. Phase 2 — keeping it current (2026-09-14)
+
+The page no longer depends on someone re-running the backfill. `gauge` takes one
+reading per protocol per UTC day and serves the accumulated tail; the site merges
+that onto the committed baseline at build time.
+
+### The conflict rule, restated because it is the whole design
+
+**The committed file is authoritative for every date it contains; the gauge
+supplies only dates after its last one.** In `src/data/lst.ts` this is not a
+comparison but a branch on the index — days inside the baseline read from the
+baseline unconditionally, so a gauge sample for a date the baseline owns cannot
+be reached, whatever it says. Re-cutting the baseline moves the boundary forward
+and nothing else changes.
+
+### gauge
+
+| Piece                            | File                                                                 |
+| -------------------------------- | -------------------------------------------------------------------- |
+| Protocol table and payload types | `model/lst.go`                                                       |
+| Daily history in Redis           | `interface/redisrepo/lst.go`                                         |
+| The collector                    | `actor/lst.go`                                                       |
+| `GET /lst-rates`                 | `interface/webservice/lst.go`                                        |
+| Wiring                           | `cmd/serve/{serve,dependency}.go`, `interface/webservice/handler.go` |
+
+Four decisions worth keeping:
+
+- **No cron.** The actor rides the ordinary 15-minute collect loop, and the store
+  is `HSETNX` — the first successful read of a UTC day wins and every later read
+  that day is a no-op. That puts the sample within one collect period of 00:00
+  UTC, which is the instant the baseline was sampled at, without introducing a
+  second scheduler.
+- **This is the only history gauge holds.** Everything else in its Redis is a
+  latest value, so the hash is trimmed to 400 days on write. The site needs a
+  tail of days; 400 is wide enough that a stalled deploy cannot open a gap.
+- **The same guards as the backfill script**, for the same reason — the failure
+  mode is a plausible wrong number, not an error. `whalesSupplyIndex` maps field
+  count to supply index (30 → 13, 34 → 17) and **refuses a count it has never
+  seen** rather than picking the nearest; Hipo is read at indices 0 and 1 behind
+  a minimum-arity assertion. A reading with a non-positive supply is rejected.
+- **All five protocols are collected**, not the three the page draws, so which
+  ones appear stays an editorial decision rather than a data one.
+
+### nginx
+
+`location /lst-rates` in `config/gauge.hipo.finance.conf`, proxying to gauge the
+same way `/data` does. Unlike the Prometheus route this needs no allowlist: it
+takes no parameters and serves a fixed snapshot out of Redis.
+
+### Website
+
+`src/data/lst.ts` fetches the tail with a 10s timeout and a `user-agent` (the
+gauge host is behind Cloudflare), and **never fails the build** — an unreachable
+gauge means the comparison ends on the baseline's last day, which is correct,
+just older. A contiguous day grid is built from the baseline's start to the newest
+date either source knows, so a day the gauge missed draws as a gap rather than a
+straight line through it. `PUBLIC_LST_TAIL_URL` overrides the endpoint for local
+testing, as `PUBLIC_PROM_BASE` does for Prometheus.
+
+### Deployment, which is not finished
+
+The code is committed in all three repos, but the parts that need the
+maintainer's own infrastructure are not done:
+
+1. Pushing `gauge` builds `ghcr.io/hipofinance/gauge:sha-<short>`. **The tag in
+   `operation/stack/gauge.yaml` still points at the old image** and has to be
+   bumped and `docker stack deploy` run on `hf-back`.
+2. The nginx config has to be uploaded and reloaded on the proxy host.
+
+Until both land, `/lst-rates` answers 404 and the site logs
+`[lst] gauge tail unavailable` and ships the baseline — which is the designed
+behaviour, not a failure, but it does mean the page is not yet self-updating.

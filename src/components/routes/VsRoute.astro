@@ -21,7 +21,7 @@ import Footer from '../SiteFooter.astro'
 import ValueGapChart from '../charts/ValueGapChart.astro'
 import { localeOf } from '../../i18n/locale.ts'
 import { getT } from '../../i18n/t.ts'
-import { formatNumber, formatPercent, formatUsd, formatDate } from '../../i18n/format.ts'
+import { formatCompact, formatNumber, formatPercent, formatUsd, formatDate } from '../../i18n/format.ts'
 import { fetchGauge } from '../../data/gauge.ts'
 import { fetchClubRewards, hpoBoostPoints, hpoPerYear } from '../../data/club.ts'
 import { growthSeries } from '../../data/lst.ts'
@@ -59,12 +59,16 @@ const topCoefficient = club.coefficients[topLevel - 1]
 const boostLow = hpoBoostPoints(club, 1, hpoUsd, gramUsd)
 const boostHigh = hpoBoostPoints(club, topLevel, hpoUsd, gramUsd)
 const points = (value: number) => formatNumber(locale, value, { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+// Preset chips carry a compact label — "100K", "١٠٠ ألف", "1 लाख" — because the full figure made
+// the row wrap and strand the last chip on its own line. The exact amount stays on the button's
+// aria-label, since the compact form is terse for a screen reader.
+const compact = (value: number) => formatCompact(locale, value, 0)
 
 const examples = [1000, 5000, 10000, 50000]
 
 // The realized-return comparison. Measured, not advertised: see src/data/lst.ts. Rendered for the
 // default stake; src/scripts/vs-stake.js re-scales it through the same geometry functions.
-const series = growthSeries()
+const series = await growthSeries()
 const outcome = stakeOutcome(series, DEFAULT_STAKE)
 const NAMES: Record<(typeof COMPARED)[number], string> = { tonstakers: 'Tonstakers', stakee: 'Stakee' }
 const METHOD = [
@@ -184,30 +188,36 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
         )
       }
 
-      <div class='mb-6 flex flex-wrap items-center gap-2.5'>
-        <label class='text-text-muted text-[15px]' for='vsStakeInput'>{t('vs.compare.stakeLabel')}</label>
-        <input
-          id='vsStakeInput'
-          type='number'
-          min='1'
-          step='100'
-          value={DEFAULT_STAKE}
-          class='border-border bg-surface text-text num focus-visible:outline-accent w-[140px] rounded-xl border px-3 py-2 text-[17px] font-medium focus-visible:outline-2'
-        />
-        <span class='text-text-muted text-[15px]'>{t('vs.compare.stakeOn', { date: windowStart })}</span>
-        <span class='flex-1'></span>
-        {
-          STAKE_PRESETS.map((preset) => (
-            <button
-              type='button'
-              data-vs-stake={preset}
-              aria-pressed={preset === DEFAULT_STAKE ? 'true' : 'false'}
-              class='border-border bg-surface text-text-muted hover:border-border-strong aria-pressed:bg-accent-fill aria-pressed:text-on-accent num cursor-pointer rounded-full border px-3.5 py-1.5 text-[13px] font-medium aria-pressed:border-transparent'
-            >
-              {gram(preset)}
-            </button>
-          ))
-        }
+      <!-- Two groups, not one wrapping row: the presets must break to their own line together
+           rather than leaving one chip stranded below the other three. -->
+      <div class='mb-6 flex flex-wrap items-center gap-x-4 gap-y-3'>
+        <div class='flex flex-wrap items-center gap-2.5'>
+          <label class='text-text-muted text-[15px]' for='vsStakeInput'>{t('vs.compare.stakeLabel')}</label>
+          <input
+            id='vsStakeInput'
+            type='number'
+            min='1'
+            step='100'
+            value={DEFAULT_STAKE}
+            class='border-border bg-surface text-text num focus-visible:outline-accent w-[140px] rounded-xl border px-3 py-2 text-[17px] font-medium focus-visible:outline-2'
+          />
+          <span class='text-text-muted text-[15px]'>{t('vs.compare.stakeOn', { date: windowStart })}</span>
+        </div>
+        <div class='flex items-center gap-2 sm:ms-auto'>
+          {
+            STAKE_PRESETS.map((preset) => (
+              <button
+                type='button'
+                data-vs-stake={preset}
+                aria-pressed={preset === DEFAULT_STAKE ? 'true' : 'false'}
+                aria-label={`${gram(preset)} GRAM`}
+                class='border-border bg-surface text-text-muted hover:border-border-strong aria-pressed:bg-accent-fill aria-pressed:text-on-accent num cursor-pointer rounded-full border px-3.5 py-1.5 text-[13px] font-medium whitespace-nowrap aria-pressed:border-transparent'
+              >
+                {compact(preset)}
+              </button>
+            ))
+          }
+        </div>
       </div>
 
       <div class='border-border bg-surface mb-8 grid gap-6 rounded-[20px] border p-6 sm:grid-cols-3'>

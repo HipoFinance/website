@@ -168,6 +168,7 @@
   "app.statsPage.holders": "Inhaber",
   "app.statsPage.marketCap": "Marktkapitalisierung",
   "app.statsPage.moreStats": "Weitere Statistiken",
+  "app.statsPage.compareProtocols": "Vergleich mit anderen Protokollen",
   "app.statsPage.onlyGoesUp": "geht nur aufwärts",
   "app.statsPage.price": "Preis",
   "app.statsPage.rateLabel": "hGRAM/GRAM-Kurs",

@@ -168,6 +168,7 @@
   "app.statsPage.holders": "Holders",
   "app.statsPage.marketCap": "Market cap",
   "app.statsPage.moreStats": "More stats",
+  "app.statsPage.compareProtocols": "Compare with other protocols",
   "app.statsPage.onlyGoesUp": "only goes up",
   "app.statsPage.price": "Price",
   "app.statsPage.rateLabel": "hGRAM / GRAM rate",

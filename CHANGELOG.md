@@ -7,6 +7,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-14 — [detailed report](changelog/2026-09-14-vs-chart-follow-ups.md)
+
+- Shortened the `/vs/` stake presets to compact labels and regrouped the row so
+  the last chip no longer wraps.
+- Added a daily exchange-rate collector and `/lst-rates` to `gauge`, plus its
+  nginx route, so `/vs/` stays current without re-running the backfill.
+- Merged that live tail onto the committed baseline at build time; an
+  unreachable gauge leaves the page on the baseline.
+- Linked `/stats/` to `/vs/` instead of adding a sixth chart there.
+
 ## 2026-09-14 — [detailed report](changelog/2026-09-14-realized-apy-comparison-on-vs.md)
 
 - Backfilled two years of daily exchange rates for Hipo, Tonstakers, Stakee, KTON

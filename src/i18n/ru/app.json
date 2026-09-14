@@ -168,6 +168,7 @@
   "app.statsPage.holders": "Держатели",
   "app.statsPage.marketCap": "Капитализация",
   "app.statsPage.moreStats": "Больше статистики",
+  "app.statsPage.compareProtocols": "Сравнение с другими протоколами",
   "app.statsPage.onlyGoesUp": "только растёт",
   "app.statsPage.price": "Цена",
   "app.statsPage.rateLabel": "Курс hGRAM / GRAM",

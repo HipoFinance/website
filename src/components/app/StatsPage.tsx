@@ -367,6 +367,12 @@ const StatsPage = observer(({ model }: Props) => {
         <a className='text-accent hover:text-accent-hover' href='https://stats.hipo.finance' target='hipo_stats'>
           {t('app.statsPage.moreStats')} <span className='inline-block rtl:-scale-x-100'>→</span>
         </a>
+        {/* /vs/ carries the realized-return comparison against other liquid staking protocols. It
+            is a static page outside the island's route table, so this is a plain localized href
+            rather than model.navigateToPage. */}
+        <a className='text-accent hover:text-accent-hover' href={model.localizedPath('/vs/')}>
+          {t('app.statsPage.compareProtocols')} <span className='inline-block rtl:-scale-x-100'>→</span>
+        </a>
       </div>
     </div>
   )

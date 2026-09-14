@@ -655,6 +655,10 @@
     "sourceHash": "fea16a0615d9b6a63841fd216768e8751eea331d",
     "reviewed": false
   },
+  "app.statsPage.compareProtocols": {
+    "sourceHash": "d44d8f6c10f85eb4a8215b4322918629cd018ef8",
+    "reviewed": false
+  },
   "app.statsPage.deltaOver": {
     "sourceHash": "502c0f0ff9d17f03c43be240302d88bfd0fc8dae",
     "reviewed": false
