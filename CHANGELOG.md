@@ -7,6 +7,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-14 — [detailed report](changelog/2026-09-14-realized-apy-comparison-on-vs.md)
+
+- Backfilled two years of daily exchange rates for Hipo, Tonstakers, Stakee, KTON
+  and bemo from historical blocks into `src/data/lst-rates.json`.
+- Added a measured comparison to `/vs/` showing extra GRAM earned at Hipo, with a
+  stake control and a build-time chart.
+- Translated `/vs/` into all nine released locales; `ENGLISH_ONLY` in
+  `lastmod.mjs` is now empty.
+- Wrote `specs/realized-apy-comparison.md`, including two corrections the
+  implementation forced on it.
+
 ## 2026-09-12 — [detailed report](changelog/2026-09-12-hipo-fund-investment-policy-statement.md)
 
 - Published Hipo Fund's Investment Policy Statement (draft v1.5) at

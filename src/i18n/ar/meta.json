@@ -2243,6 +2243,22 @@
     "sourceHash": "95a1ec8c34b32cb45df27ba58def6832382145b6",
     "reviewed": false
   },
+  "seo.vs.description": {
+    "sourceHash": "8e99bd14b0a2e76399eea4b86064fcd43a4f0788",
+    "reviewed": false
+  },
+  "seo.vs.descriptionApy": {
+    "sourceHash": "eddb373e00fce88025eac84df2415444669f8da4",
+    "reviewed": false
+  },
+  "seo.vs.title": {
+    "sourceHash": "bd10521dc946e3247240fb943963922ac5ced45d",
+    "reviewed": false
+  },
+  "seo.vs.titleApy": {
+    "sourceHash": "26b4b86a1ca0edffa955c1bdb1b954a77b89ab90",
+    "reviewed": false
+  },
   "site.anchor.copied": {
     "sourceHash": "c2e98476efb5e35f50dae898c1b56d7085eee7da",
     "reviewed": false
@@ -2573,6 +2589,254 @@
   },
   "verify.web.site": {
     "sourceHash": "68c914a8bc2993c9cc0f105cdaeec755c38bcd50",
+    "reviewed": false
+  },
+  "vs.compare.chartHeading": {
+    "sourceHash": "7cff50cb53117862a5dc1075607fb7457ca4870d",
+    "reviewed": false
+  },
+  "vs.compare.chartLabel": {
+    "sourceHash": "102f3942669294ca69730a700c7cd93aed995092",
+    "reviewed": false
+  },
+  "vs.compare.chartLead": {
+    "sourceHash": "9002d7cb5f9e67e748918b3db46b30ce29067ed1",
+    "reviewed": false
+  },
+  "vs.compare.colDiff": {
+    "sourceHash": "89e74b814b9bbdb00346d56a445a5bed986cf26e",
+    "reviewed": false
+  },
+  "vs.compare.colEarned": {
+    "sourceHash": "3003b37e7482f4f025c1a083f73b9fcd9fd3195d",
+    "reviewed": false
+  },
+  "vs.compare.colEnd": {
+    "sourceHash": "ecb02c1f9d8a4a8f6eec28d15f7d2b857d22ecc3",
+    "reviewed": false
+  },
+  "vs.compare.colProtocol": {
+    "sourceHash": "1ed77c3f7ffc41a33eadccef5727dc7c97079235",
+    "reviewed": false
+  },
+  "vs.compare.extra": {
+    "sourceHash": "716370c4b69caeaf69bfeb47d12648103c7dc86c",
+    "reviewed": false
+  },
+  "vs.compare.extraUsd": {
+    "sourceHash": "8a3a72ba7d88e853660fd73cc9dca5786baf14be",
+    "reviewed": false
+  },
+  "vs.compare.heading": {
+    "sourceHash": "8559a3a2bd03fcb60990182455a5c0f2600db664",
+    "reviewed": false
+  },
+  "vs.compare.hipoEndLabel": {
+    "sourceHash": "0ecb4223abd8d3e4c3cec6abb7134aef164d5587",
+    "reviewed": false
+  },
+  "vs.compare.lead": {
+    "sourceHash": "34665916c6faf6c46a57acd54a3fcaa5abd5fbfc",
+    "reviewed": false
+  },
+  "vs.compare.methodBody": {
+    "sourceHash": "64f029042bc568abd415d1ee3aace9e78090a710",
+    "reviewed": false
+  },
+  "vs.compare.methodHeading": {
+    "sourceHash": "ca8c206c19d8ef171947665038425178c8e86c4b",
+    "reviewed": false
+  },
+  "vs.compare.methodNote": {
+    "sourceHash": "fcbf71e11fbcd397df2079ebf96d6ab0502f2425",
+    "reviewed": false
+  },
+  "vs.compare.stakeLabel": {
+    "sourceHash": "5a23f9d3253bab59ad9f01dfadb8dbc0dc335f3e",
+    "reviewed": false
+  },
+  "vs.compare.stakeOn": {
+    "sourceHash": "b191e9f544408a5e4174f588195939d2cc7d4d0b",
+    "reviewed": false
+  },
+  "vs.compare.tableHeading": {
+    "sourceHash": "cb5813ea6c6f2c1f97d9652be722277f0bd6092c",
+    "reviewed": false
+  },
+  "vs.compare.tableNote": {
+    "sourceHash": "fd9a090452f02040c3aa1898fc201d2f26807608",
+    "reviewed": false
+  },
+  "vs.compare.vsCurrent": {
+    "sourceHash": "f1dc0d621de2fbb63cab93c3ca31446640be2933",
+    "reviewed": false
+  },
+  "vs.compare.youAreHere": {
+    "sourceHash": "c3ad058bc331e2331cfbf30473923c1e155f934f",
+    "reviewed": false
+  },
+  "vs.cta.button": {
+    "sourceHash": "7d4f2770acdfb158ad705cd22a5b2cd52485d47b",
+    "reviewed": false
+  },
+  "vs.cta.heading": {
+    "sourceHash": "ca213cf6c62a84f02e93c2ea5fc710c9a844737c",
+    "reviewed": false
+  },
+  "vs.cta.lead": {
+    "sourceHash": "feb4c508b49e129f695a43cf8a7d95129addd93a",
+    "reviewed": false
+  },
+  "vs.cta.note": {
+    "sourceHash": "7af278b754687d46a83a323baf6ca0422f2cca4f",
+    "reviewed": false
+  },
+  "vs.exit.fullBody": {
+    "sourceHash": "1d59730561c988df94fbc4da6520834906fe4358",
+    "reviewed": false
+  },
+  "vs.exit.fullHeading": {
+    "sourceHash": "0187ca0b371f1dabf477096765a008aebdc1ef41",
+    "reviewed": false
+  },
+  "vs.exit.heading": {
+    "sourceHash": "336871c40b561cad145406a1394fb48f616537a4",
+    "reviewed": false
+  },
+  "vs.exit.instantBody": {
+    "sourceHash": "8c9d80f46b86c203ab82ef574958e3b8d3798201",
+    "reviewed": false
+  },
+  "vs.exit.instantHeading": {
+    "sourceHash": "2ff72a30d91db00d37d3352bd2428f9ae1498c33",
+    "reviewed": false
+  },
+  "vs.exit.lead": {
+    "sourceHash": "a83e446c4c246efdc381c8f8a2ac6ce60d48b7c5",
+    "reviewed": false
+  },
+  "vs.exit.note": {
+    "sourceHash": "c7475cab89f66c71daabd1fdb8760d72a379f0bd",
+    "reviewed": false
+  },
+  "vs.hero.badge": {
+    "sourceHash": "d58b2e38a70ec05fb3e7fe6d293047be7bd48cf8",
+    "reviewed": false
+  },
+  "vs.hero.lead": {
+    "sourceHash": "b6f14b043e75ca56ec530b05ec9b9a1770e27b12",
+    "reviewed": false
+  },
+  "vs.hero.note": {
+    "sourceHash": "e5f28ad27411e35d75723a3b27ac71fe06fcf7b4",
+    "reviewed": false
+  },
+  "vs.hero.statApy": {
+    "sourceHash": "8ad0c6f20a41d1f0ba971c097ecf97fda74b57d4",
+    "reviewed": false
+  },
+  "vs.hero.statFee": {
+    "sourceHash": "f651621fa3706d2d77cadc3b093eca890ffd6a25",
+    "reviewed": false
+  },
+  "vs.hero.statStaked": {
+    "sourceHash": "83323d9d227aa116bcd13069d8f9146003d2fec6",
+    "reviewed": false
+  },
+  "vs.hero.title": {
+    "sourceHash": "bcfd946b3eac764c33583b9ce8f86f4fb70af408",
+    "reviewed": false
+  },
+  "vs.hpo.colLevel1": {
+    "sourceHash": "5efc5f3f181ec7ab4685f9d15693ff3e369024f2",
+    "reviewed": false
+  },
+  "vs.hpo.colLevelTop": {
+    "sourceHash": "d1241add65996117fb3cdebcdd983cb5345ed1e9",
+    "reviewed": false
+  },
+  "vs.hpo.colStake": {
+    "sourceHash": "ed9231c9914d616928eeb26b4a105200fd9c2564",
+    "reviewed": false
+  },
+  "vs.hpo.heading": {
+    "sourceHash": "3de91211de3b36ddab6a5b0ad0ed4500ee1aebc2",
+    "reviewed": false
+  },
+  "vs.hpo.lead": {
+    "sourceHash": "563a7ba44c46ab3178287cf78412efe3985fea4a",
+    "reviewed": false
+  },
+  "vs.hpo.note": {
+    "sourceHash": "7aec1963e58681ea020ee1d85fa0ee559650fa8b",
+    "reviewed": false
+  },
+  "vs.hpo.worth": {
+    "sourceHash": "d945645805110129e52f0d702025f1ff893a0c25",
+    "reviewed": false
+  },
+  "vs.trust.custodyBody": {
+    "sourceHash": "7baa1bd51acddbd266e5d3ebdabde7610e623bf8",
+    "reviewed": false
+  },
+  "vs.trust.custodyHeading": {
+    "sourceHash": "b19ca5174eecf37a94757328938e8c3fa135aa75",
+    "reviewed": false
+  },
+  "vs.trust.dataBody": {
+    "sourceHash": "d53c745fa9fc48f7278b47b009dfe2b0867d80f4",
+    "reviewed": false
+  },
+  "vs.trust.dataHeading": {
+    "sourceHash": "a3e835deee7c9861edab8db30f3eb62779af94db",
+    "reviewed": false
+  },
+  "vs.trust.heading": {
+    "sourceHash": "794b82226f4270ba2b6849d434252f9f107746fa",
+    "reviewed": false
+  },
+  "vs.trust.openBody": {
+    "sourceHash": "9b6c3d7d610fda161adbd46901a8cedb70660ef4",
+    "reviewed": false
+  },
+  "vs.trust.openHeading": {
+    "sourceHash": "4c93e420a8edbb38204bc2f635e126761d7f357d",
+    "reviewed": false
+  },
+  "vs.trust.walletBody": {
+    "sourceHash": "1f78005f337fe589b176115ac751d207ce436bb2",
+    "reviewed": false
+  },
+  "vs.trust.walletHeading": {
+    "sourceHash": "e1d515fbf85883af86b3acff8fe5a85ef75f72ec",
+    "reviewed": false
+  },
+  "vs.worth.colEarn": {
+    "sourceHash": "1a06ea9dec66568e34556b88f8517fbcbb913bf2",
+    "reviewed": false
+  },
+  "vs.worth.colFee": {
+    "sourceHash": "4b737de7b5c846691b0b915ee7456663694511e1",
+    "reviewed": false
+  },
+  "vs.worth.colStake": {
+    "sourceHash": "ed9231c9914d616928eeb26b4a105200fd9c2564",
+    "reviewed": false
+  },
+  "vs.worth.heading": {
+    "sourceHash": "f1c0cfe7d37be65552effc1ef3fd4f29a6797c24",
+    "reviewed": false
+  },
+  "vs.worth.leadWith": {
+    "sourceHash": "05000109effc522ef12de59c2a20131f6a374586",
+    "reviewed": false
+  },
+  "vs.worth.leadWithout": {
+    "sourceHash": "f2ca54995143a9144ef5eaf6f445737ca376ce06",
+    "reviewed": false
+  },
+  "vs.worth.note": {
+    "sourceHash": "40e968146f2e9cac70b898321efec27c7d76717d",
     "reviewed": false
   }
 }

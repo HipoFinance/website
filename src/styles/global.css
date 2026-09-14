@@ -42,6 +42,16 @@
 
   --color-positive: #4ade80;
 
+  /* Categorical series colours for the /vs/ realized-APY chart. Hipo is drawn in --color-accent;
+     these two are the compared protocols. Chosen by running the palette through a CVD/contrast
+     validator against each scheme's own surface rather than by eye — both schemes pass the
+     lightness band, the chroma floor, adjacent colour-vision separation and contrast. Re-validate
+     rather than nudge these by hand, and never add a third by picking "something that looks
+     different": the chart direct-labels every line precisely so colour is not carrying identity
+     alone. */
+  --color-series-a: #3987e5;
+  --color-series-b: #199e70;
+
   /* Fixed in both themes: the cream disc behind the monochrome auditor marks (Quantstamp,
      TonTech), and the label on the colored auditor avatars, which sit on their own gradient
      rather than on the page. */
@@ -81,6 +91,10 @@
        constants and deliberately not re-declared. */
 
     --color-positive: #16a34a;
+
+    /* Stepped for the white chart surface, not an automatic lightening of the dark values. */
+    --color-series-a: #2a78d6;
+    --color-series-b: #158a61;
 
     /* The mascot and the HPO coin cast a warm brown shadow on cream rather than a black one, and
        the coral glow behind the mascot has to push harder to register. */

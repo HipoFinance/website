@@ -1,0 +1,132 @@
+---
+// The /vs/ realized-APY chart: the running total of extra GRAM a Hipo staker earned over the same
+// stake at each compared protocol, from the first day of the measured window to the last.
+//
+// Rendered at BUILD time, like every other figure on /vs/ — recipients arrive from a wallet
+// message, often through a link-preview crawler, and nothing that carries the argument of the page
+// may wait for client JS. src/scripts/vs-stake.js then re-scales it when the visitor changes the
+// stake, through the SAME chartGeometry() this file calls, so the line cannot jump the first time
+// it is touched.
+//
+// Two rules this chart must keep:
+//   - The y-axis starts at zero. The difference between these protocols is around a percentage
+//     point a year, and an axis cropped to the data would make that fill the frame. The page's
+//     whole claim is that every number on it is measured (spec R15).
+//   - Every line is direct-labelled at its right end, so identity never rests on colour alone.
+//
+// The SVG is the one place in this repo besides LineChart.tsx where physical left/right is allowed
+// instead of logical properties: a time axis runs left-to-right in every locale, so the whole
+// figure is marked `dir='ltr'` and RTL pages read the surrounding prose right-to-left around it.
+import { chartGeometry, type GrowthSeries, type Compared } from '../../data/lst-geometry.ts'
+import { formatNumber, formatDate } from '../../i18n/format.ts'
+import type { Locale } from '../../i18n/locale.ts'
+
+interface Props {
+  series: GrowthSeries
+  stake: number
+  locale: Locale
+  /** Display name per compared protocol — proper nouns, never translated. */
+  names: Record<Compared, string>
+  /** Accessible description of the whole figure. */
+  label: string
+}
+
+const { series, stake, locale, names, label } = Astro.props
+
+const geo = chartGeometry(series, stake)
+const stroke = { tonstakers: 'var(--color-series-a)', stakee: 'var(--color-series-b)' }
+
+const tickLabel = (value: number) => formatNumber(locale, value, { maximumFractionDigits: 0 })
+const xLabel = (day: string) =>
+  formatDate(locale, Date.parse(day + 'T00:00:00Z'), { month: 'short', year: '2-digit', timeZone: 'UTC' })
+---
+
+<div class='-mx-2 overflow-x-auto px-2' dir='ltr'>
+  <svg
+    id='vsGapChart'
+    viewBox={`0 0 ${geo.width} ${geo.height}`}
+    width={geo.width}
+    height={geo.height}
+    role='img'
+    aria-label={label}
+    class='block h-auto w-full min-w-[560px]'
+  >
+    <!-- Rebuilt wholesale by vs-stake.js: the tick COUNT changes with the stake, so this group is
+         replaced rather than patched. -->
+    <g id='vsGapTicks'>
+      {
+        geo.ticks.map((tick) => (
+          <>
+            <line
+              x1='62'
+              x2={geo.width - 118}
+              y1={tick.y}
+              y2={tick.y}
+              stroke={tick.value === 0 ? 'var(--color-text-faint)' : 'var(--color-border)'}
+              stroke-width='1'
+            />
+            <text x='52' y={tick.y + 4} text-anchor='end' font-size='11' fill='var(--color-text-faint)'>
+              {tickLabel(tick.value)}
+            </text>
+          </>
+        ))
+      }
+    </g>
+
+    <g>
+      {
+        geo.xLabels.map((item) => (
+          <text x={item.x} y={geo.height - 14} text-anchor='middle' font-size='11' fill='var(--color-text-faint)'>
+            {xLabel(item.day)}
+          </text>
+        ))
+      }
+    </g>
+
+    {
+      geo.series.map((item) => (
+        <path d={item.area} data-vs-area={item.id} fill='var(--color-series-wash)' stroke='none' />
+      ))
+    }
+    {
+      geo.series.map((item) => (
+        <path
+          d={item.path}
+          data-vs-path={item.id}
+          fill='none'
+          stroke={stroke[item.id]}
+          stroke-width='2'
+          stroke-linejoin='round'
+          stroke-linecap='round'
+        />
+      ))
+    }
+    {
+      geo.series.map((item) => (
+        <text
+          data-vs-end={item.id}
+          x={item.endX + 10}
+          y={item.endY + 4}
+          font-size='11.5'
+          font-weight='500'
+          fill={stroke[item.id]}
+        >
+          {names[item.id]}
+        </text>
+      ))
+    }
+  </svg>
+</div>
+
+<style>
+  /* The band between a competitor's line and zero — "what Hipo earned on top". Faint enough that
+     the two bands overlapping does not read as a third colour. */
+  #vsGapChart {
+    --color-series-wash: rgba(255, 126, 115, 0.1);
+  }
+  @media (prefers-color-scheme: light) {
+    #vsGapChart {
+      --color-series-wash: rgba(224, 87, 75, 0.09);
+    }
+  }
+</style>

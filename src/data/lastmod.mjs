@@ -43,6 +43,9 @@ const ROUTES = {
   '': { catalogs: ['landing.json'], prose: [] },
   faq: { catalogs: ['faq.json'], prose: ['faq'] },
   verify: { catalogs: ['verify.json'], prose: [] },
+  // /vs/ dates from its own catalog and from the backfilled dataset its comparison is drawn from:
+  // a refreshed dataset genuinely changes what the page says. It was English-only until 2026-09-14.
+  vs: { catalogs: ['vs.json'], prose: [], files: ['src/data/lst-rates.json'] },
   hpo: { catalogs: ['hpo.json'], prose: ['hpo-faq'] },
   // The five app pages take their date from their own explainer cards only. app.json is deliberately
   // NOT an input: one flat 190-key namespace shared by all five, so a label changed on /defi/ would
@@ -56,12 +59,10 @@ const ROUTES = {
   defi: { catalogs: [], prose: ['shell/defi'] },
 }
 
-// The one English-only page whose copy is written inline in the page file rather than in a catalog
-// (it says so in its own header comment). One file, so no mass-bump risk. `/verify/` used to be here
-// too; it moved into ROUTES above when it was translated (2026-09-01).
-const ENGLISH_ONLY = {
-  vs: 'src/pages/vs.astro',
-}
+// No English-only pages remain: /verify/ was translated on 2026-09-01 and /vs/ on 2026-09-14, and
+// both moved into ROUTES above. Kept as an empty map rather than deleted because the sitemap code
+// below still consults it, and the next English-only page will want it.
+const ENGLISH_ONLY = {}
 
 /** @type {{ files: Map<string, string>, dirs: Map<string, string> } | null | undefined} */
 let index
@@ -182,6 +183,9 @@ function inputsFor(pathname) {
   return [
     ...route.catalogs.map((name) => `src/i18n/${locale}/${name}`),
     ...route.prose.map((dir) => `src/content/prose/${locale}/${dir}`),
+    // Locale-independent content inputs: a dataset the page states figures from. Shared across
+    // every locale on purpose — a refreshed measurement changes what all of them claim.
+    ...(route.files ?? []),
   ]
 }
 

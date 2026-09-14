@@ -1,0 +1,480 @@
+---
+// The whole `/vs/` document, shared by the English and the `[locale]` route.
+//
+// `/vs/` is the landing page for the on-chain outreach campaign. Recipients arrive here straight
+// from a wallet message, often through a link preview crawler, so EVERY figure on this page is
+// baked into the static HTML at build time: the APY, the protocol fee, the staked total, both
+// reward tables, the value of the HPO boost, and the realized-return comparison. Nothing that
+// matters may wait for a client island. New numbers come from src/data/, never from a script tag.
+//
+// On comparing ourselves with others. This page used to carry a rule in this comment — "Hipo's own
+// numbers only, no claims about anyone else's product" — and the realized-return section below
+// deliberately replaces it. The rule now is narrower and, we think, more useful: no claims about
+// anyone else's MARKETING, and measurements of anyone's CONTRACTS provided the method is published
+// on the page and a reader can repeat it. The comparison is a ratio every protocol exposes through
+// a public getter; the section names the contracts and the getters it read, so nothing here rests
+// on being taken at our word. See specs/realized-apy-comparison.md.
+import Layout from '../../layouts/LandingLayout.astro'
+import Banner from '../Banner.astro'
+import Header from '../SiteHeader.astro'
+import Footer from '../SiteFooter.astro'
+import ValueGapChart from '../charts/ValueGapChart.astro'
+import { localeOf } from '../../i18n/locale.ts'
+import { getT } from '../../i18n/t.ts'
+import { formatNumber, formatPercent, formatUsd, formatDate } from '../../i18n/format.ts'
+import { fetchGauge } from '../../data/gauge.ts'
+import { fetchClubRewards, hpoBoostPoints, hpoPerYear } from '../../data/club.ts'
+import { growthSeries } from '../../data/lst.ts'
+import { chartGeometry, stakeOutcome, STAKE_PRESETS, DEFAULT_STAKE, COMPARED } from '../../data/lst-geometry.ts'
+
+const locale = localeOf(Astro)
+const { t, tHtml } = getT(locale, ['seo', 'site', 'vs'])
+
+const [gauge, club] = await Promise.all([fetchGauge(), fetchClubRewards()])
+
+const apy = gauge?.treasury?.current_apy
+// The 0% headline is the whole argument of this page, so the fee is rendered from the contract
+// rather than typed in: if governance ever sets one, the tables stop saying zero and the copy
+// above them needs rewriting the same day.
+const fee = gauge?.treasury?.protocol_fee
+const stakedNano = gauge?.treasury?.current_tvl
+const staked = stakedNano == null ? undefined : stakedNano / 1000000000
+const gramUsd = gauge?.ton?.market?.current_price?.usd
+const hpoUsd = gauge?.hpo?.market?.current_price?.usd
+
+const apyText = apy == null ? undefined : formatPercent(locale, apy / 100, 2)
+const feeText = fee == null ? undefined : formatPercent(locale, fee / 100, 2)
+// The exact total, not the landing page's compact "8M": this page's whole claim is that its
+// figures are the real ones, and a rounded headline undercuts that.
+const stakedText = staked == null ? undefined : formatNumber(locale, staked, { maximumFractionDigits: 0 })
+
+const gram = (value: number) => formatNumber(locale, value, { maximumFractionDigits: 0 })
+const usd = (value: number) => formatUsd(locale, value, { maximumFractionDigits: 0 })
+const gramPerYear = (stake: number) => (apy == null ? undefined : gram(stake * (apy / 100)))
+
+// The Club level curve is not linear (1, 1.2, 1.6, … 10), so the two columns name their levels and
+// read the multipliers out of the live array rather than assuming level === multiplier.
+const topLevel = club.coefficients.length
+const topCoefficient = club.coefficients[topLevel - 1]
+const boostLow = hpoBoostPoints(club, 1, hpoUsd, gramUsd)
+const boostHigh = hpoBoostPoints(club, topLevel, hpoUsd, gramUsd)
+const points = (value: number) => formatNumber(locale, value, { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+
+const examples = [1000, 5000, 10000, 50000]
+
+// The realized-return comparison. Measured, not advertised: see src/data/lst.ts. Rendered for the
+// default stake; src/scripts/vs-stake.js re-scales it through the same geometry functions.
+const series = growthSeries()
+const outcome = stakeOutcome(series, DEFAULT_STAKE)
+const NAMES: Record<(typeof COMPARED)[number], string> = { tonstakers: 'Tonstakers', stakee: 'Stakee' }
+const METHOD = [
+  { name: 'Hipo', address: 'EQCLyZHP4Xe8fpchQz76O-_RmUhaVc_9BAoGyJrwJrcbz2eZ', getter: 'get_treasury_state' },
+  { name: 'Tonstakers', address: 'EQCkWxfyhAkim3g2DjKQQg8T5P4g-Q1-K_jErGcDJZ4i-vqR', getter: 'get_pool_full_data' },
+  { name: 'Stakee', address: 'EQD2_4d91M4TVbEBVyBF8J1UwpMJc361LKVCz6bBlffMW05o', getter: 'get_pool_full_data' },
+]
+const windowStart = formatDate(locale, Date.parse(outcome.startDay + 'T00:00:00Z'), {
+  dateStyle: 'long',
+  timeZone: 'UTC',
+})
+// Only what the chart draws is inlined — about 100 sampled growth factors per protocol, not the
+// 169 KB backfill the build read them from.
+const chartData = JSON.stringify({ days: series.days, growth: series.growth, gramUsd: gramUsd ?? 0 })
+
+const title = apyText == null ? t('seo.vs.title') : t('seo.vs.titleApy', { apy: apyText })
+const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descriptionApy', { apy: apyText })
+---
+
+<Layout title={title} description={description}>
+  <Banner />
+
+  <Header />
+
+  <main class='mx-auto w-full max-w-[900px] px-6 pb-4 md:px-12'>
+    <!-- Hero: the two numbers the campaign is about, in static HTML. -->
+    <section class='flex flex-col gap-[22px] py-12'>
+      <div
+        class='border-border bg-surface text-text-muted flex w-fit items-center gap-2 rounded-full border px-3.5 py-[7px] text-sm font-medium'
+      >
+        <span class='bg-positive inline-block size-2 rounded-full'></span>
+        {t('vs.hero.badge')}
+      </div>
+
+      <h1
+        class='font-fredoka text-text [&_em]:text-accent text-[36px] leading-[1.1] font-semibold tracking-[-0.5px] sm:text-[48px] lg:leading-[1.08] [&_em]:not-italic'
+        set:html={tHtml('vs.hero.title')}
+      />
+
+      <p
+        class='text-text-muted [&_strong]:text-text max-w-[560px] text-[17px] leading-[1.6] lg:text-[19px]'
+        set:html={tHtml('vs.hero.lead')}
+      />
+
+      <dl class='grid grid-cols-2 gap-4 sm:grid-cols-3'>
+        <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
+          <dt class='text-text-muted mb-1 text-sm'>{t('vs.hero.statApy')}</dt>
+          <dd class='font-fredoka text-accent num text-[30px] font-semibold'>{apyText ?? '—'}</dd>
+        </div>
+        <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
+          <dt class='text-text-muted mb-1 text-sm'>{t('vs.hero.statFee')}</dt>
+          <dd class='font-fredoka text-positive num text-[30px] font-semibold'>{feeText ?? '—'}</dd>
+        </div>
+        <div class='border-border bg-surface col-span-2 rounded-[20px] border px-6 py-5 sm:col-span-1'>
+          <dt class='text-text-muted mb-1 text-sm'>{t('vs.hero.statStaked')}</dt>
+          <dd class='font-fredoka text-text num text-[26px] font-semibold sm:text-[30px]'>{stakedText ?? '—'}</dd>
+        </div>
+      </dl>
+
+      <p class='text-text-faint text-[13px] leading-[1.6]'>{t('vs.hero.note')}</p>
+    </section>
+
+    <!-- What the fee is worth. Hipo's own numbers only in this section. -->
+    <section class='pb-14'>
+      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>{t('vs.worth.heading')}</h2>
+      <p class='text-text-muted mb-6 max-w-[560px] text-[17px] leading-[1.6]'>
+        {apyText == null ? t('vs.worth.leadWithout') : t('vs.worth.leadWith', { apy: apyText })}
+      </p>
+
+      <div class='border-border bg-surface overflow-x-auto rounded-[20px] border'>
+        <table class='w-full min-w-[420px] text-start'>
+          <thead>
+            <tr class='border-border bg-surface-deep border-b'>
+              <th class='text-text-faint p-4 text-xs font-medium tracking-wider uppercase'>{t('vs.worth.colStake')}</th>
+              <th class='text-text-faint p-4 text-end text-xs font-medium tracking-wider uppercase'>
+                {t('vs.worth.colEarn')}
+              </th>
+              <th class='text-text-faint p-4 text-end text-xs font-medium tracking-wider uppercase'>
+                {t('vs.worth.colFee')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              examples.map((amount) => (
+                <tr class='border-border border-b last:border-0'>
+                  <td class='text-text num p-4'>{gram(amount)} GRAM</td>
+                  <td class='text-accent num p-4 text-end font-semibold'>
+                    {gramPerYear(amount) === undefined ? '—' : `≈ ${gramPerYear(amount)} GRAM`}
+                  </td>
+                  <td class='text-positive num p-4 text-end'>{feeText ?? '—'}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <p class='text-text-faint mt-3 text-[13px] leading-[1.6]'>{t('vs.worth.note')}</p>
+    </section>
+
+    <!-- The measured comparison. Every figure here is derived from contract reads at historical
+         blocks; the method block at the end of the section names them. -->
+    <section class='pb-14'>
+      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>{t('vs.compare.heading')}</h2>
+      <p class='text-text-muted mb-4 max-w-[600px] text-[17px] leading-[1.6]'>{t('vs.compare.lead')}</p>
+
+      {
+        /* The hero quotes the protocol's CURRENT APY, straight off the contract, and it is a much
+           larger number than anything below — it is an instantaneous rate from the latest rounds,
+           not a year's outcome. Leaving both on the page without saying so would be the same
+           advertised-versus-realized confusion this section exists to clear up, aimed at us. */
+        apyText != null && (
+          <p class='text-text-faint mb-6 max-w-[600px] text-[15px] leading-[1.6]'>
+            {t('vs.compare.vsCurrent', { apy: apyText })}
+          </p>
+        )
+      }
+
+      <div class='mb-6 flex flex-wrap items-center gap-2.5'>
+        <label class='text-text-muted text-[15px]' for='vsStakeInput'>{t('vs.compare.stakeLabel')}</label>
+        <input
+          id='vsStakeInput'
+          type='number'
+          min='1'
+          step='100'
+          value={DEFAULT_STAKE}
+          class='border-border bg-surface text-text num focus-visible:outline-accent w-[140px] rounded-xl border px-3 py-2 text-[17px] font-medium focus-visible:outline-2'
+        />
+        <span class='text-text-muted text-[15px]'>{t('vs.compare.stakeOn', { date: windowStart })}</span>
+        <span class='flex-1'></span>
+        {
+          STAKE_PRESETS.map((preset) => (
+            <button
+              type='button'
+              data-vs-stake={preset}
+              aria-pressed={preset === DEFAULT_STAKE ? 'true' : 'false'}
+              class='border-border bg-surface text-text-muted hover:border-border-strong aria-pressed:bg-accent-fill aria-pressed:text-on-accent num cursor-pointer rounded-full border px-3.5 py-1.5 text-[13px] font-medium aria-pressed:border-transparent'
+            >
+              {gram(preset)}
+            </button>
+          ))
+        }
+      </div>
+
+      <div class='border-border bg-surface mb-8 grid gap-6 rounded-[20px] border p-6 sm:grid-cols-3'>
+        {
+          outcome.others.map((other) => (
+            <div>
+              <div class='font-fredoka text-accent num text-[38px] leading-none font-semibold'>
+                <span data-vs-cell={`extra:${other.id}`}>{gram(other.extra)}</span>
+                <span class='text-[20px]'> GRAM</span>
+              </div>
+              <div class='text-text-muted mt-1.5 text-sm'>{t('vs.compare.extra', { name: NAMES[other.id] })}</div>
+              <div class='text-text-faint text-[13px]'>
+                {gramUsd == null ? '' : <span data-vs-cell={`extraUsd:${other.id}`}>{usd(other.extra * gramUsd)}</span>}
+              </div>
+            </div>
+          ))
+        }
+        <div>
+          <div class='font-fredoka text-text num text-[38px] leading-none font-semibold'>
+            <span data-vs-cell='hipoEnd'>{gram(outcome.hipoEnd)}</span>
+          </div>
+          <div class='text-text-muted mt-1.5 text-sm'>
+            {t('vs.compare.hipoEndLabel', { stake: gram(DEFAULT_STAKE) })}
+          </div>
+          <div class='text-text-faint text-[13px]'>
+            {gramUsd == null ? '' : <span data-vs-cell='hipoEndUsd'>{usd(outcome.hipoEnd * gramUsd)}</span>}
+          </div>
+        </div>
+      </div>
+
+      <h3 class='font-fredoka text-text mb-2 text-xl font-semibold'>{t('vs.compare.chartHeading')}</h3>
+      <p class='text-text-muted mb-5 max-w-[600px] text-[15px] leading-[1.6]'>{t('vs.compare.chartLead')}</p>
+
+      <div class='border-border bg-surface mb-4 rounded-[20px] border p-5'>
+        <div class='mb-3 flex flex-wrap gap-x-5 gap-y-2'>
+          <span class='text-text-muted inline-flex items-center gap-2 text-[13px]'>
+            <i class='bg-text-faint inline-block h-[3px] w-3.5 rounded-sm'></i>Hipo
+          </span>
+          <span class='text-text-muted inline-flex items-center gap-2 text-[13px]'>
+            <i class='inline-block h-[3px] w-3.5 rounded-sm' style='background: var(--color-series-a)'></i>
+            {NAMES.tonstakers}
+          </span>
+          <span class='text-text-muted inline-flex items-center gap-2 text-[13px]'>
+            <i class='inline-block h-[3px] w-3.5 rounded-sm' style='background: var(--color-series-b)'></i>
+            {NAMES.stakee}
+          </span>
+        </div>
+        <ValueGapChart
+          series={series}
+          stake={DEFAULT_STAKE}
+          locale={locale}
+          names={NAMES}
+          label={t('vs.compare.chartLabel')}
+        />
+      </div>
+
+      <h3 class='font-fredoka text-text mt-8 mb-3 text-xl font-semibold'>{t('vs.compare.tableHeading')}</h3>
+      <div class='border-border bg-surface overflow-x-auto rounded-[20px] border'>
+        <table class='w-full min-w-[480px] text-start'>
+          <thead>
+            <tr class='border-border bg-surface-deep border-b'>
+              <th class='text-text-faint p-4 text-xs font-medium tracking-wider uppercase'>
+                {t('vs.compare.colProtocol')}
+              </th>
+              <th class='text-text-faint p-4 text-end text-xs font-medium tracking-wider uppercase'>
+                {t('vs.compare.colEnd')}
+              </th>
+              <th class='text-text-faint p-4 text-end text-xs font-medium tracking-wider uppercase'>
+                {t('vs.compare.colEarned')}
+              </th>
+              <th class='text-text-faint p-4 text-end text-xs font-medium tracking-wider uppercase'>
+                {t('vs.compare.colDiff')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class='border-border border-b'>
+              <td class='text-text p-4 font-medium'>
+                Hipo
+                <span class='bg-positive/15 text-positive ms-2 rounded-full px-2 py-0.5 text-[11.5px] font-medium'>
+                  {t('vs.compare.youAreHere')}
+                </span>
+              </td>
+              <td class='text-text num p-4 text-end'><span data-vs-cell='end:hipo'>{gram(outcome.hipoEnd)}</span></td>
+              <td class='text-accent num p-4 text-end font-semibold'>
+                <span data-vs-cell='earned:hipo'>{gram(outcome.hipoEarned)}</span>
+              </td>
+              <td class='text-text-faint num p-4 text-end'>—</td>
+            </tr>
+            {
+              outcome.others.map((other) => (
+                <tr class='border-border border-b last:border-0'>
+                  <td class='text-text p-4 font-medium'>{NAMES[other.id]}</td>
+                  <td class='text-text num p-4 text-end'>
+                    <span data-vs-cell={`end:${other.id}`}>{gram(other.end)}</span>
+                  </td>
+                  <td class='text-text-muted num p-4 text-end'>
+                    <span data-vs-cell={`earned:${other.id}`}>{gram(other.earned)}</span>
+                  </td>
+                  <td class='text-text-muted num p-4 text-end'>
+                    −<span data-vs-cell={`diff:${other.id}`}>{gram(other.extra)}</span>
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class='text-text-faint mt-3 text-[13px] leading-[1.6]'>{t('vs.compare.tableNote')}</p>
+
+      <div class='border-border mt-6 rounded-[20px] border p-6'>
+        <h3 class='font-fredoka text-text mb-2 text-lg font-semibold'>{t('vs.compare.methodHeading')}</h3>
+        <p class='text-text-muted mb-4 text-[15px] leading-[1.6]'>{t('vs.compare.methodBody')}</p>
+        <ul class='space-y-2'>
+          {
+            METHOD.map((item) => (
+              <li class='text-text-muted flex flex-wrap items-baseline gap-x-2 text-[13px]'>
+                <span class='text-text font-medium'>{item.name}</span>
+                <code class='min-w-0 font-mono break-all' dir='ltr'>
+                  {item.address}
+                </code>
+                <code class='text-text-faint font-mono' dir='ltr'>
+                  {item.getter}
+                </code>
+              </li>
+            ))
+          }
+        </ul>
+        <p class='text-text-faint mt-4 text-[13px] leading-[1.6]'>
+          {t('vs.compare.methodNote', { date: windowStart })}
+        </p>
+      </div>
+    </section>
+
+    <!-- The HPO boost, valued honestly: a big token count means nothing without its price. -->
+    <section class='pb-14'>
+      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>{t('vs.hpo.heading')}</h2>
+      <p
+        class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover mb-6 max-w-[560px] text-[17px] leading-[1.6] [&_a]:underline'
+        set:html={tHtml('vs.hpo.lead', {
+          low: points(club.coefficients[0]),
+          high: points(topCoefficient),
+          top: gram(topLevel),
+        })}
+      />
+
+      <div class='border-border bg-surface overflow-x-auto rounded-[20px] border'>
+        <table class='w-full min-w-[420px] text-start'>
+          <thead>
+            <tr class='border-border bg-surface-deep border-b'>
+              <th class='text-text-faint p-4 text-xs font-medium tracking-wider uppercase'>{t('vs.hpo.colStake')}</th>
+              <th class='text-text-faint p-4 text-end text-xs font-medium tracking-wider uppercase'>
+                {t('vs.hpo.colLevel1')}
+              </th>
+              <th class='text-text-faint p-4 text-end text-xs font-medium tracking-wider uppercase'>
+                {t('vs.hpo.colLevelTop', { top: gram(topLevel) })}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              examples.map((amount) => (
+                <tr class='border-border border-b last:border-0'>
+                  <td class='text-text num p-4'>{gram(amount)} GRAM</td>
+                  <td class='text-text-muted num p-4 text-end'>≈ {gram(hpoPerYear(club, amount, 1))}</td>
+                  <td class='text-accent num p-4 text-end font-semibold'>
+                    ≈ {gram(hpoPerYear(club, amount, topLevel))}
+                  </td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      {
+        boostLow !== undefined && boostHigh !== undefined && (
+          <p
+            class='text-text-muted [&_strong]:text-text mt-4 max-w-[560px] text-[15px] leading-[1.6]'
+            set:html={tHtml('vs.hpo.worth', {
+              low: points(boostLow),
+              high: points(boostHigh),
+              top: gram(topLevel),
+            })}
+          />
+        )
+      }
+
+      <p class='text-text-faint mt-2 text-[13px] leading-[1.6]'>
+        {
+          t('vs.hpo.note', {
+            rate: String(club.rewardRate),
+            hours: formatNumber(locale, 24 / (club.roundsPerYear / 365), { maximumFractionDigits: 0 }),
+            rounds: formatNumber(locale, club.roundsPerYear, { maximumFractionDigits: 0 }),
+          })
+        }
+      </p>
+    </section>
+
+    <!-- Getting out. The question this audience asks second. -->
+    <section class='pb-14'>
+      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>{t('vs.exit.heading')}</h2>
+      <p class='text-text-muted mb-6 max-w-[560px] text-[17px] leading-[1.6]'>{t('vs.exit.lead')}</p>
+
+      <div class='grid gap-4 md:grid-cols-2'>
+        <div class='border-border bg-surface rounded-[20px] border p-6'>
+          <h3 class='font-fredoka text-text mb-2 text-xl font-semibold'>{t('vs.exit.fullHeading')}</h3>
+          <p class='text-text-muted text-[15px] leading-[1.6]'>{t('vs.exit.fullBody')}</p>
+        </div>
+        <div class='border-border bg-surface rounded-[20px] border p-6'>
+          <h3 class='font-fredoka text-text mb-2 text-xl font-semibold'>{t('vs.exit.instantHeading')}</h3>
+          <p class='text-text-muted text-[15px] leading-[1.6]'>{t('vs.exit.instantBody')}</p>
+        </div>
+      </div>
+
+      <p class='text-text-faint mt-3 text-[13px] leading-[1.6]'>{t('vs.exit.note')}</p>
+    </section>
+
+    <!-- Credibility, which is what this audience actually checks. -->
+    <section class='pb-14'>
+      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>{t('vs.trust.heading')}</h2>
+      <ul class='grid gap-3 md:grid-cols-2'>
+        <li class='border-border bg-surface rounded-[20px] border p-6'>
+          <strong class='font-fredoka text-text mb-1 block text-lg font-semibold'>{t('vs.trust.walletHeading')}</strong>
+          <span class='text-text-muted text-[15px] leading-[1.6]'>{t('vs.trust.walletBody')}</span>
+        </li>
+        <li class='border-border bg-surface rounded-[20px] border p-6'>
+          <strong class='font-fredoka text-text mb-1 block text-lg font-semibold'>{t('vs.trust.openHeading')}</strong>
+          <span
+            class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover text-[15px] leading-[1.6] [&_a]:underline'
+            set:html={tHtml('vs.trust.openBody')}
+          />
+        </li>
+        <li class='border-border bg-surface rounded-[20px] border p-6'>
+          <strong class='font-fredoka text-text mb-1 block text-lg font-semibold'>
+            {t('vs.trust.custodyHeading')}
+          </strong>
+          <span class='text-text-muted text-[15px] leading-[1.6]'>{t('vs.trust.custodyBody')}</span>
+        </li>
+        <li class='border-border bg-surface rounded-[20px] border p-6'>
+          <strong class='font-fredoka text-text mb-1 block text-lg font-semibold'>{t('vs.trust.dataHeading')}</strong>
+          <span
+            class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover text-[15px] leading-[1.6] [&_a]:underline'
+            set:html={tHtml('vs.trust.dataBody')}
+          />
+        </li>
+      </ul>
+    </section>
+
+    <section
+      class='border-border mb-14 rounded-[20px] border p-8 text-center'
+      style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
+    >
+      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>{t('vs.cta.heading')}</h2>
+      <p class='text-text-muted mx-auto mb-6 max-w-[460px] text-[17px] leading-[1.6]'>{t('vs.cta.lead')}</p>
+      <a
+        href={locale === 'en' ? '/stake/' : `/${locale}/stake/`}
+        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover inline-block rounded-full px-8 py-[15px] text-[17px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
+      >
+        {t('vs.cta.button')}
+      </a>
+      <p class='text-text-faint mt-4 text-[13px] leading-[1.6]'>{t('vs.cta.note')}</p>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script type='application/json' id='vs-lst-data' is:inline set:html={chartData} />
+<script src='/src/scripts/vs-stake.js'></script>
