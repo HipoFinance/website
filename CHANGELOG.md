@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-14 — [detailed report](changelog/2026-09-14-llms-links.md)
+
+- Linked `/vs/` from `public/llms.txt`, with a paragraph pointing comparison questions at it.
+- Listed the app pages, FAQ and missing docs pages in `llms.txt`, leaving out past programs.
+- Fixed the `/hpo/` link's missing trailing slash in `llms.txt`.
+- Left `robots.txt` unchanged: `Allow: /` and the sitemap already cover `/vs/`.
+
 ## 2026-09-14 — [detailed report](changelog/2026-09-14-vs-chart-follow-ups.md)
 
 - Shortened the `/vs/` stake presets to compact labels and regrouped the row so
