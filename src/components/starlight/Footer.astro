@@ -7,6 +7,9 @@
 // The label is the same gated catalog string the site footer uses (`site.footer.verify`) rather
 // than a new key in the Starlight i18n collection, so there is one place to change it. The href is
 // localized: `/verify/` has had a `[locale]` twin since 2026-09-01.
+//
+// It also carries the /vs/ link (`site.footer.compare`), for the same reason the site footer does:
+// until 2026-09-15 no page linked /vs/ in its static HTML (specs/search-console-coverage-sitemaps.md).
 import Default from '@astrojs/starlight/components/Footer.astro'
 import { isLocaleKey } from '../../i18n/registry.mjs'
 import { localizedPath } from '../../i18n/locale.ts'
@@ -20,22 +23,29 @@ const { t } = getT(locale, ['site'])
 
 <Default><slot /></Default>
 
-<p class='hipo-verify print:hidden'>
+<p class='hipo-footer-links print:hidden'>
   <a href={localizedPath('/verify/', locale)}>{t('site.footer.verify')}</a>
+  <span aria-hidden='true'>·</span>
+  <a href={localizedPath('/vs/', locale)}>{t('site.footer.compare')}</a>
 </p>
 
 <style>
   @layer starlight.core {
-    .hipo-verify {
+    .hipo-footer-links {
       margin: 0 auto 1.5rem;
       font-size: var(--sl-text-xs);
       text-align: center;
+      color: var(--sl-color-gray-3);
     }
-    .hipo-verify a {
+    /* Spacing keeps the two small targets clear of each other (WCAG 2.5.8). */
+    .hipo-footer-links span {
+      margin-inline: 0.625rem;
+    }
+    .hipo-footer-links a {
       color: var(--sl-color-gray-3);
       text-decoration: none;
     }
-    .hipo-verify a:hover {
+    .hipo-footer-links a:hover {
       color: var(--sl-color-white);
     }
   }

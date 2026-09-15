@@ -6,6 +6,8 @@ title: 'Hipo Stats'
 
 Hipo Stats ([stats.hipo.finance](https://stats.hipo.finance/)), Hipo deneyiminiz için ihtiyaç duyduğunuz tüm temel istatistikleri ve verileri sunmak üzere tasarlanmış herkese açık bir paneldir. Önemli metrikler hakkında kapsamlı bilgi vererek Hipo ekosisteminde bilgili kalmanıza ve daha iyi kararlar almanıza yardımcı olur.
 
+Öne çıkan rakamları (APY, toplam stake edilen GRAM, aktif staker'lar ve hGRAM / GRAM oranı) geçmiş grafikleriyle birlikte Hipo uygulamasındaki [İstatistikler](/stats/) sayfasında görebilirsiniz.
+
 ## Hipo Stats'te neler var?
 
 Hipo istatistiklerimizde kapsamlı ve güncel bilgiler bulacaksınız:

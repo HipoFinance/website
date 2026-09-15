@@ -6,6 +6,8 @@ title: 'Hipo Stats'
 
 Hipo Stats ([stats.hipo.finance](https://stats.hipo.finance/)) ist ein öffentliches Dashboard, das Ihnen alle wichtigen Statistiken und Daten für Ihre Nutzung von Hipo liefert. Es bietet einen umfassenden Blick auf die wichtigsten Kennzahlen und hilft Ihnen, informiert zu bleiben und im Hipo-Ökosystem bessere Entscheidungen zu treffen.
 
+Die wichtigsten Kennzahlen (APY, insgesamt gestaktes GRAM, aktive Staker und der hGRAM/GRAM-Kurs) mit den zugehörigen Verlaufscharts finden Sie auf der Seite [Statistiken](/stats/) in der Hipo-App.
+
 ## Was enthält Hipo Stats?
 
 In unseren Hipo-Statistiken finden Sie umfassende und aktuelle Informationen, darunter:

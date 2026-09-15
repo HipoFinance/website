@@ -6,6 +6,8 @@ title: 'Hipo Stats'
 
 Hipo Stats ([stats.hipo.finance](https://stats.hipo.finance/)) is a public dashboard designed to provide you with all the essential statistics and data you need for your Hipo experience. It offers comprehensive insights into key metrics, helping you stay informed and make better decisions within the Hipo ecosystem.
 
+For the headline figures (APY, total GRAM staked, active stakers and the hGRAM/GRAM rate) with their history charts, see the [Stats page](/stats/) in the Hipo app.
+
 ## What is Included in Hipo Stats?
 
 In our Hipo stats, you'll find comprehensive and up-to-date information, including:

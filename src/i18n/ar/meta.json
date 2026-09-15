@@ -1176,7 +1176,7 @@
     "reviewed": false
   },
   "docs/introduction/advantages-of-hipo.md": {
-    "sourceHash": "dfade432eb51c0ffbc699d92c0cc6f643639f401",
+    "sourceHash": "642ecab518073d4e971a9e0276d21bc52a3656a9",
     "reviewed": false
   },
   "docs/introduction/hipo-on-dune.md": {
@@ -1188,7 +1188,7 @@
     "reviewed": false
   },
   "docs/introduction/hipo-stats.md": {
-    "sourceHash": "af9550846aeeef582d918e36a5c3ea9419088abd",
+    "sourceHash": "fad198af027c2806c89e8ecfdd8396c873925580",
     "reviewed": false
   },
   "docs/introduction/how-does-hipo-work.md": {
@@ -1196,7 +1196,7 @@
     "reviewed": false
   },
   "docs/introduction/how-does-hipo-work/unstaking.md": {
-    "sourceHash": "51482eccb18116cac5790037ebda6923b41459de",
+    "sourceHash": "94243b334f77157c22697058b6b47f05c425a935",
     "reviewed": false
   },
   "docs/introduction/how-does-hipo-work/validators.md": {
@@ -2148,7 +2148,7 @@
     "reviewed": false
   },
   "prose/shell/stats/cards/04-deeper-data.md": {
-    "sourceHash": "cb52ffc852e9d68912c11c378953438fb09db4d4",
+    "sourceHash": "2d3b8cb76b4128ce00342aa80fbeaa0451bf92bd",
     "reviewed": false
   },
   "prose/shell/unstake/cards/01-how-unstaking-works.md": {
@@ -2329,6 +2329,10 @@
   },
   "site.footer.blog": {
     "sourceHash": "0b9d2b2362bc33581ba11fddcb0cf0590ebd3a7a",
+    "reviewed": false
+  },
+  "site.footer.compare": {
+    "sourceHash": "eb612bab607490fef4296dfaeb59c86fbb32a734",
     "reviewed": false
   },
   "site.footer.ctaBody": {

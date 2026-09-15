@@ -6,6 +6,8 @@ title: 'Hipo Stats'
 
 Hipo Stats ([stats.hipo.finance](https://stats.hipo.finance/)) adalah dashboard publik yang dirancang untuk memberi Anda semua statistik dan data penting yang Anda butuhkan dalam pengalaman ber-Hipo. Dashboard ini menyajikan gambaran menyeluruh atas metrik-metrik utama, membantu Anda tetap mendapat informasi dan mengambil keputusan yang lebih baik di dalam ekosistem Hipo.
 
+Untuk angka utama (APY, total GRAM yang di-stake, staker aktif, dan nilai tukar hGRAM / GRAM) beserta riwayat grafiknya, lihat halaman [Statistik](/stats/) di aplikasi Hipo.
+
 ## Apa saja yang ada di Hipo Stats?
 
 Di Hipo Stats, Anda akan menemukan informasi yang lengkap dan terkini, di antaranya:

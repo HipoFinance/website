@@ -8,6 +8,52 @@ import { lastmodFor } from './src/data/lastmod.mjs'
 import { DEFAULT_LOCALE, LOCALES, builtLocales, indexableLocales } from './src/i18n/registry.mjs'
 import remarkLocalizeLinks from './src/i18n/remark-localize-links.mjs'
 
+// Sitemap groups: the five dApp shell pages, the docs, and everything else (home, FAQ, HPO, verify,
+// vs, and any future top-level page).
+const SITEMAP_GROUPS = ['site', 'app', 'docs']
+const APP_SECTIONS = new Set(['stake', 'unstake', 'rewards', 'stats', 'defi'])
+
+/**
+ * The sitemap chunk a URL belongs to, `<locale>-<group>` (`en-site`, `fa-app`, `pt-br-docs`).
+ * @param {string} url
+ */
+function sitemapSegment(url) {
+  const segments = new URL(url).pathname.split('/').filter(Boolean)
+  const locale = /** @type {string[]} */ (indexableLocales()).includes(segments[0]) ? segments.shift() : DEFAULT_LOCALE
+  const group = segments[0] === 'docs' ? 'docs' : APP_SECTIONS.has(segments[0]) ? 'app' : 'site'
+  return `${locale}-${group}`
+}
+
+/**
+ * Fails the build when the sitemap was not written. On its chunked path @astrojs/sitemap catches its
+ * own errors, logs them and returns, so a broken sitemap would otherwise build — and deploy — green
+ * with robots.txt pointing at a 404. Must be listed after sitemap(): Astro runs `astro:build:done`
+ * hooks one integration at a time, in order.
+ * @returns {import('astro').AstroIntegration}
+ */
+function assertSitemapWritten() {
+  return {
+    name: 'hipo:assert-sitemap-written',
+    hooks: {
+      'astro:build:done': ({ dir }) => {
+        const index = new URL('sitemap-index.xml', dir)
+        if (!existsSync(index)) {
+          throw new Error('sitemap-index.xml was not written; see the @astrojs/sitemap error logged above')
+        }
+        const listed = [...readFileSync(index, 'utf8').matchAll(/<loc>https:\/\/hipo\.finance\/([^<]+)<\/loc>/g)]
+        const expected = indexableLocales().length * SITEMAP_GROUPS.length
+        if (listed.length !== expected) {
+          throw new Error(`sitemap-index.xml lists ${listed.length} sitemaps, expected ${expected} (locales × groups)`)
+        }
+        const missing = listed.map((match) => match[1]).filter((file) => !existsSync(new URL(file, dir)))
+        if (missing.length > 0) {
+          throw new Error(`sitemap-index.xml lists sitemaps that were not written: ${missing.join(', ')}`)
+        }
+      },
+    },
+  }
+}
+
 // Sidebar order is the reader path defined in specs/docs-restructure.md (understand → use →
 // tokens & governance → verify → build → fund → archive → legal → brand). Group order no longer
 // mirrors file paths: entries link pages by URL, and several pages keep their GitBook-era paths
@@ -311,7 +357,21 @@ export default defineConfig({
         const lastmod = lastmodFor(new URL(item.url).pathname)
         return lastmod === undefined ? item : { ...item, lastmod }
       },
+      // One sitemap per locale × group (`sitemap-fa-app-0.xml`, …), so Search Console's Page indexing
+      // report, filtered by sitemap, shows how much of each locale and section is indexed — its
+      // exports never list indexed URLs (specs/search-console-coverage-sitemaps.md). The plugin writes
+      // a URL into every chunk whose callback keeps it, so all callbacks defer to the one classifier;
+      // anything no callback keeps would land in a catch-all `sitemap-pages-0.xml`, which stays empty.
+      chunks: Object.fromEntries(
+        indexableLocales().flatMap((locale) =>
+          SITEMAP_GROUPS.map((group) => {
+            const key = `${locale}-${group}`
+            return [key, (item) => (sitemapSegment(item.url) === key ? item : undefined)]
+          }),
+        ),
+      ),
     }),
+    assertSitemapWritten(),
     starlight({
       title: 'Hipo Docs',
       description: 'Documentation for Hipo, the liquid staking protocol on TON. Stake GRAM, receive hGRAM.',
