@@ -7,6 +7,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-15 — [detailed report](changelog/2026-09-15-search-console-coverage-sitemaps.md)
+
+- Split the sitemap into one file per locale × site/app/docs (30 files) for Search Console.
+- Failed the build when the chunked sitemap is not written.
+- Linked `/vs/` as "Fees compared" from the site and docs footers, and in context.
+- Linked `/stats/` and `/unstake/` from the Hipo Stats and Unstaking docs pages.
+- Translated the changes into all nine released locales.
+
 ## 2026-09-14 — [detailed report](changelog/2026-09-14-llms-links.md)
 
 - Linked `/vs/` from `public/llms.txt`, with a paragraph pointing comparison questions at it.
