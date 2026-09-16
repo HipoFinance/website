@@ -192,6 +192,51 @@ export function statsCards(locale: Locale, data: GaugeData | undefined, rate: nu
   return cards
 }
 
+// The gauge-derived figures on /vs/, keyed by the `data-vs-live` attribute that carries each one
+// in the markup. A fourth rounding of the same three numbers, for the same reason the three above
+// differ from each other: /vs/ prints the EXACT staked total rather than a compact one, because
+// that page's whole argument is that its figures are the real ones and a rounded headline undercuts
+// it. The fee repeats — the hero card and every row of the reward table — so the writer looks up
+// ALL the nodes carrying a key, not the first.
+//
+// `src/scripts/vs-data.js` calls this in the browser with a fresh payload, exactly as
+// landing-data.js calls gaugeValues(), so a refreshed figure is character-identical to the baked
+// one whenever the number has not moved.
+
+// The stakes in the "What 0% is worth" table. Shared with the client script, which re-derives the
+// same per-year rows: two copies of this list would drift the moment one is edited.
+export const VS_EXAMPLES = [1000, 5000, 10000, 50000]
+
+export function vsValues(locale: Locale, data: GaugeData | undefined): Record<string, string> {
+  const values: Record<string, string> = {}
+  if (data === undefined) {
+    return values
+  }
+
+  const apy = data.treasury?.current_apy
+  if (apy != null) {
+    values.apy = percent(locale, apy)
+    for (const stake of VS_EXAMPLES) {
+      // "≈ 170 GRAM" is one cell, not a number in a sentence, so the whole string is formatted
+      // here: the client has no business re-assembling it out of pieces.
+      values['earn:' + stake] = '≈ ' + formatNumber(locale, stake * (apy / 100), { maximumFractionDigits: 0 }) + ' GRAM'
+    }
+  }
+
+  // A 0% fee is the real, advertised value, so no `> 0` guard — same as gaugeValues above.
+  const fee = data.treasury?.protocol_fee
+  if (fee != null) {
+    values.fee = percent(locale, fee)
+  }
+
+  const stakedNano = data.treasury?.current_tvl
+  if (stakedNano != null) {
+    values.staked = formatNumber(locale, stakedNano / 1000000000, { maximumFractionDigits: 0 })
+  }
+
+  return values
+}
+
 export function gaugeValues(locale: Locale, data: GaugeData | undefined): GaugeValues {
   const values: GaugeValues = {}
   if (data === undefined) {

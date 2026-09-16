@@ -21,8 +21,8 @@ import Footer from '../SiteFooter.astro'
 import ValueGapChart from '../charts/ValueGapChart.astro'
 import { localeOf } from '../../i18n/locale.ts'
 import { getT } from '../../i18n/t.ts'
-import { formatCompact, formatNumber, formatPercent, formatUsd, formatDate } from '../../i18n/format.ts'
-import { fetchGauge } from '../../data/gauge.ts'
+import { formatCompact, formatNumber, formatUsd, formatDate } from '../../i18n/format.ts'
+import { fetchGauge, vsValues, VS_EXAMPLES } from '../../data/gauge.ts'
 import { fetchClubRewards, hpoBoostPoints, hpoPerYear } from '../../data/club.ts'
 import { growthSeries } from '../../data/lst.ts'
 import { chartGeometry, stakeOutcome, STAKE_PRESETS, DEFAULT_STAKE, COMPARED } from '../../data/lst-geometry.ts'
@@ -32,25 +32,28 @@ const { t, tHtml } = getT(locale, ['seo', 'site', 'vs'])
 
 const [gauge, club] = await Promise.all([fetchGauge(), fetchClubRewards()])
 
-const apy = gauge?.treasury?.current_apy
-// The 0% headline is the whole argument of this page, so the fee is rendered from the contract
-// rather than typed in: if governance ever sets one, the tables stop saying zero and the copy
-// above them needs rewriting the same day.
-const fee = gauge?.treasury?.protocol_fee
-const stakedNano = gauge?.treasury?.current_tvl
-const staked = stakedNano == null ? undefined : stakedNano / 1000000000
 const gramUsd = gauge?.ton?.market?.current_price?.usd
 const hpoUsd = gauge?.hpo?.market?.current_price?.usd
 
-const apyText = apy == null ? undefined : formatPercent(locale, apy / 100, 2)
-const feeText = fee == null ? undefined : formatPercent(locale, fee / 100, 2)
+// The APY, the fee and the staked total, formatted once for the markup and again in the browser by
+// src/scripts/vs-data.js through this very function. Everything that reads them below carries a
+// `data-vs-live` attribute naming its key.
+//
+// The refresh is what stops this page contradicting the rest of the site. The gauge's APY moves
+// with every validation round — it has run between 12% and 34% inside a single month — and `/` and
+// the dApp both correct themselves in the visitor's browser, so a `/vs/` frozen at its last deploy
+// was the one surface still quoting a rate the protocol had left behind. The 0% fee is rendered
+// from the contract for a related reason: if governance ever sets one, the tables stop saying zero
+// and the copy above them needs rewriting the same day.
+const live = vsValues(locale, gauge)
+const apyText = live.apy
+const feeText = live.fee
 // The exact total, not the landing page's compact "8M": this page's whole claim is that its
 // figures are the real ones, and a rounded headline undercuts that.
-const stakedText = staked == null ? undefined : formatNumber(locale, staked, { maximumFractionDigits: 0 })
+const stakedText = live.staked
 
 const gram = (value: number) => formatNumber(locale, value, { maximumFractionDigits: 0 })
 const usd = (value: number) => formatUsd(locale, value, { maximumFractionDigits: 0 })
-const gramPerYear = (stake: number) => (apy == null ? undefined : gram(stake * (apy / 100)))
 
 // The Club level curve is not linear (1, 1.2, 1.6, … 10), so the two columns name their levels and
 // read the multipliers out of the live array rather than assuming level === multiplier.
@@ -63,8 +66,6 @@ const points = (value: number) => formatNumber(locale, value, { minimumFractionD
 // the row wrap and strand the last chip on its own line. The exact amount stays on the button's
 // aria-label, since the compact form is terse for a screen reader.
 const compact = (value: number) => formatCompact(locale, value, 0)
-
-const examples = [1000, 5000, 10000, 50000]
 
 // The realized-return comparison. Measured, not advertised: see src/data/lst.ts. Rendered for the
 // default stake; src/scripts/vs-stake.js re-scales it through the same geometry functions.
@@ -81,6 +82,13 @@ const METHOD = [
 // `data-vs-cell` span instead of a bare number. Interpolating the markup rather than splitting the
 // sentence in the template keeps the locales that want no space around the figure — Arabic's
 // "الـ{stake}" — from gaining one.
+// Both sentences quote the APY inside running copy, so the {apy} placeholder is filled with a
+// `data-vs-live` span the same way the stake label below is — the refresh has to reach the number
+// in the prose, not just the hero card, or the page contradicts itself half a sentence later.
+const apyCell = `<span data-vs-live="apy" class="num">${apyText ?? '—'}</span>`
+const worthLead = apyText == null ? t('vs.worth.leadWithout') : t('vs.worth.leadWith', { apy: apyCell })
+const vsCurrent = t('vs.compare.vsCurrent', { apy: apyCell })
+
 const hipoEndLabel = t('vs.compare.hipoEndLabel', {
   stake: `<span data-vs-cell="stake" class="num">${gram(DEFAULT_STAKE)}</span>`,
 })
@@ -124,15 +132,17 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
       <dl class='grid grid-cols-2 gap-4 sm:grid-cols-3'>
         <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
           <dt class='text-text-muted mb-1 text-sm'>{t('vs.hero.statApy')}</dt>
-          <dd class='font-fredoka text-accent num text-[30px] font-semibold'>{apyText ?? '—'}</dd>
+          <dd class='font-fredoka text-accent num text-[30px] font-semibold' data-vs-live='apy'>{apyText ?? '—'}</dd>
         </div>
         <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
           <dt class='text-text-muted mb-1 text-sm'>{t('vs.hero.statFee')}</dt>
-          <dd class='font-fredoka text-positive num text-[30px] font-semibold'>{feeText ?? '—'}</dd>
+          <dd class='font-fredoka text-positive num text-[30px] font-semibold' data-vs-live='fee'>{feeText ?? '—'}</dd>
         </div>
         <div class='border-border bg-surface col-span-2 rounded-[20px] border px-6 py-5 sm:col-span-1'>
           <dt class='text-text-muted mb-1 text-sm'>{t('vs.hero.statStaked')}</dt>
-          <dd class='font-fredoka text-text num text-[26px] font-semibold sm:text-[30px]'>{stakedText ?? '—'}</dd>
+          <dd class='font-fredoka text-text num text-[26px] font-semibold sm:text-[30px]' data-vs-live='staked'>
+            {stakedText ?? '—'}
+          </dd>
         </div>
       </dl>
 
@@ -142,9 +152,7 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
     <!-- What the fee is worth. Hipo's own numbers only in this section. -->
     <section class='pb-14'>
       <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>{t('vs.worth.heading')}</h2>
-      <p class='text-text-muted mb-6 max-w-[560px] text-[17px] leading-[1.6]'>
-        {apyText == null ? t('vs.worth.leadWithout') : t('vs.worth.leadWith', { apy: apyText })}
-      </p>
+      <p class='text-text-muted mb-6 max-w-[560px] text-[17px] leading-[1.6]' set:html={worthLead} />
 
       <div class='border-border bg-surface overflow-x-auto rounded-[20px] border'>
         <table class='w-full min-w-[420px] text-start'>
@@ -161,13 +169,15 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
           </thead>
           <tbody>
             {
-              examples.map((amount) => (
+              VS_EXAMPLES.map((amount) => (
                 <tr class='border-border border-b last:border-0'>
                   <td class='text-text num p-4'>{gram(amount)} GRAM</td>
-                  <td class='text-accent num p-4 text-end font-semibold'>
-                    {gramPerYear(amount) === undefined ? '—' : `≈ ${gramPerYear(amount)} GRAM`}
+                  <td class='text-accent num p-4 text-end font-semibold' data-vs-live={`earn:${amount}`}>
+                    {live[`earn:${amount}`] ?? '—'}
                   </td>
-                  <td class='text-positive num p-4 text-end'>{feeText ?? '—'}</td>
+                  <td class='text-positive num p-4 text-end' data-vs-live='fee'>
+                    {feeText ?? '—'}
+                  </td>
                 </tr>
               ))
             }
@@ -190,9 +200,7 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
            not a year's outcome. Leaving both on the page without saying so would be the same
            advertised-versus-realized confusion this section exists to clear up, aimed at us. */
         apyText != null && (
-          <p class='text-text-faint mb-6 max-w-[600px] text-[15px] leading-[1.6]'>
-            {t('vs.compare.vsCurrent', { apy: apyText })}
-          </p>
+          <p class='text-text-faint mb-6 max-w-[600px] text-[15px] leading-[1.6]' set:html={vsCurrent} />
         )
       }
 
@@ -385,7 +393,7 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
           </thead>
           <tbody>
             {
-              examples.map((amount) => (
+              VS_EXAMPLES.map((amount) => (
                 <tr class='border-border border-b last:border-0'>
                   <td class='text-text num p-4'>{gram(amount)} GRAM</td>
                   <td class='text-text-muted num p-4 text-end'>≈ {gram(hpoPerYear(club, amount, 1))}</td>
@@ -494,3 +502,4 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
 
 <script type='application/json' id='vs-lst-data' is:inline set:html={chartData} />
 <script src='/src/scripts/vs-stake.js'></script>
+<script src='/src/scripts/vs-data.js'></script>

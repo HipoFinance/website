@@ -7,6 +7,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-16 — [detailed report](changelog/2026-09-16-vs-live-apy.md)
+
+- Refreshed `/vs/`'s APY, fee and staked total in the browser, as the landing page already does.
+- Re-derived the "You earn / year" column and the APY quoted in two sentences from that refresh.
+- Added `vsValues()` and `VS_EXAMPLES` to `src/data/gauge.ts`, shared by the page and the script.
+
 ## 2026-09-16 — [detailed report](changelog/2026-09-16-vs-stake-label.md)
 
 - Fixed the `/vs/` comparison card caption, which kept naming the default 100,000 GRAM stake.
