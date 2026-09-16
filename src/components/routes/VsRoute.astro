@@ -76,6 +76,14 @@ const METHOD = [
   { name: 'Tonstakers', address: 'EQCkWxfyhAkim3g2DjKQQg8T5P4g-Q1-K_jErGcDJZ4i-vqR', getter: 'get_pool_full_data' },
   { name: 'Stakee', address: 'EQD2_4d91M4TVbEBVyBF8J1UwpMJc361LKVCz6bBlffMW05o', getter: 'get_pool_full_data' },
 ]
+// The stake appears inside this sentence ("your 100,000 GRAM with Hipo today"), and vs-stake.js has
+// to rewrite it along with every other figure, so the {stake} placeholder is filled with its own
+// `data-vs-cell` span instead of a bare number. Interpolating the markup rather than splitting the
+// sentence in the template keeps the locales that want no space around the figure — Arabic's
+// "الـ{stake}" — from gaining one.
+const hipoEndLabel = t('vs.compare.hipoEndLabel', {
+  stake: `<span data-vs-cell="stake" class="num">${gram(DEFAULT_STAKE)}</span>`,
+})
 const windowStart = formatDate(locale, Date.parse(outcome.startDay + 'T00:00:00Z'), {
   dateStyle: 'long',
   timeZone: 'UTC',
@@ -239,9 +247,7 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
           <div class='font-fredoka text-text num text-[38px] leading-none font-semibold'>
             <span data-vs-cell='hipoEnd'>{gram(outcome.hipoEnd)}</span>
           </div>
-          <div class='text-text-muted mt-1.5 text-sm'>
-            {t('vs.compare.hipoEndLabel', { stake: gram(DEFAULT_STAKE) })}
-          </div>
+          <div class='text-text-muted mt-1.5 text-sm' set:html={hipoEndLabel} />
           <div class='text-text-faint text-[13px]'>
             {gramUsd == null ? '' : <span data-vs-cell='hipoEndUsd'>{usd(outcome.hipoEnd * gramUsd)}</span>}
           </div>
