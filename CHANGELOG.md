@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-19 — [detailed report](changelog/2026-09-19-language-switcher-rollout.md)
+
+- Made fa, ru, ar, de, hi, tr, it, id and pt-br `public`: language dropdowns and the suggestion bar are live.
+- Put the language switcher in every header bar at every width, with a two-letter code on phones.
+- Moved the inline nav to 1280 px and gave the dApp header a second row for Connect/Disconnect on phones.
+- Fixed the docs language select, which did nothing on phones, and moved it out of the menu.
+
 ## 2026-09-16 — [detailed report](changelog/2026-09-16-vs-live-apy.md)
 
 - Refreshed `/vs/`'s APY, fee and staked total in the browser, as the landing page already does.

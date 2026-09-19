@@ -1,6 +1,6 @@
 # Language switcher rollout — expose the nine translated locales
 
-**Status:** draft
+**Status:** approved (2026-09-19) and implemented; Amendments 1, 2 and 3 approved and implemented (see end of file)
 
 ## Goal
 
@@ -119,7 +119,7 @@ Rejected alternatives:
   is a `<select>` whose `<option value>`s are not crawlable links, so docs pages gain no visible
   cross-language `<a>` from this change. Replacing it means reimplementing Starlight's `Select.astro` in its
   design language and re-wiring the untouched `MobileMenuFooter` that also renders it — real scope for an
-  edge that costs nothing. What the `<select>` omits is only the *direct* English-docs → translated-docs
+  edge that costs nothing. What the `<select>` omits is only the _direct_ English-docs → translated-docs
   link; it omits no discovery path. After this change every translated docs page is reachable by ordinary
   `<a href>` as `/` →(switcher)→ `/fa/` →(nav)→ `/fa/docs/` →(Starlight sidebar)→ `/fa/docs/**`, all three
   hops verified against the deployed site on 2026-09-19. `hreflang` (`starlight/Head.astro`, drafts filtered)
@@ -145,7 +145,11 @@ Rejected alternatives:
   `<ul>`.
 - `src/components/SiteHeader.astro` — move the switcher from the `lg:flex` nav (`:50`) into the right-hand
   action `div` (`:51`) as `class='max-sm:hidden'`, before the "Open app" CTA; the mobile-menu copy (`:92`)
-  gains `sm:hidden`.
+  gains `sm:hidden`. _(Superseded by Amendment 1 A3: bar instance at every width, menu copy removed.)_
+- `src/layouts/AppLayout.astro` — _(added during implementation, review finding)_ drop the footer-nav
+  `LanguageSwitcher`: app pages also render `SiteFooter`, which carries its own, so the flip would have
+  shown two dropdowns at the bottom of every app page. The delegated click listener still reaches app
+  pages through `SiteFooter`'s instance.
 - `specs/multi-language-site.md` — tick the §L step-4 milestone and record in the Decisions log that the
   nine went public in one batch, with the date.
 - `CHANGELOG.md` + `changelog/2026-09-19-language-switcher-rollout.md` — per the changelog convention.
@@ -255,3 +259,212 @@ else. Resume by re-reading this spec from disk, then either approving it or edit
 review with screenshots at 375/768/1280 px per the project workflow → then the locale/upstream decision.
 No `CHANGELOG.md` entry exists yet: this session produced no site change, and the spec schedules its own
 changelog entry as part of implementation.
+
+## Amendment 1 — header fit (2026-09-19, approved)
+
+**Why.** Browser verification of the implemented spec found the flip crowds the headers in the longer
+locales (all measured headless on the dev server):
+
+- **1024–1100 px:** `/ru/stake/` scrolls horizontally by 44 px with Connect clipped; on `/ru/faq/` (1024 and 1100) the nav overlaps the "Hipo" wordmark; on `/pt-br/*` "Português (Brasil)" and the CTA wrap to two
+  lines. `it`, `tr` fit.
+- **Footer:** the `<details>` fills its column, so the `end-0` panel opens ~180 px away from the globe.
+- **Phones:** the switcher is only reachable through the hamburger menu, which hides it from the visitors
+  this change is for. Measured: a globe + two-letter code (~55–61 px) fits the **site** bar in all ten
+  locales down to 320 px (≥ 77 px spare). It does **not** fit the **dApp** bar in any locale — short by
+  48–116 px at 375 px, and even a 44 px globe-only button is short in 9 of 10 — because Connect already
+  fills it ("Подключить кошелёк" is 124 px).
+
+**Decided with the user:** (1) globe-only between `lg` and `xl`; (2) `w-fit` on the footer switcher;
+(3) globe + code in both top bars on phones, replacing the menu copies; (4) on dApp pages below `sm`,
+Connect/Disconnect moves to a **second row of the header**, not into the hamburger menu (rejected by the
+user), so the first row has room for the globe.
+
+### A1. Globe-only between 1024 and 1279 px _(superseded by Amendment 2 item 4)_
+
+In the three **bar** instances (site header, island header, shell header), the visible language name is
+`sr-only` at `lg:max-xl` — still announced, not painted — leaving globe + chevron. Footer and docs
+instances are unaffected. The site header's logo link gets `flex-none` (the dApp's already has it) so the
+nav can no longer squeeze it, and the "Open app" CTA and Connect get `whitespace-nowrap` so a long label
+overflows the measurement rather than wrapping silently. If a locale still does not fit at 1024 px after
+this, that is a verification failure to report, not something to paper over with `overflow-x: hidden`.
+
+### A2. Footer panel under its button
+
+`SiteFooter.astro`'s switcher gets `w-fit`, so the `<details>` is as wide as its summary and the `end-0`
+panel opens under the globe.
+
+### A3. Globe + code in the top bar on phones
+
+- Below `sm` the bar instances show globe + **upper-case code** + chevron. The code is the locale key's
+  first segment, upper-cased — `EN FA RU AR DE HI TR IT ID PT` (so `pt-br` → `PT`). It is derived, not
+  a new catalog string, so `check-i18n.mjs` is unaffected. The code span is `aria-hidden`; the full name
+  stays in the DOM as `sr-only` below `sm`, so screen readers read "Language: Русский", never "RU".
+- The bar instances lose `max-sm:hidden` and are shown at every width.
+- The in-menu copies are removed: `SiteHeader.astro`'s `inline` switcher in `#mobile-menu`, and
+  `Header.tsx`'s `sm:hidden` copy in the open mobile menu. The switcher then appears **once** in each
+  header at every width.
+- Same markup in the shell mirror (`ShellLanguageSwitcher.astro`), classes copied.
+
+### A4. dApp header: Connect/Disconnect on a second row below `sm`
+
+- Below `sm` (< 640 px) the dApp header has two rows. Row 1: logo · switcher · hamburger. Row 2:
+  Connect (disconnected) or Disconnect (connected) as a **normal-sized pill aligned to the inline end** (user
+  choice over full width, which would stack a second coral bar above the form's own Connect), same pill classes and
+  labels as today. No new string. The Disconnect button keeps hiding the short address below `sm`, as it
+  does now. _(Address part superseded by Amendment 2 item 2; end-aligned pill by item 1.)_
+- From `sm` up nothing changes: one row, Connect in the right-hand group.
+- The hamburger menu's contents are unchanged. The Telegram Mini App header (`tma/TmaHeader.tsx`) is
+  untouched.
+- The shell mirror (`ShellHeader.astro`) reproduces the two-row first-paint layout exactly (disconnected
+  state, button `disabled` as today), so the header height and the stake form's position do not move when
+  React mounts.
+- Cost, accepted by the user: the dApp content starts ~56 px lower on phones.
+
+### Amendment changes
+
+- `src/components/LanguageSwitcher.astro` — a `bar` prop (header instance): code span + responsive
+  name classes. No change for `inline` / footer use.
+- `src/components/app/LanguageSwitcher.tsx`, `src/components/app/shell/ShellLanguageSwitcher.astro` —
+  the same code span + responsive name classes (both are only used as bar instances after A3).
+- `src/components/SiteHeader.astro` — bar switcher at all widths with `bar`; menu copy removed; logo
+  `flex-none`; CTA `whitespace-nowrap`.
+- `src/components/app/Header.tsx`, `src/components/app/shell/ShellHeader.astro` — two-row layout below
+  `sm`; menu copy of the switcher removed (island only); Connect/Disconnect `whitespace-nowrap`.
+- `src/components/SiteFooter.astro` — `w-fit`.
+
+### Amendment acceptance criteria
+
+- [ ] All ten locales, `/faq/` and `/stake/` (hydrated), at **320, 360, 375, 640, 768, 1024, 1100, 1280**:
+      `scrollWidth === clientWidth`; the header's first row is one line (no wrapped label, no overlap
+      with the logo); the switcher appears exactly once in the header and not in any menu.
+- [ ] Below `sm`: the bar shows globe + code; the code matches the page's locale (`PT` on `/pt-br/`).
+      At 1024 and 1100: globe + chevron only. At 1280: globe + full name. _(Superseded by Amendment 2 item 4: full name from `sm` up.)_
+- [ ] Screen-reader name: the summary's accessible text contains the full language name at every width
+      (checked via the accessibility snapshot at 375 and 1024).
+- [ ] `/stake/` below `sm`: Connect is on row 2, end-aligned at its natural width; row 1 fits. Shell vs hydrated at **375** and
+      **1280**: header height and the positions of row 1's controls and Connect are identical (0 px).
+- [ ] Footer panel's inline-start edge is within the summary's horizontal extent at 375 and 1280 (opens
+      under the globe), LTR and on `/fa/`.
+- [ ] The original spec's criteria still pass (re-run the browser check).
+- [ ] **Manual, needs a wallet:** at a phone width on `/stake/`, Connect on row 2 opens the TonConnect
+      modal; after connecting, row 2 shows Disconnect and it disconnects.
+
+**Implementation note (Amendment 1).** The footer panel is anchored `start-0` (not `end-0`): with `w-fit`
+the `end-0` panel hung from the summary's end toward the inline start and ran 51 px off-screen at 375 px.
+Verified after the fix: the panel starts under the globe at 375 (LTR and `/fa/`) and 1280 px. Open at the
+time of writing: the 1024–1279 px band still overflows in `ru` (−94 px on `/ru/stake/`, −77 px on
+`/ru/faq/` at 1024) and `it` (`/it/stake/`, −42 px, inside the padding) — a decision for the user.
+
+## Amendment 2 — row-2 button, address on phones, close on pick, inline nav from xl (2026-09-19, approved)
+
+Requested by the user after reviewing Amendment 1 on the dev server.
+
+1. **Full-width Connect/Disconnect on row 2.** Reverses Amendment 1's end-aligned pill: below `sm` the
+   button takes the full width of row 2 (`max-sm:w-full`), in `Header.tsx` (both the Connect and the
+   Disconnect button) and in `ShellHeader.astro` (Connect only — the shell is always the disconnected
+   state). Classes otherwise unchanged; the wrapper keeps `basis-full`.
+2. **Connected address on phones.** The Disconnect button's `<bdi>{connectedAddressShort}</bdi> ·` prefix
+   loses `max-sm:hidden`, so phones show "UQAb…xyz1 · Disconnect" as wider screens already do. No shell
+   change (the shell never renders the connected state), no new string, no change to how the address is
+   derived or shortened.
+3. **Close the dropdown when a language is picked.** Clicking an entry closes its `<details>` before the
+   navigation happens. Needed because the app island persists across ClientRouter swaps (`transition:persist`),
+   so the React switcher otherwise arrives on the new page still open; closing the static instances too
+   keeps all three consistent. Implemented in the React `onClick` (`LanguageSwitcher.tsx`) and in the
+   existing document-delegated listener in `LanguageSwitcher.astro`, which already covers the site and
+   shell instances. Picking the current language closes the panel as well. Out of scope: closing on
+   outside click or Escape.
+
+4. **Inline nav from `xl`, not `lg` (user chose option 1 for the 1024–1279 px overflow).** In both
+   headers and the shell, the inline site nav, the site's "Open app" CTA and the hamburger/menu switch at
+   `xl` instead of `lg`, so 1024–1279 px gets the same bar as tablets (logo · switcher · hamburger, plus
+   Connect on dApp pages; the site CTA stays in the menu below `xl`). With the room that frees, Amendment 1's globe-only band (`lg:max-xl:sr-only`) is dropped —
+   the full name shows from `sm` up. The dApp's bottom tab bar stays `lg:hidden` (unchanged): between
+   `lg` and `xl` the menu carries the same links. Cost, accepted: every locale, English included, gets the
+   hamburger at 1024–1279 px.
+
+### Amendment 2 acceptance criteria
+
+- [ ] All ten locales × `/faq/`, `/stake/` × 320/360/375/640/768/1024/1100/1280: no document overflow, one
+      header switcher, no wrapped label, the first row's last item inside the content box.
+
+- [ ] `/stake/` at 375 and 320 px (en, ru, fa): the row-2 Connect spans the header's content box
+      (left/right edges equal the row's content edges); shell vs hydrated still 0 px at 375.
+- [ ] ≥ 640 px: Connect/Disconnect unchanged (natural width, single row).
+- [ ] After picking a language in each switcher (site header, dApp header hydrated, shell with island JS
+      blocked, footer), the destination page shows the switcher closed; picking the current language closes
+      the panel without navigating anywhere new.
+- [ ] **Manual, needs a wallet:** at 375 px on `/stake/`, after connecting, row 2 shows the short address +
+      "Disconnect" on one line, full width, and it disconnects.
+
+## Amendment 3 — docs on phones (2026-09-19, approved)
+
+Reported by the user after reviewing Amendment 2: on `/docs/` at phone widths the language select is still
+in the hamburger menu (Starlight's `MobileMenuFooter`), and choosing a language there does nothing.
+
+### Root cause of "does nothing"
+
+`src/components/starlight/LanguageSelect.astro` is rendered twice per docs page — in our `Header.astro`
+(inside `nav.sl-hidden md:sl-flex`, so hidden on phones) and in Starlight's `MobileMenuFooter`, which
+imports the same virtual component. Each copy carries an inline `<script>` that defines the
+`starlight-lang-select` custom element once, and the element wires its `<select>` in the **constructor**.
+The header copy comes first: its script runs after its own `<select>` is parsed, and `define()` upgrades
+it — it works (desktop). The menu copy is parsed _after_ the element is defined, so the parser runs its
+constructor as soon as it creates the tag, **before its children exist**; `querySelector('select')` returns
+`null` and no `change` listener is attached. Starlight's original avoids this because its script is a
+deferred module. Only the phone copy is affected, which is why desktop tested fine.
+
+### Fix
+
+1. **Wire the select by delegation, not in the constructor.** The inline script (still emitted only when
+   the select is shown) installs, once per document, a `change` listener on `document` for
+   `starlight-lang-select select` that sets `location.pathname` to the chosen value, and a `pageshow`
+   handler that resets every such select's index on a bfcache restore. No custom-element constructor
+   remains to run before its children exist.
+2. **Phones: move the select out of the menu into the header bar**, matching the site and dApp headers.
+   - `LanguageSelect.astro` renders only when our `Header.astro` passes a `placement` prop, so the
+     `MobileMenuFooter` instance (which passes none) renders nothing — the menu keeps its theme/social
+     row as today.
+   - `Header.astro` renders two placements: `placement='bar'` in the existing `md:` nav (desktop,
+     unchanged: 7em Starlight `Select` with full names), and `placement='phone'` between the title and
+     search, visible below `md` only.
+   - The phone placement is a **compact trigger**: globe icon + upper-case code (`localeCode()`, `PT` for
+     `pt-br`) + chevron, painted as a label, with the real native `<select>` laid transparently over it
+     (same size, `opacity: 0`). Tapping opens the OS picker with the **full language names**; the select
+     keeps Starlight's accessible label and its selected option is the full name, so screen readers never
+     hear only "RU". Styled with Starlight's tokens in the component (docs.css has no Tailwind).
+   - Fit, measured before the change (free space between title and search): 73 px at 320, 113 at 360,
+     128 at 375. The trigger is ~60–68 px plus the header's gaps, so it fits from 360 px; at 320 px it is
+     to be measured, and if it does not fit, the chevron is dropped below 360 px — never an overflow, never
+     clipping the "Hipo Docs" title.
+
+### Amendment 3 acceptance criteria
+
+- [ ] `/docs/`, `/ru/docs/`, `/fa/docs/`, `/pt-br/docs/` and one deep page (e.g. `/docs/<a tutorial>/`)
+      at 320, 360, 375 and 768 px: the compact trigger is in the header bar, shows the right code, no
+      overlap with title/search/menu, no document overflow; at ≥ `md` (800 px) the desktop select is
+      unchanged and the compact one is hidden.
+- [ ] Opening the hamburger menu at 375 px: no language select inside it.
+- [ ] Choosing a language in the phone trigger (driven via `selectOption` on the real `<select>`)
+      navigates to the same docs page in that locale — tested from `/docs/` → `/ru/docs/` and from a deep
+      page, and in `/fa/docs/` → `/docs/`. Same for the desktop select at 1280 px (regression).
+- [ ] Back after switching (bfcache): the select shows the page's own language again.
+- [ ] Accessibility snapshot at 375: the control is a combobox named with Starlight's language label,
+      value = full language name.
+
+**Implementation notes (Amendment 3).** The phone trigger uses Starlight's `translate` icon rather than a
+globe, matching the docs' own desktop select. The caret is dropped below 360 px: with it the trigger
+(~52 px) clipped the title to "Hipo Doc" at 320 px; without it (~31–36 px) the full title shows. Verified
+on the dev server at 320/340/359/360/375/768/800/1280 px in en, ru, fa, pt-br, id: the phone trigger is in
+the bar with ≥ 12 px between items, no overflow, no select in the menu, and the desktop select alone at
+≥ 800 px. Choosing a language navigated `/docs/` → `/ru/docs/`, `/docs/introduction/liquid-staking/` →
+`/de/…` (phone) and `/it/…` (desktop), `/fa/docs/` → `/docs/`; after Back the select showed English
+again; the accessibility tree has a combobox named "Выберите язык" with "Русский" selected.
+
+**Follow-up (user request, same day): one look for every language control.** Both docs placements now
+paint the site/app switchers' globe and chevron SVGs (not Starlight's `translate` icon), and the desktop
+placement is the same painted-label-over-native-`<select>` trigger as the phone one: globe + full name +
+chevron, with the two-letter code instead of the name below 900 px (at 800 px `ru`, `id` and `pt-br`
+otherwise wrapped "Open app"), and the docs header links are `white-space: nowrap`. Verified on a
+production build (`astro preview`) for all ten locales at 320–1280 px: no wrapped link, nothing past the
+header edge, no document overflow; choosing a language navigates on phone and desktop.

@@ -1,37 +1,53 @@
 ---
 // Starlight's language select, gated by the rollout (specs/multi-language-site.md §G, §J, §L): it renders
 // nothing until at least one non-English locale is `public`, so configuring Starlight `locales` for draft
-// or indexed locales adds no visible language UI — neither in our Header override nor in Starlight's
-// MobileMenuFooter, which imports the same virtual component. Once shown it lists `public` locales only
-// (Starlight's default lists every configured locale, which would expose `indexed` ones) and links through
-// our localizedPath so the choice lands on the same docs page. The markup and the <select> behaviour mirror
-// @astrojs/starlight/components/LanguageSelect.astro (~0.40). Wired in astro.config.mjs `components`.
-import Select from '@astrojs/starlight/components/Select.astro'
+// or indexed locales adds no visible language UI. Once shown it lists `public` locales only (Starlight's
+// default lists every configured locale, which would expose `indexed` ones) and links through our
+// localizedPath so the choice lands on the same docs page. Wired in astro.config.mjs `components`.
+//
+// It renders only where our Header.astro places it (specs/language-switcher-rollout.md, Amendment 3):
+// Starlight's MobileMenuFooter imports the same virtual component with no props and so gets nothing — on
+// phones the select lives in the header bar, like the site and app headers, not in the menu.
+//   placement='bar'   — desktop nav: globe + full name + chevron (the code instead, below 900 px).
+//   placement='phone' — below md, beside search: globe + two-letter code (+ chevron from 360 px).
+// Both paint a label over a transparent native <select> (see the markup).
 import { LOCALES, isLocaleKey, publicLocales } from '../../i18n/registry.mjs'
-import { localizedPath } from '../../i18n/locale'
+import { localeCode, localizedPath } from '../../i18n/locale'
 
+interface Props {
+  placement?: 'bar' | 'phone'
+}
+
+const { placement } = Astro.props
 const locales = publicLocales()
 const routeLocale = Astro.locals.starlightRoute.locale
 const current = routeLocale !== undefined && isLocaleKey(routeLocale) ? routeLocale : 'en'
+const label = Astro.locals.t('languageSelect.accessibleLabel')
+const options = locales.map((key) => ({
+  value: localizedPath(Astro.url.pathname, key),
+  selected: key === current,
+  label: LOCALES[key].label,
+}))
 
 // Inline (not hoisted) so that no script — and no `starlight-lang-select` string — ships while the select
-// is suppressed; guarded because the header and the mobile menu footer both render this component.
+// is suppressed. Delegated on the document and installed once, rather than wired per element: a page
+// carries two of these selects, and a custom-element constructor for the second one would run as the
+// parser creates its tag, before its <select> exists — which left the phone select dead.
 const script = `
-if (!customElements.get('starlight-lang-select')) {
-  customElements.define('starlight-lang-select', class extends HTMLElement {
-    constructor() {
-      super()
-      const select = this.querySelector('select')
-      if (!select) return
-      select.addEventListener('change', (e) => {
-        if (e.currentTarget instanceof HTMLSelectElement) window.location.pathname = e.currentTarget.value
-      })
-      window.addEventListener('pageshow', (event) => {
-        if (!event.persisted) return
-        // A bfcache restore can leave the selected index out of sync with the current page.
-        const markupSelectedIndex = select.querySelector('option[selected]')?.index
-        if (markupSelectedIndex !== select.selectedIndex) select.selectedIndex = markupSelectedIndex ?? 0
-      })
+if (!window.__hipoLangSelect) {
+  window.__hipoLangSelect = true
+  document.addEventListener('change', (e) => {
+    const select = e.target
+    if (select instanceof HTMLSelectElement && select.closest('starlight-lang-select')) {
+      window.location.pathname = select.value
+    }
+  })
+  window.addEventListener('pageshow', (event) => {
+    if (!event.persisted) return
+    // A bfcache restore can leave the selected index out of sync with the current page.
+    for (const select of document.querySelectorAll('starlight-lang-select select')) {
+      const markupSelectedIndex = select.querySelector('option[selected]')?.index
+      if (markupSelectedIndex !== select.selectedIndex) select.selectedIndex = markupSelectedIndex ?? 0
     }
   })
 }
@@ -39,19 +55,121 @@ if (!customElements.get('starlight-lang-select')) {
 ---
 
 {
-  locales.length >= 2 && (
+  placement !== undefined && locales.length >= 2 && (
     <starlight-lang-select>
-      <Select
-        icon='translate'
-        label={Astro.locals.t('languageSelect.accessibleLabel')}
-        options={locales.map((key) => ({
-          value: localizedPath(Astro.url.pathname, key),
-          selected: key === current,
-          label: LOCALES[key].label,
-        }))}
-        width='7em'
-      />
+      {/* One painted trigger for both placements — the site and app switchers' globe and chevron, so every
+          language control on the site looks the same — with the real <select> laid transparently over
+          it: a tap or click opens the native picker with the full names, and assistive tech reads the
+          select's label and selected full name. */}
+      <label class={`trigger ${placement}`}>
+        <svg
+          class='globe'
+          width='16'
+          height='16'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='1.8'
+          viewBox='0 0 24 24'
+          aria-hidden='true'
+        >
+          <circle cx='12' cy='12' r='9' />
+          <path stroke-linecap='round' d='M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18' />
+        </svg>
+        {placement === 'bar' && (
+          <span class='name' aria-hidden='true'>
+            {LOCALES[current].label}
+          </span>
+        )}
+        <span class='code' aria-hidden='true'>
+          {localeCode(current)}
+        </span>
+        <svg
+          class='caret'
+          width='12'
+          height='12'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          viewBox='0 0 24 24'
+          aria-hidden='true'
+        >
+          <path stroke-linecap='round' stroke-linejoin='round' d='m6 9 6 6 6-6' />
+        </svg>
+        {/* autocomplete=off for the same reason as Starlight's Select: no browser-restored value. */}
+        <select autocomplete='off' aria-label={label}>
+          {options.map(({ value, selected, label }) => (
+            <option value={value} selected={selected} set:html={label} />
+          ))}
+        </select>
+      </label>
       <script is:inline set:html={script} />
     </starlight-lang-select>
   )
 }
+
+<style>
+  .trigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding-block: 0.625rem;
+    color: var(--sl-color-gray-2);
+    font-size: var(--sl-text-sm);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .trigger:hover,
+  .trigger:focus-within {
+    color: var(--sl-color-white);
+  }
+  .globe {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+  .caret {
+    width: 0.75rem;
+    height: 0.75rem;
+    flex-shrink: 0;
+  }
+  /* The desktop nav is tight from md to ~900 px in the longer locales (ru, id, pt-br wrap "Open app"
+     at 800 px with the full name), so it shows the code there, as the phone placement always does. */
+  .bar .code {
+    display: none;
+  }
+  @media (max-width: 56.24rem) {
+    .bar .name {
+      display: none;
+    }
+    .bar .code {
+      display: inline;
+    }
+  }
+  /* Below 360 px the caret would push the "Hipo Docs" title into its clip (measured at 320 px). */
+  @media (max-width: 359.98px) {
+    .phone .caret {
+      display: none;
+    }
+  }
+  /* The real control, invisible but on top of the painted label: taps and focus land on it. */
+  .trigger select {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+    appearance: none;
+    border: 0;
+    font-size: 16px; /* below 16px iOS zooms the page when the picker opens */
+  }
+  .trigger:has(select:focus-visible) {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+  }
+  .trigger option {
+    background-color: var(--sl-color-bg-nav);
+    color: var(--sl-color-gray-1);
+  }
+</style>

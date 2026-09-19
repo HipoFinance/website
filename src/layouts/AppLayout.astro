@@ -6,7 +6,6 @@ import SEO from '../components/SEO.astro'
 import AppIsland from '../components/app/AppIsland.tsx'
 import SiteFooter from '../components/SiteFooter.astro'
 import Banner from '../components/Banner.astro'
-import LanguageSwitcher from '../components/LanguageSwitcher.astro'
 import AppShell from '../components/app/shell/AppShell.astro'
 import type { ShellPage } from '../components/pages/shellJsonLd'
 import { dirOf, langOf, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
@@ -199,9 +198,6 @@ const footerNav = [
           ))
         }
       </ul>
-      <!-- Language dropdown (spec §J): lists public locales only and renders nothing while English is
-           the only one, so this emits no markup today. -->
-      <LanguageSwitcher class='mt-4 flex justify-center' />
     </nav>
 
     <div data-tma-hide><SiteFooter app /></div>

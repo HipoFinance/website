@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { LOCALES, publicLocales } from '../../i18n/registry.mjs'
-import { langOf, localizedPath } from '../../i18n/locale.ts'
+import { langOf, localeCode, localizedPath } from '../../i18n/locale.ts'
 import { Model } from './Model'
 
 // Spec §J: a picked language is remembered so the one-time "Read this in …?" suggestion (banner.js,
@@ -41,7 +41,12 @@ const LanguageSwitcher = observer(({ model, className }: Props) => {
           <circle cx='12' cy='12' r='9' />
           <path strokeLinecap='round' d='M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18' />
         </svg>
-        <span>{LOCALES[model.locale].label}</span>
+        {/* Below sm the header bar is tight, so a two-letter code replaces the name. The name stays in
+            the accessibility tree at every width; the code is decoration. */}
+        <span className='max-sm:sr-only'>{LOCALES[model.locale].label}</span>
+        <span aria-hidden='true' className='sm:hidden'>
+          {localeCode(model.locale)}
+        </span>
         <svg
           className='size-3 shrink-0 transition-transform group-open:rotate-180'
           fill='none'
@@ -52,7 +57,7 @@ const LanguageSwitcher = observer(({ model, className }: Props) => {
           <path strokeLinecap='round' strokeLinejoin='round' d='m6 9 6 6 6-6' />
         </svg>
       </summary>
-      <ul className='border-border bg-surface absolute end-0 top-full z-20 mt-2 min-w-40 rounded-xl border py-1.5 shadow-lg'>
+      <ul className='border-border bg-surface absolute end-0 top-full z-20 mt-2 max-h-[min(60vh,22rem)] min-w-40 overflow-y-auto rounded-xl border py-1.5 shadow-lg'>
         {locales.map((l) => {
           const current = l === model.locale
           return (
@@ -62,8 +67,11 @@ const LanguageSwitcher = observer(({ model, className }: Props) => {
                 hrefLang={langOf(l)}
                 lang={langOf(l)}
                 aria-current={current ? 'page' : undefined}
-                onClick={() => {
+                onClick={(e) => {
                   rememberLocale(l)
+                  // The island persists across ClientRouter swaps, so an open panel would arrive on the
+                  // new page still open.
+                  e.currentTarget.closest('details')?.removeAttribute('open')
                 }}
                 className={
                   'hover:bg-surface-deep hover:text-accent block px-4 py-2 text-sm ' +

@@ -79,6 +79,12 @@ export function langOf(locale: Locale): string {
   return LOCALES[locale].lang
 }
 
+// The short code the header language switchers show on phones: the locale key's language part,
+// upper-cased (`pt-br` → `PT`). Derived rather than translated, so it needs no catalog entry.
+export function localeCode(locale: Locale): string {
+  return locale.split('-')[0].toUpperCase()
+}
+
 // The tag handed to Intl.NumberFormat / Intl.DateTimeFormat: the registry's `intl` override when set
 // (`ar` → `ar-u-nu-arab` for Arabic-Indic digits), otherwise `lang`.
 export function intlOf(locale: Locale): string {

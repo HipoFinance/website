@@ -3,8 +3,9 @@
 // config has no built-in slot for. Based on @astrojs/starlight's default Header.astro (~0.40),
 // with SocialIcons/ThemeSelect dropped from the desktop bar to match the design — they remain
 // reachable from the mobile menu footer (MobileMenuFooter.astro, untouched). LanguageSelect is our
-// own override (LanguageSelect.astro), which renders nothing until a non-English locale is `public`,
-// so including it here keeps the English markup unchanged until then. The three links are localised
+// own override (LanguageSelect.astro): it renders nothing until a non-English locale is `public`, and
+// only where this header places it — the full select in the desktop nav, a compact one beside search
+// below md — so the mobile menu footer's copy stays empty. The three links are localised
 // for the page's locale and their labels come from the Starlight i18n collection
 // (src/content/i18n/<lang>.json, `hipo.header.*`). Wired in astro.config.mjs via
 // `starlight({ components: { Header: ... } })`.
@@ -26,14 +27,21 @@ const showLanguageSelect = publicLocales().length >= 2
   <div class='title-wrapper sl-flex'>
     <SiteTitle />
   </div>
-  <div class='sl-flex print:hidden'>
+  <div class='sl-flex search-group print:hidden'>
+    {
+      showLanguageSelect && (
+        <div class='md:sl-hidden'>
+          <LanguageSelect placement='phone' />
+        </div>
+      )
+    }
     {shouldRenderSearch && <Search />}
   </div>
   <nav class='sl-hidden md:sl-flex hipo-links print:hidden' aria-label='Site'>
     <a href={localizedPath('/faq/', locale)}>{Astro.locals.t('hipo.header.faq')}</a>
     <a href={localizedPath('/stats/', locale)}>{Astro.locals.t('hipo.header.stats')}</a>
     <a href={localizedPath('/stake/', locale)} class='cta'>{Astro.locals.t('hipo.header.openApp')}</a>
-    {showLanguageSelect && <LanguageSelect />}
+    {showLanguageSelect && <LanguageSelect placement='bar' />}
   </nav>
 </div>
 
@@ -83,6 +91,11 @@ const showLanguageSelect = publicLocales().length >= 2
     }
   }
 
+  .search-group {
+    align-items: center;
+    gap: 1rem;
+  }
+
   .hipo-links {
     gap: 22px;
     align-items: center;
@@ -91,6 +104,8 @@ const showLanguageSelect = publicLocales().length >= 2
   }
   .hipo-links a {
     color: inherit;
+    /* "Открыть приложение" otherwise wraps at 800 px (md) once the language select sits in this row. */
+    white-space: nowrap;
   }
   .hipo-links a:hover {
     color: var(--sl-color-accent);

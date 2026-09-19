@@ -348,6 +348,8 @@ batches gives it a stable set of alternates, and the manual Search Console work 
    `status: 'public'`: the language dropdown appears site-wide (listing all `public` locales), the Starlight
    language select is restored, and the detection banner/preference from §J can be enabled. Each further
    locale repeats steps 1–4 independently; the dropdown grows as locales become `public`.
+   **Done 2026-09-19** for all nine locales in one batch — see decision 15 and
+   `specs/language-switcher-rollout.md`.
 
 Manual Search Console actions are recorded in the session changelog entry so the launch is traceable.
 
@@ -492,7 +494,10 @@ src/layouts src/pages` matches only the allow-listed chart tooltip/SVG lines in 
     Search Console → add the language dropdown only after the locale receives traffic.
 14. Locales are submitted for indexing in batches of at least three fully translated locales, not one at
     a time (first batch: `fa`, `ru`, `hi`).
+15. (2026-09-19) All nine translated locales (fa, ru, ar, de, hi, tr, it, id, pt-br) went `public` in one
+    batch rather than staged "after traffic": all were at 100 % coverage and `indexed` since 2026-08-24.
+    The suggestion bar ships on with them. See `specs/language-switcher-rollout.md`.
 
 ## Open questions
 
-None — all fourteen decisions are recorded in the log above.
+None — all fifteen decisions are recorded in the log above.

@@ -7,10 +7,12 @@
 // pixel-identical to the island's first render, so any divergence shows up as the header shifting
 // the moment React mounts. The interactive bits (menu toggle, Connect, tab navigation) are inert
 // here: the island owns them a few hundred milliseconds later, and the nav items are real links
-// that work without JavaScript in the meantime.
+// that work without JavaScript in the meantime. The language switcher is the exception — see
+// ShellLanguageSwitcher.astro.
 import { localizedPath, type Locale } from '../../../i18n/locale.ts'
 import { getT } from '../../../i18n/t.ts'
 import ShellIcon from './ShellIcon.astro'
+import ShellLanguageSwitcher from './ShellLanguageSwitcher.astro'
 
 interface Props {
   locale: Locale
@@ -43,7 +45,9 @@ const tabs: { page: Props['activePage']; label: string; icon: 'coins' | 'gift' |
 ---
 
 <div class='font-body text-text w-full'>
-  <div class='mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-6 py-5 md:px-12'>
+  <div
+    class='mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-6 py-5 max-sm:flex-wrap md:px-12'
+  >
     <a href={localizedPath('/', locale)} class='flex flex-none items-center gap-2.5'>
       <img src='/images/hipo.svg' alt='Hipo' class='logo-on-dark size-9' />
       <img src='/images/hipo-light.svg' alt='Hipo' class='logo-on-light size-9' />
@@ -52,7 +56,7 @@ const tabs: { page: Props['activePage']; label: string; icon: 'coins' | 'gift' |
 
     <nav
       aria-label={t('app.header.siteNav')}
-      class='text-text-muted hidden items-center gap-6 text-[15px] font-medium lg:flex'
+      class='text-text-muted hidden items-center gap-6 text-[15px] font-medium xl:flex'
     >
       {
         siteLinks.map(({ href, label, appPage }) => (
@@ -65,7 +69,9 @@ const tabs: { page: Props['activePage']; label: string; icon: 'coins' | 'gift' |
       }
     </nav>
 
-    <div class='flex min-w-0 items-center gap-4'>
+    <div class='flex min-w-0 items-center gap-4 max-sm:contents'>
+      <ShellLanguageSwitcher locale={locale} class='max-sm:ms-auto' />
+
       <!-- `disabled` on both: these two are mirrors with no handler behind them, and until the
            island replaces them a tap does nothing at all. Left enabled they still registered as
            interactions, so the visitor tapped again — and every one of those taps landed while the
@@ -77,17 +83,20 @@ const tabs: { page: Props['activePage']; label: string; icon: 'coins' | 'gift' |
            while the wallet chunk is in flight, here the button is disabled for its whole life, so
            copying them would dim a button the island then paints at full opacity — the exact
            mismatch the rule exists to prevent. Leave them off when syncing this against Header.tsx. -->
-      <button
-        type='button'
-        disabled
-        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold'
-        set:text={t('app.common.connectWallet')}
-      />
+      <!-- Below sm this wrapper takes the row's second line (see Header.tsx). -->
+      <div class='max-sm:order-last max-sm:flex max-sm:basis-full sm:contents'>
+        <button
+          type='button'
+          disabled
+          class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold whitespace-nowrap max-sm:w-full'
+          set:text={t('app.common.connectWallet')}
+        />
+      </div>
 
       <button
         type='button'
         disabled
-        class='text-text cursor-pointer lg:hidden'
+        class='text-text cursor-pointer xl:hidden'
         title={t('app.header.toggleMenu')}
         aria-label={t('app.header.toggleMenu')}
       >

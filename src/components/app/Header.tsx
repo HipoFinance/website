@@ -49,7 +49,11 @@ const Header = observer(({ model }: Props) => {
 
   return (
     <div className='font-body text-text w-full'>
-      <div className='mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-6 py-5 md:px-12'>
+      {/* Below sm the row wraps into two: logo · language · menu, then Connect/Disconnect full width on
+          its own line — Connect's label is too long in most locales to share a phone-width row
+          with the language switcher. The action group dissolves (`contents`) so its children flow
+          as items of this row; ShellHeader.astro mirrors this exactly. */}
+      <div className='mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-6 py-5 max-sm:flex-wrap md:px-12'>
         <a href={model.localizedPath('/')} className='flex flex-none items-center gap-2.5'>
           <img src='/images/hipo.svg' alt='Hipo' className='logo-on-dark size-9' />
           <img src='/images/hipo-light.svg' alt='Hipo' className='logo-on-light size-9' />
@@ -58,7 +62,7 @@ const Header = observer(({ model }: Props) => {
 
         <nav
           aria-label={model.t('app.header.siteNav')}
-          className='text-text-muted hidden items-center gap-6 text-[15px] font-medium lg:flex'
+          className='text-text-muted hidden items-center gap-6 text-[15px] font-medium xl:flex'
         >
           {siteLinks.map(({ href, label, appPage }) => (
             <a
@@ -72,40 +76,42 @@ const Header = observer(({ model }: Props) => {
           ))}
         </nav>
 
-        <div className='flex min-w-0 items-center gap-4'>
-          <LanguageSwitcher model={model} className='max-sm:hidden' />
+        <div className='flex min-w-0 items-center gap-4 max-sm:contents'>
+          <LanguageSwitcher model={model} className='max-sm:ms-auto' />
 
-          {model.isWalletConnected ? (
-            <button
-              type='button'
-              title={model.t('app.header.disconnectWallet')}
-              className='border-border bg-surface text-text-muted hover:text-accent min-h-11 cursor-pointer rounded-full border px-5 py-2.5 text-sm font-medium'
-              onClick={model.disconnect}
-            >
-              <span className='max-sm:hidden'>
-                <bdi className='num'>{model.connectedAddressShort}</bdi> ·{' '}
-              </span>
-              {model.t('app.header.disconnect')}
-            </button>
-          ) : (
-            // Pressing Connect fetches the wallet layer before the modal can open, so the button
-            // dims and stops taking presses until it lands. Deliberately no new label: the wait is
-            // usually imperceptible, and a "Loading…" string would need translating into all ten
-            // locales to say less than the disabled state already does.
-            <button
-              type='button'
-              disabled={model.isWalletLoading}
-              aria-busy={model.isWalletLoading}
-              className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold disabled:cursor-progress disabled:opacity-70'
-              onClick={model.connect}
-            >
-              {model.t('app.common.connectWallet')}
-            </button>
-          )}
+          <div className='max-sm:order-last max-sm:flex max-sm:basis-full sm:contents'>
+            {model.isWalletConnected ? (
+              <button
+                type='button'
+                title={model.t('app.header.disconnectWallet')}
+                className='border-border bg-surface text-text-muted hover:text-accent min-h-11 cursor-pointer rounded-full border px-5 py-2.5 text-sm font-medium whitespace-nowrap max-sm:w-full'
+                onClick={model.disconnect}
+              >
+                <span>
+                  <bdi className='num'>{model.connectedAddressShort}</bdi> ·{' '}
+                </span>
+                {model.t('app.header.disconnect')}
+              </button>
+            ) : (
+              // Pressing Connect fetches the wallet layer before the modal can open, so the button
+              // dims and stops taking presses until it lands. Deliberately no new label: the wait is
+              // usually imperceptible, and a "Loading…" string would need translating into all ten
+              // locales to say less than the disabled state already does.
+              <button
+                type='button'
+                disabled={model.isWalletLoading}
+                aria-busy={model.isWalletLoading}
+                className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold whitespace-nowrap disabled:cursor-progress disabled:opacity-70 max-sm:w-full'
+                onClick={model.connect}
+              >
+                {model.t('app.common.connectWallet')}
+              </button>
+            )}
+          </div>
 
           <button
             type='button'
-            className='text-text cursor-pointer lg:hidden'
+            className='text-text cursor-pointer xl:hidden'
             title={model.t('app.header.toggleMenu')}
             aria-label={model.t('app.header.toggleMenu')}
             onClick={() => setMenuOpen(!menuOpen)}
@@ -118,7 +124,7 @@ const Header = observer(({ model }: Props) => {
       </div>
 
       {menuOpen && (
-        <div className='px-6 pb-4 lg:hidden'>
+        <div className='px-6 pb-4 xl:hidden'>
           <nav
             aria-label={model.t('app.header.siteNav')}
             className='text-text-muted flex flex-col gap-1 text-[15px] font-medium'
@@ -136,11 +142,11 @@ const Header = observer(({ model }: Props) => {
               </a>
             ))}
           </nav>
-          <LanguageSwitcher model={model} className='mt-2 px-3 sm:hidden' />
         </div>
       )}
 
-      {/* Bottom tab bar: the app pages within thumb's reach whenever the inline menu is hidden. */}
+      {/* Bottom tab bar: the app pages within thumb's reach below lg. Between lg and xl the inline nav
+          is still hidden, but the hamburger menu carries the same links and there is no thumb to serve. */}
       <nav
         aria-label={model.t('app.header.appSections')}
         className='border-border bg-surface-deep fixed start-0 end-0 bottom-0 z-10 flex w-full flex-row border-t select-none lg:hidden'

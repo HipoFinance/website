@@ -3,17 +3,20 @@
 // until at least two are public, so exposing a language is a registry edit, not a code change.
 // Plain <details>/<summary>: works without JavaScript and survives view transitions. Every entry is
 // a real link to the same path in the other locale (localizedPath round-trips the prefix).
-// `inline` lays the list out in the flow (mobile menu) instead of as a floating panel.
+// The panel floats below the button, hanging from its inline start (footer) or, for the header `bar`
+// instance, its inline end. `bar` also means
+// the header is tight below sm, so a two-letter code replaces the painted name; the name stays in the
+// accessibility tree at every width.
 import { LOCALES, publicLocales } from '../i18n/registry.mjs'
-import { langOf, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
+import { langOf, localeCode, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
 import { getT } from '../i18n/t.ts'
 
 interface Props {
-  inline?: boolean
+  bar?: boolean
   class?: string
 }
 
-const { inline = false, class: className } = Astro.props
+const { bar = false, class: className } = Astro.props
 const locale = localeOf(Astro)
 const locales = publicLocales()
 const show = locales.length >= 2
@@ -41,7 +44,12 @@ const entries = locales.map((l) => ({
           <circle cx='12' cy='12' r='9' />
           <path stroke-linecap='round' d='M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18' />
         </svg>
-        <span>{LOCALES[locale].label}</span>
+        <span class:list={[bar && 'max-sm:sr-only']}>{LOCALES[locale].label}</span>
+        {bar && (
+          <span aria-hidden='true' class='sm:hidden'>
+            {localeCode(locale)}
+          </span>
+        )}
         <svg
           class='size-3 shrink-0 transition-transform group-open:rotate-180'
           fill='none'
@@ -54,8 +62,9 @@ const entries = locales.map((l) => ({
       </summary>
       <ul
         class:list={[
-          'border-border bg-surface min-w-40 rounded-xl border py-1.5',
-          inline ? 'mt-2' : 'absolute end-0 top-full z-20 mt-2 shadow-lg',
+          'border-border bg-surface max-h-[min(60vh,22rem)] min-w-40 overflow-y-auto rounded-xl border py-1.5',
+          'absolute top-full z-20 mt-2 shadow-lg',
+          bar ? 'end-0' : 'start-0',
         ]}
       >
         {entries.map(({ locale: entry, lang, label, href, current }) => (
@@ -83,9 +92,12 @@ const entries = locales.map((l) => ({
 <script>
   // Spec §J: remember the picked language so the one-time "Read this in …?" suggestion (banner.js,
   // same key) never re-asks. Delegated on the document, which the ClientRouter never swaps, so one
-  // listener covers every switcher on every page; the link navigates regardless of storage.
+  // listener covers every switcher on every page (the app shell's mirror included); the link navigates
+  // regardless of storage. The picked entry also closes its panel, so it never lingers open through the
+  // view transition, or at all when the current language is picked.
   document.addEventListener('click', (event) => {
     const link = (event.target as Element | null)?.closest?.('[data-i18n-switcher] a[data-locale]')
+    link?.closest('details')?.removeAttribute('open')
     const locale = link?.getAttribute('data-locale')
     if (locale != null) {
       try {

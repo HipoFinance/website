@@ -1,0 +1,73 @@
+---
+// Static mirror of src/components/app/LanguageSwitcher.tsx, in its first-paint state: closed, with the
+// island's locale and the current page's bare path. Every class is copied from LanguageSwitcher.tsx and
+// must stay copied — see ShellHeader.astro.
+//
+// Unlike the shell's other controls this one is NOT inert: <details> and <a href> need no JavaScript,
+// so it works before the island arrives. The links carry `data-locale` so the document-delegated
+// listener in src/components/LanguageSwitcher.astro (present on every app page via the footer) remembers
+// the pick in localStorage — the React twin does that with its own onClick instead.
+import { LOCALES, publicLocales } from '../../../i18n/registry.mjs'
+import { langOf, localeCode, localizedPath, stripLocale, type Locale } from '../../../i18n/locale.ts'
+import { getT } from '../../../i18n/t.ts'
+
+interface Props {
+  locale: Locale
+  class?: string
+}
+
+const { locale, class: className } = Astro.props
+const locales = publicLocales()
+const { t } = getT(locale, ['app'])
+const { path } = stripLocale(Astro.url.pathname)
+const label = t('app.header.language')
+---
+
+{
+  locales.length >= 2 && (
+    <details data-i18n-switcher class={'group relative' + (className == null ? '' : ' ' + className)}>
+      <summary
+        class='border-border bg-surface text-text-muted hover:text-accent flex min-h-11 cursor-pointer list-none items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm font-medium [&::-webkit-details-marker]:hidden'
+        title={label}
+      >
+        <span class='sr-only'>{label}: </span>
+        <svg class='size-4 shrink-0' fill='none' stroke='currentColor' stroke-width='1.8' viewBox='0 0 24 24'>
+          <circle cx='12' cy='12' r='9' />
+          <path stroke-linecap='round' d='M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18' />
+        </svg>
+        <span class='max-sm:sr-only'>{LOCALES[locale].label}</span>
+        <span aria-hidden='true' class='sm:hidden'>
+          {localeCode(locale)}
+        </span>
+        <svg
+          class='size-3 shrink-0 transition-transform group-open:rotate-180'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+          viewBox='0 0 24 24'
+        >
+          <path stroke-linecap='round' stroke-linejoin='round' d='m6 9 6 6 6-6' />
+        </svg>
+      </summary>
+      <ul class='border-border bg-surface absolute end-0 top-full z-20 mt-2 max-h-[min(60vh,22rem)] min-w-40 overflow-y-auto rounded-xl border py-1.5 shadow-lg'>
+        {locales.map((l) => (
+          <li>
+            <a
+              href={localizedPath(path, l)}
+              hreflang={langOf(l)}
+              lang={langOf(l)}
+              data-locale={l}
+              aria-current={l === locale ? 'page' : undefined}
+              class={
+                'hover:bg-surface-deep hover:text-accent block px-4 py-2 text-sm ' +
+                (l === locale ? 'text-accent' : 'text-text-muted')
+              }
+            >
+              {LOCALES[l].label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </details>
+  )
+}
