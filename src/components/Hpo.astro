@@ -87,10 +87,12 @@ const hpoFaq = await Promise.all(
 
 <main class='mx-auto w-full max-w-[1280px] px-6 sm:px-12'>
   <!-- Hero -->
-  <section class='grid items-center gap-12 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:py-16'>
+  <!-- grid-cols-1, not the implicit `auto` column: an auto track never shrinks below the headline's longest
+       word, which widened the page on phones in the longer locales (specs/mobile-fit-hpo-hero-and-stake-toggle.md). -->
+  <section class='grid grid-cols-1 items-center gap-12 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:py-16'>
     <div class='flex flex-col items-start gap-[22px]'>
       <h1
-        class='font-fredoka text-[40px] leading-[1.1] font-semibold sm:text-[54px]'
+        class='font-fredoka text-[40px] leading-[1.1] font-semibold hyphens-auto sm:text-[54px]'
         set:html={tHtml('hpo.hero.title', { accent: '<span class="text-accent">HPO</span>' })}
       />
       <p class='text-text-muted max-w-[480px] text-[19px] leading-[1.6]'>{t('hpo.hero.lead')}</p>

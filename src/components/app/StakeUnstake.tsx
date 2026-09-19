@@ -28,7 +28,7 @@ const StakeUnstake = observer(({ model }: Props) => {
           type='button'
           aria-pressed={stake}
           className={
-            'min-h-11 flex-1 cursor-pointer rounded-full px-9 py-2 text-center ' +
+            'min-h-11 flex-1 cursor-pointer rounded-full px-4 py-2 text-center whitespace-nowrap sm:px-9 ' +
             (stake ? 'bg-accent-fill text-on-accent' : 'text-text-muted hover:text-accent')
           }
           onClick={() => {
@@ -41,7 +41,7 @@ const StakeUnstake = observer(({ model }: Props) => {
           type='button'
           aria-pressed={!stake}
           className={
-            'min-h-11 flex-1 cursor-pointer rounded-full px-9 py-2 text-center ' +
+            'min-h-11 flex-1 cursor-pointer rounded-full px-4 py-2 text-center whitespace-nowrap sm:px-9 ' +
             (!stake ? 'bg-accent-fill text-on-accent' : 'text-text-muted hover:text-accent')
           }
           onClick={() => {

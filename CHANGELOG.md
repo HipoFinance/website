@@ -7,6 +7,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-19 — [detailed report](changelog/2026-09-19-mobile-fit-fixes.md)
+
+- Stopped the FAQ "Link copied" tooltip from widening the page on phones.
+- Stopped the `/hpo/` hero from widening the page on phones in eight locales.
+- Kept the Stake/Unstake toggle on one line in every locale.
+
 ## 2026-09-19 — [detailed report](changelog/2026-09-19-language-switcher-rollout.md)
 
 - Made fa, ru, ar, de, hi, tr, it, id and pt-br `public`: language dropdowns and the suggestion bar are live.
