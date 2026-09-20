@@ -12,6 +12,9 @@
 //   - The y-axis starts at zero. The difference between these protocols is around a percentage
 //     point a year, and an axis cropped to the data would make that fill the frame. The page's
 //     whole claim is that every number on it is measured (spec R15).
+//   - Zero is at the TOP and the lines descend. What is plotted is a shortfall, and drawing it
+//     upwards put the competitors above Hipo on the page arguing Hipo pays more — see the note on
+//     chartGeometry. Hipo is the zero line, so it is direct-labelled here like the other two.
 //   - Every line is direct-labelled at its right end, so identity never rests on colour alone.
 //
 // The SVG is the one place in this repo besides LineChart.tsx where physical left/right is allowed
@@ -101,6 +104,14 @@ const xLabel = (day: string) =>
         />
       ))
     }
+    <!-- Hipo IS the zero line, so it carries the same direct label the other two do: a reference
+         line no one has named is exactly what let the chart be read upside down. Its position does
+         not move with the stake — zero is the top margin at every scale — so vs-stake.js leaves it
+         alone. "Hipo" is a proper noun, never translated, like the names passed in. -->
+    <text x={geo.width - 108} y={geo.zeroY + 4} font-size='11.5' font-weight='600' fill='var(--color-text)'>
+      Hipo
+    </text>
+
     {
       geo.series.map((item) => (
         <text

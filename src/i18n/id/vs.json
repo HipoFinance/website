@@ -22,7 +22,7 @@
   "vs.compare.extraUsd": "{usd} pada harga hari ini",
   "vs.compare.hipoEndLabel": "{stake} GRAM Anda bersama Hipo hari ini",
   "vs.compare.chartHeading": "Yang akan Anda lewatkan, hari demi hari",
-  "vs.compare.chartLead": "Total berjalan dari GRAM ekstra yang dihasilkan staker Hipo pada stake yang sama. Nol adalah Hipo; setiap garis adalah yang ditinggalkan protokol tersebut. Tidak ada yang diproyeksikan — setiap titik dibaca dari kontrak pada blok yang nyata.",
+  "vs.compare.chartLead": "Total berjalan dari yang akan dilewatkan stake yang sama di setiap protokol. Hipo adalah garis paling atas; setiap protokol turun darinya sebesar GRAM yang ditinggalkannya. Tidak ada yang diproyeksikan — setiap titik dibaca dari kontrak pada blok yang nyata.",
   "vs.compare.chartLabel": "GRAM ekstra yang dihasilkan dengan Hipo dibandingkan protokol liquid staking lain, selama dua tahun",
   "vs.compare.tableHeading": "Ke mana stake Anda berakhir",
   "vs.compare.colProtocol": "Protokol",

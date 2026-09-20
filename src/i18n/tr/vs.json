@@ -22,7 +22,7 @@
   "vs.compare.extraUsd": "bugünkü fiyatla {usd}",
   "vs.compare.hipoEndLabel": "bugün Hipo'daki {stake} GRAM'ınız",
   "vs.compare.chartHeading": "Gün be gün neyi kaçırmış olurdunuz",
-  "vs.compare.chartLead": "Aynı stake ile bir Hipo stakerının kazandığı ekstra GRAM'ın kümülatif toplamı. Sıfır Hipo'dur; her çizgi o protokolün masada bıraktığını gösterir. Hiçbir şey öngörülmemiştir — her nokta gerçek bir blokta bir sözleşmeden okunmuştur.",
+  "vs.compare.chartLead": "Aynı stake'in her protokolde kaçıracağı tutarın kümülatif toplamı. Hipo en üstteki çizgidir; her protokol masada bıraktığı GRAM kadar onun altına iner. Hiçbir şey öngörülmemiştir — her nokta gerçek bir blokta bir sözleşmeden okunmuştur.",
   "vs.compare.chartLabel": "İki yıl boyunca Hipo ile diğer likit staking protokollerine kıyasla kazanılan ekstra GRAM",
   "vs.compare.tableHeading": "Stake'iniz nerede sonuçlandı",
   "vs.compare.colProtocol": "Protokol",

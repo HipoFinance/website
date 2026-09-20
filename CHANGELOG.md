@@ -7,6 +7,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-20 — [detailed report](changelog/2026-09-20-vs-chart-inverted.md)
+
+- Inverted the `/vs/` chart so Hipo is the top line and the other protocols fall away below it.
+- Negated the chart's tick values, and direct-labelled Hipo's own line.
+- Retranslated the chart's lead sentence into the nine other locales.
+
 ## 2026-09-20 — [detailed report](changelog/2026-09-20-vs-chart-axis-top.md)
 
 - Fixed the `/vs/` chart's y-axis, whose top tick could land below the data.

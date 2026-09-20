@@ -124,6 +124,15 @@ export function axisTicks(hi: number): number[] {
  * The chart's geometry for a given stake. Pure: same inputs, same SVG, at build time and in the
  * browser. The y-axis always starts at zero — the difference between these protocols is around a
  * percentage point, and a cropped axis would make that fill the frame (spec R15).
+ *
+ * Zero is at the TOP and the lines descend (2026-09-20). The series is a shortfall — GRAM a stake
+ * did NOT earn at that protocol — and drawing a shortfall upwards put the two competitors above
+ * Hipo's baseline on the one page arguing Hipo pays more. Read at a glance, which is how this
+ * page is read, a higher line means a better protocol; the chart was saying the opposite of the
+ * section it sits in. Inverted, Hipo is the reference at the top and each protocol falls away from
+ * it by what it left on the table, which is both the honest reading and the intended one. The tick
+ * VALUES go negative with it — the axis has to agree with the picture, and a downward axis labelled
+ * with positive magnitudes would be the kind of quiet misdirection this page exists to call out.
  */
 export function chartGeometry(series: GrowthSeries, stake: number, width = 940, height = 340): ChartGeometry {
   const n = series.days.length - 1
@@ -139,13 +148,16 @@ export function chartGeometry(series: GrowthSeries, stake: number, width = 940, 
   const top = ticks[ticks.length - 1]
 
   const xOf = (i: number) => MARGIN.left + (i / n) * (width - MARGIN.left - MARGIN.right)
-  const yOf = (v: number) => height - MARGIN.bottom - (v / top) * (height - MARGIN.top - MARGIN.bottom)
+  // v is a shortfall magnitude, so it grows DOWNWARD from the zero line at the top.
+  const yOf = (v: number) => MARGIN.top + (v / top) * (height - MARGIN.top - MARGIN.bottom)
 
   const out: ChartGeometry = {
     width,
     height,
     series: [],
-    ticks: ticks.map((v) => ({ y: yOf(v), value: v })),
+    // Negated for display: the axis reads 0, −500, −1,000 … downwards. `axisTicks` stays a plain
+    // positive-magnitude helper, and `v === 0` keeps the zero line's own tick unsigned.
+    ticks: ticks.map((v) => ({ y: yOf(v), value: v === 0 ? 0 : -v })),
     xLabels: [],
     zeroY: yOf(0),
   }

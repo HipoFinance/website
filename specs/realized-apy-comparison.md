@@ -774,3 +774,40 @@ maintainer's own infrastructure are not done:
 Until both land, `/lst-rates` answers 404 and the site logs
 `[lst] gauge tail unavailable` and ships the baseline — which is the designed
 behaviour, not a failure, but it does mean the page is not yet self-updating.
+
+## 14. The chart is inverted (2026-09-20)
+
+R15 says what the chart plots and how the axis is scaled. It says nothing about
+which way the line goes, and the first implementation drew the shortfall
+**upwards** from a zero baseline. That is the natural way to draw a positive
+quantity — and on this page it was backwards.
+
+The series is `stake × (growth_hipo − growth_x)`: GRAM the stake did **not**
+earn at protocol _x_. Drawn upwards, the two competitors ran above Hipo's
+baseline, on the one page whose argument is that Hipo pays more. At a glance —
+and a page written for recipients arriving from a wallet message is read at a
+glance — a higher line means a better protocol. The chart was contradicting the
+section it sits in. Reported by the maintainer, 2026-09-20: "it now shows those
+rivals above Hipo. A user might think they are paying more."
+
+So zero moved to the top and the lines descend. Hipo is the reference along the
+top edge and each protocol falls away from it by what it left on the table.
+
+Two things go with the flip, and neither is optional:
+
+- **The tick values are negative** (0, −500, −1,000 …). A downward axis labelled
+  with positive magnitudes would read as −1,685 while claiming 1,685, and quiet
+  misdirection of exactly that kind is what this page exists to call out. The
+  axis has to agree with the picture.
+- **Hipo's line is direct-labelled.** §6.4 already required every line to be
+  direct-labelled so identity never rests on colour, but Hipo — being the zero
+  line itself — was the one line that never got a name. An unnamed reference line
+  is what let the chart be read upside down in the first place.
+
+R15 is unaffected: the axis still includes zero and is still in absolute GRAM.
+Nothing about the measurement changed — only which way the same numbers point.
+
+`vs.compare.chartLead` was rewritten to describe the new direction ("Hipo is the
+line along the top; each one falls away from it…") and retranslated into the
+nine other locales. The heading, "What you would have missed, day by day", was
+already right for either orientation and did not move.

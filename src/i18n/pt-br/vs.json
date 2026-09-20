@@ -22,7 +22,7 @@
   "vs.compare.extraUsd": "{usd} no preço de hoje",
   "vs.compare.hipoEndLabel": "seus {stake} GRAM com o Hipo hoje",
   "vs.compare.chartHeading": "O que você teria perdido, dia após dia",
-  "vs.compare.chartLead": "O total acumulado de GRAM extra que um staker do Hipo ganhou no mesmo stake. Zero é o Hipo; cada linha mostra o que aquele protocolo deixou na mesa. Nada é projetado — cada ponto é lido de um contrato em um bloco real.",
+  "vs.compare.chartLead": "O total acumulado do que o mesmo stake teria perdido em cada protocolo. O Hipo é a linha no topo; cada protocolo se afasta dela para baixo pelos GRAM que deixou na mesa. Nada é projetado — cada ponto é lido de um contrato em um bloco real.",
   "vs.compare.chartLabel": "GRAM extra ganho com o Hipo em comparação com outros protocolos de staking líquido, ao longo de dois anos",
   "vs.compare.tableHeading": "Onde seu stake terminou",
   "vs.compare.colProtocol": "Protocolo",
