@@ -2,12 +2,15 @@ import { observer } from 'mobx-react-lite'
 import { LOCALES, publicLocales } from '../../i18n/registry.mjs'
 import { langOf, localeCode, localizedPath } from '../../i18n/locale.ts'
 import { Model } from './Model'
+import { LOCALE_KEY, PREF_KEY } from '../../scripts/locale-keys.js'
 
-// Spec §J: a picked language is remembered so the one-time "Read this in …?" suggestion (banner.js,
-// same key) never re-asks. Storage may be blocked; the link works regardless.
+// Spec §J: a picked language is remembered twice over — LOCALE_KEY so the one-time "Read this in …?"
+// suggestion (banner.js, same key) never re-asks, PREF_KEY so a later visit lands in that language
+// (LocalePreference.astro). Storage may be blocked; the link works regardless.
 function rememberLocale(locale: string) {
   try {
-    localStorage.setItem('hipo.locale', locale)
+    localStorage.setItem(LOCALE_KEY, locale)
+    localStorage.setItem(PREF_KEY, locale)
   } catch {
     // ignore
   }

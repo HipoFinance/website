@@ -1,0 +1,77 @@
+---
+// Honours a remembered language on a later visit, before the first paint.
+//
+// spec §J used to say "no automatic redirect", and for language *detection* it still does: reading
+// navigator.languages only ever suggests (Banner.astro), it never navigates. What redirects here is
+// an explicit choice the visitor made by picking a language in a switcher — PREF_KEY, which a
+// dismissal of the suggestion bar deliberately does not write. See decision 17 in
+// specs/multi-language-site.md and specs/language-preference-and-locale-lineup.md.
+//
+// Three properties make this safe for search: crawlers never have the key, so Googlebot sees exactly
+// what it saw before; it fires at most once per tab (sessionStorage is per-tab), so a deep link
+// shared in another language is readable after the first bounce; and location.replace adds no history
+// entry, so Back still leaves the site instead of trapping the visitor in a bounce loop.
+//
+// Inline (not hoisted) and rendered into <head> so it runs before the body paints — a redirect after
+// paint would be a visible flash of the wrong language. Built as a string rather than with
+// define:vars so nothing is declared at the top level: ClientRouter re-executes an inline script
+// whose text changed, and a second top-level `const pageLocale` in the same document throws.
+import { publicLocales } from '../i18n/registry.mjs'
+import type { Locale } from '../i18n/locale.ts'
+import { PREF_KEY, REDIRECT_GUARD_KEY } from '../scripts/locale-keys.js'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+
+// The redirect needs a second locale to go to; with one public locale there is nothing to remember.
+// A draft locale's own pages are excluded as well (I18N_INCLUDE_DRAFTS=1, local preview): they are not
+// in `keys`, so a stored preference would bounce straight back out of the page being previewed.
+const keys = publicLocales()
+const enabled = keys.length >= 2 && keys.includes(locale)
+
+// The path rule is stripLocale() + localizedPath() for a pathname, hand-inlined: drop a leading
+// segment that is a locale key, then prefix the preferred one (English is never prefixed). Kept in
+// step with src/i18n/locale.ts by the cross-locale acceptance criteria in the spec — the same
+// duplication banner.js already carries for matchLocale.
+const script = `
+;(function () {
+  try {
+    // All four Telegram signals probeTmaMode() uses (src/components/app/tma/telegram.ts): __hipoTma is
+    // only set on app pages, and the launch fragment is gone after a reload, so __telegram__initParams
+    // is what still identifies the webview on a /docs/ or /faq/ deep link opened inside Telegram.
+    if (window.__hipoTma !== undefined && window.__hipoTma !== 'off') return
+    var session = window.sessionStorage
+    var remembered = session.getItem('hipo.tma')
+    if (remembered === 'forced' || remembered === 'telegram') return
+    var initParams = session.getItem('__telegram__initParams')
+    if (initParams !== null && initParams.indexOf('tgWebAppPlatform') >= 0) return
+    if (window.location.hash.indexOf('tgWebApp') >= 0) return
+    if (session.getItem(${JSON.stringify(REDIRECT_GUARD_KEY)}) !== null) return
+    var keys = ${JSON.stringify(keys)}
+    var pref = window.localStorage.getItem(${JSON.stringify(PREF_KEY)})
+    if (pref === null || keys.indexOf(pref) < 0) return
+    // Already reading the preferred language: the session is settled. Marking it here is what stops
+    // Back from bouncing forward again after a pick, on a page the bfcache did not keep.
+    if (pref === ${JSON.stringify(locale)}) {
+      session.setItem(${JSON.stringify(REDIRECT_GUARD_KEY)}, '1')
+      return
+    }
+    var parts = window.location.pathname.split('/')
+    if (keys.indexOf(parts[1]) >= 0) parts.splice(1, 1)
+    if (pref !== 'en') parts.splice(1, 0, pref)
+    // '' can only come from a pathname with no trailing slash ('/ru'); localizedPath yields '/' there.
+    var target = parts.join('/') || '/'
+    if (target === window.location.pathname) return
+    session.setItem(${JSON.stringify(REDIRECT_GUARD_KEY)}, '1')
+    window.location.replace(target + window.location.search + window.location.hash)
+  } catch (e) {
+    // Storage blocked or unavailable: stay on the page the visitor asked for.
+  }
+})()
+`
+---
+
+{enabled && <script is:inline set:html={script} />}

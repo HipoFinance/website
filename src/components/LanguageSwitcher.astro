@@ -90,21 +90,63 @@ const entries = locales.map((l) => ({
 }
 
 <script>
-  // Spec §J: remember the picked language so the one-time "Read this in …?" suggestion (banner.js,
-  // same key) never re-asks. Delegated on the document, which the ClientRouter never swaps, so one
-  // listener covers every switcher on every page (the app shell's mirror included); the link navigates
-  // regardless of storage. The picked entry also closes its panel, so it never lingers open through the
-  // view transition, or at all when the current language is picked.
+  // Spec §J: remember the picked language — LOCALE_KEY so the one-time "Read this in …?" suggestion
+  // (banner.js) never re-asks, PREF_KEY so a later visit lands in that language
+  // (LocalePreference.astro). Delegated on the document, which the ClientRouter never swaps, so one
+  // listener covers every switcher on every page: the site header and footer, the app shell's mirror
+  // and — since they are the same `<details>` in the DOM — the React island's, which has no open
+  // state of its own. The link navigates regardless of storage.
+  //
+  // The two keys are spelled out rather than imported from src/scripts/locale-keys.js, which is their
+  // canonical home: an import makes Astro bundle this hoisted script into its own request instead of
+  // inlining it, and closing the panel would then wait on that fetch on a cold load. Same reasoning as
+  // the inline script in starlight/LanguageSelect.astro. Change them in both places.
+  const LOCALE_KEY = 'hipo.locale'
+  const PREF_KEY = 'hipo.locale.pref'
+
+  // Close every open panel except the one the interaction is inside. Clicking a closed summary is
+  // still inside its own <details>, so it opens normally; clicking a second switcher closes the
+  // first; clicking anywhere else closes them all.
+  function closeOutside(target: Element | null) {
+    for (const details of document.querySelectorAll('[data-i18n-switcher][open]')) {
+      if (target == null || !details.contains(target)) {
+        details.removeAttribute('open')
+      }
+    }
+  }
+
   document.addEventListener('click', (event) => {
-    const link = (event.target as Element | null)?.closest?.('[data-i18n-switcher] a[data-locale]')
+    const target = event.target as Element | null
+    const link = target?.closest?.('[data-i18n-switcher] a[data-locale]')
+    // The picked entry closes its own panel, so it never lingers open through the view transition,
+    // or at all when the current language is picked.
     link?.closest('details')?.removeAttribute('open')
     const locale = link?.getAttribute('data-locale')
     if (locale != null) {
       try {
-        localStorage.setItem('hipo.locale', locale)
+        localStorage.setItem(LOCALE_KEY, locale)
+        localStorage.setItem(PREF_KEY, locale)
       } catch {
         // ignore
       }
     }
+    closeOutside(target)
+  })
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') {
+      return
+    }
+    for (const details of document.querySelectorAll('[data-i18n-switcher][open]')) {
+      details.removeAttribute('open')
+      // Focus goes back to the control that opened the panel, or Escape would strand a keyboard
+      // visitor at the top of the document.
+      details.querySelector('summary')?.focus()
+    }
+  })
+
+  // Tabbing out of the last entry closes it too.
+  document.addEventListener('focusin', (event) => {
+    closeOutside(event.target as Element | null)
   })
 </script>

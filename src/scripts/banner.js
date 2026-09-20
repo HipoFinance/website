@@ -2,7 +2,9 @@ import { BANNER_KEY, HIDDEN_CODE, OFF_CLASS } from './banner-constants.js'
 
 // The visitor's language choice (spec §J): the locale key they picked from the suggestion, or 'en' when
 // they dismissed it. Any value means "asked and answered" — the suggestion never shows again.
-const LOCALE_KEY = 'hipo.locale'
+// PREF_KEY is the narrower one: only an actual pick writes it, because it drives the redirect in
+// LocalePreference.astro and a dismissal must never bounce anyone anywhere.
+import { LOCALE_KEY, PREF_KEY } from './locale-keys.js'
 
 function readStorage(key) {
   try {
@@ -88,6 +90,7 @@ function initLanguageSuggestion() {
   link.textContent = target.label
   link.addEventListener('click', () => {
     writeStorage(LOCALE_KEY, locale)
+    writeStorage(PREF_KEY, locale)
   })
   textNode?.append(before, link, after)
 
@@ -97,6 +100,8 @@ function initLanguageSuggestion() {
   }
   dismiss?.addEventListener('click', () => {
     suggest.classList.add('hidden')
+    // LOCALE_KEY only: "asked and answered", not "prefer this language". Writing PREF_KEY here would
+    // turn a dismissal into a redirect on every later visit.
     writeStorage(LOCALE_KEY, suggest.dataset.pageLocale ?? 'en')
   })
 

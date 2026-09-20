@@ -13,6 +13,7 @@
 // Both paint a label over a transparent native <select> (see the markup).
 import { LOCALES, isLocaleKey, publicLocales } from '../../i18n/registry.mjs'
 import { localeCode, localizedPath } from '../../i18n/locale'
+import { LOCALE_KEY, PREF_KEY } from '../../scripts/locale-keys.js'
 
 interface Props {
   placement?: 'bar' | 'phone'
@@ -27,6 +28,9 @@ const options = locales.map((key) => ({
   value: localizedPath(Astro.url.pathname, key),
   selected: key === current,
   label: LOCALES[key].label,
+  // The <option> carries the registry key as well as the path: the change handler remembers the
+  // pick, and the path alone would have to be parsed back into a locale.
+  locale: key,
 }))
 
 // Inline (not hoisted) so that no script — and no `starlight-lang-select` string — ships while the select
@@ -39,6 +43,13 @@ if (!window.__hipoLangSelect) {
   document.addEventListener('change', (e) => {
     const select = e.target
     if (select instanceof HTMLSelectElement && select.closest('starlight-lang-select')) {
+      const locale = select.selectedOptions[0] && select.selectedOptions[0].dataset.locale
+      if (locale) {
+        try {
+          localStorage.setItem(${JSON.stringify(LOCALE_KEY)}, locale)
+          localStorage.setItem(${JSON.stringify(PREF_KEY)}, locale)
+        } catch (err) {}
+      }
       window.location.pathname = select.value
     }
   })
@@ -97,8 +108,8 @@ if (!window.__hipoLangSelect) {
         </svg>
         {/* autocomplete=off for the same reason as Starlight's Select: no browser-restored value. */}
         <select autocomplete='off' aria-label={label}>
-          {options.map(({ value, selected, label }) => (
-            <option value={value} selected={selected} set:html={label} />
+          {options.map(({ value, selected, label, locale }) => (
+            <option value={value} selected={selected} data-locale={locale} set:html={label} />
           ))}
         </select>
       </label>

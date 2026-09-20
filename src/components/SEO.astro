@@ -8,6 +8,7 @@ import { DEFAULT_LOCALE, LOCALES, indexableLocales } from '../i18n/registry.mjs'
 import { langOf, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
 import Analytics from './Analytics.astro'
 import FontPreload from './FontPreload.astro'
+import LocalePreference from './LocalePreference.astro'
 
 interface Props {
   title: string
@@ -16,9 +17,10 @@ interface Props {
   publishedTime?: string
   author?: string
   jsonLd?: Record<string, any>
-  // English-only pages (/vs/) set this to false: they have no `[locale]` twin, so pointing
-  // hreflang at `/fa/vs/` would advertise a URL that 404s. Everything else keeps the default and
-  // gets the full alternate set.
+  // False for a page with no `[locale]` twin: pointing hreflang at a URL that 404s would be worse
+  // than no alternates at all, and the same page must not offer to redirect a visitor to a
+  // translation it does not have. No page passes it today — /vs/ used to be the one, and gained its
+  // twin in src/pages/[locale]/vs.astro — but the gate is what a new English-only page needs.
   localized?: boolean
 }
 
@@ -45,6 +47,10 @@ const isDraft = LOCALES[locale]?.status === 'draft'
 <meta name='description' content={description} />
 <meta name='viewport' content='width=device-width, initial-scale=1' />
 {isDraft && <meta name='robots' content='noindex, nofollow' />}
+
+<!-- A remembered language, honoured before the first paint. Only where the page has localized
+     twins to offer, by the same gate as hreflang above; /app/ is a legacy stub that renders neither. -->
+{localized && <LocalePreference locale={locale} />}
 
 <!-- Above the stylesheet links Astro injects below, which is the point: the first screen's faces
      start downloading in parallel with the CSS instead of after it. -->
