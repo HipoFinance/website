@@ -92,14 +92,30 @@ export function extraGram(series: GrowthSeries, id: Compared, stake: number): nu
   return series.growth.hipo.map((h, i) => (h - series.growth[id][i]) * stake)
 }
 
-/** Round `hi` up to a readable axis maximum, and the tick values under it. */
+/**
+ * Round `hi` up to a readable axis maximum, and the tick values under it.
+ *
+ * The LAST tick is the axis top, and it must land at or above `hi`: `chartGeometry` scales every
+ * point against it, so a top tick below the data draws that part of the line outside the viewBox,
+ * where it is simply not rendered. This used to stop at the last tick BELOW `hi` instead, which
+ * hid whenever the grid happened to land above the data and bit the moment it did not — on
+ * 2026-09-20 the top tick was 1,500 against a 1,685 GRAM peak, and the Tonstakers line ran off the
+ * top of the chart with its end label at y = −15.7 (reported: "the label is off the chart and
+ * invisible"). Hence the count is derived rather than walked.
+ *
+ * `step` is the smallest readable interval that is at least a quarter of `hi`, so the axis is
+ * always four intervals or fewer.
+ */
 export function axisTicks(hi: number): number[] {
   const raw = (hi || 1) / 4
   const magnitude = Math.pow(10, Math.floor(Math.log10(raw)))
   const step = [1, 2, 2.5, 5, 10].map((k) => k * magnitude).find((k) => k >= raw) ?? 10 * magnitude
+  // At least one interval, so an all-zero series still yields a non-zero top: `yOf` divides by it.
+  // The epsilon keeps a `hi` that is already an exact multiple from adding an empty interval.
+  const count = Math.max(1, Math.ceil(hi / step - 1e-9))
   const ticks: number[] = []
-  for (let v = 0; v <= hi + step * 0.001; v += step) {
-    ticks.push((Math.round((v / step) * 1e6) / 1e6) * step)
+  for (let i = 0; i <= count; i++) {
+    ticks.push((Math.round(i * 1e6) / 1e6) * step)
   }
   return ticks
 }

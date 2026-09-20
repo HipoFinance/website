@@ -7,6 +7,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-20 — [detailed report](changelog/2026-09-20-vs-chart-axis-top.md)
+
+- Fixed the `/vs/` chart's y-axis, whose top tick could land below the data.
+- Brought the Tonstakers line and its end label back inside the chart frame.
+
 ## 2026-09-19 — [detailed report](changelog/2026-09-19-mobile-fit-fixes.md)
 
 - Stopped the FAQ "Link copied" tooltip from widening the page on phones.
