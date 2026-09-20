@@ -165,8 +165,8 @@ the spec records them so this is not re-proposed later:
   The data would roll off the left edge exactly as fast as the chart needs it.
 - **There is no backfill path.** No remote-write receiver, and
   `--web.enable-admin-api` is commented out on both services. Importing history
-  would mean stopping two independent Prometheus instances on two hosts
-  (`hf-main`, `hf-back`) and writing blocks into each host's data dir by hand.
+  would mean stopping two independent Prometheus instances on two separate
+  hosts and writing blocks into each host's data dir by hand.
 - **The public read path is a byte-exact allowlist.** `nginx/nginx.conf:178`
   matches one percent-encoded query string and five allowed steps. Every new
   metric means an nginx change deployed in the same window.
@@ -768,7 +768,7 @@ maintainer's own infrastructure are not done:
 
 1. Pushing `gauge` builds `ghcr.io/hipofinance/gauge:sha-<short>`. **The tag in
    `operation/stack/gauge.yaml` still points at the old image** and has to be
-   bumped and `docker stack deploy` run on `hf-back`.
+   bumped and `docker stack deploy` run on the host that serves it.
 2. The nginx config has to be uploaded and reloaded on the proxy host.
 
 Until both land, `/lst-rates` answers 404 and the site logs

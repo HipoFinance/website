@@ -81,7 +81,8 @@ of `/vs/`.
 
 - **Deployment is not finished.** Pushing `gauge` builds a new image, but the tag in
   `operation/stack/gauge.yaml` still points at the old one and needs bumping plus a
-  `docker stack deploy` on `hf-back`; the nginx config needs uploading and reloading. Until both
+  `docker stack deploy` on the host that serves it; the nginx config needs uploading and
+  reloading. Until both
   land, `/lst-rates` answers 404 and the site ships the baseline — designed behaviour, but the page
   is not yet self-updating.
 - The `/docs/` methodology page (spec R8) is still not built.
