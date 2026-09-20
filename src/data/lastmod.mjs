@@ -163,7 +163,7 @@ function inputsFor(pathname) {
   // Docs are one Markdown file each; English at the root, translations under a locale directory.
   // The sidebar labels are chrome shared by every docs page, so they are not an input.
   // RESERVED_SEGMENTS keeps a locale key off the first URL segment, but says nothing about deeper
-  // ones: an English doc at src/content/docs/it/foo.md would be indistinguishable from the Italian
+  // ones: an English doc at src/content/docs/fa/foo.md would be indistinguishable from the Persian
   // translation of foo.md. None exists (content.config.ts's locale-first ids would break first), so
   // do not create a top-level docs directory named after a locale.
   if (segments[0] === 'docs') {

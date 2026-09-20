@@ -279,6 +279,19 @@ const DOCS_SECTION_REDIRECTS = {
   '/docs/giveaways-and-prizes/': '/docs/giveaways-and-prizes/hipo-incentive-programs/',
 }
 
+// The three /it/ URLs worth keeping resolvable after Italian was removed (2026-09-20, see
+// specs/language-preference-and-locale-lineup.md and decision 16): the only ones Search Console
+// showed with clicks or meaningful impressions. The other 23 /it/ URLs had 1-3 impressions and no
+// clicks, and every /hi/ URL had none at all, so those 404 by design — there is no link equity to
+// preserve and a stale URL that 404s is cheaper for the crawl budget than a stub. Each one points at
+// its English equivalent. These paths only became eligible for `redirects` once `it` left the
+// registry and stopped being built.
+const REMOVED_LOCALE_REDIRECTS = {
+  '/it/': '/',
+  '/it/docs/': '/docs/',
+  '/it/docs/giveaways-and-prizes/hipo-club/': '/docs/giveaways-and-prizes/hipo-club/',
+}
+
 export default defineConfig({
   site: 'https://hipo.finance',
   base: '/',
@@ -309,15 +322,19 @@ export default defineConfig({
   //
   // The translated twins of those four pages were retired with the English ones, so every built
   // locale gets the same stub under its prefix (`/fa/docs/…/why-ton/`) — those URLs were indexed
-  // while fa/ru/hi were released.
-  redirects: Object.fromEntries(
-    Object.entries({ ...DOCS_MERGE_REDIRECTS, ...DOCS_SECTION_REDIRECTS }).flatMap(([from, to]) => [
-      [from, to],
-      ...builtLocales()
-        .filter((key) => key !== DEFAULT_LOCALE)
-        .map((key) => [`/${key}${from}`, `/${key}${to}`]),
-    ]),
-  ),
+  // while fa and ru were released. The removed locales' copies go with them: `/hi/docs/…/why-ton/`
+  // and `/it/docs/…/why-ton/` were noindex stubs, so letting them 404 costs nothing.
+  redirects: {
+    ...REMOVED_LOCALE_REDIRECTS,
+    ...Object.fromEntries(
+      Object.entries({ ...DOCS_MERGE_REDIRECTS, ...DOCS_SECTION_REDIRECTS }).flatMap(([from, to]) => [
+        [from, to],
+        ...builtLocales()
+          .filter((key) => key !== DEFAULT_LOCALE)
+          .map((key) => [`/${key}${from}`, `/${key}${to}`]),
+      ]),
+    ),
+  },
 
   markdown: {
     // Prefixes root-relative links in translated docs/prose Markdown with the entry's locale.

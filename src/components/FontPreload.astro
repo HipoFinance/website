@@ -16,8 +16,8 @@
 //
 // Two faces at most, and never more than ~60 KB: this is meant to arrive alongside the render-
 // blocking stylesheet, not to compete with it. Where a locale's display face is too heavy to fit
-// that budget (Persian's Lalezar at 52 KB, Hindi's Baloo 2 at 115 KB) only the body face is
-// preloaded — it covers far more of the first screen, and the headings still swap as they do today.
+// that budget (Persian's Lalezar at 52 KB) only the body face is preloaded — it covers far more of
+// the first screen, and the headings still swap as they do today.
 import type { Locale } from '../i18n/locale.ts'
 
 import fredokaLatin from '@fontsource-variable/fredoka/files/fredoka-latin-wght-normal.woff2?url'
@@ -26,7 +26,6 @@ import vazirmatnArabic from '@fontsource-variable/vazirmatn/files/vazirmatn-arab
 import cairoArabic from '@fontsource-variable/cairo/files/cairo-arabic-wght-normal.woff2?url'
 import nunitoCyrillic from '@fontsource-variable/nunito/files/nunito-cyrillic-wght-normal.woff2?url'
 import robotoCyrillic from '@fontsource-variable/roboto/files/roboto-cyrillic-wght-normal.woff2?url'
-import poppinsDevanagari400 from '@fontsource/poppins/files/poppins-devanagari-400-normal.woff2?url'
 
 interface Props {
   locale: Locale
@@ -35,13 +34,12 @@ interface Props {
 const { locale } = Astro.props
 
 // Display face first, then body — the heading is both the LCP element and the biggest shift.
-// Locales absent from this map are the Latin ones (en de tr it id pt-BR), which keep Heebo +
+// Locales absent from this map are the Latin ones (en de tr id pt-BR), which keep Heebo +
 // Fredoka; see the family tokens at the foot of i18n-fonts.css.
 const PER_LOCALE: Partial<Record<Locale, string[]>> = {
   fa: [vazirmatnArabic],
   ar: [cairoArabic], // Cairo is both the body and the display face for ar, so one file covers both.
   ru: [nunitoCyrillic, robotoCyrillic],
-  hi: [poppinsDevanagari400],
 }
 
 const faces = PER_LOCALE[locale] ?? [fredokaLatin, heeboLatin400]

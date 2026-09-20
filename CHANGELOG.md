@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-20 — [detailed report](changelog/2026-09-20-language-preference-and-locale-lineup.md)
+
+- Closed the language dropdown on an outside click, on Escape and on tabbing away.
+- Remembered a picked language and honoured it once per session, before the first paint.
+- Removed the Hindi and Italian locales permanently, with meta-refresh stubs for three `/it/` URLs.
+- Reordered the dropdown to en, ru, id, pt-br, fa, ar, tr, de.
+
 ## 2026-09-20 — [detailed report](changelog/2026-09-20-vs-chart-inverted.md)
 
 - Inverted the `/vs/` chart so Hipo is the top line and the other protocols fall away below it.

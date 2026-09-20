@@ -5,8 +5,8 @@
 ## Goal
 
 Serve every section of the site — landing (`/`, `/faq/`), the staking dApp (`/stake/` … `/defi/`), the HPO
-page and the docs — in ten languages (English plus Persian, Russian, German, Hindi, Turkish, Italian,
-Indonesian, Brazilian Portuguese, Arabic), including the two right-to-left ones, without changing a single
+page and the docs — in eight languages (English plus Persian, Russian, German, Turkish, Indonesian,
+Brazilian Portuguese, Arabic), including the two right-to-left ones, without changing a single
 existing English URL. English stays the source of truth; adding a language must be mostly a translation
 task, not an engineering one.
 
@@ -51,17 +51,16 @@ Everything below was read from the repo on 2026-08-22 (Astro 6.4.8, Starlight 0.
   `:610`) — physical on purpose. Direction-meaningful glyphs: lucide `ArrowRight` (`StakeUnstake.tsx:252`),
   text `→` in `Stats.tsx:55` and `StatsPage.tsx:316-327`.
 - Fonts: Heebo (subsets hebrew, latin, latin-ext, math, symbols) and Fredoka Variable (hebrew, latin,
-  latin-ext). Latin-ext covers German, Turkish, Italian, Indonesian and Portuguese. **Neither face has
-  Arabic/Persian, Cyrillic or Devanagari glyphs.** Tokens are declared three times: `src/styles/global.css:8-13`,
+  latin-ext). Latin-ext covers German, Turkish, Indonesian and Portuguese. **Neither face has
+  Arabic/Persian or Cyrillic glyphs.** Tokens are declared three times: `src/styles/global.css:8-13`,
   `app.css:47-52`, `docs.css:41` (`--sl-font`). Verified on npm (all 5.3.0): `@fontsource-variable/vazirmatn`,
-  `@fontsource-variable/rubik`, `@fontsource-variable/comfortaa`, `@fontsource-variable/baloo-2`,
-  `@fontsource-variable/baloo-bhaijaan-2`, `@fontsource/hind`, `@fontsource/lalezar`,
-  `@fontsource-variable/noto-sans-devanagari`.
+  `@fontsource-variable/rubik`, `@fontsource-variable/comfortaa`,
+  `@fontsource-variable/baloo-bhaijaan-2`, `@fontsource/lalezar`.
 - Docs: 40 Markdown pages (~10.7k words) under `src/content/docs/`; `src/content.config.ts:10` prefixes
   every entry id with `docs/`. Starlight detects a locale from the **first** id segment
   (`node_modules/@astrojs/starlight/integrations/shared/slugToLocale.ts:14`), so `src/content/docs/fa/x.md`
   would today become `/docs/fa/x/` and _not_ be recognised as Persian. Starlight ships complete UI
-  translations for 34 languages incl. `ar`, `de`, `fa`, `hi`, `id`, `it`, `pt`, `ru`, `tr` (no `pt-BR` —
+  translations for 34 languages incl. `ar`, `de`, `fa`, `id`, `pt`, `ru`, `tr` (no `pt-BR` —
   verify it falls back to `pt`), sets `<html lang dir>` itself, uses logical CSS throughout, localises
   sidebar `link:` values automatically (`utils/navigation.ts:121-127`), emits its own `hreflang`/`og:locale`,
   and synthesises an English **fallback page for every untranslated doc in every locale** with no opt-out
@@ -95,15 +94,13 @@ Everything below was read from the repo on 2026-08-22 (Astro 6.4.8, Starlight 0.
   | key     | lang    | dir | label              | tonconnect | status at v1 |
   | ------- | ------- | --- | ------------------ | ---------- | ------------ |
   | `en`    | `en`    | ltr | English            | en         | public       |
-  | `fa`    | `fa`    | rtl | فارسی              | en         | first batch  |
   | `ru`    | `ru`    | ltr | Русский            | ru         | first batch  |
-  | `ar`    | `ar`    | rtl | العربية            | en         | second batch |
-  | `de`    | `de`    | ltr | Deutsch            | en         | draft        |
-  | `hi`    | `hi`    | ltr | हिन्दी             | en         | first batch  |
-  | `tr`    | `tr`    | ltr | Türkçe             | en         | draft        |
-  | `it`    | `it`    | ltr | Italiano           | en         | draft        |
   | `id`    | `id`    | ltr | Bahasa Indonesia   | en         | draft        |
   | `pt-br` | `pt-BR` | ltr | Português (Brasil) | en         | draft        |
+  | `fa`    | `fa`    | rtl | فارسی              | en         | first batch  |
+  | `ar`    | `ar`    | rtl | العربية            | en         | second batch |
+  | `tr`    | `tr`    | ltr | Türkçe             | en         | draft        |
+  | `de`    | `de`    | ltr | Deutsch            | en         | draft        |
 
   `status` is one of `'draft'` (built only when `I18N_INCLUDE_DRAFTS=1`, local preview, so half-finished
   translations can land on `main` safely), `'indexed'` (built, linked for crawlers only — `hreflang`,
@@ -179,7 +176,7 @@ Two mechanisms, chosen by shape of the text:
   symbols, percent and currency placement, compact notation** — `Intl.NumberFormat(lang, …)` in one module,
   `src/i18n/format.ts`, replacing the current mix in `Model.ts`, `StatsPage.tsx`, `Reward.tsx`,
   `landing-data.js`, `hpo-data.js`. Persian therefore shows `۱٬۲۳۴٫۵ GRAM`, `۳٫۲٪`, `۱٫۲ میلیون`; Russian
-  `1 234,5`; German `1.234,5`; Hindi `12,34,567` (lakh grouping, Latin digits); Arabic follows `ar`
+  `1 234,5`; German `1.234,5`; Arabic follows `ar`
   defaults (Arabic-Indic digits, decision 10). USD prices use `style: 'currency'` so the sign
   lands where the locale puts it. Units (`GRAM`, `hGRAM`, `HPO`, `TON`) stay Latin.
   _Trade-off accepted: wallets and explorers show ASCII digits, so a Persian user compares `۱٬۲۳۴٫۵` on
@@ -221,12 +218,11 @@ Two mechanisms, chosen by shape of the text:
 - **Fonts — a dedicated body + playful display face per script** (decision 3). Proposed pairing, to be
   adopted (decision 11); swapping a family later is a package swap plus one line in `i18n-fonts.css`:
 
-  | script                    | locales              | body                                                  | display (Fredoka role)                                                            |
-  | ------------------------- | -------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------- |
-  | Latin / Latin-ext         | en de tr it id pt-br | Heebo (existing)                                      | Fredoka Variable (existing)                                                       |
-  | Arabic (Persian + Arabic) | fa ar                | Vazirmatn Variable (`@fontsource-variable/vazirmatn`) | Baloo Bhaijaan 2 Variable (`@fontsource-variable/baloo-bhaijaan-2`; alt. Lalezar) |
-  | Cyrillic                  | ru                   | Rubik Variable (`@fontsource-variable/rubik`)         | Comfortaa Variable (`@fontsource-variable/comfortaa`)                             |
-  | Devanagari                | hi                   | Hind (`@fontsource/hind`; alt. Noto Sans Devanagari)  | Baloo 2 Variable (`@fontsource-variable/baloo-2`)                                 |
+  | script                    | locales           | body                                                  | display (Fredoka role)                                                            |
+  | ------------------------- | ----------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------- |
+  | Latin / Latin-ext         | en de tr id pt-br | Heebo (existing)                                      | Fredoka Variable (existing)                                                       |
+  | Arabic (Persian + Arabic) | fa ar             | Vazirmatn Variable (`@fontsource-variable/vazirmatn`) | Baloo Bhaijaan 2 Variable (`@fontsource-variable/baloo-bhaijaan-2`; alt. Lalezar) |
+  | Cyrillic                  | ru                | Rubik Variable (`@fontsource-variable/rubik`)         | Comfortaa Variable (`@fontsource-variable/comfortaa`)                             |
 
   Loading: import each family's **script subset** CSS globally in all three stylesheets — `unicode-range`
   means English visitors download zero extra font bytes (only ~300 B of CSS per family). Family order is
@@ -251,7 +247,7 @@ fa: { label: 'فارسی', lang: 'fa', dir: 'rtl' }, … } })`, generated from t
   `Astro.locals.t` backed by a new `i18n` data collection (`src/content/i18n/<lang>.json`). Starlight's
   `LanguageSelect` is overridden to render nothing until a locale is `public` (it would otherwise appear in
   the docs mobile menu as soon as `locales` is configured, violating §L step 2); once switched on it is
-  restored in the desktop bar and lists `public` locales only. Starlight's own UI strings for all nine languages are built in
+  restored in the desktop bar and lists `public` locales only. Starlight's own UI strings for all seven non-English languages are built in
   (`pt-BR` → verify fallback to `pt`, otherwise supply them in the `i18n` collection).
 - **Fallback pages never reach production** (decision 4): a released locale must have every docs page
   translated, enforced by the check script. Starlight's fallback synthesis therefore only appears in local
@@ -300,7 +296,7 @@ fa: { label: 'فارسی', lang: 'fa', dir: 'rtl' }, … } })`, generated from t
 - `src/i18n/GLOSSARY.md`: do-not-translate list (Hipo, GRAM, hGRAM, HPO, TON, TVL, APY, DeFi, DAO,
   TonConnect, wallet names) and agreed renderings per locale of "liquid staking", "stake/unstake", "round",
   "validator", "instant/best-rate".
-- Order of shipping: **build for all ten, ship `fa` first** (RTL, native digits, Jalali, fonts — the hardest
+- Order of shipping: **build for all eight, ship `fa` first** (RTL, native digits, Jalali, fonts — the hardest
   axis, with an in-house reviewer), then `ru` (Cyrillic, TonConnect `ru`), then the rest as reviewers
   become available. Each further locale is a registry entry + catalogs + prose + docs + sidebar labels.
 
@@ -319,7 +315,9 @@ fa: { label: 'فارسی', lang: 'fa', dir: 'rtl' }, … } })`, generated from t
 - **No automatic redirect** on the public web (breaks shared deep links, confuses crawlers, CLS on every
   page). Later, together with the dropdown: remember the choice in `localStorage['hipo.locale']`, show a
   one-time dismissible "Read this in فارسی?" suggestion in the existing `Banner` slot when
-  `navigator.languages` prefers a `public` locale, and the TMA override from §D.
+  `navigator.languages` prefers a `public` locale, and the TMA override from §D. Narrowed by decision 17:
+  an explicitly stored preference now redirects once per session — see
+  `specs/language-preference-and-locale-lineup.md`.
 - `/app/` legacy stub stays English-only and maps to root-locale URLs.
 
 ### L. Rollout strategy per locale (decision 13)
@@ -447,7 +445,7 @@ src/layouts src/pages` matches only the allow-listed chart tooltip/SVG lines in 
       search on `/fa/docs/` returns Persian results only.
 - [ ] `/fa/nonexistent/` shows the 404 page in Persian with `dir="rtl"`; `/nonexistent/` in English.
 - [ ] `npx prettier --check` passes on touched files; Lighthouse on `/` is within ±2 points of today;
-      full ten-locale build completes in under 2 minutes on the GitHub runner.
+      full eight-locale build completes in under 2 minutes on the GitHub runner.
 
 ## Risks & rollback
 
@@ -464,9 +462,9 @@ src/layouts src/pages` matches only the allow-listed chart tooltip/SVG lines in 
 - **TonConnect under RTL** is the biggest visual unknown; test the containment on day one of RTL work.
 - **Island locale staleness** if any code captures `locale` at construction instead of reading the
   observable — covered by the switch-back acceptance test.
-- **Font rendering quality** of the proposed display faces for Arabic/Devanagari/Cyrillic is a design
+- **Font rendering quality** of the proposed display faces for Arabic/Cyrillic is a design
   judgement; swapping a family is a one-line change in `i18n-fonts.css`.
-- **Build time/size** grow roughly linearly: ~50 → ~500 pages, Pagefind over ten languages; estimated well
+- **Build time/size** grow roughly linearly: ~50 → ~500 pages, Pagefind over eight languages; estimated well
   under a minute, verified by the last acceptance criterion.
 - **Rollback**: phases 1–3 are inert while only English is released (rollback = revert the commit range);
   a bad locale is un-shipped by flipping its registry `status` to `draft` (its pages disappear from the
@@ -497,6 +495,20 @@ src/layouts src/pages` matches only the allow-listed chart tooltip/SVG lines in 
 15. (2026-09-19) All nine translated locales (fa, ru, ar, de, hi, tr, it, id, pt-br) went `public` in one
     batch rather than staged "after traffic": all were at 100 % coverage and `indexed` since 2026-08-24.
     The suggestion bar ships on with them. See `specs/language-switcher-rollout.md`.
+16. (2026-09-20) Hindi and Italian removed permanently, not set to `draft`. Search Console (2026-08-21 →
+    2026-09-17): `/hi/` had 8 URLs with impressions, 20 impressions, 0 clicks, average position 60.6 —
+    the floor on every measure. `/it/` had 26 URLs with impressions, 77 impressions, 2 clicks, average
+    position 23.5, but essentially no Italian-language query demand (5 impressions, 0 clicks in 28 days)
+    and about half of Italy's clicks landing on English pages. Motive: cut translation and crawl cost —
+    crawl budget is the site's binding constraint, with roughly 109 URLs never fetched. `/hi/` URLs 404;
+    three `/it/` URLs get meta-refresh stubs to their English equivalents. The Hindi lakh-grouping
+    selftest coverage was deleted with it. See `specs/language-preference-and-locale-lineup.md`.
+17. (2026-09-20) §J's "No automatic redirect" is narrowed, not abandoned: a redirect now fires only from
+    an explicitly stored preference (`localStorage['hipo.locale.pref']`, written only by picking a
+    language in a switcher, never by dismissing the suggestion bar), at most once per browser session,
+    via `location.replace`. Language detection from `navigator.languages` still only suggests, never
+    navigates, and crawlers never have the key, so nothing about hreflang or what Googlebot sees
+    changes. See `specs/language-preference-and-locale-lineup.md`.
 
 ## Open questions
 

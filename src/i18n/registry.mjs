@@ -21,15 +21,13 @@ export const DEFAULT_LOCALE = 'en'
 /** @satisfies {Record<string, LocaleInfo>} */
 export const LOCALES = {
   en: { lang: 'en', dir: 'ltr', label: 'English', tonconnect: 'en', status: 'public' },
-  fa: { lang: 'fa', dir: 'rtl', label: 'فارسی', tonconnect: 'en', status: 'public' },
   ru: { lang: 'ru', dir: 'ltr', label: 'Русский', tonconnect: 'ru', status: 'public' },
-  ar: { lang: 'ar', dir: 'rtl', label: 'العربية', tonconnect: 'en', status: 'public', intl: 'ar-u-nu-arab' },
-  de: { lang: 'de', dir: 'ltr', label: 'Deutsch', tonconnect: 'en', status: 'public' },
-  hi: { lang: 'hi', dir: 'ltr', label: 'हिन्दी', tonconnect: 'en', status: 'public' },
-  tr: { lang: 'tr', dir: 'ltr', label: 'Türkçe', tonconnect: 'en', status: 'public' },
-  it: { lang: 'it', dir: 'ltr', label: 'Italiano', tonconnect: 'en', status: 'public' },
   id: { lang: 'id', dir: 'ltr', label: 'Bahasa Indonesia', tonconnect: 'en', status: 'public' },
   'pt-br': { lang: 'pt-BR', dir: 'ltr', label: 'Português (Brasil)', tonconnect: 'en', status: 'public' },
+  fa: { lang: 'fa', dir: 'rtl', label: 'فارسی', tonconnect: 'en', status: 'public' },
+  ar: { lang: 'ar', dir: 'rtl', label: 'العربية', tonconnect: 'en', status: 'public', intl: 'ar-u-nu-arab' },
+  tr: { lang: 'tr', dir: 'ltr', label: 'Türkçe', tonconnect: 'en', status: 'public' },
+  de: { lang: 'de', dir: 'ltr', label: 'Deutsch', tonconnect: 'en', status: 'public' },
 }
 
 // Top-level route segments a locale key may never collide with.

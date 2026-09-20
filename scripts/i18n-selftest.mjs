@@ -132,7 +132,6 @@ check('formatNumber native conventions', () => {
   assert.equal(formatNumber('fa', 1234.5), '۱٬۲۳۴٫۵')
   assert.equal(formatNumber('ru', 1234.5), '1 234,5')
   assert.equal(formatNumber('de', 1234.5), '1.234,5')
-  assert.equal(formatNumber('hi', 1234567), '12,34,567')
   assert.equal(formatNumber('ar', 1234.5), '١٬٢٣٤٫٥')
   assert.equal(formatPercent('fa', 0.032), '۳٫۲٪')
   assert.ok(formatCompact('fa', 1234567).startsWith('۱٫۲'))
@@ -174,7 +173,7 @@ check('isolate', () => {
 check('parseNumberInput', () => {
   const p = parseNumberInput
   // ASCII in any locale. "1234.5" / "1234,5" used to be undefined on the locales whose group symbol
-  // was the character used ("." for de/tr/it/id/pt-br, "," for en/hi): a 4-digit head can never be a
+  // was the character used ("." for de/tr/id/pt-br, "," for en): a 4-digit head can never be a
   // valid thousands group, so it now has no other reading and falls back to the decimal — the same
   // fallback that makes "22,22" work on the English page (see below).
   for (const l of locales) {
@@ -230,8 +229,6 @@ check('parseNumberInput', () => {
   assert.equal(p('de', '1.500'), '1500')
   assert.equal(p('en', '12,34'), '12.34')
   assert.equal(p('en', '12,345'), '12345')
-  assert.equal(p('hi', '12,34,567.5'), '1234567.5')
-  assert.equal(p('hi', '12,34,567'), '1234567')
   assert.equal(p('ru', '1 234,5'), '1234.5')
   assert.equal(p('ru', '1 234,5'), '1234.5')
   assert.equal(p('ru', '1 234,5'), '1234.5')
@@ -289,8 +286,6 @@ check('parseNumberInput', () => {
   assert.equal(p('de', '1.5'), '1.5')
   assert.equal(p('de', '12.'), '12.')
   assert.equal(p('de', '.5'), '0.5')
-  assert.equal(p('hi', '1,00'), '1.00')
-  assert.equal(p('hi', '12,34'), '12.34')
   // Group-only marks (whitespace, U+066C) are different: they are NEVER a decimal in any locale, so a
   // lone one still leaves an unfinished group invalid rather than falling back like the ASCII separators
   // above — unaffected by this change.
@@ -305,7 +300,6 @@ check('parseNumberInput', () => {
   assert.equal(p('de', '0.123'), '0.123')
   assert.equal(p('en', '0.123'), '0.123')
   assert.equal(p('en', '0,123'), '0.123')
-  assert.equal(p('hi', '0,123'), '0.123')
   assert.equal(p('de', '12.345'), '12345')
   assert.equal(p('en', '0.001'), '0.001')
   // Implausible groupings are rejected, not silently renumbered.
@@ -335,7 +329,7 @@ check('parseNumberInput', () => {
   assert.equal(p('en', '0,000000001'), '0.000000001')
   assert.equal(p('de', '0.3'), '0.3')
   // What must NOT change, confirmed still exact: a string that reads exactly as one thousands group is
-  // still a group ("1,000" en, "1.000" de, "1,234,567" en, Hindi "12,34,567" — all asserted above), and
+  // still a group ("1,000" en, "1.000" de, "1,234,567" en — all asserted above), and
   // real garbage stays garbage.
   assert.equal(p('en', '1,2,3'), undefined)
   assert.equal(p('en', '1,2345678901'), undefined)
@@ -376,12 +370,8 @@ check('amount input keystrokes', () => {
     // ru groups with whitespace, also unconditional — unaffected by this change.
     sequence('ru', '1 000,5', ['1', '1', u, u, '1000', '1000.', '1000.5']),
     sequence('ru', '1 000,5', ['1', '1', u, u, '1000', '1000.', '1000.5']),
-    sequence('hi', '1,000.5', ['1', '1.', '1.0', '1.00', '1000', '1000.', '1000.5']),
   ]
   for (const final of finals) assert.equal(toNano(final), 1000_500_000_000n)
-  // Hindi lakh grouping: 12,34,567 → 1234567. Each unfinished group reads as the decimal it can only
-  // be until the group completes — invalid only once a second, incomplete group makes it ambiguous.
-  assert.equal(sequence('hi', '12,34,567', ['1', '12', '12.', '12.3', '12.34', u, u, u, '1234567']), '1234567')
   // fa's group mark, typed alone then digits, never reads as a decimal — unaffected by this change.
   assert.equal(sequence('fa', '۱٬۵', ['1', u, u]), u)
   // The bug this session fixes: en's group symbol, typed alone then one digit, cannot become a group
@@ -398,7 +388,6 @@ check('amount input keystrokes', () => {
   assert.equal(parseNumberInput('en', ''), u)
   assert.equal(parseNumberInput('fa', '۱٬۰۰۰'), '1000')
   assert.equal(parseNumberInput('en', '1,000'), '1000')
-  assert.equal(parseNumberInput('hi', '12,34,567'), '1234567')
   // formatInput is what Max / a locale switch write back into the field; it re-parses to the same value.
   assert.equal(parseNumberInput('fa', formatInput('fa', '1000.5')), '1000.5')
   assert.equal(parseNumberInput('de', formatInput('de', '1000.5')), '1000.5')
@@ -438,18 +427,16 @@ check('isViablePrefix — the states the amount input accepts', () => {
   // …but not before: en reads "1.234.567,8" as 1234567.8, so "1.50." is still on its way there.
   assert.equal(v('en', '1.50.'), true)
   assert.equal(v('en', '1.500.000,'), true)
+  // A middle run may be 2 or 3 digits (the "1.50." case above is the 2), never 4 — the upper bound of
+  // the grouping rule in format.ts. This was pinned only by a Hindi lakh case until `hi` was removed
+  // (2026-09-20); a mutation test showed nothing else catches it, so it is re-pinned here on `en`,
+  // which has the same separator symbols Hindi did.
+  assert.equal(v('en', '1,2345,'), false)
   // Leading zeros, unknown characters, more than MAX_FRACTION_DIGITS.
   assert.equal(v('en', '01'), false)
   assert.equal(v('en', '00'), false)
   assert.equal(v('en', '1a'), false)
   assert.equal(v('en', '1.2345678901'), false)
-  // hi lakh grouping: an unfinished 2-digit middle run is viable, a 4-digit one is not.
-  assert.equal(v('hi', '12,34'), true)
-  assert.equal(v('hi', '12,34,'), true)
-  assert.equal(v('hi', '12,34,567'), true)
-  assert.equal(v('hi', '1,23,456'), true)
-  assert.equal(v('hi', '1,2345'), true) // still readable as the decimal 1.2345
-  assert.equal(v('hi', '1,2345,'), false) // …but not once a second symbol makes that run a group
   // de groups with "." — "1.500." is on the way to 1.500.000, "1,5," is not on the way to anything.
   assert.equal(v('de', '1.500.'), true)
   assert.equal(v('de', '1,5,'), false)
@@ -468,8 +455,8 @@ check('isViablePrefix — the states the amount input accepts', () => {
 })
 
 // Alphabet: one representative per class the tokeniser distinguishes (a zero, a non-zero digit, the
-// four separators, whitespace); locales: one per (decimal, group) pair in the registry — en/hi,
-// de/tr/it/id/pt-br, fa/ar, ru.
+// four separators, whitespace); locales: one per (decimal, group) pair in the registry — en,
+// de/tr/id/pt-br, fa/ar, ru.
 const VIABLE_ALPHABET = ['0', '5', '.', ',', '٫', '،', ' ']
 const VIABLE_SHAPES = ['en', 'de', 'fa', 'ru']
 
@@ -529,7 +516,6 @@ check('formatInput', () => {
   assert.equal(formatInput('ar', '1234.5'), '١٢٣٤٫٥')
   assert.equal(formatInput('ru', '1234.5'), '1234,5')
   assert.equal(formatInput('de', '1234.5'), '1234,5')
-  assert.equal(formatInput('hi', '1234.5'), '1234.5')
   assert.equal(formatInput('fa', '12.'), '۱۲٫')
   assert.equal(formatInput('fa', ''), '')
 })

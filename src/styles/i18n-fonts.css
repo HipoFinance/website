@@ -5,9 +5,9 @@
  * its own: no Tailwind directives, no dependency on global.css. Two things happen here:
  *
  *   1. @font-face rules for the *script subset only* of each added family (Arabic for fa and, with a
- *      different pair, ar; Cyrillic for ru; Devanagari for hi), with the `unicode-range` each fontsource
+ *      different pair, ar; Cyrillic for ru), with the `unicode-range` each fontsource
  *      package declares. Fontsource 5.3 ships its variable families as a single `wght.css` covering every
- *      subset, and the static families' per-subset stylesheets (Poppins's `devanagari-<weight>.css`, Lalezar's
+ *      subset, and the static families' per-subset stylesheets (Lalezar's
  *      `arabic-400.css`) omit `unicode-range`, so the rules are written out here against the packages'
  *      woff2 files instead of `@import`ed. A browser downloads a face only when a
  *      rendered font-family names it *and* a glyph falls in its range — English pages never name these
@@ -16,7 +16,7 @@
  *
  *   2. Per-`<html lang>` overrides of the family tokens. Tailwind emits @theme tokens on `:root, :host`
  *      (specificity 0,1,0) and Starlight sets `--sl-font` on a layered `:root`, so `html[lang="…"]`
- *      (0,1,1) wins without !important. Latin locales (en de tr it id pt-BR) keep Heebo + Fredoka.
+ *      (0,1,1) wins without !important. Latin locales (en de tr id pt-BR) keep Heebo + Fredoka.
  *
  * Swapping a family for a locale is a package swap plus an edit to the matching block below.
  */
@@ -119,58 +119,6 @@
   unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
 }
 
-/* ---------- Devanagari: Poppins (body, static 300/400/500/700 like Heebo) + Baloo 2 (display) — hi ---------- */
-
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 300;
-  src: url('@fontsource/poppins/files/poppins-devanagari-300-normal.woff2') format('woff2');
-  unicode-range:
-    U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
-}
-
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: url('@fontsource/poppins/files/poppins-devanagari-400-normal.woff2') format('woff2');
-  unicode-range:
-    U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
-}
-
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 500;
-  src: url('@fontsource/poppins/files/poppins-devanagari-500-normal.woff2') format('woff2');
-  unicode-range:
-    U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
-}
-
-@font-face {
-  font-family: 'Poppins';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 700;
-  src: url('@fontsource/poppins/files/poppins-devanagari-700-normal.woff2') format('woff2');
-  unicode-range:
-    U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
-}
-
-@font-face {
-  font-family: 'Baloo 2 Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400 800;
-  src: url('@fontsource-variable/baloo-2/files/baloo-2-devanagari-wght-normal.woff2') format('woff2-variations');
-  unicode-range:
-    U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF, U+11B00-11B09;
-}
-
 /* ---------- Family tokens per locale ----------
  * --font-body / --font-fredoka are the Tailwind @theme tokens behind `font-body` and `font-fredoka`
  * (global.css, app.css). --sl-font is Starlight's body face and
@@ -199,23 +147,15 @@ html[lang='ru'] {
   --hipo-font-display: 'Nunito Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
 }
 
-html[lang='hi'] {
-  --font-body: 'Poppins', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-fredoka: 'Baloo 2 Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
-  --sl-font: 'Poppins', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --hipo-font-display: 'Baloo 2 Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
-}
-
 /* ---------- Metrics ----------
- * Arabic and Devanagari carry marks above and below the line and look cramped at Latin leading, so
- * fa/ar/hi get a little more air: the inherited base line-height (Tailwind preflight sets 1.5 on
+ * Arabic carries marks above and below the line and looks cramped at Latin leading, so
+ * fa/ar get a little more air: the inherited base line-height (Tailwind preflight sets 1.5 on
  * html), the Tailwind `leading-*` tokens the utilities resolve through, and Starlight's two
  * line-height variables. Arbitrary `leading-[…]` values in markup are left alone on purpose; the
  * `num` utility's tabular-nums is unaffected. */
 
 html[lang='fa'],
-html[lang='ar'],
-html[lang='hi'] {
+html[lang='ar'] {
   line-height: 1.7;
   --leading-tight: 1.35;
   --leading-snug: 1.45;
