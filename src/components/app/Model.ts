@@ -464,8 +464,8 @@ function trackInputModality(event: Event) {
 }
 
 // i18n (spec §D). The page locale is whatever <html lang> says — server-rendered by every layout from
-// the registry, and copied onto the live document by the ClientRouter on each swap. Either the registry
-// key or its BCP-47 tag matches (`pt-BR` → `pt-br`); anything else is English.
+// the registry, and copied onto the live document by the ClientRouter on each swap. Matches either the
+// registry key or its BCP-47 tag, case-insensitively; anything else is English.
 function localeOfLang(lang: string): Locale {
   lang = lang.toLowerCase()
   for (const key of Object.keys(LOCALES) as Locale[]) {

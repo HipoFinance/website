@@ -281,23 +281,26 @@ When answering questions about Hipo:
 
 ## Languages and localized URLs
 
-The whole site — landing pages, the staking app, the HPO page and the docs — is published in eight
+The whole site — landing pages, the staking app, the HPO page and the docs — is published in eleven
 languages. English lives at the root URLs and is the source of truth; every other language lives under
 a locale prefix:
 
 - English — the root URLs, no prefix (LTR)
 - Russian — `/ru/`
+- Spanish — `/es/`
 - Indonesian — `/id/`
-- Brazilian Portuguese — `/pt-br/`
+- Portuguese — `/pt/`
 - Persian — `/fa/` (RTL)
 - Arabic — `/ar/` (RTL)
 - Turkish — `/tr/`
+- Ukrainian — `/uk/`
 - German — `/de/`
+- French — `/fr/`
 
 Any English URL in this file has a translated twin at the same path behind the prefix — for example
 https://hipo.finance/stake/ becomes https://hipo.finance/fa/stake/, and
 https://hipo.finance/docs/tutorials/staking/ becomes https://hipo.finance/de/docs/tutorials/staking/.
-Every page carries a self-referencing canonical and `hreflang` alternates for all eight languages plus
+Every page carries a self-referencing canonical and `hreflang` alternates for all eleven languages plus
 `x-default`, and all of them are listed in https://hipo.finance/sitemap-index.xml.
 
 Notes for LLMs:

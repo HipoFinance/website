@@ -52,7 +52,16 @@ const script = `
     if (session.getItem(${JSON.stringify(REDIRECT_GUARD_KEY)}) !== null) return
     var keys = ${JSON.stringify(keys)}
     var pref = window.localStorage.getItem(${JSON.stringify(PREF_KEY)})
-    if (pref === null || keys.indexOf(pref) < 0) return
+    if (pref === null) return
+    if (keys.indexOf(pref) < 0) {
+      // A preference stored under a key that no longer exists — 'pt-br' for anyone who picked
+      // Portuguese before the 2026-09-20 rename. Fall back to the primary subtag, the same rule
+      // matchLocale documents, and rewrite the key so the migration happens once. A preference for a
+      // locale that was removed outright (hi, it) has no primary-subtag match and is simply dropped.
+      pref = pref.split('-')[0]
+      if (keys.indexOf(pref) < 0) return
+      window.localStorage.setItem(${JSON.stringify(PREF_KEY)}, pref)
+    }
     // Already reading the preferred language: the session is settled. Marking it here is what stops
     // Back from bouncing forward again after a pick, on a page the bfcache did not keep.
     if (pref === ${JSON.stringify(locale)}) {

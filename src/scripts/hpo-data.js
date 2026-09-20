@@ -138,7 +138,7 @@ let SetText = (el, text) => {
   }
 }
 
-// The registry key whose `lang` matches <html lang> (e.g. lang="pt-BR" → 'pt-br'); English otherwise.
+// The registry key whose `lang` matches <html lang> (e.g. lang="fa" → 'fa'); English otherwise.
 function pageLocale() {
   const lang = document.documentElement.lang
   const match = Object.entries(LOCALES).find(([, info]) => info.lang === lang)

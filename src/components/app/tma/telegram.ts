@@ -122,7 +122,7 @@ function guard(label: string, call: () => void) {
 
 /**
  * The user's Telegram UI language from the launch data (`initDataUnsafe.user.language_code`: an
- * IETF-style tag such as 'en', 'fa' or 'pt-br'), for the mini-app locale override (spec §D). Only a
+ * IETF-style tag such as 'en', 'fa' or 'pt'), for the mini-app locale override (spec §D). Only a
  * real Telegram webview has launch data, so anything but mode 'telegram' resolves to undefined — the
  * `?tma=1` preview included. Call it after initTelegramChrome has confirmed the webview: the dynamic
  * import below is then already evaluated and just returns the cached module, so nothing is loaded or

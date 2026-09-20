@@ -34,12 +34,13 @@ interface Props {
 const { locale } = Astro.props
 
 // Display face first, then body — the heading is both the LCP element and the biggest shift.
-// Locales absent from this map are the Latin ones (en de tr id pt-BR), which keep Heebo +
+// Locales absent from this map are the Latin ones (en de tr id pt es fr), which keep Heebo +
 // Fredoka; see the family tokens at the foot of i18n-fonts.css.
 const PER_LOCALE: Partial<Record<Locale, string[]>> = {
   fa: [vazirmatnArabic],
   ar: [cairoArabic], // Cairo is both the body and the display face for ar, so one file covers both.
   ru: [nunitoCyrillic, robotoCyrillic],
+  uk: [nunitoCyrillic, robotoCyrillic], // Same two faces as ru; Ukrainian adds no glyph outside them.
 }
 
 const faces = PER_LOCALE[locale] ?? [fredokaLatin, heeboLatin400]

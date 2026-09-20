@@ -1,0 +1,22 @@
+{
+  "faq.page.title": "Questions fréquentes",
+  "faq.page.sections": "Sections",
+  "faq.section.gettingStarted.heading": "Premiers pas",
+  "faq.section.gettingStarted.nav": "Premiers pas",
+  "faq.section.staking.heading": "Staking",
+  "faq.section.staking.nav": "Staking",
+  "faq.section.rewards.heading": "Récompenses et APY",
+  "faq.section.rewards.nav": "Récompenses et APY",
+  "faq.section.hgram.heading": "hGRAM",
+  "faq.section.hgram.nav": "hGRAM",
+  "faq.section.unstaking.heading": "Unstaking",
+  "faq.section.unstaking.nav": "Unstaking",
+  "faq.section.security.heading": "Sécurité et risques",
+  "faq.section.security.nav": "Sécurité et risques",
+  "faq.section.validators.heading": "Validateurs et place de marché du staking",
+  "faq.section.validators.nav": "Validateurs et marché",
+  "faq.section.hpoToken.heading": "HPO et Hipo Club",
+  "faq.section.hpoToken.nav": "HPO et Club",
+  "faq.section.support.heading": "Support",
+  "faq.section.support.nav": "Support"
+}

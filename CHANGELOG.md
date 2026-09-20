@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-20 — [detailed report](changelog/2026-09-20-three-locales-and-pt-rename.md)
+
+- Added the Spanish, Ukrainian and French locales, taking the site to eleven.
+- Moved Brazilian Portuguese from `/pt-br/` to `/pt/`, with stubs for its three most-visible URLs.
+- Dropped Chinese from the batch: no CJK font option fits the per-locale byte budget.
+- Pinned the French narrow-no-break-space group separator in the amount-input selftest.
+
 ## 2026-09-20 — [detailed report](changelog/2026-09-20-language-preference-and-locale-lineup.md)
 
 - Closed the language dropdown on an outside click, on Escape and on tabbing away.

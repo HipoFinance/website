@@ -54,10 +54,10 @@ export function localeParams(): { params: { locale: string } }[] {
 }
 
 // Best registry match for a language tag the environment reports — Telegram's `language_code`
-// ('fa', 'pt-br', 'zh-hans') or an entry of navigator.languages ('fa-IR', 'pt-BR', 'en-US') — among
+// ('fa', 'pt', 'zh-hans') or an entry of navigator.languages ('fa-IR', 'pt-BR', 'en-US') — among
 // `candidates` (e.g. the released or the public locales). Case-insensitive, `_` tolerated: the exact
-// key first ('pt-br'), then the primary subtag as a key ('fa-IR' → 'fa'), then any candidate sharing
-// the primary subtag ('pt' / 'pt-PT' → 'pt-br'). undefined when nothing matches. Used by the Telegram
+// key first ('fa'), then the primary subtag as a key ('fa-IR' → 'fa'), then any candidate sharing
+// the primary subtag ('pt-PT' / 'pt-BR' → 'pt'). undefined when nothing matches. Used by the Telegram
 // Mini App locale override (spec §D) and the language-suggestion banner (§J).
 export function matchLocale(tag: string, candidates: readonly Locale[]): Locale | undefined {
   const normalized = tag.trim().toLowerCase().replace(/_/g, '-')
@@ -80,7 +80,7 @@ export function langOf(locale: Locale): string {
 }
 
 // The short code the header language switchers show on phones: the locale key's language part,
-// upper-cased (`pt-br` → `PT`). Derived rather than translated, so it needs no catalog entry.
+// upper-cased (`fa` → `FA`). Derived rather than translated, so it needs no catalog entry.
 export function localeCode(locale: Locale): string {
   return locale.split('-')[0].toUpperCase()
 }

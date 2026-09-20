@@ -1,0 +1,2850 @@
+{
+  "app.amountAlert.insufficientFunds": {
+    "sourceHash": "0f1b4fb91c31ae1a96b27b0655f5bdfcdeaa048b",
+    "reviewed": false
+  },
+  "app.amountAlert.insufficientLiquidity": {
+    "sourceHash": "ffef64c2f30196321e051eeea8c51ef55ad5cfeb",
+    "reviewed": false
+  },
+  "app.amountAlert.notEnoughGram": {
+    "sourceHash": "7f196e6fca1d919cc416b1d5d4b41a45352ff83a",
+    "reviewed": false
+  },
+  "app.amountAlert.notEnoughHgram": {
+    "sourceHash": "ec62129b2627a3b976e92f3b0decd3ebf19fd738",
+    "reviewed": false
+  },
+  "app.amountAlert.notEnoughLiquidity": {
+    "sourceHash": "29761b84a5bbf624a20415cf0bdb1a9d9cb1dc3c",
+    "reviewed": false
+  },
+  "app.chart.ariaNoData": {
+    "sourceHash": "ee947a229d994e7699b53886b61122cec59f088b",
+    "reviewed": false
+  },
+  "app.chart.ariaSummary": {
+    "sourceHash": "291001a4a7aee0f4b9cf010a7c1303cada95b291",
+    "reviewed": false
+  },
+  "app.chart.deltaPp": {
+    "sourceHash": "9b79d281d37a7e16bfc609994b9b911a8aa87541",
+    "reviewed": false
+  },
+  "app.chart.loadError": {
+    "sourceHash": "658fae20a1745d42888b5d35fdf1f7d775440571",
+    "reviewed": false
+  },
+  "app.chart.noData": {
+    "sourceHash": "dbc19010d4b2ad7ae8fba899ac02117ea7761e97",
+    "reviewed": false
+  },
+  "app.chart.range1m": {
+    "sourceHash": "2c5bef1b0337268af682460d2ca1a910ed37df6a",
+    "reviewed": false
+  },
+  "app.chart.range1w": {
+    "sourceHash": "d53520d2de770c1e5cac4cded1632f47430798ca",
+    "reviewed": false
+  },
+  "app.chart.range1y": {
+    "sourceHash": "28234cf283edf566943507dfee4a5b49b1a45c56",
+    "reviewed": false
+  },
+  "app.chart.range24h": {
+    "sourceHash": "a9531cafb82cdb6a66e60db7daaad26ee3cbc07b",
+    "reviewed": false
+  },
+  "app.chart.range3m": {
+    "sourceHash": "6dce1630816460e12a44a2568c8f645b5b2a1662",
+    "reviewed": false
+  },
+  "app.chart.rangeGroup": {
+    "sourceHash": "ace3a74868a1125afb8ef7aa0e470b68df593b93",
+    "reviewed": false
+  },
+  "app.chart.retry": {
+    "sourceHash": "9f5cd8a2e8807d73efa02c844bfbca9fe552b283",
+    "reviewed": false
+  },
+  "app.chart.showTable": {
+    "sourceHash": "445d12dec2a5cd46a068cee8a7be98443ba75bcd",
+    "reviewed": false
+  },
+  "app.chart.time": {
+    "sourceHash": "6c82e6dd86807ee3db07e3c82bec1ae1ce00b08b",
+    "reviewed": false
+  },
+  "app.common.close": {
+    "sourceHash": "bbfa773e5a63a5ea58c9b6207e608ca0120e592a",
+    "reviewed": false
+  },
+  "app.common.connectWallet": {
+    "sourceHash": "ffee40873db706166223f9538f8602a8e3217399",
+    "reviewed": false
+  },
+  "app.common.max": {
+    "sourceHash": "a95e85aed56318093b024674e217cae0bd30241d",
+    "reviewed": false
+  },
+  "app.common.okay": {
+    "sourceHash": "d5445583efacc7a57940d72cf6acd1390639f358",
+    "reviewed": false
+  },
+  "app.common.stake": {
+    "sourceHash": "78d7103a319e808455d397513279d99f3b3f3768",
+    "reviewed": false
+  },
+  "app.common.unstake": {
+    "sourceHash": "f2c62a134e4ba54965156bf541fff36bb520d4b4",
+    "reviewed": false
+  },
+  "app.defi.aggregators": {
+    "sourceHash": "8aff46ff0d10740582792e3ed9dd72cae75a95cf",
+    "reviewed": false
+  },
+  "app.defi.aggregatorsDescription": {
+    "sourceHash": "f30972fca9945846de7cdd1548a322c3b8bb6927",
+    "reviewed": false
+  },
+  "app.defi.earn": {
+    "sourceHash": "2d07806e87b2e95440d8cf2181959072804873be",
+    "reviewed": false
+  },
+  "app.defi.exchanges": {
+    "sourceHash": "a55af0b5c6b159552553407ac063404762cae678",
+    "reviewed": false
+  },
+  "app.defi.exchangesDescription": {
+    "sourceHash": "5d052c84d21ffb95fcb984c02ceab3a5fb17b10f",
+    "reviewed": false
+  },
+  "app.defi.subtitle": {
+    "sourceHash": "0d19278f6813c4a08675e8872e54c60dcff02f87",
+    "reviewed": false
+  },
+  "app.defi.swap": {
+    "sourceHash": "210dd62a81e43d19e22018878ba665485e0526cb",
+    "reviewed": false
+  },
+  "app.defi.title": {
+    "sourceHash": "bd2c97ec72e8f65b5296cc15ca9f52833180fe4d",
+    "reviewed": false
+  },
+  "app.defi.use": {
+    "sourceHash": "1d4d43cc6f3a833e0340a0d1794b6d7b9958657e",
+    "reviewed": false
+  },
+  "app.defi.wallets": {
+    "sourceHash": "98d5a197e598bd2bd463f7fbcdda3a73de1515af",
+    "reviewed": false
+  },
+  "app.defi.walletsDescription": {
+    "sourceHash": "773336c7b7f3e91867d183df3cc3d149ddf1a3cf",
+    "reviewed": false
+  },
+  "app.format.duration.hm": {
+    "sourceHash": "32f9975519150a86353ecbab03bd3174cbed12fb",
+    "reviewed": false
+  },
+  "app.format.duration.m": {
+    "sourceHash": "3aa21f8a7fc6db0d3503c2328bf2ae3db2f1c2b9",
+    "reviewed": false
+  },
+  "app.header.appSections": {
+    "sourceHash": "6d82babf0480b99108326e57dd58fe9ea0c89ca0",
+    "reviewed": false
+  },
+  "app.header.disconnect": {
+    "sourceHash": "ed28e0686e1251ba046f582a3e9ec02470a5e78d",
+    "reviewed": false
+  },
+  "app.header.disconnectWallet": {
+    "sourceHash": "5071a7d62506ed3b6b43da9f63a5b5c64450f689",
+    "reviewed": false
+  },
+  "app.header.language": {
+    "sourceHash": "89b86ab0e66f527166d98df92ddbcf5416ed58f6",
+    "reviewed": false
+  },
+  "app.header.siteNav": {
+    "sourceHash": "5b6825d3c67a35898b7b65fd986a7fe6ca47771d",
+    "reviewed": false
+  },
+  "app.header.toggleMenu": {
+    "sourceHash": "21f9064a33f2f9661789a128a6be46933bbf4bf0",
+    "reviewed": false
+  },
+  "app.model.approxGram": {
+    "sourceHash": "edf29c20848d96b8eca832626e66fdeaa59e3b23",
+    "reviewed": false
+  },
+  "app.model.buttonConnect": {
+    "sourceHash": "234d7c851102688be278f674cbd4bb176abc8faf",
+    "reviewed": false
+  },
+  "app.model.buttonConnectAndStake": {
+    "sourceHash": "1641c8c7cbe088d1a8cde4065c14278bcd161da3",
+    "reviewed": false
+  },
+  "app.model.buttonStake": {
+    "sourceHash": "78d7103a319e808455d397513279d99f3b3f3768",
+    "reviewed": false
+  },
+  "app.model.buttonUnstake": {
+    "sourceHash": "f2c62a134e4ba54965156bf541fff36bb520d4b4",
+    "reviewed": false
+  },
+  "app.model.errorSessionExpired": {
+    "sourceHash": "9753964a9120922ef1111188531ea357a3f78199",
+    "reviewed": false
+  },
+  "app.model.errorTonAccess": {
+    "sourceHash": "2b1ded56499177cf2be5595e8271ae3fa63e4e91",
+    "reviewed": false
+  },
+  "app.model.gram": {
+    "sourceHash": "ec56273b3f8db7855ae1139a465c1c27ea52932a",
+    "reviewed": false
+  },
+  "app.model.gramPlusHpo": {
+    "sourceHash": "691168ae5e76fd16cb178f6f26a3c3ec69cd86be",
+    "reviewed": false
+  },
+  "app.model.hgram": {
+    "sourceHash": "ed42875a575fcca79d281eef576755f1ecff3e23",
+    "reviewed": false
+  },
+  "app.model.hpo": {
+    "sourceHash": "55316b9520ba4602e69b8cae1bbb3225d640cee3",
+    "reviewed": false
+  },
+  "app.model.maxInstant": {
+    "sourceHash": "e44428df3b274346a728742e0561948c2e5e20c7",
+    "reviewed": false
+  },
+  "app.model.rate": {
+    "sourceHash": "310866f5493d56eda5941e09c42436bcec024357",
+    "reviewed": false
+  },
+  "app.model.receiveGramIn": {
+    "sourceHash": "70349b1606df5c90fdbe5bc11e25406a16ad9a2d",
+    "reviewed": false
+  },
+  "app.model.receiveHgramIn": {
+    "sourceHash": "7de137c1755862d1b62090a17aa4e10ad807f27a",
+    "reviewed": false
+  },
+  "app.model.youWillReceive": {
+    "sourceHash": "8d046282e7be77997787fc652ca69514a2ea7de2",
+    "reviewed": false
+  },
+  "app.multisig.amountYouWantToStake": {
+    "sourceHash": "dc86b4c858c643801ca320218feb152e1d5cd27d",
+    "reviewed": false
+  },
+  "app.multisig.arbitraryOrderNote": {
+    "sourceHash": "8066353cc841ac3278084050fda5443de090d3fa",
+    "reviewed": false
+  },
+  "app.multisig.copied": {
+    "sourceHash": "8e3df45a49dba2b26f8ea64a22410bde72f9c8ac",
+    "reviewed": false
+  },
+  "app.multisig.copy": {
+    "sourceHash": "af74f7c5362aaee985bf8cda3dd75fc80751ce51",
+    "reviewed": false
+  },
+  "app.multisig.destinationAddress": {
+    "sourceHash": "f984b88910dd62a58024c1f767f49fa89d812006",
+    "reviewed": false
+  },
+  "app.multisig.dismiss": {
+    "sourceHash": "70afe9eff3f2888493d9b5169fec8331af1810de",
+    "reviewed": false
+  },
+  "app.multisig.entire": {
+    "sourceHash": "747761a820ea0860b14fc6679787e58916623a88",
+    "reviewed": false
+  },
+  "app.multisig.hintStake": {
+    "sourceHash": "fefbc3cb260d7e0d006284869d3f294eb295392b",
+    "reviewed": false
+  },
+  "app.multisig.hintUnstake": {
+    "sourceHash": "e2ec28c57233fd3c8bf222e74e9b4ae0a790bbbd",
+    "reviewed": false
+  },
+  "app.multisig.introFallback": {
+    "sourceHash": "cf11e00b1feab8d130be286c0d50b83c494893aa",
+    "reviewed": false
+  },
+  "app.multisig.openInWallet": {
+    "sourceHash": "5fc4463138841d143aed30998a9db2a7872f73cf",
+    "reviewed": false
+  },
+  "app.multisig.orderBoc": {
+    "sourceHash": "9c61106d6680a1333ddb045369a7517d8ebafa66",
+    "reviewed": false
+  },
+  "app.multisig.orderRateWarning": {
+    "sourceHash": "316f06e9d7ebc35efbeed55f845b036c2ac7fad5",
+    "reviewed": false
+  },
+  "app.multisig.orderSafetyNote": {
+    "sourceHash": "3ead2603bfefbf9f96362d44d1d7de01a7943fcc",
+    "reviewed": false
+  },
+  "app.multisig.showInstructions": {
+    "sourceHash": "548442ddeb1589d32ca890163fb08d2874e8a20b",
+    "reviewed": false
+  },
+  "app.multisig.stakeInstructions": {
+    "sourceHash": "fa35927b23f37b84d61f6cf527f1b8947d5559ad",
+    "reviewed": false
+  },
+  "app.multisig.stakeInstructionsNoAmount": {
+    "sourceHash": "e761b8775c5adac01ae730d719358b9fccadb7cb",
+    "reviewed": false
+  },
+  "app.multisig.textComment": {
+    "sourceHash": "14596bbf3b03f683344db0592fcead8377a4465d",
+    "reviewed": false
+  },
+  "app.multisig.titleFallback": {
+    "sourceHash": "265578955bc0feea32130a17725da98633ae0e5f",
+    "reviewed": false
+  },
+  "app.multisig.tonAmount": {
+    "sourceHash": "1354358fe639b48f35bd346e9dd38b7dc652a2ae",
+    "reviewed": false
+  },
+  "app.multisig.transferNote": {
+    "sourceHash": "88e43eab3123c1537cbc54bd1253de2927786322",
+    "reviewed": false
+  },
+  "app.multisig.treasuryAddress": {
+    "sourceHash": "50bb99c21b31d516095093286c451b237b2b8ab7",
+    "reviewed": false
+  },
+  "app.multisig.unstakeInstructions": {
+    "sourceHash": "523e3c91552ba5e9528712d83b3b1f85eb6a44cd",
+    "reviewed": false
+  },
+  "app.multisig.verifyDestination": {
+    "sourceHash": "e40affb06ba860980fe5a1eb887b41de072b74c0",
+    "reviewed": false
+  },
+  "app.multisig.verifyDestinationLink": {
+    "sourceHash": "e82b30928515e14242de05b823972127ab9f3936",
+    "reviewed": false
+  },
+  "app.nav.defi": {
+    "sourceHash": "0ce66d2e3a7fbcd6a71d6ae0589fb9800604003d",
+    "reviewed": false
+  },
+  "app.nav.docs": {
+    "sourceHash": "68a4194227be4ab74bc3d32363417c0fc1f30055",
+    "reviewed": false
+  },
+  "app.nav.faq": {
+    "sourceHash": "03688ba6aa340b87549088aa5739944cb6b1dc73",
+    "reviewed": false
+  },
+  "app.nav.home": {
+    "sourceHash": "70f8bb9a8a5393ef080507a89e4b98d139000d65",
+    "reviewed": false
+  },
+  "app.nav.hpo": {
+    "sourceHash": "db63ee4352653e50365f6ec30a8ce5d16f79dea6",
+    "reviewed": false
+  },
+  "app.nav.rewards": {
+    "sourceHash": "2f4f4b7fbc81bc11d4aa9263fddf484f1eb90d99",
+    "reviewed": false
+  },
+  "app.nav.stake": {
+    "sourceHash": "78d7103a319e808455d397513279d99f3b3f3768",
+    "reviewed": false
+  },
+  "app.nav.stats": {
+    "sourceHash": "be763e9aba2af6b8baabada85d5e26c043c93fed",
+    "reviewed": false
+  },
+  "app.reward.afterYear": {
+    "sourceHash": "293662a6705530f2225e35c1c32d385dbafad554",
+    "reviewed": false
+  },
+  "app.reward.claim": {
+    "sourceHash": "342f060f6bd563f8e118d5be6b504439e6a5eb27",
+    "reviewed": false
+  },
+  "app.reward.connectPrompt": {
+    "sourceHash": "8174faa5965c17c4f02f1d753adf0182ca9a7f8c",
+    "reviewed": false
+  },
+  "app.reward.distributedVia": {
+    "sourceHash": "a246fb59ee8b92ebe0c0d2f0dd72df2f19dccc98",
+    "reviewed": false
+  },
+  "app.reward.earnedSince": {
+    "sourceHash": "60e53a0bfcf244e1e175506c61f577989875351c",
+    "reviewed": false
+  },
+  "app.reward.firstRewardHours": {
+    "sourceHash": "eaa87d1e8bce0b20d025605c7d6c0a3d15942ace",
+    "reviewed": false
+  },
+  "app.reward.firstRewardWithin": {
+    "sourceHash": "cef1875ccfd5ec2e87695b1908437641e4046366",
+    "reviewed": false
+  },
+  "app.reward.hpoRewards": {
+    "sourceHash": "feac56b29bd9a2afa7fffd42a9dd2430591c0990",
+    "reviewed": false
+  },
+  "app.reward.lastLevelRewards": {
+    "sourceHash": "b7b13d680049ebb9bf02155e9e49d0dd6aa0fe95",
+    "reviewed": false
+  },
+  "app.reward.recent": {
+    "sourceHash": "236c4233bf265c4781659e8c50b0d9a1cc5d225c",
+    "reviewed": false
+  },
+  "app.reward.rewardRate": {
+    "sourceHash": "4511e4e63070e004c0db218a62d4bc92c48d851a",
+    "reviewed": false
+  },
+  "app.reward.rewardRateValue": {
+    "sourceHash": "aa87b4827a56e130b51e9aa91fd73133079cab6e",
+    "reviewed": false
+  },
+  "app.reward.rowLabel": {
+    "sourceHash": "2f4f4b7fbc81bc11d4aa9263fddf484f1eb90d99",
+    "reviewed": false
+  },
+  "app.reward.stakeNow": {
+    "sourceHash": "8f089fec3222dc32fb0c606f937cdd390053c850",
+    "reviewed": false
+  },
+  "app.reward.stakedBalance": {
+    "sourceHash": "61ecef9d96b06d1009e29b0068c22b9e728716d6",
+    "reviewed": false
+  },
+  "app.reward.stakingRewards": {
+    "sourceHash": "2ef0461fba604697b0d1655a09a6bc7daa1082fe",
+    "reviewed": false
+  },
+  "app.reward.startStaking": {
+    "sourceHash": "605a6c65cec802676bd864234047d013174d6c07",
+    "reviewed": false
+  },
+  "app.reward.subtitle": {
+    "sourceHash": "aaa388bdd862121423ff917cefe1f6ee3ccff596",
+    "reviewed": false
+  },
+  "app.reward.title": {
+    "sourceHash": "2f4f4b7fbc81bc11d4aa9263fddf484f1eb90d99",
+    "reviewed": false
+  },
+  "app.reward.totalGramEarned": {
+    "sourceHash": "e6c6058c1965e93c38ee2dbddaecf069771a7cd3",
+    "reviewed": false
+  },
+  "app.reward.totalHpoEarned": {
+    "sourceHash": "121a8465236fdb7e907f120a3d23f71dba38b1c3",
+    "reviewed": false
+  },
+  "app.reward.tryAgain": {
+    "sourceHash": "64feca9a23376cd254269d92c5d80562fba6e264",
+    "reviewed": false
+  },
+  "app.reward.valueInGram": {
+    "sourceHash": "542a46dd2a5e606ba7e4436f32e4f603e98ea0c3",
+    "reviewed": false
+  },
+  "app.stake.amountPlaceholder": {
+    "sourceHash": "43dc8532f7e57be250d7397de3d14085d51516f0",
+    "reviewed": false
+  },
+  "app.stake.askOnTelegram": {
+    "sourceHash": "3e1662883a04094281dcddfa2816f06bf66be01b",
+    "reviewed": false
+  },
+  "app.stake.audits": {
+    "sourceHash": "a80e3858c02a1432c564b5ba05613ef65fee3001",
+    "reviewed": false
+  },
+  "app.stake.docs": {
+    "sourceHash": "68a4194227be4ab74bc3d32363417c0fc1f30055",
+    "reviewed": false
+  },
+  "app.stake.exchangeRate": {
+    "sourceHash": "fabb8ddab6e53e7fee876a3abd581ebedff2a6f6",
+    "reviewed": false
+  },
+  "app.stake.faq": {
+    "sourceHash": "03688ba6aa340b87549088aa5739944cb6b1dc73",
+    "reviewed": false
+  },
+  "app.stake.gramBalance": {
+    "sourceHash": "ee0f38e03c6ed8522ccde248615ae9736899b3a3",
+    "reviewed": false
+  },
+  "app.stake.hgramBalance": {
+    "sourceHash": "28c5d12b0acd706203e94702ebf749941f78d17f",
+    "reviewed": false
+  },
+  "app.stake.optionFull": {
+    "sourceHash": "10b28a8c1e445017f5c61e4266d4b7ad9e9a3748",
+    "reviewed": false
+  },
+  "app.stake.optionFullLine1": {
+    "sourceHash": "435875bcca3697214bf8e184b1ccea50a2382b3d",
+    "reviewed": false
+  },
+  "app.stake.optionFullLine2": {
+    "sourceHash": "4e287cda60c429bbaeb90b8eb8c5bb1a7ff173b0",
+    "reviewed": false
+  },
+  "app.stake.optionInstant": {
+    "sourceHash": "e5dd7083ff5f07cec7b9b34c02884013f777ac05",
+    "reviewed": false
+  },
+  "app.stake.optionInstantLine1": {
+    "sourceHash": "000cb67c9660b4190ccce848e28698dc646bea40",
+    "reviewed": false
+  },
+  "app.stake.optionInstantLine2": {
+    "sourceHash": "1d52486aac92d03bb0da071adcf2a22cf40b0c2b",
+    "reviewed": false
+  },
+  "app.stake.questions": {
+    "sourceHash": "2eab09aa790bf28d770861fa39a71b54f8c5798d",
+    "reviewed": false
+  },
+  "app.stake.staking": {
+    "sourceHash": "1b5a571459ec0eb244454cdb7505583c41cc4264",
+    "reviewed": false
+  },
+  "app.stake.stakingStartsIn": {
+    "sourceHash": "d365434518fbd5a9b18b2fadd6e431679b99571f",
+    "reviewed": false
+  },
+  "app.stake.subtitleStake": {
+    "sourceHash": "0d3b54d5a35953ba6c85f8b323a72a6a55f35580",
+    "reviewed": false
+  },
+  "app.stake.subtitleUnstake": {
+    "sourceHash": "6744896c3553e87c6062d7363ef71c34c9451dc8",
+    "reviewed": false
+  },
+  "app.stake.swapOnExchange": {
+    "sourceHash": "f3f31d1774e5289fe687897a7765cddc876f3d3a",
+    "reviewed": false
+  },
+  "app.stake.titleStake": {
+    "sourceHash": "7d4f2770acdfb158ad705cd22a5b2cd52485d47b",
+    "reviewed": false
+  },
+  "app.stake.titleUnstake": {
+    "sourceHash": "eda0a60c307a9ca8319ba5d313d44dcaa0e124ac",
+    "reviewed": false
+  },
+  "app.stake.transactionCost": {
+    "sourceHash": "069b00a55298a5787e924af3e0dca0b1fb903a5f",
+    "reviewed": false
+  },
+  "app.stake.transactionCostTooltip": {
+    "sourceHash": "86172eb9901cba5f24cc996c9fb52c743bc2e817",
+    "reviewed": false
+  },
+  "app.stake.treasuryOnExplorer": {
+    "sourceHash": "ac147478b589b1ac74df3e1d3a7558d64c66cd7a",
+    "reviewed": false
+  },
+  "app.stake.unstaking": {
+    "sourceHash": "423661331630af46e1d42e76612787adb0960364",
+    "reviewed": false
+  },
+  "app.stake.unstakingIn": {
+    "sourceHash": "a6c132e3fb546073138e424d1c764d08d2b25a5d",
+    "reviewed": false
+  },
+  "app.stake.yearlyRewards": {
+    "sourceHash": "b4d98f306437c689e4c90ab3ba9716a129e80891",
+    "reviewed": false
+  },
+  "app.stake.youWillReceive": {
+    "sourceHash": "4eef2ecfed504a6cbe50f3dcaa7350ee513ab549",
+    "reviewed": false
+  },
+  "app.stats.apyTooltip": {
+    "sourceHash": "92b68077ff92322e39cb7c62b33d140104938dc7",
+    "reviewed": false
+  },
+  "app.stats.apyTooltipLatest": {
+    "sourceHash": "e492565fb9231e264fad89676979525c1dae5746",
+    "reviewed": false
+  },
+  "app.stats.apyWindow": {
+    "sourceHash": "807ce09615f1ad144abc9a5dc65450464704d7a4",
+    "reviewed": false
+  },
+  "app.stats.gramStaked": {
+    "sourceHash": "4bbc0e893133814985d7fa23db855a21f4036e1c",
+    "reviewed": false
+  },
+  "app.stats.gramStakedTooltip": {
+    "sourceHash": "210b7aa0cf1ca4c7217719302d64b726ca6f8dda",
+    "reviewed": false
+  },
+  "app.stats.hgramHolders": {
+    "sourceHash": "c573a6254042dd7b5c211b69abefce33d093c724",
+    "reviewed": false
+  },
+  "app.stats.hgramHoldersTooltip": {
+    "sourceHash": "1b2c743b4df270945a3912f518f133536694947b",
+    "reviewed": false
+  },
+  "app.stats.moreStats": {
+    "sourceHash": "843cc5d1798b44ee47638c6db63695e758cb67f7",
+    "reviewed": false
+  },
+  "app.statsPage.activeStakers": {
+    "sourceHash": "10ddbf76d9f36c6b91c9928dc861895ba667f176",
+    "reviewed": false
+  },
+  "app.statsPage.apyWindow": {
+    "sourceHash": "807ce09615f1ad144abc9a5dc65450464704d7a4",
+    "reviewed": false
+  },
+  "app.statsPage.change24h": {
+    "sourceHash": "3090f6af605a1e37cae3e565a0598c83c3be5c95",
+    "reviewed": false
+  },
+  "app.statsPage.chartApy": {
+    "sourceHash": "da00f59335979a88e31c1457bedf5cd1adcbd43f",
+    "reviewed": false
+  },
+  "app.statsPage.chartHpoPrice": {
+    "sourceHash": "26d5adac40d3a2d3f4e178842b5a6f5bb0170a2e",
+    "reviewed": false
+  },
+  "app.statsPage.chartLiquidity": {
+    "sourceHash": "959ec327b3e1cb3a1da9c77d0804bb29c62a06a7",
+    "reviewed": false
+  },
+  "app.statsPage.chartLiquidityNote": {
+    "sourceHash": "db4014323a0116a75a7acc9f1fd73c6e6df76d5f",
+    "reviewed": false
+  },
+  "app.statsPage.chartPrices": {
+    "sourceHash": "271d298a1db4bfbb7216d06d3b0e0010890af645",
+    "reviewed": false
+  },
+  "app.statsPage.chartPricesNote": {
+    "sourceHash": "1544a09e98a2d4f5161f2431bf482224792cd81f",
+    "reviewed": false
+  },
+  "app.statsPage.chartTvl": {
+    "sourceHash": "14ca484c4cd1d728accbef187449f76817d2d742",
+    "reviewed": false
+  },
+  "app.statsPage.circulatingSupply": {
+    "sourceHash": "fea16a0615d9b6a63841fd216768e8751eea331d",
+    "reviewed": false
+  },
+  "app.statsPage.compareProtocols": {
+    "sourceHash": "d44d8f6c10f85eb4a8215b4322918629cd018ef8",
+    "reviewed": false
+  },
+  "app.statsPage.deltaOver": {
+    "sourceHash": "502c0f0ff9d17f03c43be240302d88bfd0fc8dae",
+    "reviewed": false
+  },
+  "app.statsPage.exactly": {
+    "sourceHash": "ddfae042dbf37f3cecb13944c1ba6575180d4421",
+    "reviewed": false
+  },
+  "app.statsPage.holders": {
+    "sourceHash": "65e14a168f400df507c4ff9b21518f3698c0b154",
+    "reviewed": false
+  },
+  "app.statsPage.marketCap": {
+    "sourceHash": "690d2fadac07f54e676911d19981bac6bd491631",
+    "reviewed": false
+  },
+  "app.statsPage.moreStats": {
+    "sourceHash": "843cc5d1798b44ee47638c6db63695e758cb67f7",
+    "reviewed": false
+  },
+  "app.statsPage.onlyGoesUp": {
+    "sourceHash": "056018f8f9e037bde9e69d97086f098cdc71c930",
+    "reviewed": false
+  },
+  "app.statsPage.price": {
+    "sourceHash": "3e8248e32edfca0c629622b5b669c2d9ce4d0917",
+    "reviewed": false
+  },
+  "app.statsPage.rateLabel": {
+    "sourceHash": "ad58b86ef32e1ffed7a80cfeb11cf2539317dff7",
+    "reviewed": false
+  },
+  "app.statsPage.refreshNote": {
+    "sourceHash": "e41f7ff5ff6cd5fedad375cb3c91f1fffb9f72b1",
+    "reviewed": false
+  },
+  "app.statsPage.seriesApy": {
+    "sourceHash": "5247a2c8e1bf8d2b8579f08689d56c2828c262d1",
+    "reviewed": false
+  },
+  "app.statsPage.seriesHolders": {
+    "sourceHash": "c573a6254042dd7b5c211b69abefce33d093c724",
+    "reviewed": false
+  },
+  "app.statsPage.seriesLatestApy": {
+    "sourceHash": "0bf32914d98372ad8a445d49c30fc2189795a143",
+    "reviewed": false
+  },
+  "app.statsPage.seriesLiquidity": {
+    "sourceHash": "c9dbf8d81fbca2351a57ac057f6239904198f00a",
+    "reviewed": false
+  },
+  "app.statsPage.seriesRate": {
+    "sourceHash": "eff74a45cdeaef7d5a8710381b94e98c355fe337",
+    "reviewed": false
+  },
+  "app.statsPage.seriesStaked": {
+    "sourceHash": "ca37c7aa9669b56d22a0aad2c9e10a58944490b4",
+    "reviewed": false
+  },
+  "app.statsPage.sourceOnGithub": {
+    "sourceHash": "c60f2f817f1279e1160986eb4acd5e8750377b0f",
+    "reviewed": false
+  },
+  "app.statsPage.stakingFee": {
+    "sourceHash": "5a8bf56da70027b78e6d222a5ded90fb812516c2",
+    "reviewed": false
+  },
+  "app.statsPage.subtitle": {
+    "sourceHash": "715b808240828259942cc3734435e05907781c0d",
+    "reviewed": false
+  },
+  "app.statsPage.title": {
+    "sourceHash": "57d2f83aa0093f720c93b03a0959a926d1bda269",
+    "reviewed": false
+  },
+  "app.statsPage.totalVolume": {
+    "sourceHash": "7d4a008e8a30ff46213b06cd790ec6e4bc2d01b6",
+    "reviewed": false
+  },
+  "app.statsPage.treasuryOnExplorer": {
+    "sourceHash": "ac147478b589b1ac74df3e1d3a7558d64c66cd7a",
+    "reviewed": false
+  },
+  "app.statsPage.tvlLabel": {
+    "sourceHash": "ee764f2c12d9e6ffbd5f23117587c6fb49422ba0",
+    "reviewed": false
+  },
+  "app.statsPage.tvlLabelWithUsd": {
+    "sourceHash": "29fb7352dc350378c01698faf15be1f61a284599",
+    "reviewed": false
+  },
+  "app.tma.balance": {
+    "sourceHash": "2949e86714f0f631b6a53e887c62753b213f69cc",
+    "reviewed": false
+  },
+  "app.tma.connect": {
+    "sourceHash": "b65463cb6a42a17de514acc4659f7fd331e0876a",
+    "reviewed": false
+  },
+  "app.tma.disconnectWalletAddress": {
+    "sourceHash": "93b8ebf5cd30a6a0f0809ad1afa3c86477a92b65",
+    "reviewed": false
+  },
+  "app.tma.questions": {
+    "sourceHash": "5988981eb74f6b37c2769b84c9da4f2e773f708f",
+    "reviewed": false
+  },
+  "app.tma.subline": {
+    "sourceHash": "cd812a0b0b214f332de561b8b3b08f69a67dc6cb",
+    "reviewed": false
+  },
+  "app.tma.youReceive": {
+    "sourceHash": "29cc70a6ace646669b7ca2e64d63a32fd8bda446",
+    "reviewed": false
+  },
+  "app.tma.youStake": {
+    "sourceHash": "ed9231c9914d616928eeb26b4a105200fd9c2564",
+    "reviewed": false
+  },
+  "app.tma.youUnstake": {
+    "sourceHash": "57bc8a38d1f18e877c591a5108a0c31034c102c0",
+    "reviewed": false
+  },
+  "app.wait.bouncedStakeMessage": {
+    "sourceHash": "a622c098d9bfea3043941011efc599692fce8f2d",
+    "reviewed": false
+  },
+  "app.wait.bouncedStakeTitle": {
+    "sourceHash": "19bdeabe9c60a1e45f5409ccd3bb1ba4cf8a2167",
+    "reviewed": false
+  },
+  "app.wait.bouncedUnstakeMessage": {
+    "sourceHash": "9ce9040fc10e6f72b7a026a2d15c0b735a0bf0b5",
+    "reviewed": false
+  },
+  "app.wait.bouncedUnstakeTitle": {
+    "sourceHash": "359790799e39079623a7707f785fece208c2b2cc",
+    "reviewed": false
+  },
+  "app.wait.finalizingMessage": {
+    "sourceHash": "95da254bc89277add189c2669f91d6a1bf0e4f14",
+    "reviewed": false
+  },
+  "app.wait.finalizingTitle": {
+    "sourceHash": "32dc728d60a3b69e4f7e86653fa37cc3bca1aaa6",
+    "reviewed": false
+  },
+  "app.wait.queuedStakeMessage": {
+    "sourceHash": "755e32b60230741f67ee065dd66a37c504311a9e",
+    "reviewed": false
+  },
+  "app.wait.queuedStakeTitle": {
+    "sourceHash": "c4c2c760c4fb081c2de628a94cfaca4f43c3e2e0",
+    "reviewed": false
+  },
+  "app.wait.queuedUnstakeMessage": {
+    "sourceHash": "91397c63fa662e4b76311b98cbbb5127078424d2",
+    "reviewed": false
+  },
+  "app.wait.queuedUnstakeTitle": {
+    "sourceHash": "ed9254f2d002190c277f67d7d7d5c26cfbd4d4b0",
+    "reviewed": false
+  },
+  "app.wait.rejectedMessage": {
+    "sourceHash": "8ae3ea5916dbdd8c117ac48c386db9694e2065bc",
+    "reviewed": false
+  },
+  "app.wait.rejectedTitle": {
+    "sourceHash": "12b9841e753e4be8bccd70d0f09dde0fa9689dbb",
+    "reviewed": false
+  },
+  "app.wait.stakedTitle": {
+    "sourceHash": "be65dded87595581aabd3138798969efb58de994",
+    "reviewed": false
+  },
+  "app.wait.timeoutMessage": {
+    "sourceHash": "7eea10a686cdcc78109c84cda321ec10db97058a",
+    "reviewed": false
+  },
+  "app.wait.timeoutTitle": {
+    "sourceHash": "0a2adfc939bbef4e71830e23ad0500b2d2618f6a",
+    "reviewed": false
+  },
+  "app.wait.unreachableMessage": {
+    "sourceHash": "21ec0a318372d5ee69f4658a529485bde2fd8a4f",
+    "reviewed": false
+  },
+  "app.wait.unreachableTitle": {
+    "sourceHash": "c8754df487f02d771cdcc122df7be4b56891a16b",
+    "reviewed": false
+  },
+  "app.wait.unstakedTitle": {
+    "sourceHash": "ca073b8a2659a6117fbf7f0b1b03ff5579ec001c",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/": {
+    "sourceHash": "7de70c1b9faa8dd17ac41426e19ab86ba2546068",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/brand-kit/": {
+    "sourceHash": "4872b0fd48b3a7885cd566da2583f5fb59b40b5b",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/contracts-and-audits/": {
+    "sourceHash": "0a03695925b52f292d9ff177d348ae6d23d21364",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/dao/": {
+    "sourceHash": "2d504e39b4c79371e09ddcba87d2a712e40be739",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/fees-and-gas/": {
+    "sourceHash": "1f9595babcb125be67937ba90d3a19e8b2aa4d3e",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/giveaways-and-prizes/hipo-club/": {
+    "sourceHash": "9c1d322bca4328ee84a05d753bb7f0cd66141fe9",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/giveaways-and-prizes/hipo-club/hipo-club-season-2/": {
+    "sourceHash": "88c868e5f3d1343948f0b256eccbe2b4581a658e",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/giveaways-and-prizes/hipo-club/hipo-club-season-3/": {
+    "sourceHash": "ae85bb8a255cef5073614f112acd04dc47c9660e",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/giveaways-and-prizes/hipo-gang/": {
+    "sourceHash": "0efc2e6be4c23b9a513d7ce0dcff8ed80e8912e7",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/giveaways-and-prizes/hipo-gang/hipo-gang-season-1/": {
+    "sourceHash": "0db13bd078ad3376258d3a8e2c6eb0d55e8dd895",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/giveaways-and-prizes/hipo-incentive-programs/": {
+    "sourceHash": "34bfbc499049d143610db688ca00787780673ec9",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/giveaways-and-prizes/hipo-nfts/": {
+    "sourceHash": "7e4a1d785022ce10a7d0441033dcdc2356a217f2",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/giveaways-and-prizes/hipo-usd1-000-000-rewards-program/": {
+    "sourceHash": "fbc0d594da95e0b74c41956d6b61cde244f2c7fd",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/giveaways-and-prizes/tvl-milestone-rewards/": {
+    "sourceHash": "0bed289ef3bd6195f1ccfcbcf80349ae14f26a38",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/glossary/": {
+    "sourceHash": "69eb50d2278e1a8e5d8f677d5b0b96be24accf78",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/hipo-ambassadors-program/": {
+    "sourceHash": "ed9ebb83ee634da13329a94e800e284977839e19",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/hipo-fund/": {
+    "sourceHash": "0efc2e6be4c23b9a513d7ce0dcff8ed80e8912e7",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/hipo-fund/investment-policy-statement/": {
+    "sourceHash": "6fe6e41e0f1d4afb7359727ecbbf0740b2f4e170",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/hipo-fund/quarterly-report-august-1-2025/": {
+    "sourceHash": "654c2aeb88016e64c3a692038ce4686bf92320ef",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/hipo-fund/quarterly-report-august-24-2026/": {
+    "sourceHash": "8cabedde1bdd4913d265b9abfc928da23fb831be",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/hipo-fund/quarterly-report-december-18-2025/": {
+    "sourceHash": "0229aae099fe04012b60051137f088069beeb67b",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/hipo-mcp-server/": {
+    "sourceHash": "2bc401eff2bad958a4aec5b24e6d919a7ea62328",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/hipo-tokens/hipo-governance-token-hpo/": {
+    "sourceHash": "940b10cb0957099c46ecf2d7e6cd045bc10e3b1a",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/": {
+    "sourceHash": "13464ece98a851cd77386d1fb25ab707d10f9ee9",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/hipo-tokens/hipo-staked-gram-hgram/": {
+    "sourceHash": "cde797234453671e3ca59ee36034833cd32c403a",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/hipo-tokens/hipo-staked-gram-hgram/hgram-use-cases/": {
+    "sourceHash": "6d90acf552ae16a00d669d7484fa9bf73e78a905",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/introduction/advantages-of-hipo/": {
+    "sourceHash": "9f9c62e10eca689bef6d9178a6b055e944727cef",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/introduction/hipo-on-dune/": {
+    "sourceHash": "9ec5b2a0d1ecf9f548d33dc8721fc61ba1dcf8b8",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/introduction/hipo-rewards/": {
+    "sourceHash": "2ddd996df0185e9d212bbd04ad10b7d9b3e6d8d8",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/introduction/hipo-stats/": {
+    "sourceHash": "93cea770f4617beb97e9886f4346ea6cb06de253",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/introduction/how-does-hipo-work/": {
+    "sourceHash": "cab1fe98cb955190536e127132cdf2fb725a6af6",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/introduction/how-does-hipo-work/unstaking/": {
+    "sourceHash": "6e02a02e6de0aea8d498f8a1869742787b2c361c",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/introduction/how-does-hipo-work/validators/": {
+    "sourceHash": "8dc1129f436e04e1b8492b10c70be63d56154da1",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/introduction/liquid-staking/": {
+    "sourceHash": "84b75e32b29ca9790fe4100fee3f350cecd8adb9",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/legal-agreements/privacy-policy/": {
+    "sourceHash": "f7d638d012e6714a7257cc0765d824c52ec1f386",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/legal-agreements/terms-of-use/": {
+    "sourceHash": "2c24312dc5b94b7b71657a1e939a59a92c1e4766",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/profit-sharing/": {
+    "sourceHash": "b03d00a2cd53ec6e5f90d369864b06378f80fe07",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/risks/": {
+    "sourceHash": "33b6583f21709810c9d17ae814c1c9d94cfacddc",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/security/phishing-awareness-and-prevention/": {
+    "sourceHash": "353e1ff7e9344e38b550d9a4653598aa003c2aa6",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/security/why-your-security-matters/": {
+    "sourceHash": "1f88c0f1adeefd89c39bf834ca0c98ff79c6fad5",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/staking-without-the-app/": {
+    "sourceHash": "4d943c7c29256b7ce025827f89db96fab2c21c27",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/tutorials/staking/": {
+    "sourceHash": "ccca821bd1711e424a19933bd568d384d102d739",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/tutorials/unstaking/": {
+    "sourceHash": "c125ec158ba831873ea536508007f76b89135411",
+    "reviewed": false
+  },
+  "docs-sidebar//docs/wallets-and-rewards/": {
+    "sourceHash": "ccec0273dad86c6d56cc83421b6cc59692d46ca9",
+    "reviewed": false
+  },
+  "docs-sidebar/group:🎩 Hipo Gang (ended 2025)": {
+    "sourceHash": "941eeaf4f09f3aa56d1ebac81cb3ec897a8eea2d",
+    "reviewed": false
+  },
+  "docs-sidebar/group:🏅 Hipo Club Seasons": {
+    "sourceHash": "326d73eba8bb2761610172c5b542f297180a9c39",
+    "reviewed": false
+  },
+  "docs-sidebar/group:💡 Start Here": {
+    "sourceHash": "eed58ade1e01cab36cb6648a72a787a9f9948e51",
+    "reviewed": false
+  },
+  "docs-sidebar/group:💰 Hipo Fund": {
+    "sourceHash": "6ca36aa260834117f9bab81e550783264eac1bb0",
+    "reviewed": false
+  },
+  "docs-sidebar/group:📚 Using Hipo": {
+    "sourceHash": "7f1f9657aaec1a2913a2261a7043d3d3cb1328f1",
+    "reviewed": false
+  },
+  "docs-sidebar/group:📜 Legal": {
+    "sourceHash": "500b16d70ee83cb34b16dbf54f258a27e40c3907",
+    "reviewed": false
+  },
+  "docs-sidebar/group:🗄️ Archive: Past Programs": {
+    "sourceHash": "9efdd16d1c882ae7afc991f734873138bd0ba8f9",
+    "reviewed": false
+  },
+  "docs-sidebar/group:🛠️ Developers": {
+    "sourceHash": "bc5390ca2975ad9dbe221bc360581f8e684cf7f2",
+    "reviewed": false
+  },
+  "docs-sidebar/group:🛡️ Security & Transparency": {
+    "sourceHash": "2da4a302818b9f3a00eedb18688049a546bae9f0",
+    "reviewed": false
+  },
+  "docs-sidebar/group:🪙 Tokens & Governance": {
+    "sourceHash": "34ef62e64e3004379a1977f9de1ee46637a46f79",
+    "reviewed": false
+  },
+  "docs/brand-kit.md": {
+    "sourceHash": "f6ab597025b6e6f2ab9f3b763b9827833a2bbd2f",
+    "reviewed": false
+  },
+  "docs/contracts-and-audits.md": {
+    "sourceHash": "f53e418bd9e391cdb64bb14eda91570d05543911",
+    "reviewed": false
+  },
+  "docs/dao.md": {
+    "sourceHash": "d77e9f591ab2a40b62818dd80564f1713ff48ff7",
+    "reviewed": false
+  },
+  "docs/fees-and-gas.md": {
+    "sourceHash": "fd3980c49d05dc191f46bcdc16d1153dd888cc83",
+    "reviewed": false
+  },
+  "docs/giveaways-and-prizes/hipo-club.md": {
+    "sourceHash": "9b6f1e33b29ba85531e8a774d2ae06a002f4b06e",
+    "reviewed": false
+  },
+  "docs/giveaways-and-prizes/hipo-club/hipo-club-season-2.md": {
+    "sourceHash": "ca656e5ded79802fd156ba34dbd7e547bb1de9a5",
+    "reviewed": false
+  },
+  "docs/giveaways-and-prizes/hipo-club/hipo-club-season-3.md": {
+    "sourceHash": "1a07a5ce537a38483483d26660696d985a2ad359",
+    "reviewed": false
+  },
+  "docs/giveaways-and-prizes/hipo-gang.md": {
+    "sourceHash": "19f85d38c31cd6d0dcbd501e80eb070e1d7eb89e",
+    "reviewed": false
+  },
+  "docs/giveaways-and-prizes/hipo-gang/hipo-gang-season-1.md": {
+    "sourceHash": "d0b981270b43b15ed9f7b080b681c739962862b2",
+    "reviewed": false
+  },
+  "docs/giveaways-and-prizes/hipo-incentive-programs.md": {
+    "sourceHash": "3ab29a21e8db424e4c18007e97e9832fd4ef0a02",
+    "reviewed": false
+  },
+  "docs/giveaways-and-prizes/hipo-nfts.md": {
+    "sourceHash": "87daa555101ad3d7066383c9360201c6e01d481c",
+    "reviewed": false
+  },
+  "docs/giveaways-and-prizes/hipo-usd1-000-000-rewards-program.md": {
+    "sourceHash": "02a61473f1476a0fc93e22e460090525e74ef9d0",
+    "reviewed": false
+  },
+  "docs/giveaways-and-prizes/tvl-milestone-rewards.md": {
+    "sourceHash": "feeaef9abbb3753eff7a44a5bc0ed30cf2ae8591",
+    "reviewed": false
+  },
+  "docs/glossary.md": {
+    "sourceHash": "f084fe0dcdfbbb79401b8220486ce65e942ad6dc",
+    "reviewed": false
+  },
+  "docs/hipo-ambassadors-program.md": {
+    "sourceHash": "26f0c96b39e5722a445c0698e449e925c5884947",
+    "reviewed": false
+  },
+  "docs/hipo-fund.md": {
+    "sourceHash": "e361d9f508b06a9092caf25956951bfecbd7a197",
+    "reviewed": false
+  },
+  "docs/hipo-fund/investment-policy-statement.md": {
+    "sourceHash": "c246e37244ea6ec41f46166aaa1308c1deb80a2d",
+    "reviewed": false
+  },
+  "docs/hipo-fund/quarterly-report-august-1-2025.md": {
+    "sourceHash": "b8b7b5758c8a52ca4827edc82b37fa578754148a",
+    "reviewed": false
+  },
+  "docs/hipo-fund/quarterly-report-august-24-2026.md": {
+    "sourceHash": "516eb68e82dc5409a47b1ab2b5d4c4e223a8275e",
+    "reviewed": false
+  },
+  "docs/hipo-fund/quarterly-report-december-18-2025.md": {
+    "sourceHash": "9f22019634eef01efdfba7028c187ec166acf5b0",
+    "reviewed": false
+  },
+  "docs/hipo-mcp-server.md": {
+    "sourceHash": "45c0e303df20560ed83ba4050fa93c36d5bb690d",
+    "reviewed": false
+  },
+  "docs/hipo-tokens/hipo-governance-token-hpo.md": {
+    "sourceHash": "a807b6574e7a9f88ea89f57741dd2dc25e1d7c39",
+    "reviewed": false
+  },
+  "docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution.md": {
+    "sourceHash": "d3be033d64a0278cc52d7624ff7f5b7b2ae021a9",
+    "reviewed": false
+  },
+  "docs/hipo-tokens/hipo-staked-gram-hgram.md": {
+    "sourceHash": "a615d763ff0c6633d4e6e008d93c21989147cbf7",
+    "reviewed": false
+  },
+  "docs/hipo-tokens/hipo-staked-gram-hgram/hgram-use-cases.md": {
+    "sourceHash": "276cc2e650b61c1f7e5aac63ec9015105218101f",
+    "reviewed": false
+  },
+  "docs/index.md": {
+    "sourceHash": "706f031f4157132d16b4bd1a874b71b6e9857cca",
+    "reviewed": false
+  },
+  "docs/introduction/advantages-of-hipo.md": {
+    "sourceHash": "642ecab518073d4e971a9e0276d21bc52a3656a9",
+    "reviewed": false
+  },
+  "docs/introduction/hipo-on-dune.md": {
+    "sourceHash": "09a18e55a9d1cb05e0a0732e362f85127049ce67",
+    "reviewed": false
+  },
+  "docs/introduction/hipo-rewards.md": {
+    "sourceHash": "764a03d39ee2546a91e21826eb4c1c07f4288a52",
+    "reviewed": false
+  },
+  "docs/introduction/hipo-stats.md": {
+    "sourceHash": "fad198af027c2806c89e8ecfdd8396c873925580",
+    "reviewed": false
+  },
+  "docs/introduction/how-does-hipo-work.md": {
+    "sourceHash": "a92f76eb380ab45e08d8f2b1d2300d61bb490cda",
+    "reviewed": false
+  },
+  "docs/introduction/how-does-hipo-work/unstaking.md": {
+    "sourceHash": "94243b334f77157c22697058b6b47f05c425a935",
+    "reviewed": false
+  },
+  "docs/introduction/how-does-hipo-work/validators.md": {
+    "sourceHash": "c48377c6d1ffda6e53caa02c78fad6d10ee53c2a",
+    "reviewed": false
+  },
+  "docs/introduction/liquid-staking.md": {
+    "sourceHash": "6852462372a767d6fe137408f8e9115fd1a44dcc",
+    "reviewed": false
+  },
+  "docs/legal-agreements/privacy-policy.md": {
+    "sourceHash": "2223b8b362444d5ce4126ec11d79b1ee63827ffa",
+    "reviewed": false
+  },
+  "docs/legal-agreements/terms-of-use.md": {
+    "sourceHash": "edb8c98c4a181c899049378cccf0fbc52b5c0aaa",
+    "reviewed": false
+  },
+  "docs/profit-sharing.md": {
+    "sourceHash": "d4d2432056363bfe6d670d4a49ff961301266ae3",
+    "reviewed": false
+  },
+  "docs/risks.md": {
+    "sourceHash": "c2d666b6679dac1ccb3a72e455b7ea5177c0fa8f",
+    "reviewed": false
+  },
+  "docs/security/phishing-awareness-and-prevention.md": {
+    "sourceHash": "159e859406fec7c0c590677b67432324de190ecb",
+    "reviewed": false
+  },
+  "docs/security/why-your-security-matters.md": {
+    "sourceHash": "3201f5a8736cd7df13099520eab2cfe3d89f3050",
+    "reviewed": false
+  },
+  "docs/staking-without-the-app.md": {
+    "sourceHash": "b580cee14e120b018d9a28fa4984e80cdbcd1c81",
+    "reviewed": false
+  },
+  "docs/tutorials/staking.md": {
+    "sourceHash": "b0f42d61a72b31b6e0bd3778c8e1652984dcd15c",
+    "reviewed": false
+  },
+  "docs/tutorials/unstaking.md": {
+    "sourceHash": "01398e4a555ef0e779eddf5d58180a83d9ad34bd",
+    "reviewed": false
+  },
+  "docs/wallets-and-rewards.md": {
+    "sourceHash": "26d322bef43f54458a3de2af677686a40bec40e8",
+    "reviewed": false
+  },
+  "faq.page.sections": {
+    "sourceHash": "7ff5a6dafd806f6d95302657c480d07703b64604",
+    "reviewed": false
+  },
+  "faq.page.title": {
+    "sourceHash": "af90cef80988974dd76636b3adb5f472768f785d",
+    "reviewed": false
+  },
+  "faq.section.gettingStarted.heading": {
+    "sourceHash": "76e7a3a3f9c225fe820ba7e9cff10ea2a73b79a1",
+    "reviewed": false
+  },
+  "faq.section.gettingStarted.nav": {
+    "sourceHash": "76e7a3a3f9c225fe820ba7e9cff10ea2a73b79a1",
+    "reviewed": false
+  },
+  "faq.section.hgram.heading": {
+    "sourceHash": "aa5c1c986f1b3f882c2a6b3fa43023b04843240d",
+    "reviewed": false
+  },
+  "faq.section.hgram.nav": {
+    "sourceHash": "aa5c1c986f1b3f882c2a6b3fa43023b04843240d",
+    "reviewed": false
+  },
+  "faq.section.hpoToken.heading": {
+    "sourceHash": "f07705b188823779fd5d3e90b896d7dd2fc28231",
+    "reviewed": false
+  },
+  "faq.section.hpoToken.nav": {
+    "sourceHash": "fb1d82327630da6857cb70fc2ba9c674968ed220",
+    "reviewed": false
+  },
+  "faq.section.rewards.heading": {
+    "sourceHash": "0990dbdfc1708471544f49cf7b89b6951fabb31c",
+    "reviewed": false
+  },
+  "faq.section.rewards.nav": {
+    "sourceHash": "0990dbdfc1708471544f49cf7b89b6951fabb31c",
+    "reviewed": false
+  },
+  "faq.section.security.heading": {
+    "sourceHash": "780180f2a2ab585138f3923c720fa755839b3943",
+    "reviewed": false
+  },
+  "faq.section.security.nav": {
+    "sourceHash": "780180f2a2ab585138f3923c720fa755839b3943",
+    "reviewed": false
+  },
+  "faq.section.staking.heading": {
+    "sourceHash": "1b5a571459ec0eb244454cdb7505583c41cc4264",
+    "reviewed": false
+  },
+  "faq.section.staking.nav": {
+    "sourceHash": "1b5a571459ec0eb244454cdb7505583c41cc4264",
+    "reviewed": false
+  },
+  "faq.section.support.heading": {
+    "sourceHash": "f32d5a3b17e614297417cc279a7ec1cd02274d65",
+    "reviewed": false
+  },
+  "faq.section.support.nav": {
+    "sourceHash": "f32d5a3b17e614297417cc279a7ec1cd02274d65",
+    "reviewed": false
+  },
+  "faq.section.unstaking.heading": {
+    "sourceHash": "423661331630af46e1d42e76612787adb0960364",
+    "reviewed": false
+  },
+  "faq.section.unstaking.nav": {
+    "sourceHash": "423661331630af46e1d42e76612787adb0960364",
+    "reviewed": false
+  },
+  "faq.section.validators.heading": {
+    "sourceHash": "b75dd984c731bb47d623b034799431e46e6813ce",
+    "reviewed": false
+  },
+  "faq.section.validators.nav": {
+    "sourceHash": "edddb3e81ce83206b01b8f6b2fd90649709afb2a",
+    "reviewed": false
+  },
+  "hpo.buy.step1.num": {
+    "sourceHash": "ddfe163345d338193ac2bdc183f8e9dcff904b43",
+    "reviewed": false
+  },
+  "hpo.buy.step1.text": {
+    "sourceHash": "c0122d6b76179dc7cd0e9597d1b614ed6e93cc0f",
+    "reviewed": false
+  },
+  "hpo.buy.step2.num": {
+    "sourceHash": "bcac9d1d8eab3713ae489224d0130c9468e7a0e3",
+    "reviewed": false
+  },
+  "hpo.buy.step2.text": {
+    "sourceHash": "458bd8bb415909b41b56ded6d1a0a60ceef68442",
+    "reviewed": false
+  },
+  "hpo.buy.step3.num": {
+    "sourceHash": "3ea6c91e241f256e5e3a88ebd647372022323a53",
+    "reviewed": false
+  },
+  "hpo.buy.step3.text": {
+    "sourceHash": "cf60a233a25f0a7aa290abd186d277c66dfcaaae",
+    "reviewed": false
+  },
+  "hpo.buy.step4.num": {
+    "sourceHash": "798f861ee74f6ff83ccbc9c53b419941d0080e50",
+    "reviewed": false
+  },
+  "hpo.buy.step4.text": {
+    "sourceHash": "b75e4051fe40a1b44b28e9cfeb6fca7c67cabe56",
+    "reviewed": false
+  },
+  "hpo.buy.title": {
+    "sourceHash": "1fb4a04a39f9abc8d91a953b8c59743560a724f2",
+    "reviewed": false
+  },
+  "hpo.cta.body": {
+    "sourceHash": "67596971b9c9987d09f99a49c995435121b372ec",
+    "reviewed": false
+  },
+  "hpo.cta.buy": {
+    "sourceHash": "131949f3d136642712501f8de212ae3621eb91f4",
+    "reviewed": false
+  },
+  "hpo.cta.title": {
+    "sourceHash": "1dde8bcbfb582c525b9105b93e0c739827929e81",
+    "reviewed": false
+  },
+  "hpo.faq.item": {
+    "sourceHash": "4457b1909c2daa0a870f6cfa5e1c85543448159a",
+    "reviewed": false
+  },
+  "hpo.faq.title": {
+    "sourceHash": "03688ba6aa340b87549088aa5739944cb6b1dc73",
+    "reviewed": false
+  },
+  "hpo.hero.buy": {
+    "sourceHash": "131949f3d136642712501f8de212ae3621eb91f4",
+    "reviewed": false
+  },
+  "hpo.hero.holders": {
+    "sourceHash": "65e14a168f400df507c4ff9b21518f3698c0b154",
+    "reviewed": false
+  },
+  "hpo.hero.lead": {
+    "sourceHash": "67f88e1c8bf5525fac77a47bcbf60ac2dee09966",
+    "reviewed": false
+  },
+  "hpo.hero.live": {
+    "sourceHash": "65c821a596ceec1c13b619a965d32175734a0c5f",
+    "reviewed": false
+  },
+  "hpo.hero.liveData": {
+    "sourceHash": "3861a5edc3c8411eb6381a6d0019d979b95a182f",
+    "reviewed": false
+  },
+  "hpo.hero.marketCap": {
+    "sourceHash": "690d2fadac07f54e676911d19981bac6bd491631",
+    "reviewed": false
+  },
+  "hpo.hero.pair": {
+    "sourceHash": "2d401832c3fa7358e8181c2c8b988ed1385b2ca1",
+    "reviewed": false
+  },
+  "hpo.hero.title": {
+    "sourceHash": "e89d8c704ff53c2439cd3bc4c6a8bb7f14785e6e",
+    "reviewed": false
+  },
+  "hpo.hero.tokenomicsDocs": {
+    "sourceHash": "b3c2feaa03a44f43914e4ae47100137cf3d09d6e",
+    "reviewed": false
+  },
+  "hpo.hero.volume": {
+    "sourceHash": "1ade9f34f9c55c3a95a8ca5cb5c304bbeb8d633c",
+    "reviewed": false
+  },
+  "hpo.investors.audited.audits": {
+    "sourceHash": "d82d9947575a3d16c1a68d05def0824745337717",
+    "reviewed": false
+  },
+  "hpo.investors.audited.auditsCount": {
+    "sourceHash": "1b6453892473a467d07372d45eb05abc2031647a",
+    "reviewed": false
+  },
+  "hpo.investors.audited.openSource": {
+    "sourceHash": "353c89f8422ccd8c6e48018249431af76b34bd4d",
+    "reviewed": false
+  },
+  "hpo.investors.audited.title": {
+    "sourceHash": "6ab72c2eb801a78cc94a4f62bb1f9ee0f17bf8a9",
+    "reviewed": false
+  },
+  "hpo.investors.growth.early": {
+    "sourceHash": "fbae4083826fa25e742b7fc3b025adce9af483e2",
+    "reviewed": false
+  },
+  "hpo.investors.growth.fundraising": {
+    "sourceHash": "851390fcac46676b72b06e724c15708d7f4ccffd",
+    "reviewed": false
+  },
+  "hpo.investors.growth.title": {
+    "sourceHash": "29f79629c15da6a4acf335d0f0439cab1c6612ed",
+    "reviewed": false
+  },
+  "hpo.investors.metrics.liveStats": {
+    "sourceHash": "0ba8db78012bc533a664dfbc691a61b51a3c6bf4",
+    "reviewed": false
+  },
+  "hpo.investors.metrics.stakers": {
+    "sourceHash": "39f49c00efb6315bca2400d9686fd79c263cd3dc",
+    "reviewed": false
+  },
+  "hpo.investors.metrics.title": {
+    "sourceHash": "26ad47760fffd6c75a9baa3d2350a86d715159fb",
+    "reviewed": false
+  },
+  "hpo.investors.metrics.tvl": {
+    "sourceHash": "e1a9c681e59c162ca3b2b9ad94ae499253373953",
+    "reviewed": false
+  },
+  "hpo.investors.subtitle": {
+    "sourceHash": "4bf97291a749193905e59b6e262d9e482da1b2fc",
+    "reviewed": false
+  },
+  "hpo.investors.title": {
+    "sourceHash": "f48b61b5be3f77e24e484e5002c69cfd6fd19f51",
+    "reviewed": false
+  },
+  "hpo.scarcity.clubDocs": {
+    "sourceHash": "b07b09d8d5e24e17b02f434228f021bf3046024d",
+    "reviewed": false
+  },
+  "hpo.scarcity.details": {
+    "sourceHash": "b8dbeba11ab4d6b89c142a95e90ea065e5a6e24a",
+    "reviewed": false
+  },
+  "hpo.scarcity.fixed.body": {
+    "sourceHash": "98ee322b1a50bd380e2e33e1a743986183a326f1",
+    "reviewed": false
+  },
+  "hpo.scarcity.fixed.title": {
+    "sourceHash": "6988fb9c6f33f2bea058add1c20f8d8cdee70861",
+    "reviewed": false
+  },
+  "hpo.scarcity.held.body": {
+    "sourceHash": "2ce686aa487b0b4d5a82bc35d98f9c3ee26566bf",
+    "reviewed": false
+  },
+  "hpo.scarcity.held.title": {
+    "sourceHash": "f8a3fa32055dab62783c7ed97a97dc176fd9025d",
+    "reviewed": false
+  },
+  "hpo.scarcity.seasonal.body": {
+    "sourceHash": "bbe94331a4d7e4588f98d6de6e537d0912dadc2f",
+    "reviewed": false
+  },
+  "hpo.scarcity.seasonal.title": {
+    "sourceHash": "f1ba3b0ea15247c0269a5b1fad6938db54c9ba59",
+    "reviewed": false
+  },
+  "hpo.scarcity.subtitle": {
+    "sourceHash": "b1d2e43ff08645b3d5ecba423c44ce133fa47487",
+    "reviewed": false
+  },
+  "hpo.scarcity.team.body": {
+    "sourceHash": "0039c9c7087fd1d8d45f3de666b8b4e864ed71e9",
+    "reviewed": false
+  },
+  "hpo.scarcity.team.title": {
+    "sourceHash": "e40cd239f5150649a142fbc6b7ba8adb3a6773c1",
+    "reviewed": false
+  },
+  "hpo.scarcity.title": {
+    "sourceHash": "81e58c45726e09fedcf7121ef3e5fbc514803b2c",
+    "reviewed": false
+  },
+  "hpo.scarcity.tokenomicsDocs": {
+    "sourceHash": "5558edf71b8efeb315f4ad74cb90697ba676d1f0",
+    "reviewed": false
+  },
+  "hpo.tokenomics.advisers": {
+    "sourceHash": "381ad12fe9fe844b425b9b5b424e5610421d4713",
+    "reviewed": false
+  },
+  "hpo.tokenomics.body": {
+    "sourceHash": "8ea9ba553605b9cf1b91792c16dc4579ce475dec",
+    "reviewed": false
+  },
+  "hpo.tokenomics.burned": {
+    "sourceHash": "3514c3e06f3c30b0913d262ae6438a664e3c7820",
+    "reviewed": false
+  },
+  "hpo.tokenomics.chartItem": {
+    "sourceHash": "41f42f9d3818f7a94c05fc7d77c0162fa5cd8ed9",
+    "reviewed": false
+  },
+  "hpo.tokenomics.chartLabel": {
+    "sourceHash": "3d26e890c205afc1301c82744b57e8f117e81d98",
+    "reviewed": false
+  },
+  "hpo.tokenomics.chartSeparator": {
+    "sourceHash": "d3bc9a378daaa1dddba1b19c1aa641d3e9683c46",
+    "reviewed": false
+  },
+  "hpo.tokenomics.community": {
+    "sourceHash": "bfd58ee3a270f3a931009900e1008d549bbd7453",
+    "reviewed": false
+  },
+  "hpo.tokenomics.learnMore": {
+    "sourceHash": "824d76b124e6289f372e2ff6bcba91e8939343bd",
+    "reviewed": false
+  },
+  "hpo.tokenomics.liquidity": {
+    "sourceHash": "76a3e625b1e658d6a1b58506e4445a097d7e1133",
+    "reviewed": false
+  },
+  "hpo.tokenomics.marketing": {
+    "sourceHash": "e0c534a05742cb00dc61fd7a287ca60edf0922d2",
+    "reviewed": false
+  },
+  "hpo.tokenomics.team": {
+    "sourceHash": "218887269ad5946d9dc53238651c90472884fb0f",
+    "reviewed": false
+  },
+  "hpo.tokenomics.title": {
+    "sourceHash": "120158d9a2d90a803a4c22fac2125651be888505",
+    "reviewed": false
+  },
+  "hpo.tokenomics.treasury": {
+    "sourceHash": "286378bf777f5d7637371e5e64e948fdd532aa77",
+    "reviewed": false
+  },
+  "hpo.utility.earn.body": {
+    "sourceHash": "1d70292e29f1f5ac3e4c12a1ad21d63fe22fa485",
+    "reviewed": false
+  },
+  "hpo.utility.earn.title": {
+    "sourceHash": "7a57d49964ec35caddab4e57b96acb1d3d09a08b",
+    "reviewed": false
+  },
+  "hpo.utility.level.body": {
+    "sourceHash": "b19455b119ba986a80fec527f007d671369a857b",
+    "reviewed": false
+  },
+  "hpo.utility.level.title": {
+    "sourceHash": "4130a54d5ba490cf10203af87cf9c6ba1c2241c5",
+    "reviewed": false
+  },
+  "hpo.utility.profit.body": {
+    "sourceHash": "62cc872ba0ef04e827667387317a6bc76469d9c6",
+    "reviewed": false
+  },
+  "hpo.utility.profit.title": {
+    "sourceHash": "5acb7533617bcb4b8bb4a3ccc2dfa58225dcd1ff",
+    "reviewed": false
+  },
+  "hpo.utility.title": {
+    "sourceHash": "bb02e3a8f9102d27921416abd886de722898a02c",
+    "reviewed": false
+  },
+  "hpo.utility.vote.body": {
+    "sourceHash": "3735e53e15dbfb36b6a333044b7d3a4bf397fd83",
+    "reviewed": false
+  },
+  "hpo.utility.vote.title": {
+    "sourceHash": "0117d552a91d77ecd06240180f46f9590d340ba8",
+    "reviewed": false
+  },
+  "hpo.watch.title": {
+    "sourceHash": "203e6c0d9809ed8ae8b55f4ca67f5c407b7dec46",
+    "reviewed": false
+  },
+  "hpo.watch.videoTitle": {
+    "sourceHash": "ec42b6ca83810798e066e98b848cd1d44f57442a",
+    "reviewed": false
+  },
+  "landing.audits.allReports": {
+    "sourceHash": "8521f6934e84141e68aa55593dbc067ae9345ae6",
+    "reviewed": false
+  },
+  "landing.audits.programCrafterDate": {
+    "sourceHash": "cb304dc3b2bbadc854150e3a9762971b069fac71",
+    "reviewed": false
+  },
+  "landing.audits.quantstampDate": {
+    "sourceHash": "df34a3aee52f53e0c98942dfd8d2a491b7c07f20",
+    "reviewed": false
+  },
+  "landing.audits.sedovDate": {
+    "sourceHash": "008234f684568fa3480ee940a3b8a10fe9657dff",
+    "reviewed": false
+  },
+  "landing.audits.subtitle": {
+    "sourceHash": "7a6f745fb93eca1a97f9493918e5668317bafa54",
+    "reviewed": false
+  },
+  "landing.audits.title": {
+    "sourceHash": "bf97bdcb2b9cdf01ee353f5d6645849372665963",
+    "reviewed": false
+  },
+  "landing.audits.tontechDate": {
+    "sourceHash": "008234f684568fa3480ee940a3b8a10fe9657dff",
+    "reviewed": false
+  },
+  "landing.audits.v1": {
+    "sourceHash": "2042bd5bdef33a9bce204b2423c9e0f07db4b5ed",
+    "reviewed": false
+  },
+  "landing.audits.v2": {
+    "sourceHash": "94bbbf46c7ea99fe7faf635aa44e6f99df1e2281",
+    "reviewed": false
+  },
+  "landing.club.body": {
+    "sourceHash": "5d3ef0e14c1b0bc4c237db4f0887680cf198e4a2",
+    "reviewed": false
+  },
+  "landing.club.cta": {
+    "sourceHash": "f8dbe3273b56bb57e02287cc353a483ab0bf93a8",
+    "reviewed": false
+  },
+  "landing.club.learnMore": {
+    "sourceHash": "824d76b124e6289f372e2ff6bcba91e8939343bd",
+    "reviewed": false
+  },
+  "landing.club.title": {
+    "sourceHash": "8b4520594dcca1c5d7b2f304a8889bfe06787c2d",
+    "reviewed": false
+  },
+  "landing.community.body": {
+    "sourceHash": "4c6b678c143d813c4adaa0acc481de827d289a5f",
+    "reviewed": false
+  },
+  "landing.community.cta": {
+    "sourceHash": "2176bf0bf82d43062f70af45d47d25e51eb70ddf",
+    "reviewed": false
+  },
+  "landing.community.lead": {
+    "sourceHash": "1af4bd5702390f4a11330d58685a26d2cbcb8c06",
+    "reviewed": false
+  },
+  "landing.community.title": {
+    "sourceHash": "e9dea18a60622e327d043ac88d7e15a9346e0017",
+    "reviewed": false
+  },
+  "landing.hero.holdersPlaceholder": {
+    "sourceHash": "46d40deb75007472aff16ae8f89352954cbdae0a",
+    "reviewed": false
+  },
+  "landing.hero.howItWorks": {
+    "sourceHash": "9c6bf1d0a25020a4fdc51e13d012772846ab74d5",
+    "reviewed": false
+  },
+  "landing.hero.imageAlt": {
+    "sourceHash": "a2dddd373f66587460a1857caa893c85f408d715",
+    "reviewed": false
+  },
+  "landing.hero.lead": {
+    "sourceHash": "35a245bbe5a4547dad1803d0495b2fb5726daf8e",
+    "reviewed": false
+  },
+  "landing.hero.pill": {
+    "sourceHash": "2bc81d11215fdc4e32fb1517e14181748134444d",
+    "reviewed": false
+  },
+  "landing.hero.stakeNow": {
+    "sourceHash": "8f089fec3222dc32fb0c606f937cdd390053c850",
+    "reviewed": false
+  },
+  "landing.hero.title": {
+    "sourceHash": "94d43728634835c01c2f12edf02c5a6147592280",
+    "reviewed": false
+  },
+  "landing.hero.titleAccent": {
+    "sourceHash": "d4da51bae90273ef16030cef3dad25b094e072a3",
+    "reviewed": false
+  },
+  "landing.how.cta.body": {
+    "sourceHash": "c13c60fa14d15b6b9d2495c5452e4c8320df2834",
+    "reviewed": false
+  },
+  "landing.how.cta.button": {
+    "sourceHash": "8f089fec3222dc32fb0c606f937cdd390053c850",
+    "reviewed": false
+  },
+  "landing.how.cta.title": {
+    "sourceHash": "b10e88f3c1e209ed7d4b2547e4f048112e5b6a78",
+    "reviewed": false
+  },
+  "landing.how.step1.body": {
+    "sourceHash": "268d8dec4bfdaa1e4eb0653250b26fb3e5959bd1",
+    "reviewed": false
+  },
+  "landing.how.step1.title": {
+    "sourceHash": "3c5b2d23d59672d296c05198d3effe42effdf601",
+    "reviewed": false
+  },
+  "landing.how.step2.body": {
+    "sourceHash": "8efce367dd010aa043d0cb37c9bce49656e3335f",
+    "reviewed": false
+  },
+  "landing.how.step2.title": {
+    "sourceHash": "8b5080c9e6231806d6bfedbcf7c029439a596385",
+    "reviewed": false
+  },
+  "landing.how.step3.body": {
+    "sourceHash": "d5569fe85e8ac18418487d9ef06aeb9496c2d013",
+    "reviewed": false
+  },
+  "landing.how.step3.link": {
+    "sourceHash": "776e5f9cdcbe203cb24144799cef371b3fdc3d6a",
+    "reviewed": false
+  },
+  "landing.how.step3.title": {
+    "sourceHash": "4c57ad263691e2b53216a5620565be66bf610981",
+    "reviewed": false
+  },
+  "landing.how.step4.body": {
+    "sourceHash": "412767087896728fb474d477f0adbab1f3ecca4a",
+    "reviewed": false
+  },
+  "landing.how.step4.imageAlt": {
+    "sourceHash": "f2c62a134e4ba54965156bf541fff36bb520d4b4",
+    "reviewed": false
+  },
+  "landing.how.step4.title": {
+    "sourceHash": "76746e528b1595da928aba5b603ecda55a3404c3",
+    "reviewed": false
+  },
+  "landing.how.subtitle": {
+    "sourceHash": "1adcc410420c5f76d7c789e0e60e2893d788f9f7",
+    "reviewed": false
+  },
+  "landing.how.title": {
+    "sourceHash": "bfde63095da76d322877867d52e64733cc6fda09",
+    "reviewed": false
+  },
+  "landing.hpo.body": {
+    "sourceHash": "2fcb5bc32a6762c8a18b3b4e31e979c1ea70ad9e",
+    "reviewed": false
+  },
+  "landing.hpo.buy": {
+    "sourceHash": "131949f3d136642712501f8de212ae3621eb91f4",
+    "reviewed": false
+  },
+  "landing.hpo.holders": {
+    "sourceHash": "65e14a168f400df507c4ff9b21518f3698c0b154",
+    "reviewed": false
+  },
+  "landing.hpo.imageAlt": {
+    "sourceHash": "d4dc0b24c8e8e4ee6a52b4a7c57f92affe9b297d",
+    "reviewed": false
+  },
+  "landing.hpo.learnMore": {
+    "sourceHash": "bdda9f9adb86269efbfab53501020ac812dd0c42",
+    "reviewed": false
+  },
+  "landing.hpo.marketCap": {
+    "sourceHash": "690d2fadac07f54e676911d19981bac6bd491631",
+    "reviewed": false
+  },
+  "landing.hpo.title": {
+    "sourceHash": "5da0a60e765befa46a4eddce45c750cad2125d92",
+    "reviewed": false
+  },
+  "landing.hpo.volume": {
+    "sourceHash": "1ade9f34f9c55c3a95a8ca5cb5c304bbeb8d633c",
+    "reviewed": false
+  },
+  "landing.stats.apyCaption": {
+    "sourceHash": "b4d98f306437c689e4c90ab3ba9716a129e80891",
+    "reviewed": false
+  },
+  "landing.stats.feeCaption": {
+    "sourceHash": "8a5f3c0fa9bf5e914f271633b25c399e4a8ee5d1",
+    "reviewed": false
+  },
+  "landing.stats.holdersCaption": {
+    "sourceHash": "23d9b0a9df3b2aa7d4194893e85d3772e031a095",
+    "reviewed": false
+  },
+  "landing.stats.stakedCaption": {
+    "sourceHash": "6b8734f1979c833d0abd69d9d2e84d63b1a62420",
+    "reviewed": false
+  },
+  "landing.why.apy.body": {
+    "sourceHash": "19e79bfcf466fca544ce7492222f01a3e3bbe23f",
+    "reviewed": false
+  },
+  "landing.why.apy.title": {
+    "sourceHash": "2734a093b4385a4387902f69c481e680f01fef22",
+    "reviewed": false
+  },
+  "landing.why.audited.body": {
+    "sourceHash": "5e14fc922a56bce6ddcf3e90a5ebd1251196abc8",
+    "reviewed": false
+  },
+  "landing.why.audited.title": {
+    "sourceHash": "1d02fd0d15167aac3cf10eaf772228e48a4a761c",
+    "reviewed": false
+  },
+  "landing.why.community.body": {
+    "sourceHash": "71911465f9d2cd07f04b5e81207e19f132302dad",
+    "reviewed": false
+  },
+  "landing.why.community.title": {
+    "sourceHash": "b05ff3cb8da0a8cf5eab4149d52ccd3d71ecaf02",
+    "reviewed": false
+  },
+  "landing.why.decentralized.body": {
+    "sourceHash": "31b8e23f8aa98b12fb11a7f056bd4f2a82e4cef4",
+    "reviewed": false
+  },
+  "landing.why.decentralized.title": {
+    "sourceHash": "570c812da726526d8273262f3e3160f3cc782037",
+    "reviewed": false
+  },
+  "landing.why.subtitle": {
+    "sourceHash": "f7947d70b7fbe664b4a0d9a20a1220bcd03916ba",
+    "reviewed": false
+  },
+  "landing.why.title": {
+    "sourceHash": "7a2f41e1e1f118038cbc0f8589767ff646489354",
+    "reviewed": false
+  },
+  "prose/faq/getting-started/how-does-hipo-work.md": {
+    "sourceHash": "0714d15f16d8f7f5b138297fa876d6592ce770ee",
+    "reviewed": false
+  },
+  "prose/faq/getting-started/is-hipo-non-custodial.md": {
+    "sourceHash": "f6f483f2a822e89df6c23fd6f1970d0ab59bd091",
+    "reviewed": false
+  },
+  "prose/faq/getting-started/what-is-gram-staking.md": {
+    "sourceHash": "d0d4a6a3bb660822c13a611f9f6f946118970fec",
+    "reviewed": false
+  },
+  "prose/faq/getting-started/what-is-hipo.md": {
+    "sourceHash": "68354469a0fecd3d5a516847e03419b06fecf239",
+    "reviewed": false
+  },
+  "prose/faq/getting-started/what-is-liquid-staking.md": {
+    "sourceHash": "e017c556d87d3b84a3aef69855e596224ae11b34",
+    "reviewed": false
+  },
+  "prose/faq/getting-started/which-wallets-are-supported.md": {
+    "sourceHash": "1015840779201cae4b4e64ad9dc11d9688aecf49",
+    "reviewed": false
+  },
+  "prose/faq/getting-started/why-should-i-use-hipo.md": {
+    "sourceHash": "5706d01902c7a5ffa8a9013f288461c419a81965",
+    "reviewed": false
+  },
+  "prose/faq/hgram/can-i-sell-hgram.md": {
+    "sourceHash": "8f3ba020613ac9304fe817925f3ec5c27d2ad94e",
+    "reviewed": false
+  },
+  "prose/faq/hgram/can-i-use-hgram-in-defi.md": {
+    "sourceHash": "f66b538da1ac368d4261230e4fef857169c427dc",
+    "reviewed": false
+  },
+  "prose/faq/hgram/is-1-hgram-always-equal-to-1-gram.md": {
+    "sourceHash": "e234800cd6279d7712af9f37b311f745c8cac829",
+    "reviewed": false
+  },
+  "prose/faq/hgram/what-is-hgram.md": {
+    "sourceHash": "5abf5a125ba1f073af8f34117af537e639cc6da4",
+    "reviewed": false
+  },
+  "prose/faq/hpo-token/what-benefits-do-hpo-holders-receive.md": {
+    "sourceHash": "a22d63829febb84280f7f54f8f40ce2a79641f77",
+    "reviewed": false
+  },
+  "prose/faq/hpo-token/what-is-hipo-club.md": {
+    "sourceHash": "19c7abb5e63cf0852381ce08a2513262881c693b",
+    "reviewed": false
+  },
+  "prose/faq/hpo-token/what-is-hpo.md": {
+    "sourceHash": "081631f1a13d6323a5366f620b3d732b6d666618",
+    "reviewed": false
+  },
+  "prose/faq/rewards/do-i-need-to-claim-rewards.md": {
+    "sourceHash": "35c9e14485aaaa807d96d8f2f18fd302e124cfd4",
+    "reviewed": false
+  },
+  "prose/faq/rewards/does-hipo-take-a-cut-of-my-rewards.md": {
+    "sourceHash": "6c0c548f97168c356c69a65fdfd9e38bf6ff56e0",
+    "reviewed": false
+  },
+  "prose/faq/rewards/how-are-staking-rewards-distributed.md": {
+    "sourceHash": "5d7da0a1746e41970dcd2767481760083ef52dea",
+    "reviewed": false
+  },
+  "prose/faq/rewards/what-apy-does-hipo-offer.md": {
+    "sourceHash": "8f0b5cfe127db22a766ae5365e33429d20776d6f",
+    "reviewed": false
+  },
+  "prose/faq/rewards/when-do-my-rewards-start.md": {
+    "sourceHash": "1670ca7ccd5347cf99d7a2a5da4063b2cc248968",
+    "reviewed": false
+  },
+  "prose/faq/security/can-i-lose-my-funds.md": {
+    "sourceHash": "00f78bec60adb5354d20a8834b76a2d70a6c6f16",
+    "reviewed": false
+  },
+  "prose/faq/security/has-hipo-been-audited.md": {
+    "sourceHash": "a227bc46fcf154dda190db98bb3968ed7ca425d3",
+    "reviewed": false
+  },
+  "prose/faq/security/is-hipo-safe.md": {
+    "sourceHash": "ee58ea1b2962ce4d0ee08ecd6bacad24367bae84",
+    "reviewed": false
+  },
+  "prose/faq/security/where-can-i-verify-hipo-transactions.md": {
+    "sourceHash": "a84640550f7d7351adfcf11017275bcf274b7c31",
+    "reviewed": false
+  },
+  "prose/faq/staking/can-i-stake-with-a-multisig-or-cold-wallet.md": {
+    "sourceHash": "9c908012361d5ead7d7825eb9eedf2ea12ada4bf",
+    "reviewed": false
+  },
+  "prose/faq/staking/how-do-i-stake-gram.md": {
+    "sourceHash": "8afd2e3caad2a2593658d8c2fcb0089c13e8045d",
+    "reviewed": false
+  },
+  "prose/faq/staking/how-long-does-it-take-to-receive-hgram.md": {
+    "sourceHash": "ec3644cdee291c055ff66701dee4048cdcd2cc63",
+    "reviewed": false
+  },
+  "prose/faq/staking/what-does-it-cost-to-stake.md": {
+    "sourceHash": "91827477460f78973913b693fba77d9f38a51ec2",
+    "reviewed": false
+  },
+  "prose/faq/staking/what-is-the-minimum-amount-required-to-stake.md": {
+    "sourceHash": "86b2e86807f59b950d403dfbf01edcb2521b9955",
+    "reviewed": false
+  },
+  "prose/faq/support/what-should-i-do-if-a-transaction-is-pending.md": {
+    "sourceHash": "d86dabf194bbbdf96bf163b21f6cae1277828b09",
+    "reviewed": false
+  },
+  "prose/faq/support/where-can-i-get-support.md": {
+    "sourceHash": "ee1c2c3e1e2a3b719f14e92a451b10378d612755",
+    "reviewed": false
+  },
+  "prose/faq/support/where-can-i-learn-more-about-hipo.md": {
+    "sourceHash": "989047d3df290abaecc34b99ebcb078f611d75c2",
+    "reviewed": false
+  },
+  "prose/faq/unstaking/are-there-any-unstaking-fees.md": {
+    "sourceHash": "62fb3347d0720bed27ee678cbfcd71c5545f48b4",
+    "reviewed": false
+  },
+  "prose/faq/unstaking/how-do-i-unstake-my-gram.md": {
+    "sourceHash": "23b55580ad9556000a7438d232e6a0daced4c295",
+    "reviewed": false
+  },
+  "prose/faq/unstaking/how-long-does-unstaking-take.md": {
+    "sourceHash": "16421555b2d0c0183ddf882b5f8f164b6c7fe146",
+    "reviewed": false
+  },
+  "prose/faq/unstaking/what-is-the-difference-between-full-and-instant-unstaking.md": {
+    "sourceHash": "c222c36a2c026507a9272a804c6543431c711126",
+    "reviewed": false
+  },
+  "prose/faq/unstaking/why-is-instant-unstaking-sometimes-unavailable.md": {
+    "sourceHash": "0d2b2f6edacb0c0d0fce9621304f302039916ebd",
+    "reviewed": false
+  },
+  "prose/faq/unstaking/will-i-continue-earning-rewards-while-waiting-for-unstaking.md": {
+    "sourceHash": "253c0bfed99e4630e1caf6792541dfc1b8fddd40",
+    "reviewed": false
+  },
+  "prose/faq/validators-and-staking-marketplace/how-does-hipo-select-validators.md": {
+    "sourceHash": "90e526676c2701777e3246101eab7ac291a87676",
+    "reviewed": false
+  },
+  "prose/faq/validators-and-staking-marketplace/what-happens-if-a-validator-underperforms.md": {
+    "sourceHash": "1fe28b1c8ae7b628b3638db6a6c7c72982473db2",
+    "reviewed": false
+  },
+  "prose/faq/validators-and-staking-marketplace/why-can-hipo-offer-competitive-staking-rewards.md": {
+    "sourceHash": "83aab23710262cc4e2f735c6c90561d4be379ad5",
+    "reviewed": false
+  },
+  "prose/hpo-faq/01-what-is-hpo.md": {
+    "sourceHash": "73c00647ffa5223b371d002e2791be5086e68fc4",
+    "reviewed": false
+  },
+  "prose/hpo-faq/02-what-makes-hpo-valuable.md": {
+    "sourceHash": "2c3f3d15c82dc1ab82ea1675c078f51e2031e3b1",
+    "reviewed": false
+  },
+  "prose/hpo-faq/03-how-many-hpo-exist-and-how-many-are-burned.md": {
+    "sourceHash": "cbddf2fbc6e72525448eda09387cf7d16e278a5d",
+    "reviewed": false
+  },
+  "prose/hpo-faq/04-when-did-hpo-launch.md": {
+    "sourceHash": "2c1e90c566264e898e2f4e95d2c1bb9fbd069d7e",
+    "reviewed": false
+  },
+  "prose/hpo-faq/05-how-do-i-get-hpo.md": {
+    "sourceHash": "bbe8e07ed9c7f0688686cdd3df70466d8062ccda",
+    "reviewed": false
+  },
+  "prose/hpo-faq/06-how-do-i-earn-hpo-and-get-paid.md": {
+    "sourceHash": "922f8f3a3b958e9454aba3190e8c4f846b8a90ad",
+    "reviewed": false
+  },
+  "prose/hpo-faq/07-how-do-i-vote-on-hipo-proposals.md": {
+    "sourceHash": "7421180d9addb027572ff18042b545fe595e156b",
+    "reviewed": false
+  },
+  "prose/shell/defi/cards/01-a-defi-compatible-token.md": {
+    "sourceHash": "9b2daa861d16e6207f94d03a7ad28b7f9a108f91",
+    "reviewed": false
+  },
+  "prose/shell/defi/cards/02-swap-hgram-on-dexs.md": {
+    "sourceHash": "c98c0627c8bf4692fe37fb8c827794e38c227425",
+    "reviewed": false
+  },
+  "prose/shell/defi/cards/03-swap-via-aggregators.md": {
+    "sourceHash": "5364bcf2e8073bc6083ad484f72e217d6d39bc2a",
+    "reviewed": false
+  },
+  "prose/shell/defi/cards/04-provide-liquidity.md": {
+    "sourceHash": "1ea2f302d8a0a10489062e1a115bdc832f806c93",
+    "reviewed": false
+  },
+  "prose/shell/defi/cards/05-wallets-with-hgram-and-hpo-support.md": {
+    "sourceHash": "38a60e59a197aef2bc95824ff5112b44c731b71f",
+    "reviewed": false
+  },
+  "prose/shell/defi/faq/01-does-using-hgram-in-defi-stop-it-from-earning-staking-rewards.md": {
+    "sourceHash": "706b95c29511ceb01a1dddda1de06982f911ffea",
+    "reviewed": false
+  },
+  "prose/shell/defi/faq/02-what-are-the-risks-of-using-hgram-in-defi.md": {
+    "sourceHash": "babacce99a7ec60731f58490e8336e3665cdaaec",
+    "reviewed": false
+  },
+  "prose/shell/rewards/cards/01-how-rewards-accrue.md": {
+    "sourceHash": "d7dab346e85e9aafcb3e3eb35a73e1a79e3c963b",
+    "reviewed": false
+  },
+  "prose/shell/rewards/cards/02-what-the-app-shows-you.md": {
+    "sourceHash": "e4a0329833b93cfb44642d2fb898082131f8ea8b",
+    "reviewed": false
+  },
+  "prose/shell/rewards/cards/03-base-and-boosted-rewards.md": {
+    "sourceHash": "26a01a4a6cd9d0920b22b0a3fdc0d0226eb4db03",
+    "reviewed": false
+  },
+  "prose/shell/rewards/cards/04-learn-more.md": {
+    "sourceHash": "d09606ebd7312d98998d3bc7c2fb99dc6be40a7f",
+    "reviewed": false
+  },
+  "prose/shell/rewards/faq/01-do-i-need-to-claim-my-staking-rewards.md": {
+    "sourceHash": "3a5f8895fbf7522631811198013f11507f960e49",
+    "reviewed": false
+  },
+  "prose/shell/rewards/faq/02-where-can-i-see-historical-reward-rates.md": {
+    "sourceHash": "054831a41f455b7fb8dc28cc0d373e93c4f49974",
+    "reviewed": false
+  },
+  "prose/shell/stake/cards/01-what-is-liquid-staking-on-hipo.md": {
+    "sourceHash": "7c691dc9d93e12f583383a08a1cb894401ce0de3",
+    "reviewed": false
+  },
+  "prose/shell/stake/cards/02-how-staking-gram-into-hgram-works.md": {
+    "sourceHash": "055e403b4b877dbba83e8eeea66cac7e5616b792",
+    "reviewed": false
+  },
+  "prose/shell/stake/cards/03-current-rewards-rate.md": {
+    "sourceHash": "4af3d5be7a2a09ee4aae85fab3c006121d8e2ff7",
+    "reviewed": false
+  },
+  "prose/shell/stake/cards/04-learn-more.md": {
+    "sourceHash": "2e7a155cc5cbeb75a81d3c35b84b0d1063e58207",
+    "reviewed": false
+  },
+  "prose/shell/stake/faq/01-is-there-a-minimum-amount-to-stake.md": {
+    "sourceHash": "70a6ff77e0f07c28af3418dacdb63197a5c5b7c4",
+    "reviewed": false
+  },
+  "prose/shell/stake/faq/02-can-i-unstake-later.md": {
+    "sourceHash": "e7288c690ed4cab7a0ed821990166e1283a3c563",
+    "reviewed": false
+  },
+  "prose/shell/stats/cards/01-protocol-metrics.md": {
+    "sourceHash": "e295cf53eef414855888253d70b316ee44190f20",
+    "reviewed": false
+  },
+  "prose/shell/stats/cards/02-market-data.md": {
+    "sourceHash": "7ec08b54eca274917d9759eba5c747a1dea6cc0e",
+    "reviewed": false
+  },
+  "prose/shell/stats/cards/03-history-charts.md": {
+    "sourceHash": "1c88965c13c8a8fecf89316369e37a3b555082c6",
+    "reviewed": false
+  },
+  "prose/shell/stats/cards/04-deeper-data.md": {
+    "sourceHash": "2d3b8cb76b4128ce00342aa80fbeaa0451bf92bd",
+    "reviewed": false
+  },
+  "prose/shell/unstake/cards/01-how-unstaking-works.md": {
+    "sourceHash": "213c04e8561288cfb1a77848f24fc89038300a93",
+    "reviewed": false
+  },
+  "prose/shell/unstake/cards/02-full-vs-instant-the-trade-off.md": {
+    "sourceHash": "846f125924049b111d0540d4ff5adb3bd43d0c07",
+    "reviewed": false
+  },
+  "prose/shell/unstake/cards/03-other-ways-to-exit.md": {
+    "sourceHash": "51591c36773484e5beccd561b343de748ecd3b95",
+    "reviewed": false
+  },
+  "prose/shell/unstake/cards/04-learn-more.md": {
+    "sourceHash": "3ae06ae267b2b6a1b34fcb670803c64b64232d53",
+    "reviewed": false
+  },
+  "prose/shell/unstake/faq/01-which-unstake-option-should-i-choose.md": {
+    "sourceHash": "b3a9319c2ff638362a0926ea81ae1f8257427400",
+    "reviewed": false
+  },
+  "prose/shell/unstake/faq/02-are-there-other-ways-to-exit-hgram.md": {
+    "sourceHash": "66f1fde1dfc93769048f7cca4382df638ead8cec",
+    "reviewed": false
+  },
+  "seo.defi.description": {
+    "sourceHash": "f27263484ab32101de132a38a0ba5a9a3d405719",
+    "reviewed": false
+  },
+  "seo.defi.title": {
+    "sourceHash": "f6afe220df5721ab2535cefa880135ef42d2b06d",
+    "reviewed": false
+  },
+  "seo.faq.description": {
+    "sourceHash": "49668f2e2d4e65b8440fcd4f14eb9773bd90bef1",
+    "reviewed": false
+  },
+  "seo.faq.title": {
+    "sourceHash": "8fae78d20fca86af1658ddd96ae0aec9b681074b",
+    "reviewed": false
+  },
+  "seo.home.description": {
+    "sourceHash": "49668f2e2d4e65b8440fcd4f14eb9773bd90bef1",
+    "reviewed": false
+  },
+  "seo.home.title": {
+    "sourceHash": "9cd57a0a43c57471adf09b1c5b579107f7ef8145",
+    "reviewed": false
+  },
+  "seo.hpo.description": {
+    "sourceHash": "4e1be6b5eb3a3ab46cd80079f2f33a0888da174c",
+    "reviewed": false
+  },
+  "seo.hpo.title": {
+    "sourceHash": "08bd2b7f4437b2e9dde610c830bc5e9859be4766",
+    "reviewed": false
+  },
+  "seo.rewards.description": {
+    "sourceHash": "179804ce2f6ba73a0b54ada7efeafbd48ce7d1df",
+    "reviewed": false
+  },
+  "seo.rewards.title": {
+    "sourceHash": "14bcfc8ac87c6921f9ba88be2e2c477ec4f64a18",
+    "reviewed": false
+  },
+  "seo.stake.description": {
+    "sourceHash": "cecee36319a4f61aacac85d463152695dc321874",
+    "reviewed": false
+  },
+  "seo.stake.title": {
+    "sourceHash": "ac2cec1ccc373ef73a0bd7a8f3b4ab9d520a6ee9",
+    "reviewed": false
+  },
+  "seo.stats.description": {
+    "sourceHash": "8761d7224c3027040375e42bbd4c2c2438bb699d",
+    "reviewed": false
+  },
+  "seo.stats.title": {
+    "sourceHash": "2e78a9f4f58c2f2b6ee3f5d9bb2ab6593681f9da",
+    "reviewed": false
+  },
+  "seo.unstake.description": {
+    "sourceHash": "6620bfa392accca210ad9b9766682493df06a267",
+    "reviewed": false
+  },
+  "seo.unstake.title": {
+    "sourceHash": "cd5db9974f58aab741ada943b9ea611c6bb90bb9",
+    "reviewed": false
+  },
+  "seo.verify.description": {
+    "sourceHash": "fc6d5f95b2e82c2aae262730512f848870b1cc2d",
+    "reviewed": false
+  },
+  "seo.verify.title": {
+    "sourceHash": "95a1ec8c34b32cb45df27ba58def6832382145b6",
+    "reviewed": false
+  },
+  "seo.vs.description": {
+    "sourceHash": "8e99bd14b0a2e76399eea4b86064fcd43a4f0788",
+    "reviewed": false
+  },
+  "seo.vs.descriptionApy": {
+    "sourceHash": "eddb373e00fce88025eac84df2415444669f8da4",
+    "reviewed": false
+  },
+  "seo.vs.title": {
+    "sourceHash": "bd10521dc946e3247240fb943963922ac5ced45d",
+    "reviewed": false
+  },
+  "seo.vs.titleApy": {
+    "sourceHash": "26b4b86a1ca0edffa955c1bdb1b954a77b89ab90",
+    "reviewed": false
+  },
+  "site.anchor.copied": {
+    "sourceHash": "c2e98476efb5e35f50dae898c1b56d7085eee7da",
+    "reviewed": false
+  },
+  "site.anchor.copy": {
+    "sourceHash": "2f84eea5d45da4f1ce1760b85db18a854f4e1b39",
+    "reviewed": false
+  },
+  "site.app.loading": {
+    "sourceHash": "7dc100437b51bdd7185f7b240aa037ebdabc8609",
+    "reviewed": false
+  },
+  "site.app.nav.defi": {
+    "sourceHash": "0ce66d2e3a7fbcd6a71d6ae0589fb9800604003d",
+    "reviewed": false
+  },
+  "site.app.nav.docs": {
+    "sourceHash": "68a4194227be4ab74bc3d32363417c0fc1f30055",
+    "reviewed": false
+  },
+  "site.app.nav.rewards": {
+    "sourceHash": "2f4f4b7fbc81bc11d4aa9263fddf484f1eb90d99",
+    "reviewed": false
+  },
+  "site.app.nav.stake": {
+    "sourceHash": "78d7103a319e808455d397513279d99f3b3f3768",
+    "reviewed": false
+  },
+  "site.app.nav.stats": {
+    "sourceHash": "be763e9aba2af6b8baabada85d5e26c043c93fed",
+    "reviewed": false
+  },
+  "site.app.nav.unstake": {
+    "sourceHash": "f2c62a134e4ba54965156bf541fff36bb520d4b4",
+    "reviewed": false
+  },
+  "site.app.pagesNav": {
+    "sourceHash": "f482852ae15a8e56399dfc05efeb9a2242c23abe",
+    "reviewed": false
+  },
+  "site.banner.body": {
+    "sourceHash": "48edc5456946b124f0eabea6fbad6dcff5a38d1a",
+    "reviewed": false
+  },
+  "site.banner.cta": {
+    "sourceHash": "cda68c49d8475e9c6f5ee017e7cb5fe4d776d787",
+    "reviewed": false
+  },
+  "site.banner.dismiss": {
+    "sourceHash": "bb7ce8929bd0741e91b091b08428ffc3be17c03d",
+    "reviewed": false
+  },
+  "site.banner.headline": {
+    "sourceHash": "4f6e4670d77141d553287814c2dc7225dd82c646",
+    "reviewed": false
+  },
+  "site.cta.openApp": {
+    "sourceHash": "b329e00d892208276cf06a47890794bdad716e94",
+    "reviewed": false
+  },
+  "site.footer.aboutHpo": {
+    "sourceHash": "2f71364079b6c3b75a35ad5fe28b3e75222923b3",
+    "reviewed": false
+  },
+  "site.footer.blog": {
+    "sourceHash": "0b9d2b2362bc33581ba11fddcb0cf0590ebd3a7a",
+    "reviewed": false
+  },
+  "site.footer.compare": {
+    "sourceHash": "eb612bab607490fef4296dfaeb59c86fbb32a734",
+    "reviewed": false
+  },
+  "site.footer.ctaBody": {
+    "sourceHash": "c13c60fa14d15b6b9d2495c5452e4c8320df2834",
+    "reviewed": false
+  },
+  "site.footer.ctaButton": {
+    "sourceHash": "8f089fec3222dc32fb0c606f937cdd390053c850",
+    "reviewed": false
+  },
+  "site.footer.ctaTitle": {
+    "sourceHash": "b10e88f3c1e209ed7d4b2547e4f048112e5b6a78",
+    "reviewed": false
+  },
+  "site.footer.docs": {
+    "sourceHash": "68a4194227be4ab74bc3d32363417c0fc1f30055",
+    "reviewed": false
+  },
+  "site.footer.documentation": {
+    "sourceHash": "9e9cf3221a30246219863f1d2366e36cb580debc",
+    "reviewed": false
+  },
+  "site.footer.faq": {
+    "sourceHash": "03688ba6aa340b87549088aa5739944cb6b1dc73",
+    "reviewed": false
+  },
+  "site.footer.helpSupport": {
+    "sourceHash": "722ec052a1a3c8b2924eeea804119b29460fb34f",
+    "reviewed": false
+  },
+  "site.footer.social": {
+    "sourceHash": "41a575086b73bd066149552fde2b8782c43e29ed",
+    "reviewed": false
+  },
+  "site.footer.stats": {
+    "sourceHash": "be763e9aba2af6b8baabada85d5e26c043c93fed",
+    "reviewed": false
+  },
+  "site.footer.tagline": {
+    "sourceHash": "aa087eaaaa1f19aae2d70db4b15ffcd55fb52b0c",
+    "reviewed": false
+  },
+  "site.footer.telegramChannel": {
+    "sourceHash": "d426b8d0fb9fe80fb28c81d15903653fb58fd8fd",
+    "reviewed": false
+  },
+  "site.footer.telegramChat": {
+    "sourceHash": "046ac9a354bb9efc0c701683cf51178b38ec1926",
+    "reviewed": false
+  },
+  "site.footer.verify": {
+    "sourceHash": "dda6ac27b9d3b234a68e8b2c412e90ab5a03a4e1",
+    "reviewed": false
+  },
+  "site.header.menuToggle": {
+    "sourceHash": "21f9064a33f2f9661789a128a6be46933bbf4bf0",
+    "reviewed": false
+  },
+  "site.langSuggest.dismiss": {
+    "sourceHash": "00eae287f892a9fe8093830a1e6d26fcbd70e3bf",
+    "reviewed": false
+  },
+  "site.langSuggest.text": {
+    "sourceHash": "3cc897df92f3c662c558282854712b2d591c52b9",
+    "reviewed": false
+  },
+  "site.nav.defi": {
+    "sourceHash": "0ce66d2e3a7fbcd6a71d6ae0589fb9800604003d",
+    "reviewed": false
+  },
+  "site.nav.docs": {
+    "sourceHash": "68a4194227be4ab74bc3d32363417c0fc1f30055",
+    "reviewed": false
+  },
+  "site.nav.faq": {
+    "sourceHash": "03688ba6aa340b87549088aa5739944cb6b1dc73",
+    "reviewed": false
+  },
+  "site.nav.home": {
+    "sourceHash": "70f8bb9a8a5393ef080507a89e4b98d139000d65",
+    "reviewed": false
+  },
+  "site.nav.hpo": {
+    "sourceHash": "db63ee4352653e50365f6ec30a8ce5d16f79dea6",
+    "reviewed": false
+  },
+  "site.nav.rewards": {
+    "sourceHash": "2f4f4b7fbc81bc11d4aa9263fddf484f1eb90d99",
+    "reviewed": false
+  },
+  "site.nav.stake": {
+    "sourceHash": "78d7103a319e808455d397513279d99f3b3f3768",
+    "reviewed": false
+  },
+  "site.nav.stats": {
+    "sourceHash": "be763e9aba2af6b8baabada85d5e26c043c93fed",
+    "reviewed": false
+  },
+  "site.notFound.askChat": {
+    "sourceHash": "537700ed47cb9bafa92f8a83210ef2953e25d8f9",
+    "reviewed": false
+  },
+  "site.notFound.backHome": {
+    "sourceHash": "34ac37f56e147bf65348041b11e13fc683dfb136",
+    "reviewed": false
+  },
+  "site.notFound.headline": {
+    "sourceHash": "722e0c3ffe89adba9bf0879313cb33a0140825c1",
+    "reviewed": false
+  },
+  "site.notFound.lead": {
+    "sourceHash": "8a6c18c2fec27501a33a759a073c920155751652",
+    "reviewed": false
+  },
+  "site.notFound.title": {
+    "sourceHash": "115ed306945d13c48efca1a44547e08d76f01f71",
+    "reviewed": false
+  },
+  "site.shell.defi.heading": {
+    "sourceHash": "9785d7937f879b6ef7863e6817a08fd9a6939b0b",
+    "reviewed": false
+  },
+  "site.shell.rewards.heading": {
+    "sourceHash": "7a8301b593c63e845c40fc687feca9fd6709a908",
+    "reviewed": false
+  },
+  "site.shell.stake.heading": {
+    "sourceHash": "1976b7d05d56a10e2e9cab1e0de5a09a39444ad9",
+    "reviewed": false
+  },
+  "site.shell.stats.heading": {
+    "sourceHash": "42f22a8fe8bd77f9db18aec76bb7ebaaffad076f",
+    "reviewed": false
+  },
+  "site.shell.unstake.heading": {
+    "sourceHash": "9413afc4fa404dbce38c56ffe7e181adc93a790f",
+    "reviewed": false
+  },
+  "site.switcher.label": {
+    "sourceHash": "89b86ab0e66f527166d98df92ddbcf5416ed58f6",
+    "reviewed": false
+  },
+  "verify.ask.body": {
+    "sourceHash": "5ad73e34672d89d0ca177b6daaa55fc72171c7d1",
+    "reviewed": false
+  },
+  "verify.ask.heading": {
+    "sourceHash": "25d669ed4bf9bf8a6af5075cf57e9eb4b87b2abd",
+    "reviewed": false
+  },
+  "verify.contracts.heading": {
+    "sourceHash": "32767bc87ce3ae8cd973b35c715a2ae94be49543",
+    "reviewed": false
+  },
+  "verify.contracts.hgram": {
+    "sourceHash": "2e4feebb6a360b979a981cfc54f1f15ddcaac123",
+    "reviewed": false
+  },
+  "verify.contracts.hpo": {
+    "sourceHash": "ebde2d86d03fa4993dc6071d522acded81eb1137",
+    "reviewed": false
+  },
+  "verify.contracts.note": {
+    "sourceHash": "c0f8acfeff37db4ce7b19b2e740a8c5cb8624fdc",
+    "reviewed": false
+  },
+  "verify.contracts.treasury": {
+    "sourceHash": "7d53517a816afda11a18e998b5e18cb0679498ba",
+    "reviewed": false
+  },
+  "verify.lead": {
+    "sourceHash": "9c442fa0b9d03af90c61865590797e653839966c",
+    "reviewed": false
+  },
+  "verify.never.heading": {
+    "sourceHash": "a6134f8c6796c41199fa6ee0268247e22b1ef18a",
+    "reviewed": false
+  },
+  "verify.never.item1": {
+    "sourceHash": "18da9a58376c80caeb926252b0543e0083b5d99a",
+    "reviewed": false
+  },
+  "verify.never.item2": {
+    "sourceHash": "8a481badbecccad11e9e3a58158960e660c97de3",
+    "reviewed": false
+  },
+  "verify.never.item3": {
+    "sourceHash": "358a47c033d6a1fe7cc4d66add580e6d965ee52e",
+    "reviewed": false
+  },
+  "verify.never.item4": {
+    "sourceHash": "fe8301064e40f1c3d0922cceb1ecd23f4bc16975",
+    "reviewed": false
+  },
+  "verify.never.item5": {
+    "sourceHash": "b81d894aedf41d20ca935d451828c828d1411f1e",
+    "reviewed": false
+  },
+  "verify.never.item6": {
+    "sourceHash": "973efbdce10a0014d977c9175559a9db9d90314f",
+    "reviewed": false
+  },
+  "verify.never.note": {
+    "sourceHash": "573fc669e86e6ed67b519f273dea89c106ec8ec2",
+    "reviewed": false
+  },
+  "verify.telegram.announcements": {
+    "sourceHash": "06b01c44a6f7b2519075dcccf01d9ba0cca20e87",
+    "reviewed": false
+  },
+  "verify.telegram.chat": {
+    "sourceHash": "c2f4d4164ba546ae7f5d884902abf8eb79ef2453",
+    "reviewed": false
+  },
+  "verify.telegram.heading": {
+    "sourceHash": "edbea9ff1a787818a7119cda6ab9799959a5d9fa",
+    "reviewed": false
+  },
+  "verify.telegram.teamBody": {
+    "sourceHash": "b812db1693f0d4c449ec3c1d73ba8fbe8863cc40",
+    "reviewed": false
+  },
+  "verify.telegram.teamHeading": {
+    "sourceHash": "93a719910a5bf88e4469371ccf29ac970be43533",
+    "reviewed": false
+  },
+  "verify.title": {
+    "sourceHash": "8dc5c4e5b33a690862ca62fc4bf7dfafe55811d8",
+    "reviewed": false
+  },
+  "verify.wallets.copy": {
+    "sourceHash": "4fed89d5a285e4c3e5ce0194f0a3b36103751663",
+    "reviewed": false
+  },
+  "verify.wallets.heading": {
+    "sourceHash": "98d5a197e598bd2bd463f7fbcdda3a73de1515af",
+    "reviewed": false
+  },
+  "verify.wallets.main": {
+    "sourceHash": "7ae6faf309f7b1adb025507984d41770745b4efb",
+    "reviewed": false
+  },
+  "verify.wallets.note1": {
+    "sourceHash": "14ef36a6475b17c8bd748ef0993276580fcbcd22",
+    "reviewed": false
+  },
+  "verify.wallets.note2": {
+    "sourceHash": "1139c0edbc90320599b61861002d388abe796846",
+    "reviewed": false
+  },
+  "verify.wallets.outreach": {
+    "sourceHash": "e884f0a3bce60e653c3d9f31ab4aff099acc8920",
+    "reviewed": false
+  },
+  "verify.web.heading": {
+    "sourceHash": "98fdd8e3406fe85735cf93b3394fdedb272b5c17",
+    "reviewed": false
+  },
+  "verify.web.note": {
+    "sourceHash": "dd8f63ac1f2993c04cd94b0de4f6d46829b962cf",
+    "reviewed": false
+  },
+  "verify.web.site": {
+    "sourceHash": "68c914a8bc2993c9cc0f105cdaeec755c38bcd50",
+    "reviewed": false
+  },
+  "vs.compare.chartHeading": {
+    "sourceHash": "7cff50cb53117862a5dc1075607fb7457ca4870d",
+    "reviewed": false
+  },
+  "vs.compare.chartLabel": {
+    "sourceHash": "102f3942669294ca69730a700c7cd93aed995092",
+    "reviewed": false
+  },
+  "vs.compare.chartLead": {
+    "sourceHash": "b98036f18a3d4de19d1bf75cc5db9264227b4acd",
+    "reviewed": false
+  },
+  "vs.compare.colDiff": {
+    "sourceHash": "89e74b814b9bbdb00346d56a445a5bed986cf26e",
+    "reviewed": false
+  },
+  "vs.compare.colEarned": {
+    "sourceHash": "3003b37e7482f4f025c1a083f73b9fcd9fd3195d",
+    "reviewed": false
+  },
+  "vs.compare.colEnd": {
+    "sourceHash": "ecb02c1f9d8a4a8f6eec28d15f7d2b857d22ecc3",
+    "reviewed": false
+  },
+  "vs.compare.colProtocol": {
+    "sourceHash": "1ed77c3f7ffc41a33eadccef5727dc7c97079235",
+    "reviewed": false
+  },
+  "vs.compare.extra": {
+    "sourceHash": "716370c4b69caeaf69bfeb47d12648103c7dc86c",
+    "reviewed": false
+  },
+  "vs.compare.extraUsd": {
+    "sourceHash": "8a3a72ba7d88e853660fd73cc9dca5786baf14be",
+    "reviewed": false
+  },
+  "vs.compare.heading": {
+    "sourceHash": "8559a3a2bd03fcb60990182455a5c0f2600db664",
+    "reviewed": false
+  },
+  "vs.compare.hipoEndLabel": {
+    "sourceHash": "0ecb4223abd8d3e4c3cec6abb7134aef164d5587",
+    "reviewed": false
+  },
+  "vs.compare.lead": {
+    "sourceHash": "34665916c6faf6c46a57acd54a3fcaa5abd5fbfc",
+    "reviewed": false
+  },
+  "vs.compare.methodBody": {
+    "sourceHash": "64f029042bc568abd415d1ee3aace9e78090a710",
+    "reviewed": false
+  },
+  "vs.compare.methodHeading": {
+    "sourceHash": "ca8c206c19d8ef171947665038425178c8e86c4b",
+    "reviewed": false
+  },
+  "vs.compare.methodNote": {
+    "sourceHash": "fcbf71e11fbcd397df2079ebf96d6ab0502f2425",
+    "reviewed": false
+  },
+  "vs.compare.stakeLabel": {
+    "sourceHash": "5a23f9d3253bab59ad9f01dfadb8dbc0dc335f3e",
+    "reviewed": false
+  },
+  "vs.compare.stakeOn": {
+    "sourceHash": "b191e9f544408a5e4174f588195939d2cc7d4d0b",
+    "reviewed": false
+  },
+  "vs.compare.tableHeading": {
+    "sourceHash": "cb5813ea6c6f2c1f97d9652be722277f0bd6092c",
+    "reviewed": false
+  },
+  "vs.compare.tableNote": {
+    "sourceHash": "fd9a090452f02040c3aa1898fc201d2f26807608",
+    "reviewed": false
+  },
+  "vs.compare.vsCurrent": {
+    "sourceHash": "f1dc0d621de2fbb63cab93c3ca31446640be2933",
+    "reviewed": false
+  },
+  "vs.compare.youAreHere": {
+    "sourceHash": "c3ad058bc331e2331cfbf30473923c1e155f934f",
+    "reviewed": false
+  },
+  "vs.cta.button": {
+    "sourceHash": "7d4f2770acdfb158ad705cd22a5b2cd52485d47b",
+    "reviewed": false
+  },
+  "vs.cta.heading": {
+    "sourceHash": "ca213cf6c62a84f02e93c2ea5fc710c9a844737c",
+    "reviewed": false
+  },
+  "vs.cta.lead": {
+    "sourceHash": "feb4c508b49e129f695a43cf8a7d95129addd93a",
+    "reviewed": false
+  },
+  "vs.cta.note": {
+    "sourceHash": "7af278b754687d46a83a323baf6ca0422f2cca4f",
+    "reviewed": false
+  },
+  "vs.exit.fullBody": {
+    "sourceHash": "1d59730561c988df94fbc4da6520834906fe4358",
+    "reviewed": false
+  },
+  "vs.exit.fullHeading": {
+    "sourceHash": "0187ca0b371f1dabf477096765a008aebdc1ef41",
+    "reviewed": false
+  },
+  "vs.exit.heading": {
+    "sourceHash": "336871c40b561cad145406a1394fb48f616537a4",
+    "reviewed": false
+  },
+  "vs.exit.instantBody": {
+    "sourceHash": "8c9d80f46b86c203ab82ef574958e3b8d3798201",
+    "reviewed": false
+  },
+  "vs.exit.instantHeading": {
+    "sourceHash": "2ff72a30d91db00d37d3352bd2428f9ae1498c33",
+    "reviewed": false
+  },
+  "vs.exit.lead": {
+    "sourceHash": "a83e446c4c246efdc381c8f8a2ac6ce60d48b7c5",
+    "reviewed": false
+  },
+  "vs.exit.note": {
+    "sourceHash": "c7475cab89f66c71daabd1fdb8760d72a379f0bd",
+    "reviewed": false
+  },
+  "vs.hero.badge": {
+    "sourceHash": "d58b2e38a70ec05fb3e7fe6d293047be7bd48cf8",
+    "reviewed": false
+  },
+  "vs.hero.lead": {
+    "sourceHash": "b6f14b043e75ca56ec530b05ec9b9a1770e27b12",
+    "reviewed": false
+  },
+  "vs.hero.note": {
+    "sourceHash": "e5f28ad27411e35d75723a3b27ac71fe06fcf7b4",
+    "reviewed": false
+  },
+  "vs.hero.statApy": {
+    "sourceHash": "8ad0c6f20a41d1f0ba971c097ecf97fda74b57d4",
+    "reviewed": false
+  },
+  "vs.hero.statFee": {
+    "sourceHash": "f651621fa3706d2d77cadc3b093eca890ffd6a25",
+    "reviewed": false
+  },
+  "vs.hero.statStaked": {
+    "sourceHash": "83323d9d227aa116bcd13069d8f9146003d2fec6",
+    "reviewed": false
+  },
+  "vs.hero.title": {
+    "sourceHash": "bcfd946b3eac764c33583b9ce8f86f4fb70af408",
+    "reviewed": false
+  },
+  "vs.hpo.colLevel1": {
+    "sourceHash": "5efc5f3f181ec7ab4685f9d15693ff3e369024f2",
+    "reviewed": false
+  },
+  "vs.hpo.colLevelTop": {
+    "sourceHash": "d1241add65996117fb3cdebcdd983cb5345ed1e9",
+    "reviewed": false
+  },
+  "vs.hpo.colStake": {
+    "sourceHash": "ed9231c9914d616928eeb26b4a105200fd9c2564",
+    "reviewed": false
+  },
+  "vs.hpo.heading": {
+    "sourceHash": "3de91211de3b36ddab6a5b0ad0ed4500ee1aebc2",
+    "reviewed": false
+  },
+  "vs.hpo.lead": {
+    "sourceHash": "563a7ba44c46ab3178287cf78412efe3985fea4a",
+    "reviewed": false
+  },
+  "vs.hpo.note": {
+    "sourceHash": "7aec1963e58681ea020ee1d85fa0ee559650fa8b",
+    "reviewed": false
+  },
+  "vs.hpo.worth": {
+    "sourceHash": "d945645805110129e52f0d702025f1ff893a0c25",
+    "reviewed": false
+  },
+  "vs.trust.custodyBody": {
+    "sourceHash": "7baa1bd51acddbd266e5d3ebdabde7610e623bf8",
+    "reviewed": false
+  },
+  "vs.trust.custodyHeading": {
+    "sourceHash": "b19ca5174eecf37a94757328938e8c3fa135aa75",
+    "reviewed": false
+  },
+  "vs.trust.dataBody": {
+    "sourceHash": "d53c745fa9fc48f7278b47b009dfe2b0867d80f4",
+    "reviewed": false
+  },
+  "vs.trust.dataHeading": {
+    "sourceHash": "a3e835deee7c9861edab8db30f3eb62779af94db",
+    "reviewed": false
+  },
+  "vs.trust.heading": {
+    "sourceHash": "794b82226f4270ba2b6849d434252f9f107746fa",
+    "reviewed": false
+  },
+  "vs.trust.openBody": {
+    "sourceHash": "9b6c3d7d610fda161adbd46901a8cedb70660ef4",
+    "reviewed": false
+  },
+  "vs.trust.openHeading": {
+    "sourceHash": "4c93e420a8edbb38204bc2f635e126761d7f357d",
+    "reviewed": false
+  },
+  "vs.trust.walletBody": {
+    "sourceHash": "1f78005f337fe589b176115ac751d207ce436bb2",
+    "reviewed": false
+  },
+  "vs.trust.walletHeading": {
+    "sourceHash": "e1d515fbf85883af86b3acff8fe5a85ef75f72ec",
+    "reviewed": false
+  },
+  "vs.worth.colEarn": {
+    "sourceHash": "1a06ea9dec66568e34556b88f8517fbcbb913bf2",
+    "reviewed": false
+  },
+  "vs.worth.colFee": {
+    "sourceHash": "4b737de7b5c846691b0b915ee7456663694511e1",
+    "reviewed": false
+  },
+  "vs.worth.colStake": {
+    "sourceHash": "ed9231c9914d616928eeb26b4a105200fd9c2564",
+    "reviewed": false
+  },
+  "vs.worth.heading": {
+    "sourceHash": "f1c0cfe7d37be65552effc1ef3fd4f29a6797c24",
+    "reviewed": false
+  },
+  "vs.worth.leadWith": {
+    "sourceHash": "05000109effc522ef12de59c2a20131f6a374586",
+    "reviewed": false
+  },
+  "vs.worth.leadWithout": {
+    "sourceHash": "f2ca54995143a9144ef5eaf6f445737ca376ce06",
+    "reviewed": false
+  },
+  "vs.worth.note": {
+    "sourceHash": "40e968146f2e9cac70b898321efec27c7d76717d",
+    "reviewed": false
+  }
+}

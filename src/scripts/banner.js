@@ -23,8 +23,8 @@ function writeStorage(key, value) {
 }
 
 // Which of `targets` (public locales, keyed by registry key) the browser prefers: the first entry of
-// navigator.languages that matches any public locale decides — exact key ('pt-br'), then primary subtag
-// ('fa-IR' → 'fa'), then a key sharing the primary subtag ('pt' → 'pt-br'). Stops at the first match
+// navigator.languages that matches any public locale decides — exact key ('fa'), then primary subtag
+// ('fa-IR' → 'fa'), then a key sharing the primary subtag ('pt-BR' → 'pt'). Stops at the first match
 // so ['en-US', 'fa'] means "English first": no suggestion. Mirrors matchLocale in src/i18n/locale.ts.
 function preferredLocale(targets) {
   const keys = Object.keys(targets)

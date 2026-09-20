@@ -14,7 +14,7 @@ const SITEMAP_GROUPS = ['site', 'app', 'docs']
 const APP_SECTIONS = new Set(['stake', 'unstake', 'rewards', 'stats', 'defi'])
 
 /**
- * The sitemap chunk a URL belongs to, `<locale>-<group>` (`en-site`, `fa-app`, `pt-br-docs`).
+ * The sitemap chunk a URL belongs to, `<locale>-<group>` (`en-site`, `fa-app`, `pt-docs`).
  * @param {string} url
  */
 function sitemapSegment(url) {
@@ -292,6 +292,19 @@ const REMOVED_LOCALE_REDIRECTS = {
   '/it/docs/giveaways-and-prizes/hipo-club/': '/docs/giveaways-and-prizes/hipo-club/',
 }
 
+// The three /pt-br/ URLs worth keeping resolvable after Brazilian Portuguese moved to the plain `pt`
+// key (2026-09-20, see specs/language-preference-and-locale-lineup.md and decision 18): Search Console
+// showed /pt-br/ with 7 impressions and 0 clicks over 2026-08-21 -> 09-17, so there is no meaningful
+// link equity to preserve — these three are stubbed only because they are the most-visible /pt-br/
+// URLs, not because any of them earned a click. GitHub Pages has no server redirects, so a meta-refresh
+// stub is the only way to keep them resolving. These paths only became eligible for `redirects` once
+// `pt-br` left the registry and stopped being built.
+const RENAMED_LOCALE_REDIRECTS = {
+  '/pt-br/': '/pt/',
+  '/pt-br/docs/': '/pt/docs/',
+  '/pt-br/stake/': '/pt/stake/',
+}
+
 export default defineConfig({
   site: 'https://hipo.finance',
   base: '/',
@@ -326,6 +339,7 @@ export default defineConfig({
   // and `/it/docs/…/why-ton/` were noindex stubs, so letting them 404 costs nothing.
   redirects: {
     ...REMOVED_LOCALE_REDIRECTS,
+    ...RENAMED_LOCALE_REDIRECTS,
     ...Object.fromEntries(
       Object.entries({ ...DOCS_MERGE_REDIRECTS, ...DOCS_SECTION_REDIRECTS }).flatMap(([from, to]) => [
         [from, to],

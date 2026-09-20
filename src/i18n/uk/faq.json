@@ -1,0 +1,22 @@
+{
+  "faq.page.title": "Часті запитання",
+  "faq.page.sections": "Розділи",
+  "faq.section.gettingStarted.heading": "Початок роботи",
+  "faq.section.gettingStarted.nav": "Початок роботи",
+  "faq.section.staking.heading": "Стейкінг",
+  "faq.section.staking.nav": "Стейкінг",
+  "faq.section.rewards.heading": "Винагороди та APY",
+  "faq.section.rewards.nav": "Винагороди та APY",
+  "faq.section.hgram.heading": "hGRAM",
+  "faq.section.hgram.nav": "hGRAM",
+  "faq.section.unstaking.heading": "Анстейк",
+  "faq.section.unstaking.nav": "Анстейк",
+  "faq.section.security.heading": "Безпека та ризики",
+  "faq.section.security.nav": "Безпека та ризики",
+  "faq.section.validators.heading": "Валідатори та маркетплейс стейкінгу",
+  "faq.section.validators.nav": "Валідатори та маркетплейс",
+  "faq.section.hpoToken.heading": "HPO та Hipo Club",
+  "faq.section.hpoToken.nav": "HPO та Club",
+  "faq.section.support.heading": "Підтримка",
+  "faq.section.support.nav": "Підтримка"
+}

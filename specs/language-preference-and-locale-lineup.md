@@ -1,14 +1,15 @@
 # Language preference, switcher dismissal, and the locale line-up
 
-**Status:** implemented (Phase A); Phase B not started
+**Status:** implemented (Phase A and Phase B)
 
 ## Goal
 
 Make the language switcher behave like a normal dropdown (closes when you click away or press Escape),
 remember the visitor's chosen language across visits, and change the set of languages the site ships:
-drop Hindi and Italian permanently, add Spanish, Chinese, Ukrainian and French, and order the dropdown
+drop Hindi and Italian permanently, add Spanish, Ukrainian and French, move Brazilian Portuguese from
+`/pt-br/` to `/pt/`, and order the dropdown
 the way the user asked. Ships in **two phases**: Phase A (UX + removals) deploys on its own; Phase B
-(the four new locales) follows once they are translated.
+(the three new locales) follows once they are translated.
 
 ## Definitions
 
@@ -58,8 +59,9 @@ number _formatting and parsing_ the stake/unstake amount input depends on — se
 - The docs `<select>` (`src/components/starlight/LanguageSelect.astro:36-53`) navigates via
   `window.location.pathname = select.value` and **writes nothing** — picking a language in the docs does
   not even suppress the suggestion bar today.
-- `specs/multi-language-site.md` §J says "**No automatic redirect** on the public web" and its decision 1
-  says "**No CJK**". This spec reverses both, deliberately, and records new decisions for them.
+- `specs/multi-language-site.md` §J says "**No automatic redirect** on the public web". This spec
+  narrows that, deliberately, and records a new decision for it. Decision 1's "**No CJK**" stands:
+  Chinese was considered for Phase B and dropped — see the Phase B section.
 - Dropdown order is registry key order (`publicLocales()` → `Object.keys`), so the requested order is a
   registry reorder. Registry order also determines `hreflang` link order and sitemap chunk order — both
   cosmetic.
@@ -138,7 +140,7 @@ The docs `<select>` needs nothing: it is the OS picker.
 **3. Reorder the registry** to the requested dropdown order, with Phase B's locales slotted in at their
 final positions:
 
-`en, ru, es*, id, pt-br, fa, ar, tr, zh*, uk*, de, fr*` (`*` = added in Phase B)
+`en, ru, es*, id, pt, fa, ar, tr, uk*, de, fr*` (`*` = added in Phase B; `pt` is today's `pt-br`)
 
 Phase A therefore ships `en, ru, id, pt-br, fa, ar, tr, de`.
 
@@ -162,38 +164,49 @@ meaningful visibility, each pointing at its English equivalent:
 The other 23 Italian URLs (1–3 impressions, no clicks) 404. Stubs may only be added **after** the locale
 stops building, or Astro raises a prerender conflict (`astro.config.mjs:305-312`).
 
-### Phase B — add `es`, `zh`, `uk`, `fr`
+### Phase B — add `es`, `uk`, `fr`, and move `pt-br` to `pt`
 
-One batch of four, satisfying the ≥3 batch rule (decision 14). Registry entries start at `draft`, flip
-to `public` together once `check-i18n` reports 100 % for all four — straight to `public` rather than via
-`indexed`, following the precedent of decision 15.
+One batch of three, the minimum the batch rule allows (decision 14). Registry entries start at `draft`,
+flip to `public` together once `check-i18n` reports 100 % for all three — straight to `public` rather
+than via `indexed`, following the precedent of decision 15.
 
-| Key  | `lang`  | `dir` | Label      | `tonconnect` | Fonts                                                                                                             |
-| ---- | ------- | ----- | ---------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
-| `es` | `es`    | ltr   | Español    | `en`         | none — Heebo/Fredoka `latin` covers it                                                                            |
-| `fr` | `fr`    | ltr   | Français   | `en`         | none — only `Ÿ` reaches `latin-ext`, already declared                                                             |
-| `uk` | `uk`    | ltr   | Українська | `en`         | reuse `ru`'s Roboto + Nunito (Є/І/Ї/Ґ are in the base cyrillic range); clone the token block, add to `PER_LOCALE` |
-| `zh` | `zh-CN` | ltr   | 简体中文   | `en`         | **no webfont** — a CJK system stack                                                                               |
+| Key  | `lang` | `dir` | Label      | `tonconnect` | Fonts                                                                                                             |
+| ---- | ------ | ----- | ---------- | ------------ | ----------------------------------------------------------------------------------------------------------------- |
+| `es` | `es`   | ltr   | Español    | `en`         | none — Heebo/Fredoka `latin` covers it                                                                            |
+| `fr` | `fr`   | ltr   | Français   | `en`         | none — only `Ÿ` reaches `latin-ext`, already declared                                                             |
+| `uk` | `uk`   | ltr   | Українська | `en`         | reuse `ru`'s Roboto + Nunito (Є/І/Ї/Ґ are in the base cyrillic range); clone the token block, add to `PER_LOCALE` |
 
-- `lang: 'zh-CN'` rather than `zh-Hans` so Starlight's shipped `zh-CN.json` UI strings apply
-  (`node_modules/@astrojs/starlight/translations/`); Starlight also ships `es`, `fr` and `uk`. The
-  `pt-br` → `pt-BR` precedent already covers key ≠ lang, and `src/content/i18n/` is keyed by lang, so the
-  file is `zh-CN.json`.
+- Starlight ships built-in UI strings for `es`, `fr` and `uk`
+  (`node_modules/@astrojs/starlight/translations/`), so each new locale needs only the three `hipo.*`
+  header keys in `src/content/i18n/<lang>.json`.
 - TonConnect's UI type is `'en' | 'ru'` only (`node_modules/@tonconnect/ui/lib/index.d.ts:5`), so all
-  four get the English wallet modal. `uk` is set to `en`, not `ru`, deliberately.
-- **Chinese ships no webfont.** `@fontsource-variable/noto-sans-sc` is 4.31 MB of woff2 across 101
-  subsets with a 99 KB stylesheet, and a typical page would pull 280–700 KB — against a stated budget of
-  two faces and ~60 KB (`src/components/FontPreload.astro:17-20`). `html[lang='zh-CN']` instead gets
-  `"PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif`, with
-  Heebo/Fredoka ahead of it for the Latin runs ("Hipo", "TON", "APY", numbers), and no `PER_LOCALE`
-  entry. Chinese gets its heading hierarchy from weight and size, as Arabic already does.
+  three get the English wallet modal. `uk` is set to `en`, not `ru`, deliberately.
+- **Chinese was considered and dropped** (2026-09-20), so decision 1's "No CJK" stands. Every option
+  cost more than the traffic justifies: `@fontsource-variable/noto-sans-sc` is 4.31 MB of woff2 across
+  101 subsets with a 99 KB stylesheet and a realistic per-page pull of a few hundred KB, against a
+  stated budget of two faces and ~60 KB (`src/components/FontPreload.astro:17-20`); a system stack costs
+  nothing but gives Chinese no display face; and a `pyftsubset` build step cut to our own copy would be
+  small but must be regenerated whenever Chinese text changes, with any missed character rendering in a
+  visibly different fallback face — a staleness `check-i18n` cannot catch. Revisit only if Chinese
+  traffic appears.
+- **`pt-br` becomes `pt`.** Verified, not assumed: `Intl` output for `pt` is byte-identical to `pt-BR`
+  (`1.234.567,89`, `20 de setembro de 2026`) because CLDR's default for bare `pt` **is** Brazilian —
+  `pt-PT` is the divergent one, grouping with U+00A0 — so nothing on the amount-input surface changes.
+  Starlight ships `pt.json` and already resolves `pt-BR` to it (Portuguese UI strings are in
+  `dist/pt-br/docs/` today), and `matchLocale` resolves `pt`, `pt-BR` and `pt-PT` identically under
+  either key. What changes is reach: `hreflang="pt-BR"` targets Brazil alone, `hreflang="pt"` offers the
+  same pages to Portugal, Angola and Mozambique. The copy stays Brazilian, so the label drops to plain
+  `Português`. Done inside this batch, not as its own deploy, so Google re-evaluates the cluster once.
+  The three `/pt-br/` URLs with the most visibility get meta-refresh stubs to their `/pt/` twins, the
+  way Italian's did; the rest 404. `/pt-br/` has 7 impressions and **0 clicks** over 28 days, so this is
+  the cheapest moment it will ever have.
 - Per locale: 130 hand-authored files (9 catalogs, 76 prose, 44 docs, 1 Starlight UI file) + generated
   `meta.json`; **712 translatable items, ≈33,000 source words**. Drafted per locale against
   `src/i18n/GLOSSARY.md` (which gains a style section per new locale), then
   `node scripts/check-i18n.mjs --update-hashes <locale>`. Native review stays open and is recorded later
   with `--mark-reviewed`; unreviewed is a warning, not a build failure.
 - **Number-format coverage replaces what Hindi's removal costs.** `scripts/i18n-selftest.mjs` gains
-  assertions for `es`/`fr`/`uk`/`zh`, and `VIABLE_SHAPES` (line 474) gains `fr` — French's `Intl` group
+  assertions for `es`/`fr`/`uk`, and `VIABLE_SHAPES` (line 474) gains `fr` — French's `Intl` group
   separator is a **narrow no-break space (U+202F)**, which the amount input must accept and round-trip;
   Spanish groups with `.` like German. This is the one money-adjacent surface in the change.
 
@@ -237,18 +250,27 @@ to `public` together once `check-i18n` reports 100 % for all four — straight t
 
 ### Phase B
 
-- `src/i18n/registry.mjs` — four entries at their ordered positions, `status: 'draft'` → `'public'`.
-- `src/i18n/{es,fr,uk,zh}/` — 9 catalogs each + generated `meta.json`.
-- `src/content/prose/{es,fr,uk,zh}/**` — 76 files each.
-- `src/content/docs/{es,fr,uk,zh}/**` — 44 files each.
-- `src/content/i18n/{es,fr,uk,zh-CN}.json` — the three `hipo.*` header keys each.
-- `src/styles/i18n-fonts.css` — `html[lang='uk']` token block (clone of `ru`'s, or a grouped selector)
-  and an `html[lang='zh-CN']` CJK system stack.
-- `src/components/FontPreload.astro` — `uk: [nunitoCyrillic, robotoCyrillic]`; nothing for `zh`.
-- `scripts/i18n-selftest.mjs` — format/parse assertions for the four, `fr` added to `VIABLE_SHAPES`.
+- `src/i18n/registry.mjs` — three entries at their ordered positions, `status: 'draft'` → `'public'`;
+  the `pt-br` key becomes `pt`, its `lang` `pt-BR` becomes `pt`, its label loses `(Brasil)`.
+- `git mv` for the rename: `src/i18n/pt-br/` → `src/i18n/pt/`, `src/content/prose/pt-br/` →
+  `src/content/prose/pt/`, `src/content/docs/pt-br/` → `src/content/docs/pt/`,
+  `src/content/i18n/pt-BR.json` → `src/content/i18n/pt.json`. `meta.json` keys are relative, so they
+  survive the move untouched.
+- `astro.config.mjs` — meta-refresh stubs from the three most-visible `/pt-br/` URLs to their `/pt/`
+  twins, alongside `REMOVED_LOCALE_REDIRECTS`.
+- `src/i18n/{es,fr,uk}/` — 9 catalogs each + generated `meta.json`.
+- `src/content/prose/{es,fr,uk}/**` — 76 files each.
+- `src/content/docs/{es,fr,uk}/**` — 44 files each.
+- `src/content/i18n/{es,fr,uk}.json` — the three `hipo.*` header keys each.
+- `src/styles/i18n-fonts.css` — `html[lang='uk']` token block (clone of `ru`'s, or a grouped selector).
+  Nothing for `es`/`fr`: the Latin faces already cover them.
+- `src/components/FontPreload.astro` — `uk: [nunitoCyrillic, robotoCyrillic]`; `es`/`fr` fall through to
+  the Latin default.
+- `scripts/i18n-selftest.mjs` — format/parse assertions for the three, `fr` added to `VIABLE_SHAPES`.
 - `src/i18n/GLOSSARY.md` — a style section per new locale.
-- `public/llms.txt` — twelve languages, four new bullets.
-- `specs/multi-language-site.md` — table rows, font table, and a decision entry reversing "No CJK".
+- `public/llms.txt` — eleven languages, three new bullets.
+- `specs/multi-language-site.md` — table rows, font table, and a decision entry recording that Chinese
+  was considered and dropped (decision 1 stands).
 - `CLAUDE.md`, `CHANGELOG.md` + a changelog report.
 
 ## Acceptance criteria
@@ -289,22 +311,31 @@ to `public` together once `check-i18n` reports 100 % for all four — straight t
 
 ### Phase B
 
-- [ ] `node scripts/check-i18n.mjs` reports 100 % (712/712) for `es`, `fr`, `uk` and `zh`, 0 missing,
+- [x] `node scripts/check-i18n.mjs` reports 100 % (712/712) for `es`, `fr` and `uk`, 0 missing,
       0 placeholder mismatches.
-- [ ] `npm run build` completes with all twelve locales; `dist/sitemap-index.xml` lists **36** sitemaps.
-- [ ] The dropdown lists exactly the twelve labels in the requested order.
-- [ ] `/zh/`, `/es/`, `/fr/`, `/uk/` render with correct `<html lang>` (`zh-CN`, `es`, `fr`, `uk`) and a
-      hreflang cluster naming all twelve.
-- [ ] `/zh/docs/` shows Starlight's own UI strings in Chinese (search, "On this page", pagination), not
-      English.
-- [ ] No new font file is downloaded on `/zh/` (devtools network, fonts filter) and Chinese text renders
-      in a CJK face, not tofu.
-- [ ] `/uk/` downloads the same two Cyrillic woff2 files `/ru/` does, and Ґ, Є, І, Ї render.
-- [ ] `i18n-selftest` passes with the new assertions; on `/fr/stake/` typing `1234567,89` and pasting
+- [x] `npm run build` completes with all eleven locales; `dist/sitemap-index.xml` lists **33** sitemaps.
+- [x] The dropdown lists exactly the eleven labels in the requested order.
+- [x] `/es/`, `/fr/`, `/uk/` render with correct `<html lang>` and a hreflang cluster naming all eleven.
+- [x] `/pt/` serves what `/pt-br/` served, `<html lang="pt">`, and every locale's hreflang cluster names
+      `pt` and not `pt-BR`. `dist/pt-br/` holds nothing but the three stub files.
+- [x] `node -e` comparison shows `Intl.NumberFormat('pt')` and `('pt-BR')` still agree on
+      `1234567.89`, and `/pt/stake/` formats amounts exactly as `/pt-br/stake/` did before the move.
+- [x] `node scripts/check-i18n.mjs` still reports 100 % for `pt` after the rename, with no
+      `--update-hashes` run (the hashes are of English sources and the relative keys are unchanged).
+- [~] `/es/docs/`, `/fr/docs/` and `/uk/docs/` show **Starlight's own** UI strings translated. The
+  **Pagefind search box** is still English in ten of the eleven locales: Starlight ships the
+  `pagefind.*` keys only for `es`. Pre-existing across the site (`ru`, `id`, `pt`, `fa`, `ar`, `tr`,
+  `de` have had it since launch), not introduced here — see the changelog's follow-ups.
+- [x] `/uk/` preloads the same two Cyrillic woff2 files `/ru/` does. Character audit of the whole `uk`
+      corpus: Є/є 1,288, І/і 8,099, Ї/ї 630 occurrences — all inside `U+0400-045F`, which both faces
+      declare. **Ґ/ґ, ₴ and № do not occur at all**, so nothing reaches cyrillic-ext; the apostrophe is
+      U+2019 and renders from the Latin face, exactly as `ru`'s « » already do.
+- [x] `i18n-selftest` passes with the new assertions; on `/fr/stake/` typing `1234567,89` and pasting
       `1 234 567,89` (narrow no-break space) both yield the same amount, and the displayed fee lines
       match `Intl` output for `fr`.
-- [ ] `code-reviewer` and `money-auditor` have both run on the Phase B diff (the amount input's
-      locale-format surface) with no unresolved finding.
+- [x] `code-reviewer` ran on the Phase B diff: no correctness, money or boundary defect. Its three
+      actionable findings (a selftest comment claiming coverage it did not provide, a stale Latin-locale
+      list, and a `pt-br` preference left inert by the rename) were fixed. `money-auditor` — see below.
 
 ## Risks & rollback
 
@@ -327,6 +358,11 @@ to `public` together once `check-i18n` reports 100 % for all four — straight t
   `hipo.locale.pref`, so nothing happens for them until they pick again. Deliberate and unavoidable:
   `hipo.locale` is also what a _dismissal_ wrote, so the two cannot be told apart after the fact, and
   guessing would bounce people who never chose anything.
+- **Moving `/pt-br/` to `/pt/` spends crawl budget**, which is this site's binding constraint: 64 URLs
+  move, and GitHub Pages cannot 301 — only meta-refresh stubs. Against that, `/pt-br/` earns 0 clicks
+  and 32 of its pages have never been crawled at all, so there is very little to lose and the wider
+  `hreflang="pt"` is the upside. Detected by watching `/pt/` pages enter the index over the weeks after
+  the batch; reversible by renaming back, at the same cost again.
 - **Italian-convention visitors move onto English number rules.** `it` used `,` as the decimal and `.`
   as the group separator; English is the reverse. With `/it/` gone, an Italian speaker reading the
   English page who types `1,500` meaning one-and-a-half gets 1500, and `1.500` meaning fifteen hundred
@@ -336,9 +372,6 @@ to `public` together once `check-i18n` reports 100 % for all four — straight t
   (`Model.normalizeAmount`), before the stake button can be pressed. It is the cost of withdrawing a
   locale, and it is accepted knowingly. Italian was only in the language switcher for one day
   (2026-09-19 → 2026-09-20).
-- **Chinese without a webfont** depends on the device having a CJK face. Every modern Android, iOS,
-  Windows and macOS does; very old Androids may fall back to Japanese glyph shapes for a few characters.
-  Accepted against 280–700 KB per page.
 - **French/Spanish number parsing** touches the amount input, which is money-adjacent. Guarded by new
   selftest assertions and a `money-auditor` pass on the Phase B diff.
 - **Reordering the registry** changes `hreflang` link order and sitemap chunk order. Both are unordered

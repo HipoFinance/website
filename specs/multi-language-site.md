@@ -102,6 +102,11 @@ Everything below was read from the repo on 2026-08-22 (Astro 6.4.8, Starlight 0.
   | `tr`    | `tr`    | ltr | Türkçe             | en         | draft        |
   | `de`    | `de`    | ltr | Deutsch            | en         | draft        |
 
+  The table above is the v1 snapshot and is deliberately not rewritten. Since then: `hi` and `it` were
+  removed permanently (decision 16), `pt-br`/`pt-BR` became `pt`/`pt` with the label `Português`
+  (decision 19), and `es`, `uk` and `fr` were added (decision 18). `src/i18n/registry.mjs` is always the
+  authority; read it, not this table.
+
   `status` is one of `'draft'` (built only when `I18N_INCLUDE_DRAFTS=1`, local preview, so half-finished
   translations can land on `main` safely), `'indexed'` (built, linked for crawlers only — `hreflang`,
   sitemap — with **no visible language UI**) and `'public'` (also listed in the language dropdown). "Released"
@@ -510,6 +515,30 @@ src/layouts src/pages` matches only the allow-listed chart tooltip/SVG lines in 
     navigates, and crawlers never have the key, so nothing about hreflang or what Googlebot sees
     changes. See `specs/language-preference-and-locale-lineup.md`.
 
+18. (2026-09-20) Spanish (`es`), Ukrainian (`uk`) and French (`fr`) added as one batch — three is the
+    minimum decision 14 allows. `uk` reuses `ru`'s Roboto + Nunito: Ukrainian's own letters (Є/є, І/і,
+    Ї/ї, Ґ/ґ) all sit in the base cyrillic range already declared, so the locale costs no new font file.
+    `es` and `fr` are covered by the existing Latin faces. **Chinese was considered for this batch and
+    dropped, so decision 1's "No CJK" stands**: `@fontsource-variable/noto-sans-sc` is 4.31 MB of woff2
+    across 101 subsets with a 99 KB stylesheet and a realistic per-page pull of a few hundred KB against
+    a stated budget of two faces and ~60 KB; a system stack costs nothing but leaves Chinese with no
+    display face; and a `pyftsubset` build step cut to our own copy would be small but must be
+    regenerated whenever Chinese copy changes, with any missed character rendering in a visibly
+    different fallback face — staleness `check-i18n` cannot catch. Revisit only if Chinese traffic
+    appears. French is the one locale whose `Intl` group separator is a **narrow** no-break space
+    (U+202F, not `ru`/`uk`'s U+00A0); `scripts/i18n-selftest.mjs` gained `fr` in `VIABLE_SHAPES` and
+    U+202F in `VIABLE_ALPHABET` so the amount input's parser is exercised on it.
+19. (2026-09-20) `pt-br` renamed to `pt`, `lang` `pt-BR` to `pt`, label `Português (Brasil)` to
+    `Português`. Verified before the move: `Intl` output for `pt` is byte-identical to `pt-BR`
+    (`1.234.567,89`) because CLDR's default for bare `pt` **is** Brazilian — `pt-PT` is the divergent
+    one, grouping with U+00A0 — so nothing on the amount-input surface changes; Starlight ships
+    `pt.json` and already resolved `pt-BR` to it; `matchLocale` resolves `pt`, `pt-BR` and `pt-PT`
+    identically under either key. The gain is reach: `hreflang="pt"` offers the same pages to every
+    Portuguese-speaking market rather than Brazil alone. The copy stays Brazilian. `meta.json` keys are
+    relative, so the move needed no `--update-hashes`. Three `/pt-br/` URLs get meta-refresh stubs, the
+    rest 404; `/pt-br/` had 7 impressions and 0 clicks over 2026-08-21→09-17, so this was the cheapest
+    moment. Done inside the same batch as decision 18 so Google re-evaluates the hreflang cluster once.
+
 ## Open questions
 
-None — all fifteen decisions are recorded in the log above.
+None — all nineteen decisions are recorded in the log above.

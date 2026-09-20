@@ -16,7 +16,7 @@
  *
  *   2. Per-`<html lang>` overrides of the family tokens. Tailwind emits @theme tokens on `:root, :host`
  *      (specificity 0,1,0) and Starlight sets `--sl-font` on a layered `:root`, so `html[lang="…"]`
- *      (0,1,1) wins without !important. Latin locales (en de tr id pt-BR) keep Heebo + Fredoka.
+ *      (0,1,1) wins without !important. Latin locales (en de tr id pt es fr) keep Heebo + Fredoka.
  *
  * Swapping a family for a locale is a package swap plus an edit to the matching block below.
  */
@@ -140,7 +140,12 @@ html[lang='ar'] {
   --hipo-font-display: 'Cairo Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
 }
 
-html[lang='ru'] {
+/* uk shares ru's pair: Ukrainian's own letters — Є/є U+0404/0454, І/і U+0406/0456, Ї/ї U+0407/0457
+ * and Ґ/ґ U+0490/0491 — all sit inside the base cyrillic range declared above, so this costs no new
+ * font file. The hryvnia sign U+20B4 is the one character that would reach cyrillic-ext, which is
+ * already declared and would simply be fetched on demand. */
+html[lang='ru'],
+html[lang='uk'] {
   --font-body: 'Roboto Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --font-fredoka: 'Nunito Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
   --sl-font: 'Roboto Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;

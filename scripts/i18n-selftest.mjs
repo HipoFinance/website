@@ -67,7 +67,7 @@ check('stripLocale', () => {
   assert.deepEqual(stripLocale('/fa'), { locale: 'fa', path: '/' })
   assert.deepEqual(stripLocale('/fa?x=1'), { locale: 'fa', path: '/?x=1' })
   assert.deepEqual(stripLocale('/fa/docs/x/#y'), { locale: 'fa', path: '/docs/x/#y' })
-  assert.deepEqual(stripLocale('/pt-br/hpo/'), { locale: 'pt-br', path: '/hpo/' })
+  assert.deepEqual(stripLocale('/pt/hpo/'), { locale: 'pt', path: '/hpo/' })
   assert.deepEqual(stripLocale('/faq/'), { locale: 'en', path: '/faq/' })
   assert.deepEqual(stripLocale('/fake/'), { locale: 'en', path: '/fake/' })
 })
@@ -85,7 +85,7 @@ check('localizedPath', () => {
   assert.equal(localizedPath('/stake', 'fa'), '/fa/stake')
   assert.equal(localizedPath('/docs/x/#anchor', 'fa'), '/fa/docs/x/#anchor')
   assert.equal(localizedPath('/stake/?a=1', 'fa'), '/fa/stake/?a=1')
-  assert.equal(localizedPath('/hpo/', 'pt-br'), '/pt-br/hpo/')
+  assert.equal(localizedPath('/hpo/', 'pt'), '/pt/hpo/')
   assert.equal(localizedPath('#top', 'fa'), '#top')
   assert.equal(localizedPath('mailto:hi@hipo.finance', 'fa'), 'mailto:hi@hipo.finance')
   assert.equal(localizedPath('tel:+1', 'fa'), 'tel:+1')
@@ -100,7 +100,7 @@ check('localizedPath', () => {
 })
 
 check('langOf/dirOf/intlOf', () => {
-  assert.equal(langOf('pt-br'), 'pt-BR')
+  assert.equal(langOf('pt'), 'pt')
   // `lang` stays the plain tag for <html lang>/hreflang; only Intl sees the numbering-system override.
   assert.equal(langOf('ar'), 'ar')
   assert.equal(intlOf('ar'), 'ar-u-nu-arab')
@@ -133,6 +133,13 @@ check('formatNumber native conventions', () => {
   assert.equal(formatNumber('ru', 1234.5), '1 234,5')
   assert.equal(formatNumber('de', 1234.5), '1.234,5')
   assert.equal(formatNumber('ar', 1234.5), '١٬٢٣٤٫٥')
+  // es does not group a 4-digit number (CLDR minimumGroupingDigits 2), unlike de.
+  assert.equal(formatNumber('es', 1234.5), '1234,5')
+  assert.equal(formatNumber('es', 1234567.89), '1.234.567,89')
+  // fr groups with U+202F (narrow no-break space), uk with U+00A0 like ru. Both reach the parser as
+  // group marks today because GROUP_ONLY folds whitespace; these pin the Intl output itself.
+  assert.equal(formatNumber('fr', 1234567.89), '1\u202f234\u202f567,89')
+  assert.equal(formatNumber('uk', 1234567.89), '1\u00a0234\u00a0567,89')
   assert.equal(formatPercent('fa', 0.032), '۳٫۲٪')
   assert.ok(formatCompact('fa', 1234567).startsWith('۱٫۲'))
   assert.ok(formatUsd('de', 1234.5).includes('1.234,50'))
@@ -173,7 +180,7 @@ check('isolate', () => {
 check('parseNumberInput', () => {
   const p = parseNumberInput
   // ASCII in any locale. "1234.5" / "1234,5" used to be undefined on the locales whose group symbol
-  // was the character used ("." for de/tr/id/pt-br, "," for en): a 4-digit head can never be a
+  // was the character used ("." for de/tr/id/pt, "," for en): a 4-digit head can never be a
   // valid thousands group, so it now has no other reading and falls back to the decimal — the same
   // fallback that makes "22,22" work on the English page (see below).
   for (const l of locales) {
@@ -455,10 +462,15 @@ check('isViablePrefix — the states the amount input accepts', () => {
 })
 
 // Alphabet: one representative per class the tokeniser distinguishes (a zero, a non-zero digit, the
-// four separators, whitespace); locales: one per (decimal, group) pair in the registry — en,
-// de/tr/id/pt-br, fa/ar, ru.
-const VIABLE_ALPHABET = ['0', '5', '.', ',', '٫', '،', ' ']
-const VIABLE_SHAPES = ['en', 'de', 'fa', 'ru']
+// four separators, whitespace, and the narrow no-break space); locales: one per (decimal, group) pair
+// in the registry — en, de/tr/id/pt/es, fa/ar, ru/uk, fr.
+const VIABLE_ALPHABET = ['0', '5', '.', ',', '٫', '،', ' ', '\u202f']
+// One locale per separator shape. fr and U+202F are a tripwire, not new coverage: fr's Intl group
+// separator is a NARROW no-break space, but JS `\s` already matches it and GROUP_ONLY (format.ts)
+// folds it to U+00A0 before tokenising, so fr is behaviourally identical to ru here and the
+// round trip is already covered by the group that loops the whole registry. These two lines fail
+// loudly if GROUP_ONLY is ever narrowed to literal spaces. es shares de's shape, uk shares ru's.
+const VIABLE_SHAPES = ['en', 'de', 'fa', 'ru', 'fr']
 
 check('isViablePrefix — never blocks a prefix of a valid amount', () => {
   // Exhaustive to length 6: every string with a valid continuation must be viable. A predicate that

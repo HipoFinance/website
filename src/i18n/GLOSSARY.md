@@ -124,14 +124,14 @@ recurring terms appear; change a rendering only together with a sweep of the who
 | Retry / Try again                | تلاش دوباره                   | Повторить                            | X                                                                             |
 | Loading…                         | در حال بارگذاری…              | Загрузка…                            | X; keep the ellipsis character                                                |
 
-## Terminology — second batch (ar, de, tr, id, pt-br)
+## Terminology — second batch (ar, de, tr, id, pt)
 
 The same English terms as the table above, for the five locales added in the 2026-08-24 sync. The note column
 of the first table still applies (T = keep transliterated, X = translate, L = keep Latin); where a locale
 keeps the English word, that is the deliberate rendering, not an omission. Two-form cells (`reward / rewards`)
 keep the same order and separator as the English.
 
-| English                          | ar                                    | de                                                | tr                                        | id                                      | pt-br                                                                                |
+| English                          | ar                                    | de                                                | tr                                        | id                                      | pt                                                                                   |
 | -------------------------------- | ------------------------------------- | ------------------------------------------------- | ----------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------ |
 | liquid staking                   | ستاكينغ سائل                          | Liquid Staking                                    | likit staking                             | liquid staking                          | staking líquido (o staking líquido)                                                  |
 | staking (noun)                   | ستاكينغ                               | das Staking                                       | staking                                   | staking                                 | staking (o staking)                                                                  |
@@ -217,6 +217,99 @@ keep the same order and separator as the English.
 | Retry / Try again                | إعادة المحاولة / حاول مرة أخرى        | Erneut versuchen                                  | Tekrar dene                               | Coba lagi                               | Tentar novamente                                                                     |
 | Loading…                         | جارٍ التحميل…                         | Wird geladen…                                     | Yükleniyor…                               | Memuat…                                 | Carregando…                                                                          |
 
+## Terminology — third batch (es, fr, uk)
+
+The same English terms as the two tables above, for the three locales added in the 2026-09-20 sync. Filled from
+the renderings the translators actually used in the catalogs and docs, not invented; a blank cell means the
+term genuinely does not appear yet in any of the three locales' shipped copy — check with a native reviewer
+before adding one rather than guessing.
+
+| English                          | es                                            | fr                                                | uk                                            |
+| -------------------------------- | --------------------------------------------- | ------------------------------------------------- | --------------------------------------------- |
+| liquid staking                   | staking líquido                               | staking liquide                                   | ліквідний стейкінг                            |
+| staking (noun)                   | staking (el staking)                          | staking (le staking)                              | стейкінг                                      |
+| stake (verb)                     | hacer staking (de)                            | staker                                            | стейкати / застейкати (perfective)            |
+| Stake (CTA / button)             | Hacer staking                                 | Staker                                            | Застейкати                                    |
+| unstake (verb)                   | hacer unstaking / retirar del staking         | unstaker                                          | вивести                                       |
+| Unstake (CTA / button)           | Hacer unstaking                               | Unstaker                                          | Анстейк                                       |
+| staked (state: "10 GRAM staked") | en staking                                    | en staking                                        | у стейкінгу                                   |
+| staker                           | staker / stakers (English, no Spanish plural) | staker / stakers (English, no French plural)      | стейкер                                       |
+| validator                        | validador                                     | validateur                                        | валідатор                                     |
+| borrower                         | prestatario                                   | emprunteur                                        | валідатор-позичальник                         |
+| loan (validation loan)           | préstamo                                      | prêt                                              | позика                                        |
+| round / validation round         | ronda / ronda de validación                   | cycle / cycle de validation                       | раунд / раунд валідації                       |
+| election / election round        | elección / ronda de elección                  | élection / cycle d’élection                       | вибори / раунд виборів                        |
+| reward / rewards                 | recompensa / recompensas                      | récompense / récompenses                          | винагорода / винагороди                       |
+| staking rewards                  | recompensas de staking                        | récompenses de staking                            | винагороди за стейкінг                        |
+| yearly reward rate / APY         | recompensas anuales (APY)                     | récompenses annuelles (APY)                       | річні винагороди (APY)                        |
+| staking fee                      | comisión de staking                           | frais de staking                                  | комісія за стейкінг                           |
+| protocol fee                     | comisión de protocolo                         | frais de protocole                                | комісія протоколу                             |
+| network fee / gas                | comisión de red / gas                         | frais de réseau / gas                             | комісія мережі / газ                          |
+| treasury                         | tesorería                                     | trésorerie                                        | скарбниця                                     |
+| exchange rate / rate             | tasa de cambio                                | taux de conversion                                | курс обміну / курс                            |
+| Full (unstake option)            | Completo                                      | Complet                                           | Повний                                        |
+| best rate                        | mejor tasa                                    | meilleur taux                                     | найкращий курс                                |
+| Instant (unstake option)         | Instantáneo                                   | Instantané                                        | Миттєвий                                      |
+| withdrawal / withdraw            |                                               |                                                   | виведення / вивести                           |
+| deposit (verb)                   | depositar                                     | déposer                                           | внести (внесок)                               |
+| wallet                           | billetera                                     | portefeuille                                      | гаманець                                      |
+| Connect wallet                   | Conectar billetera                            | Connecter le portefeuille                         | Підключити гаманець                           |
+| Disconnect (wallet)              | Desconectar                                   | Déconnecter                                       | Відключити                                    |
+| balance                          | saldo                                         | solde                                             | баланс                                        |
+| amount                           | cantidad                                      | montant                                           | сума                                          |
+| Max (button)                     | Máx.                                          | Max                                               | Макс.                                         |
+| receive                          | recibir ("You will receive" = "Recibirás")    | recevoir (« You will receive » = « Tu recevras ») | отримати («You will receive» = «Ти отримаєш») |
+| swap                             | swap (verb: hacer swap)                       | swap (noun) / échanger (verb)                     | свап                                          |
+| liquidity                        | liquidez                                      | liquidité                                         | ліквідність                                   |
+| transaction                      | transacción                                   | transaction                                       | транзакція                                    |
+| confirm / Confirm in wallet      | confirmar                                     | confirmer                                         | підтвердити                                   |
+| pending                          |                                               |                                                   |                                               |
+| confirmed / failed               |                                               |                                                   |                                               |
+| estimated time                   |                                               |                                                   |                                               |
+| governance                       | gobernanza                                    | gouvernance                                       | управління                                    |
+| proposal                         |                                               |                                                   |                                               |
+| vote (verb / noun)               | votar / voto                                  | voter / vote                                      | голосувати / голос                            |
+| profit sharing                   | reparto de beneficios                         | partage des profits                               | розподіл прибутку                             |
+| token                            | token                                         | token (never jeton)                               | токен                                         |
+| jetton                           | jetton                                        | jetton                                            | жетон                                         |
+| NFT                              | NFT                                           | NFT                                               | NFT                                           |
+| certificate (staking/unstaking)  |                                               |                                                   |                                               |
+| mainnet                          | mainnet                                       | mainnet                                           | основна мережа                                |
+| explorer (blockchain)            | explorer                                      | explorateur                                       | експлорер                                     |
+| smart contract                   | contrato inteligente                          | smart contract (kept English)                     | смартконтракт                                 |
+| audit (security audit)           | auditoría                                     | audit                                             | аудит                                         |
+| open-source                      | código abierto                                | open source                                       | відкритий код                                 |
+| security                         | seguridad                                     | sécurité                                          | безпека                                       |
+| phishing                         | phishing                                      | phishing                                          | фішинг                                        |
+| multisig (wallet)                | multisig                                      | multisig                                          | мультисиг                                     |
+| cold wallet                      | billetera fría                                | cold wallet (kept English)                        | холодний гаманець                             |
+| Telegram Mini App                |                                               |                                                   |                                               |
+| docs / documentation             | Docs / Documentación                          | Docs / Documentation                              | Документація                                  |
+| FAQ                              | FAQ                                           | FAQ                                               | FAQ                                           |
+| support                          | soporte                                       | support                                           | підтримка                                     |
+| community                        | comunidad                                     | communauté                                        | спільнота                                     |
+| giveaway                         |                                               |                                                   |                                               |
+| prize                            | premio                                        |                                                   | приз                                          |
+| ambassador                       | embajador                                     | ambassadeur                                       | амбасадор                                     |
+| tokenomics                       | tokenomics                                    | tokenomics                                        | токеноміка                                    |
+| allocation                       | distribución                                  | répartition                                       | розподіл                                      |
+| vesting                          | vesting                                       | vesting                                           | вестинг                                       |
+| burn / burned                    | quemar / quemado                              | burn (noun) / brûlé (participle)                  | спалювання / спалено                          |
+| circulating supply               | suministro circulante                         | offre en circulation                              | в обігу                                       |
+| total / fixed supply             | suministro total / suministro fijo            | offre totale / offre fixe                         | загальна емісія / фіксована пропозиція        |
+| market cap                       | Cap. de mercado                               | Capitalisation                                    | Капіталізація                                 |
+| volume (24h)                     | Volumen, 24 h                                 | Volume, 24 h                                      | Обсяг за 24 год                               |
+| holders                          | holders                                       | détenteurs                                        | власники                                      |
+| dashboard                        |                                               |                                                   |                                               |
+| chart                            | gráfico                                       | graphique                                         | графік                                        |
+| range (24H / 1W / 1M / 1Y)       | periodo                                       | période                                           | період                                        |
+| Coming soon                      |                                               |                                                   |                                               |
+| error                            |                                               |                                                   |                                               |
+| warning                          |                                               |                                                   |                                               |
+| Insufficient funds               | Fondos insuficientes                          | Fonds insuffisants                                | Недостатньо коштів                            |
+| Retry / Try again                | Reintentar                                    | Réessayer                                         | Повторити                                     |
+| Loading…                         | Cargando…                                     | Chargement…                                       | Завантаження…                                 |
+
 ## Style rules per locale
 
 Common to all locales:
@@ -233,6 +326,12 @@ Common to all locales:
 - Units follow the number and stay Latin: `۱۰ GRAM`, `10 GRAM`, `10 GRAM`. Percent follows the locale
   (`۳٫۲٪`, `3,2 %`, `3.2%`). Currency uses the locale's placement (`$۱٫۲ میلیون`, `1,2 млн $`, `$1.2 मिलियन`).
 - Copy the English tone: confident, plain, no hype; do not add "risk-free"/"guaranteed" wording.
+- multisig.ton.org's "Arbitrary order" form has three fields whose names are literal, English-only labels in
+  that third-party UI: `Destination Address` and `TON Amount` (see `app.multisig.destinationAddress` /
+  `tonAmount`). Every locale renders these as "translated label (English Field Name)" so the user can match
+  the app's copy to the field they see on multisig.ton.org — e.g. Spanish «Dirección de destino (Destination
+  Address)», French «Adresse de destination (Destination Address)», Ukrainian «Адреса призначення (Destination
+  Address)». Never translate the parenthetical; it must match multisig.ton.org's label exactly.
 
 Persian (`fa`):
 
@@ -418,7 +517,7 @@ Indonesian (`id`):
 - `{placeholders}` and inline HTML follow the common rules above; move a placeholder to wherever the
   Indonesian word order needs it («Terima GRAM dalam {remain}»).
 
-Brazilian Portuguese (`pt-br`):
+Brazilian Portuguese (`pt`):
 
 - Register: «você» everywhere (never «tu», never «vós»), verbs in the third person singular that «você» takes
   («você recebe hGRAM», «você não precisa criar conta»). Brazilian usage, not European: «app» not «aplicação»,
@@ -456,6 +555,74 @@ Brazilian Portuguese (`pt-br`):
   Never write «sem risco», «garantido», «lucro garantido», «rendimento garantido» or «investimento seguro» —
   besides being off-tone, guarantee wording is regulatorily sensitive in Brazil. Prefer «recompensas de
   staking» over «rendimento» / «lucro» when describing what a staker earns.
+
+Spanish (`es`):
+
+- Register: «tú» throughout, in prose and instruction lines alike («recibes hGRAM», «conecta tu billetera»).
+  Buttons and CTAs use the **infinitive**, not the imperative — «Conectar billetera», «Hacer staking», «Hacer
+  unstaking» — never «Conecta la billetera». The imperative is reserved for instruction lines that are not
+  buttons («Confirma en tu billetera»). Neutral international Spanish: no regionalisms («vos», «coger», local
+  slang for money).
+- Terms: billetera (never cartera/monedero for _wallet_ — «cartera» is correct for an investment _portfolio_)
+  · el staking / staking líquido · hacer staking (de) — never stakear/estaquear · hacer unstaking / retirar
+  del staking · en staking (staked) · stakers, holders (English, no Spanish plural) · recompensa (never
+  rendimiento/ganancia for _reward_) · premio for _prize_ · comisión de staking / de protocolo / de red · gas
+  · costo (not coste) · cantidad (not importe/monto) · tasa de cambio (not tipo de cambio) · Completo /
+  Instantáneo · mejor tasa · depósito/depositar · tesorería (contract `Treasury` stays Latin) · explorer ·
+  contrato inteligente · código abierto · auditoría · gobernanza · reparto de beneficios · suministro
+  circulante · ronda (de validación) · validador · prestatario · préstamo · p. p. (percentage points) · sin
+  custodia (non-custodial) · rentabilidades for _returns_, distinct from _reward_.
+- Digits: period as thousands separator, comma as decimal (`1.000.000.000`, `0,1 GRAM`); percent with a plain
+  space (`0 %`, `90 %`); currency written `186.963,96 USD`.
+- Dates: Gregorian, months lowercase and abbreviated with a period in tight spaces — «abr. 2025», «oct.
+  2023» (as the audit dates already do); spelled out in prose — «30 de octubre de 2023».
+- Quotes: «…» (angle quotes), never curly `"…"` or straight `"…"` in catalog prose.
+- Capitalisation: sentence case in headings, buttons and nav labels — never English Title Case.
+- Tone: confident and plain, matching the English. Never «sin riesgo», «garantizado», «ganancia asegurada».
+
+French (`fr`):
+
+- Register: «tu» throughout prose («tu reçois des hGRAM», «connecte ton portefeuille»). Buttons and CTAs use
+  the **infinitive**, not the imperative — «Connecter le portefeuille», «Staker», «Unstaker» — never «Connecte
+  ton portefeuille» on a button. The imperative is reserved for instruction lines that are not buttons
+  («Confirme dans ton portefeuille»).
+- Typography: U+00A0 (a real non-breaking space — deliberately **not** U+202F, which is not reliably covered
+  by the font subsets) before `: ; ! ?` and inside « guillemets »; the typographic apostrophe ’ throughout,
+  never a straight `'`.
+- Terms: staking / staking liquide · staker (verb, and on buttons) · unstaker · en staking (staked) ·
+  staker/stakers (noun, kept English) · **cycle / cycle de validation** for _round_ — never tour/ronde ·
+  récompense · frais de staking / de protocole / de réseau · gas · dépôt/déposer vs staker · retrait/retirer
+  vs unstaker · taux de conversion (never «taux de change») · Complet / Instantané · meilleur taux · trésorerie
+  (contract `Treasury` stays Latin) · portefeuille · **token** — never «jeton», which collides with TON's
+  _jetton_ standard · détenteurs · explorateur · sans dépositaire · rendement only for _returns_ in the
+  no-guarantee disclaimer, never for _reward_ · tableau de bord (dashboard) · swap as a noun, échanger as the
+  verb · kept English: smart contract, open source, multisig, cold wallet, mainnet, phishing, tokenomics,
+  vesting, burn ("brûlés").
+- Digits: comma as decimal separator, U+00A0 as thousands separator (`1 000 000 000`, `0,1 GRAM`); `0 %` with
+  a U+00A0 before the sign.
+- Dates: Gregorian, day month year; month spelled out lowercase in prose («30 octobre 2023»), abbreviated
+  with a period in tight spaces («avr. 2025», «oct. 2023»), matching the audit dates.
+- Capitalisation: sentence case in headings, buttons and nav labels — never English Title Case.
+- Tone: confident and plain, matching the English. Never «sans risque», «garanti», «rendement garanti».
+
+Ukrainian (`uk`):
+
+- Register: «ти» in prose, infinitive on buttons («Підключити гаманець», «Застейкати»). Natural modern
+  Ukrainian, never a Russian calque (no «депозит» for _stake_, no «холдер» for _holder_, etc.).
+- Typography: apostrophe ’, «»-quotes.
+- Digits: comma as decimal separator, space as thousands separator (`1 000 000 000`, `0,1 GRAM`); `90 %` with
+  a space before the sign.
+- Latin do-not-translate terms are never inflected internally — case endings ride on a Ukrainian head noun
+  («токен hGRAM», «у мережі TON»), never a suffix glued onto the Latin word.
+- Terms: стейкінг · стейкати / застейкати · стейкер · у стейкінгу (staked) · анстейк (noun) / вивести (verb) ·
+  Повний / Миттєвий · найкращий курс · винагорода for _reward_, приз for _prize_ (never нагорода) · комісія за
+  стейкінг / комісія протоколу / комісія мережі · комісія за управління (governance fee) · газ ·
+  внести/внесок (deposit) · вивести/виведення (withdraw) · скарбниця · курс обміну · баланс · сума · валідатор
+  · раунд · позика / валідатор-позичальник · власники (holders) · капіталізація · в обігу · смартконтракт
+  (one word, per the 2019 правопис) · відкритий код · експлорер · управління · розподіл прибутку · мультисиг ·
+  фішинг · жетон (jetton) · ейрдроп · амбасадор · спалювання · токеноміка · спільнота · підтримка · в. п.
+- Dates: Gregorian, day month year, Ukrainian month names in the genitive («30 жовтня 2023 року»).
+- Tone: confident and plain, matching the English. Never «без ризику», «гарантовано», «гарантований дохід».
 
 ## How to verify
 

@@ -22,12 +22,18 @@ export const DEFAULT_LOCALE = 'en'
 export const LOCALES = {
   en: { lang: 'en', dir: 'ltr', label: 'English', tonconnect: 'en', status: 'public' },
   ru: { lang: 'ru', dir: 'ltr', label: 'Русский', tonconnect: 'ru', status: 'public' },
+  es: { lang: 'es', dir: 'ltr', label: 'Español', tonconnect: 'en', status: 'public' },
   id: { lang: 'id', dir: 'ltr', label: 'Bahasa Indonesia', tonconnect: 'en', status: 'public' },
-  'pt-br': { lang: 'pt-BR', dir: 'ltr', label: 'Português (Brasil)', tonconnect: 'en', status: 'public' },
+  // Brazilian copy under the plain `pt` tag (was `pt-br`/`pt-BR` until 2026-09-20, decision 18):
+  // CLDR's default for bare `pt` is Brazilian, so Intl output is unchanged, while hreflang="pt" offers
+  // the same pages to every Portuguese-speaking market instead of Brazil alone.
+  pt: { lang: 'pt', dir: 'ltr', label: 'Português', tonconnect: 'en', status: 'public' },
   fa: { lang: 'fa', dir: 'rtl', label: 'فارسی', tonconnect: 'en', status: 'public' },
   ar: { lang: 'ar', dir: 'rtl', label: 'العربية', tonconnect: 'en', status: 'public', intl: 'ar-u-nu-arab' },
   tr: { lang: 'tr', dir: 'ltr', label: 'Türkçe', tonconnect: 'en', status: 'public' },
+  uk: { lang: 'uk', dir: 'ltr', label: 'Українська', tonconnect: 'en', status: 'public' },
   de: { lang: 'de', dir: 'ltr', label: 'Deutsch', tonconnect: 'en', status: 'public' },
+  fr: { lang: 'fr', dir: 'ltr', label: 'Français', tonconnect: 'en', status: 'public' },
 }
 
 // Top-level route segments a locale key may never collide with.
