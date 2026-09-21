@@ -19,6 +19,10 @@ interface Props {
 const accentColor = 'var(--color-accent)'
 const positiveColor = 'var(--color-positive)'
 const inkColor = 'var(--color-text)'
+// For a series that is context rather than the headline. The same warm grey the chart already uses
+// for its own axis labels (--chart-ink), and the one text token that keeps its value across both
+// schemes, so a subordinate line reads as subordinate on either ground.
+const mutedColor = 'var(--color-text-faint)'
 const accentAreaFill = 'rgba(255,126,115,.12)'
 
 interface StatCardProps {
@@ -156,7 +160,11 @@ const StatsPage = observer(({ model }: Props) => {
   // misconfigured, the next paid 16.8%, and the headline read 13.7%. Drawn together, the dip and
   // the recovery are one obvious shape instead of a discrepancy.
   //
-  // The per-round line is muted and second, so the smoothed one still reads as the headline.
+  // The per-round line is the context, not the headline, and saying so took two corrections
+  // (2026-09-21). It was given --color-text, the highest-contrast colour on the page, against the
+  // published average's green — and being listed second it was PAINTED second, i.e. on top. Both
+  // are fixed: a faint warm grey here, and LineChart now paints series back to front so series[0]
+  // always lands on top. Second in this array means subordinate; it no longer means in front.
   const latestApyPoints: ChartPoint[] = chartsStore.series?.hipo_treasury_latest_apy ?? []
   const apySeries: ChartSeriesInput[] = [
     {
@@ -170,7 +178,7 @@ const StatsPage = observer(({ model }: Props) => {
           {
             key: 'latestApy',
             name: t('app.statsPage.seriesLatestApy'),
-            color: inkColor,
+            color: mutedColor,
             points: latestApyPoints,
           },
         ]

@@ -21,6 +21,11 @@ here — `git log` remains the complete record.
 - Removed the Hindi and Italian locales permanently, with meta-refresh stubs for three `/it/` URLs.
 - Reordered the dropdown to en, ru, id, pt-br, fa, ar, tr, de.
 
+## 2026-09-21 — [detailed report](changelog/2026-09-21-stats-apy-line-weight.md)
+
+- Muted the per-round APY line on `/stats/` to the faint text token.
+- Made `LineChart` paint series back to front, so the primary line is never covered.
+
 ## 2026-09-20 — [detailed report](changelog/2026-09-20-vs-chart-inverted.md)
 
 - Inverted the `/vs/` chart so Hipo is the top line and the other protocols fall away below it.

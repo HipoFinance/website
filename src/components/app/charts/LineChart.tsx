@@ -391,6 +391,10 @@ const LineChart = ({
   const showHairline = hoveredTs != null && hoveredTs >= domainStart && hoveredTs <= domainEnd
   const hairlineX = showHairline ? xScale(hoveredTs as number) : 0
 
+  // Paint order for the overlay passes, reversed once rather than per pass. See the note on the
+  // path pass below.
+  const painted = useMemo(() => [...series].reverse(), [series])
+
   const tableRows = useMemo(() => {
     const tsSet = new Set<number>()
     const maps = series.map((s) => {
@@ -561,7 +565,14 @@ const LineChart = ({
               />
             )}
 
-            {series.map((s) => (
+            {/* Back to front, so series[0] is drawn LAST and nothing is painted over it. It is the
+                primary series everywhere else in this component — the accessible summary, the delta
+                line, the area fill and keyboard navigation all read series[0] — and it was the one
+                series a later line could hide. On /stats/ that is exactly what happened: the
+                per-round APY, added second to sit UNDER the published average, was drawn on top of
+                it instead (2026-09-21). Order in the array stays meaning-order; only paint order
+                is reversed. */}
+            {painted.map((s) => (
               <path
                 key={s.key}
                 d={buildPath(s.points, xScale, yScale, stepped, maxGapSeconds)}
@@ -572,7 +583,8 @@ const LineChart = ({
               />
             ))}
 
-            {series.map((s) => {
+            {/* Same reason as the paths above: the primary series' end dot and figure on top. */}
+            {painted.map((s) => {
               const finite = s.points.filter((p) => Number.isFinite(p.v))
               const last = finite[finite.length - 1]
               if (last == null) {
