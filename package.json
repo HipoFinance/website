@@ -24,7 +24,7 @@
     "@fontsource-variable/vazirmatn": "^5.3.0",
     "@fontsource/heebo": "^5.1.0",
     "@fontsource/lalezar": "^5.3.0",
-    "@hipo-finance/sdk": "^6.1.0",
+    "@hipo-finance/sdk": "^6.2.0",
     "@tailwindcss/vite": "^4.3.1",
     "@ton/core": "^0.63.1",
     "@ton/crypto": "^3.3.0",
