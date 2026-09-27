@@ -1,15 +1,21 @@
 ---
 title: 'Política de Investimento do Hipo Fund'
-description: 'Como o Hipo Fund é investido: alocação-alvo, limites de risco e concentração, custódia, liquidez, e como uma parcela do crescimento do fundo retorna aos holders de HPO.'
+description: 'A política sob a qual o Hipo Fund é gerido — alocação, limites de risco, custódia e como o valor retorna aos holders de HPO. Ratificada pelos holders de HPO em setembro de 2026.'
 ---
 
-:::caution
+:::note[Ratificada]
 
-**Este é um rascunho em revisão pela comunidade. Ainda não está em vigor.**
+Os holders de HPO aprovaram esta Política de Investimento por votação da DAO em 18 de setembro de 2026 — 7,8 milhões de
+HPO a favor, 0 contra, em 37 carteiras. As carteiras da tokenomics e a carteira do Hipo Fund não votaram.
+
+[Ver a proposta no ton.vote →](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv/proposal/EQBDF2DNrg8wM116-DRlfyV0GV6c_7aJs3eVOaylpVnHKz6q)
+
+Esta política é vinculante para os signatários do fundo. Alterá-la, mudar a fórmula de retorno de valor, reduzir a
+posição do fundo em HPO ou adicionar uma nova classe de ativos exige, em cada caso, uma nova votação da DAO.
 
 :::
 
-**Rascunho v1.5 · Para revisão da comunidade e ratificação da DAO**
+**v1.0 · Em vigor desde 18 de setembro de 2026**
 
 ---
 
@@ -390,3 +396,7 @@ Duas outras coisas também pesam contra uma taxa aqui. Uma taxa de performance d
 **Se a questão for reaberta**, isso exige uma votação da DAO e só pode ser proposto quando o fundo estiver acima de **US$ 500.000**, acima da sua marca d'água, e tiver mantido ambas as condições ao longo de **dois relatórios trimestrais consecutivos**. Qualquer proposta deve incluir: apenas uma taxa de performance e nenhuma taxa de administração; uma marca d'água rígida; uma taxa mínima de referência (hurdle rate) acima de um benchmark de rendimento de stablecoin; pagamento em HPO bloqueado por pelo menos 12 meses; e um limite anual como percentual dos ativos.
 
 **Se gerir o fundo algum dia exigir tempo remunerado**, ele é pago com o orçamento operacional do Hipo, como uma função definida com um custo fixo — não com recursos do fundo, e não como uma parcela dos retornos. Isso mantém a remuneração separada dos resultados de investimento, que é o que um mandato de preservação de capital exige.
+
+---
+
+_v1.0 ratificada em 18 de setembro de 2026. Versões preliminares anteriores foram publicadas para revisão da comunidade entre 10 e 15 de setembro de 2026._

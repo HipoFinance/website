@@ -1,15 +1,23 @@
 ---
 title: 'Hipo Fund Investment Policy Statement'
-description: 'Wie der Hipo Fund investiert ist: Zielallokation, Risiko- und Konzentrationsgrenzen, Verwahrung, Liquidität und wie ein Teil des Wachstums des Fonds an die HPO-Inhaber zurückfließt.'
+description: 'Die Richtlinie, nach der der Hipo Fund verwaltet wird — Allokation, Risikogrenzen, Verwahrung und wie Wert an die HPO-Inhaber zurückfließt. Im September 2026 von den HPO-Inhabern ratifiziert.'
 ---
 
-:::caution
+:::note[Ratifiziert]
 
-**Dies ist ein Entwurf zur Prüfung durch die Community. Er ist noch nicht in Kraft.**
+Die HPO-Inhaber haben dieses Investment Policy Statement am 18. September 2026 per DAO-Abstimmung angenommen — 7,8 Mio.
+HPO dafür, 0 dagegen, über 37 Wallets hinweg. Die Tokenomics-Wallets und die Wallet des Hipo Fund haben nicht
+abgestimmt.
+
+[Den Vorschlag auf ton.vote ansehen →](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv/proposal/EQBDF2DNrg8wM116-DRlfyV0GV6c_7aJs3eVOaylpVnHKz6q)
+
+Diese Richtlinie ist für die Unterzeichner des Fonds verbindlich. Sie zu ändern, die Formel für die Wertrückführung zu
+ändern, die HPO-Position des Fonds zu verringern oder eine neue Anlageklasse aufzunehmen, erfordert jeweils eine weitere
+DAO-Abstimmung.
 
 :::
 
-**Entwurf v1.5 · Zur Prüfung durch die Community und Ratifizierung durch die DAO**
+**v1.0 · In Kraft seit dem 18. September 2026**
 
 ---
 
@@ -403,3 +411,7 @@ Zwei weitere Gründe sprechen hier dagegen. Eine Performancegebühr gibt dem Man
 **Wird die Frage erneut aufgegriffen**, erfordert das eine DAO-Abstimmung, und ein Vorschlag darf erst gemacht werden, wenn der Fonds über 500.000 $ liegt, über seiner High-Water-Mark liegt, und beides über zwei aufeinanderfolgende Quartalsberichte hinweg gehalten hat. Jeder Vorschlag muss enthalten: ausschließlich eine Performancegebühr und keine Verwaltungsgebühr; eine feste High-Water-Mark; eine Hurdle Rate oberhalb eines Stablecoin-Rendite-Benchmarks; Zahlung in HPO mit einer Sperrfrist von mindestens 12 Monaten; und eine jährliche Obergrenze als Prozentsatz der Assets.
 
 **Erfordert die Verwaltung des Fonds jemals bezahlte Zeit**, wird sie aus dem operativen Budget von Hipo bezahlt, als definierte Rolle mit fixen Kosten — nicht aus dem Fonds und nicht als Anteil an den Erträgen. Das hält die Vergütung von den Anlageergebnissen getrennt, was ein Kapitalerhalt-Mandat erfordert.
+
+---
+
+_Ratifizierte v1.0, 18. September 2026. Frühere Entwürfe wurden zwischen dem 10. und 15. September 2026 zur Prüfung durch die Community veröffentlicht._

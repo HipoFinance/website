@@ -17,45 +17,40 @@ Tuttuğu her varlık zincir üstündedir ve herkes tarafından doğrulanabilir.
 
 ## 📊 Güncel durum
 
-| Ölçüt                                          | Değer                                                                   |
-| ---------------------------------------------- | ----------------------------------------------------------------------- |
-| **Açılış sermayesi (18 Nisan 2025)**           | 186.963,96 $                                                            |
-| **O tarihten bu yana eklenen sermaye**         | ~37.092 $ (Sezon 2 ve Sezon 3 claim'leri)                               |
-| **Son raporlanan değer (24 Ağustos 2026)**     | 98.776,51 $                                                             |
-| **Kuruluştan bu yana getiri (Modified Dietz)** | −%58,4                                                                  |
-| **Aynı dönemde GRAM**                          | −%49,8                                                                  |
-| **Son rapor**                                  | [Ağustos 2026 raporu](/docs/hipo-fund/quarterly-report-august-24-2026/) |
+| Ölçüt                                          | Değer                                                                                    |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| **Açılış sermayesi (18 Nisan 2025)**           | 186.963,96 $                                                                             |
+| **O tarihten bu yana eklenen sermaye**         | ~37.092 $ (Sezon 2 ve Sezon 3 claim'leri)                                                |
+| **Son raporlanan değer (24 Ağustos 2026)**     | 98.776,51 $                                                                              |
+| **Kuruluştan bu yana getiri (Modified Dietz)** | −%58,4                                                                                   |
+| **Aynı dönemde GRAM**                          | −%49,8                                                                                   |
+| **Son rapor**                                  | [Ağustos 2026 raporu](/docs/hipo-fund/quarterly-report-august-24-2026/)                  |
+| **Yatırım Politikası Beyanı**                  | [DAO oylamasıyla onaylandı, 18 Eylül 2026](/docs/hipo-fund/investment-policy-statement/) |
 
 Fon, açılış sermayesinin altında; bunun başlıca nedeni, ilk yılında büyük ölçüde GRAM'a bağlı olan bir portföyde GRAM fiyatının düşmesidir. Ayrıntılı hesap Ağustos 2026 raporundadır.
 
-[**Yatırım Politikası Beyanı**](/docs/hipo-fund/investment-policy-statement/), hedef dağılımları, risk limitlerini, likidite gereksinimlerini ve yeniden dengeleme kurallarını ortaya koyar. Topluluk incelemesi için bir taslak olarak yayımlanır, ardından bağlayıcı bir DAO oylamasına sunulur. Hipo Fund'ın bundan sonra yönetileceği çerçeve budur.
-
-Kesin tarihler [Hipo'nun Telegram kanalında](https://t.me/HipoFinance) ve [ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv)'da duyurulur.
+[**Yatırım Politikası Beyanı**](/docs/hipo-fund/investment-policy-statement/), hedef dağılımları, risk limitlerini, likidite gereksinimlerini ve yeniden dengeleme kurallarını ortaya koyar. HPO sahipleri bu beyanı 18 Eylül 2026'da DAO oylamasıyla onayladı ve Hipo Fund artık bu beyana göre yönetiliyor.
 
 ---
 
 ## 🏦 Cüzdanlar
 
-Hipo Fund varlıklarını iki cüzdanda tutar. Her raporda ikisi de sayılır.
+Hipo Fund'ın beklemedeki her varlığı 3 imzadan 2'sini gerektiren bir multisig'de tutulur. Üç imza sahibi var, hepsi Hipo ekibinin üyesi ve her cüzdanda aynı üç kişi.
 
-**Ana cüzdan — multisig**\
-`EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr`
-([hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr))
+| Zincir       | Tuttuğu varlıklar                      | Adres                                                                                                                                                            |
+| ------------ | -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **TON**      | hGRAM, HPO, USDT, ağ ücreti için GRAM  | [`EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr`](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr) (hipofund.ton)                      |
+| **Ethereum** | USDC ve borç verme pozisyonları (Aave) | [`0xaAf440f8E7E45Bf63a19fE29107E240B9844a173`](https://etherscan.io/address/0xaAf440f8E7E45Bf63a19fE29107E240B9844a173)                                          |
+| **Bitcoin**  | BTC                                    | [`bc1qpk3g8saskt89acwa976hvzjv8jrcqdn0d2lpf9l9a5ksrj0akfnsxneedc`](https://mempool.space/address/bc1qpk3g8saskt89acwa976hvzjv8jrcqdn0d2lpf9l9a5ksrj0akfnsxneedc) |
 
-- Para aktarmak için **3 imzadan 2'si** gerekir
-- İmza sahipleri: Hipo'nun iki kurucu ortağı ve bir ekip üyesi
-- Fonun büyük bölümünü tutar
+Ethereum cüzdanı bir Safe'tir; aynı adrese ve aynı imza sahiplerine sahip aynı Safe, Base üzerinde de bulunur.
 
-**İkincil cüzdan — tek imzalı**\
-`UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG`
-([görüntüle](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG))
+Önceki cüzdandaki üç anahtardan birinin hatalı olduğu ortaya çıkınca fon, 27 Eylül 2026'da yeni bir Bitcoin cüzdanına geçti. Önceki cüzdanın adresleri artık boş: [`bc1qzuwj…qk2w`](https://mempool.space/address/bc1qzuwj3wm88qhnpw7zw4kyk0jdmph0v7h7m7z2dstttx4mzm7hm4es43qk2w), [`bc1qqz9m…g3jp`](https://mempool.space/address/bc1qqz9mds6pfak0sg8l79h28nf6cwvaasl08zh6xc8jwl3sthmtzhgqfgg3jp) ve [`bc1qce5f…c3w7`](https://mempool.space/address/bc1qce5ftgna5g34kaup44ucvlmu5wtj9cyxuf507n2l8apnxrma9rcqdec3w7). Bir Bitcoin cüzdanı her yatırma için yeni bir adres verebilir; bu yüzden fonun BTC'si bir gün birden fazla adrese yayılırsa, her üç aylık rapor bu adreslerin hepsini listeler.
 
-- Fonun ilk cüzdanı; multisig geçişinden sonra da kullanımda kaldı ve fonun bir kısmını hâlâ tutuyor
-- Aynı zamanda multisig üzerinde teklif sunan (proposer) taraf
-- Hipo Club dahil bazı Hipo sistemleri multisig cüzdanları desteklemiyor, bu yüzden bu cüzdan uygunluk amacıyla korunuyor. Yatırım Politikası Beyanı, burada tutulacak miktara bir limit koyuyor
+Fonun ilk tek imzalı cüzdanı — [`UQBwGlrp…DdLfG`](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG) — Eylül 2026'da boşaltıldı ve beklemede hiçbir fon varlığı tutmuyor. Bir saklama yeri değildir, ancak varlıklar Yatırım Politikası Beyanı'nın [Bölüm 4.1](/docs/hipo-fund/investment-policy-statement/#41-varlıkları-zincirler-arasında-taşımak)'ine göre zincirler arasında taşınırken kısa bir aktarma durağı olarak kullanılabilir; varlıklar bu cüzdandan geçerken onları tek bir anahtar kontrol eder. Ayrıca TON multisig'inin teklif sunan (proposer) tarafı olmaya devam ediyor: bir işlem önerebilir, ancak bir işlemi yürütmek yine üç imza sahibinden ikisini gerektirir.
 
 :::note[Adres biçimleri üzerine bir not]
-TON aynı cüzdanı iki biçimde gösterir — bounceable (`EQ…`) ve non-bounceable (`UQ…`). Son dört karakter farklıdır ama hesap aynıdır. Multisig için `UQDa2GcC…_GQu` ve `EQDa2GcC…_Dnr` biçimlerinin kullanıldığını görebilirsiniz; ikisi de aynı cüzdandır.
+TON aynı cüzdanı iki biçimde gösterir — bounceable (`EQ…`) ve non-bounceable (`UQ…`). Son dört karakter farklıdır ama hesap aynıdır.
 :::
 
 ---
@@ -99,7 +94,7 @@ Bu tablodaki HPO değerlemesi daha önce 15.000 $ olarak yayımlanmıştı; bu b
 ## 🔒 Fon nasıl yönetiliyor
 
 **Tamamen zincir üstünde ve doğrulanabilir**\
-Her varlık yukarıdaki iki cüzdanda tutulur ve herkes tarafından her an kontrol edilebilir. Fon yalnızca zincir üstünde şeffaf biçimde izlenebilen varlıkları tutar.
+Beklemedeki her varlık yukarıdaki multisig cüzdanlarda tutulur ve herkes tarafından her an kontrol edilebilir. Fon yalnızca zincir üstünde şeffaf biçimde izlenebilen varlıkları tutar.
 
 **Anlık görüntüye dayalı raporlama**\
 Ağustos 2026'dan itibaren raporlar [`scripts/hipo-fund-snapshot.mjs`](https://github.com/HipoFinance/website/blob/main/scripts/hipo-fund-snapshot.mjs) tarafından üretiliyor; betik her bakiyeyi tek bir TON ana zinciri (masterchain) bloğundan okur ve o bloğu, hGRAM dönüşüm oranını ve raporun Notlar bölümünde kullanılan her fiyatı listeler. Her okuyucu betiği yeniden çalıştırıp tabloları yeniden üretebilir.
@@ -116,7 +111,7 @@ Portföyde yapılan önemli değişiklikler Hipo'nun resmî kanallarında duyuru
 Fon, uzun vadeli sermaye koruması ve sürdürülebilir büyüme gözetilerek yönetilir. Hedef dağılımlar, yoğunlaşma limitleri, likidite gereksinimleri ve yeniden dengeleme kuralları Yatırım Politikası Beyanı'nda belirlenir.
 
 **Yönetişim**\
-HPO sahipleri, Hipo Fund'ın yönünü [Hipo DAO](/docs/dao/) üzerinden [ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv)'da oy vererek belirler. Yatırım Politikası Beyanı, bağlayıcı bir oylamaya sunulan ilk Hipo Fund politikasıdır. Onaylanmış bir politika içindeki uygulamayı multisig imza sahipleri yürütür; politikadaki değişiklikler DAO'ya gider.
+HPO sahipleri, Hipo Fund'ın yönünü [Hipo DAO](/docs/dao/) üzerinden [ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv)'da oy vererek belirler. 18 Eylül 2026'da onaylanan Yatırım Politikası Beyanı, bağlayıcı bir oylamayla kabul edilen ilk Hipo Fund politikasıdır. Onaylanmış bir politika içindeki uygulamayı multisig imza sahipleri yürütür; politikadaki değişiklikler DAO'ya gider.
 
 ---
 
@@ -127,7 +122,7 @@ Hipo Fund bir kripto hazinesidir ve değeri piyasayla birlikte hareket eder. Ba�
 - **Piyasa riski.** Fonun stablecoin dışındaki varlıkları GRAM ve HPO fiyatlarına maruz kalır.
 - **Yoğunlaşma riski.** Fonun varlıkları TON ekosisteminde ve Hipo'nun kendi tokeninde yoğunlaşmıştır.
 - **Likidite riski.** HPO pozisyonu, HPO'nun piyasadaki likiditesine göre büyüktür. Raporlanan değeri piyasa fiyatının bakiyeyle çarpımıdır; bu, pozisyonun tamamının o fiyattan satılabileceği iddiası değildir.
-- **Saklama riski.** Fonun bir kısmı tek imzalı bir cüzdanda duruyor.
+- **Saklama riski.** Fon, multisig imza sahiplerine ve onların anahtarlarına bağlıdır. 3'te 2 eşiği tek bir hata noktasını ortadan kaldırır, ancak iki anahtarın birlikte kaybolması veya ele geçirilmesi riskini ortadan kaldırmaz.
 - **Akıllı sözleşme riski.** hGRAM dahil DeFi protokollerinde tutulan varlıklar, bir sözleşme hatası riski taşır.
 
 Bu riskler yönetilir, ortadan kaldırılmaz. Yatırım Politikası Beyanı her biri için limitler belirler.

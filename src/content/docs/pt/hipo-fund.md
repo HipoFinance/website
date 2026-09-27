@@ -20,55 +20,58 @@ Todos os ativos que ele guarda ficam on-chain e podem ser verificados por qualqu
 
 ## 📊 Situação atual
 
-| Indicador                                         | Valor                                                                           |
-| ------------------------------------------------- | ------------------------------------------------------------------------------- |
-| **Capital inicial (18 de abril de 2025)**         | US$ 186.963,96                                                                  |
-| **Capital aportado desde então**                  | ≈ US$ 37.092 (resgates da Temporada 2 e da Temporada 3)                         |
-| **Último valor informado (24 de agosto de 2026)** | US$ 98.776,51                                                                   |
-| **Retorno desde o início (Modified Dietz)**       | −58,4 %                                                                         |
-| **GRAM no mesmo período**                         | −49,8 %                                                                         |
-| **Último relatório**                              | [relatório de agosto de 2026](/docs/hipo-fund/quarterly-report-august-24-2026/) |
+| Indicador                                         | Valor                                                                                                   |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| **Capital inicial (18 de abril de 2025)**         | US$ 186.963,96                                                                                          |
+| **Capital aportado desde então**                  | ≈ US$ 37.092 (resgates da Temporada 2 e da Temporada 3)                                                 |
+| **Último valor informado (24 de agosto de 2026)** | US$ 98.776,51                                                                                           |
+| **Retorno desde o início (Modified Dietz)**       | −58,4 %                                                                                                 |
+| **GRAM no mesmo período**                         | −49,8 %                                                                                                 |
+| **Último relatório**                              | [relatório de agosto de 2026](/docs/hipo-fund/quarterly-report-august-24-2026/)                         |
+| **Política de Investimento**                      | [Ratificada por votação da DAO em 18 de setembro de 2026](/docs/hipo-fund/investment-policy-statement/) |
 
 O fundo está abaixo do seu capital inicial, principalmente por causa da queda do preço do GRAM sobre uma
 carteira que, no primeiro ano, era fortemente atrelada ao GRAM. A contabilidade completa está no relatório de
 agosto de 2026.
 
 A [**Política de Investimento**](/docs/hipo-fund/investment-policy-statement/) (Investment Policy Statement) define
-alocações-alvo, limites de risco, requisitos de liquidez e regras de rebalanceamento. Ela é publicada como rascunho
-para revisão da comunidade e, em seguida, vai a uma votação vinculante da DAO. É o marco sob o qual o Hipo Fund será
-gerido daqui em diante.
-
-As datas exatas são anunciadas no [canal do Hipo no Telegram](https://t.me/HipoFinance) e no
-[ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv).
+alocações-alvo, limites de risco, requisitos de liquidez e regras de rebalanceamento. Os holders de HPO a
+ratificaram por votação da DAO em 18 de setembro de 2026, e o Hipo Fund é gerido sob ela.
 
 ---
 
 ## 🏦 Carteiras
 
-O Hipo Fund guarda ativos em duas carteiras. As duas entram na contagem de todos os relatórios.
+Todos os ativos do Hipo Fund em repouso ficam em uma multisig 2 de 3. São três signatários, todos integrantes da equipe
+do Hipo, os mesmos três em todas as carteiras.
 
-**Carteira principal — multisig**\
-`EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr`
-([hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr))
+| Blockchain   | Guarda                               | Endereço                                                                                                                                                         |
+| ------------ | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **TON**      | hGRAM, HPO, USDT, GRAM para gas      | [`EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr`](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr) (hipofund.ton)                      |
+| **Ethereum** | USDC e posições de empréstimo (Aave) | [`0xaAf440f8E7E45Bf63a19fE29107E240B9844a173`](https://etherscan.io/address/0xaAf440f8E7E45Bf63a19fE29107E240B9844a173)                                          |
+| **Bitcoin**  | BTC                                  | [`bc1qpk3g8saskt89acwa976hvzjv8jrcqdn0d2lpf9l9a5ksrj0akfnsxneedc`](https://mempool.space/address/bc1qpk3g8saskt89acwa976hvzjv8jrcqdn0d2lpf9l9a5ksrj0akfnsxneedc) |
 
-- Exige **2 de 3 assinaturas** para movimentar recursos
-- Signatários: dois cofundadores do Hipo e um integrante da equipe
-- Guarda a maior parte do fundo
+A carteira na Ethereum é uma Safe; a mesma Safe, com o mesmo endereço e os mesmos signatários, também existe na Base.
 
-**Carteira secundária — assinatura única**\
-`UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG`
-([ver](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG))
+O fundo passou para uma nova carteira de Bitcoin em 27 de setembro de 2026, depois que uma das três chaves da carteira
+anterior se revelou incorreta. Os endereços da carteira anterior agora estão vazios:
+[`bc1qzuwj…qk2w`](https://mempool.space/address/bc1qzuwj3wm88qhnpw7zw4kyk0jdmph0v7h7m7z2dstttx4mzm7hm4es43qk2w),
+[`bc1qqz9m…g3jp`](https://mempool.space/address/bc1qqz9mds6pfak0sg8l79h28nf6cwvaasl08zh6xc8jwl3sthmtzhgqfgg3jp) e
+[`bc1qce5f…c3w7`](https://mempool.space/address/bc1qce5ftgna5g34kaup44ucvlmu5wtj9cyxuf507n2l8apnxrma9rcqdec3w7). Uma
+carteira de Bitcoin pode gerar um endereço novo para cada depósito, então, se os BTC do fundo algum dia estiverem em mais
+de um endereço, cada relatório trimestral lista todos eles.
 
-- A carteira original do fundo, mantida em uso depois da migração para multisig e que ainda guarda parte do
-  fundo
-- Também é proponente na multisig
-- Alguns sistemas do Hipo, incluindo o Hipo Club, não suportam carteiras multisig, então esta carteira é
-  mantida por questões de elegibilidade. A Política de Investimento define um limite para quanto fica aqui
+A carteira original de assinatura única do fundo —
+[`UQBwGlrp…DdLfG`](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG) — foi esvaziada em setembro de
+2026 e não guarda ativos do fundo em repouso. Ela não é um local de custódia, mas pode servir de passagem breve quando
+ativos são movidos entre blockchains nos termos da
+[Seção 4.1](/docs/hipo-fund/investment-policy-statement/#41-movimentação-de-ativos-entre-blockchains) da Política de
+Investimento; enquanto passam por ela, uma única chave os controla. Ela também continua sendo a proponente da multisig
+na TON: pode propor uma transação, mas executá-la ainda exige dois dos três signatários.
 
 :::note[Uma observação sobre formatos de endereço]
 A TON mostra a mesma carteira em duas formas — bounceable (`EQ…`) e non-bounceable (`UQ…`). Os quatro últimos
-caracteres são diferentes, mas a conta é idêntica. Você pode ver `UQDa2GcC…_GQu` e `EQDa2GcC…_Dnr` usados para
-a multisig; são a mesma carteira.
+caracteres são diferentes, mas a conta é idêntica.
 :::
 
 ---
@@ -122,7 +125,8 @@ esta. Nenhum saldo mudou.
 ## 🔒 Como o fundo é gerido
 
 **Totalmente on-chain e verificável**\
-Todos os ativos ficam nas duas carteiras acima e podem ser conferidos por qualquer pessoa a qualquer momento.
+Todos os ativos em repouso ficam nas carteiras multisig acima e podem ser conferidos por qualquer pessoa a qualquer
+momento.
 O fundo só guarda ativos que podem ser acompanhados de forma transparente on-chain.
 
 **Relatórios baseados em snapshot**\
@@ -152,8 +156,8 @@ de Investimento.
 
 **Governança**\
 Os holders de HPO votam sobre os rumos do Hipo Fund pela [DAO do Hipo](/docs/dao/) no
-[ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv). A Política de Investimento é a
-primeira política do Hipo Fund a ir para uma votação vinculante. A execução dentro de uma política aprovada
+[ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv). A Política de Investimento,
+ratificada em 18 de setembro de 2026, é a primeira política do Hipo Fund adotada por votação vinculante. A execução dentro de uma política aprovada
 fica com os signatários da multisig; mudanças na política vão para a DAO.
 
 ---
@@ -169,7 +173,8 @@ O Hipo Fund é uma tesouraria cripto e seu valor oscila com o mercado. Os princi
 - **Risco de liquidez.** A posição em HPO é grande em relação à liquidez do HPO no mercado. O valor informado
   é o preço de mercado multiplicado pelo saldo; não é uma afirmação de que a posição inteira poderia ser
   vendida por esse preço.
-- **Risco de custódia.** Parte do fundo está em uma carteira de assinatura única.
+- **Risco de custódia.** O fundo depende dos signatários da multisig e das suas chaves. Um limiar de 2 de 3 elimina
+  qualquer ponto único de falha, mas não o risco de duas chaves serem perdidas ou comprometidas ao mesmo tempo.
 - **Risco de contrato inteligente.** Ativos mantidos em protocolos DeFi, incluindo o hGRAM, carregam o risco
   de falha de um contrato.
 

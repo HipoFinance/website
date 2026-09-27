@@ -1,15 +1,21 @@
 ---
 title: 'Hipo Fund Investment Policy Statement'
-description: "How Hipo Fund is invested: target allocation, risk and concentration limits, custody, liquidity, and how a share of the fund's growth returns to HPO holders."
+description: 'The policy Hipo Fund is managed under — allocation, risk limits, custody, and how value returns to HPO holders. Ratified by HPO holders in September 2026.'
 ---
 
-:::caution
+:::note[Ratified]
 
-**This is a draft under community review. It is not yet in force.**
+HPO holders approved this Investment Policy Statement by DAO vote on 18 September 2026 — 7.8M HPO in favour, 0
+against, across 37 wallets. The tokenomics wallets and the Hipo Fund wallet did not vote.
+
+[View the proposal on ton.vote →](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv/proposal/EQBDF2DNrg8wM116-DRlfyV0GV6c_7aJs3eVOaylpVnHKz6q)
+
+This policy is binding on the fund's signers. Amending it, changing the value-return formula, reducing the fund's HPO
+position, or adding a new asset class each require a further DAO vote.
 
 :::
 
-**Draft v1.5 · For community review and DAO ratification**
+**v1.0 · In force since 18 September 2026**
 
 ---
 
@@ -503,3 +509,7 @@ payment in HPO locked for at least 12 months; and an annual cap as a percentage 
 **If managing the fund ever requires paid time**, it is paid from Hipo's operating budget as a defined role with a fixed
 cost — not from the fund, and not as a share of returns. That keeps compensation separate from investment outcomes,
 which is what a capital-preservation mandate requires.
+
+---
+
+_Ratified v1.0, 18 September 2026. Earlier drafts were published for community review between 10 and 15 September 2026._

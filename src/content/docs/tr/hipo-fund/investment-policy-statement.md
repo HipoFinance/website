@@ -1,15 +1,19 @@
 ---
 title: 'Hipo Fund Yatırım Politikası Beyanı'
-description: "Hipo Fund'ın nasıl yatırıldığı: hedef dağılım, risk ve yoğunlaşma limitleri, saklama, likidite ve fonun büyümesinden bir payın HPO sahiplerine nasıl döndüğü."
+description: "Hipo Fund'ın yönetildiği politika — dağılım, risk limitleri, saklama ve değerin HPO sahiplerine nasıl döndüğü. Eylül 2026'da HPO sahipleri tarafından onaylandı."
 ---
 
-:::caution
+:::note[Onaylandı]
 
-**Bu, topluluk incelemesi altında bir taslaktır. Henüz yürürlükte değildir.**
+HPO sahipleri bu Yatırım Politikası Beyanı'nı 18 Eylül 2026'da DAO oylamasıyla onayladı — 37 cüzdandan 7,8 milyon HPO lehte, 0 aleyhte. Tokenomi cüzdanları ve Hipo Fund cüzdanı oy kullanmadı.
+
+[Teklifi ton.vote'ta görüntüleyin →](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv/proposal/EQBDF2DNrg8wM116-DRlfyV0GV6c_7aJs3eVOaylpVnHKz6q)
+
+Bu politika fonun imza sahipleri için bağlayıcıdır. Politikayı değiştirmek, değer getirisi formülünü değiştirmek, fonun HPO pozisyonunu azaltmak veya yeni bir varlık sınıfı eklemek, her biri yeni bir DAO oylaması gerektirir.
 
 :::
 
-**Taslak v1.5 · Topluluk incelemesi ve DAO onayı için**
+**v1.0 · 18 Eylül 2026'dan beri yürürlükte**
 
 ---
 
@@ -390,3 +394,7 @@ Hipo Fund'ın modellendiği egemen varlık fonunu yöneten Norges Bank Investmen
 **Konu yeniden açılırsa** bir DAO oylaması gerekir ve yalnızca fon **500.000 $**'ın üzerindeyken, yüksek su işaretinin üzerindeyken ve bu ikisini **art arda iki üç aylık rapor** boyunca koruduğunda önerilebilir. Her öneri şunları içermelidir: yalnızca bir performans ücreti ve hiçbir yönetim ücreti; sabit bir yüksek su işareti; bir stablecoin getirisi karşılaştırma ölçütünün üzerinde bir eşik oranı (hurdle rate); en az 12 ay kilitli HPO cinsinden ödeme; ve varlıkların bir yüzdesi olarak yıllık bir üst sınır.
 
 **Fonu yönetmek bir gün ücretli zaman gerektirirse** bu, fondan değil ve getirilerin bir payı olarak değil, Hipo'nun operasyonel bütçesinden, sabit maliyetli tanımlı bir rol olarak ödenir. Bu, ücretlendirmeyi yatırım sonuçlarından ayrı tutar; bir sermaye koruma görevinin gerektirdiği de budur.
+
+---
+
+_Onaylanmış v1.0, 18 Eylül 2026. Önceki taslaklar 10–15 Eylül 2026 tarihleri arasında topluluk incelemesi için yayımlandı._

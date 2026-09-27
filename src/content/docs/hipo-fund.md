@@ -20,53 +20,56 @@ Every asset it holds sits on-chain and can be checked by anyone.
 
 ## 📊 Current status
 
-| Measure                                     | Value                                                                  |
-| ------------------------------------------- | ---------------------------------------------------------------------- |
-| **Opening capital (April 18, 2025)**        | $186,963.96                                                            |
-| **Capital contributed since**               | ~$37,092 (Season 2 and Season 3 claims)                                |
-| **Latest reported value (August 24, 2026)** | $98,776.51                                                             |
-| **Return since inception (Modified Dietz)** | −58.4%                                                                 |
-| **GRAM over the same period**               | −49.8%                                                                 |
-| **Latest report**                           | [August 2026 report](/docs/hipo-fund/quarterly-report-august-24-2026/) |
+| Measure                                     | Value                                                                                   |
+| ------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Opening capital (April 18, 2025)**        | $186,963.96                                                                             |
+| **Capital contributed since**               | ~$37,092 (Season 2 and Season 3 claims)                                                 |
+| **Latest reported value (August 24, 2026)** | $98,776.51                                                                              |
+| **Return since inception (Modified Dietz)** | −58.4%                                                                                  |
+| **GRAM over the same period**               | −49.8%                                                                                  |
+| **Latest report**                           | [August 2026 report](/docs/hipo-fund/quarterly-report-august-24-2026/)                  |
+| **Investment Policy Statement**             | [Ratified by DAO vote, 18 September 2026](/docs/hipo-fund/investment-policy-statement/) |
 
 The fund is below its opening capital, driven mainly by the fall in the GRAM price across a portfolio that
 was heavily GRAM-linked in its first year. The full accounting is in the August 2026 report.
 
 The [**Investment Policy Statement**](/docs/hipo-fund/investment-policy-statement/) sets out target
-allocations, risk limits, liquidity requirements and rebalancing rules. It is published as a draft for
-community review and then goes to a binding DAO vote. It is the framework Hipo Fund will be managed under
-from here.
-
-Exact dates are announced in [Hipo's Telegram channel](https://t.me/HipoFinance) and on
-[ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv).
+allocations, risk limits, liquidity requirements and rebalancing rules. HPO holders ratified it by DAO vote on
+18 September 2026, and Hipo Fund is managed under it.
 
 ---
 
 ## 🏦 Wallets
 
-Hipo Fund holds assets in two wallets. Both are counted in every report.
+Every Hipo Fund asset at rest is held in a 2-of-3 multisig. Three signers, all Hipo team members, the same three across
+every wallet.
 
-**Main wallet — multisig**\
-`EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr`
-([hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr))
+| Chain        | Holds                             | Address                                                                                                                                                          |
+| ------------ | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **TON**      | hGRAM, HPO, USDT, GRAM for gas    | [`EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr`](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr) (hipofund.ton)                      |
+| **Ethereum** | USDC and lending positions (Aave) | [`0xaAf440f8E7E45Bf63a19fE29107E240B9844a173`](https://etherscan.io/address/0xaAf440f8E7E45Bf63a19fE29107E240B9844a173)                                          |
+| **Bitcoin**  | BTC                               | [`bc1qpk3g8saskt89acwa976hvzjv8jrcqdn0d2lpf9l9a5ksrj0akfnsxneedc`](https://mempool.space/address/bc1qpk3g8saskt89acwa976hvzjv8jrcqdn0d2lpf9l9a5ksrj0akfnsxneedc) |
 
-- Requires **2 of 3 signatures** to move funds
-- Signers: two Hipo co-founders and one team member
-- Holds the majority of the fund
+The Ethereum wallet is a Safe; the same Safe, with the same address and signers, also exists on Base.
 
-**Secondary wallet — single-signature**\
-`UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG`
-([view](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG))
+The fund moved to a new Bitcoin wallet on 27 September 2026, after one of the three keys on the previous wallet turned
+out to be incorrect. The previous wallet's addresses are now empty:
+[`bc1qzuwj…qk2w`](https://mempool.space/address/bc1qzuwj3wm88qhnpw7zw4kyk0jdmph0v7h7m7z2dstttx4mzm7hm4es43qk2w),
+[`bc1qqz9m…g3jp`](https://mempool.space/address/bc1qqz9mds6pfak0sg8l79h28nf6cwvaasl08zh6xc8jwl3sthmtzhgqfgg3jp) and
+[`bc1qce5f…c3w7`](https://mempool.space/address/bc1qce5ftgna5g34kaup44ucvlmu5wtj9cyxuf507n2l8apnxrma9rcqdec3w7). A
+Bitcoin wallet can give a fresh address for each deposit, so if the fund's BTC ever spans more than one address, each
+quarterly report lists them all.
 
-- The fund's original wallet, kept in use after the multisig migration and still holding part of the fund
-- Also a proposer on the multisig
-- Some Hipo systems, including Hipo Club, do not support multisig wallets, so this wallet is kept for
-  eligibility purposes. The Investment Policy Statement sets a limit on how much is held here
+The fund's original single-signature wallet —
+[`UQBwGlrp…DdLfG`](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG) — was emptied in September
+2026 and holds no fund assets at rest. It is not a custody location, but it can serve as a brief transit hop when assets
+move between chains under [Section 4.1](/docs/hipo-fund/investment-policy-statement/#41-moving-assets-between-chains) of
+the Investment Policy Statement; while they pass through it, a single key controls them. It also remains the TON
+multisig's proposer: it can put forward a transaction, but executing one still takes two of the three signers.
 
 :::note[A note on address formats]
-TON shows the same wallet in two forms — bounceable (`EQ…`) and non-bounceable (`UQ…`). The last four
-characters differ but the account is identical. You may see `UQDa2GcC…_GQu` and `EQDa2GcC…_Dnr` used for the
-multisig; they are the same wallet.
+TON shows the same wallet in two forms — bounceable (`EQ…`) and non-bounceable (`UQ…`). The last four characters differ
+but the account is identical.
 :::
 
 ---
@@ -118,8 +121,8 @@ balances changed.
 ## 🔒 How the fund is managed
 
 **Fully on-chain and verifiable**\
-Every asset is held in the two wallets above and can be checked by anyone at any time. The fund only holds
-assets that can be transparently monitored on-chain.
+Every asset at rest is held in the multisig wallets above and can be checked by anyone at any time. The fund
+only holds assets that can be transparently monitored on-chain.
 
 **Snapshot-based reporting**\
 Reports from August 2026 onward are generated by
@@ -148,8 +151,8 @@ Statement.
 **Governance**\
 HPO holders vote on Hipo Fund's direction through the [Hipo DAO](/docs/dao/) on
 [ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv). The Investment Policy
-Statement is the first Hipo Fund policy going to a binding vote. Execution within an approved policy is
-handled by the multisig signers; changes to the policy go to the DAO.
+Statement, ratified on 18 September 2026, is the first Hipo Fund policy adopted by binding vote. Execution
+within an approved policy is handled by the multisig signers; changes to the policy go to the DAO.
 
 ---
 
@@ -161,7 +164,8 @@ Hipo Fund is a crypto treasury and its value moves with the market. The main ris
 - **Concentration risk.** The fund's assets are concentrated in the TON ecosystem and in Hipo's own token.
 - **Liquidity risk.** The HPO position is large relative to HPO's on-market liquidity. Its reported value is
   the market price times the balance; it is not a claim that the whole position could be sold at that price.
-- **Custody risk.** Part of the fund sits in a single-signature wallet.
+- **Custody risk.** The fund depends on its multisig signers and their keys. A 2-of-3 threshold removes any single
+  point of failure, but not the risk of two keys being lost or compromised together.
 - **Smart contract risk.** Assets held in DeFi protocols, including hGRAM, carry the risk of a contract
   failure.
 

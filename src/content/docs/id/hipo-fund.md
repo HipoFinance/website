@@ -20,51 +20,55 @@ Setiap aset yang dipegangnya berada on-chain dan dapat diperiksa oleh siapa pun.
 
 ## 📊 Status saat ini
 
-| Metrik                                               | Nilai                                                                    |
-| ---------------------------------------------------- | ------------------------------------------------------------------------ |
-| **Modal awal (18 April 2025)**                       | $186.963,96                                                              |
-| **Modal yang disetorkan sejak itu**                  | ~$37.092 (klaim Season 2 dan Season 3)                                   |
-| **Nilai terakhir yang dilaporkan (24 Agustus 2026)** | $98.776,51                                                               |
-| **Imbal hasil sejak awal (Modified Dietz)**          | −58,4%                                                                   |
-| **GRAM pada periode yang sama**                      | −49,8%                                                                   |
-| **Laporan terbaru**                                  | [Laporan Agustus 2026](/docs/hipo-fund/quarterly-report-august-24-2026/) |
+| Metrik                                               | Nilai                                                                                                        |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Modal awal (18 April 2025)**                       | $186.963,96                                                                                                  |
+| **Modal yang disetorkan sejak itu**                  | ~$37.092 (klaim Season 2 dan Season 3)                                                                       |
+| **Nilai terakhir yang dilaporkan (24 Agustus 2026)** | $98.776,51                                                                                                   |
+| **Imbal hasil sejak awal (Modified Dietz)**          | −58,4%                                                                                                       |
+| **GRAM pada periode yang sama**                      | −49,8%                                                                                                       |
+| **Laporan terbaru**                                  | [Laporan Agustus 2026](/docs/hipo-fund/quarterly-report-august-24-2026/)                                     |
+| **Investment Policy Statement**                      | [Diratifikasi melalui pemungutan suara DAO, 18 September 2026](/docs/hipo-fund/investment-policy-statement/) |
 
 Dana ini berada di bawah modal awalnya, terutama karena penurunan harga GRAM pada portofolio yang sangat
 terkait GRAM di tahun pertamanya. Perhitungan lengkapnya ada di laporan Agustus 2026.
 
-[**Investment Policy Statement**](/docs/hipo-fund/investment-policy-statement/) menetapkan alokasi target, batas risiko, kebutuhan likuiditas, dan aturan rebalancing. Dokumen ini dipublikasikan sebagai draf untuk ditinjau komunitas, lalu dibawa ke pemungutan suara DAO yang mengikat. Inilah kerangka yang akan menjadi acuan pengelolaan Hipo Fund mulai dari sini.
-
-Tanggal pastinya diumumkan di [kanal Telegram Hipo](https://t.me/HipoFinance) dan di
-[ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv).
+[**Investment Policy Statement**](/docs/hipo-fund/investment-policy-statement/) menetapkan alokasi target, batas risiko, kebutuhan likuiditas, dan aturan rebalancing. Pemegang HPO meratifikasinya melalui pemungutan suara DAO pada 18 September 2026, dan Hipo Fund dikelola berdasarkan kebijakan ini.
 
 ---
 
 ## 🏦 Dompet
 
-Hipo Fund menyimpan aset di dua dompet. Keduanya dihitung dalam setiap laporan.
+Setiap aset Hipo Fund yang sedang tersimpan (tidak dalam perpindahan) berada di multisig 2-dari-3. Tiga penanda
+tangan, semuanya anggota tim Hipo, dan tiga orang yang sama di setiap dompet.
 
-**Dompet utama — multisig**\
-`EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr`
-([hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr))
+| Chain        | Isi                              | Alamat                                                                                                                                                           |
+| ------------ | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **TON**      | hGRAM, HPO, USDT, GRAM untuk gas | [`EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr`](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr) (hipofund.ton)                      |
+| **Ethereum** | USDC dan posisi lending (Aave)   | [`0xaAf440f8E7E45Bf63a19fE29107E240B9844a173`](https://etherscan.io/address/0xaAf440f8E7E45Bf63a19fE29107E240B9844a173)                                          |
+| **Bitcoin**  | BTC                              | [`bc1qpk3g8saskt89acwa976hvzjv8jrcqdn0d2lpf9l9a5ksrj0akfnsxneedc`](https://mempool.space/address/bc1qpk3g8saskt89acwa976hvzjv8jrcqdn0d2lpf9l9a5ksrj0akfnsxneedc) |
 
-- Memerlukan **2 dari 3 tanda tangan** untuk memindahkan dana
-- Penanda tangan: dua co-founder Hipo dan satu anggota tim
-- Memegang sebagian besar dana
+Dompet Ethereum adalah sebuah Safe; Safe yang sama, dengan alamat dan penanda tangan yang sama, juga ada di Base.
 
-**Dompet sekunder — tanda tangan tunggal**\
-`UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG`
-([lihat](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG))
+Dana ini pindah ke dompet Bitcoin baru pada 27 September 2026, setelah salah satu dari tiga kunci pada dompet
+sebelumnya ternyata tidak benar. Alamat-alamat dompet sebelumnya kini kosong:
+[`bc1qzuwj…qk2w`](https://mempool.space/address/bc1qzuwj3wm88qhnpw7zw4kyk0jdmph0v7h7m7z2dstttx4mzm7hm4es43qk2w),
+[`bc1qqz9m…g3jp`](https://mempool.space/address/bc1qqz9mds6pfak0sg8l79h28nf6cwvaasl08zh6xc8jwl3sthmtzhgqfgg3jp), dan
+[`bc1qce5f…c3w7`](https://mempool.space/address/bc1qce5ftgna5g34kaup44ucvlmu5wtj9cyxuf507n2l8apnxrma9rcqdec3w7).
+Dompet Bitcoin dapat memberikan alamat baru untuk setiap setoran, jadi jika BTC milik dana ini suatu saat tersebar di
+lebih dari satu alamat, setiap laporan kuartalan mencantumkan semuanya.
 
-- Dompet asli dana ini, tetap digunakan setelah migrasi ke multisig dan masih memegang sebagian dana
-- Juga berperan sebagai proposer pada multisig
-- Sebagian sistem Hipo, termasuk Hipo Club, tidak mendukung dompet multisig, sehingga dompet ini
-  dipertahankan untuk keperluan kelayakan. Investment Policy Statement menetapkan batas berapa banyak yang
-  disimpan di sini
+Dompet asli dana ini yang bertanda tangan tunggal —
+[`UQBwGlrp…DdLfG`](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG) — dikosongkan pada September
+2026 dan tidak lagi menyimpan aset dana apa pun. Dompet ini bukan lokasi kustodi, tetapi dapat berfungsi sebagai titik
+transit singkat ketika aset dipindahkan antar-chain berdasarkan
+[Bagian 4.1](/docs/hipo-fund/investment-policy-statement/#41-memindahkan-aset-lintas-chain) Investment Policy Statement; selama aset
+melewatinya, hanya satu kunci yang mengendalikannya. Dompet ini juga tetap menjadi proposer multisig TON: dompet ini
+dapat mengajukan transaksi, tetapi untuk mengeksekusinya tetap diperlukan dua dari tiga penanda tangan.
 
 :::note[Catatan tentang format alamat]
 TON menampilkan dompet yang sama dalam dua bentuk — bounceable (`EQ…`) dan non-bounceable (`UQ…`). Empat
-karakter terakhirnya berbeda, tetapi akunnya identik. Anda mungkin melihat `UQDa2GcC…_GQu` dan
-`EQDa2GcC…_Dnr` dipakai untuk multisig; keduanya adalah dompet yang sama.
+karakter terakhirnya berbeda, tetapi akunnya identik.
 :::
 
 ---
@@ -116,7 +120,7 @@ ada saldo yang berubah.
 ## 🔒 Bagaimana dana ini dikelola
 
 **Sepenuhnya on-chain dan dapat diverifikasi**\
-Setiap aset disimpan di kedua dompet di atas dan dapat diperiksa oleh siapa pun kapan saja. Dana ini hanya
+Setiap aset yang sedang tersimpan berada di dompet multisig di atas dan dapat diperiksa oleh siapa pun kapan saja. Dana ini hanya
 memegang aset yang dapat dipantau secara transparan on-chain.
 
 **Pelaporan berbasis snapshot**\
@@ -145,8 +149,9 @@ batas konsentrasi, kebutuhan likuiditas, dan aturan rebalancing ditetapkan dalam
 
 **Tata kelola**\
 Pemegang HPO memberikan suara atas arah Hipo Fund melalui [Hipo DAO](/docs/dao/) di
-[ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv). Investment Policy Statement
-adalah kebijakan Hipo Fund pertama yang dibawa ke pemungutan suara yang mengikat. Eksekusi di dalam kebijakan
+[ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv). Investment Policy Statement,
+yang diratifikasi pada 18 September 2026, adalah kebijakan Hipo Fund pertama yang diadopsi melalui pemungutan suara
+yang mengikat. Eksekusi di dalam kebijakan
 yang telah disetujui ditangani oleh para penanda tangan multisig; perubahan pada kebijakannya dibawa ke DAO.
 
 ---
@@ -160,7 +165,9 @@ Hipo Fund adalah treasury kripto dan nilainya bergerak mengikuti pasar. Risiko u
 - **Risiko likuiditas.** Posisi HPO tergolong besar dibandingkan likuiditas HPO di pasar. Nilai yang
   dilaporkan adalah harga pasar dikalikan saldonya; ini bukan klaim bahwa seluruh posisi dapat dijual pada
   harga tersebut.
-- **Risiko kustodi.** Sebagian dana berada di dompet dengan tanda tangan tunggal.
+- **Risiko kustodi.** Dana ini bergantung pada para penanda tangan multisig dan kunci mereka. Ambang 2-dari-3
+  menghilangkan titik kegagalan tunggal, tetapi tidak menghilangkan risiko dua kunci hilang atau diretas secara
+  bersamaan.
 - **Risiko smart contract.** Aset yang disimpan di protokol DeFi, termasuk hGRAM, membawa risiko kegagalan
   kontrak.
 

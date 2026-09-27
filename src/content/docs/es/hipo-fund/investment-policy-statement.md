@@ -1,15 +1,22 @@
 ---
 title: 'Declaración de política de inversión de Hipo Fund'
-description: 'Cómo se invierte el Hipo Fund: asignación objetivo, límites de riesgo y concentración, custodia, liquidez y cómo una parte del crecimiento del fondo vuelve a los holders de HPO.'
+description: 'La política bajo la que se gestiona Hipo Fund: asignación, límites de riesgo, custodia y cómo el valor vuelve a los holders de HPO. Ratificada por los holders de HPO en septiembre de 2026.'
 ---
 
-:::caution
+:::note[Ratificada]
 
-**Este es un borrador en revisión por la comunidad. Todavía no está en vigor.**
+Los holders de HPO aprobaron esta Declaración de política de inversión por votación de la DAO el 18 de septiembre de
+2026: 7,8 M de HPO a favor, 0 en contra, en 37 billeteras. Las billeteras de la tokenómica y la billetera de Hipo Fund no
+votaron.
+
+[Ver la propuesta en ton.vote →](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv/proposal/EQBDF2DNrg8wM116-DRlfyV0GV6c_7aJs3eVOaylpVnHKz6q)
+
+Esta política es vinculante para los firmantes del fondo. Modificarla, cambiar la fórmula del retorno de valor, reducir
+la posición de HPO del fondo o añadir una nueva clase de activo requieren, cada una, una nueva votación de la DAO.
 
 :::
 
-**Borrador v1.5 · Para revisión de la comunidad y ratificación de la DAO**
+**v1.0 · En vigor desde el 18 de septiembre de 2026**
 
 ---
 
@@ -392,3 +399,7 @@ Hay otras dos cosas que también juegan en contra de tenerla aquí. Una comisió
 **Si se reabre la cuestión**, requerirá una votación de la DAO y solo podrá proponerse cuando el fondo esté por encima de **500.000 $**, por encima de su marca de agua máxima, y haya mantenido ambas cosas durante **dos informes trimestrales consecutivos**. Toda propuesta deberá incluir: solo comisión de éxito y ninguna comisión de gestión; una marca de agua máxima estricta; una rentabilidad mínima (hurdle rate) por encima de un índice de referencia de rendimiento de stablecoins; pago en HPO bloqueado durante al menos 12 meses; y un tope anual como porcentaje de los activos.
 
 **Si gestionar el fondo llega a requerir tiempo remunerado**, se paga con el presupuesto operativo de Hipo como un puesto definido con un costo fijo, no con el fondo y no como una parte de los rendimientos. Eso mantiene la remuneración separada de los resultados de la inversión, que es lo que exige un mandato de preservación de capital.
+
+---
+
+_Versión ratificada v1.0, 18 de septiembre de 2026. Los borradores anteriores se publicaron para revisión de la comunidad entre el 10 y el 15 de septiembre de 2026._

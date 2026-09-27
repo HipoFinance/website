@@ -20,56 +20,59 @@ Jedes Asset, das er hält, liegt on-chain und lässt sich von jedem überprüfen
 
 ## 📊 Aktueller Stand
 
-| Kennzahl                                       | Wert                                                                        |
-| ---------------------------------------------- | --------------------------------------------------------------------------- |
-| **Anfangskapital (18. April 2025)**            | 186.963,96 $                                                                |
-| **Seither eingebrachtes Kapital**              | ≈ 37.092 $ (Claims aus Saison 2 und Saison 3)                               |
-| **Zuletzt berichteter Wert (24. August 2026)** | 98.776,51 $                                                                 |
-| **Rendite seit Auflegung (Modified Dietz)**    | −58,4 %                                                                     |
-| **GRAM im selben Zeitraum**                    | −49,8 %                                                                     |
-| **Aktueller Bericht**                          | [Bericht vom August 2026](/docs/hipo-fund/quarterly-report-august-24-2026/) |
+| Kennzahl                                       | Wert                                                                                               |
+| ---------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| **Anfangskapital (18. April 2025)**            | 186.963,96 $                                                                                       |
+| **Seither eingebrachtes Kapital**              | ≈ 37.092 $ (Claims aus Saison 2 und Saison 3)                                                      |
+| **Zuletzt berichteter Wert (24. August 2026)** | 98.776,51 $                                                                                        |
+| **Rendite seit Auflegung (Modified Dietz)**    | −58,4 %                                                                                            |
+| **GRAM im selben Zeitraum**                    | −49,8 %                                                                                            |
+| **Aktueller Bericht**                          | [Bericht vom August 2026](/docs/hipo-fund/quarterly-report-august-24-2026/)                        |
+| **Investment Policy Statement**                | [Per DAO-Abstimmung ratifiziert, 18. September 2026](/docs/hipo-fund/investment-policy-statement/) |
 
 Der Fonds liegt unter seinem Anfangskapital. Der Hauptgrund ist der Rückgang des GRAM-Preises in einem
 Portfolio, das im ersten Jahr stark an GRAM gebunden war. Die vollständige Rechnung steht im Bericht vom
 August 2026.
 
 Das [**Investment Policy Statement**](/docs/hipo-fund/investment-policy-statement/) (Anlagerichtlinie) legt
-Zielallokationen, Risikogrenzen, Liquiditätsanforderungen und Rebalancing-Regeln fest. Es wird als Entwurf zur Prüfung durch die
-Community veröffentlicht und geht danach in eine verbindliche DAO-Abstimmung. Es ist der Rahmen, nach dem der
-Hipo Fund von hier an verwaltet wird.
-
-Die genauen Termine werden im [Telegram-Kanal von Hipo](https://t.me/HipoFinance) und auf
-[ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv) bekannt gegeben.
+Zielallokationen, Risikogrenzen, Liquiditätsanforderungen und Rebalancing-Regeln fest. Die HPO-Inhaber haben es am 18. September 2026 per
+DAO-Abstimmung ratifiziert, und der Hipo Fund wird danach verwaltet.
 
 ---
 
 ## 🏦 Wallets
 
-Der Hipo Fund hält Assets in zwei Wallets. Beide fließen in jeden Bericht ein.
+Jedes ruhende Asset des Hipo Fund liegt in einer 2-von-3-Multisig. Drei Unterzeichner, allesamt Mitglieder des
+Hipo-Teams, dieselben drei bei jeder Wallet.
 
-**Haupt-Wallet — Multisig**\
-`EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr`
-([hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr))
+| Chain        | Hält                               | Adresse                                                                                                                                                          |
+| ------------ | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **TON**      | hGRAM, HPO, USDT, GRAM für Gas     | [`EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr`](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr) (hipofund.ton)                      |
+| **Ethereum** | USDC und Lending-Positionen (Aave) | [`0xaAf440f8E7E45Bf63a19fE29107E240B9844a173`](https://etherscan.io/address/0xaAf440f8E7E45Bf63a19fE29107E240B9844a173)                                          |
+| **Bitcoin**  | BTC                                | [`bc1qpk3g8saskt89acwa976hvzjv8jrcqdn0d2lpf9l9a5ksrj0akfnsxneedc`](https://mempool.space/address/bc1qpk3g8saskt89acwa976hvzjv8jrcqdn0d2lpf9l9a5ksrj0akfnsxneedc) |
 
-- Bewegungen von Mitteln erfordern **2 von 3 Signaturen**
-- Unterzeichner: zwei Mitgründer von Hipo und ein Teammitglied
-- Hält den überwiegenden Teil des Fonds
+Die Ethereum-Wallet ist ein Safe; derselbe Safe, mit derselben Adresse und denselben Unterzeichnern, existiert auch
+auf Base.
 
-**Zweit-Wallet — Einzelsignatur**\
-`UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG`
-([ansehen](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG))
+Der Fonds ist am 27. September 2026 auf eine neue Bitcoin-Wallet umgezogen, nachdem sich einer der drei Schlüssel der
+bisherigen Wallet als fehlerhaft herausgestellt hatte. Die Adressen der bisherigen Wallet sind jetzt leer:
+[`bc1qzuwj…qk2w`](https://mempool.space/address/bc1qzuwj3wm88qhnpw7zw4kyk0jdmph0v7h7m7z2dstttx4mzm7hm4es43qk2w),
+[`bc1qqz9m…g3jp`](https://mempool.space/address/bc1qqz9mds6pfak0sg8l79h28nf6cwvaasl08zh6xc8jwl3sthmtzhgqfgg3jp) und
+[`bc1qce5f…c3w7`](https://mempool.space/address/bc1qce5ftgna5g34kaup44ucvlmu5wtj9cyxuf507n2l8apnxrma9rcqdec3w7). Eine
+Bitcoin-Wallet kann für jede Einzahlung eine neue Adresse ausgeben. Verteilt sich das BTC des Fonds also einmal auf
+mehr als eine Adresse, führt jeder Quartalsbericht sie alle auf.
 
-- Die ursprüngliche Wallet des Fonds; sie ist nach der Umstellung auf Multisig in Gebrauch geblieben und hält
-  weiterhin einen Teil des Fonds
-- Außerdem Proposer in der Multisig
-- Einige Hipo-Systeme, darunter Hipo Club, unterstützen keine Multisig-Wallets. Deshalb wird diese Wallet aus
-  Gründen der Teilnahmeberechtigung weitergeführt. Das Investment Policy Statement legt eine Obergrenze dafür
-  fest, wie viel hier gehalten wird
+Die ursprüngliche Einzelsignatur-Wallet des Fonds —
+[`UQBwGlrp…DdLfG`](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG) — wurde im September 2026
+geleert und hält keine ruhenden Assets des Fonds. Sie ist kein Verwahrort, kann aber als kurze Zwischenstation dienen,
+wenn Assets gemäß [Abschnitt 4.1](/docs/hipo-fund/investment-policy-statement/#41-assets-zwischen-blockchains-bewegen)
+des Investment Policy Statement zwischen Blockchains bewegt werden; solange sie diese Wallet durchlaufen, kontrolliert
+sie ein einziger Schlüssel. Außerdem bleibt sie Proposer der TON-Multisig: Sie kann eine Transaktion vorschlagen, für
+die Ausführung sind aber weiterhin zwei der drei Unterzeichner nötig.
 
 :::note[Eine Anmerkung zu Adressformaten]
 TON zeigt dieselbe Wallet in zwei Formen — bounceable (`EQ…`) und non-bounceable (`UQ…`). Die letzten vier
-Zeichen unterscheiden sich, das Konto ist identisch. Für die Multisig sehen Sie möglicherweise
-`UQDa2GcC…_GQu` und `EQDa2GcC…_Dnr`; es ist dieselbe Wallet.
+Zeichen unterscheiden sich, das Konto ist identisch.
 :::
 
 ---
@@ -123,7 +126,8 @@ den Guthaben hat sich nichts geändert.
 ## 🔒 Wie der Fonds verwaltet wird
 
 **Vollständig on-chain und überprüfbar**\
-Jedes Asset wird in den beiden oben genannten Wallets gehalten und lässt sich jederzeit von jedem überprüfen.
+Jedes ruhende Asset wird in den oben genannten Multisig-Wallets gehalten und lässt sich jederzeit von jedem
+überprüfen.
 Der Fonds hält nur Assets, die sich transparent on-chain beobachten lassen.
 
 **Berichte auf Basis von Momentaufnahmen**\
@@ -154,8 +158,8 @@ fest.
 **Governance**\
 Die HPO-Inhaber stimmen über die [Hipo DAO](/docs/dao/) auf
 [ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv) über die Ausrichtung des Hipo
-Fund ab. Das Investment Policy Statement ist die erste Richtlinie des Hipo Fund, die in eine verbindliche
-Abstimmung geht. Die Umsetzung innerhalb einer beschlossenen Richtlinie übernehmen die Unterzeichner der
+Fund ab. Das Investment Policy Statement, ratifiziert am 18. September 2026, ist die erste Richtlinie des Hipo
+Fund, die per verbindlicher Abstimmung beschlossen wurde. Die Umsetzung innerhalb einer beschlossenen Richtlinie übernehmen die Unterzeichner der
 Multisig; Änderungen an der Richtlinie gehen an die DAO.
 
 ---
@@ -171,7 +175,9 @@ Der Hipo Fund ist eine Krypto-Treasury, und sein Wert bewegt sich mit dem Markt.
 - **Liquiditätsrisiko.** Die HPO-Position ist im Verhältnis zur Liquidität von HPO am Markt groß. Ihr
   ausgewiesener Wert ist der Marktpreis mal das Guthaben; das ist keine Aussage darüber, dass sich die
   gesamte Position zu diesem Preis verkaufen ließe.
-- **Verwahrrisiko.** Ein Teil des Fonds liegt in einer Einzelsignatur-Wallet.
+- **Verwahrrisiko.** Der Fonds hängt von den Unterzeichnern der Multisig und ihren Schlüsseln ab. Eine
+  2-von-3-Schwelle beseitigt jeden Single Point of Failure, nicht aber das Risiko, dass zwei Schlüssel zugleich
+  verloren gehen oder kompromittiert werden.
 - **Smart-Contract-Risiko.** In DeFi-Protokollen gehaltene Assets, hGRAM eingeschlossen, tragen das Risiko
   eines Ausfalls des Contracts.
 

@@ -1,15 +1,21 @@
 ---
 title: 'Investment Policy Statement Hipo Fund'
-description: 'Bagaimana Hipo Fund diinvestasikan: alokasi target, batas risiko dan konsentrasi, kustodi, likuiditas, dan bagaimana sebagian pertumbuhan dana ini dikembalikan kepada pemegang HPO.'
+description: 'Kebijakan yang menjadi acuan pengelolaan Hipo Fund — alokasi, batas risiko, kustodi, dan bagaimana nilai dikembalikan kepada pemegang HPO. Diratifikasi oleh pemegang HPO pada September 2026.'
 ---
 
-:::caution
+:::note[Diratifikasi]
 
-**Ini adalah draf yang sedang dalam tinjauan komunitas. Kebijakan ini belum berlaku.**
+Pemegang HPO menyetujui Investment Policy Statement ini melalui pemungutan suara DAO pada 18 September 2026 — 7,8 juta
+HPO mendukung, 0 menolak, dari 37 dompet. Dompet tokenomics dan dompet Hipo Fund tidak ikut memberikan suara.
+
+[Lihat proposal di ton.vote →](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv/proposal/EQBDF2DNrg8wM116-DRlfyV0GV6c_7aJs3eVOaylpVnHKz6q)
+
+Kebijakan ini mengikat para penanda tangan dana. Mengubahnya, mengubah formula pengembalian nilai, mengurangi posisi HPO
+dana ini, atau menambahkan kelas aset baru masing-masing memerlukan pemungutan suara DAO lanjutan.
 
 :::
 
-**Draf v1.5 · Untuk tinjauan komunitas dan ratifikasi DAO**
+**v1.0 · Berlaku sejak 18 September 2026**
 
 ---
 
@@ -390,3 +396,7 @@ Ada dua hal lagi yang menjadi alasan menentang sebuah biaya kinerja di sini. Seb
 **Jika pertanyaan ini dibuka kembali**, hal itu memerlukan sebuah pemungutan suara DAO dan hanya boleh diusulkan ketika dana ini berada di atas **$500.000**, di atas high-water mark-nya, dan telah mempertahankan keduanya selama **dua laporan kuartalan berturut-turut**. Proposal apa pun harus mencakup: hanya sebuah biaya kinerja dan tanpa biaya manajemen; sebuah high-water mark yang keras (hard); sebuah hurdle rate di atas sebuah benchmark imbal hasil stablecoin; pembayaran dalam HPO yang dikunci selama setidaknya 12 bulan; dan sebuah batas tahunan sebagai persentase dari aset.
 
 **Jika pengelolaan dana ini pada suatu saat membutuhkan waktu berbayar**, hal itu dibayar dari anggaran operasional Hipo sebagai sebuah peran yang jelas dengan biaya tetap — bukan dari dana ini, dan bukan sebagai bagian dari imbal hasil. Hal ini menjaga kompensasi tetap terpisah dari hasil investasi, yang merupakan hal yang disyaratkan oleh sebuah mandat pelestarian modal.
+
+---
+
+_v1.0 diratifikasi pada 18 September 2026. Draf-draf sebelumnya dipublikasikan untuk tinjauan komunitas antara 10 dan 15 September 2026._

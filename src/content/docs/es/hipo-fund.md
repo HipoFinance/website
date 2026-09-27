@@ -20,55 +20,59 @@ Todos los activos que mantiene están on-chain y cualquiera puede comprobarlos.
 
 ## 📊 Situación actual
 
-| Indicador                                         | Valor                                                                         |
-| ------------------------------------------------- | ----------------------------------------------------------------------------- |
-| **Capital inicial (18 de abril de 2025)**         | 186.963,96 USD                                                                |
-| **Capital aportado desde entonces**               | ≈ 37.092 USD (claims de la Temporada 2 y la Temporada 3)                      |
-| **Último valor reportado (24 de agosto de 2026)** | 98.776,51 USD                                                                 |
-| **Rentabilidad desde el inicio (Modified Dietz)** | −58,4 %                                                                       |
-| **GRAM en el mismo periodo**                      | −49,8 %                                                                       |
-| **Último informe**                                | [Informe de agosto de 2026](/docs/hipo-fund/quarterly-report-august-24-2026/) |
+| Indicador                                         | Valor                                                                                                         |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| **Capital inicial (18 de abril de 2025)**         | 186.963,96 USD                                                                                                |
+| **Capital aportado desde entonces**               | ≈ 37.092 USD (claims de la Temporada 2 y la Temporada 3)                                                      |
+| **Último valor reportado (24 de agosto de 2026)** | 98.776,51 USD                                                                                                 |
+| **Rentabilidad desde el inicio (Modified Dietz)** | −58,4 %                                                                                                       |
+| **GRAM en el mismo periodo**                      | −49,8 %                                                                                                       |
+| **Último informe**                                | [Informe de agosto de 2026](/docs/hipo-fund/quarterly-report-august-24-2026/)                                 |
+| **Declaración de política de inversión**          | [Ratificada por votación de la DAO el 18 de septiembre de 2026](/docs/hipo-fund/investment-policy-statement/) |
 
 El fondo está por debajo de su capital inicial, sobre todo por la caída del precio de GRAM en una cartera que
 estuvo fuertemente ligada a GRAM durante su primer año. La contabilidad completa está en el informe de agosto
 de 2026.
 
 La [**Declaración de política de inversión**](/docs/hipo-fund/investment-policy-statement/) establece las
-asignaciones objetivo, los límites de riesgo, los requisitos de liquidez y las reglas de rebalanceo. Se
-publica como borrador para que la comunidad la revise y después pasa a una votación vinculante de la DAO. Es
-el marco bajo el que se gestionará Hipo Fund a partir de ahora.
-
-Las fechas exactas se anuncian en el [canal de Telegram de Hipo](https://t.me/HipoFinance) y en
-[ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv).
+asignaciones objetivo, los límites de riesgo, los requisitos de liquidez y las reglas de rebalanceo. Los
+holders de HPO la ratificaron por votación de la DAO el 18 de septiembre de 2026, y Hipo Fund se gestiona conforme a
+ella.
 
 ---
 
 ## 🏦 Billeteras
 
-Hipo Fund guarda sus activos en dos billeteras. Ambas se contabilizan en todos los informes.
+Todos los activos de Hipo Fund en reposo se guardan en un multisig 2 de 3. Tres firmantes, todos miembros del equipo de
+Hipo, los mismos tres en todas las billeteras.
 
-**Billetera principal — multisig**\
-`EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr`
-([hipofund.ton](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr))
+| Cadena       | Contiene                             | Dirección                                                                                                                                                        |
+| ------------ | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **TON**      | hGRAM, HPO, USDT y GRAM para gas     | [`EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr`](https://tonviewer.com/EQDa2GcC9KwiWIL6jmrGp2ulhC7hnNo8DUunEtkMKe4r_Dnr) (hipofund.ton)                      |
+| **Ethereum** | USDC y posiciones de préstamo (Aave) | [`0xaAf440f8E7E45Bf63a19fE29107E240B9844a173`](https://etherscan.io/address/0xaAf440f8E7E45Bf63a19fE29107E240B9844a173)                                          |
+| **Bitcoin**  | BTC                                  | [`bc1qpk3g8saskt89acwa976hvzjv8jrcqdn0d2lpf9l9a5ksrj0akfnsxneedc`](https://mempool.space/address/bc1qpk3g8saskt89acwa976hvzjv8jrcqdn0d2lpf9l9a5ksrj0akfnsxneedc) |
 
-- Mover fondos requiere **2 de 3 firmas**
-- Firmantes: dos cofundadores de Hipo y un miembro del equipo
-- Guarda la mayor parte del fondo
+La billetera de Ethereum es un Safe; el mismo Safe, con la misma dirección y los mismos firmantes, también existe en Base.
 
-**Billetera secundaria — firma única**\
-`UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG`
-([ver](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG))
+El fondo pasó a una nueva billetera de Bitcoin el 27 de septiembre de 2026, después de que una de las tres claves de la
+billetera anterior resultara ser incorrecta. Las direcciones de la billetera anterior ahora están vacías:
+[`bc1qzuwj…qk2w`](https://mempool.space/address/bc1qzuwj3wm88qhnpw7zw4kyk0jdmph0v7h7m7z2dstttx4mzm7hm4es43qk2w),
+[`bc1qqz9m…g3jp`](https://mempool.space/address/bc1qqz9mds6pfak0sg8l79h28nf6cwvaasl08zh6xc8jwl3sthmtzhgqfgg3jp) y
+[`bc1qce5f…c3w7`](https://mempool.space/address/bc1qce5ftgna5g34kaup44ucvlmu5wtj9cyxuf507n2l8apnxrma9rcqdec3w7). Una
+billetera de Bitcoin puede dar una dirección nueva para cada depósito, así que si el BTC del fondo llega a repartirse
+entre más de una dirección, cada informe trimestral las enumera todas.
 
-- La billetera original del fondo, que se sigue usando tras la migración al multisig y que todavía guarda parte del fondo
-- También es proponente en el multisig
-- Algunos sistemas de Hipo, incluido Hipo Club, no admiten billeteras multisig, así que esta billetera se
-  mantiene por motivos de elegibilidad. La Declaración de política de inversión fija un límite a cuánto se
-  guarda aquí
+La billetera original de firma única del fondo,
+[`UQBwGlrp…DdLfG`](https://tonviewer.com/UQBwGlrpvnLzWM1qOXW2DPe99mg1W5pcf2R_uxSeDiVDdLfG), se vació en septiembre de
+2026 y no guarda activos del fondo en reposo. No es un lugar de custodia, pero puede servir como breve punto de paso
+cuando los activos se mueven entre cadenas conforme a la [sección
+4.1](/docs/hipo-fund/investment-policy-statement/#41-mover-activos-entre-cadenas) de la Declaración de política de
+inversión; mientras pasan por ella, los controla una sola clave. También sigue siendo el proponente del multisig de TON:
+puede proponer una transacción, pero ejecutarla sigue requiriendo dos de los tres firmantes.
 
 :::note[Una nota sobre los formatos de dirección]
 TON muestra la misma billetera de dos formas: bounceable (`EQ…`) y non-bounceable (`UQ…`). Los cuatro últimos
-caracteres difieren, pero la cuenta es idéntica. Puede que veas `UQDa2GcC…_GQu` y `EQDa2GcC…_Dnr` para el
-multisig; son la misma billetera.
+caracteres difieren, pero la cuenta es idéntica.
 :::
 
 ---
@@ -122,8 +126,8 @@ coincida. Ningún saldo ha cambiado.
 ## 🔒 Cómo se gestiona el fondo
 
 **Totalmente on-chain y verificable**\
-Todos los activos están en las dos billeteras anteriores y cualquiera puede comprobarlos en cualquier momento.
-El fondo solo mantiene activos que se puedan supervisar de forma transparente on-chain.
+Todos los activos en reposo están en las billeteras multisig anteriores y cualquiera puede comprobarlos en cualquier
+momento. El fondo solo mantiene activos que se puedan supervisar de forma transparente on-chain.
 
 **Informes basados en snapshots**\
 Los informes a partir de agosto de 2026 los genera
@@ -152,9 +156,10 @@ están establecidos en la Declaración de política de inversión.
 
 **Gobernanza**\
 Los holders de HPO votan la dirección de Hipo Fund a través de la [Hipo DAO](/docs/dao/) en
-[ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv). La Declaración de política de
-inversión es la primera política de Hipo Fund que pasa a una votación vinculante. La ejecución dentro de una
-política aprobada corre a cargo de los firmantes del multisig; los cambios en la política pasan a la DAO.
+[ton.vote](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv). La Declaración de política de inversión,
+ratificada el 18 de septiembre de 2026, es la primera política de Hipo Fund adoptada por votación vinculante. La
+ejecución dentro de una política aprobada corre a cargo de los firmantes del multisig; los cambios en la política pasan
+a la DAO.
 
 ---
 
@@ -167,7 +172,8 @@ Hipo Fund es una tesorería cripto y su valor se mueve con el mercado. Los riesg
 - **Riesgo de liquidez.** La posición en HPO es grande en relación con la liquidez de HPO en el mercado. Su
   valor reportado es el precio de mercado por el saldo; no es una afirmación de que toda la posición pudiera
   venderse a ese precio.
-- **Riesgo de custodia.** Parte del fondo está en una billetera de firma única.
+- **Riesgo de custodia.** El fondo depende de los firmantes del multisig y de sus claves. Un umbral de 2 de 3 elimina
+  cualquier punto único de fallo, pero no el riesgo de que dos claves se pierdan o se vean comprometidas a la vez.
 - **Riesgo de contrato inteligente.** Los activos mantenidos en protocolos DeFi, incluido hGRAM, conllevan el
   riesgo de un fallo del contrato.
 

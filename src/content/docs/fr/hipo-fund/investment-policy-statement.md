@@ -1,15 +1,22 @@
 ---
 title: 'Politique d’investissement du Hipo Fund'
-description: 'Comment le Hipo Fund est investi : allocation cible, limites de risque et de concentration, conservation des actifs, liquidité, et comment une part de la croissance du fonds revient aux détenteurs de HPO.'
+description: 'La politique selon laquelle le Hipo Fund est géré — allocation, limites de risque, conservation des actifs, et manière dont la valeur revient aux détenteurs de HPO. Ratifiée par les détenteurs de HPO en septembre 2026.'
 ---
 
-:::caution
+:::note[Ratifiée]
 
-**Ceci est une version préliminaire soumise à la revue de la communauté. Elle n’est pas encore en vigueur.**
+Les détenteurs de HPO ont approuvé cette politique d’investissement par vote de la DAO le 18 septembre 2026 —
+7,8 millions de HPO pour, 0 contre, sur 37 portefeuilles. Les portefeuilles de la tokenomics et le portefeuille du
+Hipo Fund n’ont pas voté.
+
+[Voir la proposition sur ton.vote →](https://ton.vote/EQBjc5x7yY4XaB4br1n2fOfw3XwrNN5IckvkQHb4vTH8YgTv/proposal/EQBDF2DNrg8wM116-DRlfyV0GV6c_7aJs3eVOaylpVnHKz6q)
+
+Cette politique s’impose aux signataires du fonds. La modifier, changer la formule de retour de valeur, réduire la
+position du fonds en HPO ou ajouter une nouvelle classe d’actifs exige à chaque fois un nouveau vote de la DAO.
 
 :::
 
-**Version préliminaire v1.5 · Pour revue par la communauté et ratification par la DAO**
+**v1.0 · En vigueur depuis le 18 septembre 2026**
 
 ---
 
@@ -539,3 +546,7 @@ annuel exprimé en pourcentage des actifs.
 **Si gérer le fonds venait un jour à exiger du temps rémunéré**, celui-ci est payé sur le budget d’exploitation de Hipo
 comme un rôle défini à coût fixe — pas par le fonds, et pas sous forme d’une part des rendements. Cela maintient la
 rémunération séparée des résultats d’investissement, ce qu’exige un mandat de préservation du capital.
+
+---
+
+_v1.0 ratifiée le 18 septembre 2026. Des versions préliminaires antérieures ont été publiées pour revue par la communauté entre le 10 et le 15 septembre 2026._
