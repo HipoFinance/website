@@ -6,6 +6,7 @@
   "hpo.hero.pair": "HPO / USD",
   "hpo.hero.liveData": "بيانات السوق المباشرة",
   "hpo.hero.live": "مباشر",
+  "hpo.hero.change24h": "٢٤ ساعة",
   "hpo.hero.chartSource": "المصدر: {source}",
   "hpo.hero.chartLink": "رسم بياني لسعر HPO على CoinGecko (يُفتح في علامة تبويب جديدة)",
   "hpo.hero.marketCap": "القيمة السوقية",

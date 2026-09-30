@@ -6,6 +6,7 @@
   "hpo.hero.pair": "HPO / USD",
   "hpo.hero.liveData": "Datos de mercado en tiempo real",
   "hpo.hero.live": "En vivo",
+  "hpo.hero.change24h": "24 h",
   "hpo.hero.chartSource": "Fuente: {source}",
   "hpo.hero.chartLink": "Gráfico del precio de HPO en CoinGecko (se abre en una pestaña nueva)",
   "hpo.hero.marketCap": "Cap. de mercado",

@@ -5,7 +5,7 @@ import { getT } from '../i18n/t.ts'
 import { formatNumber, formatPercent } from '../i18n/format.ts'
 import { hpoFaqAnchor } from './hpoFaq.ts'
 import AnchorLink from './AnchorLink.astro'
-import { fetchGauge, gaugeValues } from '../data/gauge.ts'
+import { fetchGauge, gaugeValues, hpoChangeDirection } from '../data/gauge.ts'
 
 // HPO token page content. Recreates design/HPO.dc.html in the Warm Dark tokens defined in
 // src/styles/global.css. Owned by src/pages/hpo/index.astro only. Every visible string comes from
@@ -20,7 +20,9 @@ const coinGeckoHpo = 'https://www.coingecko.com/en/coins/hipo-governance-token'
 // src/scripts/hpo-data.js through the same gaugeValues(); each falls back to the em dash the page
 // used to always ship. #hpoBurned is deliberately NOT baked: it comes from a TON v4 run rather
 // than the gauge, and its count-up animation would visibly reset a pre-rendered figure to zero.
-const gauge = gaugeValues(locale, await fetchGauge())
+const gaugeData = await fetchGauge()
+const gauge = gaugeValues(locale, gaugeData)
+const changeDirection = hpoChangeDirection(gaugeData)
 // The hero card's figures; the ids are what hpo-data.js refreshes.
 const figures = [
   { id: 'hpoMarketCap', value: gauge.hpoMarketCap, label: 'hpo.hero.marketCap' },
@@ -131,6 +133,20 @@ const hpoFaq = await Promise.all(
             <span class='bg-positive inline-block size-[7px] rounded-full'></span>
             {t('hpo.hero.live')}
           </span>
+        </div>
+
+        <!-- The latest price and its 24h change, CoinGecko's figures relayed by the gauge; baked here and
+        refreshed by hpo-data.js, which also recolours the change and un-hides it once one arrives. -->
+        <div class='flex flex-wrap items-baseline gap-x-3 gap-y-1'>
+          <div id='hpoPrice' class='font-fredoka num text-[30px] font-semibold' set:text={gauge.hpoPrice ?? '—'} />
+          <div id='hpoChangeWrap' class='flex items-baseline gap-1.5' hidden={gauge.hpoChange24h === undefined}>
+            <span
+              id='hpoChange24h'
+              class:list={['num text-[15px] font-medium', changeDirection === 'down' ? 'text-accent' : 'text-positive']}
+              set:text={gauge.hpoChange24h ?? ''}
+            />
+            <span class='text-text-muted text-[13px]'>{t('hpo.hero.change24h')}</span>
+          </div>
         </div>
 
         <!-- Filled by hpo-sparkline.ts from 30 days of the hipo_hpo_current_price Prometheus series

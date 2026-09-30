@@ -1387,6 +1387,10 @@
     "sourceHash": "131949f3d136642712501f8de212ae3621eb91f4",
     "reviewed": false
   },
+  "hpo.hero.change24h": {
+    "sourceHash": "0277959611310976682872bcb5d6423aa581a202",
+    "reviewed": false
+  },
   "hpo.hero.chartLink": {
     "sourceHash": "2ca8bbef1e0de44f671effb85b7952d82741d30d",
     "reviewed": false
