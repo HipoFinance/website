@@ -39,7 +39,10 @@ const { series, stake, locale, names, label } = Astro.props
 const geo = chartGeometry(series, stake)
 const stroke = { tonstakers: 'var(--color-series-a)', stakee: 'var(--color-series-b)' }
 
-const tickLabel = (value: number) => formatNumber(locale, value, { maximumFractionDigits: 0 })
+// Digits follow the tick step (`geo.tickDigits`), not a hardcoded 0 — at a small stake the step
+// goes sub-GRAM and 0 digits collapses every tick to "0, -0, -0" (2026-09-30).
+const tickLabel = (value: number) =>
+  formatNumber(locale, value, { maximumFractionDigits: geo.tickDigits, minimumFractionDigits: geo.tickDigits })
 const xLabel = (day: string) =>
   formatDate(locale, Date.parse(day + 'T00:00:00Z'), { month: 'short', year: '2-digit', timeZone: 'UTC' })
 ---
@@ -114,16 +117,40 @@ const xLabel = (day: string) =>
 
     {
       geo.series.map((item) => (
-        <text
-          data-vs-end={item.id}
-          x={item.endX + 10}
-          y={item.endY + 4}
-          font-size='11.5'
-          font-weight='500'
-          fill={stroke[item.id]}
-        >
-          {names[item.id]}
-        </text>
+        <>
+          <text
+            data-vs-end={item.id}
+            x={item.endX + 10}
+            y={item.labelY - 3}
+            font-size='11.5'
+            font-weight='500'
+            fill={stroke[item.id]}
+          >
+            {names[item.id]}
+          </text>
+          {/* item.endValue is a positive shortfall magnitude; negate it and pass it through
+              formatNumber rather than hand-prefixing a minus sign. The y-axis ticks above do the
+              same for the same reason: formatNumber renders the locale's own sign convention, e.g.
+              Persian's U+200E + U+2212 and Arabic's U+061C + hyphen, which a hardcoded "−" would
+              get wrong in both the character and the bidi mark. "GRAM" stays hardcoded and
+              untranslated, like "Hipo" above and everywhere else on /vs/. Digits match the axis
+              (geo.tickDigits), so the number under a protocol's name agrees with the gridlines it's
+              read against. y is `labelY`, not `endY` — resolved above so two labels, or a label and
+              "Hipo", never collide. */}
+          <text
+            data-vs-endval={item.id}
+            x={item.endX + 10}
+            y={item.labelY + 11}
+            font-size='10.5'
+            fill={stroke[item.id]}
+          >
+            {formatNumber(locale, -item.endValue, {
+              maximumFractionDigits: geo.tickDigits,
+              minimumFractionDigits: geo.tickDigits,
+            })}{' '}
+            GRAM
+          </text>
+        </>
       ))
     }
   </svg>

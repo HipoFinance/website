@@ -94,7 +94,16 @@ async function buildSeries(): Promise<GrowthSeries> {
   // day is ignored outright rather than compared — see the rule in this file's header.
   let end = baselineEnd
   if (tail !== undefined) {
-    for (const samples of Object.values(tail)) {
+    // Only the protocols actually drawn, not every id the tail carries (it also has e.g. `bemo`,
+    // `kton`, which PROTOCOLS excludes). An untracked protocol getting a sample for a day the drawn
+    // ones lack must not be able to extend the window past them: `stakeOutcome` reads the last
+    // index unconditionally, and that is where every headline GRAM figure comes from — one drawn
+    // protocol missing that day would render as NaN.
+    for (const id of PROTOCOLS) {
+      const samples = tail[id]
+      if (samples === undefined) {
+        continue
+      }
       for (const date of Object.keys(samples)) {
         const ms = Date.parse(date + 'T00:00:00Z')
         if (Number.isFinite(ms) && ms > end) {
@@ -107,7 +116,7 @@ async function buildSeries(): Promise<GrowthSeries> {
   // A contiguous day grid, so the x-axis stays linear in time even when the gauge missed a day.
   // A day nothing covers becomes NaN and the chart draws a gap rather than a straight line
   // through it.
-  const total = Math.round((end - baselineStart) / dayMs) + 1
+  let total = Math.round((end - baselineStart) / dayMs) + 1
   const days: string[] = []
   for (let i = 0; i < total; i++) {
     days.push(isoDay(baselineStart + i * dayMs))
@@ -143,6 +152,27 @@ async function buildSeries(): Promise<GrowthSeries> {
       rate[i] = Number.isFinite(v) ? Math.round((v / base) * 1e7) / 1e7 : Number.NaN
     })
     growth[id] = rate
+  }
+
+  // `end` above is already scanned across PROTOCOLS only, so the grid cannot end past all of them —
+  // but one DRAWN protocol can still lack the grid's final day while another has it (its own tail
+  // sample can land a day short of the one that set `end`), leaving a NaN at the last index. That
+  // index is where `stakeOutcome` reads every headline GRAM figure unconditionally, so it must be
+  // finite for every protocol in PROTOCOLS. Trim the TAIL only, walking back from the end: interior
+  // NaNs are measurement gaps that R9 says to draw as a break, and must survive untouched.
+  let lastCovered = total - 1
+  while (lastCovered >= 0 && PROTOCOLS.some((id) => !Number.isFinite(growth[id][lastCovered]))) {
+    lastCovered--
+  }
+  if (lastCovered < 0) {
+    throw new Error('lst: no day in the window is covered by every drawn protocol')
+  }
+  if (lastCovered < total - 1) {
+    total = lastCovered + 1
+    days.length = total
+    for (const id of PROTOCOLS) {
+      growth[id].length = total
+    }
   }
 
   // Sample down, always keeping the last day: it is where every headline figure is read from.

@@ -7,6 +7,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-30 — [detailed report](changelog/2026-09-30-vs-chart-early-years.md)
+
+- Gave the `/vs/` comparison chart an eight-interval axis, so its early years read against a gridline.
+- Put each protocol's final value under its name at the end of its line.
+- Fixed the wash filling across a gap, tick labels collapsing at small stakes, and colliding end labels.
+- Stopped an undrawn protocol's gauge sample from pushing `NaN` into the headline figures.
+- Deleted the dead `growthSeries()` copy in `lst-geometry.ts`.
+
 ## 2026-09-30 — [detailed report](changelog/2026-09-30-hpo-card-price-compact.md)
 
 - Made the HPO card's price row more compact: smaller type and tighter gaps, about 33 px shorter.
