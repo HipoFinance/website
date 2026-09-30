@@ -7,6 +7,10 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-30 — [detailed report](changelog/2026-09-30-hpo-card-price-compact.md)
+
+- Made the HPO card's price row more compact: smaller type and tighter gaps, about 33 px shorter.
+
 ## 2026-09-30 — [detailed report](changelog/2026-09-30-hpo-card-latest-price.md)
 
 - Added HPO's latest price and 24h change above the price graph on `/hpo/`, in every locale.

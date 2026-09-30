@@ -123,29 +123,40 @@ const hpoFaq = await Promise.all(
 
     <div class='flex flex-col gap-2.5'>
       <div class='border-border bg-surface flex flex-col gap-[18px] rounded-[24px] border p-7'>
-        <div class='flex items-center gap-3'>
-          <img src='/hpo.png' class='size-11' alt='HPO' />
-          <div>
-            <div class='font-fredoka text-lg font-semibold'>{t('hpo.hero.pair')}</div>
-            <div class='text-text-muted text-[13px]'>{t('hpo.hero.liveData')}</div>
+        <!-- Header and price row share a tighter gap than the card's 18px, so the price reads as part of
+        the header; the graph below is pulled up to sit 10px under it. -->
+        <div class='flex flex-col gap-2'>
+          <div class='flex items-center gap-3'>
+            <img src='/hpo.png' class='size-11' alt='HPO' />
+            <div>
+              <div class='font-fredoka text-lg font-semibold'>{t('hpo.hero.pair')}</div>
+              <div class='text-text-muted text-[13px]'>{t('hpo.hero.liveData')}</div>
+            </div>
+            <span class='text-positive ms-auto flex items-center gap-1.5 text-[13px] font-medium'>
+              <span class='bg-positive inline-block size-[7px] rounded-full'></span>
+              {t('hpo.hero.live')}
+            </span>
           </div>
-          <span class='text-positive ms-auto flex items-center gap-1.5 text-[13px] font-medium'>
-            <span class='bg-positive inline-block size-[7px] rounded-full'></span>
-            {t('hpo.hero.live')}
-          </span>
-        </div>
 
-        <!-- The latest price and its 24h change, CoinGecko's figures relayed by the gauge; baked here and
-        refreshed by hpo-data.js, which also recolours the change and un-hides it once one arrives. -->
-        <div class='flex flex-wrap items-baseline gap-x-3 gap-y-1'>
-          <div id='hpoPrice' class='font-fredoka num text-[30px] font-semibold' set:text={gauge.hpoPrice ?? '—'} />
-          <div id='hpoChangeWrap' class='flex items-baseline gap-1.5' hidden={gauge.hpoChange24h === undefined}>
-            <span
-              id='hpoChange24h'
-              class:list={['num text-[15px] font-medium', changeDirection === 'down' ? 'text-accent' : 'text-positive']}
-              set:text={gauge.hpoChange24h ?? ''}
+          <!-- The latest price and its 24h change, CoinGecko's figures relayed by the gauge; baked here and
+          refreshed by hpo-data.js, which also recolours the change and un-hides it once one arrives. -->
+          <div class='flex flex-wrap items-baseline gap-x-3 gap-y-1'>
+            <div
+              id='hpoPrice'
+              class='font-fredoka num text-[24px] leading-tight font-semibold'
+              set:text={gauge.hpoPrice ?? '—'}
             />
-            <span class='text-text-muted text-[13px]'>{t('hpo.hero.change24h')}</span>
+            <div id='hpoChangeWrap' class='flex items-baseline gap-1.5' hidden={gauge.hpoChange24h === undefined}>
+              <span
+                id='hpoChange24h'
+                class:list={[
+                  'num text-[14px] font-medium',
+                  changeDirection === 'down' ? 'text-accent' : 'text-positive',
+                ]}
+                set:text={gauge.hpoChange24h ?? ''}
+              />
+              <span class='text-text-muted text-[13px]'>{t('hpo.hero.change24h')}</span>
+            </div>
           </div>
         </div>
 
@@ -158,7 +169,7 @@ const hpoFaq = await Promise.all(
           target='_blank'
           rel='noopener noreferrer'
           aria-label={t('hpo.hero.chartLink')}
-          class='focus-visible:outline-accent block cursor-pointer rounded-[12px] focus-visible:outline-2 focus-visible:outline-offset-4'
+          class='focus-visible:outline-accent -mt-2 block cursor-pointer rounded-[12px] focus-visible:outline-2 focus-visible:outline-offset-4'
         >
           <svg id='hpoSparkline' viewBox='0 0 400 120' class='h-[120px] w-full' preserveAspectRatio='none'></svg>
         </a>
