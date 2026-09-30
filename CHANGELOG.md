@@ -7,6 +7,10 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-30 — [detailed report](changelog/2026-09-30-hpo-card-figures-wrap.md)
+
+- Stacked the HPO card's market cap, volume and holders as a list on phones, so they no longer break mid-word.
+
 ## 2026-09-30 — [detailed report](changelog/2026-09-30-hpo-price-chart-source.md)
 
 - Added a "Source: CoinGecko" note below the HPO price chart card on `/hpo/`.

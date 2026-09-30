@@ -21,6 +21,12 @@ const coinGeckoHpo = 'https://www.coingecko.com/en/coins/hipo-governance-token'
 // used to always ship. #hpoBurned is deliberately NOT baked: it comes from a TON v4 run rather
 // than the gauge, and its count-up animation would visibly reset a pre-rendered figure to zero.
 const gauge = gaugeValues(locale, await fetchGauge())
+// The hero card's figures; the ids are what hpo-data.js refreshes.
+const figures = [
+  { id: 'hpoMarketCap', value: gauge.hpoMarketCap, label: 'hpo.hero.marketCap' },
+  { id: 'hpoVolume', value: gauge.hpoVolume, label: 'hpo.hero.volume' },
+  { id: 'hpoHolders', value: gauge.hpoHolders, label: 'hpo.hero.holders' },
+]
 
 // The HPO allocation per docs/hipo-tokens/hipo-governance-token-hpo/ — percentages of
 // the 1B minted, so they always sum to 100 regardless of burns. Rendered as an inline SVG donut
@@ -141,23 +147,23 @@ const hpoFaq = await Promise.all(
           <svg id='hpoSparkline' viewBox='0 0 400 120' class='h-[120px] w-full' preserveAspectRatio='none'></svg>
         </a>
 
-        <div class='flex justify-between gap-3'>
-          <div class='min-w-0'>
-            <div
-              id='hpoMarketCap'
-              class='font-fredoka text-[22px] font-semibold'
-              set:text={gauge.hpoMarketCap ?? '—'}
-            />
-            <div class='text-text-muted text-[13px]'>{t('hpo.hero.marketCap')}</div>
-          </div>
-          <div class='min-w-0'>
-            <div id='hpoVolume' class='font-fredoka text-[22px] font-semibold' set:text={gauge.hpoVolume ?? '—'} />
-            <div class='text-text-muted text-[13px]'>{t('hpo.hero.volume')}</div>
-          </div>
-          <div class='min-w-0'>
-            <div id='hpoHolders' class='font-fredoka text-[22px] font-semibold' set:text={gauge.hpoHolders ?? '—'} />
-            <div class='text-text-muted text-[13px]'>{t('hpo.hero.holders')}</div>
-          </div>
+        <!-- Below sm the three figures stack as a list: label at the start, value at the end, and the
+        value takes a line of its own when the two don't fit. Most locales' figures and labels don't fit
+        three abreast in a phone-width card, and squeezing them made the site-wide overflow-wrap split
+        words. From sm up it is the three-column row, value over label. -->
+        <div class='flex flex-col sm:flex-row sm:justify-between sm:gap-3'>
+          {
+            figures.map(({ id, value, label }) => (
+              <div class='border-border flex min-w-0 flex-wrap items-baseline justify-between gap-x-3 border-t py-2.5 first:border-t-0 first:pt-0 last:pb-0 sm:block sm:border-t-0 sm:py-0'>
+                <div
+                  id={id}
+                  class='font-fredoka order-2 ms-auto shrink-0 text-[22px] font-semibold whitespace-nowrap sm:whitespace-normal'
+                  set:text={value ?? '—'}
+                />
+                <div class='text-text-muted order-1 min-w-0 text-[13px]'>{t(label)}</div>
+              </div>
+            ))
+          }
         </div>
       </div>
 
