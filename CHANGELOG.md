@@ -7,6 +7,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-30 — [detailed report](changelog/2026-09-30-hpo-price-chart-source.md)
+
+- Added a "Source: CoinGecko" note below the HPO price chart card on `/hpo/`.
+- Clicking the HPO price chart opens CoinGecko's HPO page in a new tab.
+- Translated both new strings into all ten other released locales.
+
 ## 2026-09-27 — [detailed report](changelog/2026-09-27-ips-ratified.md)
 
 - Marked the Hipo Fund Investment Policy Statement as ratified (v1.0, in force since 18 September 2026).

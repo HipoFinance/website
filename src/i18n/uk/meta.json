@@ -1387,6 +1387,14 @@
     "sourceHash": "131949f3d136642712501f8de212ae3621eb91f4",
     "reviewed": false
   },
+  "hpo.hero.chartLink": {
+    "sourceHash": "2ca8bbef1e0de44f671effb85b7952d82741d30d",
+    "reviewed": false
+  },
+  "hpo.hero.chartSource": {
+    "sourceHash": "86728b17adbbcf282a82bbfb331a3d04922b102c",
+    "reviewed": false
+  },
   "hpo.hero.holders": {
     "sourceHash": "65e14a168f400df507c4ff9b21518f3698c0b154",
     "reviewed": false

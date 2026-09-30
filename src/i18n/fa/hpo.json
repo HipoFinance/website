@@ -6,6 +6,8 @@
   "hpo.hero.pair": "HPO / USD",
   "hpo.hero.liveData": "داده‌های زنده بازار",
   "hpo.hero.live": "زنده",
+  "hpo.hero.chartSource": "منبع: {source}",
+  "hpo.hero.chartLink": "نمودار قیمت HPO در CoinGecko (در زبانه‌ی جدید باز می‌شود)",
   "hpo.hero.marketCap": "ارزش بازار",
   "hpo.hero.volume": "حجم معاملات، ۲۴ ساعت",
   "hpo.hero.holders": "دارندگان",

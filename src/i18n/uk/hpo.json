@@ -6,6 +6,8 @@
   "hpo.hero.pair": "HPO / USD",
   "hpo.hero.liveData": "Живі ринкові дані",
   "hpo.hero.live": "Наживо",
+  "hpo.hero.chartSource": "Джерело: {source}",
+  "hpo.hero.chartLink": "Графік ціни HPO на CoinGecko (відкривається в новій вкладці)",
   "hpo.hero.marketCap": "Капіталізація",
   "hpo.hero.volume": "Обсяг за 24 год",
   "hpo.hero.holders": "Власники",

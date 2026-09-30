@@ -13,6 +13,8 @@ import { fetchGauge, gaugeValues } from '../data/gauge.ts'
 // interpolated through tHtml so translators can move the pieces.
 const locale = localeOf(Astro)
 const { t, tHtml } = getT(locale, ['hpo'])
+// The hero sparkline plots the gauge's HPO price, which the gauge takes from this CoinGecko coin.
+const coinGeckoHpo = 'https://www.coingecko.com/en/coins/hipo-governance-token'
 
 // Live market and protocol numbers, baked in at build time and refreshed in the browser by
 // src/scripts/hpo-data.js through the same gaugeValues(); each falls back to the em dash the page
@@ -111,39 +113,61 @@ const hpoFaq = await Promise.all(
       </div>
     </div>
 
-    <div class='border-border bg-surface flex flex-col gap-[18px] rounded-[24px] border p-7'>
-      <div class='flex items-center gap-3'>
-        <img src='/hpo.png' class='size-11' alt='HPO' />
-        <div>
-          <div class='font-fredoka text-lg font-semibold'>{t('hpo.hero.pair')}</div>
-          <div class='text-text-muted text-[13px]'>{t('hpo.hero.liveData')}</div>
+    <div class='flex flex-col gap-2.5'>
+      <div class='border-border bg-surface flex flex-col gap-[18px] rounded-[24px] border p-7'>
+        <div class='flex items-center gap-3'>
+          <img src='/hpo.png' class='size-11' alt='HPO' />
+          <div>
+            <div class='font-fredoka text-lg font-semibold'>{t('hpo.hero.pair')}</div>
+            <div class='text-text-muted text-[13px]'>{t('hpo.hero.liveData')}</div>
+          </div>
+          <span class='text-positive ms-auto flex items-center gap-1.5 text-[13px] font-medium'>
+            <span class='bg-positive inline-block size-[7px] rounded-full'></span>
+            {t('hpo.hero.live')}
+          </span>
         </div>
-        <span class='text-positive ms-auto flex items-center gap-1.5 text-[13px] font-medium'>
-          <span class='bg-positive inline-block size-[7px] rounded-full'></span>
-          {t('hpo.hero.live')}
-        </span>
-      </div>
 
-      <!-- Filled by hpo-sparkline.ts from 30 days of the hipo_hpo_current_price Prometheus series
+        <!-- Filled by hpo-sparkline.ts from 30 days of the hipo_hpo_current_price Prometheus series
       (the same allowlisted combined query the Stats page charts use). The height is reserved by
       the viewBox/class regardless of data; no line or fill is drawn until real points arrive, and
       none is drawn on failure either — never a fake shape. -->
-      <svg id='hpoSparkline' viewBox='0 0 400 120' class='h-[120px] w-full' preserveAspectRatio='none'></svg>
+        <a
+          href={coinGeckoHpo}
+          target='_blank'
+          rel='noopener noreferrer'
+          aria-label={t('hpo.hero.chartLink')}
+          class='focus-visible:outline-accent block cursor-pointer rounded-[12px] focus-visible:outline-2 focus-visible:outline-offset-4'
+        >
+          <svg id='hpoSparkline' viewBox='0 0 400 120' class='h-[120px] w-full' preserveAspectRatio='none'></svg>
+        </a>
 
-      <div class='flex justify-between gap-3'>
-        <div class='min-w-0'>
-          <div id='hpoMarketCap' class='font-fredoka text-[22px] font-semibold' set:text={gauge.hpoMarketCap ?? '—'} />
-          <div class='text-text-muted text-[13px]'>{t('hpo.hero.marketCap')}</div>
-        </div>
-        <div class='min-w-0'>
-          <div id='hpoVolume' class='font-fredoka text-[22px] font-semibold' set:text={gauge.hpoVolume ?? '—'} />
-          <div class='text-text-muted text-[13px]'>{t('hpo.hero.volume')}</div>
-        </div>
-        <div class='min-w-0'>
-          <div id='hpoHolders' class='font-fredoka text-[22px] font-semibold' set:text={gauge.hpoHolders ?? '—'} />
-          <div class='text-text-muted text-[13px]'>{t('hpo.hero.holders')}</div>
+        <div class='flex justify-between gap-3'>
+          <div class='min-w-0'>
+            <div
+              id='hpoMarketCap'
+              class='font-fredoka text-[22px] font-semibold'
+              set:text={gauge.hpoMarketCap ?? '—'}
+            />
+            <div class='text-text-muted text-[13px]'>{t('hpo.hero.marketCap')}</div>
+          </div>
+          <div class='min-w-0'>
+            <div id='hpoVolume' class='font-fredoka text-[22px] font-semibold' set:text={gauge.hpoVolume ?? '—'} />
+            <div class='text-text-muted text-[13px]'>{t('hpo.hero.volume')}</div>
+          </div>
+          <div class='min-w-0'>
+            <div id='hpoHolders' class='font-fredoka text-[22px] font-semibold' set:text={gauge.hpoHolders ?? '—'} />
+            <div class='text-text-muted text-[13px]'>{t('hpo.hero.holders')}</div>
+          </div>
         </div>
       </div>
+
+      <a
+        href={coinGeckoHpo}
+        target='_blank'
+        rel='noopener noreferrer'
+        class='text-text-faint hover:text-accent self-end pe-3 text-[12px]'
+        set:html={tHtml('hpo.hero.chartSource', { source: '<span class="num">CoinGecko</span>' })}
+      />
     </div>
   </section>
 
