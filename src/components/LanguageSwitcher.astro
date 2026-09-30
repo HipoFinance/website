@@ -2,7 +2,10 @@
 // The language dropdown (spec §J/§L). It lists `public` locales only and renders nothing at all
 // until at least two are public, so exposing a language is a registry edit, not a code change.
 // Plain <details>/<summary>: works without JavaScript and survives view transitions. Every entry is
-// a real link to the same path in the other locale (localizedPath round-trips the prefix).
+// a real link to the same path in the other locale (localizedPath round-trips the prefix) — except on
+// an English-only page (`localized={false}`, the blog), which has no such path in another locale:
+// there every OTHER-locale entry links to that locale's home page instead of a 404, while the page's
+// own locale still points at the current page.
 // The panel floats below the button, hanging from its inline start (footer) or, for the header `bar`
 // instance, its inline end. `bar` also means
 // the header is tight below sm, so a two-letter code replaces the painted name; the name stays in the
@@ -14,9 +17,10 @@ import { getT } from '../i18n/t.ts'
 interface Props {
   bar?: boolean
   class?: string
+  localized?: boolean
 }
 
-const { bar = false, class: className } = Astro.props
+const { bar = false, class: className, localized = true } = Astro.props
 const locale = localeOf(Astro)
 const locales = publicLocales()
 const show = locales.length >= 2
@@ -27,7 +31,10 @@ const entries = locales.map((l) => ({
   locale: l,
   lang: langOf(l),
   label: LOCALES[l].label,
-  href: localizedPath(path, l),
+  // On an English-only page (localized={false}, the blog) every other locale has no translated
+  // twin and goes to its home page instead — but the page's own locale still has this exact page,
+  // so its own entry stays on the current path rather than falling back to home too.
+  href: localizedPath(localized || l === locale ? path : '/', l),
   current: l === locale,
 }))
 ---

@@ -12,19 +12,37 @@ import LocalePreference from './LocalePreference.astro'
 
 interface Props {
   title: string
+  // The <title> tag, when it must differ from og:title/twitter:title (below), which always stay
+  // `title`. The blog posts pass a shorter/longer variant here — e.g. appending " | Hipo Blog" only
+  // when that stays under 60 characters — without touching the social preview. Defaults to `title`.
+  pageTitle?: string
   description: string
   image?: string
   publishedTime?: string
+  // Set together with type='article' (the blog posts); both default to what every page had before.
+  modifiedTime?: string
+  type?: 'website' | 'article'
   author?: string
   jsonLd?: Record<string, any>
   // False for a page with no `[locale]` twin: pointing hreflang at a URL that 404s would be worse
   // than no alternates at all, and the same page must not offer to redirect a visitor to a
-  // translation it does not have. No page passes it today — /vs/ used to be the one, and gained its
-  // twin in src/pages/[locale]/vs.astro — but the gate is what a new English-only page needs.
+  // translation it does not have. The blog (BlogLayout.astro) is the one user today; /vs/ used to be
+  // one, and gained its twin in src/pages/[locale]/vs.astro.
   localized?: boolean
 }
 
-const { title, description, image = '/og/default.png', publishedTime, author, jsonLd, localized = true } = Astro.props
+const {
+  title,
+  pageTitle = title,
+  description,
+  image = '/og/default.png',
+  publishedTime,
+  modifiedTime,
+  type = 'website',
+  author,
+  jsonLd,
+  localized = true,
+} = Astro.props
 
 const locale = localeOf(Astro)
 const url = Astro.url.href
@@ -43,7 +61,7 @@ const isDraft = LOCALES[locale]?.status === 'draft'
 ---
 
 <!-- BASIC -->
-<title>{title}</title>
+<title>{pageTitle}</title>
 <meta name='description' content={description} />
 <meta name='viewport' content='width=device-width, initial-scale=1' />
 {isDraft && <meta name='robots' content='noindex, nofollow' />}
@@ -70,7 +88,7 @@ const isDraft = LOCALES[locale]?.status === 'draft'
 <meta name='theme-color' content='#faf6ef' media='(prefers-color-scheme: light)' />
 
 <!-- OPEN GRAPH -->
-<meta property='og:type' content='website' />
+<meta property='og:type' content={type} />
 <meta property='og:title' content={title} />
 <meta property='og:description' content={description} />
 <meta property='og:url' content={url} />
@@ -84,10 +102,12 @@ const isDraft = LOCALES[locale]?.status === 'draft'
 
 <!-- optional article OG -->
 {publishedTime && <meta property='article:published_time' content={publishedTime} />}
+{modifiedTime && <meta property='article:modified_time' content={modifiedTime} />}
 {author && <meta property='article:author' content={author} />}
 
 <!-- TWITTER -->
 <meta name='twitter:card' content='summary_large_image' />
+<meta name='twitter:site' content='@hipofinance' />
 <meta name='twitter:title' content={title} />
 <meta name='twitter:description' content={description} />
 <meta name='twitter:image' content={imageUrl} />

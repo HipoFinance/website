@@ -1,0 +1,157 @@
+---
+// The rendered Markdown of a post. Markdown carries no classes, so its typography lives here as
+// element styles scoped to this wrapper, in the semantic tokens of src/styles/global.css (same approach
+// as `.prose-answer` in FAQ.astro). Headings start at h2: the page's one h1 is the title above.
+---
+
+<div class='blog-prose text-text-muted text-[17px] leading-[1.7]'>
+  <slot />
+</div>
+
+<style>
+  .blog-prose :global(:is(p, ul, ol, blockquote, figure, pre, table)) {
+    margin-block: 0 1.25rem;
+  }
+
+  .blog-prose :global(:is(h2, h3, h4, h5, h6)) {
+    font-family: var(--font-fredoka);
+    color: var(--color-text);
+    font-weight: 600;
+    line-height: 1.25;
+    /* Keeps a #anchor jump from landing flush against the top of the viewport. */
+    scroll-margin-top: 1.5rem;
+  }
+  .blog-prose :global(h2) {
+    font-size: 1.625rem;
+    margin-block: 2.5rem 1rem;
+  }
+  .blog-prose :global(h3) {
+    font-size: 1.3125rem;
+    margin-block: 2rem 0.75rem;
+  }
+  .blog-prose :global(:is(h4, h5, h6)) {
+    font-size: 1.125rem;
+    margin-block: 1.5rem 0.5rem;
+  }
+
+  /* Section links from src/blog/rehype-heading-anchors.mjs. The `#` is painted here so the heading's
+     text stays clean; it shows on hover and on keyboard focus. */
+  .blog-prose :global(.heading-anchor) {
+    margin-inline-start: 0.4em;
+    color: var(--color-text-faint);
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .blog-prose :global(.heading-anchor::after) {
+    content: '#';
+  }
+  .blog-prose :global(:is(h2, h3, h4, h5, h6):hover .heading-anchor),
+  .blog-prose :global(.heading-anchor:focus-visible) {
+    opacity: 1;
+  }
+  @media (hover: none) {
+    .blog-prose :global(.heading-anchor) {
+      opacity: 0.6;
+    }
+  }
+
+  .blog-prose :global(strong) {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .blog-prose :global(a:not(.heading-anchor)) {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  @media (hover: hover) {
+    .blog-prose :global(a:not(.heading-anchor):hover) {
+      color: var(--color-accent-hover);
+    }
+  }
+
+  .blog-prose :global(ul),
+  .blog-prose :global(ol) {
+    padding-inline-start: 1.5rem;
+  }
+  .blog-prose :global(ul) {
+    list-style-type: disc;
+  }
+  .blog-prose :global(ol) {
+    list-style-type: decimal;
+  }
+  .blog-prose :global(li + li) {
+    margin-block-start: 0.375rem;
+  }
+
+  .blog-prose :global(blockquote) {
+    border-inline-start: 3px solid var(--color-accent);
+    padding-inline-start: 1.25rem;
+    color: var(--color-text);
+  }
+
+  .blog-prose :global(figure) {
+    margin-block: 2rem;
+  }
+  .blog-prose :global(img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-inline: auto;
+    border-radius: 0.75rem;
+  }
+  .blog-prose :global(figure p) {
+    margin: 0;
+  }
+  .blog-prose :global(figcaption) {
+    margin-block-start: 0.625rem;
+    text-align: center;
+    color: var(--color-text-faint);
+    font-size: 0.875rem;
+  }
+
+  .blog-prose :global(code:not(pre code)) {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.375rem;
+    padding: 0.1em 0.35em;
+    font-size: 0.875em;
+    color: var(--color-text);
+  }
+  /* Code fences are coloured by Shiki (inline styles); this only frames them. Long lines scroll inside
+     the block rather than widening the page. */
+  .blog-prose :global(pre) {
+    overflow-x: auto;
+    border-radius: 0.75rem;
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  /* A table wider than the column scrolls inside itself: display:block makes the table its own
+     scroll box, so the document never becomes the scroller (see CLAUDE.md, horizontal scroll). */
+  .blog-prose :global(table) {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+  .blog-prose :global(:is(th, td)) {
+    border-block-end: 1px solid var(--color-border);
+    padding: 0.5rem 0.75rem;
+    text-align: start;
+  }
+  .blog-prose :global(th) {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .blog-prose :global(hr) {
+    border: 0;
+    border-block-start: 1px solid var(--color-border);
+    margin-block: 2.5rem;
+  }
+</style>

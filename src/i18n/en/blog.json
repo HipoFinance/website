@@ -1,0 +1,20 @@
+{
+  "blog.index.title": "Hipo Blog",
+  "blog.index.seoTitle": "Hipo Blog | GRAM Staking on TON",
+  "blog.index.description": "News, research and on-chain benchmarks from Hipo, the liquid staking protocol on TON: GRAM staking, hGRAM, HPO and the TON ecosystem.",
+  "blog.index.intro": "News, research and on-chain benchmarks from the team behind Hipo.",
+  "blog.index.empty": "No posts yet.",
+  "blog.breadcrumb.home": "Home",
+  "blog.breadcrumb.blog": "Blog",
+  "blog.byline.by": "By {author}",
+  "blog.byline.published": "Published",
+  "blog.byline.updated": "Updated {date}",
+  "blog.byline.readingTime": "{minutes} min read",
+  "blog.cta.title": "Earn staking rewards on your GRAM",
+  "blog.cta.body": "Stake GRAM and receive hGRAM, a liquid staking token you can keep using while it earns staking rewards.",
+  "blog.cta.button": "Stake GRAM on Hipo",
+  "blog.related.title": "Related posts",
+  "blog.rss.title": "Hipo Blog",
+  "blog.rss.description": "News, research and on-chain benchmarks from Hipo, the liquid staking protocol on TON.",
+  "blog.anchor.label": "Link to this section"
+}

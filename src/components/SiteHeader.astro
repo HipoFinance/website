@@ -11,9 +11,11 @@ import LanguageSwitcher from './LanguageSwitcher.astro'
 
 interface Props {
   active?: 'home' | 'hpo' | 'faq'
+  // Forwarded to the LanguageSwitcher; false on English-only pages (the blog).
+  localized?: boolean
 }
 
-const { active } = Astro.props
+const { active, localized = true } = Astro.props
 const locale = localeOf(Astro)
 const { t } = getT(locale, ['site'])
 
@@ -50,7 +52,7 @@ const items = [
     </nav>
 
     <div class='flex items-center gap-4'>
-      <LanguageSwitcher bar />
+      <LanguageSwitcher bar localized={localized} />
 
       <a
         href={localizedPath('/stake/', locale)}

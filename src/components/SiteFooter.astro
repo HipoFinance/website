@@ -2,15 +2,21 @@
 // The one site-wide footer (home, FAQ, HPO, and the app pages). Replaces the three per-section
 // footers so every page ends the same way. `app` adds the bottom padding that keeps the footer
 // clear of the app's fixed mobile tab bar.
+import { DEFAULT_LOCALE } from '../i18n/registry.mjs'
 import { localeOf, localizedPath } from '../i18n/locale.ts'
 import { getT } from '../i18n/t.ts'
 import LanguageSwitcher from './LanguageSwitcher.astro'
 
 interface Props {
   app?: boolean
+  // Forwarded to the LanguageSwitcher; false on English-only pages (the blog).
+  localized?: boolean
+  // False hides the closing CTA card below, same as `app` — a blog post already ends with its own
+  // tracked CTA (StakeCta.astro), so BlogLayout passes this false there; the blog index keeps it.
+  cta?: boolean
 }
 
-const { app = false } = Astro.props
+const { app = false, localized = true, cta = true } = Astro.props
 const locale = localeOf(Astro)
 const { t } = getT(locale, ['site'])
 
@@ -19,7 +25,14 @@ const socialLinks = [
   { href: 'https://t.me/hipo_chat', label: t('site.footer.telegramChat') },
   { href: 'https://x.com/hipofinance', label: 'X' },
   { href: 'https://www.youtube.com/@HipoFinance', label: 'YouTube' },
-  { href: 'https://medium.com/@hipofinance', label: t('site.footer.blog') },
+  // The blog is English-only (specs/blog-migration.md), so every locale links the one /blog/ and says
+  // so with hreflang; it opens in the same tab like the other on-site links.
+  {
+    href: '/blog/',
+    label: t('site.footer.blog'),
+    external: false,
+    hreflang: locale === DEFAULT_LOCALE ? undefined : 'en',
+  },
 ]
 
 const docsLinks = [
@@ -44,10 +57,11 @@ const docsLinks = [
       /* The closing CTA, in place of the old "Join Hipo on Telegram" strip: that strip duplicated the
          home page's Hipo Community section, and both Telegram links survive in the Social column
          below. Suppressed on the app pages — "start staking" is noise at the bottom of the staking
-         app itself. */
+         app itself. Also suppressed on a blog post page via `cta`, for the same reason: its own
+         StakeCta.astro already closes the post. */
     }
     {
-      !app && (
+      !app && cta && (
         <div
           class='border-border mb-10 flex flex-col items-start justify-between gap-4 rounded-[20px] border p-6 sm:flex-row sm:items-center sm:gap-8 sm:px-8 sm:py-7'
           style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
@@ -74,15 +88,21 @@ const docsLinks = [
           <p class='font-fredoka text-2xl font-semibold'>Hipo</p>
         </div>
         <p class='mt-3 text-sm'>{t('site.footer.tagline')}</p>
-        <LanguageSwitcher class='mt-4 w-fit text-sm' />
+        <LanguageSwitcher class='mt-4 w-fit text-sm' localized={localized} />
       </div>
 
       <div class='flex flex-row flex-wrap gap-x-16 gap-y-8'>
         <div>
           <h3 class='text-text-muted text-sm font-medium'>{t('site.footer.social')}</h3>
           {
-            socialLinks.map(({ href, label }) => (
-              <a class='hover:text-accent mt-3 block text-sm' href={href} target='_blank' rel='noopener noreferrer'>
+            socialLinks.map(({ href, label, external = true, hreflang }) => (
+              <a
+                class='hover:text-accent mt-3 block text-sm'
+                href={href}
+                hreflang={hreflang}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
+              >
                 {label}
               </a>
             ))

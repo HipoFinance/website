@@ -37,6 +37,11 @@ const DOCS_DIR = join(ROOT, 'src', 'content', 'docs')
 const SITE = 'https://hipo.finance'
 const ALLOWED_TAGS = new Set(['a', 'strong', 'em', 'code', 'br'])
 const NOT_CATALOGS = new Set(['meta.json', 'docs-sidebar.json'])
+// Catalogs that exist in English only, for pages that have no `[locale]` twin (the blog; see
+// specs/blog-migration.md). The English file is still validated like any catalog, but its keys are not
+// a translation source: no locale is expected to carry them, and a copy under another locale is an error
+// rather than a translation, because nothing would ever render it.
+const ENGLISH_ONLY_NAMESPACES = new Set(['blog'])
 const KEY_PATTERN = /^[a-z][a-z0-9]*(\.[a-z0-9][a-zA-Z0-9]*)+$/
 const LIST_CAP = 20
 
@@ -123,6 +128,11 @@ function readLocale(locale, problems) {
         continue
       }
       const ns = name.slice(0, -'.json'.length)
+      const englishOnly = ENGLISH_ONLY_NAMESPACES.has(ns)
+      if (englishOnly && locale !== DEFAULT_LOCALE) {
+        problems.push(`${locale}/${name}: "${ns}" is an English-only namespace; delete this file`)
+        continue
+      }
       namespaces.add(ns)
       let json
       try {
@@ -151,7 +161,9 @@ function readLocale(locale, problems) {
             `${locale}/${name}: "${key}" uses disallowed HTML <${bad[0]}> (allowed: a strong em code br; no on* attributes; href must start with / # https:// http:// mailto:)`,
           )
         }
-        items.set(key, { value, hash: sha1(value), kind: 'catalog' })
+        if (!englishOnly) {
+          items.set(key, { value, hash: sha1(value), kind: 'catalog' })
+        }
       }
     }
   }

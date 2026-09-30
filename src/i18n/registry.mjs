@@ -49,6 +49,7 @@ export const RESERVED_SEGMENTS = [
   'app',
   'verify',
   'vs',
+  'blog',
   'i18n',
   'og',
   'images',

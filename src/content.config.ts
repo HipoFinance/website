@@ -76,4 +76,55 @@ export const collections = {
       section: z.string().optional(),
     }),
   }),
+
+  // English-only blog posts, one folder per post: src/content/blog/<slug>/index.md with its images
+  // alongside. The entry id is the folder name, verbatim (the default id would slugify it and honour a
+  // frontmatter `slug`), so it cannot disagree with the URL (/blog/<slug>/). The length limits are the Editorial Hub's (Voice & SEO rules)
+  // and fail the build rather than warn: a truncated title or snippet in the results is the failure they
+  // guard against. See specs/blog-migration.md (Content model).
+  blog: defineCollection({
+    loader: glob({
+      base: './src/content/blog',
+      pattern: '*/index.md',
+      // The folder name becomes the id verbatim (see above), so it has to already be a valid URL
+      // segment: astro.config.mjs's NOINDEX_BLOG_PATHS filter also compares this raw folder name, and a
+      // slug it can't match would silently leave a noindex post in the sitemap.
+      generateId: ({ entry }) => {
+        const slug = entry.slice(0, entry.indexOf('/'))
+        if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug)) {
+          throw new Error(
+            `Invalid blog post folder "${slug}" (src/content/blog/${entry}): must match ` +
+              `^[a-z0-9]+(-[a-z0-9]+)*$ — lowercase letters, digits and single hyphens only.`,
+          )
+        }
+        return slug
+      },
+    }),
+    schema: ({ image }) => {
+      // The Medium importer (scripts/import-medium-posts.mjs) writes a `TODO…` placeholder into
+      // these fields when the blog owner hasn't supplied a real value yet — reject it so an
+      // unfinished post can't ship. `hero` is deliberately not listed here: it's an image() field,
+      // and its TODO placeholder is never a real path, so it already fails to resolve.
+      const noTodo = (field) => (value, ctx) => {
+        if (value.includes('TODO')) {
+          ctx.addIssue({ code: z.ZodIssueCode.custom, message: `${field} still has a TODO placeholder` })
+        }
+      }
+      return z.object({
+        title: z.string().superRefine(noTodo('title')),
+        seoTitle: z.string().max(59, 'seoTitle must be under 60 characters').superRefine(noTodo('seoTitle')).optional(),
+        description: z.string().max(154, 'description must be under 155 characters').superRefine(noTodo('description')),
+        subtitle: z.string().superRefine(noTodo('subtitle')).optional(),
+        publishedAt: z.coerce.date(),
+        updatedAt: z.coerce.date().optional(),
+        author: z.string().default('Hipo Team'),
+        hero: image(),
+        heroAlt: z.string().superRefine(noTodo('heroAlt')),
+        related: z.array(z.string()).max(3).optional(),
+        // The Medium original, for our records; never rendered.
+        mediumUrl: z.string().url().optional(),
+        noindex: z.boolean().default(false),
+      })
+    },
+  }),
 }

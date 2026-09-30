@@ -1,0 +1,89 @@
+---
+// The blog's document: LandingLayout's head and chrome for a section that exists in English only
+// (specs/blog-migration.md). `localized={false}` is passed to everything that would otherwise point at
+// a translated twin — SEO.astro drops hreflang and the remembered-language redirect, and the language
+// menus and the suggestion banner offer each locale's home page instead of a /<locale>/blog/ that does
+// not exist.
+import '../styles/global.css'
+import SEO from '../components/SEO.astro'
+import Banner from '../components/Banner.astro'
+import Header from '../components/SiteHeader.astro'
+import Footer from '../components/SiteFooter.astro'
+import { getT } from '../i18n/t.ts'
+
+interface Props {
+  title: string
+  // The <title> tag, when it must differ from title (og:title/twitter:title) — see SEO.astro. Defaults
+  // to `title`.
+  pageTitle?: string
+  description: string
+  jsonLd: Record<string, any>
+  image?: string
+  type?: 'website' | 'article'
+  publishedTime?: string
+  modifiedTime?: string
+  author?: string
+  noindex?: boolean
+  // False hides the footer's closing "Start Staking GRAM" CTA card — for a post page, which already
+  // ends with its own tracked CTA (StakeCta.astro). The index page keeps the footer card (it has none
+  // of its own), so this defaults to true.
+  cta?: boolean
+}
+
+const {
+  title,
+  pageTitle = title,
+  description,
+  jsonLd,
+  image,
+  type,
+  publishedTime,
+  modifiedTime,
+  author,
+  noindex = false,
+  cta = true,
+} = Astro.props
+const { t } = getT('en', ['blog'])
+---
+
+<!doctype html>
+<html lang='en' dir='ltr' class='scroll-smooth'>
+  <head>
+    <meta charset='UTF-8' />
+
+    <SEO
+      title={title}
+      pageTitle={pageTitle}
+      description={description}
+      jsonLd={jsonLd}
+      image={image}
+      type={type}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+      author={author}
+      localized={false}
+    />
+    {noindex && <meta name='robots' content='noindex' />}
+    <link rel='alternate' type='application/rss+xml' title={t('blog.rss.title')} href='/blog/rss.xml' />
+
+    <link rel='icon' href={`${import.meta.env.BASE_URL}favicon.ico`} />
+  </head>
+
+  <body class='bg-bg font-body text-text'>
+    <Banner localized={false} />
+
+    <Header localized={false} />
+
+    <slot />
+
+    <Footer localized={false} cta={cta} />
+  </body>
+</html>
+
+<style is:global>
+  /* Same as LandingLayout: the fill coral, with --color-on-accent text on it. */
+  ::selection {
+    background: var(--color-accent-fill);
+    color: var(--color-on-accent);
+  }
+</style>

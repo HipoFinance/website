@@ -33,7 +33,7 @@ import { DEFAULT_LOCALE, isLocaleKey } from '../i18n/registry.mjs'
 const ROOT = fileURLToPath(new URL('../../', import.meta.url))
 
 // The only trees consulted. Keeping the `git log` scoped keeps it to one fast process.
-const ROOTS = ['src/i18n', 'src/content/prose', 'src/content/docs', 'src/pages']
+const ROOTS = ['src/i18n', 'src/content/prose', 'src/content/docs', 'src/content/blog', 'src/pages']
 
 // Content inputs per route segment, relative to a locale. `catalogs` are files under
 // src/i18n/<locale>/, `prose` are directories under src/content/prose/<locale>/ (newest entry wins).
@@ -59,9 +59,10 @@ const ROUTES = {
   defi: { catalogs: [], prose: ['shell/defi'] },
 }
 
-// No English-only pages remain: /verify/ was translated on 2026-09-01 and /vs/ on 2026-09-14, and
-// both moved into ROUTES above. Kept as an empty map rather than deleted because the sitemap code
-// below still consults it, and the next English-only page will want it.
+// No English-only single pages remain: /verify/ was translated on 2026-09-01 and /vs/ on 2026-09-14,
+// and both moved into ROUTES above. The blog is English-only too, but is a tree of pages and has its
+// own branch in inputsFor(). Kept as an empty map rather than deleted because the sitemap code below
+// still consults it, and the next English-only page will want it.
 const ENGLISH_ONLY = {}
 
 /** @type {{ files: Map<string, string>, dirs: Map<string, string> } | null | undefined} */
@@ -170,6 +171,14 @@ function inputsFor(pathname) {
     const base = locale === DEFAULT_LOCALE ? 'src/content/docs' : `src/content/docs/${locale}`
     const rest = segments.slice(1)
     return [`${base}/${rest.length === 0 ? 'index' : rest.join('/')}.md`]
+  }
+
+  // The blog is English-only, one folder per post (specs/blog-migration.md, Sitemap): a post dates from
+  // the newest commit touching its folder — text or images — and /blog/ from the newest touching any
+  // post, since a new, edited or removed post changes what the index lists. src/i18n/en/blog.json is
+  // the blog's chrome and not an input. A post nobody has committed yet has no date and gets none.
+  if (segments[0] === 'blog' && locale === DEFAULT_LOCALE && segments.length <= 2) {
+    return [segments.length === 1 ? 'src/content/blog' : `src/content/blog/${segments[1]}`]
   }
 
   if (segments.length === 1 && locale === DEFAULT_LOCALE && ENGLISH_ONLY[segments[0]]) {

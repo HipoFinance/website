@@ -1,0 +1,144 @@
+---
+// One blog post, /blog/<slug>/ (specs/blog-migration.md, Pages and head). English-only: there is no
+// src/pages/[locale]/blog/ twin, and BlogLayout marks the page as such.
+import { Picture } from 'astro:assets'
+import { render } from 'astro:content'
+import Layout from '../../../layouts/BlogLayout.astro'
+import Byline from '../../../components/blog/Byline.astro'
+import PostCard from '../../../components/blog/PostCard.astro'
+import Prose from '../../../components/blog/Prose.astro'
+import StakeCta from '../../../components/blog/StakeCta.astro'
+import Tracking from '../../../components/blog/Tracking.astro'
+import { SITE } from '../../../components/pages/jsonLd.ts'
+import { allPosts, listedPosts, postPath, readingMinutes, relatedPosts, type Post } from '../../../blog/posts.ts'
+import { getT } from '../../../i18n/t.ts'
+
+export async function getStaticPaths() {
+  return (await allPosts()).map((post) => ({ params: { slug: post.id }, props: { post } }))
+}
+
+interface Props {
+  post: Post
+}
+
+const { post } = Astro.props
+const { data } = post
+const { t } = getT('en', ['blog'])
+const { Content } = await render(post)
+
+const seoTitle = data.seoTitle ?? data.title
+// The <title> tag gets " | Hipo Blog" only when that stays under 60 characters (search engines truncate
+// past that) — otherwise the bare title, which is what og:title/twitter:title use unconditionally via
+// SEO's `title` prop below.
+const suffixedTitle = `${seoTitle} | Hipo Blog`
+const pageTitle = suffixedTitle.length <= 60 ? suffixedTitle : seoTitle
+
+const url = new URL(postPath(post), SITE).href
+const ogImage = `${postPath(post)}og.png`
+const publishedTime = data.publishedAt.toISOString()
+const modifiedTime = data.updatedAt?.toISOString()
+const related = relatedPosts(post, await listedPosts())
+
+const publisher = {
+  '@type': 'Organization',
+  name: 'Hipo',
+  url: `${SITE}/`,
+  logo: { '@type': 'ImageObject', url: `${SITE}/images/logo-512.png` },
+}
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'BlogPosting',
+      headline: data.title,
+      description: data.description,
+      image: new URL(ogImage, SITE).href,
+      datePublished: publishedTime,
+      dateModified: modifiedTime ?? publishedTime,
+      author: { '@type': 'Organization', name: data.author, url: `${SITE}/` },
+      publisher,
+      mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+      url,
+      inLanguage: 'en',
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: t('blog.breadcrumb.home'), item: `${SITE}/` },
+        { '@type': 'ListItem', position: 2, name: t('blog.breadcrumb.blog'), item: `${SITE}/blog/` },
+        { '@type': 'ListItem', position: 3, name: data.title, item: url },
+      ],
+    },
+  ],
+}
+---
+
+<Layout
+  title={seoTitle}
+  pageTitle={pageTitle}
+  description={data.description}
+  jsonLd={jsonLd}
+  image={ogImage}
+  type='article'
+  publishedTime={publishedTime}
+  modifiedTime={modifiedTime}
+  author={data.author}
+  noindex={data.noindex}
+  cta={false}
+>
+  <main class='mx-auto w-full max-w-[760px] px-6 pt-6 pb-16 md:px-12' data-blog-slug={post.id}>
+    <nav aria-label='Breadcrumb' class='text-text-faint mb-6 text-sm'>
+      <a href='/blog/' class='hover:text-accent'>{t('blog.breadcrumb.blog')}</a>
+    </nav>
+
+    <article class='relative min-w-0'>
+      <header class='mb-8 flex flex-col gap-4'>
+        <h1 class='font-fredoka text-text text-[34px] leading-[1.15] font-semibold tracking-[-0.5px] sm:text-[44px]'>
+          {data.title}
+        </h1>
+        {data.subtitle && <p class='text-text-muted text-lg leading-[1.55] sm:text-xl'>{data.subtitle}</p>}
+        <Byline
+          author={data.author}
+          publishedAt={data.publishedAt}
+          updatedAt={data.updatedAt}
+          minutes={readingMinutes(post)}
+        />
+      </header>
+
+      <Picture
+        src={data.hero}
+        alt={data.heroAlt}
+        formats={['avif', 'webp']}
+        widths={[400, 760, 1200]}
+        sizes='(min-width: 760px) 664px, calc(100vw - 48px)'
+        loading='eager'
+        fetchpriority='high'
+        class='mb-10 w-full rounded-2xl'
+      />
+
+      <Prose>
+        <Content />
+      </Prose>
+
+      <div data-blog-scroll-sentinel aria-hidden='true' class='pointer-events-none absolute inset-x-0 top-3/4 h-px'>
+      </div>
+    </article>
+
+    <StakeCta />
+
+    {
+      related.length > 0 && (
+        <section class='mt-14'>
+          <h2 class='font-fredoka text-text mb-5 text-2xl font-semibold'>{t('blog.related.title')}</h2>
+          <div class='grid grid-cols-1 gap-5 sm:grid-cols-3'>
+            {related.map((other) => (
+              <PostCard post={other} level='h3' />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </main>
+
+  <Tracking />
+</Layout>

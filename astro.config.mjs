@@ -3,24 +3,54 @@ import tailwind from '@tailwindcss/vite'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
 import starlight from '@astrojs/starlight'
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { lastmodFor } from './src/data/lastmod.mjs'
 import { DEFAULT_LOCALE, LOCALES, builtLocales, indexableLocales } from './src/i18n/registry.mjs'
 import remarkLocalizeLinks from './src/i18n/remark-localize-links.mjs'
+import rehypeHeadingAnchors from './src/blog/rehype-heading-anchors.mjs'
+import rehypeResponsiveImages from './src/blog/rehype-responsive-images.mjs'
 
 // Sitemap groups: the five dApp shell pages, the docs, and everything else (home, FAQ, HPO, verify,
-// vs, and any future top-level page).
+// vs, and any future top-level page) — in every indexable locale. The blog is English-only, so its
+// group gets the one chunk `en-blog` (BLOG_CHUNK) instead of one per locale.
 const SITEMAP_GROUPS = ['site', 'app', 'docs']
 const APP_SECTIONS = new Set(['stake', 'unstake', 'rewards', 'stats', 'defi'])
+const BLOG_CHUNK = `${DEFAULT_LOCALE}-blog`
+
+// Blog posts whose frontmatter sets `noindex: true`, as `/blog/<slug>/` paths. The page itself carries
+// the robots meta (src/pages/blog/[slug]/index.astro); this keeps it out of the sitemap too, which the
+// sitemap integration cannot learn from the page. Read straight from the files because the config is
+// evaluated before content collections exist. The collection schema only admits a boolean there, and
+// the YAML spellings of true are `true`/`True`/`TRUE`, so a case-insensitive `noindex: true` line (a
+// trailing comment allowed, the key optionally quoted) inside the frontmatter block covers every post
+// the schema accepts. A leading BOM (some editors/exports add one) is stripped first, or it would sit
+// inside the `^---` the frontmatter regex anchors on and the block would never match.
+function noindexBlogPaths() {
+  const dir = new URL('./src/content/blog/', import.meta.url)
+  if (!existsSync(dir)) {
+    return new Set()
+  }
+  const paths = readdirSync(dir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && existsSync(new URL(`${entry.name}/index.md`, dir)))
+    .filter((entry) => {
+      const source = readFileSync(new URL(`${entry.name}/index.md`, dir), 'utf8').replace(/^﻿/, '')
+      const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---/.exec(source)?.[1] ?? ''
+      return /^['"]?noindex['"]?:\s*true\s*(?:#.*)?$/im.test(frontmatter)
+    })
+    .map((entry) => `/blog/${entry.name}/`)
+  return new Set(paths)
+}
+const NOINDEX_BLOG_PATHS = noindexBlogPaths()
 
 /**
- * The sitemap chunk a URL belongs to, `<locale>-<group>` (`en-site`, `fa-app`, `pt-docs`).
+ * The sitemap chunk a URL belongs to, `<locale>-<group>` (`en-site`, `fa-app`, `pt-docs`, `en-blog`).
  * @param {string} url
  */
 function sitemapSegment(url) {
   const segments = new URL(url).pathname.split('/').filter(Boolean)
   const locale = /** @type {string[]} */ (indexableLocales()).includes(segments[0]) ? segments.shift() : DEFAULT_LOCALE
-  const group = segments[0] === 'docs' ? 'docs' : APP_SECTIONS.has(segments[0]) ? 'app' : 'site'
+  const group =
+    segments[0] === 'docs' ? 'docs' : segments[0] === 'blog' ? 'blog' : APP_SECTIONS.has(segments[0]) ? 'app' : 'site'
   return `${locale}-${group}`
 }
 
@@ -41,9 +71,11 @@ function assertSitemapWritten() {
           throw new Error('sitemap-index.xml was not written; see the @astrojs/sitemap error logged above')
         }
         const listed = [...readFileSync(index, 'utf8').matchAll(/<loc>https:\/\/hipo\.finance\/([^<]+)<\/loc>/g)]
-        const expected = indexableLocales().length * SITEMAP_GROUPS.length
+        const expected = indexableLocales().length * SITEMAP_GROUPS.length + 1
         if (listed.length !== expected) {
-          throw new Error(`sitemap-index.xml lists ${listed.length} sitemaps, expected ${expected} (locales × groups)`)
+          throw new Error(
+            `sitemap-index.xml lists ${listed.length} sitemaps, expected ${expected} (locales × groups + ${BLOG_CHUNK})`,
+          )
         }
         const missing = listed.map((match) => match[1]).filter((file) => !existsSync(new URL(file, dir)))
         if (missing.length > 0) {
@@ -279,6 +311,15 @@ const DOCS_SECTION_REDIRECTS = {
   '/docs/giveaways-and-prizes/': '/docs/giveaways-and-prizes/hipo-incentive-programs/',
 }
 
+// Two GitBook-era pages renamed since the migration. docs.hipo.finance 301s every old path to the same
+// path under /docs/, so without these its old links (three Medium posts carried them until 2026-09-30)
+// land on a 404. English-only: the old docs domain only ever served English. See the 2026-09-30
+// amendment in specs/blog-migration.md.
+const DOCS_RENAMED_PAGE_REDIRECTS = {
+  '/docs/hipo-tokens/hipo-staked-ton-hton/': '/docs/hipo-tokens/hipo-staked-gram-hgram/',
+  '/docs/hipo-tokens/hpo/': '/docs/hipo-tokens/hipo-governance-token-hpo/',
+}
+
 // The three /it/ URLs worth keeping resolvable after Italian was removed (2026-09-20, see
 // specs/language-preference-and-locale-lineup.md and decision 16): the only ones Search Console
 // showed with clicks or meaningful impressions. The other 23 /it/ URLs had 1-3 impressions and no
@@ -340,6 +381,7 @@ export default defineConfig({
   redirects: {
     ...REMOVED_LOCALE_REDIRECTS,
     ...RENAMED_LOCALE_REDIRECTS,
+    ...DOCS_RENAMED_PAGE_REDIRECTS,
     ...Object.fromEntries(
       Object.entries({ ...DOCS_MERGE_REDIRECTS, ...DOCS_SECTION_REDIRECTS }).flatMap(([from, to]) => [
         [from, to],
@@ -353,6 +395,9 @@ export default defineConfig({
   markdown: {
     // Prefixes root-relative links in translated docs/prose Markdown with the entry's locale.
     remarkPlugins: [remarkLocalizeLinks],
+    // Section links on blog headings, and responsive widths/sizes on blog body images; both a no-op
+    // for every file outside src/content/blog/.
+    rehypePlugins: [rehypeHeadingAnchors, rehypeResponsiveImages],
   },
 
   vite: {
@@ -367,6 +412,9 @@ export default defineConfig({
       // sitemap, so also drop any URL whose first path segment is a draft locale key.
       filter: (page) => {
         if (page.startsWith('https://hipo.finance/app/')) {
+          return false
+        }
+        if (NOINDEX_BLOG_PATHS.has(new URL(page).pathname)) {
           return false
         }
         const segment = new URL(page).pathname.split('/')[1]
@@ -393,13 +441,12 @@ export default defineConfig({
       // exports never list indexed URLs (specs/search-console-coverage-sitemaps.md). The plugin writes
       // a URL into every chunk whose callback keeps it, so all callbacks defer to the one classifier;
       // anything no callback keeps would land in a catch-all `sitemap-pages-0.xml`, which stays empty.
+      // The blog adds the one English chunk, `sitemap-en-blog-0.xml`; no locale has a blog to list.
       chunks: Object.fromEntries(
-        indexableLocales().flatMap((locale) =>
-          SITEMAP_GROUPS.map((group) => {
-            const key = `${locale}-${group}`
-            return [key, (item) => (sitemapSegment(item.url) === key ? item : undefined)]
-          }),
-        ),
+        [
+          ...indexableLocales().flatMap((locale) => SITEMAP_GROUPS.map((group) => `${locale}-${group}`)),
+          BLOG_CHUNK,
+        ].map((key) => [key, (item) => (sitemapSegment(item.url) === key ? item : undefined)]),
       ),
     }),
     assertSitemapWritten(),

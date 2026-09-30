@@ -1,0 +1,38 @@
+---
+// One post in a listing — the /blog/ index and the related posts under an article. The whole card is
+// the link; the hero is lazy (a listing is never the page's largest paint above the fold on mobile
+// past the first card, and the index is a secondary page).
+import { Image } from 'astro:assets'
+import { formatPostDate, postPath, type Post } from '../../blog/posts.ts'
+
+interface Props {
+  post: Post
+  // The heading level of the card title: h2 on the index, h3 under the article's "Related posts" h2.
+  level?: 'h2' | 'h3'
+}
+
+const { post, level = 'h2' } = Astro.props
+const Heading = level
+---
+
+<a
+  href={postPath(post)}
+  class='group border-border bg-surface hover:border-border-strong flex min-w-0 flex-col overflow-hidden rounded-2xl border transition-colors'
+>
+  <Image
+    src={post.data.hero}
+    alt=''
+    widths={[400, 800]}
+    sizes='(min-width: 768px) 360px, 100vw'
+    class='aspect-[1200/630] w-full object-cover'
+  />
+  <div class='flex min-w-0 flex-col gap-2 p-5'>
+    <time datetime={post.data.publishedAt.toISOString().slice(0, 10)} class='text-text-faint text-[13px]'>
+      {formatPostDate(post.data.publishedAt)}
+    </time>
+    <Heading class='font-fredoka text-text group-hover:text-accent text-lg leading-snug font-semibold'>
+      {post.data.title}
+    </Heading>
+    <p class='text-text-muted line-clamp-3 text-[15px] leading-[1.55]'>{post.data.description}</p>
+  </div>
+</a>

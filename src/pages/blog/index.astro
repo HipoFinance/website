@@ -1,0 +1,57 @@
+---
+// The blog index, /blog/: every listed post, newest first, on one page (specs/blog-migration.md, URLs —
+// pagination only once there are ~30 posts). English-only, like the posts.
+import Layout from '../../layouts/BlogLayout.astro'
+import PostCard from '../../components/blog/PostCard.astro'
+import { SITE } from '../../components/pages/jsonLd.ts'
+import { listedPosts, postPath } from '../../blog/posts.ts'
+import { getT } from '../../i18n/t.ts'
+
+const { t } = getT('en', ['blog'])
+const posts = await listedPosts()
+const description = t('blog.index.description')
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: t('blog.index.title'),
+  description,
+  url: `${SITE}/blog/`,
+  inLanguage: 'en',
+  publisher: {
+    '@type': 'Organization',
+    name: 'Hipo',
+    url: `${SITE}/`,
+    logo: { '@type': 'ImageObject', url: `${SITE}/images/logo-512.png` },
+  },
+  blogPost: posts.map((post) => ({
+    '@type': 'BlogPosting',
+    headline: post.data.title,
+    url: new URL(postPath(post), SITE).href,
+    datePublished: post.data.publishedAt.toISOString(),
+  })),
+}
+---
+
+<Layout title={t('blog.index.seoTitle')} description={description} jsonLd={jsonLd}>
+  <main class='mx-auto w-full max-w-[1120px] px-6 pt-6 pb-16 md:px-12'>
+    <header class='mb-10 flex max-w-[760px] flex-col gap-3'>
+      <h1 class='font-fredoka text-text text-[36px] leading-[1.1] font-semibold tracking-[-0.5px] sm:text-[44px]'>
+        {t('blog.index.title')}
+      </h1>
+      <p class='text-text-muted text-lg leading-[1.55]'>{t('blog.index.intro')}</p>
+    </header>
+
+    {
+      posts.length === 0 ? (
+        <p class='text-text-muted'>{t('blog.index.empty')}</p>
+      ) : (
+        <div class='grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3'>
+          {posts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      )
+    }
+  </main>
+</Layout>

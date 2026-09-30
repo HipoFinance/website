@@ -1,5 +1,6 @@
 // Catalog lookup: `t('site.nav.stake')`. Catalogs are flat JSON files at src/i18n/<locale>/<ns>.json
-// (namespaces site, landing, hpo, faq, verify, seo, app — see the contract in specs/multi-language-site.md §C).
+// (namespaces site, landing, hpo, faq, verify, seo, app — see the contract in specs/multi-language-site.md §C —
+// plus the English-only `blog`, which exists in en/ alone; see specs/blog-migration.md).
 // English is the source of truth and the fallback for every other locale; a key missing everywhere
 // comes back as the key itself (never throws) with a console warning in dev.
 //
@@ -23,8 +24,9 @@ export type CatalogKey =
   | keyof typeof import('./en/vs.json')
   | keyof typeof import('./en/seo.json')
   | keyof typeof import('./en/app.json')
+  | keyof typeof import('./en/blog.json')
 
-export const NAMESPACES = ['site', 'landing', 'hpo', 'faq', 'verify', 'vs', 'seo', 'app'] as const
+export const NAMESPACES = ['site', 'landing', 'hpo', 'faq', 'verify', 'vs', 'seo', 'app', 'blog'] as const
 export type Namespace = (typeof NAMESPACES)[number]
 
 // All catalogs, statically imported at build time. meta.json (review sidecar) and docs-sidebar.json are
@@ -51,10 +53,11 @@ function merged(locale: string, namespaces: readonly string[]): Catalog {
 const translators = new Map<string, Translator>()
 
 // Astro/build-time translator. Default namespaces: everything except 'app' (the island gets its
-// catalog through getAppCatalog). English is always merged in as the fallback.
+// catalog through getAppCatalog) and 'blog' (English-only; the blog pages ask for it by name). English
+// is always merged in as the fallback.
 export function getT(
   locale: Locale,
-  namespaces: readonly string[] = NAMESPACES.filter((n) => n !== 'app'),
+  namespaces: readonly string[] = NAMESPACES.filter((n) => n !== 'app' && n !== 'blog'),
 ): Translator {
   const cacheKey = locale + ':' + namespaces.join(',')
   let translator = translators.get(cacheKey)

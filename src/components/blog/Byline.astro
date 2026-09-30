@@ -1,0 +1,39 @@
+---
+// "By Hipo Team · Jul 23, 2026 · Updated Sep 29, 2026 · 5 min read" under a post's title. The dates are
+// <time> elements with the machine-readable day, the same instants the article:*_time meta carries.
+import { getT } from '../../i18n/t.ts'
+import { formatPostDate } from '../../blog/posts.ts'
+
+interface Props {
+  author: string
+  publishedAt: Date
+  updatedAt?: Date
+  minutes: number
+}
+
+const { author, publishedAt, updatedAt, minutes } = Astro.props
+const { t } = getT('en', ['blog'])
+const day = (date: Date) => date.toISOString().slice(0, 10)
+---
+
+<p class='text-text-faint flex flex-wrap items-center gap-x-2 gap-y-1 text-sm'>
+  <span>{t('blog.byline.by', { author })}</span>
+  <span aria-hidden='true'>·</span>
+  <span>
+    <span class='sr-only'>{t('blog.byline.published')} </span><time datetime={day(publishedAt)}
+      >{formatPostDate(publishedAt)}</time
+    >
+  </span>
+  {
+    updatedAt && (
+      <>
+        <span aria-hidden='true'>·</span>
+        <span>
+          <time datetime={day(updatedAt)}>{t('blog.byline.updated', { date: formatPostDate(updatedAt) })}</time>
+        </span>
+      </>
+    )
+  }
+  <span aria-hidden='true'>·</span>
+  <span>{t('blog.byline.readingTime', { minutes })}</span>
+</p>

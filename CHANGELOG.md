@@ -7,6 +7,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-09-29 — [detailed report](changelog/2026-09-29-blog-migration.md)
+
+- Added an English-only blog at `/blog/` with all 22 posts imported from Medium.
+- Added post pages, an RSS feed, per-post OG images and a blog sitemap.
+- Pointed the footer's Blog link at `/blog/` instead of Medium.
+- Added `scripts/import-medium-posts.mjs`, the one-time Medium importer.
+- Added forwarding pages for two renamed GitBook-era docs URLs.
+
 ## 2026-09-27 — [detailed report](changelog/2026-09-27-ips-ratified.md)
 
 - Marked the Hipo Fund Investment Policy Statement as ratified (v1.0, in force since 18 September 2026).

@@ -1,0 +1,61 @@
+---
+// GA4 events for a blog post (specs/blog-migration.md, Analytics). Page views are Analytics.astro's;
+// this adds three events, sent only when `window.gtag` exists — Analytics.astro defines it on
+// hipo.finance alone, so dev, preview and forks send nothing and nothing here fails without it:
+//   blog_cta_click       the end-of-post call to action, or any link in the post to /stake/ or /defi/
+//   blog_scroll_75       the reader reached 75% of the <article> (once per page view)
+//   blog_outbound_click  a link in the post to another domain
+// Each carries `post_slug`, from `data-blog-slug` on the element wrapping the post. Clicks in the site
+// header and footer are not the post's, so only links inside that wrapper count.
+---
+
+<script>
+  type Params = Record<string, string>
+
+  function send(name: string, params: Params) {
+    // Looked up per event rather than once, so a gtag defined after this script ran still gets it.
+    const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag
+    if (typeof gtag === 'function') {
+      gtag('event', name, params)
+    }
+  }
+
+  const post = document.querySelector<HTMLElement>('[data-blog-slug]')
+  const slug = post?.dataset.blogSlug
+
+  if (post != null && slug != null) {
+    post.addEventListener('click', (event) => {
+      const link = (event.target as Element | null)?.closest?.('a[href]') as HTMLAnchorElement | null
+      if (link == null) {
+        return
+      }
+      let url: URL
+      try {
+        url = new URL(link.href, window.location.href)
+      } catch {
+        return
+      }
+      if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+        return
+      }
+      if (url.host !== window.location.host) {
+        send('blog_outbound_click', { post_slug: slug, destination_domain: url.hostname })
+      } else if (link.hasAttribute('data-blog-cta') || url.pathname === '/stake/' || url.pathname === '/defi/') {
+        send('blog_cta_click', { post_slug: slug, link_target: url.pathname })
+      }
+    })
+
+    // A zero-height sentinel at 75% of the article's height (placed by the post page); seeing it means
+    // the reader has scrolled through three quarters of the text.
+    const sentinel = post.querySelector('[data-blog-scroll-sentinel]')
+    if (sentinel != null && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          observer.disconnect()
+          send('blog_scroll_75', { post_slug: slug })
+        }
+      })
+      observer.observe(sentinel)
+    }
+  }
+</script>
