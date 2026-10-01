@@ -24,9 +24,9 @@ GRAM'ınızı [Hipo web uygulamasıyla](/stake/), [Telegram Mini App](https://t.
 
 ### 2. adım: Cüzdanınızı bağlayın
 
-Ardından TON cüzdanınızı bağlayın. Hipo, Tonkeeper ve Tonhub başta olmak üzere çok sayıda GRAM cüzdanını destekler.
+Ardından TON cüzdanınızı bağlayın. Hipo, Keeper ve Tonhub başta olmak üzere çok sayıda GRAM cüzdanını destekler.
 
-<figure><img src="/docs/images/tutorials-staking-3.png" alt="Tonkeeper, MyTonWallet, Tonhub ve DeWallet'ı listeleyen cüzdan bağlama penceresi"></figure>
+<figure><img src="/docs/images/tutorials-staking-3.png" alt="Gram Wallet, Keeper ve My Wallet'i listeleyen cüzdan bağlama penceresi"></figure>
 
 ### 3. adım: Stake etmek istediğiniz miktarı girin
 

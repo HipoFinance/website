@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-01 — [detailed report](changelog/2026-10-01-keeper-and-staking-screenshot.md)
+
+- Retook the wallet-connect screenshot in the staking tutorial; it now shows Gram Wallet, Keeper and My Wallet.
+- Updated that figure's alt text in all eleven locales, which the earlier rename had deliberately left stale.
+- Renamed Tonkeeper to Keeper across the tutorials, two code comments and the glossary.
+- Listed My Wallet above Walt on `/defi/`.
+
 ## 2026-10-01 — [detailed report](changelog/2026-10-01-wallet-rebrands.md)
 
 - Renamed the `/defi/` partner wallets: TON Space is now Walt, MyTonWallet is now My Wallet.

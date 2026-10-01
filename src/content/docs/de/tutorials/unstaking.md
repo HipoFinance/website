@@ -25,7 +25,7 @@ Wenn das Sofort-Unstaking den gewünschten Betrag nicht decken kann, können Sie
 
 <figure><img src="/docs/images/tutorials-unstaking-3.png" alt="Das STON.fi-Swap-Formular mit zu sendendem GRAM und zu erhaltendem hGRAM"></figure>
 
-Darüber hinaus bieten manche Wallets wie Tonkeeper eine Funktion, mit der Sie hGRAM direkt in der App gegen GRAM swappen können.
+Darüber hinaus bieten manche Wallets wie Keeper eine Funktion, mit der Sie hGRAM direkt in der App gegen GRAM swappen können.
 
 Wenn Ihre Wallet überhaupt keine Dapp-Transaktionen signieren kann — etwa eine Multisig- oder Cold Wallet —, können Sie dennoch mit einer einfachen Überweisung unstaken: siehe [Staken ohne die App](/docs/staking-without-the-app/).
 

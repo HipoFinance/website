@@ -24,9 +24,9 @@ Tu peux staker tes GRAM depuis l’[app web Hipo](/stake/), la [Telegram Mini Ap
 
 ### Étape 2 : connecte ton portefeuille
 
-Connecte ensuite ton portefeuille TON. Hipo prend en charge un large éventail de portefeuilles GRAM, dont Tonkeeper, Tonhub et d’autres.
+Connecte ensuite ton portefeuille TON. Hipo prend en charge un large éventail de portefeuilles GRAM, dont Keeper, Tonhub et d’autres.
 
-<figure><img src="/docs/images/tutorials-staking-3.png" alt="La fenêtre de connexion de portefeuille listant Tonkeeper, MyTonWallet, Tonhub et DeWallet"></figure>
+<figure><img src="/docs/images/tutorials-staking-3.png" alt="La fenêtre de connexion de portefeuille listant Gram Wallet, Keeper et My Wallet"></figure>
 
 ### Étape 3 : saisis le montant que tu veux staker
 

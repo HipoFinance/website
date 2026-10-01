@@ -26,7 +26,7 @@ directly to a Latin word, and never add Persian plural suffixes to a ticker.
 | TVL, APY, APR, USD                                                                                      | acronyms, keep Latin; gloss once in prose if the language customarily does                  |
 | DeFi, DAO, DEX, NFT, SBT, MCP, JSON, API, SDK, URL                                                      | acronyms, keep Latin                                                                        |
 | TonConnect                                                                                              | wallet connection protocol name                                                             |
-| Tonkeeper, My Wallet, Tonhub, Walt, OpenMask, DeDust, STON.fi, TONCO, swap.coffee, Evaa                 | wallet and DeFi product names                                                               |
+| Keeper, My Wallet, Tonhub, Walt, OpenMask, DeDust, STON.fi, TONCO, swap.coffee, Evaa                    | wallet and DeFi product names                                                               |
 | Telegram, GitHub, Dune, Grafana, YouTube, CoinGecko, CoinMarketCap, Tonviewer, Quantstamp               | third-party product and company names (including audit firms)                               |
 | Hipo Gang, Hipo Club, Hipo Fund, Hipo Stats, Hipo MCP Server                                            | programme/product names; a translated gloss in parentheses on first use in prose is fine    |
 | URLs, addresses, tx hashes, contract names (`Treasury`, `Parent`, `Wallet`, `Bill`), code, CLI commands | never transformed; `ready_to_burn`-style identifiers and JSON keys are code, not copy       |

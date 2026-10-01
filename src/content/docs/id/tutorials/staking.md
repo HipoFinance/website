@@ -24,9 +24,9 @@ Anda dapat men-stake GRAM menggunakan [aplikasi web Hipo](/stake/), [Telegram Mi
 
 ### Langkah 2: Hubungkan dompet Anda
 
-Selanjutnya, hubungkan dompet TON Anda. Hipo mendukung beragam dompet GRAM, termasuk Tonkeeper, Tonhub, dan lainnya.
+Selanjutnya, hubungkan dompet TON Anda. Hipo mendukung beragam dompet GRAM, termasuk Keeper, Tonhub, dan lainnya.
 
-<figure><img src="/docs/images/tutorials-staking-3.png" alt="Dialog hubungkan dompet yang menampilkan Tonkeeper, MyTonWallet, Tonhub, dan DeWallet"></figure>
+<figure><img src="/docs/images/tutorials-staking-3.png" alt="Dialog hubungkan dompet yang menampilkan Gram Wallet, Keeper, dan My Wallet"></figure>
 
 ### Langkah 3: Masukkan jumlah yang ingin Anda stake
 

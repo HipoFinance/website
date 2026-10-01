@@ -24,9 +24,9 @@ Você pode fazer staking do seu GRAM pelo [app web do Hipo](/stake/), pelo [Mini
 
 ### Passo 2: conecte a sua carteira
 
-Em seguida, conecte a sua carteira TON. O Hipo é compatível com uma ampla variedade de carteiras de GRAM, incluindo Tonkeeper, Tonhub e outras.
+Em seguida, conecte a sua carteira TON. O Hipo é compatível com uma ampla variedade de carteiras de GRAM, incluindo Keeper, Tonhub e outras.
 
-<figure><img src="/docs/images/tutorials-staking-3.png" alt="A janela de conexão de carteira listando Tonkeeper, MyTonWallet, Tonhub e DeWallet"></figure>
+<figure><img src="/docs/images/tutorials-staking-3.png" alt="A janela de conexão de carteira listando Gram Wallet, Keeper e My Wallet"></figure>
 
 ### Passo 3: informe o valor do qual quer fazer staking
 

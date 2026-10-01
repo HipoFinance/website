@@ -25,7 +25,7 @@ Se o unstake instantâneo não cobrir o valor que você quer, você pode fazer s
 
 <figure><img src="/docs/images/tutorials-unstaking-3.png" alt="O formulário de swap da STON.fi com GRAM a enviar e hGRAM a receber"></figure>
 
-Além disso, algumas carteiras como a Tonkeeper oferecem um recurso que permite fazer swap de hGRAM por GRAM direto no app.
+Além disso, algumas carteiras como a Keeper oferecem um recurso que permite fazer swap de hGRAM por GRAM direto no app.
 
 Se a sua carteira não conseguir assinar transações de dapp — uma multisig ou uma carteira fria, por exemplo — você ainda pode fazer unstake com uma transferência comum: veja [Fazer staking sem o app](/docs/staking-without-the-app/).
 

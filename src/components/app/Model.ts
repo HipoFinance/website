@@ -622,7 +622,7 @@ export class Model {
   isMultisig = false
   showMultisigGuidance = false
   multisigHint = false
-  // Shown after the wallet app was handed a link. ton://transfer carries no sender, and Tonkeeper
+  // Shown after the wallet app was handed a link. ton://transfer carries no sender, and Keeper
   // does not preselect the connected multisig, so this is the one thing the user must check.
   multisigWalletHint = false
   multisigSnapshot?: MultisigSnapshot
@@ -2218,7 +2218,7 @@ export class Model {
     }
   }
 
-  // The multisig path. Tonkeeper turns this link into a multisig order that keeps the payload and
+  // The multisig path. Keeper turns this link into a multisig order that keeps the payload and
   // waits for the remaining signatures, so the happy path is one press and no dialog at all.
   sendViaWalletApp = () => {
     this.captureMultisigSnapshot()
