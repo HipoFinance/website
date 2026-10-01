@@ -100,16 +100,16 @@ const Defi = observer(({ model }: Props) => {
 
         <Section title={t('app.defi.wallets')} description={t('app.defi.walletsDescription')}>
           <Row
-            logo='/images/app/tonspace.jpg'
-            name='Ton Space'
+            logo='/images/app/walt.jpg'
+            name='Walt'
             round
-            actions={[{ label: use, href: model.tonspaceUrl, target: 'hipo_tonspace' }]}
+            actions={[{ label: use, href: model.waltUrl, target: 'hipo_walt' }]}
           />
           <Row
-            logo='/images/app/mytonwallet.webp'
-            name='MyTonWallet'
+            logo='/images/app/mywallet.webp'
+            name='My Wallet'
             round
-            actions={[{ label: use, href: model.mtwUrl, target: 'hipo_mtw' }]}
+            actions={[{ label: use, href: model.myWalletUrl, target: 'hipo_mywallet' }]}
           />
         </Section>
       </div>

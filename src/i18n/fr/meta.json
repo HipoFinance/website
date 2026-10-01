@@ -1168,7 +1168,7 @@
     "reviewed": false
   },
   "docs/hipo-tokens/hipo-staked-gram-hgram/hgram-use-cases.md": {
-    "sourceHash": "276cc2e650b61c1f7e5aac63ec9015105218101f",
+    "sourceHash": "8567bad72510c78247feb345179f39debbec8fd7",
     "reviewed": false
   },
   "docs/index.md": {
@@ -1916,7 +1916,7 @@
     "reviewed": false
   },
   "prose/faq/hgram/can-i-use-hgram-in-defi.md": {
-    "sourceHash": "f66b538da1ac368d4261230e4fef857169c427dc",
+    "sourceHash": "164d891765906061766ae93d3cbd4ba25a48c662",
     "reviewed": false
   },
   "prose/faq/hgram/is-1-hgram-always-equal-to-1-gram.md": {
@@ -2088,7 +2088,7 @@
     "reviewed": false
   },
   "prose/shell/defi/cards/05-wallets-with-hgram-and-hpo-support.md": {
-    "sourceHash": "38a60e59a197aef2bc95824ff5112b44c731b71f",
+    "sourceHash": "e46fb7d43c9d224c603e1c679c3be992a0242a29",
     "reviewed": false
   },
   "prose/shell/defi/faq/01-does-using-hgram-in-defi-stop-it-from-earning-staking-rewards.md": {

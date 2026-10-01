@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-01 — [detailed report](changelog/2026-10-01-wallet-rebrands.md)
+
+- Renamed the `/defi/` partner wallets: TON Space is now Walt, MyTonWallet is now My Wallet.
+- Repointed both links to `t.me/walt` and `mywallet.io`, and replaced both logos.
+- Swept the two names through the hGRAM docs, the DeFi FAQ and the glossary in all eleven locales.
+- Left the old name in one screenshot's alt text, which still shows the old branding.
+
 ## 2026-10-01 — [detailed report](changelog/2026-10-01-stats-chart-current-value.md)
 
 - Gave every `/stats/` chart a readout row stating its current value, with the series' delta beside it.

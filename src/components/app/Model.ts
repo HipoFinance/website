@@ -684,8 +684,13 @@ export class Model {
   readonly toncoPoolUrl = 'https://app.tonco.io/#/pool/EQCNtxsO6JYljVLkcJVt7hZZhkC50kMIFAZklE4zBby31RAR'
   readonly groypfiSwapUrl = 'https://groypfi.io/swap/ton/EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w'
   readonly swapCoffeeSwapUrl = 'https://swap.coffee/dex?ft=GRAM&st=EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w'
-  readonly tonspaceUrl = 'https://t.me/wallet?startattach'
-  readonly mtwUrl = 'https://mytonwallet.io/get'
+  // Wallet in Telegram became Walt on 2026-09-28 and moved to @walt; the old @wallet handle
+  // still resolves today, but Telegram is giving that slot to its separate Gram Wallet
+  // product, so staying on @wallet would eventually point this row at a different wallet.
+  readonly waltUrl = 'https://t.me/walt?startattach'
+  // MyTonWallet became "My Wallet" in June 2026 and moved to mywallet.io; the old host still
+  // redirects here, but a partner link should name the brand it points at.
+  readonly myWalletUrl = 'https://mywallet.io/get'
   readonly evaaLoanUrl = 'https://app.evaa.finance/'
 
   constructor() {

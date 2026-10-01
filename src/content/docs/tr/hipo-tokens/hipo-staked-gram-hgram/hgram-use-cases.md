@@ -6,7 +6,7 @@ hGRAM tokenleri DeFi ekosisteminde çok yönlü kullanım imkânları sunar ve k
 
 - **Likidite sağlama**: Kullanıcılar çeşitli DeFi protokollerine likidite katkısında bulunabilir, böylece ödül kazanabilir ve merkeziyetsiz finans piyasalarının sorunsuz işlemesine katkı sunabilir.
 - **İşlem yapma**: hGRAM tokenleri merkeziyetsiz borsalarda (DEX) işlem görebilir; kullanıcılar bunları başka kripto paralar veya varlıklarla takas edebilir.
-- **Desteklenen cüzdanlarda tutma**: TON Space ve MyTonWallet gibi cüzdanlar hGRAM'ı doğrudan gösterir ve transfer eder.
+- **Desteklenen cüzdanlarda tutma**: Walt ve My Wallet gibi cüzdanlar hGRAM'ı doğrudan gösterir ve transfer eder.
 
 Diğer kullanımlar — borç verme piyasaları, teminat, stablecoin basımı — üçüncü taraf protokollerin hGRAM desteği eklemesine bağlıdır; [DeFi sayfası](/defi/) bugün mevcut olan entegrasyonları her zaman listeler.
 
