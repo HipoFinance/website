@@ -156,8 +156,9 @@ these are re-stepped siblings, used only for chart strokes and legend chips.
   (p-6, the plot needs width). Charts sit in a `max-w-3xl` column.
 - Header row: title left (`text-lg font-bold`); the range label right. Under it,
   a **readout row**: one entry per series carrying that series' current value at
-  22px, its colour dot and name (dropped when there is only one series, since
-  the title already names it), and its delta across the visible range — `+1.2 pp`
+  22px — or the hovered sample's value while a point is hovered — its colour dot
+  and name (dropped when there is only one series, since the title already names
+  it), and its delta across the visible range — `+1.2 pp`
   for APY, `+8.4%` for the rest, `text-positive` up / `text-accent` down.
 
   **Superseded 2026-10-01.** This bullet used to read "No absolute 'latest'
@@ -188,12 +189,29 @@ these are re-stepped siblings, used only for chart strokes and legend chips.
 
 ### Interaction
 
-- Crosshair: vertical hairline snapping to the nearest sample, dot per series,
-  tooltip (absolutely-positioned div clamped inside the card): localized
-  timestamp header, then color chip + name + value rows, `tabular-nums`.
-- **Synced across all five charts** through a single `hoveredTs` observable on
-  the charts store — hovering one moves the hairline on all.
-- Touch: tap-and-drag scrubs; tooltip offset ~48px above the touch point. On
+- Crosshair: vertical hairline snapping to the nearest sample, dot per series.
+
+  **Superseded 2026-10-01.** This bullet used to end "tooltip
+  (absolutely-positioned div clamped inside the card): localized timestamp
+  header, then color chip + name + value rows". The tooltip is gone. While a
+  point is hovered the **readout row** shows that sample's value per series
+  instead of the latest, the card's top-right slot shows the hovered timestamp
+  in place of the range label, and the readout row takes a `bg-surface-deep`
+  plate so it is clear the figures came from the pointer. A series with no
+  sample within `maxGapSeconds` of the hovered time reads `—`, the same fact
+  the missing hover dot shows. Deltas hide while hovering: a delta is
+  first-to-last across the range, and the label that said so has just been
+  replaced by a timestamp. The tooltip covered the very line being traced,
+  which on touch was the whole plot.
+
+- **Synced across every chart** through a single `hoveredTs` observable on the
+  charts store — hovering one moves the hairline, the readout, the timestamp and
+  the plate on all of them. That is the point of syncing: one moment read across
+  every metric at once. The timestamp appears on every card, not just the hovered
+  one, because the risk of the sync is a historical value misread as the current
+  one, and a card whose slot names a past time cannot be.
+- Touch: tap-and-drag scrubs; the readout sits ~100px above the plot's middle
+  and a hand occludes downward, so it stays readable under the finger. On
   `touchstart` track dx/dy and only `preventDefault` once the gesture is
   clearly horizontal — vertical page scroll must survive over a 240px-tall
   chart on a 360px screen. Dismiss on touchend + ~2s or next tap elsewhere.

@@ -53,9 +53,11 @@ not. So:
 - `Model.ts:234` refers to `tonkeeper/tongo`, a GitHub org path, which does not rename just because
   a product does.
 
-Historical records — `CHANGELOG.md`, `changelog/*.md`, `specs/*.md` — keep "Tonkeeper" too. They
-describe what was tested and written at the time, and renaming the brand in them would misrepresent
-that.
+A later pass swept the historical record too — `CHANGELOG.md`, `changelog/*.md`, `specs/*.md` —
+because the owner asked for "Keeper" everywhere, this entry's exclusion included. The only place the
+old name survives now is a sentence that names both the before and the after, such as this section's
+own heading and opening line: rename those and they read as "Keeper rebranded to Keeper," which is
+self-contradictory rather than historically accurate.
 
 ## Also
 
@@ -69,7 +71,7 @@ that.
   text; the English body prose reads "including Keeper, Tonhub, and others"; the new 79 KB image
   ships to `dist`.
 - The `/defi/` island bundle has `mywallet.webp` ahead of `walt.jpg`.
-- Repo-wide grep for `Tonkeeper` outside the historical files returns nothing, and `Tonhub` survives
+- Repo-wide grep for `Tonkeeper` returns only the sentences that describe the rename itself, and `Tonhub` survives
   untouched next to `Keeper` in every locale's staking tutorial.
 
 ### Follow-ups

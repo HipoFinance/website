@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-01 — [detailed report](changelog/2026-10-01-chart-readout-follows-hover.md)
+
+- Made every `/stats/` chart readout follow the hover, and deleted the tooltip.
+- Swapped each card's range label for the hovered timestamp, and tinted the readout row while hovering.
+- Hid the range delta during hover, and read a gap at the hovered time as `—`.
+- Swept Keeper through the changelog and spec files too, and put Walt back above My Wallet.
+
 ## 2026-10-01 — [detailed report](changelog/2026-10-01-keeper-and-staking-screenshot.md)
 
 - Retook the wallet-connect screenshot in the staking tutorial; it now shows Gram Wallet, Keeper and My Wallet.
@@ -236,12 +243,12 @@ here — `git log` remains the complete record.
 
 ## 2026-09-03 — [detailed report](changelog/2026-09-03-multisig-wallet-app-flow.md)
 
-- Tonkeeper builds a real multisig request from the order link, so pressing Stake
+- Keeper builds a real multisig request from the order link, so pressing Stake
   or Unstake now opens the wallet app directly, with no dialog.
 - The copy fields and the `d`/`w` comment protocol became the fallback for when
   no wallet app opens, detected by the page still being in front.
 - A dismissible note names the connected multisig after hand-off, because
-  Tonkeeper does not preselect it and the position lands in whichever wallet pays.
+  Keeper does not preselect it and the position lands in whichever wallet pays.
 - The amount field clears once a wallet app has taken the link, and keeps its
   value when nothing did.
 - Twelve catalog keys retired, two added, and the docs and FAQ now lead with the

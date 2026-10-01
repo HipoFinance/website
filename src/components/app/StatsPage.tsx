@@ -127,7 +127,11 @@ const StatsPage = observer(({ model }: Props) => {
   const formatRateValue = (v: number) => model.formatRate(v)
   const formatPrice = (v: number) => model.formatUsdPrice(v)
   const xTickFormat = (ts: number) => formatXTick(model, range, ts)
-  const tooltipTimeFormat = (ts: number) => model.formatDate(ts * 1000, { dateStyle: 'medium', timeStyle: 'short' })
+  const tableTimeFormat = (ts: number) => model.formatDate(ts * 1000, { dateStyle: 'medium', timeStyle: 'short' })
+  // The hovered sample's time at the precision its range actually has: a 1y chart samples once a day,
+  // so printing 00:00 would claim a resolution the data does not have; a 24h window crosses midnight,
+  // so the day can never be dropped either.
+  const hoverTimeFormat = (ts: number) => formatHoverTime(model, range, ts)
   // "+3.2%" / "+0.4 pp": one decimal, explicit sign, as the chart legends always showed.
   const formatDelta = (delta: Delta) => {
     const digits = { minimumFractionDigits: 1, maximumFractionDigits: 1, signDisplay: 'always' as const }
@@ -234,7 +238,8 @@ const StatsPage = observer(({ model }: Props) => {
     rangeLabel,
     t,
     xTickFormat,
-    tooltipTimeFormat,
+    tableTimeFormat,
+    hoverTimeFormat,
     hoveredTs: chartsStore.hoveredTs,
     onHover: chartsStore.setHoveredTs,
     onRetry: chartsStore.retry,
@@ -400,6 +405,14 @@ function formatXTick(model: Model, range: StatsRange, ts: number): string {
     return model.formatDate(date, { day: 'numeric', month: 'short' })
   }
   return model.formatDate(date, { month: 'short' })
+}
+
+function formatHoverTime(model: Model, range: StatsRange, ts: number): string {
+  const date = ts * 1000
+  if (range === '1y') {
+    return model.formatDate(date, { year: 'numeric', month: 'short', day: 'numeric' })
+  }
+  return model.formatDate(date, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })
 }
 
 export default StatsPage

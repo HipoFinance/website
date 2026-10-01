@@ -1,13 +1,13 @@
 # Multisig orders go straight to the wallet app
 
 The [earlier session today](2026-09-03-multisig-partial-unstake.md) shipped a partial unstake for
-multisig holders and left one question open: whether Tonkeeper builds a multisig _order_ from a
+multisig holders and left one question open: whether Keeper builds a multisig _order_ from a
 `ton://transfer` link carrying a `bin` body, or silently falls back to the signer's personal wallet.
 It was undocumented, so requirement 15 of `specs/multisig-partial-unstake.md` made it a test.
 
-The test came back better than the fallback the spec had prepared for. Tonkeeper creates a real
+The test came back better than the fallback the spec had prepared for. Keeper creates a real
 multisig request from the link: the payload survives, the request sits waiting for the remaining
-signers, and when another holder opens Tonkeeper and signs, it goes on-chain. That inverted the
+signers, and when another holder opens Keeper and signs, it goes on-chain. That inverted the
 design — the deep link was never the convenience beside the copy fields, it was the flow — and the
 dialog full of base64 was, in the reporter's words, very long and frightening.
 
@@ -46,7 +46,7 @@ the watchdog with the other timers, so it cannot fire into a paused island.
 
 ## The wrong-wallet defect, now load-bearing
 
-Tonkeeper does not preselect the connected multisig, and `ton://transfer` has no sender parameter
+Keeper does not preselect the connected multisig, and `ton://transfer` has no sender parameter
 that could make it. This was a footnote when the dialog carried a warning the user read before doing
 anything; it is the main risk now that the link is the flow, and the two directions are not
 symmetric:
@@ -120,7 +120,7 @@ error with nothing to clear it.
 
 - `npm run build` — clean, 523 pages, `check-i18n` passing.
 - `node --experimental-strip-types scripts/i18n-selftest.mjs` — 18 groups passed.
-- **The flow itself was verified on mainnet by the reporter**, on the previous deploy: Tonkeeper
+- **The flow itself was verified on mainnet by the reporter**, on the previous deploy: Keeper
   created the multisig request, a second holder signed it, and the operation reached the chain. This
   is the requirement-15 test, and it passed apart from wallet selection.
 - Both edited files syntax-checked with esbuild; this repo still has no typechecker.
@@ -141,7 +141,7 @@ error with nothing to clear it.
   meant to stay in sync.
 - **The 2.5 s watchdog is a guess.** No wallet reports back, so the delay is tuned to feel prompt on
   desktop without tripping on a slow app launch. If reports come in of the fallback appearing after
-  Tonkeeper opened, raise it or add a `visibilitychange` listener that cancels the timer outright.
+  Keeper opened, raise it or add a `visibilitychange` listener that cancels the timer outright.
 - The fallback path itself — a browser with no `ton://` handler reaching the dialog, and
   multisig.ton.org's "Arbitrary order" form accepting the three values — has still not been walked
   end to end on mainnet.
@@ -149,7 +149,7 @@ error with nothing to clear it.
 ### Decisions declined
 
 - **Removing `d` and `w` outright.** Asked for, then qualified in the same message by asking what
-  happens for someone not using Tonkeeper. Read as a revision rather than a contradiction: they are
+  happens for someone not using Keeper. Read as a revision rather than a contradiction: they are
   gone from every primary path and from both FAQ leads, and survive only in the fallback dialog and
   the app-less docs page. Easy to strip fully if that reading was wrong.
 - **Keeping the old dialog as an intermediate step**, with the deep link as a button inside it. That

@@ -21,15 +21,15 @@ state that partial unstake is impossible — are corrected across all released l
 
 ## Revision — 2026-09-03, after hands-on verification
 
-Requirement 15 was answered by testing against a real multisig in Tonkeeper, and the answer inverted
-the design. Tonkeeper **does** build a multisig request from a `ton://transfer` link with a `bin`
+Requirement 15 was answered by testing against a real multisig in Keeper, and the answer inverted
+the design. Keeper **does** build a multisig request from a `ton://transfer` link with a `bin`
 body: it preserves the payload, holds the request for the remaining signers, and executes on-chain
 once they sign. So the deep link is not a convenience beside the copy fields — it is the flow, and
 the dialog full of fields was a long and frightening thing to put in front of it.
 
 The requirements below are revised accordingly: pressing Stake or Unstake hands the order to the
 wallet app with no dialog at all, and the copy fields plus the `d`/`w` comment protocol become the
-fallback for when nothing opens. One defect remains: Tonkeeper does not preselect the connected
+fallback for when nothing opens. One defect remains: Keeper does not preselect the connected
 multisig, so the selected-wallet warning is now load-bearing rather than a footnote.
 
 Requirements 1–3, 5–8 and 12–14 stand as written; 4, 9, 10 and 11 are replaced; 15–18 and 20 are
@@ -56,7 +56,7 @@ amountInNano, unstakeOption, queryId)` call the TonConnect path uses, so the two
 4. **(revised)** Pressing the main button with a detected multisig MUST hand the `ton://transfer/`
    deep link to the wallet app immediately, with no dialog in between — for stake and unstake alike.
    `bin` is a documented parameter of the scheme (docs.ton.org: "a URL-encoded base64 BoC which will
-   be attached as a body to internal message"), `amount` is mandatory alongside it, and Tonkeeper is
+   be attached as a body to internal message"), `amount` is mandatory alongside it, and Keeper is
    verified to turn such a link into a multisig request that keeps the payload and waits for the
    remaining signatures.
 5. The `unstakeOption` currently selected on screen (`best` / `instant`) MUST be encoded into the
@@ -95,7 +95,7 @@ amountInNano, unstakeOption, queryId)` call the TonConnect path uses, so the two
     it and raise the fallback dialog then. The snapshot MUST NOT be recaptured for it, so the order
     shown is the one the link carried, query id included.
 16. After a link is handed over, the app MUST raise the selected-wallet warning as a dismissible
-    note, not a dialog: Tonkeeper does not preselect the connected multisig, and the user needs to
+    note, not a dialog: Keeper does not preselect the connected multisig, and the user needs to
     read this while switching to an app that is already opening. What is at stake is which account
     the position ends up in — payer and receiver stay the same party either way (requirement 20's
     note explains why).
@@ -112,8 +112,8 @@ amountInNano, unstakeOption, queryId)` call the TonConnect path uses, so the two
 
 20. ~~Before merge~~ **(done, 2026-09-03)** One real partial unstake MUST be executed by hand on mainnet through
     **multisig.ton.org**'s "Arbitrary order" form, confirming the three copied values are accepted
-    verbatim and that the order executes. Separately, **Tonkeeper's in-app multisig** MUST be tested
-    against the deep link: it is undocumented whether Tonkeeper builds a multisig order from a `bin=`
+    verbatim and that the order executes. Separately, **Keeper's in-app multisig** MUST be tested
+    against the deep link: it is undocumented whether Keeper builds a multisig order from a `bin=`
     link while a multisig is the selected wallet, or silently falls back to the signer's personal
     wallet. If it falls back, the deep-link button MUST be hidden for detected multisigs — a link
     that quietly sends from the wrong wallet is worse than no link.
@@ -260,15 +260,15 @@ deep link, the selected-wallet warning. The deposit payload is added as an alter
   "Arbitrary order" taking a destination address, a TON amount and an `Order BOC (body cell in
 Base64)` — precisely the three values requirement 3 produces. This is what de-risks the approach;
   it is no longer a bet.
-- **Confirmed: `bin` is a real deep-link parameter**, documented by docs.ton.org, Tonkeeper and
+- **Confirmed: `bin` is a real deep-link parameter**, documented by docs.ton.org, Keeper and
   Tonhub, carrying standard base64 that is then percent-encoded, with `amount` required alongside
-  it. Tonkeeper and Tonhub both implement it. MyTonWallet's support is described only in secondary
+  it. Keeper and Tonhub both implement it. MyTonWallet's support is described only in secondary
   sources (its documentation URL currently 404s) and Telegram Wallet's is undocumented entirely —
   neither is a target here, but neither should be promised in the copy.
-- **Answered: Tonkeeper builds a real multisig request from a `bin=` link.** Verified by hand on
+- **Answered: Keeper builds a real multisig request from a `bin=` link.** Verified by hand on
   2026-09-03: the payload survives, the request waits for the other signers, and signing sends it
   on-chain. This is what promoted the deep link from convenience to primary flow.
-- **Still open: Tonkeeper does not preselect the connected multisig.** `ton://transfer` has no
+- **Still open: Keeper does not preselect the connected multisig.** `ton://transfer` has no
   sender parameter, so the user must switch wallets themselves. Requirement 17 warns them. A real
   fix would pin the recipient inside the message rather than rely on the sender — see the follow-up
   below — but the SDK exposes no builder for it.

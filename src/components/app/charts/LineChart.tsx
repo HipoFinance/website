@@ -44,7 +44,9 @@ export interface LineChartProps {
   // Catalog lookup (model.t) for the chart's own labels; passed in so this file stays Model-free.
   t: (key: string, params?: Record<string, string | number>) => string
   xTickFormat: (t: number) => string
-  tooltipTimeFormat: (t: number) => string
+  // Only the <details> data table reads this one now — the on-chart readout uses hoverTimeFormat.
+  tableTimeFormat: (t: number) => string
+  hoverTimeFormat: (t: number) => string
   hoveredTs: number | null
   onHover: (ts: number | null) => void
   onRetry: () => void
@@ -210,7 +212,8 @@ const LineChart = ({
   rangeLabel,
   t,
   xTickFormat,
-  tooltipTimeFormat,
+  tableTimeFormat,
+  hoverTimeFormat,
   hoveredTs,
   onHover,
   onRetry,
@@ -219,9 +222,6 @@ const LineChart = ({
   const [size, setSize] = useState<Size>({ width: 0, height: 0 })
   const touchStateRef = useRef<{ x: number; y: number; decided: boolean; horizontal: boolean } | null>(null)
   const touchDismissTimer = useRef<ReturnType<typeof setTimeout>>(undefined)
-  const [pointerKind, setPointerKind] = useState<'mouse' | 'touch' | null>(null)
-  const [pointerPos, setPointerPos] = useState<{ x: number; y: number } | null>(null)
-  const [focused, setFocused] = useState(false)
 
   useEffect(() => {
     const el = containerRef.current
@@ -293,26 +293,17 @@ const LineChart = ({
 
   const handleHoverAt = (clientX: number, rect: DOMRect) => {
     const px = clientX - rect.left
-    const ts = clamp(xInvert(px), domainStart, domainEnd)
-    onHover(ts)
-    return ts
+    onHover(clamp(xInvert(px), domainStart, domainEnd))
   }
 
   const handlePointerMove = (e: PointerEvent<SVGSVGElement>) => {
     if (e.pointerType === 'touch') {
       return
     }
-    const rect = e.currentTarget.getBoundingClientRect()
-    setPointerKind('mouse')
-    setPointerPos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
-    handleHoverAt(e.clientX, rect)
+    handleHoverAt(e.clientX, e.currentTarget.getBoundingClientRect())
   }
 
-  const handlePointerLeave = () => {
-    setPointerKind(null)
-    setPointerPos(null)
-    onHover(null)
-  }
+  const handlePointerLeave = () => onHover(null)
 
   const handleTouchStart = (e: TouchEvent<SVGSVGElement>) => {
     const touch = e.touches[0]
@@ -341,20 +332,16 @@ const LineChart = ({
       // Only block scroll once the gesture is clearly horizontal — vertical page scroll must
       // survive over the chart.
       e.preventDefault()
-      const rect = e.currentTarget.getBoundingClientRect()
-      setPointerKind('touch')
-      setPointerPos({ x: touch.clientX - rect.left, y: touch.clientY - rect.top })
-      handleHoverAt(touch.clientX, rect)
+      handleHoverAt(touch.clientX, e.currentTarget.getBoundingClientRect())
     }
   }
 
+  // Load-bearing: a touch has no hover/blur to clear it, so without this timer a finger lifted off
+  // the chart would leave every card's readout frozen on that sample with nothing on screen
+  // pointing at it.
   const handleTouchEnd = () => {
     touchStateRef.current = null
-    touchDismissTimer.current = setTimeout(() => {
-      onHover(null)
-      setPointerKind(null)
-      setPointerPos(null)
-    }, 2000)
+    touchDismissTimer.current = setTimeout(() => onHover(null), 2000)
   }
 
   const handleKeyDown = (e: KeyboardEvent<SVGSVGElement>) => {
@@ -412,6 +399,10 @@ const LineChart = ({
   }, [series])
 
   const showChart = status === 'done' || status === 'refreshing'
+  // Both need to be true: showHairline alone fires while the chart is still loading (hoveredTs can
+  // be set from another card before this one has data), and showChart alone says nothing about the
+  // pointer. Gates the title-slot swap, the readout plate and which values the readout shows.
+  const inspecting = showChart && showHairline
 
   // Each series' current value, for the readout row under the title. This is the number the in-plot
   // label used to carry at 12px in --chart-ink, in the same band as the y-axis ticks, where it was
@@ -430,12 +421,28 @@ const LineChart = ({
           key: s.key,
           name: s.name,
           color: s.color,
-          value: fresh ? valueFormat(last.v) : undefined,
+          // A missing series reads as nothing to show (the \u00a0 placeholder below); a series that
+          // HAS samples but none fresh enough reads as a dash, same as a hovered gap -- the two
+          // cases look different to the code but must not look different to the reader.
+          value: last == null ? undefined : fresh ? valueFormat(last.v) : '—',
           delta: delta != null && delta.direction !== 'flat' ? delta : undefined,
         }
       }),
     [series, domainEnd, maxGapSeconds, valueFormat, hideDelta, deltaUnit],
   )
+
+  // The sample under the hairline, per series, by the SAME gap test the plot's hover dots use -- so a
+  // dash in the readout and a missing dot are always the same fact. Undefined when nothing is hovered.
+  const hoverValues = useMemo(() => {
+    if (!inspecting) {
+      return undefined
+    }
+    const ts = hoveredTs as number
+    return series.map((s) => {
+      const near = nearestPoint(s.points, ts)
+      return near == null || Math.abs(near.t - ts) > maxGapSeconds ? undefined : valueFormat(near.v)
+    })
+  }, [series, inspecting, hoveredTs, maxGapSeconds, valueFormat])
 
   return (
     // physical on purpose: chart is dir="ltr" — SVG coordinates, the padding object, and the
@@ -444,7 +451,18 @@ const LineChart = ({
       <div className='flex flex-row items-baseline'>
         <p className='font-fredoka text-[18px] font-semibold'>{title}</p>
         {status === 'refreshing' && <RefreshCw className='text-text-faint ms-2 size-4 animate-spin' />}
-        <p className='text-text-faint ms-auto text-[13px]'>{rangeLabel}</p>
+        {/* Both labels share ONE grid cell, so the slot is always as wide as the wider of the two and the
+            title's wrap never changes when a pointer enters a chart. Reserving that width is not fussiness:
+            at 390px "Available for instant unstaking" plus a timestamp does not fit on one line, so without
+            it, hovering would reflow the title to two lines and push the whole card down. */}
+        <span className='ms-auto grid shrink-0 ps-3 text-[13px]'>
+          <span className={'num col-start-1 row-start-1 text-end ' + (inspecting ? 'text-text-muted' : 'invisible')}>
+            {hoverTimeFormat(hoveredTs ?? domainEnd)}
+          </span>
+          <span className={'text-text-faint col-start-1 row-start-1 text-end ' + (inspecting ? 'invisible' : '')}>
+            {rangeLabel}
+          </span>
+        </span>
       </div>
 
       {caption != null && <p className='text-text-faint mt-1 text-[13px]'>{caption}</p>}
@@ -461,25 +479,45 @@ const LineChart = ({
           read before the figure it explains, not after. The value is never coloured for the same reason:
           a near-zero liquidity figure in neutral ink under that caption is a fact, the same figure in
           text-accent is an alarm. */}
-      <div className='mt-1.5 flex flex-row flex-wrap items-baseline gap-x-5 gap-y-1'>
-        {readouts.map((r) => (
-          <div key={r.key} className='flex min-w-0 flex-row items-baseline gap-2'>
-            {series.length > 1 && (
-              <span className='size-2 shrink-0 self-center rounded-full' style={{ backgroundColor: r.color }} />
-            )}
-            <span className='font-fredoka num text-text text-[22px] font-semibold'>{r.value ?? '\u00a0'}</span>
-            {series.length > 1 && <span className='text-text-muted text-[13px]'>{r.name}</span>}
-            {r.delta != null && (
-              <span
-                className={
-                  'num text-[13px] font-medium ' + (r.delta.direction === 'up' ? 'text-positive' : 'text-accent')
-                }
-              >
-                {deltaFormat(r.delta)}
-              </span>
-            )}
-          </div>
-        ))}
+      {/* The padding is cancelled by equal negative margins so hovering only ever changes a colour,
+          never the box: mt-0.5 (2px) + pt-1 (4px) reproduces the 6px mt-1.5 gave under the title,
+          -mb-1 + pb-1 nets 0 so the plot's own mt-3 still gives 12px down to the chart, and -mx-2
+          px-2 nets 0 while bleeding 8px into the card's p-6 so the plate's corners don't clip. */}
+      <div
+        className={
+          '-mx-2 mt-0.5 -mb-1 flex flex-row flex-wrap items-baseline gap-x-5 gap-y-1 rounded-lg px-2 py-1 ' +
+          'transition-colors duration-150 ' +
+          (inspecting ? 'bg-surface-deep' : '')
+        }
+      >
+        {readouts.map((r, i) => {
+          const value = hoverValues != null ? (hoverValues[i] ?? '—') : r.value
+          return (
+            <div key={r.key} className='flex min-w-0 flex-row items-baseline gap-2'>
+              {series.length > 1 && (
+                <span className='size-2 shrink-0 self-center rounded-full' style={{ backgroundColor: r.color }} />
+              )}
+              <span className='font-fredoka num text-text text-[22px] font-semibold'>{value ?? '\u00a0'}</span>
+              {series.length > 1 && <span className='text-text-muted text-[13px]'>{r.name}</span>}
+              {/* The delta is first-to-last over the whole range, and the only thing on the card that said
+                  so -- the range label -- has just been replaced by the hovered timestamp. Left visible
+                  it would read as the change AT that point, which it is not. `invisible` rather than
+                  unmounting: `visibility: hidden` keeps the box so a two-series card cannot reflow
+                  mid-scrub, and it drops the text from the accessibility tree while hidden. */}
+              {r.delta != null && (
+                <span
+                  className={
+                    'num text-[13px] font-medium ' +
+                    (hoverValues != null ? 'invisible ' : '') +
+                    (r.delta.direction === 'up' ? 'text-positive' : 'text-accent')
+                  }
+                >
+                  {deltaFormat(r.delta)}
+                </span>
+              )}
+            </div>
+          )
+        })}
       </div>
 
       <div ref={containerRef} className='relative mt-3 h-[200px] sm:h-[220px]'>
@@ -517,8 +555,10 @@ const LineChart = ({
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
             onKeyDown={handleKeyDown}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
+            // Load-bearing: a keyboard user who arrows to a point and then tabs away has no pointer
+            // on screen to clear the hover. Without this, all seven readouts would stay frozen on
+            // that historical sample.
+            onBlur={() => onHover(null)}
           >
             {ticks.map((tick) => {
               const y = yScale(tick)
@@ -640,36 +680,6 @@ const LineChart = ({
             )}
           </svg>
         )}
-
-        {/* The hairline is synced across charts via hoveredTs, but the tooltip only follows the
-            chart the user is actually pointing at (or keyboard-focused on) — five tooltips at
-            once would be noise. */}
-        {showChart && showHairline && size.width > 0 && (pointerPos != null || focused) && (
-          <div
-            className='border-border bg-surface-deep text-text pointer-events-none absolute z-10 rounded-xl border px-3 py-2 text-xs shadow-xl'
-            style={{
-              // physical on purpose: chart is dir="ltr", and this offset is derived from pointer x
-              left: clamp(pointerPos?.x ?? hairlineX, 72, size.width - 72),
-              top: pointerKind === 'touch' ? clamp((pointerPos?.y ?? 0) - 48, 0, size.height - 24) : padding.top,
-              transform: 'translate(-50%, -100%)',
-            }}
-          >
-            <p className='num mb-1 font-medium'>{tooltipTimeFormat(hoveredTs as number)}</p>
-            {series.map((s) => {
-              const near = nearestPoint(s.points, hoveredTs as number)
-              if (near == null || Math.abs(near.t - (hoveredTs as number)) > maxGapSeconds) {
-                return null
-              }
-              return (
-                <div key={s.key} className='flex flex-row items-center gap-1.5 tabular-nums'>
-                  <span className='inline-block h-2 w-2 rounded-full' style={{ backgroundColor: s.color }} />
-                  <span className='me-auto'>{s.name}</span>
-                  <span className='num ms-2'>{valueFormat(near.v)}</span>
-                </div>
-              )
-            })}
-          </div>
-        )}
       </div>
 
       <details className='text-text-muted mt-2 text-xs'>
@@ -689,7 +699,7 @@ const LineChart = ({
             <tbody>
               {tableRows.map((row) => (
                 <tr key={row.t}>
-                  <td className='num pe-4'>{tooltipTimeFormat(row.t)}</td>
+                  <td className='num pe-4'>{tableTimeFormat(row.t)}</td>
                   {row.values.map((v, i) => (
                     <td key={series[i].key} className='num pe-4'>
                       {v != null ? valueFormat(v) : '—'}

@@ -60,7 +60,7 @@ same dimensions the rows already expected. The old files are deleted; nothing el
 `src/content/docs/**/tutorials/staking.md` carries `MyTonWallet` inside the alt text of
 `tutorials-staking-3.png`:
 
-> alt="The wallet-connect dialog listing Tonkeeper, MyTonWallet, Tonhub and DeWallet"
+> alt="The wallet-connect dialog listing Keeper, MyTonWallet, Tonhub and DeWallet"
 
 That alt text describes a **screenshot that still shows the old branding**. Renaming it would make
 the alt text describe something the image does not show, which is worse for a screen-reader user

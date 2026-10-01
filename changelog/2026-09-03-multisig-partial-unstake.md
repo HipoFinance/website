@@ -93,9 +93,9 @@ retype.
 
 ### Follow-ups
 
-- **Tonkeeper's in-app multisig is untested against the deep link.** It is undocumented whether
-  Tonkeeper builds a multisig _order_ from a `bin=` link while a multisig is the selected wallet, or
-  silently falls back to the signer's personal wallet. Tonkeeper's own multisig help describes order
+- **Keeper's in-app multisig is untested against the deep link.** It is undocumented whether
+  Keeper builds a multisig _order_ from a `bin=` link while a multisig is the selected wallet, or
+  silently falls back to the signer's personal wallet. Keeper's own multisig help describes order
   creation only through its Send button and Requests tab. Requirement 15 of the spec says that if it
   falls back, the deep-link button must be hidden for detected multisigs — a link that quietly sends
   from the wrong wallet is worse than no link. The copy fields do not depend on this.
