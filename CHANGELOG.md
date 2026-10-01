@@ -7,6 +7,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-01 — [detailed report](changelog/2026-10-01-landing-stat-cards-link-stats.md)
+
+- Linked the landing page's TVL, APY, holders and staking-fee cards to `/stats/`.
+- Gave them the audit cards' hover lift, so both card grids on the page behave alike.
+
 ## 2026-09-30 — [detailed report](changelog/2026-09-30-vs-chart-early-years.md)
 
 - Gave the `/vs/` comparison chart an eight-interval axis, so its early years read against a gridline.
