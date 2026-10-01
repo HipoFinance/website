@@ -26,7 +26,7 @@ their error state — everything else on the page is unaffected by design.
   The base must be public HTTPS: the fetch runs in the visitor's browser, so a
   swarm-internal name (`http://prometheus1`) can never work — no public DNS,
   and mixed content is blocked on an https page. Note also that
-  `gauge.hipo.finance/metrics` is the *scrape* endpoint — current values in
+  `gauge.hipo.finance/metrics` is the _scrape_ endpoint — current values in
   text exposition format, no history, no CORS — it cannot feed the charts;
   only the Prometheus server's query API can, via the proxy route.
 - Endpoint: `GET {PROM_BASE}/api/v1/query_range?query=…&start=…&end=…&step=…`.
@@ -37,9 +37,10 @@ their error state — everything else on the page is unaffected by design.
 max by (__name__) ({__name__=~"hipo_treasury_apy|hipo_treasury_total_coins|hipo_hton_holders_count|hipo_hton_current_price|hipo_hpo_current_price|hipo_ton_current_price"})
 ```
 
-  `by (__name__)` keeps the metric name as the series key and dedups if an HA
-  pair ever double-scrapes. A single fixed string is what makes the proxy
-  allowlist and cache below practical — do not vary it per range.
+`by (__name__)` keeps the metric name as the series key and dedups if an HA
+pair ever double-scrapes. A single fixed string is what makes the proxy
+allowlist and cache below practical — do not vary it per range.
+
 - Metric names use the pre-rename tokens: `hton` = hGRAM, `ton` = GRAM.
   `hipo_treasury_total_coins` is nanotons → divide by 1e9 in the mapping layer.
   `hipo_treasury_apy` is already percent. Values arrive as strings
@@ -80,7 +81,7 @@ absorbs essentially all traffic.
   cards render exactly as today. `result: []` with HTTP 200 is "No data for
   this range", never treated as loading.
 - **Gaps:** the gauge exporter skips `Collect` on error, so series drop out of
-  `/metrics` and `query_range` returns holes; series may have *different*
+  `/metrics` and `query_range` returns holes; series may have _different_
   timestamp sets. Build each series independently (never zip by index) and
   break the line path when `Δt > 2.5 × step` — an outage must read as a gap,
   not an interpolated straight line. Do not pad or extrapolate short history.
@@ -96,13 +97,13 @@ hatch: keep `LineChart` props library-shaped (`series`, `valueFormat`,
 `height`); if zoom/brush is ever requested, swapping uPlot into that one file
 is the move.
 
-| # | Title              | Series (metric)                                              | Unit  | Shape        |
-| - | ------------------ | ------------------------------------------------------------ | ----- | ------------ |
-| 1 | APY                | `hipo_treasury_apy`                                           | %     | stepped line |
-| 2 | Staked             | `hipo_treasury_total_coins` ÷ 1e9                             | GRAM  | line         |
-| 3 | hGRAM holders      | `hipo_hton_holders_count`                                     | count | line         |
-| 4 | hGRAM & GRAM price | `hipo_ton_current_price` × `hipo_treasury_hton_rate`, `hipo_ton_current_price` | USD | 2 lines |
-| 5 | HPO price          | `hipo_hpo_current_price`                                      | USD   | line         |
+| #   | Title              | Series (metric)                                                                | Unit  | Shape        |
+| --- | ------------------ | ------------------------------------------------------------------------------ | ----- | ------------ |
+| 1   | APY                | `hipo_treasury_apy`                                                            | %     | stepped line |
+| 2   | Staked             | `hipo_treasury_total_coins` ÷ 1e9                                              | GRAM  | line         |
+| 3   | hGRAM holders      | `hipo_hton_holders_count`                                                      | count | line         |
+| 4   | hGRAM & GRAM price | `hipo_ton_current_price` × `hipo_treasury_hton_rate`, `hipo_ton_current_price` | USD   | 2 lines      |
+| 5   | HPO price          | `hipo_hpo_current_price`                                                       | USD   | line         |
 
 - APY is stepped (`H`/`V` path segments): it changes discretely per validator
   round; a slope would invent intermediate values.
@@ -113,7 +114,7 @@ is the move.
   `hipo_hton_current_price` is CoinGecko's volume-weighted average of hGRAM's DEX
   tickers, and over the 30 days to 2026-09-10 it sat within 2% of hGRAM's
   redemption value for 194 of 350 samples and drifted as far as −26.4% for the
-  rest, printing hGRAM *below* GRAM on 16% of them — which the protocol makes
+  rest, printing hGRAM _below_ GRAM on 16% of them — which the protocol makes
   impossible. Chart 4 multiplies GRAM's price by chart 6's rate instead, joined on
   timestamp (never by index), so it is right across the whole history rather than
   only from the moment a fixed feed starts. The metric is still in `PROM_QUERY`:
@@ -153,19 +154,32 @@ these are re-stepped siblings, used only for chart strokes and legend chips.
 
 - Same chrome as figure cards: `m-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-dark-800`
   (p-6, the plot needs width). Charts sit in a `max-w-3xl` column.
-- Header row: title left (`text-lg font-bold`); **delta chip** right — change
-  across the visible range, `+1.2 pp` for APY, `+8.4%` for the rest, colored
-  `text-green-600` up / `text-orange` down, muted `over 30d` suffix. No
-  absolute "latest" number in the header: the gauge-fed cards above carry the
-  current values, and two sources for one number on one page will eventually
-  disagree. The delta is derived from the chart's own data.
+- Header row: title left (`text-lg font-bold`); the range label right. Under it,
+  a **readout row**: one entry per series carrying that series' current value at
+  22px, its colour dot and name (dropped when there is only one series, since
+  the title already names it), and its delta across the visible range — `+1.2 pp`
+  for APY, `+8.4%` for the rest, `text-positive` up / `text-accent` down.
+
+  **Superseded 2026-10-01.** This bullet used to read "No absolute 'latest'
+  number in the header: the gauge-fed cards above carry the current values, and
+  two sources for one number on one page will eventually disagree." The rule was
+  right about its own case and does not cover this one: the readout is derived
+  from the chart's own series, not from the gauge, so it is the same single
+  source the delta already came from. What the rule cost in practice was that
+  the current value lived only inside the plot, at tick size in tick ink, where
+  readers could not find it without hovering.
+
 - Plot: height 200px mobile / 240px `sm:`, plus a ~24px x-axis band inside the
   container. Width via `ResizeObserver`, points computed in pixel space.
 - Grid: 4 horizontal hairlines only, solid, `--chart-grid`. Tick labels 11px
   `tabular-nums` in `--chart-ink`. 2px series strokes,
   `stroke-linejoin="round"`.
-- Last point of each series: 3px dot with a 2px surface ring + the formatted
-  value in muted ink beside it (direct label; doubles as the contrast relief).
+- Last point of each series: 3px dot with a 2px surface ring. The formatted value
+  beside it was removed 2026-10-01 — it shared the 54px right-hand band with the
+  y-axis tick labels, at the same size and ink, and overflowed it: measured at
+  12px, `8.3M GRAM` needs 67px and `$0.002083` needs 63px, and the fa/ar compact
+  forms need 88-92px, so it was clipped by the SVG's edge on three of the seven
+  charts. The dot stays; the figure moved to the readout row.
 - Legend only on chart 4: color stroke chips + names above the plot.
 - Y formats: APY `12.4%`; Staked compact `1.2M` (+ axis unit GRAM); holders
   compact count; USD significant-digit aware (`$3.42`, `$0.0021`). X ticks:
@@ -254,8 +268,7 @@ alternative — either way, never
 path-mounted under `hipo.finance` (keeps cookies out of scope, independently
 firewallable).
 
-- **Allow exactly** `GET|HEAD|OPTIONS /api/v1/query_range`; everything else
-  404. Never a `location /api/` prefix. The rest of the API either destroys
+- **Allow exactly** `GET|HEAD|OPTIONS /api/v1/query_range`; everything else 404. Never a `location /api/` prefix. The rest of the API either destroys
   (`/api/v1/admin/*`, `/-/reload`, `/-/quit`), leaks
   (`/api/v1/status/config` dumps prometheus.yml **including scrape
   credentials**; `/api/v1/targets`, `/api/v1/rules` map internal hosts;
@@ -285,7 +298,7 @@ from a workstation directly. To test the charts against the real data before
 deploying the proxy:
 
 1. **Bridge** — the `monitor` network is not `attachable`, so join it with a
-   one-off swarm *service* (a `docker run --network` would be refused). On a
+   one-off swarm _service_ (a `docker run --network` would be refused). On a
    manager node:
 
    ```sh

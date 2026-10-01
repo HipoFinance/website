@@ -413,6 +413,30 @@ const LineChart = ({
 
   const showChart = status === 'done' || status === 'refreshing'
 
+  // Each series' current value, for the readout row under the title. This is the number the in-plot
+  // label used to carry at 12px in --chart-ink, in the same band as the y-axis ticks, where it was
+  // indistinguishable from one -- and, on the GRAM and HPO-price charts, clipped by the SVG's right
+  // edge ("8.3M GRAM" needs 67px against 54px of room, and far more in fa/ar).
+  const readouts = useMemo(
+    () =>
+      series.map((s) => {
+        const finite = s.points.filter((p) => Number.isFinite(p.v))
+        const last = finite[finite.length - 1]
+        // A last sample older than the gap threshold is an outage, not "now". The line already breaks
+        // at the gap; the headline must not promote a figure the data cannot support.
+        const fresh = last != null && domainEnd - last.t <= maxGapSeconds
+        const delta = hideDelta ? undefined : computeDelta(s.points, deltaUnit)
+        return {
+          key: s.key,
+          name: s.name,
+          color: s.color,
+          value: fresh ? valueFormat(last.v) : undefined,
+          delta: delta != null && delta.direction !== 'flat' ? delta : undefined,
+        }
+      }),
+    [series, domainEnd, maxGapSeconds, valueFormat, hideDelta, deltaUnit],
+  )
+
   return (
     // physical on purpose: chart is dir="ltr" — SVG coordinates, the padding object, and the
     // pointer-derived tooltip position below stay physical regardless of page direction.
@@ -420,48 +444,43 @@ const LineChart = ({
       <div className='flex flex-row items-baseline'>
         <p className='font-fredoka text-[18px] font-semibold'>{title}</p>
         {status === 'refreshing' && <RefreshCw className='text-text-faint ms-2 size-4 animate-spin' />}
-        {series.length === 1 &&
-          (() => {
-            const delta = hideDelta ? null : computeDelta(series[0].points, deltaUnit)
-            if (delta == null) {
-              return <p className='text-text-faint ms-auto text-[13px]'>{rangeLabel}</p>
-            }
-            return (
-              <p className='ms-auto text-[13px]'>
-                <span
-                  className={
-                    'num ' +
-                    (delta.direction === 'up' ? 'text-positive' : delta.direction === 'down' ? 'text-accent' : '')
-                  }
-                >
-                  {deltaFormat(delta)}
-                </span>{' '}
-                <span className='text-text-faint font-normal'>· {rangeLabel}</span>
-              </p>
-            )
-          })()}
+        <p className='text-text-faint ms-auto text-[13px]'>{rangeLabel}</p>
       </div>
 
       {caption != null && <p className='text-text-faint mt-1 text-[13px]'>{caption}</p>}
 
-      {series.length > 1 && (
-        <div className='mt-2 flex flex-row flex-wrap gap-4 text-xs'>
-          {series.map((s) => {
-            const delta = hideDelta ? null : computeDelta(s.points, deltaUnit)
-            return (
-              <div key={s.key} className='text-text-muted flex flex-row items-center gap-1.5'>
-                <span className='inline-block h-0.5 w-3' style={{ backgroundColor: s.color }} />
-                <span>{s.name}</span>
-                {delta != null && (
-                  <span className={'num ' + (delta.direction === 'up' ? 'text-positive' : 'text-accent')}>
-                    {deltaFormat(delta)}
-                  </span>
-                )}
-              </div>
-            )
-          })}
-        </div>
-      )}
+      {/* The readout row replaces both the old single-series delta line and the multi-series legend, so
+          there is one shape for one series and for two: every line's current value, in that line's
+          colour, with its change over the selected range. For a single series the title already names it,
+          so the dot and the name are dropped and the value stands alone. A non-breaking space holds the
+          row's height before any data has arrived, so seven cards do not jump when the history lands --
+          the same rule the static shell follows for its chain-gated rows.
+
+          The caption sits ABOVE this row on purpose. Only the liquidity and price charts have one, and in
+          both it qualifies how to read the number -- "near zero once the next round is funded" has to be
+          read before the figure it explains, not after. The value is never coloured for the same reason:
+          a near-zero liquidity figure in neutral ink under that caption is a fact, the same figure in
+          text-accent is an alarm. */}
+      <div className='mt-1.5 flex flex-row flex-wrap items-baseline gap-x-5 gap-y-1'>
+        {readouts.map((r) => (
+          <div key={r.key} className='flex min-w-0 flex-row items-baseline gap-2'>
+            {series.length > 1 && (
+              <span className='size-2 shrink-0 self-center rounded-full' style={{ backgroundColor: r.color }} />
+            )}
+            <span className='font-fredoka num text-text text-[22px] font-semibold'>{r.value ?? '\u00a0'}</span>
+            {series.length > 1 && <span className='text-text-muted text-[13px]'>{r.name}</span>}
+            {r.delta != null && (
+              <span
+                className={
+                  'num text-[13px] font-medium ' + (r.delta.direction === 'up' ? 'text-positive' : 'text-accent')
+                }
+              >
+                {deltaFormat(r.delta)}
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
 
       <div ref={containerRef} className='relative mt-3 h-[200px] sm:h-[220px]'>
         {status === 'loading' && <div className='bg-surface-deep absolute inset-0 animate-pulse rounded-xl' />}
@@ -503,13 +522,6 @@ const LineChart = ({
           >
             {ticks.map((tick) => {
               const y = yScale(tick)
-              // Tick labels share the right-hand band with the last-point value labels; drop any
-              // tick label that would collide rather than letting the two overprint.
-              const collides = series.some((s) => {
-                const finite = s.points.filter((p) => Number.isFinite(p.v))
-                const last = finite[finite.length - 1]
-                return last != null && Math.abs(yScale(last.v) - y) < 14
-              })
               return (
                 <g key={tick}>
                   <line
@@ -520,18 +532,16 @@ const LineChart = ({
                     stroke='var(--chart-grid)'
                     strokeWidth={1}
                   />
-                  {collides ? null : (
-                    <text
-                      x={size.width - padding.right + 6}
-                      y={y}
-                      dy='0.32em'
-                      fontSize={12}
-                      className='tabular-nums'
-                      fill='var(--chart-ink)'
-                    >
-                      {axisFormat != null ? axisFormat(tick) : valueFormat(tick)}
-                    </text>
-                  )}
+                  <text
+                    x={size.width - padding.right + 6}
+                    y={y}
+                    dy='0.32em'
+                    fontSize={12}
+                    className='tabular-nums'
+                    fill='var(--chart-ink)'
+                  >
+                    {axisFormat != null ? axisFormat(tick) : valueFormat(tick)}
+                  </text>
                 </g>
               )
             })}
@@ -583,7 +593,8 @@ const LineChart = ({
               />
             ))}
 
-            {/* Same reason as the paths above: the primary series' end dot and figure on top. */}
+            {/* Same reason as the paths above: the primary series' end dot on top. Its value used to be
+                drawn here too; it now lives in the readout row under the title. */}
             {painted.map((s) => {
               const finite = s.points.filter((p) => Number.isFinite(p.v))
               const last = finite[finite.length - 1]
@@ -596,16 +607,6 @@ const LineChart = ({
                 <g key={s.key + '-last'}>
                   <circle cx={x} cy={y} r={5} className='fill-surface' />
                   <circle cx={x} cy={y} r={3} fill={s.color} />
-                  <text
-                    x={Math.min(x + 8, size.width - padding.right + 6)}
-                    y={y}
-                    dy='0.32em'
-                    fontSize={12}
-                    className='tabular-nums'
-                    fill='var(--chart-ink)'
-                  >
-                    {valueFormat(last.v)}
-                  </text>
                 </g>
               )
             })}

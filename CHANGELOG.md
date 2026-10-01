@@ -7,6 +7,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-01 — [detailed report](changelog/2026-10-01-stats-chart-current-value.md)
+
+- Gave every `/stats/` chart a readout row stating its current value, with the series' delta beside it.
+- Removed the in-plot copy of that value, which sat at tick size in the tick band and was clipped on three charts.
+- Dropped the tick-collision hack with it, so every y-axis label renders again.
+- Superseded the spec's "no latest number in the header" rule, and fixed CLAUDE.md on which app pages have a body mirror.
+
 ## 2026-10-01 — [detailed report](changelog/2026-10-01-landing-stat-cards-link-stats.md)
 
 - Linked the landing page's TVL, APY, holders and staking-fee cards to `/stats/`.
