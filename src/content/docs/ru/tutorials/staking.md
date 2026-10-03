@@ -24,9 +24,9 @@ title: 'Стейкинг'
 
 ### Шаг 2. Подключите кошелёк
 
-Далее подключите свой кошелёк TON. Hipo поддерживает широкий набор кошельков для GRAM, включая Tonkeeper, Tonhub и другие.
+Далее подключите свой кошелёк TON. Hipo поддерживает широкий набор кошельков для GRAM, включая Keeper, Tonhub и другие.
 
-<figure><img src="/docs/images/tutorials-staking-3.png" alt="Диалог подключения кошелька со списком Tonkeeper, MyTonWallet, Tonhub и DeWallet"></figure>
+<figure><img src="/docs/images/tutorials-staking-3.png" alt="Диалог подключения кошелька со списком Gram Wallet, Keeper и My Wallet"></figure>
 
 ### Шаг 3. Введите сумму, которую хотите застейкать
 

@@ -145,7 +145,7 @@ const OpenWalletButton = observer(({ model, href }: { model: Model; href: string
 const MultisigGuidance = observer(({ model }: Props) => {
   const t = model.t
 
-  // Raised after a link was handed over, because ton://transfer carries no sender and Tonkeeper
+  // Raised after a link was handed over, because ton://transfer carries no sender and Keeper
   // does not preselect the connected multisig.
   const walletHint = model.multisigWalletHint && (
     <Toast model={model} onDismiss={model.hideMultisigWalletHint}>

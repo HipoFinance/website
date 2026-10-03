@@ -33,7 +33,7 @@ whose free tier rate-limits aggressively. Replaced with the TON v4 API
 `/block/latest` then `/block/{seqno}/{jetton}/run/get_jetton_data`, first stack item =
 total supply, `1B − supply` = burned. Block-keyed, CDN-cached (`max-age=31536000`),
 CORS `*`. When `v4.hipo.finance` from the read-endpoint spec exists, this constant can
-point there. The remaining "tonapi" string in the island bundle is Tonkeeper's
+point there. The remaining "tonapi" string in the island bundle is Keeper's
 TonConnect bridge (`bridge.tonapi.io`) from the wallet list — not ours to change.
 
 ### Verification performed

@@ -6,7 +6,7 @@ Los tokens hGRAM tienen aplicaciones muy variadas dentro del ecosistema DeFi y o
 
 - **Provisión de liquidez**: los usuarios pueden aportar liquidez a distintos protocolos DeFi, lo que les permite ganar recompensas y contribuir al buen funcionamiento de los mercados financieros descentralizados.
 - **Trading**: los tokens hGRAM se pueden negociar en exchanges descentralizados (DEX), lo que permite intercambiarlos por otras criptomonedas o activos.
-- **Guardarlo en billeteras compatibles**: billeteras como TON Space y MyTonWallet muestran y mueven hGRAM directamente.
+- **Guardarlo en billeteras compatibles**: billeteras como Walt y My Wallet muestran y mueven hGRAM directamente.
 
 Otros usos —mercados de préstamos, colateral, acuñación de stablecoins— dependen de que protocolos de terceros añadan soporte para hGRAM; la [página de DeFi](/defi/) siempre enumera las integraciones que existen hoy.
 

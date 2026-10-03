@@ -24,9 +24,9 @@ Puedes hacer staking de tus GRAM desde la [app web de Hipo](/stake/), la [Telegr
 
 ### Paso 2: conecta tu billetera
 
-A continuación, conecta tu billetera de TON. Hipo es compatible con una amplia gama de billeteras de GRAM, entre ellas Tonkeeper, Tonhub y otras.
+A continuación, conecta tu billetera de TON. Hipo es compatible con una amplia gama de billeteras de GRAM, entre ellas Keeper, Tonhub y otras.
 
-<figure><img src="/docs/images/tutorials-staking-3.png" alt="El diálogo de conexión de billetera con Tonkeeper, MyTonWallet, Tonhub y DeWallet"></figure>
+<figure><img src="/docs/images/tutorials-staking-3.png" alt="El diálogo de conexión de billetera con Gram Wallet, Keeper y My Wallet"></figure>
 
 ### Paso 3: introduce la cantidad que quieres poner en staking
 

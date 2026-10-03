@@ -52,6 +52,15 @@ export function formatUsd(locale: Locale, value: number, opts?: Intl.NumberForma
   return formatNumber(locale, value, { style: 'currency', currency: 'USD', maximumFractionDigits: 2, ...opts })
 }
 
+// A token's USD price: 4 significant digits below $1 (0.00406304 → "$0.004063"), cents above.
+// The same rule as the dApp's Model.formatUsdPrice, so /hpo/ and /stats/ print the same string.
+export function formatUsdPrice(locale: Locale, value: number): string {
+  if (value < 1) {
+    return formatUsd(locale, value, { maximumSignificantDigits: 4 })
+  }
+  return formatUsd(locale, value, { minimumFractionDigits: 0, maximumFractionDigits: 2 })
+}
+
 // Exchange rates: 4 fixed fraction digits.
 export function formatRate(locale: Locale, value: number): string {
   return formatNumber(locale, value, { minimumFractionDigits: 4, maximumFractionDigits: 4 })

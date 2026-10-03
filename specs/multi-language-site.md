@@ -185,7 +185,7 @@ Two mechanisms, chosen by shape of the text:
   defaults (Arabic-Indic digits, decision 10). USD prices use `style: 'currency'` so the sign
   lands where the locale puts it. Units (`GRAM`, `hGRAM`, `HPO`, `TON`) stay Latin.
   _Trade-off accepted: wallets and explorers show ASCII digits, so a Persian user compares `۱٬۲۳۴٫۵` on
-  our page with `1,234.5` in Tonkeeper. Addresses and tx hashes are never transformed._
+  our page with `1,234.5` in Keeper. Addresses and tx hashes are never transformed._
 - **Inputs** accept both native and ASCII digits and any separator the locale uses: the commented-out
   `NumberParser` (`Model.ts:1910`) is revived — it learns the locale's group/decimal symbols from
   `formatToParts` and maps U+0660–0669 / U+06F0–06F9 digits, `٫`, `٬`, `،`, NBSP/NNBSP and bidi marks to

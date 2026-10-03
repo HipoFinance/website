@@ -140,7 +140,7 @@ expired" message all still wrap the embedded call unchanged.
 
 The registry the SDK actually reads, `config.ton.org/wallets-v2.json`, lists 37
 wallets on the day of this change. All 37 advertise `SendTransaction`, 12 add
-`SignData`, and **none** advertise `EmbeddedRequest`. Tonkeeper carries it in
+`SignData`, and **none** advertise `EmbeddedRequest`. Keeper carries it in
 the staging registry, so it is in the pipeline rather than hypothetical.
 
 This was the one real argument against shipping now, and it was weighed
@@ -461,7 +461,7 @@ disappearing.
 
 ## Follow-ups
 
-- Watch for `EmbeddedRequest` appearing on Tonkeeper in
+- Watch for `EmbeddedRequest` appearing on Keeper in
   `config.ton.org/wallets-v2.json`. That is the moment this becomes visible, and
   the moment the happy path becomes testable on a real device. Worth a manual
   pass then: one embedded stake, and one deliberately abandoned at the wallet

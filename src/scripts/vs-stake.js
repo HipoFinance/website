@@ -50,6 +50,13 @@ if (payload !== null && chart !== null && input !== null) {
     const geo = chartGeometry(series, stake)
     const outcome = stakeOutcome(series, stake)
 
+    // The axis ticks and the end-value labels read against them share digits from the tick step
+    // itself (geo.tickDigits), not gram()'s fixed 0 — at a small stake the step goes sub-GRAM and 0
+    // digits collapses every tick to "0, -0, -0" (2026-09-30). gram() keeps 0 digits for everything
+    // else (headline figures, table cells).
+    const tickLabel = (value) =>
+      formatNumber(locale, value, { maximumFractionDigits: geo.tickDigits, minimumFractionDigits: geo.tickDigits })
+
     // The tick count changes with the stake, so the group is rebuilt rather than patched.
     if (ticks !== null) {
       ticks.replaceChildren(
@@ -67,7 +74,7 @@ if (payload !== null && chart !== null && input !== null) {
           text.setAttribute('text-anchor', 'end')
           text.setAttribute('font-size', '11')
           text.setAttribute('fill', 'var(--color-text-faint)')
-          text.textContent = gram(tick.value)
+          text.textContent = tickLabel(tick.value)
           return [line, text]
         }),
       )
@@ -76,10 +83,21 @@ if (payload !== null && chart !== null && input !== null) {
     for (const item of geo.series) {
       chart.querySelector(`[data-vs-path="${item.id}"]`)?.setAttribute('d', item.path)
       chart.querySelector(`[data-vs-area="${item.id}"]`)?.setAttribute('d', item.area)
+      // y is `labelY`, not `endY` — resolved in chartGeometry so two labels, or a label and "Hipo",
+      // never collide.
       const end = chart.querySelector(`[data-vs-end="${item.id}"]`)
       if (end !== null) {
         end.setAttribute('x', String(item.endX + 10))
-        end.setAttribute('y', String(item.endY + 4))
+        end.setAttribute('y', String(item.labelY - 3))
+      }
+      // Mirrors the build-time label in ValueGapChart.astro: endValue is a positive shortfall
+      // magnitude, negated and run through tickLabel() (itself formatNumber, digits matching the
+      // axis) so the sign follows the page's locale instead of a hardcoded "−".
+      const endVal = chart.querySelector(`[data-vs-endval="${item.id}"]`)
+      if (endVal !== null) {
+        endVal.setAttribute('x', String(item.endX + 10))
+        endVal.setAttribute('y', String(item.labelY + 11))
+        endVal.textContent = tickLabel(-item.endValue) + ' GRAM'
       }
     }
 

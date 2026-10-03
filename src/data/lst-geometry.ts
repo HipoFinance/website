@@ -34,58 +34,25 @@ export interface ChartGeometry {
   width: number
   height: number
   /** One entry per compared protocol, in COMPARED order. */
-  series: { id: Compared; path: string; area: string; endX: number; endY: number; endValue: number }[]
+  series: {
+    id: Compared
+    path: string
+    area: string
+    endX: number
+    endY: number
+    endValue: number
+    /** Row for this series' end labels, resolved so they never collide — see the sweep below. */
+    labelY: number
+  }[]
   ticks: ChartTick[]
+  /** Fraction digits the axis ticks (and the end-value labels read against them) should use — see
+   *  the derivation where it's computed. */
+  tickDigits: number
   xLabels: { x: number; day: string }[]
   zeroY: number
 }
 
 const MARGIN = { top: 16, right: 118, bottom: 34, left: 62 }
-
-function rateSeries(id: Protocol): (number | null)[] {
-  const p = (rates.protocols as Record<string, { staked: (string | null)[]; supply: (string | null)[] }>)[id]
-  return p.staked.map((s, i) => {
-    const u = p.supply[i]
-    return s === null || u === null ? null : Number(s) / Number(u)
-  })
-}
-
-let cached: GrowthSeries | undefined
-
-/** The sampled growth series, computed once per build. */
-export function growthSeries(): GrowthSeries {
-  if (cached !== undefined) {
-    return cached
-  }
-  const start = Date.parse(rates.start + 'T00:00:00Z')
-  const total = rates.days
-
-  const indices: number[] = []
-  for (let i = 0; i < total; i += STRIDE) {
-    indices.push(i)
-  }
-  if (indices[indices.length - 1] !== total - 1) {
-    indices.push(total - 1)
-  }
-
-  const days = indices.map((i) => new Date(start + i * 86400000).toISOString().slice(0, 10))
-  const growth = {} as Record<Protocol, number[]>
-  for (const id of ['hipo', ...COMPARED] as Protocol[]) {
-    const r = rateSeries(id)
-    const base = r[0]
-    if (base === null || base === undefined) {
-      throw new Error(`lst: ${id} has no rate on the first day of the window — it cannot anchor a growth series`)
-    }
-    // Rounded to 7 places: at the largest offered stake that is a hundredth of a GRAM, and it is
-    // what keeps the inlined payload small.
-    growth[id] = indices.map((i) => {
-      const v = r[i]
-      return v === null ? Number.NaN : Math.round((v / base) * 1e7) / 1e7
-    })
-  }
-  cached = { days, growth }
-  return cached
-}
 
 /** GRAM a Hipo staker earned above `id`, on `stake`, at every sampled point. */
 export function extraGram(series: GrowthSeries, id: Compared, stake: number): number[] {
@@ -103,11 +70,21 @@ export function extraGram(series: GrowthSeries, id: Compared, stake: number): nu
  * top of the chart with its end label at y = −15.7 (reported: "the label is off the chart and
  * invisible"). Hence the count is derived rather than walked.
  *
- * `step` is the smallest readable interval that is at least a quarter of `hi`, so the axis is
- * always four intervals or fewer.
+ * `step` is the smallest readable interval that is at least an eighth of `hi`, so the axis carries
+ * roughly eight intervals.
+ *
+ * (2026-09-30) It used to be a quarter, i.e. four intervals, and `chartGeometry` padded `hi` by 8%
+ * on top. The two together made the axis top overshoot the data badly at some magnitudes — worst
+ * case, the drawn line filled only ~62% of the frame. Concretely: a live gap of 1,811 GRAM times
+ * 1.08 was about to cross 2,000, which would have pushed the top tick from 2,000 to 3,000 — a third
+ * of the line's height gone, and the grid down to three lines, on a chart already criticised for
+ * looking flat. Eight intervals keeps the top at 2,000 for the same data while adding the
+ * intermediate gridlines, which is what makes the early, small part of the series readable. The
+ * padding is dropped with it: `count = ceil(hi / step)` below already guarantees the top tick lands
+ * at or above the data, so the 8% was only compounding with the rung to cause the overshoot.
  */
 export function axisTicks(hi: number): number[] {
-  const raw = (hi || 1) / 4
+  const raw = (hi || 1) / 8
   const magnitude = Math.pow(10, Math.floor(Math.log10(raw)))
   const step = [1, 2, 2.5, 5, 10].map((k) => k * magnitude).find((k) => k >= raw) ?? 10 * magnitude
   // At least one interval, so an all-zero series still yields a non-zero top: `yOf` divides by it.
@@ -144,8 +121,14 @@ export function chartGeometry(series: GrowthSeries, stake: number, width = 940, 
       }
     }
   }
-  const ticks = axisTicks(hi * 1.08)
+  const ticks = axisTicks(hi)
   const top = ticks[ticks.length - 1]
+  // Digits needed so the tick step itself is distinguishable — at a small stake the step can be a
+  // fraction of a GRAM, and `maximumFractionDigits: 0` alone rounds every tick to "0, -0, -0" (2026-
+  // 09-30). `axisTicks` always returns at least two entries (see its `count` floor), so ticks[1] is
+  // the step. Capped at 2: below a hundredth of a GRAM the figure stops being meaningful.
+  const step = ticks[1] - ticks[0]
+  const tickDigits = Math.min(2, Math.max(0, Math.ceil(-Math.log10(step))))
 
   const xOf = (i: number) => MARGIN.left + (i / n) * (width - MARGIN.left - MARGIN.right)
   // v is a shortfall magnitude, so it grows DOWNWARD from the zero line at the top.
@@ -158,6 +141,7 @@ export function chartGeometry(series: GrowthSeries, stake: number, width = 940, 
     // Negated for display: the axis reads 0, −500, −1,000 … downwards. `axisTicks` stays a plain
     // positive-magnitude helper, and `v === 0` keeps the zero line's own tick unsigned.
     ticks: ticks.map((v) => ({ y: yOf(v), value: v === 0 ? 0 : -v })),
+    tickDigits,
     xLabels: [],
     zeroY: yOf(0),
   }
@@ -169,32 +153,78 @@ export function chartGeometry(series: GrowthSeries, stake: number, width = 940, 
   for (const id of COMPARED) {
     const vals = extraGram(series, id, stake)
     let path = ''
+    let area = ''
     let pen = false
     let lastIndex = 0
+    // x-index the current run started at, so that run's own area subpath closes back to ITS start,
+    // not the series' first point — closing every run to the same x is what filled the wash under a
+    // gap and left earlier runs as degenerate slivers (2026-09-30).
+    let runStart = 0
     for (let i = 0; i <= n; i++) {
       const v = vals[i]
       if (!Number.isFinite(v)) {
+        if (pen) {
+          // The run that was just open ends here: close ITS subpath along the zero line before the
+          // gap breaks it. `path` (the stroke) gets no such close — a stroke should break at a gap.
+          area += `L${xOf(lastIndex).toFixed(1)} ${yOf(0).toFixed(1)}L${xOf(runStart).toFixed(1)} ${yOf(0).toFixed(1)}Z`
+        }
         pen = false
         continue
+      }
+      if (!pen) {
+        runStart = i
+        area += 'M' + xOf(i).toFixed(1) + ' ' + yOf(v).toFixed(1)
+      } else {
+        area += 'L' + xOf(i).toFixed(1) + ' ' + yOf(v).toFixed(1)
       }
       path += (pen ? 'L' : 'M') + xOf(i).toFixed(1) + ' ' + yOf(v).toFixed(1)
       pen = true
       lastIndex = i
     }
+    if (pen) {
+      // The last run never hit a gap to close it, so close it here.
+      area += `L${xOf(lastIndex).toFixed(1)} ${yOf(0).toFixed(1)}L${xOf(runStart).toFixed(1)} ${yOf(0).toFixed(1)}Z`
+    }
     out.series.push({
       id,
       path,
-      // Closed back along the zero line: the filled band is "what Hipo earned on top", which is
-      // the whole point of the chart.
-      area:
-        path === ''
-          ? ''
-          : path + `L${xOf(lastIndex).toFixed(1)} ${yOf(0).toFixed(1)}L${xOf(0).toFixed(1)} ${yOf(0).toFixed(1)}Z`,
+      area,
       endX: xOf(lastIndex),
       endY: yOf(vals[lastIndex]),
       endValue: vals[lastIndex],
+      labelY: 0, // resolved below, once every series' endY is known
     })
   }
+
+  // Resolve each series' end-label row so two competitor labels — or a competitor and "Hipo" —
+  // never overlap. Sweep over a COPY sorted by endY; `out.series` itself must stay in COMPARED
+  // order because both consumers index it by id, so the sweep mutates the same objects by
+  // reference rather than reordering the array.
+  //
+  // It takes TWO passes. The first pushes labels down out of each other's way, which is enough
+  // while there is room below. When the lines end close together AND close to the floor there is
+  // no room below — two protocols within a few GRAM of each other at the foot of the chart put
+  // both labels past the x-axis row, and clamping them there alone just stacks them on top of one
+  // another (the first pass alone left them 8.6px apart in exactly that case). The second pass
+  // walks back up from the floor and lifts whatever the clamp would have collided.
+  const LABEL_HALF = 14 // half-height of a two-line competitor label block
+  const LABEL_GAP = 2 * LABEL_HALF + 2 // the closest two label rows may sit
+  const HIPO_BOTTOM = 10 // how far the one-line Hipo label extends below its own baseline row
+  const floor = height - MARGIN.bottom + LABEL_HALF - 6 // never past the x-axis row
+  const byDepth = [...out.series].sort((a, b) => a.endY - b.endY)
+
+  let occupied = out.zeroY + HIPO_BOTTOM
+  for (const entry of byDepth) {
+    entry.labelY = Math.max(entry.endY, occupied + LABEL_HALF + 2)
+    occupied = entry.labelY + LABEL_HALF
+  }
+
+  let ceiling = floor
+  for (let i = byDepth.length - 1; i >= 0; i--) {
+    byDepth[i].labelY = Math.min(byDepth[i].labelY, ceiling)
+    ceiling = byDepth[i].labelY - LABEL_GAP
+  }
+
   return out
 }
 

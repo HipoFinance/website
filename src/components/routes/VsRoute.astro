@@ -25,7 +25,7 @@ import { formatCompact, formatNumber, formatUsd, formatDate } from '../../i18n/f
 import { fetchGauge, vsValues, VS_EXAMPLES } from '../../data/gauge.ts'
 import { fetchClubRewards, hpoBoostPoints, hpoPerYear } from '../../data/club.ts'
 import { growthSeries } from '../../data/lst.ts'
-import { chartGeometry, stakeOutcome, STAKE_PRESETS, DEFAULT_STAKE, COMPARED } from '../../data/lst-geometry.ts'
+import { stakeOutcome, STAKE_PRESETS, DEFAULT_STAKE, COMPARED } from '../../data/lst-geometry.ts'
 
 const locale = localeOf(Astro)
 const { t, tHtml } = getT(locale, ['seo', 'site', 'vs'])

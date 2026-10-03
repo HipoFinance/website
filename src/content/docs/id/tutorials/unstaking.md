@@ -25,7 +25,7 @@ Jika unstake Instan tidak dapat menutupi jumlah yang Anda inginkan, Anda dapat m
 
 <figure><img src="/docs/images/tutorials-unstaking-3.png" alt="Formulir swap STON.fi dengan GRAM yang dikirim dan hGRAM yang diterima"></figure>
 
-Selain itu, beberapa dompet seperti Tonkeeper menyediakan fitur untuk men-swap hGRAM menjadi GRAM langsung di dalam aplikasi.
+Selain itu, beberapa dompet seperti Keeper menyediakan fitur untuk men-swap hGRAM menjadi GRAM langsung di dalam aplikasi.
 
 Jika dompet Anda sama sekali tidak dapat menandatangani transaksi dapp — misalnya dompet multisig atau cold wallet — Anda tetap bisa meng-unstake dengan transfer biasa: lihat [Staking tanpa aplikasi](/docs/staking-without-the-app/).
 

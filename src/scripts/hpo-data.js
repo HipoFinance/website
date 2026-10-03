@@ -1,6 +1,6 @@
-// Refreshes the live numbers on the HPO page: the hero market card (#hpoMarketCap #hpoVolume
-// #hpoHolders) and the "Impressive metrics" card (#hpoTvlGram #hpoTvlUsd #hpoStakers), re-polled
-// every 5 minutes.
+// Refreshes the live numbers on the HPO page: the hero market card (#hpoPrice #hpoChange24h
+// #hpoMarketCap #hpoVolume #hpoHolders) and the "Impressive metrics" card (#hpoTvlGram #hpoTvlUsd
+// #hpoStakers), re-polled every 5 minutes.
 //
 // These values are already IN the HTML: src/components/Hpo.astro bakes them at build time via
 // src/data/gauge.ts, and this script formats through the very same gaugeValues(), so a refresh
@@ -17,12 +17,21 @@
 
 import { LOCALES } from '../i18n/registry.mjs'
 import { formatNumber } from '../i18n/format.ts'
-import { gaugeValues } from '../data/gauge.ts'
+import { gaugeValues, hpoChangeDirection } from '../data/gauge.ts'
 
 const locale = pageLocale()
 
 // Every GaugeValues key that names an element on this page.
-const IDS = ['hpoMarketCap', 'hpoVolume', 'hpoHolders', 'hpoTvlGram', 'hpoTvlUsd', 'hpoStakers']
+const IDS = [
+  'hpoPrice',
+  'hpoChange24h',
+  'hpoMarketCap',
+  'hpoVolume',
+  'hpoHolders',
+  'hpoTvlGram',
+  'hpoTvlUsd',
+  'hpoStakers',
+]
 
 let elBurned = document.getElementById('hpoBurned')
 let elBurnArc = document.getElementById('hpoBurnArc')
@@ -124,6 +133,18 @@ let updateHpoData = () => {
       const values = gaugeValues(locale, res.result)
       for (const id of IDS) {
         SetText(document.getElementById(id), values[id])
+      }
+      // Unlike the other figures, a missing 24h change is hidden rather than left showing: an old
+      // "24h" figure next to the Live badge would claim to be current.
+      const direction = hpoChangeDirection(res.result)
+      const elChange = document.getElementById('hpoChange24h')
+      const elChangeWrap = document.getElementById('hpoChangeWrap')
+      if (elChange != null && elChangeWrap != null) {
+        elChangeWrap.hidden = direction === undefined
+        if (direction !== undefined) {
+          elChange.classList.toggle('text-positive', direction === 'up')
+          elChange.classList.toggle('text-accent', direction === 'down')
+        }
       }
     })
     .catch(() => {

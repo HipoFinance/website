@@ -24,9 +24,9 @@ title: 'استیک کردن'
 
 ### گام ۲: کیف پول خود را متصل کنید
 
-سپس کیف پول TON خود را متصل کنید. Hipo از طیف گسترده‌ای از کیف پول‌های GRAM، از جمله Tonkeeper، Tonhub و دیگران، پشتیبانی می‌کند.
+سپس کیف پول TON خود را متصل کنید. Hipo از طیف گسترده‌ای از کیف پول‌های GRAM، از جمله Keeper، Tonhub و دیگران، پشتیبانی می‌کند.
 
-<figure><img src="/docs/images/tutorials-staking-3.png" alt="پنجرهٔ اتصال کیف پول با فهرست Tonkeeper و MyTonWallet و Tonhub و DeWallet"></figure>
+<figure><img src="/docs/images/tutorials-staking-3.png" alt="پنجرهٔ اتصال کیف پول با فهرست Gram Wallet و Keeper و My Wallet"></figure>
 
 ### گام ۳: مقدار مورد نظر برای استیک را وارد کنید
 

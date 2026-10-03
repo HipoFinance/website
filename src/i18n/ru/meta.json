@@ -1168,7 +1168,7 @@
     "reviewed": false
   },
   "docs/hipo-tokens/hipo-staked-gram-hgram/hgram-use-cases.md": {
-    "sourceHash": "276cc2e650b61c1f7e5aac63ec9015105218101f",
+    "sourceHash": "8567bad72510c78247feb345179f39debbec8fd7",
     "reviewed": false
   },
   "docs/index.md": {
@@ -1236,11 +1236,11 @@
     "reviewed": false
   },
   "docs/tutorials/staking.md": {
-    "sourceHash": "b0f42d61a72b31b6e0bd3778c8e1652984dcd15c",
+    "sourceHash": "fe300bf46f584bea6706bc37bffaa3db345e051d",
     "reviewed": false
   },
   "docs/tutorials/unstaking.md": {
-    "sourceHash": "01398e4a555ef0e779eddf5d58180a83d9ad34bd",
+    "sourceHash": "c50a5b1170cbde4b0cdfc25a3a296ce12a3430fd",
     "reviewed": false
   },
   "docs/wallets-and-rewards.md": {
@@ -1385,6 +1385,18 @@
   },
   "hpo.hero.buy": {
     "sourceHash": "131949f3d136642712501f8de212ae3621eb91f4",
+    "reviewed": false
+  },
+  "hpo.hero.change24h": {
+    "sourceHash": "0277959611310976682872bcb5d6423aa581a202",
+    "reviewed": false
+  },
+  "hpo.hero.chartLink": {
+    "sourceHash": "2ca8bbef1e0de44f671effb85b7952d82741d30d",
+    "reviewed": false
+  },
+  "hpo.hero.chartSource": {
+    "sourceHash": "86728b17adbbcf282a82bbfb331a3d04922b102c",
     "reviewed": false
   },
   "hpo.hero.holders": {
@@ -1904,7 +1916,7 @@
     "reviewed": false
   },
   "prose/faq/hgram/can-i-use-hgram-in-defi.md": {
-    "sourceHash": "f66b538da1ac368d4261230e4fef857169c427dc",
+    "sourceHash": "164d891765906061766ae93d3cbd4ba25a48c662",
     "reviewed": false
   },
   "prose/faq/hgram/is-1-hgram-always-equal-to-1-gram.md": {
@@ -2076,7 +2088,7 @@
     "reviewed": false
   },
   "prose/shell/defi/cards/05-wallets-with-hgram-and-hpo-support.md": {
-    "sourceHash": "38a60e59a197aef2bc95824ff5112b44c731b71f",
+    "sourceHash": "e46fb7d43c9d224c603e1c679c3be992a0242a29",
     "reviewed": false
   },
   "prose/shell/defi/faq/01-does-using-hgram-in-defi-stop-it-from-earning-staking-rewards.md": {

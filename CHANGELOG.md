@@ -7,13 +7,72 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
-## 2026-09-29 — [detailed report](changelog/2026-09-29-blog-migration.md)
+## 2026-10-03 — [detailed report](changelog/2026-09-29-blog-migration.md)
 
 - Added an English-only blog at `/blog/` with all 22 posts imported from Medium.
 - Added post pages, an RSS feed, per-post OG images and a blog sitemap.
 - Pointed the footer's Blog link at `/blog/` instead of Medium.
 - Added `scripts/import-medium-posts.mjs`, the one-time Medium importer.
 - Added forwarding pages for two renamed GitBook-era docs URLs.
+
+## 2026-10-01 — [detailed report](changelog/2026-10-01-chart-readout-follows-hover.md)
+
+- Made every `/stats/` chart readout follow the hover, and deleted the tooltip.
+- Swapped each card's range label for the hovered timestamp, and tinted the readout row while hovering.
+- Hid the range delta during hover, and read a gap at the hovered time as `—`.
+- Swept Keeper through the changelog and spec files too, and put Walt back above My Wallet.
+
+## 2026-10-01 — [detailed report](changelog/2026-10-01-keeper-and-staking-screenshot.md)
+
+- Retook the wallet-connect screenshot in the staking tutorial; it now shows Gram Wallet, Keeper and My Wallet.
+- Updated that figure's alt text in all eleven locales, which the earlier rename had deliberately left stale.
+- Renamed Tonkeeper to Keeper across the tutorials, two code comments and the glossary.
+- Listed My Wallet above Walt on `/defi/`.
+
+## 2026-10-01 — [detailed report](changelog/2026-10-01-wallet-rebrands.md)
+
+- Renamed the `/defi/` partner wallets: TON Space is now Walt, MyTonWallet is now My Wallet.
+- Repointed both links to `t.me/walt` and `mywallet.io`, and replaced both logos.
+- Swept the two names through the hGRAM docs, the DeFi FAQ and the glossary in all eleven locales.
+- Left the old name in one screenshot's alt text, which still shows the old branding.
+
+## 2026-10-01 — [detailed report](changelog/2026-10-01-stats-chart-current-value.md)
+
+- Gave every `/stats/` chart a readout row stating its current value, with the series' delta beside it.
+- Removed the in-plot copy of that value, which sat at tick size in the tick band and was clipped on three charts.
+- Dropped the tick-collision hack with it, so every y-axis label renders again.
+- Superseded the spec's "no latest number in the header" rule, and fixed CLAUDE.md on which app pages have a body mirror.
+
+## 2026-10-01 — [detailed report](changelog/2026-10-01-landing-stat-cards-link-stats.md)
+
+- Linked the landing page's TVL, APY, holders and staking-fee cards to `/stats/`.
+- Gave them the audit cards' hover lift, so both card grids on the page behave alike.
+
+## 2026-09-30 — [detailed report](changelog/2026-09-30-vs-chart-early-years.md)
+
+- Gave the `/vs/` comparison chart an eight-interval axis, so its early years read against a gridline.
+- Put each protocol's final value under its name at the end of its line.
+- Fixed the wash filling across a gap, tick labels collapsing at small stakes, and colliding end labels.
+- Stopped an undrawn protocol's gauge sample from pushing `NaN` into the headline figures.
+- Deleted the dead `growthSeries()` copy in `lst-geometry.ts`.
+
+## 2026-09-30 — [detailed report](changelog/2026-09-30-hpo-card-price-compact.md)
+
+- Made the HPO card's price row more compact: smaller type and tighter gaps, about 33 px shorter.
+
+## 2026-09-30 — [detailed report](changelog/2026-09-30-hpo-card-latest-price.md)
+
+- Added HPO's latest price and 24h change above the price graph on `/hpo/`, in every locale.
+
+## 2026-09-30 — [detailed report](changelog/2026-09-30-hpo-card-figures-wrap.md)
+
+- Stacked the HPO card's market cap, volume and holders as a list on phones, so they no longer break mid-word.
+
+## 2026-09-30 — [detailed report](changelog/2026-09-30-hpo-price-chart-source.md)
+
+- Added a "Source: CoinGecko" note below the HPO price chart card on `/hpo/`.
+- Clicking the HPO price chart opens CoinGecko's HPO page in a new tab.
+- Translated both new strings into all ten other released locales.
 
 ## 2026-09-27 — [detailed report](changelog/2026-09-27-ips-ratified.md)
 
@@ -192,12 +251,12 @@ here — `git log` remains the complete record.
 
 ## 2026-09-03 — [detailed report](changelog/2026-09-03-multisig-wallet-app-flow.md)
 
-- Tonkeeper builds a real multisig request from the order link, so pressing Stake
+- Keeper builds a real multisig request from the order link, so pressing Stake
   or Unstake now opens the wallet app directly, with no dialog.
 - The copy fields and the `d`/`w` comment protocol became the fallback for when
   no wallet app opens, detected by the page still being in front.
 - A dismissible note names the connected multisig after hand-off, because
-  Tonkeeper does not preselect it and the position lands in whichever wallet pays.
+  Keeper does not preselect it and the position lands in whichever wallet pays.
 - The amount field clears once a wallet app has taken the link, and keeps its
   value when nothing did.
 - Twelve catalog keys retired, two added, and the docs and FAQ now lead with the

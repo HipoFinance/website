@@ -3,8 +3,7 @@
 Hipo's 22 blog posts lived on medium.com/@hipofinance, so every link and ranking they earned went to Medium. This
 session reviews the migration spec the blog owner's side drafted, aligns it with their Editorial Hub
 (kept outside this public repo), and builds an English-only blog at `/blog/` with all 22 posts imported from the owner's
-Medium export. It is not live yet: launch is planned for about 10 November, when the Medium copies get their canonical
-links pointed here on the same day.
+Medium export. The work ran from 29 September to 3 October. Launch was first planned for about 10 November and was moved up to 3 October with the blog owner's agreement; the Medium copies get their canonical links pointed here the same day.
 
 | Commit         | Subject                                         |
 | -------------- | ----------------------------------------------- |
@@ -102,9 +101,8 @@ the Hipo Gang growth report, which Medium's markup cut to "hG".
 - The blog owner's answers and review: the Terra section still in the LST post (#19), the missing "About Hipo"
   footer (Fix 5g), subtitles, an old "#1 Most Profitable" screenshot in the 2nd anniversary report, and small Medium
   formatting fixes. Any change on Medium is mirrored here before launch.
-- Launch (~10 Nov): commit and push, switch each Medium canonical and add the notice the same day, submit the
-  sitemap, then check Search Console weekly for 8 weeks.
-- Row 23 (the 3rd anniversary report, 30 Oct): import with `--only hipo-3rd-anniversary-report` once it is on Medium.
+- Launch day (3 Oct): after the push, switch each Medium canonical and add the notice, submit the sitemap, then check Search Console weekly for 8 weeks (to about 28 Nov). Until then, edits go on both copies.
+- The 3rd anniversary report (30 Oct) is now published on hipo.finance first, as a new post, instead of being migrated from Medium.
 - Lighthouse, the Rich Results Test and the RSS validator still need running (an online tool or a person).
 - Separate tasks from the Editorial Hub's Search Console baseline: the 25 pages returning 404, single-hop redirects
   from the old subdomains, whether `sdk-example.hipo.finance` should be indexed, and a one-line profit-sharing note on

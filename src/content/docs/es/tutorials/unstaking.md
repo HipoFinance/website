@@ -25,7 +25,7 @@ Si el unstaking instantáneo no puede cubrir la cantidad que quieres, puedes cam
 
 <figure><img src="/docs/images/tutorials-unstaking-3.png" alt="El formulario de swap de STON.fi con GRAM a enviar y hGRAM a recibir"></figure>
 
-Además, algunas billeteras como Tonkeeper ofrecen una función para cambiar hGRAM por GRAM directamente dentro de la app.
+Además, algunas billeteras como Keeper ofrecen una función para cambiar hGRAM por GRAM directamente dentro de la app.
 
 Si tu billetera no puede firmar transacciones de dapps en absoluto —por ejemplo, una billetera multisig o fría—, aún puedes hacer unstaking con una transferencia normal: consulta [Staking sin la app](/docs/staking-without-the-app/).
 

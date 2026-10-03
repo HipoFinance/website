@@ -24,9 +24,9 @@ Sie können Ihr GRAM über die [Hipo Web App](/stake/), die [Telegram Mini App](
 
 ### Schritt 2: Verbinden Sie Ihre Wallet
 
-Verbinden Sie als Nächstes Ihre TON-Wallet. Hipo unterstützt eine Vielzahl von GRAM-Wallets, darunter Tonkeeper, Tonhub und weitere.
+Verbinden Sie als Nächstes Ihre TON-Wallet. Hipo unterstützt eine Vielzahl von GRAM-Wallets, darunter Keeper, Tonhub und weitere.
 
-<figure><img src="/docs/images/tutorials-staking-3.png" alt="Der Wallet-Verbinden-Dialog mit Tonkeeper, MyTonWallet, Tonhub und DeWallet"></figure>
+<figure><img src="/docs/images/tutorials-staking-3.png" alt="Der Wallet-Verbinden-Dialog mit Gram Wallet, Keeper und My Wallet"></figure>
 
 ### Schritt 3: Geben Sie den Betrag ein, den Sie staken möchten
 

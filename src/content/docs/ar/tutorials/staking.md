@@ -24,9 +24,9 @@ title: 'الستاكينغ'
 
 ### الخطوة ٢: اربط محفظتك
 
-بعد ذلك، اربط محفظة TON الخاصة بك. يدعم Hipo مجموعة واسعة من محافظ GRAM، منها Tonkeeper وTonhub وغيرها.
+بعد ذلك، اربط محفظة TON الخاصة بك. يدعم Hipo مجموعة واسعة من محافظ GRAM، منها Keeper وTonhub وغيرها.
 
-<figure><img src="/docs/images/tutorials-staking-3.png" alt="مربع حوار ربط المحفظة يسرد Tonkeeper وMyTonWallet وTonhub وDeWallet"></figure>
+<figure><img src="/docs/images/tutorials-staking-3.png" alt="مربع حوار ربط المحفظة يسرد Gram Wallet وKeeper وMy Wallet"></figure>
 
 ### الخطوة ٣: أدخل المبلغ الذي تريد إيداعه في الستاكينغ
 

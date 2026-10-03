@@ -1,6 +1,6 @@
 # Blog migration: Medium → hipo.finance/blog/
 
-**Status:** implemented 2026-09-30, launch pending (approved 2026-09-29; revised 2026-09-29 after review; original draft 2026-09-28 by @Paul)
+**Status:** implemented; launched 2026-10-03 (see the 2026-10-03 amendment; approved 2026-09-29; revised 2026-09-29 after review; original draft 2026-09-28 by @Paul)
 
 Editorial policy, post priorities and dates come from the *Editorial Hub* (kept by the blog owner outside this public repo: main tab, Post inventory, Ready-to-paste fixes, Roadmap, Voice & SEO rules, Search Console baseline). This spec is the technical side of its priority 2. Where the two overlap, the Hub decides editorial matters (what a post says, when it is published) and this spec decides how the site does it.
 
@@ -190,6 +190,15 @@ The Hub's rule is that the blog owner reviews every article before it is publish
 5. Point the footer link at `/blog/`, in the same deploy as step 3.
 6. Mid-Nov: the Q3 benchmark is the first new post (see *Publishing a new post*).
 7. Weekly for 8 weeks: check in Search Console that the Google-selected canonical is hipo.finance; watch "Duplicate, Google chose different canonical" on /blog/ URLs; track impressions, clicks, and `blog_cta_click`.
+
+### Amendment (2026-10-03): launch moved up to 3 October
+
+The blog owner agreed to launch on 2026-10-03 instead of ~10 Nov. This supersedes the dates above and the plan for row 23:
+
+- **22 posts at launch**, not 23. Where the acceptance criteria say 23 slugs and 24 sitemap URLs, read 22 and 23.
+- **The 3rd anniversary report (row 23) is no longer migrated.** It is published on hipo.finance first on 30 Oct through *Publishing a new post*, at `/blog/hipo-3rd-anniversary-report/`, and may be cross-posted to Medium afterwards with *Import a story*, which sets the canonical itself. This reverses Open question 5. The importer's row 23 entry stays, unused.
+- The Medium canonicals and notices switch on 2026-10-03, so the 8-week both-copies window runs to about 28 Nov.
+- Lighthouse, the Rich Results Test and the RSS validator run against the live URLs after launch.
 
 ### Amendment (2026-09-30): forwarding pages for two renamed docs URLs
 

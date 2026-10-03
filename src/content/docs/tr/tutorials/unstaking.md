@@ -25,7 +25,7 @@ Anında unstake istediğiniz miktarı karşılayamıyorsa, hGRAM'ınızı biraz 
 
 <figure><img src="/docs/images/tutorials-unstaking-3.png" alt="Gönderilecek GRAM ve alınacak hGRAM'ın göründüğü STON.fi swap formu"></figure>
 
-Ayrıca Tonkeeper gibi bazı cüzdanlar, hGRAM'ı doğrudan uygulama içinde GRAM ile swap edebilmenizi sağlayan bir özellik sunar.
+Ayrıca Keeper gibi bazı cüzdanlar, hGRAM'ı doğrudan uygulama içinde GRAM ile swap edebilmenizi sağlayan bir özellik sunar.
 
 Cüzdanınız dapp işlemlerini hiç imzalayamıyorsa — örneğin bir multisig veya soğuk cüzdan — düz bir transferle yine de unstake edebilirsiniz: bkz. [Uygulama olmadan staking](/docs/staking-without-the-app/).
 

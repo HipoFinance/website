@@ -25,7 +25,7 @@ Si l’unstaking Instantané ne peut pas couvrir le montant voulu, tu peux écha
 
 <figure><img src="/docs/images/tutorials-unstaking-3.png" alt="Le formulaire de swap STON.fi avec les GRAM à envoyer et les hGRAM à recevoir"></figure>
 
-Par ailleurs, certains portefeuilles comme Tonkeeper proposent une fonction qui permet d’échanger des hGRAM contre des GRAM directement dans l’app.
+Par ailleurs, certains portefeuilles comme Keeper proposent une fonction qui permet d’échanger des hGRAM contre des GRAM directement dans l’app.
 
 Si ton portefeuille ne peut pas du tout signer de transactions dapp — un multisig ou un cold wallet, par exemple —, tu peux quand même unstaker avec un simple transfert : voir [Staker sans l’app](/docs/staking-without-the-app/).
 
