@@ -235,27 +235,27 @@ English-only because the old docs domain only ever served English. The old no-sl
 
 ## Acceptance criteria
 
-- [ ] The blog owner has approved every migrated post in the local preview (recorded in the changelog report).
-- [ ] Every post has an owner-written `description` (< 155 chars) and, where set, `seoTitle` (< 60); the build fails otherwise (schema check). The two benchmarks' subtitles don't end in *Summary* or *Introduction*.
-- [ ] No post's visible text, `<title>` or OG tags say *hTON* except post #2.
-- [ ] `npm run build` succeeds, and `node scripts/check-i18n.mjs` passes with `blog.json` present only in `en/`.
-- [ ] `dist/blog/<slug>/index.html` exists for all 23 slugs in the mapping table.
-- [ ] Each post's HTML has exactly one `<h1>`, has no heading level skipped, and has `<link rel="canonical" href="https://hipo.finance/blog/<slug>/">`.
-- [ ] No blog page contains a `<link rel="alternate" hreflang>` or `x-default`, a `noindex`, or the `LocalePreference` script. (The language menus' `<a hreflang>` attributes are expected, as on every page.)
-- [ ] Each post's `article:published_time` date equals the original Medium publish date, checked against Medium for all 23.
-- [ ] No page in `dist/` contains `miro.medium.com` or `cdn-images-1.medium.com`.
-- [ ] `grep -r "medium.com/@hipofinance" dist/` matches only the /verify/ pages.
-- [ ] On a blog page, every entry in the language menu and the suggestion banner links to `/<locale>/` (the locale's home). On `/stake/`, the entries still link to `/<locale>/stake/`.
-- [ ] `/fa/` and `/` render byte-identically to before, apart from the footer Blog link and the `twitter:site` tag.
-- [ ] `dist/sitemap-index.xml` lists `sitemap-en-blog-0.xml`, which has 24 URLs (index + 23), each with a `<lastmod>`. No other sitemap contains `/blog/`.
-- [ ] `dist/blog/rss.xml` validates at validator.w3.org/feed (paste mode).
-- [ ] `dist/blog/<slug>/og.png` is 1200×630 for every post.
-- [ ] JSON-LD for 3 sample posts passes the Rich Results Test (code-paste mode).
-- [ ] Lighthouse mobile on 3 posts (local preview): Performance ≥ 90, SEO = 100, CLS < 0.1.
-- [ ] Heading anchors appear on blog headings, and the FAQ and HPO prose pages render unchanged.
-- [ ] With `gtag` stubbed in the browser, the call-to-action click, the 75% scroll and outbound clicks each fire once with the listed parameters.
-- [ ] `dist/docs/hipo-tokens/hipo-staked-ton-hton/index.html` and `dist/docs/hipo-tokens/hpo/index.html` are stubs forwarding to the hGRAM and HPO docs pages; after deploy, `https://docs.hipo.finance/hipo-tokens/hipo-staked-ton-hton` and `…/hipo-tokens/hpo` end on those pages instead of a 404.
-- [ ] After deploy: `/blog/staking-on-ton` returns a 301 to the slash URL; all 23 posts return 200; a Telegram paste of one post shows its OG card.
+- [x] The blog owner has approved every migrated post in the local preview (recorded in the changelog report). *Met with a change: the owner delegated the review to Alireza (2026-09-30), who reviewed with a screenshot check of all 22 posts.*
+- [x] Every post has an owner-written `description` (< 155 chars) and, where set, `seoTitle` (< 60); the build fails otherwise (schema check). The two benchmarks' subtitles don't end in *Summary* or *Introduction*.
+- [ ] No post's visible text, `<title>` or OG tags say *hTON* except post #2. *Not met as worded: historical mentions remain, as on Medium — "(prev. hTON)" notes in four posts, two DEX URLs, and hTON shown inside old images. Titles and OG tags are clean.*
+- [x] `npm run build` succeeds, and `node scripts/check-i18n.mjs` passes with `blog.json` present only in `en/`.
+- [x] `dist/blog/<slug>/index.html` exists for all 23 slugs in the mapping table. *(22 after the 2026-10-03 amendment.)*
+- [x] Each post's HTML has exactly one `<h1>`, has no heading level skipped, and has `<link rel="canonical" href="https://hipo.finance/blog/<slug>/">`.
+- [x] No blog page contains a `<link rel="alternate" hreflang>` or `x-default`, a `noindex`, or the `LocalePreference` script. (The language menus' `<a hreflang>` attributes are expected, as on every page.)
+- [x] Each post's `article:published_time` date equals the original Medium publish date, checked against Medium for all 23. *(22.)*
+- [x] No page in `dist/` contains `miro.medium.com` or `cdn-images-1.medium.com`.
+- [x] `grep -r "medium.com/@hipofinance" dist/` matches only the /verify/ pages.
+- [x] On a blog page, every entry in the language menu and the suggestion banner links to `/<locale>/` (the locale's home). On `/stake/`, the entries still link to `/<locale>/stake/`. *Menus met; the suggestion banner is hidden on blog pages instead (decided 2026-09-29).*
+- [x] `/fa/` and `/` render byte-identically to before, apart from the footer Blog link and the `twitter:site` tag.
+- [x] `dist/sitemap-index.xml` lists `sitemap-en-blog-0.xml`, which has 24 URLs (index + 23), each with a `<lastmod>`. No other sitemap contains `/blog/`. *(23 URLs: index + 22.)*
+- [x] `dist/blog/rss.xml` validates at validator.w3.org/feed (paste mode). *Validated against the live feed: 0 errors, 0 warnings.*
+- [x] `dist/blog/<slug>/og.png` is 1200×630 for every post.
+- [ ] JSON-LD for 3 sample posts passes the Rich Results Test (code-paste mode). *Couldn't verify with Google's tool (no way to run it from the build box). The schema.org validator reports 0 errors and 0 warnings on 3 live posts and the index.*
+- [ ] Lighthouse mobile on 3 posts (local preview): Performance ≥ 90, SEO = 100, CLS < 0.1. *Run on the live pages. Performance 95–98 and CLS ≤ 0.015 on all; SEO 100 on two posts and the index, 92 on the 2nd anniversary report (one link reads "here", as on Medium).*
+- [x] Heading anchors appear on blog headings, and the FAQ and HPO prose pages render unchanged.
+- [x] With `gtag` stubbed in the browser, the call-to-action click, the 75% scroll and outbound clicks each fire once with the listed parameters.
+- [x] `dist/docs/hipo-tokens/hipo-staked-ton-hton/index.html` and `dist/docs/hipo-tokens/hpo/index.html` are stubs forwarding to the hGRAM and HPO docs pages; after deploy, `https://docs.hipo.finance/hipo-tokens/hipo-staked-ton-hton` and `…/hipo-tokens/hpo` end on those pages instead of a 404.
+- [ ] After deploy: `/blog/staking-on-ton` returns a 301 to the slash URL; all 23 posts return 200; a Telegram paste of one post shows its OG card. *301 and 200s met for all 22. The Telegram card was not checked.*
 
 ## Risks & rollback
 

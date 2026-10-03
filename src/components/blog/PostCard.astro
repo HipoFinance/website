@@ -27,7 +27,7 @@ const Heading = level
     class='aspect-[1200/630] w-full object-cover'
   />
   <div class='flex min-w-0 flex-col gap-2 p-5'>
-    <time datetime={post.data.publishedAt.toISOString().slice(0, 10)} class='text-text-faint text-[13px]'>
+    <time datetime={post.data.publishedAt.toISOString().slice(0, 10)} class='text-text-muted text-[13px]'>
       {formatPostDate(post.data.publishedAt)}
     </time>
     <Heading class='font-fredoka text-text group-hover:text-accent text-lg leading-snug font-semibold'>

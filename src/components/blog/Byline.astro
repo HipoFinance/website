@@ -16,7 +16,7 @@ const { t } = getT('en', ['blog'])
 const day = (date: Date) => date.toISOString().slice(0, 10)
 ---
 
-<p class='text-text-faint flex flex-wrap items-center gap-x-2 gap-y-1 text-sm'>
+<p class='text-text-muted flex flex-wrap items-center gap-x-2 gap-y-1 text-sm'>
   <span>{t('blog.byline.by', { author })}</span>
   <span aria-hidden='true'>·</span>
   <span>

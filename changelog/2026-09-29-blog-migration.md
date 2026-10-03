@@ -96,14 +96,25 @@ the Hipo Gang growth report, which Medium's markup cut to "hG".
 - A code review found real importer bugs (body truncated at the first section break, image filename collisions,
   unescaped link targets and captions); all were fixed and re-tested before the real import.
 
+### Launch (2026-10-03)
+
+- Merged the eleven commits made on `main` since the branch was cut (one trivial conflict, in `CHANGELOG.md`), rebuilt,
+  and pushed. All 22 live posts and their `og.png` return 200; `/blog/`, the feed and the blog sitemap (23 URLs, each
+  with a `<lastmod>`) load; a no-slash post URL 301s to the slash URL; the two old `docs.hipo.finance` links now end
+  on the hGRAM and HPO docs pages.
+- Medium: all 22 canonical links point at their hipo.finance URL (checked with a browser-console script, because
+  Medium answers this box with 403), and the notice is on the posts.
+- Live checks: the W3C validator passes the feed with 0 errors and 0 warnings; the schema.org validator reports 0
+  errors on 3 posts and the index (Google's Rich Results Test was not run); Lighthouse mobile gives Performance 95–98,
+  CLS ≤ 0.015, Best practices 100, SEO 100 except 92 on the 2nd anniversary report (a link that reads "here").
+- Lighthouse flagged the blog's small grey text in the light scheme (contrast 3.59). The breadcrumb, byline, card dates
+  and figure captions now use `text-muted` (5.59 on cream, 8.51 on dark).
+
 ### Follow-ups
 
-- The blog owner's answers and review: the Terra section still in the LST post (#19), the missing "About Hipo"
-  footer (Fix 5g), subtitles, an old "#1 Most Profitable" screenshot in the 2nd anniversary report, and small Medium
-  formatting fixes. Any change on Medium is mirrored here before launch.
-- Launch day (3 Oct): after the push, switch each Medium canonical and add the notice, submit the sitemap, then check Search Console weekly for 8 weeks (to about 28 Nov). Until then, edits go on both copies.
+- Until about 28 Nov: edits to a migrated post go on both copies; check Search Console weekly (Google-selected canonical, "chose different canonical" on /blog/ URLs, impressions and clicks).
 - The 3rd anniversary report (30 Oct) is now published on hipo.finance first, as a new post, instead of being migrated from Medium.
-- Lighthouse, the Rich Results Test and the RSS validator still need running (an online tool or a person).
+- Google's Rich Results Test and a Telegram link-preview check are still to do by hand.
 - Separate tasks from the Editorial Hub's Search Console baseline: the 25 pages returning 404, single-hop redirects
   from the old subdomains, whether `sdk-example.hipo.finance` should be indexed, and a one-line profit-sharing note on
   the HPO and profit-sharing docs pages (Fix 5j).
