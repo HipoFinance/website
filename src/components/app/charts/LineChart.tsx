@@ -394,7 +394,13 @@ const LineChart = ({
       }
       return m
     })
-    const timestamps = Array.from(tsSet).sort((a, b) => a - b)
+    // Newest first. The table lists every sample in the range -- 360 rows at 30d, 289 at 24h -- in a
+    // 256px scroll box, so only the first handful are visible when it opens. Ascending put the
+    // OLDEST of those on top, which reads as a table that stopped updating a month ago: reported
+    // 2026-10-04 as "the tables are from Sep 4-5", when the data was current to the minute. The
+    // chart above still runs left to right; this is a record of samples, and a record opens on the
+    // most recent one.
+    const timestamps = Array.from(tsSet).sort((a, b) => b - a)
     return timestamps.map((t) => ({ t, values: maps.map((m) => m.get(t)) }))
   }, [series])
 

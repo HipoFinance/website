@@ -7,6 +7,10 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-04 — [detailed report](changelog/2026-10-04-stats-table-newest-first.md)
+
+- Sorted the `/stats/` chart data tables newest first, so they open on the latest sample instead of the range's start.
+
 ## 2026-10-03 — [detailed report](changelog/2026-09-29-blog-migration.md)
 
 - Added an English-only blog at `/blog/` with all 22 posts imported from Medium.
