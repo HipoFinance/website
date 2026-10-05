@@ -71,7 +71,7 @@ Each group gets a tailored share, emphasizing Hipo’s commitment to rewarding a
 
 ## What Gives HPO Its Role
 
-HPO’s role is tied to how Hipo is used. Holders vote on protocol decisions through the Hipo DAO and keep their Hipo Club level. When Hipo charges a staking fee, part of that revenue is shared with HPO holders. Since June 2026, the staking fee has been 0% to help Hipo grow. Since 13 September 2026, validators pay a borrower fee every validation round, which a smart contract uses to buy HPO on the market and burn it.
+HPO’s role is tied to how Hipo is used. Holders vote on protocol decisions through the Hipo DAO and keep their Hipo Club level. When Hipo charges a staking fee, part of that revenue is shared with HPO holders. Since June 2026, the staking fee has been 0% to help Hipo grow. Since September 2026, validators pay a borrower fee every validation round, which a smart contract uses to buy HPO on the market and burn it.
 
 What all this is worth depends on Hipo’s growth and on the market, and it can go down as well as up. HPO is a utility and governance token. It is not equity and carries no promise of financial return.
 
@@ -81,12 +81,3 @@ What all this is worth depends on Hipo’s growth and on the market, and it can 
 
 HPO trades on TON decentralized exchanges including [STON.fi](https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=HPO) and [DeDust](https://dedust.io/swap/TON/EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM). You can also earn it by staking GRAM on Hipo through Hipo Club. Always check the token address against [Contracts & Audits](https://hipo.finance/docs/contracts-and-audits/) before you trade.
 
-* * *
-
-## Join the Revolution
-
-Don’t miss your chance to be part of Hipo’s exciting journey!
-
-You can buy HPO directly on leading platforms like [STON.fi](https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=HPO), and [DeDust](https://dedust.io/swap/TON/EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM) or swap directly through Tonkeeper.
-
-By joining early, you’ll unlock exclusive benefits, contribute to the growth of our vibrant community, and take advantage of the immense potential HPO has to offer.
