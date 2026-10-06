@@ -7,6 +7,10 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-06 — [detailed report](changelog/2026-10-06-pull-request-build.md)
+
+- Added a workflow that builds every pull request to `main`, so a broken build is seen before merge.
+
 ## 2026-10-04 — [detailed report](changelog/2026-10-04-stats-table-newest-first.md)
 
 - Sorted the `/stats/` chart data tables newest first, so they open on the latest sample instead of the range's start.

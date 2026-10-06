@@ -1,0 +1,40 @@
+# Builds every pull request to main, so a broken build is seen before merge.
+name: Pull request build
+
+on:
+  # Never pull_request_target: that one runs with the base repository's token and secrets, which a
+  # pull request from a fork must not reach. With pull_request the token is read-only and no secret
+  # is available.
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+# A new push to the same pull request replaces the build that is still running.
+concurrency:
+  group: "pr-build-${{ github.event.pull_request.number }}"
+  cancel-in-progress: true
+
+jobs:
+  pr-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          # Full history, for the same reason as deploy.yml: src/data/lastmod.mjs reads commit dates.
+          fetch-depth: 0
+          # The token is not needed after the checkout, so it is not left in the clone for the
+          # pull request's own build scripts to find.
+          persist-credentials: false
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      # The same command as the deploy: check-i18n runs first, then every released locale is built.
+      - name: Build
+        run: npm run build
