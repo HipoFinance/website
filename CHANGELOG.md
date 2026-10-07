@@ -7,6 +7,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-07 — [detailed report](changelog/2026-10-07-drop-telegram-analytics.md)
+
+- Dropped the Telegram Analytics script from the dApp pages: 408 KB of third-party JS, registered to a domain that no longer serves the app.
+- Google Analytics, which already separates Mini App from web traffic, is now the site's only analytics.
+
 ## 2026-10-06 — [detailed report](changelog/2026-10-06-pull-request-build.md)
 
 - Added a workflow that builds every pull request to `main`, so a broken build is seen before merge.

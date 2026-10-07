@@ -9,9 +9,10 @@
 const GA_MEASUREMENT_ID = 'G-3VEWCJ55NM'
 ---
 
-<!-- Host-gated at runtime rather than by `import.meta.env.PROD`, matching the Telegram-analytics
-     script in AppLayout.astro: dev, `npm run preview` and any fork's GitHub Pages copy render the
-     same markup as production but send nothing, so the property only ever sees real traffic. -->
+<!-- Host-gated at runtime rather than by `import.meta.env.PROD`: dev, `npm run preview` and any
+     fork's GitHub Pages copy render the same markup as production but send nothing, so the property
+     only ever sees real traffic. (AppLayout.astro carried a Telegram-analytics script on the same
+     gate until 2026-10-07; this is now the site's only analytics.) -->
 <script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
   ;(function () {
     if (window.location.host !== 'hipo.finance') return
