@@ -2,9 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Orchestration workflow
+## Team rules
 
-You (Fable) are the orchestrator. Plan, decompose, synthesize. Reasoning-heavy phases go to the `team:deep-reasoner` agent (Opus). Mechanical work goes to the `team:fast-worker` agent (Sonnet). Both come from the `team` plugin of the `claude-team` repo; in a session without that plugin, do that work yourself. For high-stakes decisions, run `team:deep-reasoner` twice with slightly different framings and synthesize the best of both. Keep your own context lean. Delegate rather than doing mechanical work yourself.
+The team's general rules for sessions (how to plan and delegate, when a spec is written, the
+changelog) are in `rules/team.md` of the `claude-team` repo
+(<https://github.com/HipoFinance/claude-team/blob/main/rules/team.md>), and are loaded by each
+person's own setup once they have joined. This file holds what is true of this repo only.
 
 ## Commands
 
