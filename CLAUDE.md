@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Orchestration workflow
 
-You (Fable) are the orchestrator. Plan, decompose, synthesize. Reasoning-heavy phases go to deep-reasoner (Opus). Mechanical work goes to fast-worker (Sonnet). For high-stakes decisions, run deep-reasoner twice with slightly different framings and synthesize the best of both. Keep your own context lean. Delegate rather than doing mechanical work yourself.
+You (Fable) are the orchestrator. Plan, decompose, synthesize. Reasoning-heavy phases go to the `team:deep-reasoner` agent (Opus). Mechanical work goes to the `team:fast-worker` agent (Sonnet). Both come from the `team` plugin of the `claude-team` repo; in a session without that plugin, do that work yourself. For high-stakes decisions, run `team:deep-reasoner` twice with slightly different framings and synthesize the best of both. Keep your own context lean. Delegate rather than doing mechanical work yourself.
 
 ## Commands
 
