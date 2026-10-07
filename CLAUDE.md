@@ -111,12 +111,13 @@ Spec: `specs/multi-language-site.md` (read its Decisions log before changing beh
 
 ## Changelog
 
-Each working session gets an entry. Keep both halves in sync:
+One file, `CHANGELOG.md`, newest first. Each change gets one entry, brief and complete:
 
-- `CHANGELOG.md` — **very brief**, newest first. One `## YYYY-MM-DD` heading per session, linking to its detailed report, then **3–5 one-line bullets** naming only _what_ changed. No rationale, no trade-offs, no tables, no sub-bullets. If a bullet needs a second line to make sense, it belongs in the report instead.
-- `changelog/YYYY-MM-DD-<slug>.md` — the detailed report, and the only place detail goes: an intro paragraph, a table of the session's commits, sections covering what changed and why, then `### Verification performed` and `### Follow-ups`. Length here is fine.
+- A `## YYYY-MM-DD — <what the change is, in a few words>` heading.
+- Bullets, each **brief and complete**: what changed, why in a short clause, and what was declined or left open. A decision that was _declined_ or deferred belongs here too; `git log` does not carry it. As many bullets as the change needs: a large change has more. A bullet may run over one line when it needs to, but says a thing once and has no filler. No tables, no sub-bullets.
+- A link to the spec in `specs/` when the change has one, or its name when it lives in another repo. The spec holds the reasoning and the checks.
 
-Two sessions on the same date get two entries, distinguished by slug. Record decisions that were _declined_ or deferred too — the point of the report is the reasoning, which `git log` doesn't carry. Same convention as the `nginx` and `operation` repos.
+Write **no new file in `changelog/`**. The detailed reports there, one per session until 2026-10-07, stay as history, and the older entries keep their links to them. Two changes on the same date get two entries.
 
 ## Other notes
 

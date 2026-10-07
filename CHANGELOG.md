@@ -1,11 +1,24 @@
 # Changelog
 
-Brief running log — a few one-line bullets per session. Detail, reasoning and
-verification live in the linked report under `changelog/`.
+Running log, newest first — brief, complete bullets per change: what changed, why,
+and what was declined or left open. After 2026-10-07 an entry stands by itself and
+links the spec when there is one; older entries link a detailed report under
+`changelog/`, which is kept as history.
 
 Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
+
+## 2026-10-07 — One changelog, no detailed report per change
+
+- A change now gets one entry here and no file in `changelog/`, so that there is one place to read and it stays short.
+- The reasoning moves to the entry (why, in a clause) and to the spec in `specs/` when the change has one.
+- The reports already in `changelog/` stay, and older entries keep their links to them.
+- Spec: `specs/team-rules.md` in the team's `claude-team` repo.
+
+## 2026-10-07 — Shared `deep-reasoner` and `fast-worker`
+
+- The repo's own two agent copies in `.claude/agents/` were removed; sessions use the ones of the team plugin, so there is one text of each.
 
 ## 2026-10-07 — [detailed report](changelog/2026-10-07-drop-telegram-analytics.md)
 
