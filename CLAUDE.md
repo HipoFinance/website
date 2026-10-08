@@ -9,6 +9,12 @@ changelog) are in `rules/team.md` of the `claude-team` repo
 (<https://github.com/HipoFinance/claude-team/blob/main/rules/team.md>), and are loaded by each
 person's own setup once they have joined. This file holds what is true of this repo only.
 
+## Before you change the site
+
+**English first.** Build and review the English version, then stop for the person's approval; other
+locales only after it. **A push to `main` deploys the site at once**: commit and push only when
+asked. The procedure is the `locales` skill (`.claude/skills/locales/`).
+
 ## Commands
 
 - `npm run dev` — start the Astro dev server

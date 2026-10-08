@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-08 — English first, written in the repo
+
+- `CLAUDE.md` now states the rule for every session here: English first, other locales only after the person's approval, and a push to `main` deploys at once.
+- The procedure is a skill of this repo, `.claude/skills/locales/`; it was in one person's own setup until now.
+- Spec: `specs/repo-skills.md` in the team's `claude-team` repo.
+
 ## 2026-10-07 — The team's rules in one place
 
 - `CLAUDE.md` no longer repeats how sessions plan and delegate; it names the team's `rules/team.md`, so that there is one text of those rules.
