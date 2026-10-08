@@ -160,6 +160,8 @@ During this benchmark period, **Hipo’s protocol fee was set to 0%**, meaning *
 
 This is part of our current growth strategy as we work toward a more sustainable TVL. We believe maximizing user returns today will strengthen the protocol over the long term and further widen the performance gap between Hipo and other staking protocols.
 
+For the full explanation of where the extra return comes from, and the risks that come with it, read [Why Is Hipo’s APY Higher, and Is It Safe?](/blog/why-hipo-apy-is-higher/)
+
 * * *
 
 ## Looking Ahead

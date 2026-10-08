@@ -79,9 +79,9 @@ export const collections = {
 
   // English-only blog posts, one folder per post: src/content/blog/<slug>/index.md with its images
   // alongside. The entry id is the folder name, verbatim (the default id would slugify it and honour a
-  // frontmatter `slug`), so it cannot disagree with the URL (/blog/<slug>/). The length limits are the Editorial Hub's (Voice & SEO rules)
-  // and fail the build rather than warn: a truncated title or snippet in the results is the failure they
-  // guard against. See specs/blog-migration.md (Content model).
+  // frontmatter `slug`), so it cannot disagree with the URL (/blog/<slug>/). The Editorial Hub's length limits (Voice & SEO rules)
+  // are not enforced here: since 2026-10-08 a text over a limit only warns, from allPosts() in
+  // src/blog/posts.ts. See specs/blog-migration.md (Content model).
   blog: defineCollection({
     loader: glob({
       base: './src/content/blog',
@@ -112,8 +112,8 @@ export const collections = {
       }
       return z.object({
         title: z.string().superRefine(noTodo('title')),
-        seoTitle: z.string().max(59, 'seoTitle must be under 60 characters').superRefine(noTodo('seoTitle')).optional(),
-        description: z.string().max(154, 'description must be under 155 characters').superRefine(noTodo('description')),
+        seoTitle: z.string().superRefine(noTodo('seoTitle')).optional(),
+        description: z.string().superRefine(noTodo('description')),
         subtitle: z.string().superRefine(noTodo('subtitle')).optional(),
         publishedAt: z.coerce.date(),
         updatedAt: z.coerce.date().optional(),

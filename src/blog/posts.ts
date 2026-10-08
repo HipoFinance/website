@@ -10,9 +10,35 @@ const RELATED_COUNT = 3
 // A common reading-speed figure for online prose; the byline rounds up, so a short post reads "1 min".
 const WORDS_PER_MINUTE = 230
 
+// The Editorial Hub's length limits (Voice & SEO rules): search engines truncate a title or a snippet
+// past these. Going over one warns and does not fail the build (decided 2026-10-08).
+const SEO_TITLE_LIMIT = 60
+const DESCRIPTION_LIMIT = 155
+// allPosts() runs once per page, so each post is checked once per process.
+const lengthChecked = new Set<string>()
+
+function warnOverLimits(post: Post): void {
+  if (lengthChecked.has(post.id)) {
+    return
+  }
+  lengthChecked.add(post.id)
+  const { seoTitle, description } = post.data
+  if (seoTitle !== undefined && seoTitle.length >= SEO_TITLE_LIMIT) {
+    console.warn(
+      `Blog post "${post.id}": seoTitle is ${seoTitle.length} characters, should be under ${SEO_TITLE_LIMIT}`,
+    )
+  }
+  if (description.length >= DESCRIPTION_LIMIT) {
+    console.warn(
+      `Blog post "${post.id}": description is ${description.length} characters, should be under ${DESCRIPTION_LIMIT}`,
+    )
+  }
+}
+
 // Every post, newest first; ties (two posts on one day) fall back to the slug so the order is stable.
 export async function allPosts(): Promise<Post[]> {
   const posts = await getCollection('blog')
+  posts.forEach(warnOverLimits)
   return posts.sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime() || a.id.localeCompare(b.id))
 }
 

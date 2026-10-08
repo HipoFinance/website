@@ -79,7 +79,7 @@ Liquid staking is available on most major proof-of-stake networks. A few well-kn
 
 **Cosmos** In the Cosmos ecosystem, [Stride](https://www.stride.zone/) offers liquid staking for ATOM and other Cosmos-based tokens.
 
-**TON** On [TON](/blog/ton-blockchain-features/), several protocols let you stake GRAM (formerly Toncoin) and receive a liquid staking token. [Hipo](https://hipo.finance/) issues hGRAM, whose value in GRAM grows every validation round. Other options include Tonstakers, Stakee, KTON, Bemo and TonWhales. Because advertised APYs can differ from what users actually receive, we [benchmark these protocols on-chain every quarter](/blog/gram-staking-benchmark-q2-2026/), using a public wallet anyone can verify.
+**TON** On [TON](/blog/ton-blockchain-features/), several protocols let you stake GRAM (formerly Toncoin) and receive a liquid staking token. [Hipo](https://hipo.finance/) issues hGRAM, whose value in GRAM grows every validation round. Other options include Tonstakers, Stakee, KTON, Bemo and TonWhales. Because advertised APYs can differ from what users actually receive, we [benchmark these protocols on-chain every quarter](/blog/gram-staking-benchmark-q2-2026/), using a public wallet anyone can verify. If you wonder why Hipo’s rate comes out higher, read [Why Is Hipo’s APY Higher, and Is It Safe?](/blog/why-hipo-apy-is-higher/)
 
 ## How to Get Started with Liquid Staking
 

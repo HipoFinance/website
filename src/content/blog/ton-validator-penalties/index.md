@@ -51,6 +51,8 @@ This auction-based approach prevents centralization and allows any validator to 
 
 Before a validator can borrow staked GRAM from Hipo, it must lock GRAM of its own. That collateral covers the maximum penalty the network can apply in that round, plus the reward the validator promised to pay. If the validator underperforms and is penalized, the penalty is taken from that collateral — not from stakers’ GRAM.
 
+The same collateral backs the reward a validator bids, which is how Hipo’s rate can sometimes rise above the network’s own. We explain that in [Why Is Hipo’s APY Higher, and Is It Safe?](/blog/why-hipo-apy-is-higher/)
+
 This protects stakers from penalties, but it doesn’t make staking risk-free. An underperforming validator can still mean a lower reward for that round. And like any DeFi protocol, Hipo carries smart contract risk, which is why its contracts are open source and have been through four independent audits, most recently by Quantstamp in April 2025. You can read every risk and what the protocol does about it on our [Risks page](https://hipo.finance/docs/risks/).
 
 ## A Bright Future for the TON Ecosystem

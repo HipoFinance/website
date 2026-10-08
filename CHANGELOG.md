@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-08 — New post: Why Is Hipo's APY Higher, and Is It Safe?
+
+- Added `/blog/why-hipo-apy-is-higher/` from the blog owner's draft, with its cover and one section image; the rates and the APY in it were read from the chain on 8 October.
+- Linked it from the Q2 benchmark, TON Validator Penalties and What Is Liquid Staking, so the new post has internal links; the same three edits are owed on the Medium copies.
+- A `seoTitle` or `description` over the Editorial Hub's limit now warns in the build output and no longer fails the build, because this post's SEO title is 60 characters and the owner's wording is kept.
+- Declined: `FAQPage` structured data for the "Common questions" section (as in `specs/blog-migration.md`), and a risk table in place of the bulleted list.
+
 ## 2026-10-08 — English first, written in the repo
 
 - `CLAUDE.md` now states the rule for every session here: English first, other locales only after the person's approval, and a push to `main` deploys at once.

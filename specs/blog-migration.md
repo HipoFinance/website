@@ -108,8 +108,8 @@ A new `blog` collection in `src/content.config.ts`: `glob({ base: './src/content
 | Field | Required | Notes |
 | --- | --- | --- |
 | `title` | yes | The page's only `<h1>`. |
-| `seoTitle` | no | Overrides `<title>`; < 60 chars. |
-| `description` | yes | Meta and OG description; < 155 chars. Written by the blog owner, never derived from the post body. |
+| `seoTitle` | no | Overrides `<title>`; < 60 chars (a warning since 2026-10-08, not a build failure). |
+| `description` | yes | Meta and OG description; < 155 chars (a warning since 2026-10-08, not a build failure). Written by the blog owner, never derived from the post body. |
 | `subtitle` | no | Shown under the H1. Written by the blog owner. |
 | `publishedAt` | yes | The **original Medium date** for migrated posts. |
 | `updatedAt` | no | Set only on a real content change; shown as "Updated …". |
