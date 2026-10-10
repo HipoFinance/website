@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-10 — The session notes split by area
+
+- The session notes are now `AGENTS.md`, and `CLAUDE.md` is one line, `@AGENTS.md`, that loads it, so that other tools read the same notes.
+- The notes on blog, docs, the app, styling and translations moved to `.claude/rules/`, one file each, and load only when a file of that area is opened; the text is unchanged.
+- Why: the old file was 29 KB and was loaded in every session; `AGENTS.md` is now 8 KB.
+- Left in `AGENTS.md`: the notes on `llms.txt`, the brand kit and the two sitemap notes, because they are not about one area.
+
 ## 2026-10-08 — New post: Why Is Hipo's APY Higher, and Is It Safe?
 
 - Added `/blog/why-hipo-apy-is-higher/` from the blog owner's draft, with its cover and one section image; the rates and the APY in it were read from the chain on 8 October.
