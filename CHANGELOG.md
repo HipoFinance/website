@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-11 — [detailed report](changelog/2026-10-11-tonconnect-5.md)
+
+- Took `@tonconnect/ui` 5.0.0, for the improved Gram Wallet support in the connect modal.
+- Re-verified the two TonConnect internals this repo pins to: the restored-session storage key and the goober/portal DOM hooks.
+
 ## 2026-10-10 — The session notes split by area
 
 - The session notes are now `AGENTS.md`, and `CLAUDE.md` is one line, `@AGENTS.md`, that loads it, so that other tools read the same notes.
