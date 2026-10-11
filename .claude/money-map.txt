@@ -5,3 +5,21 @@
 # Columns are separated by two or more spaces.
 risk: map
 path  3  src/components/app/Model.ts  builds the stake and unstake transactions  design 2026-10-11
+path  3  src/components/app/chain.ts  picks the network and the treasury address; passes on the message builders, fees and reserve  Alireza 2026-10-11
+path  3  src/components/app/MultisigGuidance.tsx  shows the destination, amount and payload a multisig user copies into an order  Alireza 2026-10-11
+path  2  src/i18n/format.ts  parses the typed amount that is sent, and formats the amount a multisig user copies  Alireza 2026-10-11
+path  2  src/components/app/amountInput.ts  the only writer of the amount field  Alireza 2026-10-11
+path  2  src/components/app/StakeUnstake.tsx  the checks before a send: over the maximum, over the instant liquidity  Alireza 2026-10-11
+path  2  src/components/app/tma/TmaStakeUnstake.tsx  the checks before a send, repeated for the Telegram mini app  Alireza 2026-10-11
+path  2  src/data/club.ts  the HPO reward formula and the APY boost, with fallback constants  Alireza 2026-10-11
+path  2  src/data/lst-geometry.ts  the what-you-would-have-earned calculator of the comparison page  Alireza 2026-10-11
+path  2  src/data/lst.ts  computes each protocol's exchange rate and growth  Alireza 2026-10-11
+path  2  src/data/gauge.ts  yearly earnings, nano-to-GRAM and TVL-in-USD conversions  Alireza 2026-10-11
+path  2  src/components/routes/VerifyRoute.astro  the list of official wallet and contract addresses  Alireza 2026-10-11
+path  2  public/tonconnect-manifest.json  the identity the wallet shows when it asks the user to sign  Alireza 2026-10-11
+declined  package-lock.json  fires on every dependency change; Alireza left it out  Alireza 2026-10-11
+declined  scripts/backfill-lst-rates.mjs  a hand-run script that only reads the chain  Alireza 2026-10-11
+declined  src/data/lst-rates.json  data, changed on every refresh  Alireza 2026-10-11
+declined  src/data/stats.ts  display only  Alireza 2026-10-11
+declined  src/components/routes/VsRoute.astro  display only; the maths is in src/data  Alireza 2026-10-11
+full-run: 2026-10-11  2627c49  Alireza  new=12
