@@ -27,7 +27,7 @@ Des HPO et des hGRAM qui dorment dans un portefeuille que tu n’as **jamais** c
 - **Chaque portefeuille gagne sur son propre solde.** Les récompenses sont directement proportionnelles au montant détenu : répartir 100 000 hGRAM sur trois portefeuilles rapporte exactement ce que rapporte un seul portefeuille en détenant 100 000. Il n’y a ni pénalité à s’éparpiller, ni bonus à regrouper.
 - **Ton niveau Hipo Club appartient à ton compte Telegram, pas à un portefeuille.** Chaque portefeuille que tu connectes gagne au coefficient de ton niveau. Monter de niveau les fait tous progresser d’un coup.
 - **Tu peux connecter jusqu’à 6 portefeuilles** à un même compte Hipo Club.
-- **Les récompenses sont suivies et retirées par portefeuille.** Chaque portefeuille a son propre solde accumulé et son propre seuil de retrait de 1 000 HPO. Ils ne sont pas mis en commun.
+- **Les récompenses sont suivies et retirées par portefeuille.** Chaque portefeuille a son propre solde accumulé et son propre seuil de retrait de 100 HPO. Ils ne sont pas mis en commun.
 - **Seul le propriétaire peut retirer.** Les récompenses accumulées par un portefeuille ne peuvent être retirées que par le compte Hipo Club auquel ce portefeuille est connecté, et elles sont toujours envoyées à ce même portefeuille.
 
 ## Après avoir reçu un airdrop Hipo Club

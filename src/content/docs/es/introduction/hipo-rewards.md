@@ -9,7 +9,7 @@ Hacer staking de GRAM con Hipo te paga en tres flujos separados, con tres ritmos
 - **Recompensas base**\
   Recompensas de staking de GRAM, reflejadas en la tasa de cambio de hGRAM frente a GRAM: se liquidan **en cada ronda de validación** (~18 h), sin nada que reclamar
 - **Recompensas potenciadas**\
-  HPO adicional sobre el valor en GRAM de tu staking, con un coeficiente que fija tu nivel de [Hipo Club](https://t.me/HipoFinanceBot/join): se acumula **en cada ronda de validación** y se puede retirar cuando tu saldo supera los 1.000 HPO
+  HPO adicional sobre el valor en GRAM de tu staking, con un coeficiente que fija tu nivel de [Hipo Club](https://t.me/HipoFinanceBot/join): se acumula **en cada ronda de validación** y se puede retirar cuando tu saldo supera los 100 HPO
 - **Recompensas extra**\
   Ten HPO → recibe una parte de los ingresos del protocolo: se paga **al final de cada temporada de Hipo Club**
 
@@ -83,7 +83,7 @@ Hay dos formas de subir de nivel:
 Hay dos reglas que importan:
 
 - **Vender el HPO recibido como recompensa te devuelve al Nivel 1.** El Club está diseñado para premiar a quien mantiene, y este es el mecanismo. Enviar el HPO de recompensas a un exchange, o a una billetera que no hayas conectado al Club, cuenta como vender; moverlo entre tus propias billeteras conectadas, no. Consulta [Usar varias billeteras](/docs/wallets-and-rewards/).
-- **No hay ventana para reclamar.** Las recompensas se acumulan en cada ronda y se pueden retirar cuando tu saldo sea de al menos **1.000 HPO**.
+- **No hay ventana para reclamar.** Las recompensas se acumulan en cada ronda y se pueden retirar cuando tu saldo sea de al menos **100 HPO**.
 
 ## Recompensas extra: reparto de beneficios
 

@@ -27,7 +27,7 @@ HPO e hGRAM em uma carteira que você **nunca** conectou não rendem nenhuma rec
 - **Cada carteira rende sobre o próprio saldo.** As recompensas escalam diretamente com o valor guardado: 100.000 hGRAM divididos em três carteiras rendem exatamente o mesmo que uma carteira com 100.000. Não há penalidade em espalhar nem bônus em juntar.
 - **Seu nível do Hipo Club pertence à sua conta do Telegram, não a uma carteira.** Toda carteira que você conecta rende com o coeficiente do seu nível. Subir de nível eleva todas de uma vez.
 - **Você pode conectar até 6 carteiras** a uma conta do Hipo Club.
-- **As recompensas são registradas e sacadas por carteira.** Cada carteira tem o próprio saldo acumulado e o próprio limite de 1.000 HPO. Elas não são somadas.
+- **As recompensas são registradas e sacadas por carteira.** Cada carteira tem o próprio saldo acumulado e o próprio limite de 100 HPO. Elas não são somadas.
 - **Só o dono pode sacar.** As recompensas acumuladas por uma carteira só podem ser sacadas pela conta do Hipo Club à qual ela está conectada, e são sempre enviadas para essa mesma carteira.
 
 ## Depois de receber um airdrop do Hipo Club

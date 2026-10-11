@@ -9,7 +9,7 @@ Staker des GRAM avec Hipo te rémunère via trois flux distincts, sur trois ryth
 - **Récompenses de base**\
   Les récompenses de staking des GRAM, reflétées dans le taux de conversion du hGRAM face au GRAM — réglées **à chaque cycle de validation** (~18 h), sans rien à réclamer
 - **Récompenses bonus**\
-  Des HPO supplémentaires sur la valeur en GRAM de ta mise, à un coefficient fixé par ton niveau [Hipo Club](https://t.me/HipoFinanceBot/join) — accumulés **à chaque cycle de validation**, retirables dès que ton solde dépasse 1 000 HPO
+  Des HPO supplémentaires sur la valeur en GRAM de ta mise, à un coefficient fixé par ton niveau [Hipo Club](https://t.me/HipoFinanceBot/join) — accumulés **à chaque cycle de validation**, retirables dès que ton solde dépasse 100 HPO
 - **Récompenses supplémentaires**\
   Détiens des HPO → reçois une part des revenus du protocole — versée **à la fin de chaque saison du Hipo Club**
 
@@ -83,7 +83,7 @@ Il y a deux façons de monter de niveau :
 Deux règles comptent :
 
 - **Vendre les HPO reçus en récompense te ramène au niveau 1.** Le Club est conçu pour récompenser celles et ceux qui gardent leurs tokens, et c’est le mécanisme qui le garantit. Envoyer des HPO de récompense sur une plateforme d’échange, ou vers un portefeuille que tu n’as pas connecté au Club, compte comme une vente ; les déplacer entre tes propres portefeuilles connectés, non — voir [Utiliser plusieurs portefeuilles](/docs/wallets-and-rewards/).
-- **Il n’y a pas de fenêtre de réclamation.** Les récompenses s’accumulent à chaque cycle et peuvent être retirées dès que ton solde atteint au moins **1 000 HPO**.
+- **Il n’y a pas de fenêtre de réclamation.** Les récompenses s’accumulent à chaque cycle et peuvent être retirées dès que ton solde atteint au moins **100 HPO**.
 
 ## Récompenses supplémentaires : le partage des profits
 

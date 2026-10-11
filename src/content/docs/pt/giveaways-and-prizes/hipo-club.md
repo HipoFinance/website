@@ -18,7 +18,7 @@ O Hipo Club é um sistema de níveis feito para recompensar participantes ativos
 
 ## Temporadas e recompensas
 
-Cada temporada dura um trimestre. As recompensas em HPO são acumuladas depois de cada rodada de validação e podem ser sacadas a qualquer momento, assim que o seu saldo acumulado passar do limite de **1.000 HPO** — não há janela de resgate nem desconto no resgate.
+Cada temporada dura um trimestre. As recompensas em HPO são acumuladas depois de cada rodada de validação e podem ser sacadas a qualquer momento, assim que o seu saldo acumulado passar do limite de **100 HPO** — não há janela de resgate nem desconto no resgate.
 
 A participação nos lucros para holders de HPO é um fluxo separado, pago no fim de cada temporada (veja [Participação nos lucros](/docs/profit-sharing/)).
 
@@ -45,7 +45,7 @@ O valor é somado entre todas as carteiras do Hipo Club que você conectou, ent�
 
 ## Sacar recompensas
 
-As recompensas são acumuladas continuamente e podem ser sacadas sempre que o seu saldo acumulado for de pelo menos **1.000 HPO**.
+As recompensas são acumuladas continuamente e podem ser sacadas sempre que o seu saldo acumulado for de pelo menos **100 HPO**.
 
 :::note
 

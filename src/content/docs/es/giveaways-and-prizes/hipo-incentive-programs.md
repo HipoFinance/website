@@ -65,7 +65,7 @@ El [programa de embajadores](/docs/hipo-ambassadors-program/) fomenta el crecimi
 
 ## 7. Hipo Club
 
-Hipo Club es un programa comunitario por niveles que recompensa el compromiso a largo plazo. Los miembros conservan hGRAM y ganan HPO después de cada ronda de validación; su nivel —uno de **10**— determina la tasa de recompensas. Se sube de nivel con una subida instantánea de pago o reclamando las recompensas al menos una vez durante la temporada, y se vuelve al Nivel 1 si se vende el HPO recibido como recompensa. Las recompensas acumuladas pueden retirarse cuando el saldo supera los 1000 HPO.
+Hipo Club es un programa comunitario por niveles que recompensa el compromiso a largo plazo. Los miembros conservan hGRAM y ganan HPO después de cada ronda de validación; su nivel —uno de **10**— determina la tasa de recompensas. Se sube de nivel con una subida instantánea de pago o reclamando las recompensas al menos una vez durante la temporada, y se vuelve al Nivel 1 si se vende el HPO recibido como recompensa. Las recompensas acumuladas pueden retirarse cuando el saldo supera los 100 HPO.
 
 [Más información sobre cómo funciona Hipo Club](/docs/giveaways-and-prizes/hipo-club/)
 

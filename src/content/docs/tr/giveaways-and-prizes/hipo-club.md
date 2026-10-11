@@ -18,7 +18,7 @@ Hipo Club, Hipo'nun aktif katılımcılarını ve uzun vadeli destekçilerini ö
 
 ## Sezonlar ve ödüller
 
-Her sezon bir çeyrek sürer. HPO ödülleri her doğrulama turundan sonra birikir ve biriken bakiyeniz **1.000 HPO** eşiğini geçtiğinde istediğiniz zaman çekilebilir — talep penceresi de talep indirimi de yoktur.
+Her sezon bir çeyrek sürer. HPO ödülleri her doğrulama turundan sonra birikir ve biriken bakiyeniz **100 HPO** eşiğini geçtiğinde istediğiniz zaman çekilebilir — talep penceresi de talep indirimi de yoktur.
 
 HPO sahiplerine yapılan kâr payı ödemeleri ayrı bir akıştır ve her sezonun sonunda ödenir (bkz. [Kâr paylaşımı](/docs/profit-sharing/)).
 
@@ -45,7 +45,7 @@ Miktar, Hipo Club'da bağladığınız tüm cüzdanlarınız toplanarak hesaplan
 
 ## Ödülleri çekme
 
-Ödüller sürekli birikir ve biriken bakiyeniz en az **1.000 HPO** olduğunda istediğiniz zaman çekilebilir.
+Ödüller sürekli birikir ve biriken bakiyeniz en az **100 HPO** olduğunda istediğiniz zaman çekilebilir.
 
 :::note
 

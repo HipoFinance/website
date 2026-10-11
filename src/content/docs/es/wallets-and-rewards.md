@@ -27,7 +27,7 @@ El HPO y el hGRAM que estén en una billetera que **nunca** hayas conectado no g
 - **Cada billetera genera recompensas sobre su propio saldo.** Las recompensas escalan directamente con la cantidad que se mantiene, así que repartir 100.000 hGRAM entre tres billeteras genera exactamente lo mismo que una sola billetera con 100.000. No hay penalización por repartir ni bonificación por consolidar.
 - **Tu nivel de Hipo Club pertenece a tu cuenta de Telegram, no a una billetera.** Todas las billeteras que conectes generan recompensas con el coeficiente de tu nivel. Subir de nivel las mejora todas a la vez.
 - **Puedes conectar hasta 6 billeteras** a una misma cuenta de Hipo Club.
-- **Las recompensas se contabilizan y se retiran por billetera.** Cada billetera tiene su propio saldo acumulado y su propio umbral de retiro de 1.000 HPO. No se juntan.
+- **Las recompensas se contabilizan y se retiran por billetera.** Cada billetera tiene su propio saldo acumulado y su propio umbral de retiro de 100 HPO. No se juntan.
 - **Solo el propietario puede retirar.** Las recompensas acumuladas por una billetera solo las puede retirar la cuenta de Hipo Club a la que esa billetera está conectada, y siempre se envían a esa misma billetera.
 
 ## Después de recibir un airdrop de Hipo Club

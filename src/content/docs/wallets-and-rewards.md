@@ -27,7 +27,7 @@ HPO and hGRAM sitting in a wallet you have **never** connected earn no HPO rewar
 - **Each wallet earns on its own balance.** Rewards scale directly with the amount held, so splitting 100,000 hGRAM across three wallets earns exactly what one wallet holding 100,000 earns. There is no penalty for spreading out, and no bonus for consolidating.
 - **Your Hipo Club level belongs to your Telegram account, not to a wallet.** Every wallet you connect earns at your level's coefficient. Levelling up lifts all of them at once.
 - **You can connect up to 6 wallets** to one Hipo Club account.
-- **Rewards are tracked and withdrawn per wallet.** Each wallet has its own accrued balance and its own 1,000 HPO withdrawal threshold. They are not pooled.
+- **Rewards are tracked and withdrawn per wallet.** Each wallet has its own accrued balance and its own 100 HPO withdrawal threshold. They are not pooled.
 - **Only the owner can withdraw.** Rewards accrued by a wallet can only be withdrawn by the Hipo Club account that wallet is connected to, and they are always sent to that same wallet.
 
 ## After you receive a Hipo Club airdrop

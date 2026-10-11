@@ -65,7 +65,7 @@ Das [Ambassador-Programm](/docs/hipo-ambassadors-program/) fördert community-ge
 
 ## 7. Hipo Club
 
-Hipo Club ist ein gestuftes Community-Programm, das langfristiges Engagement belohnt. Mitglieder halten hGRAM und verdienen nach jeder Validierungsrunde HPO; ihre Stufe — eine von **10** — bestimmt die Reward-Rate. Die Stufen steigen durch ein kostenpflichtiges sofortiges Upgrade oder dadurch, dass Rewards mindestens einmal während der Season beansprucht werden, und werden auf Stufe 1 zurückgesetzt, wenn erhaltenes HPO verkauft wird. Aufgelaufene Rewards können ausgezahlt werden, sobald das Guthaben 1.000 HPO überschreitet.
+Hipo Club ist ein gestuftes Community-Programm, das langfristiges Engagement belohnt. Mitglieder halten hGRAM und verdienen nach jeder Validierungsrunde HPO; ihre Stufe — eine von **10** — bestimmt die Reward-Rate. Die Stufen steigen durch ein kostenpflichtiges sofortiges Upgrade oder dadurch, dass Rewards mindestens einmal während der Season beansprucht werden, und werden auf Stufe 1 zurückgesetzt, wenn erhaltenes HPO verkauft wird. Aufgelaufene Rewards können ausgezahlt werden, sobald das Guthaben 100 HPO überschreitet.
 
 [Mehr darüber, wie Hipo Club funktioniert](/docs/giveaways-and-prizes/hipo-club/)
 

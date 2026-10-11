@@ -65,7 +65,7 @@ Hipo Gang digantikan oleh [Hipo Club](/docs/giveaways-and-prizes/hipo-club/), ya
 
 ## 7. Hipo Club
 
-Hipo Club adalah program komunitas berjenjang yang memberi imbalan atas komitmen jangka panjang. Anggota menahan hGRAM dan memperoleh HPO setelah setiap putaran validasi; level mereka — salah satu dari **10** — menentukan tingkat imbalannya. Level naik melalui peningkatan instan berbayar atau dengan mengklaim imbalan setidaknya sekali selama musim berjalan, dan kembali ke Level 1 jika HPO yang diberikan dijual. Imbalan yang terkumpul dapat ditarik setelah saldonya melewati 1.000 HPO.
+Hipo Club adalah program komunitas berjenjang yang memberi imbalan atas komitmen jangka panjang. Anggota menahan hGRAM dan memperoleh HPO setelah setiap putaran validasi; level mereka — salah satu dari **10** — menentukan tingkat imbalannya. Level naik melalui peningkatan instan berbayar atau dengan mengklaim imbalan setidaknya sekali selama musim berjalan, dan kembali ke Level 1 jika HPO yang diberikan dijual. Imbalan yang terkumpul dapat ditarik setelah saldonya melewati 100 HPO.
 
 [Pelajari lebih lanjut cara kerja Hipo Club](/docs/giveaways-and-prizes/hipo-club/)
 

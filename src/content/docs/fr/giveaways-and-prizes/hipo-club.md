@@ -18,7 +18,7 @@ Le Hipo Club est un système à niveaux conçu pour récompenser les participant
 
 ## Saisons et récompenses
 
-Chaque saison dure un trimestre. Les récompenses HPO s’accumulent après chaque cycle de validation et peuvent être retirées à tout moment dès que ton solde accumulé dépasse le seuil de **1 000 HPO** — il n’y a ni fenêtre de réclamation ni décote sur la réclamation.
+Chaque saison dure un trimestre. Les récompenses HPO s’accumulent après chaque cycle de validation et peuvent être retirées à tout moment dès que ton solde accumulé dépasse le seuil de **100 HPO** — il n’y a ni fenêtre de réclamation ni décote sur la réclamation.
 
 Les parts de profits versées aux détenteurs de HPO sont un flux distinct, payé à la fin de chaque saison (voir [Partage des profits](/docs/profit-sharing/)).
 
@@ -45,7 +45,7 @@ Le montant est compté sur l’ensemble des portefeuilles que tu as connectés d
 
 ## Retirer ses récompenses
 
-Les récompenses s’accumulent en continu et peuvent être retirées dès que ton solde accumulé atteint au moins **1 000 HPO**.
+Les récompenses s’accumulent en continu et peuvent être retirées dès que ton solde accumulé atteint au moins **100 HPO**.
 
 :::note
 

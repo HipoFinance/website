@@ -18,7 +18,7 @@ Hipo Club is a tiered system designed to reward active participants and long-ter
 
 ## Seasons & Rewards
 
-Each season lasts one quarter. HPO rewards accrue after every validation round and can be withdrawn at any time once your accrued balance passes the **1,000 HPO** threshold — there is no claiming window and no claim discount.
+Each season lasts one quarter. HPO rewards accrue after every validation round and can be withdrawn at any time once your accrued balance passes the **100 HPO** threshold — there is no claiming window and no claim discount.
 
 Profit shares for HPO holders are a separate stream, paid at the end of each season (see [Profit Sharing](/docs/profit-sharing/)).
 
@@ -45,7 +45,7 @@ The amount is counted across all of the wallets you have connected in Hipo Club,
 
 ## Withdrawing Rewards
 
-Rewards accrue continuously and can be withdrawn whenever your accrued balance is at least **1,000 HPO**.
+Rewards accrue continuously and can be withdrawn whenever your accrued balance is at least **100 HPO**.
 
 :::note
 

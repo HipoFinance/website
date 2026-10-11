@@ -9,7 +9,7 @@ Staking GRAM with Hipo pays you in three separate streams, on three different cl
 - **Base rewards**\
   GRAM staking rewards, reflected in hGRAM's exchange rate against GRAM — settled **every validation round** (~18 h), nothing to claim
 - **Boosted rewards**\
-  Extra HPO on the GRAM value of your stake, at a coefficient set by your [Hipo Club](https://t.me/HipoFinanceBot/join) level — accrues **every validation round**, withdrawable once your balance passes 1,000 HPO
+  Extra HPO on the GRAM value of your stake, at a coefficient set by your [Hipo Club](https://t.me/HipoFinanceBot/join) level — accrues **every validation round**, withdrawable once your balance passes 100 HPO
 - **Extra rewards**\
   Hold HPO → receive a share of protocol revenue — paid **at the end of each Hipo Club season**
 
@@ -83,7 +83,7 @@ There are two ways to level up:
 Two rules matter:
 
 - **Selling rewarded HPO resets you to Level 1.** The Club is designed to reward people who hold, and this is the mechanism. Sending rewarded HPO to an exchange, or to a wallet you have not connected to the Club, counts as selling; moving it between your own connected wallets does not — see [Using Multiple Wallets](/docs/wallets-and-rewards/).
-- **There is no claiming window.** Rewards accrue every round and can be withdrawn whenever your balance is at least **1,000 HPO**.
+- **There is no claiming window.** Rewards accrue every round and can be withdrawn whenever your balance is at least **100 HPO**.
 
 ## Extra rewards: profit sharing
 

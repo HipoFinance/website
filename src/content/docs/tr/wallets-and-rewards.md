@@ -27,7 +27,7 @@ Bundan sonra cüzdan kendi bakiyesi üzerinden kazanmaya devam eder. Bu kaydı h
 - **Her cüzdan kendi bakiyesi üzerinden kazanır.** Ödüller tutulan miktarla doğru orantılıdır: üç cüzdana bölünmüş 100.000 hGRAM, tek cüzdandaki 100.000 hGRAM ile tam olarak aynı kazancı sağlar. Dağıtmanın cezası, tek yerde toplamanın bonusu yoktur.
 - **Hipo Club seviyeniz bir cüzdana değil, Telegram hesabınıza aittir.** Bağladığınız her cüzdan seviyenizin katsayısıyla kazanır. Seviye atlamak hepsini birden yükseltir.
 - **Bir Hipo Club hesabına en fazla 6 cüzdan** bağlayabilirsiniz.
-- **Ödüller cüzdan başına takip edilir ve çekilir.** Her cüzdanın kendi birikmiş bakiyesi ve kendi 1.000 HPO eşiği vardır. Bunlar toplanmaz.
+- **Ödüller cüzdan başına takip edilir ve çekilir.** Her cüzdanın kendi birikmiş bakiyesi ve kendi 100 HPO eşiği vardır. Bunlar toplanmaz.
 - **Yalnızca sahibi çekebilir.** Bir cüzdanda biriken ödüller yalnızca o cüzdanın bağlı olduğu Hipo Club hesabı tarafından çekilebilir ve her zaman aynı cüzdana gönderilir.
 
 ## Bir Hipo Club airdrop'u aldıktan sonra

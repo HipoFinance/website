@@ -9,7 +9,7 @@ Hipo ile GRAM stake etmek size üç ayrı akıştan, üç farklı zamanlamayla �
 - **Temel ödüller**\
   hGRAM'ın GRAM karşısındaki dönüşüm oranına yansıyan GRAM staking ödülleri — **her doğrulama turunda** (~18 saat) hesaba geçer, talep etmeniz gereken bir şey olmaz
 - **Artırılmış ödüller**\
-  Stake'inizin GRAM cinsinden değeri üzerinden, [Hipo Club](https://t.me/HipoFinanceBot/join) seviyenizin belirlediği bir katsayıyla ek HPO — **her doğrulama turunda** birikir, bakiyeniz 1.000 HPO'yu aştığında çekilebilir
+  Stake'inizin GRAM cinsinden değeri üzerinden, [Hipo Club](https://t.me/HipoFinanceBot/join) seviyenizin belirlediği bir katsayıyla ek HPO — **her doğrulama turunda** birikir, bakiyeniz 100 HPO'yu aştığında çekilebilir
 - **Ekstra ödüller**\
   HPO tutun → protokol gelirinden pay alın — **her Hipo Club sezonunun sonunda** ödenir
 
@@ -83,7 +83,7 @@ Seviye atlamanın iki yolu vardır:
 İki kural önemlidir:
 
 - **Ödül olarak aldığınız HPO'yu satmak sizi 1. seviyeye sıfırlar.** Club, elde tutan kişileri ödüllendirmek üzere tasarlanmıştır ve mekanizma budur. Ödül HPO'yu bir borsaya ya da Club'a bağlamadığınız bir cüzdana göndermek satmak sayılır; kendi bağlı cüzdanlarınız arasında taşımak sayılmaz — bkz. [Birden fazla cüzdan kullanma](/docs/wallets-and-rewards/).
-- **Talep penceresi yoktur.** Ödüller her turda birikir ve bakiyeniz en az **1.000 HPO** olduğunda istediğiniz zaman çekilebilir.
+- **Talep penceresi yoktur.** Ödüller her turda birikir ve bakiyeniz en az **100 HPO** olduğunda istediğiniz zaman çekilebilir.
 
 ## Ekstra ödüller: kâr paylaşımı
 

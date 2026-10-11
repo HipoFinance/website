@@ -27,7 +27,7 @@ HPO und hGRAM in einer Wallet, die Sie **nie** verbunden haben, verdienen überh
 - **Jede Wallet verdient auf ihr eigenes Guthaben.** Rewards skalieren direkt mit dem gehaltenen Betrag: 100.000 hGRAM auf drei Wallets verteilt verdienen genau so viel wie eine Wallet mit 100.000. Es gibt keinen Nachteil beim Verteilen und keinen Bonus beim Zusammenlegen.
 - **Ihre Hipo-Club-Stufe gehört zu Ihrem Telegram-Konto, nicht zu einer Wallet.** Jede verbundene Wallet verdient mit dem Koeffizienten Ihrer Stufe. Ein Stufenaufstieg hebt alle auf einmal.
 - **Sie können bis zu 6 Wallets** mit einem Hipo-Club-Konto verbinden.
-- **Rewards werden pro Wallet erfasst und ausgezahlt.** Jede Wallet hat ihr eigenes aufgelaufenes Guthaben und ihre eigene Schwelle von 1.000 HPO. Sie werden nicht zusammengelegt.
+- **Rewards werden pro Wallet erfasst und ausgezahlt.** Jede Wallet hat ihr eigenes aufgelaufenes Guthaben und ihre eigene Schwelle von 100 HPO. Sie werden nicht zusammengelegt.
 - **Nur der Eigentümer kann auszahlen.** Die von einer Wallet aufgelaufenen Rewards können nur von dem Hipo-Club-Konto ausgezahlt werden, mit dem diese Wallet verbunden ist, und sie gehen immer an dieselbe Wallet.
 
 ## Nachdem Sie einen Hipo-Club-Airdrop erhalten haben

@@ -9,7 +9,7 @@ Wenn Sie GRAM mit Hipo staken, werden Sie über drei getrennte Ströme in drei v
 - **Basis-Rewards**\
   Staking-Rewards auf GRAM, die sich im Wechselkurs von hGRAM gegenüber GRAM abbilden — verrechnet **in jeder Validierungsrunde** (~18 h), ohne dass Sie etwas beanspruchen müssen
 - **Zusätzliche Rewards**\
-  Extra HPO auf den GRAM-Wert Ihres Stakes, zu einem Koeffizienten, den Ihr [Hipo Club](https://t.me/HipoFinanceBot/join)-Level bestimmt — fällt **in jeder Validierungsrunde** an und ist auszahlbar, sobald Ihr Guthaben 1.000 HPO übersteigt
+  Extra HPO auf den GRAM-Wert Ihres Stakes, zu einem Koeffizienten, den Ihr [Hipo Club](https://t.me/HipoFinanceBot/join)-Level bestimmt — fällt **in jeder Validierungsrunde** an und ist auszahlbar, sobald Ihr Guthaben 100 HPO übersteigt
 - **Weitere Rewards**\
   HPO halten → einen Anteil an den Einnahmen des Protokolls erhalten — ausgezahlt **am Ende jeder Hipo-Club-Season**
 
@@ -83,7 +83,7 @@ Es gibt zwei Wege, aufzusteigen:
 Zwei Regeln sind wichtig:
 
 - **Der Verkauf von erhaltenem HPO setzt Sie auf Level 1 zurück.** Der Club ist darauf ausgelegt, Menschen zu belohnen, die halten, und das ist der Mechanismus dafür. Erhaltenes HPO an eine Börse zu senden oder an eine Wallet, die Sie nicht mit dem Club verbunden haben, gilt als Verkauf; das Verschieben zwischen Ihren eigenen verbundenen Wallets dagegen nicht — siehe [Mehrere Wallets verwenden](/docs/wallets-and-rewards/).
-- **Es gibt kein Claim-Fenster.** Rewards fallen in jeder Runde an und können ausgezahlt werden, sobald Ihr Guthaben mindestens **1.000 HPO** beträgt.
+- **Es gibt kein Claim-Fenster.** Rewards fallen in jeder Runde an und können ausgezahlt werden, sobald Ihr Guthaben mindestens **100 HPO** beträgt.
 
 ## Weitere Rewards: Gewinnbeteiligung
 

@@ -18,7 +18,7 @@ Hipo Club es un sistema por niveles diseñado para recompensar a quienes partici
 
 ## Temporadas y recompensas
 
-Cada temporada dura un trimestre. Las recompensas en HPO se acumulan después de cada ronda de validación y pueden retirarse en cualquier momento, una vez que tu saldo acumulado supera el umbral de **1000 HPO**: no hay ventana de reclamación ni descuento por reclamar.
+Cada temporada dura un trimestre. Las recompensas en HPO se acumulan después de cada ronda de validación y pueden retirarse en cualquier momento, una vez que tu saldo acumulado supera el umbral de **100 HPO**: no hay ventana de reclamación ni descuento por reclamar.
 
 El reparto de beneficios para los holders de HPO es un flujo aparte, que se paga al final de cada temporada (consulta [Reparto de beneficios](/docs/profit-sharing/)).
 
@@ -45,7 +45,7 @@ La cantidad se cuenta sumando todas las billeteras que tengas conectadas en Hipo
 
 ## Retirar las recompensas
 
-Las recompensas se acumulan de forma continua y pueden retirarse en cuanto tu saldo acumulado llega a **1000 HPO**.
+Las recompensas se acumulan de forma continua y pueden retirarse en cuanto tu saldo acumulado llega a **100 HPO**.
 
 :::note
 

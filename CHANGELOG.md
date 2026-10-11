@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-11 — Hipo Club: rewards can be withdrawn from 100 HPO
+
+- The withdrawal threshold of Hipo Club HPO rewards reads 100 HPO, was 1,000 HPO, in the docs (Hipo Club, Hipo Rewards, incentive programs, wallets and rewards) and the two FAQ answers, in English and all ten locales: 8 mentions per language, each in the locale's own digits. It follows the live minimum (club-server `9fa4197`, club-web `8b3922e`). Only the number changed; no sentence was retranslated; the translation hashes of those 6 entries per locale were refreshed.
+- Left open: some pages say the balance "passes" 100 HPO, while exactly 100 is withdrawable; and no page mentions the 1 GRAM withdrawal fee, which at this minimum can be worth more than the withdrawal.
+
 ## 2026-10-11 — [detailed report](changelog/2026-10-11-tonconnect-5.md)
 
 - Took `@tonconnect/ui` 5.0.0, for the improved Gram Wallet support in the connect modal.

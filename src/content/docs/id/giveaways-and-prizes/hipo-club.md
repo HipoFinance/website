@@ -18,7 +18,7 @@ Hipo Club adalah sistem berjenjang yang dirancang untuk memberi imbalan kepada p
 
 ## Season & Imbalan
 
-Setiap season berlangsung satu kuartal. Imbalan HPO terkumpul setelah setiap putaran validasi dan dapat ditarik kapan saja setelah saldo terkumpul Anda melewati ambang batas **1.000 HPO** — tidak ada jendela klaim dan tidak ada diskon klaim.
+Setiap season berlangsung satu kuartal. Imbalan HPO terkumpul setelah setiap putaran validasi dan dapat ditarik kapan saja setelah saldo terkumpul Anda melewati ambang batas **100 HPO** — tidak ada jendela klaim dan tidak ada diskon klaim.
 
 Bagi hasil untuk pemegang HPO adalah aliran terpisah, dibayarkan pada akhir setiap season (lihat [Bagi Hasil](/docs/profit-sharing/)).
 
@@ -45,7 +45,7 @@ Jumlahnya dihitung dari seluruh dompet Hipo Club yang telah Anda hubungkan, diju
 
 ## Menarik Imbalan
 
-Imbalan terkumpul secara berkelanjutan dan dapat ditarik kapan saja saldo terkumpul Anda setidaknya **1.000 HPO**.
+Imbalan terkumpul secara berkelanjutan dan dapat ditarik kapan saja saldo terkumpul Anda setidaknya **100 HPO**.
 
 :::note
 

@@ -27,7 +27,7 @@ HPO dan hGRAM di dompet yang **tidak pernah** Anda hubungkan tidak menghasilkan 
 - **Setiap dompet menghasilkan atas saldonya sendiri.** Imbalan berbanding lurus dengan jumlah yang disimpan: 100.000 hGRAM yang dibagi ke tiga dompet menghasilkan persis sama dengan satu dompet berisi 100.000. Tidak ada penalti untuk menyebar dan tidak ada bonus untuk menggabungkan.
 - **Level Hipo Club Anda melekat pada akun Telegram Anda, bukan pada dompet.** Setiap dompet yang Anda hubungkan menghasilkan dengan koefisien level Anda. Naik level mengangkat semuanya sekaligus.
 - **Anda dapat menghubungkan hingga 6 dompet** ke satu akun Hipo Club.
-- **Imbalan dilacak dan ditarik per dompet.** Setiap dompet punya saldo terkumpul sendiri dan ambang 1.000 HPO sendiri. Keduanya tidak digabungkan.
+- **Imbalan dilacak dan ditarik per dompet.** Setiap dompet punya saldo terkumpul sendiri dan ambang 100 HPO sendiri. Keduanya tidak digabungkan.
 - **Hanya pemiliknya yang dapat menarik.** Imbalan yang terkumpul pada sebuah dompet hanya dapat ditarik oleh akun Hipo Club tempat dompet itu terhubung, dan selalu dikirim ke dompet yang sama.
 
 ## Setelah Anda menerima airdrop Hipo Club

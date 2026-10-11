@@ -9,7 +9,7 @@ Men-stake GRAM di Hipo memberi Anda imbalan lewat tiga aliran terpisah, dengan t
 - **Imbalan dasar**\
   Imbalan staking GRAM, tercermin pada nilai tukar hGRAM terhadap GRAM — diselesaikan **setiap putaran validasi** (~18 jam), tanpa perlu diklaim
 - **Imbalan tambahan**\
-  HPO ekstra atas nilai GRAM dari stake Anda, dengan koefisien yang ditentukan level [Hipo Club](https://t.me/HipoFinanceBot/join) Anda — terkumpul **setiap putaran validasi**, dapat ditarik setelah saldo Anda melampaui 1.000 HPO
+  HPO ekstra atas nilai GRAM dari stake Anda, dengan koefisien yang ditentukan level [Hipo Club](https://t.me/HipoFinanceBot/join) Anda — terkumpul **setiap putaran validasi**, dapat ditarik setelah saldo Anda melampaui 100 HPO
 - **Imbalan ekstra**\
   Pegang HPO → terima bagi hasil dari pendapatan protokol — dibayarkan **pada akhir setiap season Hipo Club**
 
@@ -83,7 +83,7 @@ Ada dua cara untuk naik level:
 Ada dua aturan yang penting:
 
 - **Menjual HPO hasil imbalan mengatur ulang level Anda ke Level 1.** Club dirancang untuk memberi imbalan kepada orang yang memegang, dan inilah mekanismenya. Mengirim HPO hasil imbalan ke bursa, atau ke dompet yang belum Anda hubungkan ke Club, dihitung sebagai menjual; memindahkannya di antara dompet-dompet Anda sendiri yang terhubung tidak — lihat [Menggunakan beberapa dompet](/docs/wallets-and-rewards/).
-- **Tidak ada jendela klaim.** Imbalan terkumpul setiap putaran dan dapat ditarik kapan saja saldo Anda setidaknya **1.000 HPO**.
+- **Tidak ada jendela klaim.** Imbalan terkumpul setiap putaran dan dapat ditarik kapan saja saldo Anda setidaknya **100 HPO**.
 
 ## Imbalan ekstra: bagi hasil
 

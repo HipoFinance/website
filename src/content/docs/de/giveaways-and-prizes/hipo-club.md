@@ -18,7 +18,7 @@ Hipo Club ist ein Stufensystem, das aktive Teilnehmer und langfristige Unterstü
 
 ## Seasons & Rewards
 
-Jede Season dauert ein Quartal. HPO-Rewards fallen nach jeder Validierungsrunde an und können jederzeit ausgezahlt werden, sobald Ihr aufgelaufenes Guthaben die Schwelle von **1.000 HPO** überschreitet — es gibt kein Claim-Fenster und keinen Claim-Rabatt.
+Jede Season dauert ein Quartal. HPO-Rewards fallen nach jeder Validierungsrunde an und können jederzeit ausgezahlt werden, sobald Ihr aufgelaufenes Guthaben die Schwelle von **100 HPO** überschreitet — es gibt kein Claim-Fenster und keinen Claim-Rabatt.
 
 Gewinnbeteiligungen für HPO-Inhaber sind ein separater Strom, der am Ende jeder Season ausgezahlt wird (siehe [Gewinnbeteiligung](/docs/profit-sharing/)).
 
@@ -45,7 +45,7 @@ Der Betrag wird über alle Ihre in Hipo Club verbundenen Wallets zusammengezähl
 
 ## Rewards auszahlen
 
-Rewards fallen kontinuierlich an und können ausgezahlt werden, sobald Ihr aufgelaufenes Guthaben mindestens **1.000 HPO** beträgt.
+Rewards fallen kontinuierlich an und können ausgezahlt werden, sobald Ihr aufgelaufenes Guthaben mindestens **100 HPO** beträgt.
 
 :::note
 
