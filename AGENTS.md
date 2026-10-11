@@ -47,6 +47,20 @@ Requires Node >= 22.12. There is no linter; the only tests are `node --experimen
 
 Note: the top-level README describes an old pre-Astro setup (plain HTML + Tailwind CLI) and is outdated; trust `package.json` and `astro.config.mjs` instead.
 
+## Risk and money paths
+
+Risk: `map`. A change is money code when it touches a send function, a balance field or a path listed in the map; the rest is ordinary code.
+The list is `.claude/money-map.txt`, read by the team's review (`team:risk-review`); how it works is
+in `specs/review-depth.md` of the `claude-team` repo. Add a line there when you add a new way to pay or a new
+balance.
+
+## Review focus
+
+The angles a code review takes here.
+
+- The staking app: amounts in nano units, the fee kept back, the destination of each transaction.
+- The static site: links, locales and what a push publishes at once.
+
 ## Changelog
 
 One file, `CHANGELOG.md`, newest first. Each change gets one entry, brief and complete:
