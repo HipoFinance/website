@@ -1,4 +1,4 @@
-import { useState, type MouseEvent } from 'react'
+import { useEffect, useState, type MouseEvent } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Coins, Gift, ChartLine, ArrowLeftRight, type LucideIcon } from 'lucide-react'
 import { Model } from './Model'
@@ -36,6 +36,15 @@ const siteLinks: { href: string; label: string; appPage?: Page }[] = [
 
 const Header = observer(({ model }: Props) => {
   const [menuOpen, setMenuOpen] = useState(false)
+
+  // Turns off pull-to-refresh while the menu is open: Firefox mobile was reading a tap on a lower
+  // menu item as the refresh gesture, because the gesture is armed whenever the document is at
+  // scroll top. The rule is html.menu-open in global.css, which the app pages also load, and
+  // SiteHeader.astro's script sets the same class on the static pages.
+  useEffect(() => {
+    document.documentElement.classList.toggle('menu-open', menuOpen)
+    return () => document.documentElement.classList.remove('menu-open')
+  }, [menuOpen])
 
   const isActive = (appPage?: Page) => appPage != null && model.activePage === appPage
 

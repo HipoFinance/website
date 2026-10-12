@@ -9,6 +9,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-12 — Firefox mobile turned menu taps into a page refresh
+
+- Reported from Firefox mobile: opening the hamburger menu on the home page and tapping **Stats** refreshed the page instead of navigating. Firefox for Android arms its pull-to-refresh gesture whenever the document is at scroll top, and the site header is not sticky — so the menu can only ever be opened from scroll top, which means the gesture is armed for every tap inside it. The menu is a column of in-flow links with no scroller of its own to absorb the touch, so a tap that drifts a few pixels downward becomes the gesture, Gecko cancels the touch sequence, and the link never fires.
+- `html.menu-open { overscroll-behavior-y: none }` in `global.css`, with the class put on `<html>` while the menu is open by `landing-menu.js` (static pages) and by a `useEffect` in `app/Header.tsx` (app pages, which load the same stylesheet). It is one rule because the two headers deliberately mirror each other.
+- Measured at a 360×640 phone viewport: with the menu open the document is at `scrollY` 0 and **Stats sits at y=420, DeFi at y=467** — the bottom third of the screen, which is exactly where a thumb reaching down drags furthest. That is why the lower items are the ones that misfire and Home never does.
+- Scoped to the open menu rather than set site-wide, deliberately: pull-to-refresh is a browser affordance, and it stays available everywhere else on the site. Say so if it should go everywhere — it is a one-line change.
+- `none` rather than `contain`: only `none` is unambiguously specified to suppress the overscroll affordance itself, and all it costs here is the bottom-edge glow while the menu is open. On `<html>`, not `body`, because the root element's value is what propagates to the viewport.
+- Could not be reproduced here — pull-to-refresh is Firefox for Android only, and desktop Firefox has no such gesture. What was verified in a browser at phone size: the class and the computed `overscroll-behavior-y: none` appear on open and are gone on close, on both the static and the app header, and the Stats link still navigates. The property is honored by Firefox for Android, which is the one step taken on documentation rather than measurement.
+- Left open: the hamburger still has no `aria-expanded`, in either header. Unrelated to this bug, so not touched.
+
 ## 2026-10-12 — TON Connect 5.0.1
 
 - `@tonconnect/ui` 5.0.0 → 5.0.1, a patch published the night before. Lockfile only: the `^5.0.0` range already allowed it, and `@tonconnect/sdk` stays at 5.0.0.

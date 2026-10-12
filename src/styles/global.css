@@ -162,6 +162,28 @@ body {
   overflow-wrap: break-word;
 }
 
+/* Pull-to-refresh, while the hamburger menu is open. Firefox for Android arms the gesture
+   whenever the document is at scroll top, and the header is not sticky — so the menu can only ever
+   be opened from scroll top, which means the gesture is armed for every tap in it. The menu is a
+   dense column of in-flow links with no scroller of its own to absorb the touch, so a tap on a
+   lower item (Stats, DeFi) that drifts a few pixels down becomes the refresh gesture, Gecko cancels
+   the touch sequence, and the link never fires. Reported from Firefox mobile, 2026-10-12.
+
+   Scoped to the open menu rather than set site-wide: pull-to-refresh is a browser affordance and
+   stays available for ordinary reading. `none` rather than `contain` because only `none` is
+   unambiguously specified to suppress the overscroll affordance itself — `contain` is documented as
+   disabling pull-to-refresh in Chrome, but its spec wording keeps the in-element affordance, and
+   the only thing `none` costs here is the bottom-edge glow while the menu is open. It goes on
+   <html> because the root element's value is what propagates to the viewport; on `body` it would
+   only be honored by engines that follow Chrome's older behavior.
+
+   The class is put on <html> by src/scripts/landing-menu.js for the static pages and by
+   src/components/app/Header.tsx for the app pages. A plain rule, so it needs no mirror in app.css
+   (see the note above); html.tma in app.css pins the same property for Telegram Mini App mode. */
+html.menu-open {
+  overscroll-behavior-y: none;
+}
+
 code:not(pre code) {
   overflow-wrap: anywhere;
 }
