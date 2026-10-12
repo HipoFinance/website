@@ -9,6 +9,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-12 — TON Connect 5.0.1
+
+- `@tonconnect/ui` 5.0.0 → 5.0.1, a patch published the night before. Lockfile only: the `^5.0.0` range already allowed it, and `@tonconnect/sdk` stays at 5.0.0.
+- Its published type surface is **byte-identical** to 5.0.0, so this is a behaviour fix with no API change; there are no release notes and no changelog in the tarball, which is why the types were diffed directly.
+- The two internals this repo pins to were re-checked and are unchanged: the restored-session key `ton-connect-storage_bridge-connection`, and the `_goober` / `data-tc-dropdown-container` / `data-tc-list-notifications` / `tc-using-mouse` markers that `keepRuntimeStyles` and `trackInputModality` hang off.
+- **It costs 28 KB gzipped.** The lazy TonConnect chunk goes 119.7 → 147.9 KB gz, from an 18% jump in the package's own bundle, which is a lot for a patch. Only a visitor who opens the wallet modal pays it, and the eager island is unchanged at 52.1 KB gz, so the code splitting still holds the line — but worth watching if they keep growing.
+- Verified in a browser in both colour schemes: the modal opens, lists Gram Wallet, Walt, Keeper and My Wallet, and themes correctly (white surface on cream in light, `rgb(43, 36, 35)` on `rgb(32, 27, 26)` in dark).
+
 ## 2026-10-11 — Hipo Club: rewards can be withdrawn from 100 HPO
 
 - The withdrawal threshold of Hipo Club HPO rewards reads 100 HPO, was 1,000 HPO, in the docs (Hipo Club, Hipo Rewards, incentive programs, wallets and rewards) and the two FAQ answers, in English and all ten locales: 8 mentions per language, each in the locale's own digits. It follows the live minimum (club-server `9fa4197`, club-web `8b3922e`). Only the number changed; no sentence was retranslated; the translation hashes of those 6 entries per locale were refreshed.
