@@ -9,6 +9,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-13 — Specs through the shared skill
+
+- Removed the repo's own `/spec` command (`.claude/commands/spec.md`): the shared `/team:spec` of
+  the `claude-team` plugin writes to the same `specs/` folder and adds what the command lacked, the
+  three levels, definitions, acceptance criteria, the check of each criterion and the money-audit
+  line. Two commands of the same name with different behaviour were the drift the join guide warns
+  about.
+- The command's website-specific interview topics (where a feature lives, its states, mobile and
+  dark mode, the data source) are now four lines in `AGENTS.md`, under "Before you change the site".
+- Unchanged: the 26 specs already in `specs/` keep their old structure.
+
 ## 2026-10-12 — Firefox mobile turned menu taps into a page refresh
 
 - Reported from Firefox mobile: opening the hamburger menu on the home page and tapping **Stats** refreshed the page instead of navigating. Firefox for Android arms its pull-to-refresh gesture whenever the document is at scroll top, and the site header is not sticky — so the menu can only ever be opened from scroll top, which means the gesture is armed for every tap inside it. The menu is a column of in-flow links with no scroller of its own to absorb the touch, so a tap that drifts a few pixels downward becomes the gesture, Gecko cancels the touch sequence, and the link never fires.

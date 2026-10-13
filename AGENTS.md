@@ -15,6 +15,11 @@ person's own setup once they have joined. This file holds what is true of this r
 locales only after it. **A push to `main` deploys the site at once**: commit and push only when
 asked. The procedure is the `locales` skill (`.claude/skills/locales/`).
 
+**Specs are written with `/team:spec`**, into `specs/`. Before drafting one for this site, settle
+where the feature lives (the landing pages, the dApp pages, `/hpo/`, the docs), its states (loading,
+error, empty), mobile and dark mode, and where its data comes from (on-chain through the SDK, the
+gauge API, or static content).
+
 ## What this is
 
 The website for Hipo, a decentralized liquid-staking protocol on the TON blockchain (stake GRAM, receive liquid hGRAM). It is a fully static Astro 6 site (`output: 'static'`, `trailingSlash: 'always'`) with four distinct sections:
