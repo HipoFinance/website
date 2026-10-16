@@ -33,10 +33,10 @@ En cada ronda de validación, cada miembro gana:
 HPO reward = GRAM value of your stake × HPOrewardRate × LevelRate
 ```
 
-- **HPOrewardRate** está actualmente en **0,0021902**. Lo fija la gobernanza y puede cambiar.
+- **HPOrewardRate** está actualmente en **0,0015295**. Lo fija la gobernanza y puede cambiar.
 - **LevelRate** es el coeficiente asociado a tu nivel de Hipo Club.
 
-Una ronda de validación dura 65.536 segundos —unas 18,2 horas—, así que hay aproximadamente **481 rondas al año**. Con la tasa actual, cada GRAM de tu staking genera unos **1,05 HPO al año** en el Nivel 1.
+Una ronda de validación dura 65.536 segundos —unas 18,2 horas—, así que hay aproximadamente **481 rondas al año**. Con la tasa actual, cada GRAM de tu staking genera unos **0,74 HPO al año** en el Nivel 1.
 
 La base es lo que tu staking **vale en GRAM ahora mismo** —tu saldo de hGRAM a la tasa de cambio actual—, no la cantidad que depositaste originalmente. Como las recompensas base empujan ese valor hacia arriba en cada ronda, tus recompensas en HPO crecen con él: los dos flujos se componen entre sí.
 
@@ -56,16 +56,16 @@ Recompensas anuales en HPO con la tasa actual:
 
 | Staking (GRAM) | Nivel 1 (1×) | Nivel 5 (3×) | Nivel 10 (10×) |
 | -------------- | ------------ | ------------ | -------------- |
-| 1.000          | ~1.055 HPO   | ~3.164 HPO   | ~10.546 HPO    |
-| 5.000          | ~5.273 HPO   | ~15.819 HPO  | ~52.732 HPO    |
-| 10.000         | ~10.546 HPO  | ~31.639 HPO  | ~105.463 HPO   |
-| 50.000         | ~52.732 HPO  | ~158.195 HPO | ~527.316 HPO   |
+| 1.000          | ~736 HPO     | ~2.208 HPO   | ~7.360 HPO     |
+| 5.000          | ~3.680 HPO   | ~11.040 HPO  | ~36.800 HPO    |
+| 10.000         | ~7.360 HPO   | ~22.080 HPO  | ~73.600 HPO    |
+| 50.000         | ~36.800 HPO  | ~110.400 HPO | ~368.000 HPO   |
 
 ### Cuánto vale
 
-Las recompensas en HPO se pagan en un token que tiene un precio de mercado, y ese precio se mueve. Valorado al precio de mercado de HPO del 29 de agosto de 2026, el impulso añade aproximadamente **0,18 p. p.** a tu rendimiento anual efectivo en el Nivel 1, y aproximadamente **1,8 p. p.** en el Nivel 10.
+Las recompensas en HPO se pagan en un token que tiene un precio de mercado, y ese precio se mueve. Valorado al precio de mercado de HPO del 16 de octubre de 2026, el impulso añade aproximadamente **0,22 p. p.** a tu rendimiento anual efectivo en el Nivel 1, y aproximadamente **2,2 p. p.** en el Nivel 10.
 
-Así que un staker en el Nivel 10 gana aproximadamente el APY de staking de GRAM que aparece en la [página de Stats](/stats/), **más alrededor de un 1,8 %** en HPO.
+Así que un staker en el Nivel 10 gana aproximadamente el APY de staking de GRAM que aparece en la [página de Stats](/stats/), **más alrededor de un 2,2 %** en HPO.
 
 :::note
 Lo expresamos así a propósito. Una cifra grande de HPO por sí sola no te dice cuánto estás ganando, y el mercado de HPO es pequeño: el token se negocia poco, así que el valor de una posición grande en HPO no es el mismo que el de una pequeña. Preferimos que lo sepas a que te pille por sorpresa.

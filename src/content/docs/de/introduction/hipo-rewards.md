@@ -33,10 +33,10 @@ In jeder Validierungsrunde verdient jedes Mitglied:
 HPO reward = GRAM value of your stake × HPOrewardRate × LevelRate
 ```
 
-- **HPOrewardRate** liegt derzeit bei **0,0021902**. Der Wert wird von der Governance festgelegt und kann sich ändern.
+- **HPOrewardRate** liegt derzeit bei **0,0015295**. Der Wert wird von der Governance festgelegt und kann sich ändern.
 - **LevelRate** ist der Koeffizient, der zu Ihrem Hipo-Club-Level gehört.
 
-Eine Validierungsrunde dauert 65.536 Sekunden — etwa 18,2 Stunden —, es gibt also rund **481 Runden pro Jahr**. Beim aktuellen Satz verdient jedes GRAM in Ihrem Stake auf Level 1 etwa **1,05 HPO pro Jahr**.
+Eine Validierungsrunde dauert 65.536 Sekunden — etwa 18,2 Stunden —, es gibt also rund **481 Runden pro Jahr**. Beim aktuellen Satz verdient jedes GRAM in Ihrem Stake auf Level 1 etwa **0,74 HPO pro Jahr**.
 
 Grundlage ist, was Ihr Stake **gerade jetzt in GRAM wert ist** — Ihr hGRAM-Guthaben zum aktuellen Wechselkurs — und nicht der Betrag, den Sie ursprünglich eingezahlt haben. Da die Basis-Rewards diesen Wert in jeder Runde nach oben treiben, wachsen Ihre HPO-Rewards mit: Die beiden Ströme verstärken einander.
 
@@ -56,16 +56,16 @@ Jährliche HPO-Rewards beim aktuellen Satz:
 
 | Stake (GRAM) | Level 1 (1×) | Level 5 (3×) | Level 10 (10×) |
 | ------------ | ------------ | ------------ | -------------- |
-| 1.000        | ~1.055 HPO   | ~3.164 HPO   | ~10.546 HPO    |
-| 5.000        | ~5.273 HPO   | ~15.819 HPO  | ~52.732 HPO    |
-| 10.000       | ~10.546 HPO  | ~31.639 HPO  | ~105.463 HPO   |
-| 50.000       | ~52.732 HPO  | ~158.195 HPO | ~527.316 HPO   |
+| 1.000        | ~736 HPO     | ~2.208 HPO   | ~7.360 HPO     |
+| 5.000        | ~3.680 HPO   | ~11.040 HPO  | ~36.800 HPO    |
+| 10.000       | ~7.360 HPO   | ~22.080 HPO  | ~73.600 HPO    |
+| 50.000       | ~36.800 HPO  | ~110.400 HPO | ~368.000 HPO   |
 
 ### Was das wert ist
 
-HPO-Rewards werden in einem Token ausgezahlt, der einen Marktpreis hat, und dieser Preis bewegt sich. Bewertet zum HPO-Marktpreis vom 29. August 2026 erhöht der Boost Ihre effektive Jahresrendite auf Level 1 um rund **0,18 Prozentpunkte** und auf Level 10 um rund **1,8 Prozentpunkte**.
+HPO-Rewards werden in einem Token ausgezahlt, der einen Marktpreis hat, und dieser Preis bewegt sich. Bewertet zum HPO-Marktpreis vom 16. Oktober 2026 erhöht der Boost Ihre effektive Jahresrendite auf Level 1 um rund **0,22 Prozentpunkte** und auf Level 10 um rund **2,2 Prozentpunkte**.
 
-Ein Staker auf Level 10 verdient also ungefähr den GRAM-Staking-APY von der [Stats-Seite](/stats/) **plus etwa 1,8 %** in HPO.
+Ein Staker auf Level 10 verdient also ungefähr den GRAM-Staking-APY von der [Stats-Seite](/stats/) **plus etwa 2,2 %** in HPO.
 
 :::note
 Wir formulieren das bewusst so. Eine große HPO-Zahl allein sagt Ihnen nicht, was Sie verdienen, und der HPO-Markt ist klein — der Token wird dünn gehandelt, deshalb ist der Wert einer großen HPO-Position nicht derselbe wie der einer kleinen. Uns ist lieber, Sie wissen das, als dass es Sie überrascht.

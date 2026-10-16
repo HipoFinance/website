@@ -33,10 +33,10 @@ Her doğrulama turunda her üye şu kadar kazanır:
 HPO reward = GRAM value of your stake × HPOrewardRate × LevelRate
 ```
 
-- **HPOrewardRate** şu anda **0,0021902**. Yönetişim tarafından belirlenir ve değişebilir.
+- **HPOrewardRate** şu anda **0,0015295**. Yönetişim tarafından belirlenir ve değişebilir.
 - **LevelRate**, Hipo Club seviyenize bağlı olan katsayıdır.
 
-Bir doğrulama turu 65.536 saniye — yaklaşık 18,2 saat — sürer, dolayısıyla yılda kabaca **481 tur** vardır. Güncel oranda, stake'inizdeki her GRAM 1. seviyede yılda yaklaşık **1,05 HPO** kazandırır.
+Bir doğrulama turu 65.536 saniye — yaklaşık 18,2 saat — sürer, dolayısıyla yılda kabaca **481 tur** vardır. Güncel oranda, stake'inizdeki her GRAM 1. seviyede yılda yaklaşık **0,74 HPO** kazandırır.
 
 Hesabın temeli, stake'inizin **şu anda GRAM cinsinden ne ettiğidir** — güncel dönüşüm oranıyla hGRAM bakiyeniz — başlangıçta yatırdığınız miktar değil. Temel ödüller bu değeri her turda yukarı ittiği için HPO ödülleriniz de onunla birlikte büyür: iki akış birlikte bileşik kazanç sağlar.
 
@@ -56,16 +56,16 @@ Güncel oranda yıllık HPO ödülleri:
 
 | Stake (GRAM) | 1. seviye (1×) | 5. seviye (3×) | 10. seviye (10×) |
 | ------------ | -------------- | -------------- | ---------------- |
-| 1.000        | ~1.055 HPO     | ~3.164 HPO     | ~10.546 HPO      |
-| 5.000        | ~5.273 HPO     | ~15.819 HPO    | ~52.732 HPO      |
-| 10.000       | ~10.546 HPO    | ~31.639 HPO    | ~105.463 HPO     |
-| 50.000       | ~52.732 HPO    | ~158.195 HPO   | ~527.316 HPO     |
+| 1.000        | ~736 HPO       | ~2.208 HPO     | ~7.360 HPO       |
+| 5.000        | ~3.680 HPO     | ~11.040 HPO    | ~36.800 HPO      |
+| 10.000       | ~7.360 HPO     | ~22.080 HPO    | ~73.600 HPO      |
+| 50.000       | ~36.800 HPO    | ~110.400 HPO   | ~368.000 HPO     |
 
 ### Değeri ne kadar
 
-HPO ödülleri, piyasa fiyatı olan bir tokenle ödenir ve o fiyat değişir. HPO'nun 29 Ağustos 2026 tarihli piyasa fiyatıyla değerlendirildiğinde, bu artış efektif yıllık getirinize 1. seviyede kabaca **0,18 yüzde puanı**, 10. seviyede ise kabaca **1,8 yüzde puanı** ekler.
+HPO ödülleri, piyasa fiyatı olan bir tokenle ödenir ve o fiyat değişir. HPO'nun 16 Ekim 2026 tarihli piyasa fiyatıyla değerlendirildiğinde, bu artış efektif yıllık getirinize 1. seviyede kabaca **0,22 yüzde puanı**, 10. seviyede ise kabaca **2,2 yüzde puanı** ekler.
 
-Yani 10. seviyedeki bir staker, yaklaşık olarak [İstatistikler sayfasındaki](/stats/) GRAM staking APY'sini, **artı HPO cinsinden yaklaşık %1,8** kazanır.
+Yani 10. seviyedeki bir staker, yaklaşık olarak [İstatistikler sayfasındaki](/stats/) GRAM staking APY'sini, **artı HPO cinsinden yaklaşık %2,2** kazanır.
 
 :::note
 Bunu bilinçli olarak böyle ifade ediyoruz. Büyük bir HPO rakamı tek başına ne kazandığınızı anlatmaz ve HPO piyasası küçüktür — token seyrek işlem görür, dolayısıyla büyük bir HPO pozisyonunun değeri küçük bir pozisyonunkiyle aynı değildir. Bunu sonradan şaşırarak öğrenmenizdense baştan bilmenizi tercih ederiz.

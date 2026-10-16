@@ -33,10 +33,10 @@ Setiap putaran validasi, tiap anggota memperoleh:
 HPO reward = GRAM value of your stake × HPOrewardRate × LevelRate
 ```
 
-- **HPOrewardRate** saat ini **0,0021902**. Nilainya ditetapkan oleh tata kelola dan dapat berubah.
+- **HPOrewardRate** saat ini **0,0015295**. Nilainya ditetapkan oleh tata kelola dan dapat berubah.
 - **LevelRate** adalah koefisien yang melekat pada level Hipo Club Anda.
 
-Satu putaran validasi berlangsung 65.536 detik — sekitar 18,2 jam — sehingga ada sekitar **481 putaran setahun**. Dengan tarif saat ini, setiap GRAM dalam stake Anda menghasilkan sekitar **1,05 HPO setahun** di Level 1.
+Satu putaran validasi berlangsung 65.536 detik — sekitar 18,2 jam — sehingga ada sekitar **481 putaran setahun**. Dengan tarif saat ini, setiap GRAM dalam stake Anda menghasilkan sekitar **0,74 HPO setahun** di Level 1.
 
 Dasar perhitungannya adalah **nilai stake Anda dalam GRAM saat ini** — saldo hGRAM Anda pada nilai tukar berjalan — bukan jumlah yang semula Anda setorkan. Karena imbalan dasar menaikkan nilai itu setiap putaran, imbalan HPO Anda ikut tumbuh bersamanya: kedua aliran itu saling menggandakan.
 
@@ -56,16 +56,16 @@ Imbalan HPO tahunan dengan tarif saat ini:
 
 | Stake (GRAM) | Level 1 (1×) | Level 5 (3×) | Level 10 (10×) |
 | ------------ | ------------ | ------------ | -------------- |
-| 1.000        | ~1.055 HPO   | ~3.164 HPO   | ~10.546 HPO    |
-| 5.000        | ~5.273 HPO   | ~15.819 HPO  | ~52.732 HPO    |
-| 10.000       | ~10.546 HPO  | ~31.639 HPO  | ~105.463 HPO   |
-| 50.000       | ~52.732 HPO  | ~158.195 HPO | ~527.316 HPO   |
+| 1.000        | ~736 HPO     | ~2.208 HPO   | ~7.360 HPO     |
+| 5.000        | ~3.680 HPO   | ~11.040 HPO  | ~36.800 HPO    |
+| 10.000       | ~7.360 HPO   | ~22.080 HPO  | ~73.600 HPO    |
+| 50.000       | ~36.800 HPO  | ~110.400 HPO | ~368.000 HPO   |
 
 ### Berapa nilainya
 
-Imbalan HPO dibayarkan dalam token yang punya harga pasar, dan harga itu bergerak. Dinilai dengan harga pasar HPO pada 29 Agustus 2026, tambahan ini menyumbang sekitar **0,18 poin persentase** pada imbal hasil tahunan efektif Anda di Level 1, dan sekitar **1,8 poin persentase** di Level 10.
+Imbalan HPO dibayarkan dalam token yang punya harga pasar, dan harga itu bergerak. Dinilai dengan harga pasar HPO pada 16 Oktober 2026, tambahan ini menyumbang sekitar **0,22 poin persentase** pada imbal hasil tahunan efektif Anda di Level 1, dan sekitar **2,2 poin persentase** di Level 10.
 
-Jadi, staker di Level 10 memperoleh kira-kira APY staking GRAM yang tertera di [halaman Statistik](/stats/), **ditambah sekitar 1,8%** dalam bentuk HPO.
+Jadi, staker di Level 10 memperoleh kira-kira APY staking GRAM yang tertera di [halaman Statistik](/stats/), **ditambah sekitar 2,2%** dalam bentuk HPO.
 
 :::note
 Kami sengaja menyampaikannya seperti ini. Angka HPO yang besar dengan sendirinya tidak memberi tahu Anda berapa yang sebenarnya Anda peroleh, dan pasar HPO masih kecil — token ini tipis diperdagangkan, sehingga nilai posisi HPO yang besar tidak sama dengan nilai posisi yang kecil. Kami lebih memilih Anda mengetahuinya sejak awal daripada terkejut karenanya.

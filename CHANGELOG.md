@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-16 — HPO reward rate 0.0015295
+
+- Hipo Rewards docs, all 11 locales: HPOrewardRate 0.0021902 → 0.0015295, read from the `wallet-rewards` API; the HPO-per-year line and the annual table are recomputed with 365-day years, as `/vs/` computes them, so the two pages show the same figures.
+- The boost's worth is revalued at the 16 October prices (HPO $0.00414, GRAM $1.39): ~0.22 pp at Level 1 and ~2.2 pp at Level 10, was 0.18 and 1.8 at the 29 August price. Scaling only for the new rate and keeping the August date was declined, because HPO's price has nearly doubled since then.
+- `/vs/` already reads the rate live at build time; only its fallback in `src/data/club.ts` moves to the new rate.
+
 ## 2026-10-13 — Specs through the shared skill
 
 - Removed the repo's own `/spec` command (`.claude/commands/spec.md`): the shared `/team:spec` of
