@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-17 — The tokenomics card shows where the 1B HPO are today
+
+- The card on `/hpo/` keeps the allocation donut and gains a supply bar under it: burned, in circulation and held by Hipo, as shares of the 1B minted, with the three figures and percentages beneath. A 2% burn was a dot on the ring and the circulating supply was not on the card at all; a labelled bar is what unlock trackers and burn sites use for shares this small. The donut's hole now reads "1,000,000,000 HPO minted once"; the burned count-up moved to the burned figure.
+- The burned figure comes from the gauge's total supply (1B minus it) instead of a TON v4 `get_jetton_data` run in the browser, so it is baked at build time and refreshed with the other figures, and cannot disagree with the circulating supply beside it. The v4 reader and the inner burn arc are gone.
+- New tokens `--color-ember` and `--color-ember-glow` for the burned segment and swatch, the arc's old raw hex.
+- All eleven locales. Declined for now: a released-per-allocation bar on each legend row, which needs per-wallet balances from the gauge and a footnote on the team row. Spec: `specs/hpo-tokenomics-supply-bar.md`.
+
 ## 2026-10-17 — The HPO sparkline in the coin's purple, and the price arithmetic under it
 
 - The HPO page's price sparkline is drawn in a new `--color-hpo` token, the coin's purple, lifted

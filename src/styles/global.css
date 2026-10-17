@@ -47,6 +47,11 @@
      2026-10-17), and green would read as a gain whichever way it points. */
   --color-hpo: #b48cff;
 
+  /* The ember of the HPO page's burned figure and its bar segment, with the glow around them; the
+     same on both grounds, since it is a fill, never a text colour. */
+  --color-ember: #ffb03a;
+  --color-ember-glow: rgba(255, 176, 58, 0.6);
+
   /* Categorical series colours for the /vs/ realized-APY chart. Hipo is drawn in --color-accent;
      these two are the compared protocols. Chosen by running the palette through a CVD/contrast
      validator against each scheme's own surface rather than by eye — both schemes pass the

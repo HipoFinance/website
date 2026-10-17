@@ -46,6 +46,9 @@ export interface GaugeData {
       // Whole HPO: total supply minus what the project's tokenomics wallets hold, read from the
       // chain by the gauge (gauge's specs/hpo-price-from-pools.md).
       circulating_supply?: number
+      // Whole HPO, from the jetton master. Only falls, with burns; 1B minted minus this is the
+      // burned figure on the tokenomics card (specs/hpo-tokenomics-supply-bar.md).
+      total_supply?: number
       // Percent units: -4.19 means -4.19 %. Absent since 2026-10-17: the gauge derives HPO's
       // price from the on-chain pools and holds no 24h history, so the pages hide the change.
       price_change_percentage_24h?: number
@@ -323,6 +326,55 @@ export function gaugeValues(locale: Locale, data: GaugeData | undefined): GaugeV
   }
 
   return values
+}
+
+// The 1,000,000,000 HPO minted once at launch. The supply bar's three shares are of this figure.
+export const HPO_MINTED = 1000000000
+
+// The tokenomics card's supply bar: where the minted 1B are today. The burned amount is the exact
+// whole-HPO count ("22,925,231", the figure the page counts up to; `burnedExact` is its number),
+// the other two compact with one decimal ("45.6M"), each percentage one decimal, and each share a
+// number 0–100 for the segment widths. Undefined unless the gauge
+// gave both supplies and they make sense (0 < circulating ≤ total ≤ minted): the page then keeps
+// its em dashes rather than draw a bar from a half payload.
+export interface HpoSupply {
+  burned: string
+  burnedPct: string
+  burnedShare: number
+  burnedExact: number
+  circulating: string
+  circulatingPct: string
+  circulatingShare: number
+  held: string
+  heldPct: string
+  heldShare: number
+}
+
+export function hpoSupply(locale: Locale, data: GaugeData | undefined): HpoSupply | undefined {
+  const total = data?.hpo?.market?.total_supply
+  const circulating = data?.hpo?.market?.circulating_supply
+  if (!positive(total) || !positive(circulating) || circulating > total || total > HPO_MINTED) {
+    return undefined
+  }
+  const burned = HPO_MINTED - total
+  const held = total - circulating
+  const share = (value: number) => (value / HPO_MINTED) * 100
+  // The three printed percentages must sum to 100: the two small ones are rounded to the decimal
+  // shown and the large one takes the remainder (rounded independently, 2.3 + 4.6 + 93.2 happens).
+  const tenth = (value: number) => Math.round(share(value) * 10) / 10
+  const heldTenth = Math.max(0, 100 - tenth(burned) - tenth(circulating))
+  return {
+    burned: formatNumber(locale, Math.round(burned)),
+    burnedPct: formatPercent(locale, tenth(burned) / 100, 1),
+    burnedShare: share(burned),
+    burnedExact: Math.round(burned),
+    circulating: formatCompact(locale, circulating, 1),
+    circulatingPct: formatPercent(locale, tenth(circulating) / 100, 1),
+    circulatingShare: share(circulating),
+    held: formatCompact(locale, held, 1),
+    heldPct: formatPercent(locale, heldTenth / 100, 1),
+    heldShare: share(held),
+  }
 }
 
 // Which colour the HPO card paints its 24h change: up (including flat) is green, down is coral, the

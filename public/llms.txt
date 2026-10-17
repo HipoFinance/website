@@ -84,7 +84,7 @@ HPO is Hipo's governance and profit-sharing token. HPO holders can participate i
 
 HPO jetton address on TON: `EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM` — verify against the official Hipo sources before swapping.
 
-The HPO price, supply and market cap shown on hipo.finance come from Hipo's own data service reading the chain, not from a price aggregator: the price is the merged reserve ratio of the STON.fi and DeDust HPO/hGRAM pools converted with the treasury's hGRAM rate and the GRAM price; total supply is read from the jetton master; circulating supply is the total minus the HPO held in the six tokenomics wallets (community, liquidity, team, marketing, treasury, advisers) and two old project wallets; market cap is price × circulating supply. Aggregators such as CoinGecko compute their own figures and can differ. Details: https://hipo.finance/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/
+The HPO price, supply and market cap shown on hipo.finance come from Hipo's own data service reading the chain, not from a price aggregator: the price is the merged reserve ratio of the STON.fi and DeDust HPO/hGRAM pools converted with the treasury's hGRAM rate and the GRAM price; total supply is read from the jetton master, and the burned figure is the 1,000,000,000 HPO minted once minus that total; circulating supply is the total minus the HPO held in the six tokenomics wallets (community, liquidity, team, marketing, treasury, advisers) and two old project wallets; market cap is price × circulating supply. Aggregators such as CoinGecko compute their own figures and can differ. Details: https://hipo.finance/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/
 
 ### Hipo DAO
 

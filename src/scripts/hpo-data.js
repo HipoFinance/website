@@ -8,16 +8,19 @@
 // back undefined and is SKIPPED rather than written, so a partial payload can never blank out a
 // good baked value; a failed fetch leaves the page as built and retries.
 //
-// #hpoBurned is the exception and stays purely client-side: it comes from a TON v4 run, not the
-// gauge, and its count-up animation starts at zero — baking the final figure would make it visibly
-// reset on load.
+// The tokenomics card's supply bar (#hpoBurned #hpoSupplyCirculating #hpoSupplyHeld, each with a
+// `Pct` and a `Bar` element) refreshes from the same payload through hpoSupply(). The burned
+// count is the one figure with an entrance: it is blanked to zero as soon as this script runs
+// (the card is far below the fold) and counted up to the live figure when the card scrolls into
+// view; until 2026-10-17 it came from a TON v4 run in the browser instead of the gauge
+// (specs/hpo-tokenomics-supply-bar.md).
 //
 // Numbers follow the page's locale (spec §E): `<html lang>` is mapped back to its registry key and
 // every value goes through src/i18n/format.ts, so `/fa/` gets Persian digits without any change here.
 
 import { LOCALES } from '../i18n/registry.mjs'
 import { formatNumber } from '../i18n/format.ts'
-import { gaugeValues, hpoChangeDirection } from '../data/gauge.ts'
+import { gaugeValues, hpoChangeDirection, hpoSupply } from '../data/gauge.ts'
 
 const locale = pageLocale()
 
@@ -33,92 +36,83 @@ const IDS = [
   'hpoStakers',
 ]
 
+// The burned count's entrance. The baked figure rides along as data-burned; the text is blanked to
+// zero right away (only when there is a figure to count to: with the gauge down at build time the
+// em dash stays) and counted up to the target (baked, or the gauge's once a refresh landed) the
+// first time the figure itself scrolls fully into view. Reduced-motion users keep the baked figure
+// and get each refresh at once. Once shown, refreshes write the figure directly like every other id.
 let elBurned = document.getElementById('hpoBurned')
-let elBurnArc = document.getElementById('hpoBurnArc')
-let elBurnChart = document.getElementById('hpoTokenomicsChart')
+let burnedTarget = Number(elBurned?.dataset.burned) > 0 ? Number(elBurned.dataset.burned) : undefined
+let burnedSeen = false
+let burnedShown = elBurned == null || window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-// "Burned so far" in the middle of the tokenomics donut: 1B HPO were minted; burns shrink the
-// on-chain total supply, so the difference IS the burned amount — a real number, not marketing
-// copy. Read via the TON v4 API's get_jetton_data run (same API the dApp's TonClient4 speaks),
-// preferring Hipo's own endpoint like the app does (specs/ton-v4-read-endpoint.md), with the
-// public one as a per-call fallback — which is also what keeps localhost dev working, since the
-// primary's CORS is production-origin-only. Only queried on the HPO page (the element exists
-// nowhere else); both endpoints failing leaves the dash and a flat arc.
-const TON_V4 = 'https://v4.hipo.finance'
-const TON_V4_FALLBACK = 'https://mainnet-v4.tonhubapi.com'
-const HPO_JETTON = 'EQDQEUr0LPi8m6D6F0Wrvuok7tZbAcr0yn2Y7hK291MMzMjM'
-const HPO_MINTED = 1000000000
-
-let fetchV4 = (path) => {
-  return fetch(TON_V4 + path)
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error('v4 primary: ' + res.status)
-      }
-      return res
-    })
-    .catch(() => fetch(TON_V4_FALLBACK + path))
-}
-
-// Sweep the ember arc to the burned share of the minted supply (the CSS transition in Hpo.astro
-// animates the dasharray change) and count the exact figure up from zero. Deferred until the
-// chart scrolls into view so the animation is actually seen, and skipped entirely for
-// reduced-motion users, who get the final number at once.
-let revealBurned = (burned) => {
-  const run = () => {
-    if (elBurnArc != null) {
-      const pct = (burned / HPO_MINTED) * 100
-      elBurnArc.setAttribute('stroke-dasharray', pct + ' ' + (100 - pct))
-    }
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      SetText(elBurned, formatNumber(locale, burned))
-      return
-    }
-    const duration = 1400
-    const t0 = performance.now()
-    const tick = (now) => {
-      const p = Math.min((now - t0) / duration, 1)
-      const eased = 1 - Math.pow(1 - p, 3)
-      SetText(elBurned, formatNumber(locale, Math.round(burned * eased)))
-      if (p < 1) {
-        requestAnimationFrame(tick)
-      }
-    }
-    requestAnimationFrame(tick)
+if (!burnedShown) {
+  if (burnedTarget !== undefined) {
+    SetText(elBurned, formatNumber(locale, 0))
   }
-  if (elBurnChart != null && typeof IntersectionObserver === 'function') {
+  if (typeof IntersectionObserver === 'function') {
     const io = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
           io.disconnect()
-          run()
+          burnedSeen = true
+          countBurnedUp()
         }
       },
-      { threshold: 0.4 },
+      { threshold: 1 },
     )
-    io.observe(elBurnChart)
+    io.observe(elBurned)
   } else {
-    run()
+    burnedSeen = true
+    countBurnedUp()
   }
 }
 
-let updateBurned = () => {
-  if (elBurned == null) {
+function countBurnedUp() {
+  if (burnedShown || !burnedSeen || burnedTarget === undefined) {
     return
   }
-  fetchV4('/block/latest')
-    .then((res) => res.json())
-    .then((res) => fetchV4('/block/' + res.last.seqno + '/' + HPO_JETTON + '/run/get_jetton_data'))
-    .then((res) => res.json())
-    .then((res) => {
-      // get_jetton_data's first stack item is the total supply in nano.
-      const item = res.exitCode === 0 ? res.result?.[0] : undefined
-      const supply = item?.type === 'int' ? Number(item.value) / 1000000000 : NaN
-      if (Number.isFinite(supply) && supply > 0 && supply <= HPO_MINTED) {
-        revealBurned(Math.round(HPO_MINTED - supply))
-      }
-    })
-    .catch(() => {})
+  burnedShown = true
+  const target = burnedTarget
+  const duration = 1400
+  const t0 = performance.now()
+  const tick = (now) => {
+    const p = Math.min((now - t0) / duration, 1)
+    const eased = 1 - Math.pow(1 - p, 3)
+    // The gauge may have refreshed the target mid-count; the last frame lands on the latest.
+    SetText(elBurned, formatNumber(locale, Math.round((p < 1 ? target : burnedTarget) * eased)))
+    if (p < 1) {
+      requestAnimationFrame(tick)
+    }
+  }
+  requestAnimationFrame(tick)
+}
+
+// The supply bar: the two compact figures and the three percentages and segment widths are
+// written like the other ids; the burned count goes through the entrance above.
+let updateSupply = (data) => {
+  const supply = hpoSupply(locale, data)
+  if (supply === undefined) {
+    return
+  }
+  burnedTarget = supply.burnedExact
+  if (burnedShown) {
+    SetText(elBurned, supply.burned)
+  } else {
+    countBurnedUp()
+  }
+  for (const [stem, value, pct, share] of [
+    ['hpoBurned', undefined, supply.burnedPct, supply.burnedShare],
+    ['hpoSupplyCirculating', supply.circulating, supply.circulatingPct, supply.circulatingShare],
+    ['hpoSupplyHeld', supply.held, supply.heldPct, supply.heldShare],
+  ]) {
+    SetText(document.getElementById(stem), value)
+    SetText(document.getElementById(stem + 'Pct'), pct)
+    const bar = document.getElementById(stem + 'Bar')
+    if (bar != null) {
+      bar.style.width = share + '%'
+    }
+  }
 }
 
 let updateHpoData = () => {
@@ -134,6 +128,7 @@ let updateHpoData = () => {
       for (const id of IDS) {
         SetText(document.getElementById(id), values[id])
       }
+      updateSupply(res.result)
       // Unlike the other figures, a missing 24h change is hidden rather than left showing: an old
       // "24h" figure next to the Live badge would claim to be current.
       const direction = hpoChangeDirection(res.result)
@@ -153,7 +148,8 @@ let updateHpoData = () => {
     })
 }
 
-let SetText = (el, text) => {
+// A function declaration, hoisted: the burned count's entrance above calls it before this line.
+function SetText(el, text) {
   if (el != null && text !== undefined) {
     el.textContent = text
   }
@@ -167,4 +163,3 @@ function pageLocale() {
 }
 
 updateHpoData()
-updateBurned()

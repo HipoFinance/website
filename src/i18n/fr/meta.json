@@ -1552,7 +1552,11 @@
     "reviewed": false
   },
   "hpo.tokenomics.burned": {
-    "sourceHash": "3514c3e06f3c30b0913d262ae6438a664e3c7820",
+    "sourceHash": "baa29f0e8a78e7f41749d467c03a0464067479e7",
+    "reviewed": false
+  },
+  "hpo.tokenomics.burnedNote": {
+    "sourceHash": "51d73bbcd3267a6b3081d170fc9d1c370476e959",
     "reviewed": false
   },
   "hpo.tokenomics.chartItem": {
@@ -1567,8 +1571,24 @@
     "sourceHash": "d3bc9a378daaa1dddba1b19c1aa641d3e9683c46",
     "reviewed": false
   },
+  "hpo.tokenomics.circulating": {
+    "sourceHash": "0a796ed267d6b719a2da83e3257299eccd2868bc",
+    "reviewed": false
+  },
+  "hpo.tokenomics.circulatingNote": {
+    "sourceHash": "f3c75825ad9e04e78a05febcb93aebf3698e5524",
+    "reviewed": false
+  },
   "hpo.tokenomics.community": {
     "sourceHash": "bfd58ee3a270f3a931009900e1008d549bbd7453",
+    "reviewed": false
+  },
+  "hpo.tokenomics.held": {
+    "sourceHash": "3c84283ad929576b3d8725310c2bda39c5522452",
+    "reviewed": false
+  },
+  "hpo.tokenomics.heldNote": {
+    "sourceHash": "1aaef4aa82cf25cae2b659f4aae59783f9e02050",
     "reviewed": false
   },
   "hpo.tokenomics.learnMore": {
@@ -1579,8 +1599,24 @@
     "sourceHash": "76a3e625b1e658d6a1b58506e4445a097d7e1133",
     "reviewed": false
   },
+  "hpo.tokenomics.live": {
+    "sourceHash": "a878feddedaf53a8cdd086dc4e958e1e01b5e1c1",
+    "reviewed": false
+  },
   "hpo.tokenomics.marketing": {
     "sourceHash": "e0c534a05742cb00dc61fd7a287ca60edf0922d2",
+    "reviewed": false
+  },
+  "hpo.tokenomics.minted": {
+    "sourceHash": "900bad6388e6108a0f199e62a841b9fc7cdb3fde",
+    "reviewed": false
+  },
+  "hpo.tokenomics.supplyLabel": {
+    "sourceHash": "c1e1276515f25b19e52bdf8238827624a045cad4",
+    "reviewed": false
+  },
+  "hpo.tokenomics.supplyTitle": {
+    "sourceHash": "d7b6b6a764e68ec26edc6ffb3e10422c9eed5986",
     "reviewed": false
   },
   "hpo.tokenomics.team": {

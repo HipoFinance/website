@@ -5,7 +5,7 @@ import { getT } from '../i18n/t.ts'
 import { formatNumber, formatPercent } from '../i18n/format.ts'
 import { hpoFaqAnchor } from './hpoFaq.ts'
 import AnchorLink from './AnchorLink.astro'
-import { fetchGauge, gaugeValues, hpoChangeDirection } from '../data/gauge.ts'
+import { fetchGauge, gaugeValues, hpoChangeDirection, hpoSupply, HPO_MINTED } from '../data/gauge.ts'
 
 // HPO token page content. Recreates design/HPO.dc.html in the Warm Dark tokens defined in
 // src/styles/global.css. Owned by src/pages/hpo/index.astro only. Every visible string comes from
@@ -21,10 +21,13 @@ const coinGeckoHpo = 'https://www.coingecko.com/en/coins/hipo-governance-token'
 
 // Live market and protocol numbers, baked in at build time and refreshed in the browser by
 // src/scripts/hpo-data.js through the same gaugeValues(); each falls back to the em dash the page
-// used to always ship. #hpoBurned is deliberately NOT baked: it comes from a TON v4 run rather
-// than the gauge, and its count-up animation would visibly reset a pre-rendered figure to zero.
+// used to always ship.
 const gaugeData = await fetchGauge()
 const gauge = gaugeValues(locale, gaugeData)
+// The tokenomics card's supply bar (specs/hpo-tokenomics-supply-bar.md): burned, circulating and
+// held by Hipo, as shares of the 1B minted. Baked like the rest; hpo-data.js blanks the burned
+// count before the card is seen and counts it up when it scrolls into view.
+const supply = hpoSupply(locale, gaugeData)
 const changeDirection = hpoChangeDirection(gaugeData)
 // The hero card's figures; the ids are what hpo-data.js refreshes.
 const figures = [
@@ -35,8 +38,8 @@ const figures = [
 
 // The HPO allocation per docs/hipo-tokens/hipo-governance-token-hpo/ — percentages of
 // the 1B minted, so they always sum to 100 regardless of burns. Rendered as an inline SVG donut
-// (replacing the old static Google-Sheets export) so hpo-data.js can layer the live burned share
-// on top: an ember arc inside the ring plus a count-up in the hole, revealed on scroll.
+// (replacing the old static Google-Sheets export); where those 1B are today is the supply bar
+// under it, since a 2% burn is a dot on a ring but a labelled figure beside a bar.
 const tokenomics = [
   { label: t('hpo.tokenomics.community'), pct: 30, color: '#ff7e73' },
   { label: t('hpo.tokenomics.liquidity'), pct: 20, color: '#6fc7b2' },
@@ -58,6 +61,47 @@ const chartLabel = t('hpo.tokenomics.chartLabel', {
   items: tokenomics
     .map((slice) => t('hpo.tokenomics.chartItem', { label: slice.label, pct: slice.pctText }))
     .join(t('hpo.tokenomics.chartSeparator')),
+})
+// The supply bar's three figures: ids are what hpo-data.js refreshes (the figure, its percentage
+// and its bar segment share one stem). The burned count is exact, the other two compact.
+const DASH = '—'
+const supplyFigures = [
+  {
+    id: 'hpoBurned',
+    value: supply?.burned,
+    pct: supply?.burnedPct,
+    share: supply?.burnedShare,
+    label: 'hpo.tokenomics.burned',
+    note: 'hpo.tokenomics.burnedNote',
+    swatch: 'bg-ember shadow-[0_0_6px_var(--color-ember-glow)]',
+    flame: true,
+  },
+  {
+    id: 'hpoSupplyCirculating',
+    value: supply?.circulating,
+    pct: supply?.circulatingPct,
+    share: supply?.circulatingShare,
+    label: 'hpo.tokenomics.circulating',
+    note: 'hpo.tokenomics.circulatingNote',
+    swatch: 'bg-hpo',
+    flame: false,
+  },
+  {
+    id: 'hpoSupplyHeld',
+    value: supply?.held,
+    pct: supply?.heldPct,
+    share: supply?.heldShare,
+    label: 'hpo.tokenomics.held',
+    note: 'hpo.tokenomics.heldNote',
+    swatch: 'bg-border-strong',
+    flame: false,
+  },
+]
+const supplyLabel = t('hpo.tokenomics.supplyLabel', {
+  minted: formatNumber(locale, HPO_MINTED),
+  burned: supply?.burned ?? DASH,
+  circulating: supply?.circulating ?? DASH,
+  held: supply?.held ?? DASH,
 })
 
 const buySteps = [1, 2, 3, 4].map((n) => ({
@@ -273,26 +317,10 @@ const hpoFaq = await Promise.all(
                     />
                   ))
                 }
-                <!-- The live burned share of the 1B minted, swept in by hpo-data.js once the
-                on-chain figure arrives and the chart is scrolled into view. -->
-                <circle
-                  id='hpoBurnArc'
-                  cx='120'
-                  cy='120'
-                  r='62'
-                  fill='none'
-                  stroke='#ffb03a'
-                  stroke-width='7'
-                  stroke-linecap='round'
-                  pathLength='100'
-                  stroke-dasharray='0 100'
-                  stroke-dashoffset='25'></circle>
               </svg>
-              <!-- Counted up from zero by hpo-data.js (on-chain jetton supply: 1B minted minus the
-              current total). Stays an em dash if the lookup fails — never a hardcoded number. -->
               <div class='absolute inset-0 flex flex-col items-center justify-center gap-0.5 text-center'>
-                <div class='font-fredoka text-[21px] font-semibold'>🔥 <span id='hpoBurned'>—</span></div>
-                <div class='text-text-muted text-[13px]'>{t('hpo.tokenomics.burned')}</div>
+                <div class='font-fredoka text-[21px] font-semibold'>{formatNumber(locale, HPO_MINTED)}</div>
+                <div class='text-text-muted text-[13px]'>{t('hpo.tokenomics.minted')}</div>
               </div>
             </div>
             <ul class='w-full space-y-2.5 text-[15px]'>
@@ -307,7 +335,44 @@ const hpoFaq = await Promise.all(
               }
             </ul>
           </div>
+          <!-- Where the 1B are today. The bar's three segments are the shares of the minted supply,
+          baked from the gauge and refreshed by hpo-data.js with the figures; with no gauge data the
+          track is empty and the figures are em dashes. A flex row, so it mirrors under RTL. -->
+          <h3 class='font-fredoka mt-7 mb-3 text-[17px] font-semibold'>{t('hpo.tokenomics.supplyTitle')}</h3>
+          <div class='bg-border flex h-3.5 gap-0.5 overflow-hidden rounded-full' role='img' aria-label={supplyLabel}>
+            {
+              supplyFigures.map((f) => (
+                <span
+                  id={`${f.id}Bar`}
+                  class={`h-full transition-[width] duration-[1.4s] motion-reduce:transition-none ${f.swatch}`}
+                  style={`width:${f.share ?? 0}%`}
+                />
+              ))
+            }
+          </div>
+          <div class='mt-4 grid gap-3 sm:grid-cols-3'>
+            {
+              supplyFigures.map((f) => (
+                <div>
+                  <div class='font-fredoka flex items-center gap-2 text-[19px] font-semibold'>
+                    <span class={`inline-block size-2.5 shrink-0 rounded-[3px] ${f.swatch}`} />
+                    <span>
+                      {f.flame && '🔥 '}
+                      <span id={f.id} data-burned={f.flame ? supply?.burnedExact : undefined}>
+                        {f.value ?? DASH}
+                      </span>
+                    </span>
+                  </div>
+                  <div class='text-text-muted text-[13px]'>{t(f.label)}</div>
+                  <div class='text-text-faint text-[12px]'>
+                    <span id={`${f.id}Pct`}>{f.pct ?? DASH}</span> · {t(f.note)}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
           <p class='text-text-muted mt-5 text-[15px] leading-[1.55]'>
+            {t('hpo.tokenomics.live')}
             {t('hpo.tokenomics.body')}
             <a href={tokenomicsDocs} class='text-accent'>{t('hpo.tokenomics.learnMore')}</a>
           </p>
@@ -480,17 +545,5 @@ const hpoFaq = await Promise.all(
   }
   .hpo-answer :global(a) {
     color: var(--color-accent);
-  }
-
-  /* The tokenomics burn arc: hpo-data.js only sets stroke-dasharray, this transition turns that
-     into the attention-grabbing sweep. The ember glow separates it from the allocation ring. */
-  #hpoBurnArc {
-    filter: drop-shadow(0 0 5px rgba(255, 176, 58, 0.55));
-    transition: stroke-dasharray 1.4s cubic-bezier(0.22, 0.61, 0.36, 1);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    #hpoBurnArc {
-      transition: none;
-    }
   }
 </style>
