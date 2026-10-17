@@ -40,16 +40,24 @@ if (svg != null) {
       const linePoints = coords.join(' ')
       const areaPoints = linePoints + ' ' + viewWidth + ',120 0,120'
 
+      // Green when the series ended at or above where it started, coral when below: the up/down
+      // rule of the 24h change figure (hpoChangeDirection in src/data/gauge.ts) applied to the
+      // chart's own window, so the colour says what the chart shows instead of a fixed brand
+      // colour (Behrang, 2026-10-17). The window is the 30 days asked for, or less when the series
+      // is younger; the line starts where the data does, so colour and line agree either way.
+      const first = values[0]
+      const last = values[values.length - 1]
+      const color = last >= first ? 'var(--color-positive)' : 'var(--color-accent)'
+
       const polyline = document.createElementNS(svgNs, 'polyline')
       polyline.setAttribute('points', linePoints)
       polyline.setAttribute('fill', 'none')
-      // The HPO purple, not the coral accent: a coral line read as a loss (see --color-hpo).
-      polyline.setAttribute('stroke', 'var(--color-hpo)')
+      polyline.setAttribute('stroke', color)
       polyline.setAttribute('stroke-width', '2.5')
 
       const polygon = document.createElementNS(svgNs, 'polygon')
       polygon.setAttribute('points', areaPoints)
-      polygon.setAttribute('fill', 'var(--color-hpo)')
+      polygon.setAttribute('fill', color)
       polygon.setAttribute('fill-opacity', '0.12')
 
       svg.appendChild(polyline)

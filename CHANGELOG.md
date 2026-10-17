@@ -9,6 +9,10 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-17 — The HPO sparkline is green or coral by its direction
+
+- The hero chart's line and fill are green when the last point of its 30-day series is at or above the first, coral when below, the up/down rule of the 24h change figure applied to the chart's own window. The fixed purple of a few hours earlier made the colour say nothing; now it says what the chart shows (Behrang). `--color-hpo` stays for the supply bar's circulating segment.
+
 ## 2026-10-17 — The tokenomics card shows where the 1B HPO are today
 
 - The card on `/hpo/` keeps the allocation donut and gains a supply bar under it: burned, in circulation and held by Hipo, as shares of the 1B minted, with the three figures and percentages beneath. A 2% burn was a dot on the ring and the circulating supply was not on the card at all; a labelled bar is what unlock trackers and burn sites use for shares this small. The donut's hole now reads "1,000,000,000 HPO minted once"; the burned count-up moved to the burned figure.
