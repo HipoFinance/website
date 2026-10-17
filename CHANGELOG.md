@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-17 — Drop the "XP feeds your seasonal level-up" line from the docs
+
+- Removed the last sentence of "How to Earn XP" on the Hipo Club docs page, "XP feeds your seasonal level-up (see How Leveling Works)", because Behrang asked for it to go; the "How Leveling Works" section right below still explains the seasonal upgrade.
+- Shortened the glossary's XP entry the same way: it no longer says XP drives the seasonal level-up, and keeps the link to the Hipo Club page.
+- Both edits made in English and in all ten released locales; translation hashes refreshed and the full build passes.
+
 ## 2026-10-16 — HPO reward rate 0.0015295
 
 - Hipo Rewards docs, all 11 locales: HPOrewardRate 0.0021902 → 0.0015295, read from the `wallet-rewards` API; the HPO-per-year line and the annual table are recomputed with 365-day years, as `/vs/` computes them, so the two pages show the same figures.

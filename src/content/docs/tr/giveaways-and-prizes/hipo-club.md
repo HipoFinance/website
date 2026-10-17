@@ -24,7 +24,7 @@ HPO sahiplerine yapılan kâr payı ödemeleri ayrı bir akıştır ve her sezon
 
 ## XP nasıl kazanılır
 
-XP, Hipo Club'da ne kadar aktif olduğunuzu ölçer. XP'yi, bottaki Club görevlerini yaparak kazanırsınız: **günlük ödülü** toplamak, **quizleri** yanıtlamak, **Hipo'nun YouTube videolarını izlemek**, arkadaş davet etmek ve botun listelediği diğer görevler. XP, sezonluk seviye atlayışınızı besler (bkz. _Seviye atlama nasıl işler_).
+XP, Hipo Club'da ne kadar aktif olduğunuzu ölçer. XP'yi, bottaki Club görevlerini yaparak kazanırsınız: **günlük ödülü** toplamak, **quizleri** yanıtlamak, **Hipo'nun YouTube videolarını izlemek**, arkadaş davet etmek ve botun listelediği diğer görevler.
 
 **Staking XP kazandırmaz.** Stake ettiğiniz GRAM bunun yerine seviyenizin ödül katsayısı üzerinden HPO kazandırır — bu ayrı bir mekanizmadır ve [Hipo Ödülleri](/docs/introduction/hipo-rewards/) sayfasında anlatılır. XP, Club'daki aktifliğinizle ilgilidir; katsayı ise stake'inizin ne ettiğiyle.
 

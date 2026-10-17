@@ -24,4 +24,4 @@ Los términos que se usan en la documentación, la app y las preguntas frecuente
 - **Tesorería (`Treasury`)** — el contrato inteligente principal de Hipo: custodia el GRAM depositado y lo presta a los prestatarios. Consulta [Contratos y auditorías](/docs/contracts-and-audits/).
 - **TVL** — total value locked, el valor total bloqueado: el GRAM en staking a través de Hipo. Consulta la cifra en vivo en la [página de Stats](/stats/).
 - **Ronda de validación** — el ciclo de unas 18 horas de TON en el que los validadores aseguran la red y ganan recompensas; los depósitos quedan congelados unas 9 horas más tras el final de una ronda. Consulta [Cómo funciona Hipo](/docs/introduction/how-does-hipo-work/).
-- **XP** — la puntuación de actividad en Hipo Club, que se consigue con las tareas del bot; hacer staking no da XP. Determina la subida de nivel de la temporada. Consulta [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **XP** — la puntuación de actividad en Hipo Club, que se consigue con las tareas del bot; hacer staking no da XP. Consulta [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).

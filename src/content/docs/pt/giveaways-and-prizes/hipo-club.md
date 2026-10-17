@@ -24,7 +24,7 @@ A participação nos lucros para holders de HPO é um fluxo separado, pago no fi
 
 ## Como ganhar XP
 
-O XP mede o quanto você é ativo no Hipo Club. Você ganha XP cumprindo as tarefas do Club no bot: coletar a **recompensa diária**, responder **quizzes**, **assistir aos vídeos do Hipo no YouTube**, convidar amigos e as demais tarefas que o bot lista. O XP alimenta a subida de nível da temporada (veja _Como funciona a subida de nível_).
+O XP mede o quanto você é ativo no Hipo Club. Você ganha XP cumprindo as tarefas do Club no bot: coletar a **recompensa diária**, responder **quizzes**, **assistir aos vídeos do Hipo no YouTube**, convidar amigos e as demais tarefas que o bot lista.
 
 **Fazer staking não gera XP.** O seu GRAM em staking rende HPO pelo coeficiente de recompensa do seu nível — um mecanismo separado, descrito em [Recompensas do Hipo](/docs/introduction/hipo-rewards/). O XP é sobre atividade no Club; o coeficiente é sobre quanto vale o que você tem em staking.
 

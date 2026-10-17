@@ -24,7 +24,7 @@ Profit shares for HPO holders are a separate stream, paid at the end of each sea
 
 ## How to Earn XP
 
-XP measures how active you are in Hipo Club. You earn it by doing the Club's tasks in the bot: collecting the **daily reward**, answering **quizzes**, **watching Hipo's YouTube videos**, inviting friends, and the other tasks the bot lists. XP feeds your seasonal level-up (see _How Leveling Works_).
+XP measures how active you are in Hipo Club. You earn it by doing the Club's tasks in the bot: collecting the **daily reward**, answering **quizzes**, **watching Hipo's YouTube videos**, inviting friends, and the other tasks the bot lists.
 
 **Staking does not earn XP.** Your staked GRAM earns HPO through your level's reward coefficient instead — a separate mechanism, described in [Hipo Rewards](/docs/introduction/hipo-rewards/). XP is about activity in the Club; the coefficient is about what your stake is worth.
 

@@ -24,7 +24,7 @@ Bagi hasil untuk pemegang HPO adalah aliran terpisah, dibayarkan pada akhir seti
 
 ## Cara Mendapatkan XP
 
-XP mengukur seberapa aktif Anda di Hipo Club. Anda mendapatkannya dengan menyelesaikan tugas Club di bot: mengumpulkan **imbalan harian**, menjawab **kuis**, **menonton video YouTube Hipo**, mengundang teman, dan tugas lain yang tercantum di bot. XP menjadi bahan bakar untuk kenaikan level musiman Anda (lihat _Cara Kerja Leveling_).
+XP mengukur seberapa aktif Anda di Hipo Club. Anda mendapatkannya dengan menyelesaikan tugas Club di bot: mengumpulkan **imbalan harian**, menjawab **kuis**, **menonton video YouTube Hipo**, mengundang teman, dan tugas lain yang tercantum di bot.
 
 **Staking tidak menghasilkan XP.** GRAM Anda yang di-stake justru menghasilkan HPO melalui koefisien imbalan level Anda — sebuah mekanisme terpisah, yang dijelaskan di [Imbalan Hipo](/docs/introduction/hipo-rewards/). XP menyangkut keaktifan Anda di Club; koefisien menyangkut berapa nilai stake Anda.
 

@@ -24,4 +24,4 @@ Hipo dokümanlarında, uygulamasında ve SSS'de kullanılan terimler; her biri, 
 - **Treasury** — Hipo'nun ana akıllı sözleşmesi (hazine): yatırılan GRAM'ı tutar ve borç alanlara ödünç verir — bkz. [Sözleşmeler ve Denetimler](/docs/contracts-and-audits/).
 - **TVL** — toplam kilitli değer: Hipo aracılığıyla stake edilmiş GRAM — canlı rakamı [İstatistikler sayfasında](/stats/) görün.
 - **Doğrulama turu** — validatörlerin ağı güvence altına aldığı ve ödül kazandığı, TON'un yaklaşık 18 saatlik döngüsü; bir tur sona erdikten sonra stake'ler yaklaşık 9 saat donuk kalır — bkz. [Hipo Nasıl Çalışır](/docs/introduction/how-does-hipo-work/).
-- **XP** — Hipo Club'daki, botun görevleriyle kazanılan aktivite puanı; staking XP kazandırmaz. Sezonluk seviye atlamayı belirler — bkz. [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **XP** — Hipo Club'daki, botun görevleriyle kazanılan aktivite puanı; staking XP kazandırmaz — bkz. [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).

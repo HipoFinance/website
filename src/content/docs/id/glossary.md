@@ -24,4 +24,4 @@ Istilah-istilah yang dipakai di seluruh dokumen, aplikasi, dan FAQ Hipo, masing-
 - **Treasury** — smart contract utama Hipo: menyimpan GRAM yang disetor dan meminjamkannya kepada peminjam — lihat [Kontrak & Audit](/docs/contracts-and-audits/).
 - **TVL** — total value locked: GRAM yang di-stake melalui Hipo — lihat angka terkini di [halaman Statistik](/stats/).
 - **Putaran validasi** — siklus TON yang berlangsung sekitar 18 jam, ketika validator mengamankan jaringan dan memperoleh imbalan; stake tetap dibekukan sekitar 9 jam setelah satu putaran berakhir — lihat [Cara kerja Hipo](/docs/introduction/how-does-hipo-work/).
-- **XP** — skor aktivitas di Hipo Club, diperoleh dari tugas-tugas bot; staking tidak menghasilkan XP. Skor ini yang mendorong kenaikan level musiman — lihat [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **XP** — skor aktivitas di Hipo Club, diperoleh dari tugas-tugas bot; staking tidak menghasilkan XP — lihat [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).

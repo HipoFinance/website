@@ -24,7 +24,7 @@ Gewinnbeteiligungen für HPO-Inhaber sind ein separater Strom, der am Ende jeder
 
 ## So verdienen Sie XP
 
-XP misst, wie aktiv Sie im Hipo Club sind. Sie verdienen es, indem Sie die Aufgaben des Clubs im Bot erledigen: den **täglichen Reward** abholen, **Quizze** beantworten, **Hipos YouTube-Videos ansehen**, Freunde einladen und die übrigen im Bot aufgeführten Aufgaben. XP fließt in Ihren saisonalen Stufenaufstieg ein (siehe _So funktioniert der Stufenaufstieg_).
+XP misst, wie aktiv Sie im Hipo Club sind. Sie verdienen es, indem Sie die Aufgaben des Clubs im Bot erledigen: den **täglichen Reward** abholen, **Quizze** beantworten, **Hipos YouTube-Videos ansehen**, Freunde einladen und die übrigen im Bot aufgeführten Aufgaben.
 
 **Staken bringt keine XP.** Ihr gestaktes GRAM verdient stattdessen HPO über den Reward-Koeffizienten Ihrer Stufe — ein separater Mechanismus, beschrieben unter [Hipo Rewards](/docs/introduction/hipo-rewards/). Bei XP geht es um Aktivität im Club, beim Koeffizienten darum, was Ihr Stake wert ist.
 
