@@ -1160,7 +1160,7 @@
     "reviewed": false
   },
   "docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution.md": {
-    "sourceHash": "d3be033d64a0278cc52d7624ff7f5b7b2ae021a9",
+    "sourceHash": "c86b644631853ad00b37adfab63708475dc2345c",
     "reviewed": false
   },
   "docs/hipo-tokens/hipo-staked-gram-hgram.md": {
@@ -1392,11 +1392,15 @@
     "reviewed": false
   },
   "hpo.hero.chartLink": {
-    "sourceHash": "2ca8bbef1e0de44f671effb85b7952d82741d30d",
+    "sourceHash": "a88ac54ee99972a3ce1bd34aeada5e16a4fe91dc",
     "reviewed": false
   },
   "hpo.hero.chartSource": {
     "sourceHash": "86728b17adbbcf282a82bbfb331a3d04922b102c",
+    "reviewed": false
+  },
+  "hpo.hero.circulating": {
+    "sourceHash": "fea16a0615d9b6a63841fd216768e8751eea331d",
     "reviewed": false
   },
   "hpo.hero.holders": {
@@ -1423,16 +1427,16 @@
     "sourceHash": "2d401832c3fa7358e8181c2c8b988ed1385b2ca1",
     "reviewed": false
   },
+  "hpo.hero.source": {
+    "sourceHash": "7203a9b66a1eecfe50074680aa856c5fdb8ea016",
+    "reviewed": false
+  },
   "hpo.hero.title": {
     "sourceHash": "e89d8c704ff53c2439cd3bc4c6a8bb7f14785e6e",
     "reviewed": false
   },
   "hpo.hero.tokenomicsDocs": {
     "sourceHash": "b3c2feaa03a44f43914e4ae47100137cf3d09d6e",
-    "reviewed": false
-  },
-  "hpo.hero.volume": {
-    "sourceHash": "1ade9f34f9c55c3a95a8ca5cb5c304bbeb8d633c",
     "reviewed": false
   },
   "hpo.investors.audited.audits": {
@@ -1803,6 +1807,10 @@
     "sourceHash": "131949f3d136642712501f8de212ae3621eb91f4",
     "reviewed": false
   },
+  "landing.hpo.circulating": {
+    "sourceHash": "fea16a0615d9b6a63841fd216768e8751eea331d",
+    "reviewed": false
+  },
   "landing.hpo.holders": {
     "sourceHash": "65e14a168f400df507c4ff9b21518f3698c0b154",
     "reviewed": false
@@ -1821,10 +1829,6 @@
   },
   "landing.hpo.title": {
     "sourceHash": "5da0a60e765befa46a4eddce45c750cad2125d92",
-    "reviewed": false
-  },
-  "landing.hpo.volume": {
-    "sourceHash": "1ade9f34f9c55c3a95a8ca5cb5c304bbeb8d633c",
     "reviewed": false
   },
   "landing.stats.apyCaption": {

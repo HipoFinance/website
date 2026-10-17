@@ -13,7 +13,10 @@ import { fetchGauge, gaugeValues, hpoChangeDirection } from '../data/gauge.ts'
 // interpolated through tHtml so translators can move the pieces.
 const locale = localeOf(Astro)
 const { t, tHtml } = getT(locale, ['hpo'])
-// The hero sparkline plots the gauge's HPO price, which the gauge takes from this CoinGecko coin.
+// The hero sparkline plots the gauge's HPO price. Since 2026-10-17 the gauge derives it from the
+// STON.fi v2 and DeDust HPO/hGRAM pools on chain (reserves × the treasury rate × GRAM's price), not
+// from CoinGecko, whose figure was dragged down by a mis-read pool; the CoinGecko link below the
+// chart stays as the outside reference a reader will want to compare with.
 const coinGeckoHpo = 'https://www.coingecko.com/en/coins/hipo-governance-token'
 
 // Live market and protocol numbers, baked in at build time and refreshed in the browser by
@@ -26,7 +29,7 @@ const changeDirection = hpoChangeDirection(gaugeData)
 // The hero card's figures; the ids are what hpo-data.js refreshes.
 const figures = [
   { id: 'hpoMarketCap', value: gauge.hpoMarketCap, label: 'hpo.hero.marketCap' },
-  { id: 'hpoVolume', value: gauge.hpoVolume, label: 'hpo.hero.volume' },
+  { id: 'hpoCirculating', value: gauge.hpoCirculating, label: 'hpo.hero.circulating' },
   { id: 'hpoHolders', value: gauge.hpoHolders, label: 'hpo.hero.holders' },
 ]
 
@@ -78,6 +81,7 @@ const scarcity = [
 
 const tokenomicsDocs = localizedPath('/docs/hipo-tokens/hipo-governance-token-hpo/', locale)
 const clubDocs = localizedPath('/docs/giveaways-and-prizes/hipo-club/', locale)
+const supplyDocs = localizedPath('/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/', locale)
 const link = (href: string, label: string, external = false) =>
   `<a href="${href}"${external ? ' target="_blank" rel="noopener noreferrer"' : ''} class="text-accent">${label}</a>`
 
@@ -138,8 +142,9 @@ const hpoFaq = await Promise.all(
             </span>
           </div>
 
-          <!-- The latest price and its 24h change, CoinGecko's figures relayed by the gauge; baked here and
-          refreshed by hpo-data.js, which also recolours the change and un-hides it once one arrives. -->
+          <!-- The latest price, derived by the gauge from the on-chain pools; baked here and refreshed by
+          hpo-data.js. The 24h change stays hidden while the gauge publishes none (it has not since the
+          price moved on chain, 2026-10-17); the script recolours and un-hides it should one arrive. -->
           <div class='flex flex-wrap items-baseline gap-x-3 gap-y-1'>
             <div
               id='hpoPrice'
@@ -194,12 +199,12 @@ const hpoFaq = await Promise.all(
         </div>
       </div>
 
+      <!-- Where the figures come from: the docs section that spells out the price and supply
+      arithmetic, since "Source: CoinGecko" stopped being true on 2026-10-17. -->
       <a
-        href={coinGeckoHpo}
-        target='_blank'
-        rel='noopener noreferrer'
+        href={supplyDocs}
         class='text-text-faint hover:text-accent self-end pe-3 text-[12px]'
-        set:html={tHtml('hpo.hero.chartSource', { source: '<span class="num">CoinGecko</span>' })}
+        set:html={tHtml('hpo.hero.chartSource', { source: t('hpo.hero.source') })}
       />
     </div>
   </section>

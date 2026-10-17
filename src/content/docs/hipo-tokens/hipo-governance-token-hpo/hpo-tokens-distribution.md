@@ -73,3 +73,15 @@ The treasury serves as a flexible reserve, allowing for strategic reinvestment i
 | ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
 | New multisig | [EQALdO7Z2KdmtcFsj1UoEa1OVZtPe\_\_uADFMcODb4d5FWxE3](https://tonviewer.com/EQALdO7Z2KdmtcFsj1UoEa1OVZtPe__uADFMcODb4d5FWxE3) |
 | Old wallet   | [UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4](https://tonviewer.com/UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4)   |
+
+## Circulating supply, and the price on hipo.finance
+
+The HPO figures on [hipo.finance/hpo](/hpo/) and on the home page are computed by Hipo's own data service from the chain, not taken from a price aggregator. In October 2026 the aggregators read one small STON.fi v1 hGRAM pool with its two tokens swapped, and every HPO price built on it came out about 12% low while the pools themselves agreed.
+
+- **Price.** The HPO/hGRAM reserves of the two pools Hipo's buy-and-burn trades in, [STON.fi](https://app.ston.fi/) and [DeDust](https://dedust.io/), are read on chain and merged, so the deeper pool weighs more. That gives HPO in hGRAM; it is converted with the treasury's hGRAM rate and the GRAM price. The published value is the median of the last three readings, taken every 30 minutes, so one swap does not move the figure alone.
+- **Total supply** is read from the HPO jetton master. It only falls, with burns.
+- **Circulating supply** is the total supply minus the HPO held by the six tokenomics wallets above and the two old community and liquidity wallets, which still hold a little. Tokens held by the project are not in the market, whatever they are earmarked for. The balances are read on chain every cycle, so HPO that leaves one of these wallets counts as circulating from then on.
+- **Market cap** is the price times the circulating supply.
+- **24h change and volume** are not shown: they describe trade flow and price history, which the service does not keep.
+
+Aggregators compute their own figures and may differ; CoinGecko's circulating supply, in particular, was reported to it at listing and does not follow these wallets until it is updated.

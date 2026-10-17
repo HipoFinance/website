@@ -73,3 +73,15 @@ Hazine esnek bir rezerv işlevi görür ve **topluluk ödülleri, pazarlama veya
 | ------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | Yeni multisig | [EQALdO7Z2KdmtcFsj1UoEa1OVZtPe\_\_uADFMcODb4d5FWxE3](https://tonviewer.com/EQALdO7Z2KdmtcFsj1UoEa1OVZtPe__uADFMcODb4d5FWxE3) |
 | Eski cüzdan   | [UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4](https://tonviewer.com/UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4)   |
+
+## Dolaşımdaki arz ve hipo.finance'teki fiyat
+
+[hipo.finance/hpo](/hpo/) sayfasındaki ve ana sayfadaki HPO rakamları, bir fiyat toplayıcıdan alınmaz; Hipo'nun kendi veri servisi tarafından zincirden hesaplanır. Ekim 2026'da fiyat toplayıcılar STON.fi v1 üzerindeki küçük bir hGRAM havuzunu iki token yer değiştirmiş biçimde okudu ve buna dayanan her HPO fiyatı, havuzların kendileri birbiriyle uyumlu olduğu hâlde yaklaşık %12 düşük çıktı.
+
+- **Fiyat.** Hipo'nun geri alıp yaktığı (buy-and-burn) iki havuzun, [STON.fi](https://app.ston.fi/) ve [DeDust](https://dedust.io/), HPO/hGRAM rezervleri zincirden okunur ve birleştirilir; böylece daha derin havuz daha ağır basar. Bu, hGRAM cinsinden HPO değerini verir; değer, hazinenin hGRAM kuru ve GRAM fiyatıyla dönüştürülür. Yayımlanan değer, her 30 dakikada bir alınan son üç okumanın medyanıdır, böylece tek bir takas rakamı tek başına oynatmaz.
+- **Toplam arz**, HPO jetton master'ından okunur. Yalnızca yakımlarla azalır.
+- **Dolaşımdaki arz**, toplam arzdan yukarıdaki altı tokenomics cüzdanında ve hâlâ az miktarda HPO tutan iki eski topluluk ve likidite cüzdanında bulunan HPO'nun çıkarılmasıyla bulunur. Proje tarafından tutulan tokenler, neye ayrılmış olurlarsa olsunlar piyasada değildir. Bakiyeler her döngüde zincirden okunur; bu nedenle bu cüzdanlardan birinden çıkan HPO o andan itibaren dolaşımda sayılır.
+- **Piyasa değeri**, fiyatın dolaşımdaki arzla çarpımıdır.
+- **24 saatlik değişim ve hacim** gösterilmez: bunlar işlem akışını ve fiyat geçmişini anlatır, servis ise bunları tutmaz.
+
+Fiyat toplayıcılar kendi rakamlarını hesaplar ve farklı olabilir; özellikle CoinGecko'nun dolaşımdaki arzı, listelenme sırasında ona bildirilmiştir ve güncellenene kadar bu cüzdanları izlemez.

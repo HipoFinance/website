@@ -1,5 +1,5 @@
 // Refreshes the live numbers on the HPO page: the hero market card (#hpoPrice #hpoChange24h
-// #hpoMarketCap #hpoVolume #hpoHolders) and the "Impressive metrics" card (#hpoTvlGram #hpoTvlUsd
+// #hpoMarketCap #hpoCirculating #hpoHolders) and the "Impressive metrics" card (#hpoTvlGram #hpoTvlUsd
 // #hpoStakers), re-polled every 5 minutes.
 //
 // These values are already IN the HTML: src/components/Hpo.astro bakes them at build time via
@@ -26,7 +26,7 @@ const IDS = [
   'hpoPrice',
   'hpoChange24h',
   'hpoMarketCap',
-  'hpoVolume',
+  'hpoCirculating',
   'hpoHolders',
   'hpoTvlGram',
   'hpoTvlUsd',

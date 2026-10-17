@@ -73,3 +73,15 @@ La tesorería funciona como una reserva flexible que permite reinvertir de forma
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
 | Nuevo multisig     | [EQALdO7Z2KdmtcFsj1UoEa1OVZtPe\_\_uADFMcODb4d5FWxE3](https://tonviewer.com/EQALdO7Z2KdmtcFsj1UoEa1OVZtPe__uADFMcODb4d5FWxE3) |
 | Billetera anterior | [UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4](https://tonviewer.com/UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4)   |
+
+## Suministro circulante y el precio en hipo.finance
+
+Las cifras de HPO de [hipo.finance/hpo](/hpo/) y de la página de inicio las calcula el propio servicio de datos de Hipo a partir de la cadena, y no se toman de un agregador de precios. En octubre de 2026 los agregadores leyeron un pequeño pool hGRAM de STON.fi v1 con sus dos tokens intercambiados, y todo precio de HPO construido sobre él salió un 12 % más bajo, aunque los pools coincidían entre sí.
+
+- **Precio.** Las reservas HPO/hGRAM de los dos pools en los que opera la recompra y quema de Hipo, [STON.fi](https://app.ston.fi/) y [DeDust](https://dedust.io/), se leen on-chain y se combinan, de modo que el pool más profundo pesa más. Eso da HPO en hGRAM, que se convierte con la tasa de hGRAM de la tesorería y el precio de GRAM. El valor publicado es la mediana de las tres últimas lecturas, tomadas cada 30 minutos, para que un solo swap no mueva la cifra por sí solo.
+- **El suministro total** se lee del jetton master de HPO. Solo baja, con las quemas.
+- **El suministro circulante** es el suministro total menos el HPO que tienen las seis billeteras de tokenomics de arriba y las dos billeteras antiguas de Comunidad y Liquidez, que aún conservan algo. Los tokens en manos del proyecto no están en el mercado, sea cual sea su destino. Los saldos se leen on-chain en cada ciclo, así que el HPO que sale de una de estas billeteras cuenta como circulante desde ese momento.
+- **La capitalización de mercado** es el precio por el suministro circulante.
+- **El cambio en 24 h y el volumen** no se muestran: describen el flujo de operaciones y el historial de precios, que el servicio no guarda.
+
+Los agregadores calculan sus propias cifras y pueden diferir; el suministro circulante de CoinGecko, en particular, se le comunicó en el momento de la lista y no sigue a estas billeteras hasta que se actualice.

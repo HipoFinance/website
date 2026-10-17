@@ -73,3 +73,15 @@ Die Treasury dient als flexible Reserve, die strategische Reinvestitionen in Ber
 | ------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | Neue Multisig | [EQALdO7Z2KdmtcFsj1UoEa1OVZtPe\_\_uADFMcODb4d5FWxE3](https://tonviewer.com/EQALdO7Z2KdmtcFsj1UoEa1OVZtPe__uADFMcODb4d5FWxE3) |
 | Alte Wallet   | [UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4](https://tonviewer.com/UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4)   |
+
+## Umlaufmenge und der Preis auf hipo.finance
+
+Die HPO-Werte auf [hipo.finance/hpo](/hpo/) und auf der Startseite berechnet der eigene Datendienst von Hipo aus der Chain; sie stammen nicht von einem Preisaggregator. Im Oktober 2026 lasen die Aggregatoren einen kleinen STON.fi-v1-hGRAM-Pool mit vertauschten Token, und jeder darauf aufbauende HPO-Preis fiel um etwa 12 % zu niedrig aus, obwohl die Pools untereinander übereinstimmten.
+
+- **Preis.** Die HPO/hGRAM-Reserven der beiden Pools, in denen der Buy-and-Burn von Hipo handelt, [STON.fi](https://app.ston.fi/) und [DeDust](https://dedust.io/), werden on-chain gelesen und zusammengeführt, sodass der tiefere Pool stärker gewichtet wird. Das ergibt HPO in hGRAM; umgerechnet wird mit dem hGRAM-Kurs der Treasury und dem GRAM-Preis. Veröffentlicht wird der Median der letzten drei Messungen, die alle 30 Minuten erfolgen, damit ein einzelner Swap den Wert nicht allein verschiebt.
+- **Gesamtmenge** wird aus dem HPO-Jetton-Master gelesen. Sie sinkt nur, durch Burns.
+- **Umlaufmenge** ist die Gesamtmenge minus das HPO in den sechs oben genannten Tokenomics-Wallets und den zwei alten Community- und Liquiditäts-Wallets, die noch etwas halten. Vom Projekt gehaltene Token sind nicht im Markt, wofür auch immer sie vorgesehen sind. Die Bestände werden in jedem Zyklus on-chain gelesen; HPO, das eine dieser Wallets verlässt, zählt ab dann als umlaufend.
+- **Marktkapitalisierung** ist der Preis mal die Umlaufmenge.
+- **24-Stunden-Änderung und Volumen** werden nicht angezeigt: Sie beschreiben Handelsfluss und Kursverlauf, die der Dienst nicht speichert.
+
+Aggregatoren berechnen ihre eigenen Werte und können abweichen; insbesondere die Umlaufmenge bei CoinGecko wurde beim Listing gemeldet und folgt diesen Wallets erst nach einer Aktualisierung.

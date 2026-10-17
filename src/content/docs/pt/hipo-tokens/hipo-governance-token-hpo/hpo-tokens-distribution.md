@@ -73,3 +73,15 @@ A tesouraria funciona como uma reserva flexível, permitindo reinvestimento estr
 | --------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | Nova multisig   | [EQALdO7Z2KdmtcFsj1UoEa1OVZtPe\_\_uADFMcODb4d5FWxE3](https://tonviewer.com/EQALdO7Z2KdmtcFsj1UoEa1OVZtPe__uADFMcODb4d5FWxE3) |
 | Carteira antiga | [UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4](https://tonviewer.com/UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4)   |
+
+## Oferta circulante e o preço em hipo.finance
+
+Os números de HPO em [hipo.finance/hpo](/hpo/) e na página inicial são calculados pelo serviço de dados próprio da Hipo a partir da chain, e não tirados de um agregador de preços. Em outubro de 2026 os agregadores leram um pequeno pool hGRAM da STON.fi v1 com os dois tokens trocados, e todo preço de HPO construído sobre ele saiu cerca de 12 % abaixo, embora os pools concordassem entre si.
+
+- **Preço.** As reservas HPO/hGRAM dos dois pools em que opera a recompra e queima da Hipo, [STON.fi](https://app.ston.fi/) e [DeDust](https://dedust.io/), são lidas on-chain e combinadas, de modo que o pool mais profundo pesa mais. Isso dá HPO em hGRAM, convertido com a taxa de hGRAM da tesouraria e o preço do GRAM. O valor publicado é a mediana das três últimas leituras, feitas a cada 30 minutos, para que um único swap não mova o número sozinho.
+- **A oferta total** é lida do jetton master do HPO. Ela só cai, com as queimas.
+- **A oferta circulante** é a oferta total menos o HPO mantido pelas seis carteiras de tokenomics acima e pelas duas carteiras antigas de Comunidade e Liquidez, que ainda guardam um pouco. Tokens mantidos pelo projeto não estão no mercado, seja qual for o destino previsto. Os saldos são lidos on-chain a cada ciclo, então o HPO que sai de uma dessas carteiras passa a contar como circulante a partir daí.
+- **O valor de mercado** é o preço vezes a oferta circulante.
+- **A variação em 24 h e o volume** não são exibidos: descrevem o fluxo de negociação e o histórico de preços, que o serviço não guarda.
+
+Os agregadores calculam seus próprios números e podem divergir; a oferta circulante da CoinGecko, em particular, foi informada a ela na listagem e não acompanha essas carteiras até ser atualizada.

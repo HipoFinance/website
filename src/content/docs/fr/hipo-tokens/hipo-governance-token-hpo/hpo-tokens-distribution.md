@@ -73,3 +73,15 @@ La trésorerie sert de réserve souple et permet de réinvestir stratégiquement
 | ------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | Nouveau multisig    | [EQALdO7Z2KdmtcFsj1UoEa1OVZtPe\_\_uADFMcODb4d5FWxE3](https://tonviewer.com/EQALdO7Z2KdmtcFsj1UoEa1OVZtPe__uADFMcODb4d5FWxE3) |
 | Ancien portefeuille | [UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4](https://tonviewer.com/UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4)   |
+
+## Offre en circulation et prix sur hipo.finance
+
+Les chiffres HPO de [hipo.finance/hpo](/hpo/) et de la page d'accueil sont calculés par le service de données propre à Hipo à partir de la chaîne, et non repris d'un agrégateur de prix. En octobre 2026, les agrégateurs ont lu un petit pool hGRAM STON.fi v1 avec ses deux tokens inversés, et tout prix du HPO construit dessus est ressorti environ 12 % trop bas, alors que les pools concordaient entre eux.
+
+- **Prix.** Les réserves HPO/hGRAM des deux pools où se fait le rachat-brûlage de Hipo, [STON.fi](https://app.ston.fi/) et [DeDust](https://dedust.io/), sont lues on-chain puis fusionnées, de sorte que le pool le plus profond pèse davantage. On obtient ainsi le HPO en hGRAM, converti avec le taux hGRAM de la trésorerie et le prix du GRAM. La valeur publiée est la médiane des trois dernières lectures, faites toutes les 30 minutes, pour qu'un seul swap ne déplace pas le chiffre à lui seul.
+- **L'offre totale** est lue dans le jetton master du HPO. Elle ne fait que baisser, avec les burns.
+- **L'offre en circulation** est l'offre totale moins le HPO détenu par les six portefeuilles de tokenomics ci-dessus et les deux anciens portefeuilles Communauté et Liquidité, qui en détiennent encore un peu. Les tokens détenus par le projet ne sont pas sur le marché, quelle que soit leur affectation. Les soldes sont lus on-chain à chaque cycle : le HPO qui quitte l'un de ces portefeuilles compte comme en circulation à partir de ce moment.
+- **La capitalisation boursière** est le prix multiplié par l'offre en circulation.
+- **La variation sur 24 h et le volume** ne sont pas affichés : ils décrivent le flux des échanges et l'historique des prix, que le service ne conserve pas.
+
+Les agrégateurs calculent leurs propres chiffres et peuvent différer ; l'offre en circulation de CoinGecko, en particulier, lui a été communiquée lors de la cotation et ne suit pas ces portefeuilles tant qu'elle n'est pas mise à jour.

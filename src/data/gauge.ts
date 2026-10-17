@@ -43,8 +43,11 @@ export interface GaugeData {
     market?: {
       current_price?: { usd?: number }
       market_cap?: { usd?: number }
-      total_volume?: { usd?: number }
-      // Percent units: -4.19 means -4.19 %.
+      // Whole HPO: total supply minus what the project's tokenomics wallets hold, read from the
+      // chain by the gauge (gauge's specs/hpo-price-from-pools.md).
+      circulating_supply?: number
+      // Percent units: -4.19 means -4.19 %. Absent since 2026-10-17: the gauge derives HPO's
+      // price from the on-chain pools and holds no 24h history, so the pages hide the change.
       price_change_percentage_24h?: number
     }
   }
@@ -64,7 +67,7 @@ export interface GaugeValues {
   hpoPrice?: string
   hpoChange24h?: string
   hpoMarketCap?: string
-  hpoVolume?: string
+  hpoCirculating?: string
   hpoHolders?: string
   hpoTvlGram?: string
   hpoTvlUsd?: string
@@ -306,9 +309,12 @@ export function gaugeValues(locale: Locale, data: GaugeData | undefined): GaugeV
     values.hpoMarketCap = compactUsd(locale, marketCap)
   }
 
-  const volume = data.hpo?.market?.total_volume?.usd
-  if (positive(volume)) {
-    values.hpoVolume = compactUsd(locale, volume)
+  // Replaced the 24h volume on 2026-10-17: the gauge no longer has a volume for HPO (it prices
+  // HPO from the pools' reserves, not from trade flow), and the supply is what explains the market
+  // cap beside it.
+  const circulating = data.hpo?.market?.circulating_supply
+  if (positive(circulating)) {
+    values.hpoCirculating = formatCompact(locale, circulating, 1)
   }
 
   const hpoHolders = data.hpo?.holders_count

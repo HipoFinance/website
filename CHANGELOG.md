@@ -9,6 +9,22 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-17 — The HPO page says where its price and supply come from
+
+- The gauge derives HPO's price from the STON.fi and DeDust HPO/hGRAM pools on chain since
+  today (gauge's `specs/hpo-price-from-pools.md`), after CoinGecko published it 12% low from a
+  mis-read pool, so the HPO page's "Source: CoinGecko" line now names the pools and links the
+  docs section that spells out the arithmetic; the CoinGecko chart link stays as a comparison.
+- The hero card and the home page's HPO panel show the circulating supply in place of the 24h
+  volume, which the gauge no longer has for HPO and which would have read "—" for good; the
+  supply is what explains the market cap next to it. The 24h change stays hidden while absent,
+  as the markup already allowed.
+- `hpo-tokens-distribution.md` gains a "Circulating supply, and the price on hipo.finance"
+  section: price, total and circulating supply, market cap, and why the change and volume are
+  not shown; `public/llms.txt` carries the same in one paragraph.
+- Left alone: the dApp's Stats page, whose HPO row already shows the circulating supply and a
+  dash for an unknown volume; a fully diluted value beside the market cap, not asked for.
+
 ## 2026-10-17 — Drop the "XP feeds your seasonal level-up" line from the docs
 
 - Removed the last sentence of "How to Earn XP" on the Hipo Club docs page, "XP feeds your seasonal level-up (see How Leveling Works)", because Behrang asked for it to go; the "How Leveling Works" section right below still explains the seasonal upgrade.

@@ -73,3 +73,15 @@ Treasury berfungsi sebagai cadangan yang fleksibel, memungkinkan reinvestasi str
 | ------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | Multisig baru | [EQALdO7Z2KdmtcFsj1UoEa1OVZtPe\_\_uADFMcODb4d5FWxE3](https://tonviewer.com/EQALdO7Z2KdmtcFsj1UoEa1OVZtPe__uADFMcODb4d5FWxE3) |
 | Dompet lama   | [UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4](https://tonviewer.com/UQBEO3hvIxZkJLQsB9Z4CAcZ6F98KakM1XvMFZ_Fw6qgS7N4)   |
+
+## Suplai beredar, dan harga di hipo.finance
+
+Angka HPO di [hipo.finance/hpo](/hpo/) dan di halaman utama dihitung oleh layanan data milik Hipo sendiri dari on-chain, bukan diambil dari agregator harga. Pada Oktober 2026 para agregator membaca satu pool hGRAM kecil di STON.fi v1 dengan kedua tokennya tertukar, dan setiap harga HPO yang dibangun di atasnya keluar sekitar 12% terlalu rendah, padahal pool-pool itu sendiri sepakat satu sama lain.
+
+- **Harga.** Cadangan HPO/hGRAM dari dua pool tempat buy-and-burn Hipo berdagang, [STON.fi](https://app.ston.fi/) dan [DeDust](https://dedust.io/), dibaca on-chain lalu digabung, sehingga pool yang lebih dalam berbobot lebih besar. Hasilnya adalah HPO dalam hGRAM; nilai itu dikonversi dengan kurs hGRAM treasury dan harga GRAM. Nilai yang dipublikasikan adalah median dari tiga pembacaan terakhir, yang diambil setiap 30 menit, sehingga satu swap saja tidak menggeser angkanya.
+- **Total suplai** dibaca dari jetton master HPO. Nilainya hanya turun, lewat burn.
+- **Suplai beredar** adalah total suplai dikurangi HPO yang dipegang enam dompet tokenomics di atas dan dua dompet lama komunitas dan likuiditas, yang masih menyimpan sedikit. Token yang dipegang proyek tidak ada di pasar, untuk apa pun token itu dialokasikan. Saldo dibaca on-chain di setiap siklus, sehingga HPO yang keluar dari salah satu dompet ini dihitung beredar sejak saat itu.
+- **Kapitalisasi pasar** adalah harga dikali suplai beredar.
+- **Perubahan 24 jam dan volume** tidak ditampilkan: keduanya menggambarkan arus perdagangan dan riwayat harga, yang tidak disimpan layanan ini.
+
+Agregator menghitung angkanya sendiri dan bisa berbeda; khususnya, suplai beredar di CoinGecko dilaporkan kepadanya saat listing dan tidak mengikuti dompet-dompet ini sampai diperbarui.

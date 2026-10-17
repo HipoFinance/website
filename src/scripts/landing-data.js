@@ -1,5 +1,5 @@
 // Refreshes the live numbers on the landing page in the visitor's browser: the hero APY pill, the
-// hero holders count, the stats row, and the HPO panel stats (#hpoMarketCap #hpoVolume #hpoHolders
+// hero holders count, the stats row, and the HPO panel stats (#hpoMarketCap #hpoCirculating #hpoHolders
 // — the same ids hpo-data.js fills on the HPO page).
 //
 // These values are already IN the HTML: src/components/Landing.astro bakes them at build time via
@@ -30,7 +30,7 @@ const IDS = [
   'statFee',
   'statHolders',
   'hpoMarketCap',
-  'hpoVolume',
+  'hpoCirculating',
   'hpoHolders',
 ]
 
