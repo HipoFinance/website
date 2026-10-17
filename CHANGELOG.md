@@ -9,6 +9,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-17 — The HPO price chart gets the Stats page's ranges and a hover readout
+
+- The hero chart on `/hpo/` has the five range pills of the Stats page (24H, 1W, 1M, 3M, 1Y; the month at first) and shows, on hover, touch or keyboard, the price and the time of the picked point in the card's own price row, because a fixed 30-day line with no labels answered neither "what was it last week" nor "what was it on that day".
+- The line breaks at a data gap and is coloured by the chosen window, as before; the SVG is sized to the card so the hover dot is round; a failed fetch shows the Stats page's "Couldn't load history" in the chart's place.
+- The chart is no longer a link: the CoinGecko link moved to the sentence under the card (`hpo.hero.compare`, `hpo.hero.compareLink`; `hpo.hero.chartLink` removed). The pills and the chart messages reuse the `app` catalog, so only the two new keys were translated.
+- Declined: axes and gridlines on the hero chart, a data table under it, remembering the chosen range. Known: 3M and 1Y show the step of 2026-10-17 when the price moved from CoinGecko's figure to the pools'.
+
+Spec: [specs/hpo-chart-ranges-and-hover.md](specs/hpo-chart-ranges-and-hover.md)
+
 ## 2026-10-17 — The HPO sparkline is green or coral by its direction
 
 - The hero chart's line and fill are green when the last point of its 30-day series is at or above the first, coral when below, the up/down rule of the 24h change figure applied to the chart's own window. The fixed purple of a few hours earlier made the colour say nothing; now it says what the chart shows (Behrang). `--color-hpo` stays for the supply bar's circulating segment.

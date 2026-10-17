@@ -126,7 +126,16 @@ let updateHpoData = () => {
       }
       const values = gaugeValues(locale, res.result)
       for (const id of IDS) {
-        SetText(document.getElementById(id), values[id])
+        const el = document.getElementById(id)
+        // While the chart's readout holds the price figure (hpo-sparkline.ts), a refreshed price
+        // goes to data-live and the readout restores it when the pointer leaves.
+        if (id === 'hpoPrice' && el?.dataset.inspecting === '1') {
+          if (values[id] !== undefined) {
+            el.dataset.live = values[id]
+          }
+          continue
+        }
+        SetText(el, values[id])
       }
       updateSupply(res.result)
       // Unlike the other figures, a missing 24h change is hidden rather than left showing: an old

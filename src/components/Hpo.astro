@@ -12,11 +12,12 @@ import { fetchGauge, gaugeValues, hpoChangeDirection, hpoSupply, HPO_MINTED } fr
 // src/i18n/<locale>/hpo.json; sentences that wrap a live element or a link are built here and
 // interpolated through tHtml so translators can move the pieces.
 const locale = localeOf(Astro)
-const { t, tHtml } = getT(locale, ['hpo'])
+// The `app` catalog too: the price chart reuses the Stats page's range pills and chart messages.
+const { t, tHtml } = getT(locale, ['hpo', 'app'])
 // The hero sparkline plots the gauge's HPO price. Since 2026-10-17 the gauge derives it from the
 // STON.fi v2 and DeDust HPO/hGRAM pools on chain (reserves × the treasury rate × GRAM's price), not
-// from CoinGecko, whose figure was dragged down by a mis-read pool; the CoinGecko link below the
-// chart stays as the outside reference a reader will want to compare with.
+// from CoinGecko, whose figure was dragged down by a mis-read pool; the CoinGecko link under the
+// card stays as the outside reference a reader will want to compare with.
 const coinGeckoHpo = 'https://www.coingecko.com/en/coins/hipo-governance-token'
 
 // Live market and protocol numbers, baked in at build time and refreshed in the browser by
@@ -35,6 +36,16 @@ const figures = [
   { id: 'hpoCirculating', value: gauge.hpoCirculating, label: 'hpo.hero.circulating' },
   { id: 'hpoHolders', value: gauge.hpoHolders, label: 'hpo.hero.holders' },
 ]
+// The chart's range pills, the Stats page's five (specs/hpo-chart-ranges-and-hover.md); the month
+// is selected at first, as there. hpo-sparkline.ts fetches on a click and moves aria-pressed.
+const ranges: { key: string; label: string }[] = [
+  { key: '24h', label: t('app.chart.range24h') },
+  { key: '7d', label: t('app.chart.range1w') },
+  { key: '30d', label: t('app.chart.range1m') },
+  { key: '90d', label: t('app.chart.range3m') },
+  { key: '1y', label: t('app.chart.range1y') },
+]
+const defaultRange = '30d'
 
 // The HPO allocation per docs/hipo-tokens/hipo-governance-token-hpo/ — percentages of
 // the 1B minted, so they always sum to 100 regardless of burns. Rendered as an inline SVG donut
@@ -195,33 +206,74 @@ const hpoFaq = await Promise.all(
               class='font-fredoka num text-[24px] leading-tight font-semibold'
               set:text={gauge.hpoPrice ?? '—'}
             />
-            <div id='hpoChangeWrap' class='flex items-baseline gap-1.5' hidden={gauge.hpoChange24h === undefined}>
-              <span
-                id='hpoChange24h'
-                class:list={[
-                  'num text-[14px] font-medium',
-                  changeDirection === 'down' ? 'text-accent' : 'text-positive',
-                ]}
-                set:text={gauge.hpoChange24h ?? ''}
-              />
-              <span class='text-text-muted text-[13px]'>{t('hpo.hero.change24h')}</span>
-            </div>
+            <!-- The 24h change and the chart's hovered time share one grid cell: while a point of the chart
+            is picked, hpo-sparkline.ts puts that point's price in #hpoPrice and its time here, and makes the
+            change invisible rather than gone, so the row never reflows mid-scrub. -->
+            <span class='grid'>
+              <div
+                id='hpoChangeWrap'
+                class='col-start-1 row-start-1 flex items-baseline gap-1.5'
+                hidden={gauge.hpoChange24h === undefined}
+              >
+                <span
+                  id='hpoChange24h'
+                  class:list={[
+                    'num text-[14px] font-medium',
+                    changeDirection === 'down' ? 'text-accent' : 'text-positive',
+                  ]}
+                  set:text={gauge.hpoChange24h ?? ''}
+                />
+                <span class='text-text-muted text-[13px]'>{t('hpo.hero.change24h')}</span>
+              </div>
+              <span id='hpoHoverTime' class='num text-text-muted invisible col-start-1 row-start-1 text-[13px]'></span>
+            </span>
           </div>
         </div>
 
-        <!-- Filled by hpo-sparkline.ts from 30 days of the hipo_hpo_current_price Prometheus series
-      (the same allowlisted combined query the Stats page charts use). The height is reserved by
-      the viewBox/class regardless of data; no line or fill is drawn until real points arrive, and
-      none is drawn on failure either — never a fake shape. -->
-        <a
-          href={coinGeckoHpo}
-          target='_blank'
-          rel='noopener noreferrer'
-          aria-label={t('hpo.hero.chartLink')}
-          class='focus-visible:outline-accent -mt-2 block cursor-pointer rounded-[12px] focus-visible:outline-2 focus-visible:outline-offset-4'
+        <!-- The price chart (specs/hpo-chart-ranges-and-hover.md): hpo-sparkline.ts fetches the
+        hipo_hpo_current_price series for the chosen range through the same allowlisted query the Stats
+        page charts use, sizes the viewBox to the card, and draws the line, the hover marks and the
+        readout. The class reserves the height; no line or fill is drawn until real points arrive, and on
+        failure the Stats page's error line shows here instead — never a fake shape. The strings the
+        script needs ride as data attributes. dir=ltr: SVG coordinates are physical, as on /stats/. -->
+        <div dir='ltr' class='relative -mt-2'>
+          <svg
+            id='hpoSparkline'
+            class='focus-visible:outline-accent h-[120px] w-full touch-pan-y rounded-[12px] select-none focus-visible:outline-2 focus-visible:outline-offset-4'
+            tabindex='0'
+            role='img'
+            aria-label={t('app.chart.ariaNoData', { title: t('hpo.hero.pair'), range: t('app.chart.range1m') })}
+            data-title={t('hpo.hero.pair')}
+            data-aria={t('app.chart.ariaSummary')}
+            data-aria-empty={t('app.chart.ariaNoData')}
+            data-error={t('app.chart.loadError')}
+            data-empty={t('app.chart.noData')}></svg>
+          <p
+            id='hpoSparklineNote'
+            class='text-text-muted absolute inset-0 flex items-center justify-center text-sm'
+            hidden
+          >
+          </p>
+        </div>
+        <div
+          id='hpoRange'
+          role='group'
+          aria-label={t('app.chart.rangeGroup')}
+          class='bg-surface-deep -mt-1 inline-flex flex-row gap-0.5 self-start rounded-full p-0.5 text-[12px] font-semibold'
         >
-          <svg id='hpoSparkline' viewBox='0 0 400 120' class='h-[120px] w-full' preserveAspectRatio='none'></svg>
-        </a>
+          {
+            ranges.map((r) => (
+              <button
+                type='button'
+                data-range={r.key}
+                aria-pressed={r.key === defaultRange}
+                class='num text-text-muted aria-pressed:bg-accent-fill aria-pressed:text-on-accent not-aria-pressed:hover:text-accent cursor-pointer rounded-full px-3 py-1'
+              >
+                {r.label}
+              </button>
+            ))
+          }
+        </div>
 
         <!-- Below sm the three figures stack as a list: label at the start, value at the end, and the
         value takes a line of its own when the two don't fit. Most locales' figures and labels don't fit
@@ -244,11 +296,12 @@ const hpoFaq = await Promise.all(
       </div>
 
       <!-- How the figures are computed, in one sentence under the card (Behrang asked for it on the
-      page itself, not only in the docs), with the docs section that spells out the arithmetic. -->
-      <p
-        class='text-text-faint px-3 text-[12px] leading-relaxed'
-        set:html={tHtml('hpo.hero.priced', { link: link(supplyDocs, t('hpo.hero.pricedLink')) })}
-      />
+      page itself, not only in the docs), with the docs section that spells out the arithmetic; then the
+      CoinGecko chart as the outside reference, on a line of its own since the first sentence ends in a link. -->
+      <div class='text-text-faint flex flex-col gap-1 px-3 text-[12px] leading-relaxed'>
+        <p set:html={tHtml('hpo.hero.priced', { link: link(supplyDocs, t('hpo.hero.pricedLink')) })} />
+        <p set:html={tHtml('hpo.hero.compare', { link: link(coinGeckoHpo, t('hpo.hero.compareLink'), true) })} />
+      </div>
     </div>
   </section>
 

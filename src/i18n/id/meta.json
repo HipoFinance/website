@@ -1391,12 +1391,16 @@
     "sourceHash": "0277959611310976682872bcb5d6423aa581a202",
     "reviewed": false
   },
-  "hpo.hero.chartLink": {
-    "sourceHash": "a88ac54ee99972a3ce1bd34aeada5e16a4fe91dc",
-    "reviewed": false
-  },
   "hpo.hero.circulating": {
     "sourceHash": "fea16a0615d9b6a63841fd216768e8751eea331d",
+    "reviewed": false
+  },
+  "hpo.hero.compare": {
+    "sourceHash": "6a92ce7f274ac335df238d4f1ff08ebabcee7e79",
+    "reviewed": false
+  },
+  "hpo.hero.compareLink": {
+    "sourceHash": "5f6b46c90336c136e02a43ba5e9ee6baa7847feb",
     "reviewed": false
   },
   "hpo.hero.holders": {

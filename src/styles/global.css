@@ -43,8 +43,8 @@
   --color-positive: #4ade80;
 
   /* The HPO coin's purple (#7820c8 in /hpo.png), lifted for the warm dark ground. The circulating
-     segment of the tokenomics supply bar is drawn in it. The price sparkline was too, for a few
-     hours on 2026-10-17; it is now green or coral by the direction of its window. */
+     segment of the tokenomics supply bar is drawn in it (the price chart is green or coral by the
+     direction of its window). */
   --color-hpo: #b48cff;
 
   /* The ember of the HPO page's burned figure and its bar segment, with the glow around them; the
