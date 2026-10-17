@@ -1,6 +1,6 @@
 # The tokenomics card shows where the 1B HPO are today
 
-**Status:** approved
+**Status:** implemented
 
 Approved in chat on 2026-10-17 (Behrang: "Ok do it please and publish it in all locales. Also
 please move burned figure from client-side v4 to gauge"), after a mockup of the card in both
@@ -96,19 +96,19 @@ payload the hero card already trusts. No decisions needed.
 
 ## Acceptance criteria
 
-- [ ] `node scripts/check-i18n.mjs` reports nothing missing; `npm run build` passes.
-- [ ] Built `dist/hpo/index.html` contains no `v4.hipo.finance` and no `hpoBurnArc`; it contains
+- [x] `node scripts/check-i18n.mjs` reports nothing missing; `npm run build` passes.
+- [x] Built `dist/hpo/index.html` contains no `v4.hipo.finance` and no `hpoBurnArc`; it contains
       the baked burned, circulating and held figures that sum to the minted 1B (22,925,231 +
       45.6M + 931.4M on 2026-10-17, the compact ones rounded) and the three percentages summing
       to 100.
-- [ ] `hpoSupply()` returns `undefined` for a payload missing `total_supply`, for
+- [x] `hpoSupply()` returns `undefined` for a payload missing `total_supply`, for
       `circulating > total`, and for `total > 1e9`.
-- [ ] In a headless browser on the live page, the burned figure under the bar reads the exact count
+- [x] In a headless browser on the live page, the burned figure under the bar reads the exact count
       (1B − total supply from `gauge.hipo.finance/data`) after the card scrolls into view, and no
       request goes to a v4 host.
-- [ ] Screenshots at 1280 and 390 wide in both schemes: the bar and figures fit without horizontal
+- [x] Screenshots at 1280 and 390 wide in both schemes: the bar and figures fit without horizontal
       scroll; `/fa/hpo/` renders the bar right-to-left.
-- [ ] `team:risk-review` run; receipt written.
+- [x] `team:risk-review` run; receipt written.
 
 ## Risks & rollback
 
