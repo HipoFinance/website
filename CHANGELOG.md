@@ -9,6 +9,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-17 — The HPO sparkline in the coin's purple, and the price arithmetic under it
+
+- The HPO page's price sparkline is drawn in a new `--color-hpo` token, the coin's purple, lifted
+  for the dark scheme: in the coral accent the line read as a loss at a glance (Behrang), and green
+  would read as a gain whichever way it points.
+- The "Source" line under the hero card becomes one sentence on how the price and market cap are
+  computed from the STON.fi and DeDust pool reserves, with the docs link, since the explanation
+  belongs on the page and not only in the docs. All eleven locales.
+
 ## 2026-10-17 — The HPO page says where its price and supply come from
 
 - The gauge derives HPO's price from the STON.fi and DeDust HPO/hGRAM pools on chain since

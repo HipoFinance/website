@@ -43,12 +43,14 @@ if (svg != null) {
       const polyline = document.createElementNS(svgNs, 'polyline')
       polyline.setAttribute('points', linePoints)
       polyline.setAttribute('fill', 'none')
-      polyline.setAttribute('stroke', 'var(--color-accent)')
+      // The HPO purple, not the coral accent: a coral line read as a loss (see --color-hpo).
+      polyline.setAttribute('stroke', 'var(--color-hpo)')
       polyline.setAttribute('stroke-width', '2.5')
 
       const polygon = document.createElementNS(svgNs, 'polygon')
       polygon.setAttribute('points', areaPoints)
-      polygon.setAttribute('fill', 'rgba(255,126,115,.12)')
+      polygon.setAttribute('fill', 'var(--color-hpo)')
+      polygon.setAttribute('fill-opacity', '0.12')
 
       svg.appendChild(polyline)
       svg.appendChild(polygon)

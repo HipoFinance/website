@@ -42,6 +42,11 @@
 
   --color-positive: #4ade80;
 
+  /* The HPO coin's purple (#7820c8 in /hpo.png), lifted for the warm dark ground. The HPO page's
+     price sparkline is drawn in it: in coral the line read as a loss at a glance (Behrang,
+     2026-10-17), and green would read as a gain whichever way it points. */
+  --color-hpo: #b48cff;
+
   /* Categorical series colours for the /vs/ realized-APY chart. Hipo is drawn in --color-accent;
      these two are the compared protocols. Chosen by running the palette through a CVD/contrast
      validator against each scheme's own surface rather than by eye — both schemes pass the
@@ -91,6 +96,9 @@
        constants and deliberately not re-declared. */
 
     --color-positive: #16a34a;
+
+    /* The coin's own purple holds its contrast on cream. */
+    --color-hpo: #7820c8;
 
     /* Stepped for the white chart surface, not an automatic lightening of the dark values. */
     --color-series-a: #2a78d6;

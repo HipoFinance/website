@@ -199,12 +199,11 @@ const hpoFaq = await Promise.all(
         </div>
       </div>
 
-      <!-- Where the figures come from: the docs section that spells out the price and supply
-      arithmetic, since "Source: CoinGecko" stopped being true on 2026-10-17. -->
-      <a
-        href={supplyDocs}
-        class='text-text-faint hover:text-accent self-end pe-3 text-[12px]'
-        set:html={tHtml('hpo.hero.chartSource', { source: t('hpo.hero.source') })}
+      <!-- How the figures are computed, in one sentence under the card (Behrang asked for it on the
+      page itself, not only in the docs), with the docs section that spells out the arithmetic. -->
+      <p
+        class='text-text-faint px-3 text-[12px] leading-relaxed'
+        set:html={tHtml('hpo.hero.priced', { link: link(supplyDocs, t('hpo.hero.pricedLink')) })}
       />
     </div>
   </section>
