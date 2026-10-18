@@ -50,6 +50,7 @@
   "hpo.tokenomics.circulatingNote": "آنچه ارزش بازار می‌شمارد",
   "hpo.tokenomics.held": "نزد Hipo",
   "hpo.tokenomics.heldNote": "کیف پول‌های پروژه، آزادسازی طبق برنامه",
+  "hpo.tokenomics.fdv": "با قیمت امروز، همهٔ {total} HPO معادل {fdv} ارزش دارند، یعنی ارزش کاملاً رقیق‌شده؛ ارزش بازار فقط {circulating} در گردش را می‌شمارد.",
   "hpo.tokenomics.live": "مقدار سوزانده‌شده و در گردش از زنجیره خوانده می‌شود و با هر بازدید به‌روز می‌شود.",
   "hpo.tokenomics.burned": "سوزانده‌شده",
   "hpo.tokenomics.body": "هر بخش در توکنومیکس HPO به‌طور راهبردی برای تقویت رشد Hipo طراحی شده است.",

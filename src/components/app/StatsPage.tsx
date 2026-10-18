@@ -97,7 +97,6 @@ const Section = observer(({ model, title, stats, showSupply, showHolders }: Sect
         accent={stats.isChangePositive ? 'up' : 'down'}
       />
       <Row label={t('app.statsPage.marketCap')} value={stats.marketCap} />
-      <Row label={t('app.statsPage.totalVolume')} value={stats.totalVolume} />
       {showHolders === true && <Row label={t('app.statsPage.holders')} value={stats.holders} />}
       {showSupply === true && <Row label={t('app.statsPage.circulatingSupply')} value={stats.supply} />}
     </div>
@@ -296,7 +295,9 @@ const StatsPage = observer(({ model }: Props) => {
           {model.hgramStats != null && (
             <Section model={model} title='hGRAM' stats={model.hgramStats} showSupply showHolders />
           )}
-          {model.hpoStats != null && <Section model={model} title='HPO' stats={model.hpoStats} showHolders />}
+          {model.hpoStats != null && (
+            <Section model={model} title='HPO' stats={model.hpoStats} showSupply showHolders />
+          )}
           {model.gramStats != null && <Section model={model} title='GRAM' stats={model.gramStats} />}
         </div>
       )}

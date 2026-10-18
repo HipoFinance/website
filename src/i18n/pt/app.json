@@ -183,7 +183,6 @@
   "app.statsPage.stakingFee": "Taxa de staking {fee}",
   "app.statsPage.subtitle": "Métricas do protocolo em tempo real, direto da blockchain.",
   "app.statsPage.title": "Hipo Stats",
-  "app.statsPage.totalVolume": "Volume total",
   "app.statsPage.treasuryOnExplorer": "Tesouraria no explorer",
   "app.statsPage.tvlLabel": "GRAM em staking (TVL)",
   "app.statsPage.tvlLabelWithUsd": "GRAM em staking (TVL) · {usd}",

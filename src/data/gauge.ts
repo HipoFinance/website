@@ -331,7 +331,8 @@ export function gaugeValues(locale: Locale, data: GaugeData | undefined): GaugeV
 // The 1,000,000,000 HPO minted once at launch. The supply bar's three shares are of this figure.
 export const HPO_MINTED = 1000000000
 
-// The tokenomics card's supply bar: where the minted 1B are today. The burned amount is the exact
+// The tokenomics card's supply bar: where the minted 1B are today, and the fully diluted value
+// under it (readers compare with CoinGecko's $4M, which is this figure). The burned amount is the exact
 // whole-HPO count ("22,925,231", the figure the page counts up to; `burnedExact` is its number),
 // the other two compact with one decimal ("45.6M"), each percentage one decimal, and each share a
 // number 0–100 for the segment widths. Undefined unless the gauge
@@ -348,6 +349,11 @@ export interface HpoSupply {
   held: string
   heldPct: string
   heldShare: number
+  // The total supply, compact ("977.1M"), and the fully diluted value, price × total supply
+  // ("$4.1M"); the sentence under the supply bar explains the gap to the market cap with them.
+  // fdv is undefined without a price.
+  total: string
+  fdv?: string
 }
 
 export function hpoSupply(locale: Locale, data: GaugeData | undefined): HpoSupply | undefined {
@@ -363,7 +369,10 @@ export function hpoSupply(locale: Locale, data: GaugeData | undefined): HpoSuppl
   // shown and the large one takes the remainder (rounded independently, 2.3 + 4.6 + 93.2 happens).
   const tenth = (value: number) => Math.round(share(value) * 10) / 10
   const heldTenth = Math.max(0, 100 - tenth(burned) - tenth(circulating))
+  const price = data?.hpo?.market?.current_price?.usd
   return {
+    total: formatCompact(locale, total, 1),
+    fdv: positive(price) ? compactUsd(locale, price * total) : undefined,
     burned: formatNumber(locale, Math.round(burned)),
     burnedPct: formatPercent(locale, tenth(burned) / 100, 1),
     burnedShare: share(burned),

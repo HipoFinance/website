@@ -50,6 +50,7 @@
   "hpo.tokenomics.circulatingNote": "piyasa değerinin saydığı kısım",
   "hpo.tokenomics.held": "Hipo'da tutulan",
   "hpo.tokenomics.heldNote": "proje cüzdanları, takvimle serbest bırakılır",
+  "hpo.tokenomics.fdv": "Bugünkü fiyatla {total} HPO'nun tamamı {fdv} değerindedir, buna tam seyreltilmiş değer denir; piyasa değeri dolaşımdaki {circulating} adedi sayar.",
   "hpo.tokenomics.live": "Yakılan ve dolaşımdaki miktar zincirden okunur, her ziyarette yenilenir.",
   "hpo.tokenomics.burned": "Yakılan",
   "hpo.tokenomics.body": "HPO tokenomisindeki her kategori, Hipo'nun büyümesini desteklemek için stratejik olarak tasarlandı.",

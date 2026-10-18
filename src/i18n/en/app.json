@@ -183,7 +183,6 @@
   "app.statsPage.stakingFee": "Staking fee {fee}",
   "app.statsPage.subtitle": "Live protocol metrics, straight from the chain.",
   "app.statsPage.title": "Hipo stats",
-  "app.statsPage.totalVolume": "Total volume",
   "app.statsPage.treasuryOnExplorer": "Treasury on explorer",
   "app.statsPage.tvlLabel": "GRAM staked (TVL)",
   "app.statsPage.tvlLabelWithUsd": "GRAM staked (TVL) · {usd}",

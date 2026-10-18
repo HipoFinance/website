@@ -183,7 +183,6 @@
   "app.statsPage.stakingFee": "Staking komisyonu {fee}",
   "app.statsPage.subtitle": "Zincirden doğrudan alınan canlı protokol metrikleri.",
   "app.statsPage.title": "Hipo stats",
-  "app.statsPage.totalVolume": "Toplam hacim",
   "app.statsPage.treasuryOnExplorer": "Explorer'da Treasury",
   "app.statsPage.tvlLabel": "Stake edilen GRAM (TVL)",
   "app.statsPage.tvlLabelWithUsd": "Stake edilen GRAM (TVL) · {usd}",

@@ -183,7 +183,6 @@
   "app.statsPage.stakingFee": "Biaya staking {fee}",
   "app.statsPage.subtitle": "Metrik protokol terkini, langsung dari chain.",
   "app.statsPage.title": "Hipo Stats",
-  "app.statsPage.totalVolume": "Volume total",
   "app.statsPage.treasuryOnExplorer": "Treasury di explorer",
   "app.statsPage.tvlLabel": "GRAM di-stake (TVL)",
   "app.statsPage.tvlLabelWithUsd": "GRAM di-stake (TVL) · {usd}",

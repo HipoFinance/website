@@ -183,7 +183,6 @@
   "app.statsPage.stakingFee": "کارمزد استیکینگ {fee}",
   "app.statsPage.subtitle": "معیارهای زنده پروتکل، مستقیم از زنجیره.",
   "app.statsPage.title": "آمار Hipo",
-  "app.statsPage.totalVolume": "حجم کل",
   "app.statsPage.treasuryOnExplorer": "خزانه در اکسپلورر",
   "app.statsPage.tvlLabel": "GRAM استیک‌شده (TVL)",
   "app.statsPage.tvlLabelWithUsd": "GRAM استیک‌شده (TVL) · {usd}",

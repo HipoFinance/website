@@ -9,7 +9,8 @@
 // good baked value; a failed fetch leaves the page as built and retries.
 //
 // The tokenomics card's supply bar (#hpoBurned #hpoSupplyCirculating #hpoSupplyHeld, each with a
-// `Pct` and a `Bar` element) refreshes from the same payload through hpoSupply(). The burned
+// `Pct` and a `Bar` element) and the fully diluted value sentence (#hpoFdv) refresh from the same
+// payload through hpoSupply(). The burned
 // count is the one figure with an entrance: it is blanked to zero as soon as this script runs
 // (the card is far below the fold) and counted up to the live figure when the card scrolls into
 // view; until 2026-10-17 it came from a TON v4 run in the browser instead of the gauge
@@ -20,6 +21,7 @@
 
 import { LOCALES } from '../i18n/registry.mjs'
 import { formatNumber } from '../i18n/format.ts'
+import { interpolate } from '../i18n/make-t.ts'
 import { gaugeValues, hpoChangeDirection, hpoSupply } from '../data/gauge.ts'
 
 const locale = pageLocale()
@@ -100,6 +102,20 @@ let updateSupply = (data) => {
     SetText(elBurned, supply.burned)
   } else {
     countBurnedUp()
+  }
+  // The fully diluted value sentence: its template rides along in data-template.
+  // Hidden when the payload has no price, rather than left saying the old figures beside a bar
+  // that moved on.
+  const elFdv = document.getElementById('hpoFdv')
+  if (elFdv != null) {
+    elFdv.hidden = supply.fdv === undefined
+    if (supply.fdv !== undefined) {
+      elFdv.textContent = interpolate(elFdv.dataset.template ?? '', {
+        total: supply.total,
+        fdv: supply.fdv,
+        circulating: supply.circulating,
+      })
+    }
   }
   for (const [stem, value, pct, share] of [
     ['hpoBurned', undefined, supply.burnedPct, supply.burnedShare],

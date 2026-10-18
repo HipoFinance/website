@@ -50,6 +50,7 @@
   "hpo.tokenomics.circulatingNote": "yang dihitung kapitalisasi pasar",
   "hpo.tokenomics.held": "Dipegang Hipo",
   "hpo.tokenomics.heldNote": "dompet proyek, dirilis sesuai jadwal",
+  "hpo.tokenomics.fdv": "Dengan harga hari ini, seluruh {total} HPO bernilai {fdv}, yaitu valuasi terdilusi penuh; kapitalisasi pasar menghitung {circulating} yang beredar.",
   "hpo.tokenomics.live": "Jumlah yang di-burn dan yang beredar dibaca dari chain dan diperbarui setiap kunjungan.",
   "hpo.tokenomics.burned": "Di-burn",
   "hpo.tokenomics.body": "Setiap kategori dalam tokenomics HPO dirancang secara strategis untuk mendorong pertumbuhan Hipo.",

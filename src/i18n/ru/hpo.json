@@ -50,6 +50,7 @@
   "hpo.tokenomics.circulatingNote": "то, что учитывает капитализация",
   "hpo.tokenomics.held": "У Hipo",
   "hpo.tokenomics.heldNote": "кошельки проекта, выдача по графику",
+  "hpo.tokenomics.fdv": "По сегодняшней цене все {total} HPO стоят {fdv}, это полностью разводнённая стоимость; капитализация учитывает {circulating} в обращении.",
   "hpo.tokenomics.live": "Сожжённые и обращающиеся токены читаются из блокчейна и обновляются при каждом визите.",
   "hpo.tokenomics.burned": "Сожжено",
   "hpo.tokenomics.body": "Каждая категория в токеномике HPO продумана так, чтобы подпитывать рост Hipo.",

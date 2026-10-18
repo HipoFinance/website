@@ -1935,13 +1935,6 @@ export class Model {
       change24h: change != null ? this.formatSignedPercent(change / 100) : undefined,
       isChangePositive: (change ?? 0) >= 0,
       marketCap: market?.market_cap?.usd != null ? this.formatUsdCompact(market.market_cap.usd) : undefined,
-      // A zero volume is the gauge saying it does not know, never a real observation: a listed
-      // token that traded nothing at all in 24 hours does not happen, and "$0" would read as one
-      // that did.
-      totalVolume:
-        market?.total_volume?.usd != null && market.total_volume.usd > 0
-          ? this.formatUsdCompact(market.total_volume.usd)
-          : undefined,
       supply: market?.circulating_supply != null ? this.formatCompact(market.circulating_supply) : undefined,
       holders: token.holders_count != null ? this.formatCompact(token.holders_count) : undefined,
     }
@@ -3228,7 +3221,6 @@ export interface TokenStats {
   change24h?: string
   isChangePositive: boolean
   marketCap?: string
-  totalVolume?: string
   supply?: string
   holders?: string
 }

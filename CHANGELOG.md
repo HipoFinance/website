@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-18 — Fully diluted value under the supply bar; the Stats page drops its volume rows
+
+- The tokenomics card says, under the supply bar, what all 977M HPO are worth at today's price (the fully diluted value, $4.1M on this date) and that the market cap counts only the 45.6M in circulation, because a reader coming from CoinGecko sees its $4M there and $193K here and needs the gap explained where it is drawn (`hpo.tokenomics.fdv`, refreshed with the other figures).
+- The Stats page's hGRAM and HPO cards lose their "Total volume" row, which has shown a dash since both prices became derived from the chain: the gauge has no trade volume for either, and a pool's daily volume of a few thousand dollars says little (`app.statsPage.totalVolume` removed), and the HPO card gains the circulating supply row the hGRAM card has, from the gauge's pool-derived figure. Declined: taking volume from the STON.fi and DeDust APIs, an indexer's figure; pool liquidity in its place is left open.
+
 ## 2026-10-17 — The HPO price chart gets the Stats page's ranges and a hover readout
 
 - The hero chart on `/hpo/` has the five range pills of the Stats page (24H, 1W, 1M, 3M, 1Y; the month at first) and shows, on hover, touch or keyboard, the price and the time of the picked point in the card's own price row, because a fixed 30-day line with no labels answered neither "what was it last week" nor "what was it on that day".

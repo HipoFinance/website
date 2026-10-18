@@ -50,6 +50,7 @@
   "hpo.tokenomics.circulatingNote": "was die Marktkapitalisierung zählt",
   "hpo.tokenomics.held": "Von Hipo gehalten",
   "hpo.tokenomics.heldNote": "Projekt-Wallets, planmäßig freigegeben",
+  "hpo.tokenomics.fdv": "Zum heutigen Preis sind alle {total} HPO {fdv} wert, die voll verwässerte Bewertung; die Marktkapitalisierung zählt die {circulating} im Umlauf.",
   "hpo.tokenomics.live": "Verbrannt und im Umlauf werden aus der Chain gelesen und bei jedem Besuch aktualisiert.",
   "hpo.tokenomics.burned": "Verbrannt",
   "hpo.tokenomics.body": "Jede Kategorie der HPO-Tokenomics ist strategisch auf das Wachstum von Hipo ausgerichtet.",

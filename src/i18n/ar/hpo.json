@@ -50,6 +50,7 @@
   "hpo.tokenomics.circulatingNote": "ما تحتسبه القيمة السوقية",
   "hpo.tokenomics.held": "بحوزة Hipo",
   "hpo.tokenomics.heldNote": "محافظ المشروع، تُفرَج وفق جدول زمني",
+  "hpo.tokenomics.fdv": "بالسعر الحالي، تبلغ قيمة كل {total} HPO نحو {fdv}، وهي القيمة المخففة بالكامل؛ أما القيمة السوقية فتحتسب {circulating} المتداولة فقط.",
   "hpo.tokenomics.live": "يُقرأ المحروق والمتداول من السلسلة ويتجدد مع كل زيارة.",
   "hpo.tokenomics.burned": "محروق",
   "hpo.tokenomics.body": "كل فئة في توكنوميكس HPO مصمَّمة استراتيجيًا لدعم نمو Hipo.",

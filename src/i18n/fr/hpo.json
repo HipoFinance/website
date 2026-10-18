@@ -50,6 +50,7 @@
   "hpo.tokenomics.circulatingNote": "ce que compte la capitalisation",
   "hpo.tokenomics.held": "Détenus par Hipo",
   "hpo.tokenomics.heldNote": "portefeuilles du projet, libérés selon un calendrier",
+  "hpo.tokenomics.fdv": "Au prix d'aujourd'hui, les {total} HPO valent {fdv}, la valorisation entièrement diluée ; la capitalisation compte les {circulating} en circulation.",
   "hpo.tokenomics.live": "Les HPO brûlés et en circulation sont lus sur la chaîne et se mettent à jour à chaque visite.",
   "hpo.tokenomics.burned": "Brûlés",
   "hpo.tokenomics.body": "Chaque catégorie de la tokenomics du HPO est pensée pour alimenter la croissance de Hipo.",

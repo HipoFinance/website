@@ -183,7 +183,6 @@
   "app.statsPage.stakingFee": "رسوم الستاكينغ {fee}",
   "app.statsPage.subtitle": "مقاييس حيّة للبروتوكول، مباشرة من البلوكتشين.",
   "app.statsPage.title": "إحصاءات Hipo",
-  "app.statsPage.totalVolume": "إجمالي حجم التداول",
   "app.statsPage.treasuryOnExplorer": "الخزينة في المستكشف",
   "app.statsPage.tvlLabel": "GRAM في الستاكينغ (TVL)",
   "app.statsPage.tvlLabelWithUsd": "GRAM في الستاكينغ (TVL) · {usd}",

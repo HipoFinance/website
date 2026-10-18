@@ -735,10 +735,6 @@
     "sourceHash": "57d2f83aa0093f720c93b03a0959a926d1bda269",
     "reviewed": false
   },
-  "app.statsPage.totalVolume": {
-    "sourceHash": "7d4a008e8a30ff46213b06cd790ec6e4bc2d01b6",
-    "reviewed": false
-  },
   "app.statsPage.treasuryOnExplorer": {
     "sourceHash": "ac147478b589b1ac74df3e1d3a7558d64c66cd7a",
     "reviewed": false
@@ -1585,6 +1581,10 @@
   },
   "hpo.tokenomics.community": {
     "sourceHash": "bfd58ee3a270f3a931009900e1008d549bbd7453",
+    "reviewed": false
+  },
+  "hpo.tokenomics.fdv": {
+    "sourceHash": "187cfd5fc33b05348ae97d6f64f661b7298e8799",
     "reviewed": false
   },
   "hpo.tokenomics.held": {

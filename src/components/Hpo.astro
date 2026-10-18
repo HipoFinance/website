@@ -424,6 +424,21 @@ const hpoFaq = await Promise.all(
               ))
             }
           </div>
+          <!-- The fully diluted value, price × total supply, beside the market cap it is so much larger than
+          (CoinGecko shows the FDV; a reader coming from there sees $4M, then $193K here). Baked with the
+          rest; hpo-data.js re-interpolates the template in data-template on each refresh. -->
+          <p
+            id='hpoFdv'
+            class='text-text-muted mt-4 text-[13px]'
+            data-template={t('hpo.tokenomics.fdv')}
+            hidden={supply?.fdv === undefined}
+          >
+            {
+              supply?.fdv === undefined
+                ? ''
+                : t('hpo.tokenomics.fdv', { total: supply.total, fdv: supply.fdv, circulating: supply.circulating })
+            }
+          </p>
           <p class='text-text-muted mt-5 text-[15px] leading-[1.55]'>
             {t('hpo.tokenomics.live')}
             {t('hpo.tokenomics.body')}

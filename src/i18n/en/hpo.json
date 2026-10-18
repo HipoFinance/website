@@ -51,6 +51,7 @@
   "hpo.tokenomics.circulatingNote": "what the market cap counts",
   "hpo.tokenomics.held": "Held by Hipo",
   "hpo.tokenomics.heldNote": "project wallets, released on a schedule",
+  "hpo.tokenomics.fdv": "At today's price all {total} HPO are worth {fdv}, the fully diluted value; the market cap counts the {circulating} in circulation.",
   "hpo.tokenomics.live": "Burned and circulating are read from the chain and refresh with every visit.",
   "hpo.tokenomics.body": "Each category in HPO tokenomics is strategically designed to fuel Hipo's growth.",
   "hpo.tokenomics.learnMore": "Learn more",

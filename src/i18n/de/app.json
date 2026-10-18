@@ -183,7 +183,6 @@
   "app.statsPage.stakingFee": "Staking-Gebühr {fee}",
   "app.statsPage.subtitle": "Live-Protokollmetriken, direkt von der Chain.",
   "app.statsPage.title": "Hipo-Statistiken",
-  "app.statsPage.totalVolume": "Gesamtvolumen",
   "app.statsPage.treasuryOnExplorer": "Treasury im Explorer",
   "app.statsPage.tvlLabel": "GRAM im Staking (TVL)",
   "app.statsPage.tvlLabelWithUsd": "GRAM im Staking (TVL) · {usd}",

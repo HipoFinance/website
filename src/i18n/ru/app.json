@@ -183,7 +183,6 @@
   "app.statsPage.stakingFee": "Комиссия за стейкинг {fee}",
   "app.statsPage.subtitle": "Живые метрики протокола прямо из блокчейна.",
   "app.statsPage.title": "Статистика Hipo",
-  "app.statsPage.totalVolume": "Общий объём",
   "app.statsPage.treasuryOnExplorer": "Казна в эксплорере",
   "app.statsPage.tvlLabel": "GRAM в стейкинге (TVL)",
   "app.statsPage.tvlLabelWithUsd": "GRAM в стейкинге (TVL) · {usd}",
