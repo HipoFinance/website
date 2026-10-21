@@ -48,9 +48,21 @@
   --color-hpo: #b48cff;
 
   /* The ember of the HPO page's burned figure and its bar segment, with the glow around them; the
-     same on both grounds, since it is a fill, never a text colour. */
+     brand amber on the dark ground (the light block deepens it), since it is a fill, never a text
+     colour. */
   --color-ember: #ffb03a;
   --color-ember-glow: rgba(255, 176, 58, 0.6);
+
+  /* The six HPO allocations, in the donut, its legend, the supply bar and the list under it. Chosen
+     with .claude/skills/visual-design/palette-check.py so every pair stays at least 15 CIELAB units
+     apart under deuteranopia, protanopia and tritanopia and every fill holds 3:1 on its surface;
+     re-run the check rather than nudge by hand. The light block re-declares them. */
+  --color-alloc-community: #ff7e73;
+  --color-alloc-liquidity: #2fb5a8;
+  --color-alloc-team: #9fd0f5;
+  --color-alloc-marketing: #c04fa8;
+  --color-alloc-treasury: #3f8f4a;
+  --color-alloc-advisers: #f3dcc0;
 
   /* Categorical series colours for the /vs/ realized-APY chart. Hipo is drawn in --color-accent;
      these two are the compared protocols. Chosen by running the palette through a CVD/contrast
@@ -104,6 +116,20 @@
 
     /* The coin's own purple holds its contrast on cream. */
     --color-hpo: #7820c8;
+
+    /* The brand amber is 1.8:1 on white, too faint for the burned segment the card wants noticed;
+       deepened here only (Behrang, 2026-10-21). */
+    --color-ember: #cf7f00;
+    --color-ember-glow: rgba(207, 127, 0, 0.45);
+
+    /* The allocation colours stepped for white and cream; see the dark values above for how they
+       were chosen. */
+    --color-alloc-community: #e0574b;
+    --color-alloc-liquidity: #27a39b;
+    --color-alloc-team: #2f6fc4;
+    --color-alloc-marketing: #8e1f72;
+    --color-alloc-treasury: #3f7a26;
+    --color-alloc-advisers: #5c3d0c;
 
     /* Stepped for the white chart surface, not an automatic lightening of the dark values. */
     --color-series-a: #2a78d6;
@@ -206,4 +232,13 @@ code:not(pre code) {
 @utility num {
   unicode-bidi: isolate;
   font-variant-numeric: tabular-nums;
+}
+
+/* Diagonal hatching for HPO held in a project wallet (the supply bar and its list): stripes of
+   --hatch-color over a faint tint of it, so it reads as allocated, not in the market. The element
+   sets --hatch-color. Like `num`, a utility, so it would need mirroring into app.css if the dApp
+   ever used it; it does not. */
+@utility hatch {
+  background-color: color-mix(in srgb, var(--hatch-color) 36%, transparent);
+  background-image: repeating-linear-gradient(135deg, var(--hatch-color) 0 2.5px, transparent 2.5px 6px);
 }

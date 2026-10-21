@@ -49,6 +49,9 @@ export interface GaugeData {
       // Whole HPO, from the jetton master. Only falls, with burns; 1B minted minus this is the
       // burned figure on the tokenomics card (specs/hpo-tokenomics-supply-bar.md).
       total_supply?: number
+      // Whole HPO held in the project wallets, by allocation label (community, liquidity, …); from
+      // the gauge's specs/hpo-locked-wallet-balances.md. Absent until the gauge ships it.
+      locked_supply?: Record<string, number>
       // Percent units: -4.19 means -4.19 %. Absent since 2026-10-17: the gauge derives HPO's
       // price from the on-chain pools and holds no 24h history, so the pages hide the change.
       price_change_percentage_24h?: number
@@ -120,7 +123,7 @@ function compactUsd(locale: Locale, value: number): string {
 }
 
 function positive(value: number | undefined): value is number {
-  return value != null && value > 0
+  return typeof value === 'number' && Number.isFinite(value) && value > 0
 }
 
 // The three figures the dApp's stats strip shows under the stake form, and the same three on the
@@ -354,7 +357,14 @@ export interface HpoSupply {
   // fdv is undefined without a price.
   total: string
   fdv?: string
+  // The held amount split by allocation (HPO_SECTION_KEYS order, then `other`); undefined when the
+  // gauge sent no split or one that exceeds the held total, and the bar draws one held segment.
+  sections?: { key: string; amount: string; pct: string; share: number }[]
 }
+
+// The allocation labels the site knows, in the donut's order; Hpo.astro and hpo-data.js share it.
+// A section the gauge sends under another label is drawn as `other`.
+export const HPO_SECTION_KEYS = ['community', 'liquidity', 'team', 'marketing', 'treasury', 'advisers']
 
 export function hpoSupply(locale: Locale, data: GaugeData | undefined): HpoSupply | undefined {
   const total = data?.hpo?.market?.total_supply
@@ -365,9 +375,51 @@ export function hpoSupply(locale: Locale, data: GaugeData | undefined): HpoSuppl
   const burned = HPO_MINTED - total
   const held = total - circulating
   const share = (value: number) => (value / HPO_MINTED) * 100
-  // The three printed percentages must sum to 100: the two small ones are rounded to the decimal
-  // shown and the large one takes the remainder (rounded independently, 2.3 + 4.6 + 93.2 happens).
+  // The printed percentages must sum to 100: burned, circulating and every held section are
+  // rounded to the decimal shown and the largest held section (the held total without sections)
+  // takes the remainder (rounded independently, 2.3 + 4.6 + 93.2 happens).
   const tenth = (value: number) => Math.round(share(value) * 10) / 10
+  const entries: { key: string; value: number }[] = []
+  const locked = data?.hpo?.market?.locked_supply
+  if (
+    locked !== undefined &&
+    locked !== null &&
+    typeof locked === 'object' &&
+    !Array.isArray(locked) &&
+    Object.keys(locked).length > 0
+  ) {
+    let known = 0
+    let unknown = 0
+    for (const key of HPO_SECTION_KEYS) {
+      const value = locked[key]
+      if (positive(value)) {
+        entries.push({ key, value })
+        known += value
+      }
+    }
+    for (const [key, value] of Object.entries(locked)) {
+      if (!HPO_SECTION_KEYS.includes(key) && positive(value)) {
+        unknown += value
+      }
+    }
+    const other = unknown + (held - known - unknown > 1 ? held - known - unknown : 0)
+    if (other > 0 && (unknown > 0 || held - known > 1)) {
+      entries.push({ key: 'other', value: other })
+    }
+  }
+  const sectionSum = entries.reduce((sum, e) => sum + e.value, 0)
+  const split = entries.length > 0 && sectionSum <= held + 1
+  const tenths = split ? entries.map((e) => tenth(e.value)) : []
+  let largest = 0
+  tenths.forEach((v, i) => {
+    if (v > tenths[largest]) {
+      largest = i
+    }
+  })
+  const othersTenth = tenth(burned) + tenth(circulating) + tenths.reduce((a, b) => a + b, 0)
+  if (split) {
+    tenths[largest] = Math.max(0, tenths[largest] + (100 - othersTenth))
+  }
   const heldTenth = Math.max(0, 100 - tenth(burned) - tenth(circulating))
   const price = data?.hpo?.market?.current_price?.usd
   return {
@@ -383,6 +435,14 @@ export function hpoSupply(locale: Locale, data: GaugeData | undefined): HpoSuppl
     held: formatCompact(locale, held, 1),
     heldPct: formatPercent(locale, heldTenth / 100, 1),
     heldShare: share(held),
+    sections: split
+      ? entries.map((e, i) => ({
+          key: e.key,
+          amount: formatCompact(locale, e.value, 1),
+          pct: formatPercent(locale, tenths[i] / 100, 1),
+          share: share(e.value),
+        }))
+      : undefined,
   }
 }
 

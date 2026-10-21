@@ -5,7 +5,7 @@ import { getT } from '../i18n/t.ts'
 import { formatNumber, formatPercent } from '../i18n/format.ts'
 import { hpoFaqAnchor } from './hpoFaq.ts'
 import AnchorLink from './AnchorLink.astro'
-import { fetchGauge, gaugeValues, hpoChangeDirection, hpoSupply, HPO_MINTED } from '../data/gauge.ts'
+import { fetchGauge, gaugeValues, hpoChangeDirection, hpoSupply, HPO_MINTED, HPO_SECTION_KEYS } from '../data/gauge.ts'
 
 // HPO token page content. Recreates design/HPO.dc.html in the Warm Dark tokens defined in
 // src/styles/global.css. Owned by src/pages/hpo/index.astro only. Every visible string comes from
@@ -52,12 +52,12 @@ const defaultRange = '30d'
 // (replacing the old static Google-Sheets export); where those 1B are today is the supply bar
 // under it, since a 2% burn is a dot on a ring but a labelled figure beside a bar.
 const tokenomics = [
-  { label: t('hpo.tokenomics.community'), pct: 30, color: '#ff7e73' },
-  { label: t('hpo.tokenomics.liquidity'), pct: 20, color: '#6fc7b2' },
-  { label: t('hpo.tokenomics.team'), pct: 20, color: '#7ea6e0' },
-  { label: t('hpo.tokenomics.marketing'), pct: 15, color: '#b795e0' },
-  { label: t('hpo.tokenomics.treasury'), pct: 13, color: '#9ab87c' },
-  { label: t('hpo.tokenomics.advisers'), pct: 2, color: '#8d7f76' },
+  { label: t('hpo.tokenomics.community'), pct: 30, color: 'var(--color-alloc-community)' },
+  { label: t('hpo.tokenomics.liquidity'), pct: 20, color: 'var(--color-alloc-liquidity)' },
+  { label: t('hpo.tokenomics.team'), pct: 20, color: 'var(--color-alloc-team)' },
+  { label: t('hpo.tokenomics.marketing'), pct: 15, color: 'var(--color-alloc-marketing)' },
+  { label: t('hpo.tokenomics.treasury'), pct: 13, color: 'var(--color-alloc-treasury)' },
+  { label: t('hpo.tokenomics.advisers'), pct: 2, color: 'var(--color-alloc-advisers)' },
 ].map((slice) => ({ ...slice, pctText: formatPercent(locale, slice.pct / 100, 0) }))
 // Donut slice geometry via pathLength=100: each circle draws pct units minus a small gap,
 // dashoffset walks the start point clockwise from 12 o'clock (25 = the top of an SVG circle).
@@ -108,12 +108,42 @@ const supplyFigures = [
     flame: false,
   },
 ]
-const supplyLabel = t('hpo.tokenomics.supplyLabel', {
-  minted: formatNumber(locale, HPO_MINTED),
-  burned: supply?.burned ?? DASH,
-  circulating: supply?.circulating ?? DASH,
-  held: supply?.held ?? DASH,
+// The held total split by wallet (sections is undefined until the gauge sends it). Every known
+// section is rendered, hidden when absent, and the single held segment is rendered at width 0 beside
+// them, so hpo-data.js can switch between the two at a refresh without a reload.
+const HELD_GREY = 'var(--color-border-strong)'
+const sectionKeys = [...HPO_SECTION_KEYS, 'other']
+const cap = (key: string) => key.charAt(0).toUpperCase() + key.slice(1)
+const sectionRows = sectionKeys.map((key) => {
+  const section = supply?.sections?.find((s) => s.key === key)
+  return {
+    key,
+    id: `hpoHeld${cap(key)}`,
+    color: key === 'other' ? HELD_GREY : `var(--color-alloc-${key})`,
+    label: t(key === 'other' ? 'hpo.tokenomics.heldOther' : `hpo.tokenomics.${key}`),
+    section,
+  }
 })
+const sectionItems =
+  supply?.sections === undefined
+    ? ''
+    : sectionRows
+        .filter((row) => row.section !== undefined)
+        .map((row) =>
+          t('hpo.tokenomics.sectionItem', { label: row.label, amount: row.section!.amount, pct: row.section!.pct }),
+        )
+        .join(t('hpo.tokenomics.chartSeparator'))
+const mintedText = formatNumber(locale, HPO_MINTED)
+const supplyLabel = t(
+  supply?.sections === undefined ? 'hpo.tokenomics.supplyLabel' : 'hpo.tokenomics.supplyLabelSections',
+  {
+    minted: mintedText,
+    burned: supply?.burned ?? DASH,
+    circulating: supply?.circulating ?? DASH,
+    held: supply?.held ?? DASH,
+    sections: sectionItems,
+  },
+)
 
 const buySteps = [1, 2, 3, 4].map((n) => ({
   num: t(`hpo.buy.step${n}.num`),
@@ -392,13 +422,35 @@ const hpoFaq = await Promise.all(
           baked from the gauge and refreshed by hpo-data.js with the figures; with no gauge data the
           track is empty and the figures are em dashes. A flex row, so it mirrors under RTL. -->
           <h3 class='font-fredoka mt-7 mb-3 text-[17px] font-semibold'>{t('hpo.tokenomics.supplyTitle')}</h3>
-          <div class='bg-border flex h-3.5 gap-0.5 overflow-hidden rounded-full' role='img' aria-label={supplyLabel}>
+          <div
+            id='hpoSupplyBar'
+            class='bg-border flex h-3.5 gap-0.5 overflow-hidden rounded-full'
+            role='img'
+            aria-label={supplyLabel}
+            data-minted={mintedText}
+            data-template={t('hpo.tokenomics.supplyLabel')}
+            data-template-sections={t('hpo.tokenomics.supplyLabelSections')}
+            data-section-item={t('hpo.tokenomics.sectionItem')}
+            data-separator={t('hpo.tokenomics.chartSeparator')}
+            data-labels={JSON.stringify(Object.fromEntries(sectionRows.map((row) => [row.key, row.label])))}
+          >
             {
               supplyFigures.map((f) => (
                 <span
                   id={`${f.id}Bar`}
                   class={`h-full transition-[width] duration-[1.4s] motion-reduce:transition-none ${f.swatch}`}
                   style={`width:${f.share ?? 0}%`}
+                  hidden={f.id === 'hpoSupplyHeld' && supply?.sections !== undefined}
+                />
+              ))
+            }
+            {
+              sectionRows.map((row) => (
+                <span
+                  id={`${row.id}Bar`}
+                  class='hatch h-full transition-[width] duration-[1.4s] motion-reduce:transition-none'
+                  style={`--hatch-color:${row.color};width:${row.section?.share ?? 0}%`}
+                  hidden={row.section === undefined}
                 />
               ))
             }
@@ -408,7 +460,15 @@ const hpoFaq = await Promise.all(
               supplyFigures.map((f) => (
                 <div>
                   <div class='font-fredoka flex items-center gap-2 text-[19px] font-semibold'>
-                    <span class={`inline-block size-2.5 shrink-0 rounded-[3px] ${f.swatch}`} />
+                    <span
+                      id={f.id === 'hpoSupplyHeld' ? 'hpoSupplyHeldSwatch' : undefined}
+                      class={`inline-block size-2.5 shrink-0 rounded-[3px] ${f.id === 'hpoSupplyHeld' && supply?.sections !== undefined ? 'hatch' : f.swatch}`}
+                      style={
+                        f.id === 'hpoSupplyHeld' && supply?.sections !== undefined
+                          ? `--hatch-color:${HELD_GREY}`
+                          : undefined
+                      }
+                    />
                     <span>
                       {f.flame && '🔥 '}
                       <span id={f.id} data-burned={f.flame ? supply?.burnedExact : undefined}>
@@ -424,6 +484,27 @@ const hpoFaq = await Promise.all(
               ))
             }
           </div>
+          <ul
+            id='hpoHeldSections'
+            class='mt-4 grid gap-x-6 gap-y-2 text-[13px] sm:grid-cols-2'
+            hidden={supply?.sections === undefined}
+          >
+            {
+              sectionRows.map((row) => (
+                <li class='flex items-center gap-2' hidden={row.section === undefined}>
+                  <span
+                    class='hatch inline-block size-2.5 shrink-0 rounded-[3px]'
+                    style={`--hatch-color:${row.color}`}
+                  />
+                  <span class='min-w-0'>{row.label}</span>
+                  <span class='num text-text-muted ms-auto whitespace-nowrap'>
+                    <span id={row.id}>{row.section?.amount ?? DASH}</span> ·{' '}
+                    <span id={`${row.id}Pct`}>{row.section?.pct ?? DASH}</span>
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
           <!-- The fully diluted value, price × total supply, beside the market cap it is so much larger than
           (CoinGecko shows the FDV; a reader coming from there sees $4M, then $193K here). Baked with the
           rest; hpo-data.js re-interpolates the template in data-template on each refresh. -->

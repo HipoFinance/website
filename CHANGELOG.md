@@ -9,6 +9,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-21 — The supply bar shows what each project wallet holds
+
+- The grey "held by Hipo" block (about 90% of the bar) splits into six hatched segments, community, liquidity, team, marketing, treasury and advisers, each the real balance the gauge now publishes as `hpo.market.locked_supply`, with a list under the three figures (amount and share per wallet). The held total stays visible, so the 90% is legible rather than hidden. A label the site does not know, or a gap between the sections and the held total, shows as "Other project wallets". Shares print to one decimal and sum to 100.0, the largest section taking the remainder.
+- The six allocation colours become tokens, `--color-alloc-*`, one value per scheme, read by the donut, its legend, the bar and the list. The old ones were about 2:1 on white, team blue and marketing purple were 3 CIELAB units apart for red-green colour-blind readers, and marketing sat 7 units from the circulating purple; the new ones were chosen with `palette-check.py` (every pair at least 15 units apart under the three colour-vision types, every fill 3:1 on its surface).
+- The ember (burned figure and segment) is deepened to `#cf7f00` in the light scheme only, because the brand amber is 1.8:1 on white (Behrang, 2026-10-21).
+- Without the gauge field, or with sections summing to more than the held total, the bar is today's three-segment bar and the list is hidden; the five-minute refresh switches between the two without a reload, unused segments leave the layout (a zero-width one still takes its gap) and the bar's label refreshes with the figures. `heldNote` now reads "six project wallets, released on a schedule".
+- English only for now; the ten other locales follow after review, so the i18n gate fails until then. Spec: `specs/hpo-supply-bar-sections.md`.
+
 ## 2026-10-20 — Season 5 card on the Rewards page
 
 - `/rewards/` gets a "Season 5" card above the HPO card: end date and time in the reader's zone, days left (hours under one day), one of three statuses (penalty, claimed, not claimed) and the past claims with a tonviewer link when `tx_hash` is set. The yes/no comes from the backend; the site computes nothing. The card hides itself until `/wallet-rewards` sends `season`.

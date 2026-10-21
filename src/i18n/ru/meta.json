@@ -1648,7 +1648,11 @@
     "reviewed": false
   },
   "hpo.tokenomics.heldNote": {
-    "sourceHash": "1aaef4aa82cf25cae2b659f4aae59783f9e02050",
+    "sourceHash": "0b9dc6d1910faab78c4e6babb1ff5aba4e487489",
+    "reviewed": false
+  },
+  "hpo.tokenomics.heldOther": {
+    "sourceHash": "886af398a417ccc5e47288913ec6f8075750f413",
     "reviewed": false
   },
   "hpo.tokenomics.learnMore": {
@@ -1671,8 +1675,16 @@
     "sourceHash": "900bad6388e6108a0f199e62a841b9fc7cdb3fde",
     "reviewed": false
   },
+  "hpo.tokenomics.sectionItem": {
+    "sourceHash": "6f1ef5e3d836f68fc0927c1a008ce291b7b31e79",
+    "reviewed": false
+  },
   "hpo.tokenomics.supplyLabel": {
     "sourceHash": "c1e1276515f25b19e52bdf8238827624a045cad4",
+    "reviewed": false
+  },
+  "hpo.tokenomics.supplyLabelSections": {
+    "sourceHash": "1d1426408d9311bffe599d7fd35792cc928c208c",
     "reviewed": false
   },
   "hpo.tokenomics.supplyTitle": {
