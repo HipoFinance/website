@@ -13,19 +13,96 @@ const Row = ({ label, value }: { label: string; value?: string }) => (
   </div>
 )
 
+const SeasonCard = observer(({ model }: Props) => {
+  const t = model.t
+  const season = model.season
+  const status = model.seasonStatus
+  if (season == null || status == null) {
+    return null
+  }
+  const left = model.seasonUnderOneDay
+    ? t('app.reward.season.hoursLeft', { count: model.isolate(model.formatNumber(model.seasonHoursLeft ?? 0)) })
+    : t('app.reward.season.daysLeft', { count: model.isolate(model.formatNumber(model.seasonDaysLeft ?? 0)) })
+  const last = model.lastClaimFormatted
+  const top = (model.walletRewards?.clubLevel ?? 0) >= 9
+  const claims = model.seasonClaims
+
+  return (
+    <div className='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-7'>
+      <h2 className='font-fredoka text-xl font-semibold'>
+        {t('app.reward.season.title', { number: model.isolate(model.formatNumber(season.number)) })}
+      </h2>
+      <div className='text-text-muted flex flex-col gap-1 text-sm'>
+        <p>{t('app.reward.season.endsOn', { date: model.isolate(model.seasonEndFormatted ?? '') })}</p>
+        <p className='text-text font-medium'>{left}</p>
+      </div>
+      <div className='bg-border h-px'></div>
+      {status === 'penalty' && <p className='text-accent text-sm'>{t('app.reward.season.penalty')}</p>}
+      {status === 'claimed' && (
+        <p className='text-positive text-sm'>
+          {t(top ? 'app.reward.season.claimedTop' : 'app.reward.season.claimed', {
+            amount: model.isolate(last?.amount ?? '—'),
+            date: model.isolate(last?.date ?? '—'),
+          })}
+        </p>
+      )}
+      {status === 'notClaimed' && (
+        <div className='flex flex-col gap-1 text-sm'>
+          <p className='text-text'>{t('app.reward.season.notClaimed')}</p>
+          <p className='text-text-muted'>{t('app.reward.season.claimHint')}</p>
+        </div>
+      )}
+      {claims.length > 0 && (
+        <div className='flex flex-col gap-2 text-sm'>
+          <div className='text-text-muted font-medium'>{t('app.reward.season.pastClaims')}</div>
+          {claims.map((claim, i) => (
+            <div className='text-text-muted flex min-w-0 flex-col gap-0.5' key={claim.key || i}>
+              <div className='num'>{claim.date}</div>
+              <div className='text-text num wrap-anywhere'>
+                {t('app.reward.season.claimRow', {
+                  amount: model.isolate(claim.amount),
+                  fee: model.isolate(claim.fee),
+                })}
+              </div>
+              {claim.url != null && (
+                <a
+                  className='text-accent wrap-anywhere hover:underline'
+                  href={claim.url}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  {t('app.reward.season.viewTx')}
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+})
+
 const Reward = observer(({ model }: Props) => {
   const t = model.t
   const rewards = model.walletRewards
   const coefficients = rewards?.rewardCoefficients ?? [1]
   const level = rewards?.clubLevel ?? 0
+  const caption = model.claimableRewardsFormatted
 
   // In the mini app the claim button renders above the detail rows instead of below them — on a
   // phone viewport a bottom placement lands under the fold and gets missed.
   const tma = model.isTelegram
   const claimCta = (
     <div className='flex flex-col gap-2'>
-      {model.claimableRewardsFormatted != null && (
-        <p className='text-text-faint num text-center text-[12.5px]'>{model.claimableRewardsFormatted}</p>
+      {(caption.hpo != null || caption.gram != null) && (
+        <div className='text-text-faint flex flex-col gap-0.5 text-center text-[12.5px]'>
+          {caption.hpo != null && (
+            <p className='num'>{t('app.reward.claimableHpo', { amount: model.isolate(caption.hpo) })}</p>
+          )}
+          {caption.gram != null && (
+            <p className='num'>{t('app.reward.claimableGram', { amount: model.isolate(caption.gram) })}</p>
+          )}
+        </div>
       )}
       <a
         className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover block h-14 w-full rounded-2xl text-center text-[17px] leading-14 font-semibold'
@@ -55,6 +132,8 @@ const Reward = observer(({ model }: Props) => {
       </div>
 
       <div className='flex w-full max-w-[480px] flex-col gap-4'>
+        {model.isWalletConnected && <SeasonCard model={model} />}
+
         <div className='border-border bg-surface flex flex-col gap-[18px] rounded-[20px] border p-7'>
           <div className='flex flex-row items-center gap-3.5'>
             <img src='/hpo.png' alt='HPO' className='h-12 w-12' />

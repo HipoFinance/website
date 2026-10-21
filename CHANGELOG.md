@@ -9,6 +9,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-20 — Season 5 card on the Rewards page
+
+- `/rewards/` gets a "Season 5" card above the HPO card: end date and time in the reader's zone, days left (hours under one day), one of three statuses (penalty, claimed, not claimed) and the past claims with a tonviewer link when `tx_hash` is set. The yes/no comes from the backend; the site computes nothing. The card hides itself until `/wallet-rewards` sends `season`.
+- The claim caption is now two labelled lines, boosted HPO and revenue-share GRAM, each only above 0.01.
+- Counts are written as "Days left: {count}" because the catalogs have no plural mechanism.
+- After review: the hours line branches on the time left (the rounded day count made it unreachable), a claim whose request time did not parse shows "—" and never counts as the season's claim, a malformed season or record cannot crash the page, a response with `season` but no verdict hides the card, and the claim hint says a claim needs 100 HPO and costs 1 GRAM. Left open: the countdown refreshes with the data poll, not every minute.
+- The 14 new keys are translated into the ten other locales (2026-10-21, after the English review), hashes updated, the full build passes. A claim is dated by its on-chain time (`claim_time`) when the backend recorded one, else by `request_time`, the same order as the backend's season rule, so a claim in the last minutes before the end counts (Behrang, 2026-10-21). A claim time or season bound beyond the Date range is treated as unknown instead of crashing the page (re-check finding). In Persian, "view" is دیدن. Spec: `specs/season-5-card.md`.
+
 ## 2026-10-18 — Fully diluted value under the supply bar; the Stats page drops its volume rows
 
 - The tokenomics card says, under the supply bar, what all 977M HPO are worth at today's price (the fully diluted value, $4.1M on this date) and that the market cap counts only the 45.6M in circulation, because a reader coming from CoinGecko sees its $4M there and $193K here and needs the gap explained where it is drawn (`hpo.tokenomics.fdv`, refreshed with the other figures).

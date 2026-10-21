@@ -379,6 +379,14 @@
     "sourceHash": "342f060f6bd563f8e118d5be6b504439e6a5eb27",
     "reviewed": false
   },
+  "app.reward.claimableGram": {
+    "sourceHash": "b9e0a378a4d6307615c07cf7581dbd2d7f0b0f6e",
+    "reviewed": false
+  },
+  "app.reward.claimableHpo": {
+    "sourceHash": "a216f26b8a8f10cccbf5f3ba4f6e68cbd1121e08",
+    "reviewed": false
+  },
   "app.reward.connectPrompt": {
     "sourceHash": "8174faa5965c17c4f02f1d753adf0182ca9a7f8c",
     "reviewed": false
@@ -421,6 +429,54 @@
   },
   "app.reward.rowLabel": {
     "sourceHash": "2f4f4b7fbc81bc11d4aa9263fddf484f1eb90d99",
+    "reviewed": false
+  },
+  "app.reward.season.claimHint": {
+    "sourceHash": "bc7c9e8274f4b9bcdf2717a546563204a754a4e0",
+    "reviewed": false
+  },
+  "app.reward.season.claimRow": {
+    "sourceHash": "22115b8412f1813b581b3a1956edad8f71417138",
+    "reviewed": false
+  },
+  "app.reward.season.claimed": {
+    "sourceHash": "b3da9ec9f76d5806df4a9f8c55e60c0ef0be2cc4",
+    "reviewed": false
+  },
+  "app.reward.season.claimedTop": {
+    "sourceHash": "d6c5a2766b3da688fc9b63f8875d559a530354fd",
+    "reviewed": false
+  },
+  "app.reward.season.daysLeft": {
+    "sourceHash": "4a21316ec4fa07de0207e6b88262389dbc921e84",
+    "reviewed": false
+  },
+  "app.reward.season.endsOn": {
+    "sourceHash": "df963ba125cd8f1aaabc624f2dceab9f7d90692f",
+    "reviewed": false
+  },
+  "app.reward.season.hoursLeft": {
+    "sourceHash": "1836037783eabb011ef3259fd9f2888d919ed6ed",
+    "reviewed": false
+  },
+  "app.reward.season.notClaimed": {
+    "sourceHash": "bbe5d4d4f6b2ab201fcf05ef6e8dcd61eacd7f2c",
+    "reviewed": false
+  },
+  "app.reward.season.pastClaims": {
+    "sourceHash": "792d890ed8d7bf3c66701a9e00016c0cc286f3d9",
+    "reviewed": false
+  },
+  "app.reward.season.penalty": {
+    "sourceHash": "c581dc6751dd80c5b805bd80f07ce34ef9fd74d8",
+    "reviewed": false
+  },
+  "app.reward.season.title": {
+    "sourceHash": "74b3382aae1d1eb4c2eb9f703671ba59f5eac03e",
+    "reviewed": false
+  },
+  "app.reward.season.viewTx": {
+    "sourceHash": "8349b5968e61e354d8f0044a7d9de583ce625ebe",
     "reviewed": false
   },
   "app.reward.stakeNow": {

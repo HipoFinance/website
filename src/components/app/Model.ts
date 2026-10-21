@@ -93,6 +93,54 @@ interface WalletRewards {
   stakeRewardsSince?: Date
   htonTotalRewards?: number
   earnedRewards: EarnedReward[]
+  season?: { number: number; start: Date; end: Date }
+  penaltyActive?: boolean
+  claimedThisSeason?: boolean
+  claims?: Claim[]
+}
+
+interface Claim {
+  reference: string
+  // The member's on-chain claim time (`claim_time`) when the server recorded it, else the time the
+  // server handled the claim (`request_time`). Undefined when neither parsed: shown as unknown,
+  // never in a season.
+  time?: Date
+  // Token units as JSON numbers, like the record the server stores: `sent` in HPO, `fee` in GRAM.
+  sent: number
+  fee: number
+  txHash: string
+}
+
+// The season rule on the server dates a claim by `claim_time` when present, else `request_time`;
+// the same choice here keeps "claimed on" and the season check in step with the backend.
+function claimTime(claim: any): Date | undefined {
+  for (const raw of [claim.claim_time, claim.request_time]) {
+    const date = unixDate(raw)
+    if (date != null) {
+      return date
+    }
+  }
+  return undefined
+}
+
+// A unix second from the wire as a Date, or undefined when it is not a positive number or is
+// beyond the Date range (an Invalid Date would throw in formatDate at render time).
+function unixDate(raw: any): Date | undefined {
+  if (!Number.isFinite(+raw) || +raw <= 0) {
+    return undefined
+  }
+  const date = new Date(+raw * 1_000)
+  return Number.isFinite(date.getTime()) ? date : undefined
+}
+
+// The season block, kept only when its number is finite and both bounds are valid dates.
+function parseSeason(season: any): { number: number; start: Date; end: Date } | undefined {
+  if (season == null || !Number.isFinite(+season.number)) {
+    return undefined
+  }
+  const start = unixDate(season.start)
+  const end = unixDate(season.end)
+  return start != null && end != null ? { number: +season.number, start, end } : undefined
 }
 
 interface EarnedReward {
@@ -1944,24 +1992,115 @@ export class Model {
   // the muted caption shown above the button instead, so a long amount no longer stretches the
   // button on mobile. Same GRAM-only / HPO-only / both-with-"+" branching as before, undefined
   // (no caption) when nothing clears the 0.01 dust threshold.
-  get claimableRewardsFormatted() {
+  get claimableRewardsFormatted(): { hpo?: string; gram?: string } {
     const rewards = this.walletRewards
+    const result: { hpo?: string; gram?: string } = {}
     if (rewards == null) {
-      return undefined
-    }
-    if (rewards.hpoSumRewards > 0.01 && rewards.htonSumRewards > 0.01) {
-      return this.t('app.model.gramPlusHpo', {
-        gram: this.isolate(this.formatNumber(rewards.hpoSumRewards, { maximumFractionDigits: 2 })),
-        hpo: this.isolate(this.formatNumber(rewards.htonSumRewards, { maximumFractionDigits: 2 })),
-      })
-    }
-    if (rewards.hpoSumRewards > 0.01) {
-      return this.withUnit('app.model.gram', this.formatNumber(rewards.hpoSumRewards, { maximumFractionDigits: 2 }))
+      return result
     }
     if (rewards.htonSumRewards > 0.01) {
-      return this.withUnit('app.model.hpo', this.formatNumber(rewards.htonSumRewards, { maximumFractionDigits: 2 }))
+      result.hpo = this.withUnit(
+        'app.model.hpo',
+        this.formatNumber(rewards.htonSumRewards, { maximumFractionDigits: 2 }),
+      )
     }
-    return undefined
+    if (rewards.hpoSumRewards > 0.01) {
+      result.gram = this.withUnit(
+        'app.model.gram',
+        this.formatNumber(rewards.hpoSumRewards, { maximumFractionDigits: 2 }),
+      )
+    }
+    return result
+  }
+
+  // The season card: undefined until the backend sends `season`, which hides the card.
+  get season() {
+    return this.walletRewards?.season
+  }
+
+  // Whole days to the season end, rounded up, never below 0.
+  get seasonDaysLeft() {
+    const season = this.season
+    if (season == null) {
+      return undefined
+    }
+    return Math.max(0, Math.ceil((season.end.getTime() - Date.now()) / 86_400_000))
+  }
+
+  // Whole hours to the season end, rounded up, never below 0; shown when under one day is left.
+  get seasonHoursLeft() {
+    const season = this.season
+    if (season == null) {
+      return undefined
+    }
+    return Math.max(0, Math.ceil((season.end.getTime() - Date.now()) / 3_600_000))
+  }
+
+  // True when the season ends within the next 24 hours, so the card counts hours instead of days.
+  get seasonUnderOneDay() {
+    const season = this.season
+    if (season == null) {
+      return false
+    }
+    const left = season.end.getTime() - Date.now()
+    return left > 0 && left < 86_400_000
+  }
+
+  get seasonEndFormatted() {
+    const season = this.season
+    if (season == null) {
+      return undefined
+    }
+    return this.formatDate(season.end, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      timeZoneName: 'short',
+    })
+  }
+
+  // Penalty wins over the other two: the upgrade would not apply.
+  get seasonStatus(): 'penalty' | 'claimed' | 'notClaimed' | undefined {
+    const rewards = this.walletRewards
+    if (rewards?.season == null) {
+      return undefined
+    }
+    if (rewards.penaltyActive) {
+      return 'penalty'
+    }
+    if (rewards.claimedThisSeason == null) {
+      return undefined
+    }
+    return rewards.claimedThisSeason ? 'claimed' : 'notClaimed'
+  }
+
+  get lastClaimFormatted() {
+    const rewards = this.walletRewards
+    const season = rewards?.season
+    // The records come newest-inserted first, which is not always newest by time: prefer one of this season.
+    const claim =
+      rewards?.claims?.find((c) => season != null && c.time != null && c.time >= season.start && c.time < season.end) ??
+      rewards?.claims?.[0]
+    if (claim == null) {
+      return undefined
+    }
+    return {
+      date: claim.time != null ? this.formatDate(claim.time, { year: 'numeric', month: 'long', day: 'numeric' }) : '—',
+      amount: this.withUnit('app.model.hpo', this.formatNumber(claim.sent, { maximumFractionDigits: 2 })),
+    }
+  }
+
+  get seasonClaims() {
+    return (this.walletRewards?.claims ?? []).map((claim) => ({
+      date: claim.time != null ? this.formatDate(claim.time, { year: 'numeric', month: 'long', day: 'numeric' }) : '—',
+      amount: this.formatNumber(claim.sent, { maximumFractionDigits: 2 }),
+      fee: this.formatNumber(claim.fee, { maximumFractionDigits: 2 }),
+      url: claim.txHash !== '' ? 'https://tonviewer.com/transaction/' + encodeURIComponent(claim.txHash) : undefined,
+      key: claim.reference || claim.txHash,
+    }))
   }
 
   // stake_sum_rewards comes back in the same unit as each earned_rewards[].stake_reward — already
@@ -2335,6 +2474,20 @@ export class Model {
           // 0 means "no history yet" on the wire, not the epoch.
           +rewards.stake_rewards_since > 0 ? new Date(+rewards.stake_rewards_since * 1_000) : undefined,
         htonTotalRewards: rewards.hton_total_rewards != null ? +rewards.hton_total_rewards : undefined,
+        season: parseSeason(rewards.season),
+        penaltyActive: rewards.penalty_active != null ? !!rewards.penalty_active : undefined,
+        claimedThisSeason: rewards.claimed_this_season != null ? !!rewards.claimed_this_season : undefined,
+        claims: Array.isArray(rewards.hton_reward_withdrawals)
+          ? rewards.hton_reward_withdrawals
+              .filter((claim: any) => claim != null && typeof claim === 'object')
+              .map((claim: any) => ({
+                reference: String(claim.reference ?? ''),
+                time: claimTime(claim),
+                sent: +claim.sent || 0,
+                fee: +claim.fee || 0,
+                txHash: String(claim.tx_hash ?? ''),
+              }))
+          : undefined,
         earnedRewards: rewards.earned_rewards
           .filter((reward: any) => +reward.ton_reward > 0 || +reward.hpo_reward > 0)
           .map((reward: any) => ({
