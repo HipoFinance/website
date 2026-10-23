@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-23 — The multisig order link opens Keeper by its own scheme
+
+- A multisig's Stake or Unstake now hands the order to Keeper as a `tonkeeper://transfer` link instead of `ton://transfer`, because `ton://` is a generic scheme that Telegram Desktop and other TON apps also register: on one tester's machine Telegram took the link and showed "Invalid address", on a user's machine nothing owned it and the browser asked which app to open. Keeper Pro desktop registers `tonkeeper://` and parses the same link under it, so the order reaches the one app that can turn it into a multisig request.
+- The scheme follows the connected wallet's TonConnect name (`tonkeeper` or `tonkeeper-pro`); any other wallet keeps `ton://` and the copy-fields fallback behind it. Nothing else in the flow changed — the payload, amount and destination are built exactly as before.
+- Found while checking a user report; TonConnect 5.0.0, the SDK bumps and the connect-and-stake change were ruled out one by one, and the multisig code hash the app detects was confirmed against Keeper's deployer and the Hipo Fund multisig on chain.
+- Left open: the hand-off was only ever verified with Keeper holding the `ton://` registration; the new scheme still needs one press in Keeper Pro desktop with Telegram open.
+
 ## 2026-10-21 — The supply bar shows what each project wallet holds
 
 - The grey "held by Hipo" block (about 90% of the bar) splits into six hatched segments, community, liquidity, team, marketing, treasury and advisers, each the real balance the gauge now publishes as `hpo.market.locked_supply`, with a list under the three figures (amount and share per wallet). The held total stays visible, so the 90% is legible rather than hidden. A label the site does not know, or a gap between the sections and the held total, shows as "Other project wallets". Shares print to one decimal and sum to 100.0, the largest section taking the remainder.

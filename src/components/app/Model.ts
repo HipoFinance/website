@@ -1597,15 +1597,34 @@ export class Model {
     return friendly.slice(0, 4) + '…' + friendly.slice(-4)
   }
 
+  // The scheme the order link is opened with. `ton://` is generic: Telegram Desktop, Keeper and
+  // other TON apps all register it, and the OS hands the link to whichever claimed it last — on one
+  // tester's machine that was Telegram ("Invalid address"), on another nothing owned it at all.
+  // Keeper also registers its own `tonkeeper://`, and its handler splits the path without looking at
+  // the scheme, so the same link under that scheme reaches Keeper and only Keeper. It reports itself
+  // as `tonkeeper` (mobile) or `tonkeeper-pro` (desktop and web); any other wallet keeps `ton://`,
+  // with the copy-fields fallback behind it.
+  get multisigLinkScheme() {
+    const name = this.connectedWalletName
+    return name === 'tonkeeper' || name === 'tonkeeper-pro' ? 'tonkeeper://' : 'ton://'
+  }
+
   get multisigDeepLink() {
     const address = this.treasuryAddressFormatted
     if (address === '') {
       return undefined
     }
-    let link = 'ton://transfer/' + address + '?text=' + this.multisigComment
+    let link = this.multisigLinkScheme + 'transfer/' + address + '?text=' + this.multisigComment
     const amount = this.multisigTransferAmount
     if (amount != null) {
-      link = 'ton://transfer/' + address + '?amount=' + amount.toString() + '&text=' + this.multisigComment
+      link =
+        this.multisigLinkScheme +
+        'transfer/' +
+        address +
+        '?amount=' +
+        amount.toString() +
+        '&text=' +
+        this.multisigComment
     }
     return link
   }
@@ -1661,7 +1680,7 @@ export class Model {
     return address == null ? undefined : 'https://tonviewer.com/' + address
   }
 
-  // ton://transfer carries the body as standard base64 — not base64url — percent-encoded, and
+  // A transfer link carries the body as standard base64 — not base64url — percent-encoded, and
   // requires `amount` whenever `bin` is present (docs.ton.org, "Deep Links"). So the SDK's payload
   // goes in unchanged apart from encodeURIComponent; unlike the text-comment link above, which gets
   // away with raw interpolation only because its comment is a single ASCII letter.
@@ -1671,7 +1690,13 @@ export class Model {
       return undefined
     }
     return (
-      'ton://transfer/' + message.address + '?amount=' + message.amount + '&bin=' + encodeURIComponent(message.payload)
+      this.multisigLinkScheme +
+      'transfer/' +
+      message.address +
+      '?amount=' +
+      message.amount +
+      '&bin=' +
+      encodeURIComponent(message.payload)
     )
   }
 
@@ -2392,7 +2417,7 @@ export class Model {
         // sit for days waiting on its remaining signatures — there is nothing to wait for.
         this.clearAmount()
       } else {
-        // Nothing took the link: a desktop browser with no ton:// handler, or a wallet that
+        // Nothing took the link: a desktop browser with no handler for the scheme, or a wallet that
         // ignores the scheme. The snapshot is deliberately not recaptured, so the order shown is
         // the one the link carried, down to the query id — and the amount stays in the field,
         // since the user has not finished with it yet.
