@@ -101,6 +101,7 @@
   "app.reward.season.claimed": "{date} tarihinde {amount} talep ettiniz. Gelecek sezon bir seviye yükseliyorsunuz.",
   "app.reward.season.claimedTop": "{date} tarihinde {amount} talep ettiniz. Zaten en üst seviye olan Seviye 10'dasınız.",
   "app.reward.season.daysLeft": "Kalan gün: {count}",
+  "app.reward.season.endToBeAnnounced": "Bitiş tarihi daha sonra duyurulacak",
   "app.reward.season.endsOn": "Bitiş: {date}",
   "app.reward.season.hoursLeft": "Kalan saat: {count}",
   "app.reward.season.notClaimed": "Bu sezon kayıtlı talep yok.",

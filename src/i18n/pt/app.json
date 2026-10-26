@@ -101,6 +101,7 @@
   "app.reward.season.claimed": "Você resgatou {amount} em {date}. Você sobe um nível na próxima temporada.",
   "app.reward.season.claimedTop": "Você resgatou {amount} em {date}. Você já está no nível 10, o mais alto.",
   "app.reward.season.daysLeft": "Dias restantes: {count}",
+  "app.reward.season.endToBeAnnounced": "Data de término a ser anunciada",
   "app.reward.season.endsOn": "Termina em {date}",
   "app.reward.season.hoursLeft": "Horas restantes: {count}",
   "app.reward.season.notClaimed": "Nenhum resgate registrado nesta temporada.",

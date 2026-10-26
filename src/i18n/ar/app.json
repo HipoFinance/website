@@ -101,6 +101,7 @@
   "app.reward.season.claimed": "استلمت {amount} بتاريخ {date}. ستنتقل إلى المستوى التالي في الموسم القادم.",
   "app.reward.season.claimedTop": "استلمت {amount} بتاريخ {date}. أنت بالفعل في المستوى ١٠، وهو أعلى مستوى.",
   "app.reward.season.daysLeft": "الأيام المتبقية: {count}",
+  "app.reward.season.endToBeAnnounced": "سيُعلَن عن تاريخ الانتهاء لاحقًا",
   "app.reward.season.endsOn": "ينتهي في {date}",
   "app.reward.season.hoursLeft": "الساعات المتبقية: {count}",
   "app.reward.season.notClaimed": "لم يُسجَّل أي استلام في هذا الموسم.",

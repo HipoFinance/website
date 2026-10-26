@@ -101,6 +101,7 @@
   "app.reward.season.claimed": "Anda mengklaim {amount} pada {date}. Anda naik satu level musim depan.",
   "app.reward.season.claimedTop": "Anda mengklaim {amount} pada {date}. Anda sudah berada di Level 10, level tertinggi.",
   "app.reward.season.daysLeft": "Sisa hari: {count}",
+  "app.reward.season.endToBeAnnounced": "Tanggal berakhir akan diumumkan",
   "app.reward.season.endsOn": "Berakhir pada {date}",
   "app.reward.season.hoursLeft": "Sisa jam: {count}",
   "app.reward.season.notClaimed": "Belum ada klaim yang tercatat musim ini.",

@@ -451,6 +451,10 @@
     "sourceHash": "4a21316ec4fa07de0207e6b88262389dbc921e84",
     "reviewed": false
   },
+  "app.reward.season.endToBeAnnounced": {
+    "sourceHash": "93139f3b88fa13cb55d3d9b8f8f8a4a8841b6345",
+    "reviewed": false
+  },
   "app.reward.season.endsOn": {
     "sourceHash": "df963ba125cd8f1aaabc624f2dceab9f7d90692f",
     "reviewed": false

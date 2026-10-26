@@ -93,7 +93,7 @@ interface WalletRewards {
   stakeRewardsSince?: Date
   htonTotalRewards?: number
   earnedRewards: EarnedReward[]
-  season?: { number: number; start: Date; end: Date }
+  season?: { number: number; start: Date; end?: Date }
   penaltyActive?: boolean
   claimedThisSeason?: boolean
   claims?: Claim[]
@@ -133,14 +133,21 @@ function unixDate(raw: any): Date | undefined {
   return Number.isFinite(date.getTime()) ? date : undefined
 }
 
-// The season block, kept only when its number is finite and both bounds are valid dates.
-function parseSeason(season: any): { number: number; start: Date; end: Date } | undefined {
+// The season block, kept only when its number is finite and its start is a valid date. A missing `end` means the
+// season is open (its end is not set yet); an `end` that is present but invalid drops the block.
+function parseSeason(season: any): { number: number; start: Date; end?: Date } | undefined {
   if (season == null || !Number.isFinite(+season.number)) {
     return undefined
   }
   const start = unixDate(season.start)
+  if (start == null) {
+    return undefined
+  }
+  if (season.end == null) {
+    return { number: +season.number, start }
+  }
   const end = unixDate(season.end)
-  return start != null && end != null ? { number: +season.number, start, end } : undefined
+  return end != null ? { number: +season.number, start, end } : undefined
 }
 
 interface EarnedReward {
@@ -2043,40 +2050,45 @@ export class Model {
     return this.walletRewards?.season
   }
 
+  // True when the season has no end set yet; its end date is still to be announced.
+  get seasonOpen() {
+    return this.season != null && this.season.end == null
+  }
+
   // Whole days to the season end, rounded up, never below 0.
   get seasonDaysLeft() {
-    const season = this.season
-    if (season == null) {
+    const end = this.season?.end
+    if (end == null) {
       return undefined
     }
-    return Math.max(0, Math.ceil((season.end.getTime() - Date.now()) / 86_400_000))
+    return Math.max(0, Math.ceil((end.getTime() - Date.now()) / 86_400_000))
   }
 
   // Whole hours to the season end, rounded up, never below 0; shown when under one day is left.
   get seasonHoursLeft() {
-    const season = this.season
-    if (season == null) {
+    const end = this.season?.end
+    if (end == null) {
       return undefined
     }
-    return Math.max(0, Math.ceil((season.end.getTime() - Date.now()) / 3_600_000))
+    return Math.max(0, Math.ceil((end.getTime() - Date.now()) / 3_600_000))
   }
 
   // True when the season ends within the next 24 hours, so the card counts hours instead of days.
   get seasonUnderOneDay() {
-    const season = this.season
-    if (season == null) {
+    const end = this.season?.end
+    if (end == null) {
       return false
     }
-    const left = season.end.getTime() - Date.now()
+    const left = end.getTime() - Date.now()
     return left > 0 && left < 86_400_000
   }
 
   get seasonEndFormatted() {
-    const season = this.season
-    if (season == null) {
+    const end = this.season?.end
+    if (end == null) {
       return undefined
     }
-    return this.formatDate(season.end, {
+    return this.formatDate(end, {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -2107,8 +2119,10 @@ export class Model {
     const season = rewards?.season
     // The records come newest-inserted first, which is not always newest by time: prefer one of this season.
     const claim =
-      rewards?.claims?.find((c) => season != null && c.time != null && c.time >= season.start && c.time < season.end) ??
-      rewards?.claims?.[0]
+      rewards?.claims?.find(
+        (c) =>
+          season != null && c.time != null && c.time >= season.start && (season.end == null || c.time < season.end),
+      ) ?? rewards?.claims?.[0]
     if (claim == null) {
       return undefined
     }

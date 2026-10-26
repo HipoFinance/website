@@ -101,6 +101,7 @@
   "app.reward.season.claimed": "Отримано {amount} {date}. Наступного сезону ти піднімешся на рівень вище.",
   "app.reward.season.claimedTop": "Отримано {amount} {date}. Ти вже на рівні 10, найвищому.",
   "app.reward.season.daysLeft": "Залишилось днів: {count}",
+  "app.reward.season.endToBeAnnounced": "Дату завершення буде оголошено пізніше",
   "app.reward.season.endsOn": "Завершується {date}",
   "app.reward.season.hoursLeft": "Залишилось годин: {count}",
   "app.reward.season.notClaimed": "Цього сезону отримань не зафіксовано.",

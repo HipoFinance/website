@@ -33,8 +33,14 @@ const SeasonCard = observer(({ model }: Props) => {
         {t('app.reward.season.title', { number: model.isolate(model.formatNumber(season.number)) })}
       </h2>
       <div className='text-text-muted flex flex-col gap-1 text-sm'>
-        <p>{t('app.reward.season.endsOn', { date: model.isolate(model.seasonEndFormatted ?? '') })}</p>
-        <p className='text-text font-medium'>{left}</p>
+        {model.seasonOpen ? (
+          <p>{t('app.reward.season.endToBeAnnounced')}</p>
+        ) : (
+          <>
+            <p>{t('app.reward.season.endsOn', { date: model.isolate(model.seasonEndFormatted ?? '') })}</p>
+            <p className='text-text font-medium'>{left}</p>
+          </>
+        )}
       </div>
       <div className='bg-border h-px'></div>
       {status === 'penalty' && <p className='text-accent text-sm'>{t('app.reward.season.penalty')}</p>}

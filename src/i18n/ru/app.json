@@ -101,6 +101,7 @@
   "app.reward.season.claimed": "Вы забрали {amount} {date}. В следующем сезоне вы поднимитесь на уровень выше.",
   "app.reward.season.claimedTop": "Вы забрали {amount} {date}. Вы уже на уровне 10, максимальном.",
   "app.reward.season.daysLeft": "Осталось дней: {count}",
+  "app.reward.season.endToBeAnnounced": "Дата окончания будет объявлена позже",
   "app.reward.season.endsOn": "Заканчивается {date}",
   "app.reward.season.hoursLeft": "Осталось часов: {count}",
   "app.reward.season.notClaimed": "В этом сезоне получений не зафиксировано.",

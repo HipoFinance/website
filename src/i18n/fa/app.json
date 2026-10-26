@@ -101,6 +101,7 @@
   "app.reward.season.claimed": "شما در {date} مقدار {amount} دریافت کردید. فصل بعد یک سطح بالا می‌روید.",
   "app.reward.season.claimedTop": "شما در {date} مقدار {amount} دریافت کردید. شما از قبل در سطح ۱۰، بالاترین سطح، هستید.",
   "app.reward.season.daysLeft": "روزهای باقی‌مانده: {count}",
+  "app.reward.season.endToBeAnnounced": "تاریخ پایان بعداً اعلام می‌شود",
   "app.reward.season.endsOn": "پایان در {date}",
   "app.reward.season.hoursLeft": "ساعت‌های باقی‌مانده: {count}",
   "app.reward.season.notClaimed": "در این فصل دریافتی ثبت نشده است.",

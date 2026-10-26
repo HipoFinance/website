@@ -101,6 +101,7 @@
   "app.reward.season.claimed": "Tu as réclamé {amount} le {date}. Tu montes d'un niveau la saison prochaine.",
   "app.reward.season.claimedTop": "Tu as réclamé {amount} le {date}. Tu es déjà au niveau 10, le plus élevé.",
   "app.reward.season.daysLeft": "Jours restants : {count}",
+  "app.reward.season.endToBeAnnounced": "Date de fin à annoncer",
   "app.reward.season.endsOn": "Se termine le {date}",
   "app.reward.season.hoursLeft": "Heures restantes : {count}",
   "app.reward.season.notClaimed": "Aucune réclamation enregistrée cette saison.",

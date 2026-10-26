@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-26 — The Rewards season card handles a season with no end yet
+
+- `parseSeason` keeps the season block when `end` is absent (open season); a present but invalid `end` still drops it. The countdown getters return nothing and the last-claim lookup has no upper bound when the end is missing.
+- The season card shows one line, "End date to be announced" (`app.reward.season.endToBeAnnounced`), instead of the end date and the days/hours left.
+- Translated into the ten other released locales after Alireza approved the English; their meta hashes are updated and the translations are not yet individually reviewed.
+- Spec: `club-server/specs/season5-open-end.md`.
+
 ## 2026-10-23 — The multisig order link opens Keeper by its own scheme
 
 - A multisig's Stake or Unstake now hands the order to Keeper as a `tonkeeper://transfer` link instead of `ton://transfer`, because `ton://` is a generic scheme that Telegram Desktop and other TON apps also register: on one tester's machine Telegram took the link and showed "Invalid address", on a user's machine nothing owned it and the browser asked which app to open. Keeper Pro desktop registers `tonkeeper://` and parses the same link under it, so the order reaches the one app that can turn it into a multisig request.

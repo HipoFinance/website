@@ -112,6 +112,7 @@
   "app.reward.season.claimed": "You claimed {amount} on {date}. You move up a level next season.",
   "app.reward.season.claimedTop": "You claimed {amount} on {date}. You are already at Level 10, the top level.",
   "app.reward.season.daysLeft": "Days left: {count}",
+  "app.reward.season.endToBeAnnounced": "End date to be announced",
   "app.reward.season.endsOn": "Ends on {date}",
   "app.reward.season.hoursLeft": "Hours left: {count}",
   "app.reward.season.notClaimed": "No claim recorded this season.",
