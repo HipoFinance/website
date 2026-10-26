@@ -8,3 +8,6 @@ dist/
 
 # Sample cache for scripts/backfill-lst-rates.mjs — lets a long backfill resume.
 .cache/
+
+# Internal planning bundles (Hipo Club redesign); the repo is public
+/docs/

@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-26 — The top-level docs folder is ignored by git
+
+- `.gitignore` gets `/docs/`, anchored to the repo root so `src/content/docs/` and `public/docs/` stay tracked, because the repo is public and `docs/` holds internal planning bundles (the Hipo Club redesign spec, wireframes, build plan and production read totals).
+- Left open: `docs/hipo-club-redesign/PLAN.md` was pushed on 2026-10-21 and stays tracked; ignoring does not untrack it, and `git rm --cached` was not run.
+
 ## 2026-10-26 — The Rewards season card handles a season with no end yet
 
 - `parseSeason` keeps the season block when `end` is absent (open season); a present but invalid `end` still drops it. The countdown getters return nothing and the last-claim lookup has no upper bound when the end is missing.
