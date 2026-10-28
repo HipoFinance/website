@@ -2,10 +2,11 @@
 import { getCollection, render } from 'astro:content'
 import { localeOf, localizedPath } from '../i18n/locale.ts'
 import { getT } from '../i18n/t.ts'
-import { formatNumber, formatPercent } from '../i18n/format.ts'
+import { formatNumber, formatPercent, formatSignedPercent } from '../i18n/format.ts'
 import { hpoFaqAnchor } from './hpoFaq.ts'
 import AnchorLink from './AnchorLink.astro'
-import { fetchGauge, gaugeValues, hpoChangeDirection, hpoSupply, HPO_MINTED, HPO_SECTION_KEYS } from '../data/gauge.ts'
+import { fetchStatsSeed } from '../data/stats.ts'
+import { fetchGauge, gaugeValues, hpoSupply, HPO_MINTED, HPO_SECTION_KEYS } from '../data/gauge.ts'
 
 // HPO token page content. Recreates design/HPO.dc.html in the Warm Dark tokens defined in
 // src/styles/global.css. Owned by src/pages/hpo/index.astro only. Every visible string comes from
@@ -29,7 +30,6 @@ const gauge = gaugeValues(locale, gaugeData)
 // held by Hipo, as shares of the 1B minted. Baked like the rest; hpo-data.js blanks the burned
 // count before the card is seen and counts it up when it scrolls into view.
 const supply = hpoSupply(locale, gaugeData)
-const changeDirection = hpoChangeDirection(gaugeData)
 // The hero card's figures; the ids are what hpo-data.js refreshes.
 const figures = [
   { id: 'hpoMarketCap', value: gauge.hpoMarketCap, label: 'hpo.hero.marketCap' },
@@ -46,6 +46,13 @@ const ranges: { key: string; label: string }[] = [
   { key: '1y', label: t('app.chart.range1y') },
 ]
 const defaultRange = '30d'
+// The change beside the price, baked for the chart's opening range from the build-time Prometheus seed
+// the Stats page uses (src/data/stats.ts), so the first paint already names the range the chart shows.
+// hpo-sparkline.ts recomputes it from the live history and on every range switch.
+const seed = await fetchStatsSeed()
+const changeDelta = seed?.range === defaultRange ? seed.deltas.hpo : undefined
+const changeText = changeDelta === undefined ? undefined : formatSignedPercent(locale, changeDelta.value / 100)
+const changeLabel = ranges.find((r) => r.key === defaultRange)?.label
 
 // The HPO allocation per docs/hipo-tokens/hipo-governance-token-hpo/ — percentages of
 // the 1B minted, so they always sum to 100 regardless of burns. Rendered as an inline SVG donut
@@ -228,9 +235,9 @@ const hpoFaq = await Promise.all(
           </div>
 
           <!-- The latest price, derived by the gauge from the on-chain pools; baked here and refreshed by
-          hpo-data.js. The change beside it starts as the gauge's 24h change (hidden when the gauge publishes
-          none); once the chart has loaded a range, hpo-sparkline.ts replaces it with the change over that
-          range, labelled with the range pill's text. -->
+          hpo-data.js. The change beside it is over the chart's range: baked for the opening range (1M) from
+          the build-time seed, hidden when the build could not fetch it, and recomputed by hpo-sparkline.ts
+          once the history loads and on each range switch. -->
           <div class='flex flex-wrap items-baseline gap-x-3 gap-y-1'>
             <div
               id='hpoPrice'
@@ -244,17 +251,17 @@ const hpoFaq = await Promise.all(
               <div
                 id='hpoChangeWrap'
                 class='col-start-1 row-start-1 flex items-baseline gap-1.5'
-                hidden={gauge.hpoChange24h === undefined}
+                hidden={changeText === undefined}
               >
                 <span
-                  id='hpoChange24h'
+                  id='hpoChange'
                   class:list={[
                     'num text-[14px] font-medium',
-                    changeDirection === 'down' ? 'text-accent' : 'text-positive',
+                    changeDelta?.direction === 'down' ? 'text-accent' : 'text-positive',
                   ]}
-                  set:text={gauge.hpoChange24h ?? ''}
+                  set:text={changeText ?? ''}
                 />
-                <span id='hpoChangeLabel' class='text-text-muted text-[13px]'>{t('hpo.hero.change24h')}</span>
+                <span id='hpoChangeLabel' class='text-text-muted text-[13px]'>{changeLabel}</span>
               </div>
               <span id='hpoHoverTime' class='num text-text-muted invisible col-start-1 row-start-1 text-[13px]'></span>
             </span>

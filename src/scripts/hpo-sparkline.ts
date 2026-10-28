@@ -14,8 +14,8 @@
 // The readout reuses the card's own price figure: while a point is picked, #hpoPrice shows that
 // point's price (the live text is kept in data-live and restored on leave; hpo-data.js writes a
 // refreshed price there meanwhile) and #hpoHoverTime shows its time where the range's change is.
-// Once a range has loaded, #hpoChange24h shows the change from the first to the last point of that range,
-// labelled with the pill's own text, and hpo-data.js stops writing the gauge's 24h figure there.
+// #hpoChange shows the change from the first to the last point of the shown range, labelled with the
+// pill's own text; Hpo.astro bakes it for the opening range.
 import { queryRange, stepFor, STATS_RANGES, type ChartPoint } from '../components/app/charts/prometheus'
 import type { StatsRange } from '../components/app/Model'
 import { LOCALES } from '../i18n/registry.mjs'
@@ -36,7 +36,7 @@ const rangeGroup = document.getElementById('hpoRange')
 const elPrice = document.getElementById('hpoPrice')
 const elTime = document.getElementById('hpoHoverTime')
 const elChangeWrap = document.getElementById('hpoChangeWrap')
-const elChange = document.getElementById('hpoChange24h')
+const elChange = document.getElementById('hpoChange')
 const elChangeLabel = document.getElementById('hpoChangeLabel')
 
 if (svg != null) {
@@ -188,9 +188,9 @@ function init(svg: SVGSVGElement) {
 
     const points = loaded?.points ?? []
     if (loaded == null || points.length < 2) {
-      // A failed first load leaves the gauge's 24h figure standing; once the chart owns the figure,
-      // a range with no line shows no change rather than another window's.
-      if (loaded != null || elChangeWrap?.dataset.range !== undefined) {
+      // A range with no line shows no change: not another window's, and not the baked figure, which is
+      // as old as the last deploy and would sit beside the Live badge with nothing to refresh it.
+      if (loaded != null || failed) {
         showChange(undefined, undefined)
       }
       showNote(failed ? svg.dataset.error : loaded == null ? undefined : svg.dataset.empty)
@@ -244,9 +244,9 @@ function init(svg: SVGSVGElement) {
     }
     flush()
 
-    // Green when the window ended at or above where it started, coral when below: the up/down
-    // rule of the 24h change figure (hpoChangeDirection in src/data/gauge.ts) applied to the
-    // chosen window, so the colour says what the chart shows (Behrang, 2026-10-17).
+    // Green when the window ended at or above where it started, coral when below, the same split as
+    // the change figure beside the price (showChange), so the colour says what the chart shows
+    // (Behrang, 2026-10-17).
     const color = values[values.length - 1] >= values[0] ? 'var(--color-positive)' : 'var(--color-accent)'
     showChange(values[0], values[values.length - 1])
 

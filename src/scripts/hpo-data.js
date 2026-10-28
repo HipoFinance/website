@@ -1,4 +1,4 @@
-// Refreshes the live numbers on the HPO page: the hero market card (#hpoPrice #hpoChange24h
+// Refreshes the live numbers on the HPO page: the hero market card (#hpoPrice
 // #hpoMarketCap #hpoCirculating #hpoHolders) and the "Impressive metrics" card (#hpoTvlGram #hpoTvlUsd
 // #hpoStakers), re-polled every 5 minutes.
 //
@@ -22,21 +22,12 @@
 import { LOCALES } from '../i18n/registry.mjs'
 import { formatNumber } from '../i18n/format.ts'
 import { interpolate } from '../i18n/make-t.ts'
-import { gaugeValues, hpoChangeDirection, hpoSupply, HPO_SECTION_KEYS } from '../data/gauge.ts'
+import { gaugeValues, hpoSupply, HPO_SECTION_KEYS } from '../data/gauge.ts'
 
 const locale = pageLocale()
 
 // Every GaugeValues key that names an element on this page.
-const IDS = [
-  'hpoPrice',
-  'hpoChange24h',
-  'hpoMarketCap',
-  'hpoCirculating',
-  'hpoHolders',
-  'hpoTvlGram',
-  'hpoTvlUsd',
-  'hpoStakers',
-]
+const IDS = ['hpoPrice', 'hpoMarketCap', 'hpoCirculating', 'hpoHolders', 'hpoTvlGram', 'hpoTvlUsd', 'hpoStakers']
 
 // The burned count's entrance. The baked figure rides along as data-burned; the text is blanked to
 // zero right away (only when there is a figure to count to: with the gauge down at build time the
@@ -207,12 +198,7 @@ let updateHpoData = () => {
         return
       }
       const values = gaugeValues(locale, res.result)
-      const chartOwnsChange = document.getElementById('hpoChangeWrap')?.dataset.range !== undefined
       for (const id of IDS) {
-        // Once hpo-sparkline.ts shows the chosen range's change, the gauge's 24h figure must not overwrite it.
-        if (id === 'hpoChange24h' && chartOwnsChange) {
-          continue
-        }
         const el = document.getElementById(id)
         // While the chart's readout holds the price figure (hpo-sparkline.ts), a refreshed price
         // goes to data-live and the readout restores it when the pointer leaves.
@@ -225,21 +211,6 @@ let updateHpoData = () => {
         SetText(el, values[id])
       }
       updateSupply(res.result)
-      // Unlike the other figures, a missing 24h change is hidden rather than left showing: an old
-      // "24h" figure next to the Live badge would claim to be current. This applies only until the chart
-      // has taken over the figure.
-      if (!chartOwnsChange) {
-        const direction = hpoChangeDirection(res.result)
-        const elChange = document.getElementById('hpoChange24h')
-        const elChangeWrap = document.getElementById('hpoChangeWrap')
-        if (elChange != null && elChangeWrap != null) {
-          elChangeWrap.hidden = direction === undefined
-          if (direction !== undefined) {
-            elChange.classList.toggle('text-positive', direction === 'up')
-            elChange.classList.toggle('text-accent', direction === 'down')
-          }
-        }
-      }
     })
     .catch(() => {
       clearTimeout(timer)

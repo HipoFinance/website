@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-28 — The HPO price change shows 1M from the first paint
+
+- The change beside the price on `/hpo/` was baked from the gauge's 24h figure and flipped to the 1M change once the chart's history loaded. The build now bakes the 1M change instead, from the Prometheus seed the Stats page already fetches at build time (`deltas.hpo` in `src/data/stats.ts`, same first-to-last rule), so the page opens on the range the chart shows. Asked for by Behrang.
+- The gauge's 24h change is no longer used on the site: `hpo-data.js` stops writing it, and `hpoChange24h` and `hpoChangeDirection` are gone from `src/data/gauge.ts`. The element id is now `hpoChange`.
+- When the build cannot fetch the seed, the figure is hidden until the chart loads. The baked figure dates from the last deploy, so it can differ from the live one for a moment before the chart replaces it; if the browser's history fetch fails, the figure is hidden rather than left showing that old value.
+- Left open: the `hpo.hero.change24h` key is now unused in all eleven catalogs.
+
 ## 2026-10-28 — The HPO price change follows the chart's range
 
 - On `/hpo/`, the change beside the price used to stay at the gauge's 24h figure whatever range the chart showed. Once a range's history loads, `hpo-sparkline.ts` now shows the change from that range's first point to its last, labelled with the range pill's own text and coloured by the same up/down rule as the line, so the number and the line agree. Asked for by Behrang.

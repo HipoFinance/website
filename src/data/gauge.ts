@@ -16,15 +16,7 @@
 // A missing field, a failed fetch or a slow gauge must never produce a fake or stale-looking
 // number: every value is optional and the caller falls back to the placeholder already in the
 // markup. The build never fails because of this module.
-import {
-  formatCompact,
-  formatNumber,
-  formatPercent,
-  formatRate,
-  formatSignedPercent,
-  formatUsd,
-  formatUsdPrice,
-} from '../i18n/format.ts'
+import { formatCompact, formatNumber, formatPercent, formatRate, formatUsd, formatUsdPrice } from '../i18n/format.ts'
 import type { Locale } from '../i18n/locale.ts'
 
 const GAUGE_URL = 'https://gauge.hipo.finance/data'
@@ -52,8 +44,8 @@ export interface GaugeData {
       // Whole HPO held in the project wallets, by allocation label (community, liquidity, …); from
       // the gauge's specs/hpo-locked-wallet-balances.md. Absent until the gauge ships it.
       locked_supply?: Record<string, number>
-      // Percent units: -4.19 means -4.19 %. Absent since 2026-10-17: the gauge derives HPO's
-      // price from the on-chain pools and holds no 24h history, so the pages hide the change.
+      // Percent units: -4.19 means -4.19 %. Not shown on the site since 2026-10-28: the /hpo/ change
+      // follows the chart's range instead (src/data/stats.ts).
       price_change_percentage_24h?: number
     }
   }
@@ -71,7 +63,6 @@ export interface GaugeValues {
   statStakedUsd?: string
   statHolders?: string
   hpoPrice?: string
-  hpoChange24h?: string
   hpoMarketCap?: string
   hpoCirculating?: string
   hpoHolders?: string
@@ -305,11 +296,6 @@ export function gaugeValues(locale: Locale, data: GaugeData | undefined): GaugeV
     values.hpoPrice = formatUsdPrice(locale, price)
   }
 
-  const change = data.hpo?.market?.price_change_percentage_24h
-  if (change != null && Number.isFinite(change)) {
-    values.hpoChange24h = formatSignedPercent(locale, change / 100)
-  }
-
   const marketCap = data.hpo?.market?.market_cap?.usd
   if (positive(marketCap)) {
     values.hpoMarketCap = compactUsd(locale, marketCap)
@@ -444,14 +430,4 @@ export function hpoSupply(locale: Locale, data: GaugeData | undefined): HpoSuppl
         }))
       : undefined,
   }
-}
-
-// Which colour the HPO card paints its 24h change: up (including flat) is green, down is coral, the
-// same split as the dApp's Stats page. Undefined when there is no change to show.
-export function hpoChangeDirection(data: GaugeData | undefined): 'up' | 'down' | undefined {
-  const change = data?.hpo?.market?.price_change_percentage_24h
-  if (change == null || !Number.isFinite(change)) {
-    return undefined
-  }
-  return change >= 0 ? 'up' : 'down'
 }
