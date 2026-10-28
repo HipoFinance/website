@@ -13,12 +13,14 @@
 //
 // The readout reuses the card's own price figure: while a point is picked, #hpoPrice shows that
 // point's price (the live text is kept in data-live and restored on leave; hpo-data.js writes a
-// refreshed price there meanwhile) and #hpoHoverTime shows its time where the 24h change was.
+// refreshed price there meanwhile) and #hpoHoverTime shows its time where the range's change is.
+// Once a range has loaded, #hpoChange24h shows the change from the first to the last point of that range,
+// labelled with the pill's own text, and hpo-data.js stops writing the gauge's 24h figure there.
 import { queryRange, stepFor, STATS_RANGES, type ChartPoint } from '../components/app/charts/prometheus'
 import type { StatsRange } from '../components/app/Model'
 import { LOCALES } from '../i18n/registry.mjs'
 import type { Locale } from '../i18n/locale.ts'
-import { formatDate, formatUsdPrice } from '../i18n/format.ts'
+import { formatDate, formatSignedPercent, formatUsdPrice } from '../i18n/format.ts'
 import { interpolate } from '../i18n/make-t.ts'
 
 const svgNs = 'http://www.w3.org/2000/svg'
@@ -34,6 +36,8 @@ const rangeGroup = document.getElementById('hpoRange')
 const elPrice = document.getElementById('hpoPrice')
 const elTime = document.getElementById('hpoHoverTime')
 const elChangeWrap = document.getElementById('hpoChangeWrap')
+const elChange = document.getElementById('hpoChange24h')
+const elChangeLabel = document.getElementById('hpoChangeLabel')
 
 if (svg != null) {
   init(svg)
@@ -153,6 +157,28 @@ function init(svg: SVGSVGElement) {
       })
   }
 
+  function showChange(first: number | undefined, last: number | undefined) {
+    if (elChange == null || elChangeLabel == null || elChangeWrap == null) {
+      return
+    }
+    elChangeWrap.dataset.range = shown()
+    if (
+      first === undefined ||
+      last === undefined ||
+      !Number.isFinite(first) ||
+      !Number.isFinite(last) ||
+      !(first > 0)
+    ) {
+      elChangeWrap.hidden = true
+      return
+    }
+    elChange.textContent = formatSignedPercent(locale, last / first - 1)
+    elChangeLabel.textContent = rangeLabel()
+    elChange.classList.toggle('text-positive', last >= first)
+    elChange.classList.toggle('text-accent', last < first)
+    elChangeWrap.hidden = false
+  }
+
   function draw() {
     while (svg.firstChild != null) {
       svg.removeChild(svg.firstChild)
@@ -162,6 +188,11 @@ function init(svg: SVGSVGElement) {
 
     const points = loaded?.points ?? []
     if (loaded == null || points.length < 2) {
+      // A failed first load leaves the gauge's 24h figure standing; once the chart owns the figure,
+      // a range with no line shows no change rather than another window's.
+      if (loaded != null || elChangeWrap?.dataset.range !== undefined) {
+        showChange(undefined, undefined)
+      }
       showNote(failed ? svg.dataset.error : loaded == null ? undefined : svg.dataset.empty)
       svg.setAttribute('aria-label', interpolate(svg.dataset.ariaEmpty ?? '', { title, range: rangeLabel() }))
       applyHover()
@@ -217,6 +248,7 @@ function init(svg: SVGSVGElement) {
     // rule of the 24h change figure (hpoChangeDirection in src/data/gauge.ts) applied to the
     // chosen window, so the colour says what the chart shows (Behrang, 2026-10-17).
     const color = values[values.length - 1] >= values[0] ? 'var(--color-positive)' : 'var(--color-accent)'
+    showChange(values[0], values[values.length - 1])
 
     svg.appendChild(el('path', { d: area.trim(), fill: color, 'fill-opacity': '0.12', stroke: 'none' }))
     svg.appendChild(
@@ -311,7 +343,7 @@ function init(svg: SVGSVGElement) {
       elTime.textContent = time(point.t)
       elTime.classList.remove('invisible')
     }
-    // The 24h change is a different fact from the picked point; `invisible` keeps its box so the
+    // The range's change is a different fact from the picked point; `invisible` keeps its box so the
     // row never reflows mid-scrub, as on the Stats charts.
     elChangeWrap?.classList.add('invisible')
   }

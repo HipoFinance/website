@@ -228,8 +228,9 @@ const hpoFaq = await Promise.all(
           </div>
 
           <!-- The latest price, derived by the gauge from the on-chain pools; baked here and refreshed by
-          hpo-data.js. The 24h change stays hidden while the gauge publishes none (it has not since the
-          price moved on chain, 2026-10-17); the script recolours and un-hides it should one arrive. -->
+          hpo-data.js. The change beside it starts as the gauge's 24h change (hidden when the gauge publishes
+          none); once the chart has loaded a range, hpo-sparkline.ts replaces it with the change over that
+          range, labelled with the range pill's text. -->
           <div class='flex flex-wrap items-baseline gap-x-3 gap-y-1'>
             <div
               id='hpoPrice'
@@ -253,7 +254,7 @@ const hpoFaq = await Promise.all(
                   ]}
                   set:text={gauge.hpoChange24h ?? ''}
                 />
-                <span class='text-text-muted text-[13px]'>{t('hpo.hero.change24h')}</span>
+                <span id='hpoChangeLabel' class='text-text-muted text-[13px]'>{t('hpo.hero.change24h')}</span>
               </div>
               <span id='hpoHoverTime' class='num text-text-muted invisible col-start-1 row-start-1 text-[13px]'></span>
             </span>

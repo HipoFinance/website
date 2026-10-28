@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-28 — The HPO price change follows the chart's range
+
+- On `/hpo/`, the change beside the price used to stay at the gauge's 24h figure whatever range the chart showed. Once a range's history loads, `hpo-sparkline.ts` now shows the change from that range's first point to its last, labelled with the range pill's own text and coloured by the same up/down rule as the line, so the number and the line agree. Asked for by Behrang.
+- No new strings: the label reuses the pills' catalog text, so all eleven locales change at once.
+- The page now opens on the 1M change, because the chart opens on 1M. The baked gauge 24h figure shows only until the history arrives, and stays if that first fetch fails; after that, a range with no data hides the figure rather than show another range's. `hpo-data.js` stops writing the figure once the chart has set it.
+- Checked in a headless browser on a local build, in English at 1280px and Persian at 390px; the chart's 24H change (+2.95%) matched the gauge's own 24h figure (+2.946%).
+
 ## 2026-10-26 — The top-level docs folder is ignored by git
 
 - `.gitignore` gets `/docs/`, anchored to the repo root so `src/content/docs/` and `public/docs/` stay tracked, because the repo is public and `docs/` holds internal planning bundles (the Hipo Club redesign spec, wireframes, build plan and production read totals).
