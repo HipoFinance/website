@@ -4,7 +4,8 @@
 // rest have no gauge equivalent and used to appear only once the island had read the chain or
 // fetched chart history: the hGRAM/GRAM rate, and the "▲ +x% over 1M" delta line under TVL,
 // stakers and rate. This fetches them from the same Prometheus range the charts use, so the
-// cards are complete in the HTML and on the island's first paint.
+// cards are complete in the HTML and on the island's first paint. The /hpo/ page reuses the same one
+// fetch for the HPO price's 1M change beside its price (the chart there opens on the same range).
 //
 // Only the two endpoints of each series are kept, never the ~360 points themselves — the full
 // response is ~70 KB and inlining it on every locale's Stats page would cost far more than the
@@ -37,6 +38,8 @@ export interface StatsSeed {
     staked?: SeededDelta
     holders?: SeededDelta
     rate?: SeededDelta
+    // HPO's USD price; the /hpo/ hero's change figure, not a Stats card.
+    hpo?: SeededDelta
   }
 }
 
@@ -116,6 +119,7 @@ async function loadStatsSeed(): Promise<StatsSeed | undefined> {
         staked: percentDelta(series.get('hipo_treasury_total_coins')),
         holders: percentDelta(series.get('hipo_hton_holders_count')),
         rate: percentDelta(rateValues),
+        hpo: percentDelta(series.get('hipo_hpo_current_price')),
       },
     }
   } catch (e) {

@@ -17,6 +17,20 @@ here — `git log` remains the complete record.
 - Docs `introduction/hipo-rewards.md`, all eleven locales: from Season 6 the reward coefficient is the level number, 1×–10× (club-server `specs/club-coefficients-1-to-10.md`); the ar page's review mark was reset by the hash update.
 - Left for the launch commit: the flag, the deploy render check, internal links to `/club/` and `FALLBACK_COEFFICIENTS` → 1–10. Spec: [`specs/club-website.md`](specs/club-website.md).
 
+## 2026-10-28 — The HPO price change shows 1M from the first paint
+
+- The change beside the price on `/hpo/` was baked from the gauge's 24h figure and flipped to the 1M change once the chart's history loaded. The build now bakes the 1M change instead, from the Prometheus seed the Stats page already fetches at build time (`deltas.hpo` in `src/data/stats.ts`, same first-to-last rule), so the page opens on the range the chart shows. Asked for by Behrang.
+- The gauge's 24h change is no longer used on the site: `hpo-data.js` stops writing it, and `hpoChange24h` and `hpoChangeDirection` are gone from `src/data/gauge.ts`. The element id is now `hpoChange`.
+- When the build cannot fetch the seed, the figure is hidden until the chart loads. The baked figure dates from the last deploy, so it can differ from the live one for a moment before the chart replaces it; if the browser's history fetch fails, the figure is hidden rather than left showing that old value.
+- Left open: the `hpo.hero.change24h` key is now unused in all eleven catalogs.
+
+## 2026-10-28 — The HPO price change follows the chart's range
+
+- On `/hpo/`, the change beside the price used to stay at the gauge's 24h figure whatever range the chart showed. Once a range's history loads, `hpo-sparkline.ts` now shows the change from that range's first point to its last, labelled with the range pill's own text and coloured by the same up/down rule as the line, so the number and the line agree. Asked for by Behrang.
+- No new strings: the label reuses the pills' catalog text, so all eleven locales change at once.
+- The page now opens on the 1M change, because the chart opens on 1M. The baked gauge 24h figure shows only until the history arrives, and stays if that first fetch fails; after that, a range with no data hides the figure rather than show another range's. `hpo-data.js` stops writing the figure once the chart has set it.
+- Checked in a headless browser on a local build, in English at 1280px and Persian at 390px; the chart's 24H change (+2.95%) matched the gauge's own 24h figure (+2.946%).
+
 ## 2026-10-26 — The top-level docs folder is ignored by git
 
 - `.gitignore` gets `/docs/`, anchored to the repo root so `src/content/docs/` and `public/docs/` stay tracked, because the repo is public and `docs/` holds internal planning bundles (the Hipo Club redesign spec, wireframes, build plan and production read totals).
