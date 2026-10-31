@@ -78,6 +78,10 @@ const OVERVIEW_POLL = 30_000
 const NOT_OPEN_POLL = 60_000
 const FINISHING_POLL = 15_000
 const FINISHING_FOR = 3 * 60_000
+// requestProof: how long the wallet's answer may still arrive after TON Connect's window closes,
+// when it closed without a wallet (cancelled) or with one whose proof has not come yet.
+const PROOF_AFTER_CANCEL = 5_000
+const PROOF_AFTER_SELECT = 120_000
 // Revenue share: offered from 10 GRAM; the server deducts 0.5 GRAM (withdrawrewards.go:61).
 export const REVENUE_MIN = 10
 export const REVENUE_FEE = 0.5
@@ -258,6 +262,10 @@ export class ClubModel {
   private timers: ReturnType<typeof setTimeout>[] = []
   private pollTimer?: ReturnType<typeof setTimeout>
   private loadSeq = 0
+  // The current wallet-link attempt (startLink): a newer attempt or closing the dialog ends the
+  // older one, so its late steps change nothing. proofWait ends the requestProof wait under way.
+  private linkAttempt = 0
+  private proofWait?: { end: () => void }
   private disposers: (() => void)[] = []
   private storage: KeyValueStore
 
@@ -1215,6 +1223,8 @@ export class ClubModel {
   }
 
   closeModal() {
+    this.linkAttempt++
+    this.proofWait?.end()
     this.modal = undefined
     this.actionError = undefined
     this.busy = false
@@ -1369,19 +1379,29 @@ export class ClubModel {
   // Start linking or switching to a wallet: a fresh TON Connect connect with a ton_proof (§4).
   async startLink(flow: Flow) {
     this.openModal({ kind: 'connect', flow, reconnect: false })
+    const attempt = ++this.linkAttempt
     this.setBusy(true)
     try {
       const challenge = toChallenge(await this.req('clubproofchallenge', { purpose: 'link' }))
+      if (attempt !== this.linkAttempt) {
+        return
+      }
       if (!challenge.ok || challenge.payload === undefined) {
         this.refusal(challenge.reason, () => this.startLink(flow))
         return
       }
-      const proof = await this.requestProof(challenge.payload)
+      const proof = await this.requestProof(challenge.payload, attempt)
+      if (attempt !== this.linkAttempt) {
+        return
+      }
       if (proof === undefined) {
         this.setBusy(false)
         return
       }
       const prepare = toPrepare(await this.req('clublinkprepare', { proof: proof.proof }))
+      if (attempt !== this.linkAttempt) {
+        return
+      }
       if (!prepare.ok) {
         this.refusal(prepare.reason, () => this.startLink(flow))
         return
@@ -1391,6 +1411,9 @@ export class ClubModel {
         this.busy = false
       })
     } catch (e) {
+      if (attempt !== this.linkAttempt) {
+        return
+      }
       this.setBusy(false)
       this.setError({ key: 'club.error.retry' })
     }
@@ -1434,6 +1457,7 @@ export class ClubModel {
   // modal, and wait for the wallet. The parameters are cleared afterwards.
   private async requestProof(
     payload: string,
+    attempt: number,
   ): Promise<{ address: Address; proof: Record<string, unknown> } | undefined> {
     if (this.mock !== undefined && !this.realWalletConnected) {
       const result = await this.mock.proof(payload)
@@ -1441,10 +1465,20 @@ export class ClubModel {
       return result
     }
     await this.model.ensureWallet()
+    // A Cancel while TON Connect was still loading: open nothing.
+    if (attempt !== this.linkAttempt) {
+      return undefined
+    }
     const ui = this.model.tonConnectUI
     if (ui === undefined) {
       return undefined
     }
+    // Claim the wait before the disconnect below, so an older wait's cleanup leaves these
+    // parameters alone, and a Cancel during the disconnect still ends this one.
+    this.proofWait?.end()
+    let ended = false
+    const wait: { end: () => void } = { end: () => void (ended = true) }
+    this.proofWait = wait
     ui.setConnectRequestParameters({ state: 'ready', value: { tonProof: payload } })
     try {
       if (ui.connected) {
@@ -1452,43 +1486,91 @@ export class ClubModel {
       }
       return await new Promise((resolve) => {
         let settled = false
+        let closeTimer: ReturnType<typeof setTimeout> | undefined
         const finish = (value: { address: Address; proof: Record<string, unknown> } | undefined) => {
           if (!settled) {
             settled = true
+            clearTimeout(closeTimer)
             offStatus()
             offModal()
             resolve(value)
           }
         }
-        const offStatus = ui.onStatusChange((wallet) => {
-          const reply = wallet?.connectItems?.tonProof
-          if (wallet == null || reply == null || 'error' in reply) {
-            if (wallet != null) {
-              finish(undefined)
+        wait.end = () => finish(undefined)
+        if (ended) {
+          resolve(undefined)
+          return
+        }
+        // TON Connect re-sends a connected account without its ton_proof (a restored session, a
+        // bridge reconnect, the account before the disconnect): only this challenge's proof, or the
+        // wallet's refusal of it, ends the wait.
+        const offStatus = ui.onStatusChange(
+          (wallet) => {
+            const reply = wallet?.connectItems?.tonProof
+            const seen =
+              reply == null ? 'none' : 'error' in reply ? 'error' : reply.proof.payload === payload ? 'match' : 'other'
+            console.debug('[club] proof wait: wallet event', { connected: wallet != null, proof: seen })
+            if (wallet == null || reply == null) {
+              return
             }
+            if ('error' in reply) {
+              this.setError({ key: 'club.error.badProof' })
+              finish(undefined)
+              return
+            }
+            if (reply.proof.payload !== payload) {
+              return
+            }
+            finish({
+              address: this.chain.Address.parseRaw(wallet.account.address),
+              proof: {
+                raw_address: wallet.account.address,
+                wallet_state_init: wallet.account.walletStateInit,
+                domain: reply.proof.domain.value,
+                payload: reply.proof.payload,
+                signature: reply.proof.signature,
+                timestamp: reply.proof.timestamp,
+              },
+            })
+          },
+          (error) => {
+            // A refused or failed connect. With TON Connect's window open it shows the error and its
+            // own Retry, which still carries this challenge: the close timer decides. Inside a wallet's
+            // own browser there is no window, and this is the only sign of it.
+            console.debug('[club] proof wait: connect error', { error: error.name })
+            if (ui.modalState.status === 'opened') {
+              return
+            }
+            this.setError({ key: 'club.error.rejected' })
+            finish(undefined)
+          },
+        )
+        const offModal = ui.onModalStateChange((state) => {
+          clearTimeout(closeTimer)
+          if (state.status !== 'closed') {
             return
           }
-          finish({
-            address: this.chain.Address.parseRaw(wallet.account.address),
-            proof: {
-              raw_address: wallet.account.address,
-              wallet_state_init: wallet.account.walletStateInit,
-              domain: reply.proof.domain.value,
-              payload: reply.proof.payload,
-              signature: reply.proof.signature,
-              timestamp: reply.proof.timestamp,
+          console.debug('[club] proof wait: TON Connect closed', { reason: state.closeReason })
+          const selected = state.closeReason === 'wallet-selected'
+          closeTimer = setTimeout(
+            () => {
+              console.debug('[club] proof wait: gave up', { selected })
+              if (selected) {
+                this.setError({ key: 'club.error.badProof' })
+              }
+              finish(undefined)
             },
-          })
-        })
-        const offModal = ui.onModalStateChange((state) => {
-          if (state.status === 'closed' && state.closeReason !== 'wallet-selected') {
-            finish(undefined)
-          }
+            selected ? PROOF_AFTER_SELECT : PROOF_AFTER_CANCEL,
+          )
         })
         void ui.openModal()
       })
     } finally {
-      ui.setConnectRequestParameters(null)
+      // A newer attempt's wait has already set its own parameters: leave them.
+      if (this.proofWait === wait) {
+        this.proofWait = undefined
+        ui.setConnectRequestParameters(null)
+      }
     }
   }
 

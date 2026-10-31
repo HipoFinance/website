@@ -9,6 +9,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-31 — Club wallet switch: wait for the wallet's real proof
+
+- The wallet-link proof wait (`ClubModel.ts` `requestProof`) ended on the first TON Connect event without a ton_proof. TON Connect re-sends a connected account without its proof (a restored session, a bridge reconnect), so with Tonkeeper Desktop the real proof was missed, the server's challenge went unused and the "Choose the wallet…" dialog stayed open with only Cancel.
+- It now takes only the proof of this challenge and ignores events without one. A ton_proof error shows "signature couldn't be checked". When TON Connect's window closes, it waits 5 s (cancelled) or 120 s (wallet picked) before giving up. A connect error ends it only where no window is open (a wallet's own browser: "You declined").
+- Each link attempt is numbered: Cancel or a newer attempt ends the older one, so its late steps leave the screen and TON Connect's proof request alone. The connect dialog gains Retry after a give-up. No new strings.
+- `console.debug` lines (`[club] proof wait: …`) record each wallet event, so the next real switch confirms the cause, which is inferred from the code and the console, not yet proven.
+- Left open: a Telegram re-login started before Cancel still repeats the link afterwards (older than this change); two overlapping disconnects are possible in theory, unconfirmed.
+
 ## 2026-10-31 — Hipo Club goes live at L
 
 - `CLUB_LIVE = true` in `src/data/club-flag.mjs`: the 44 Club URLs (4 tabs × 11 locales), their sitemap group, the Club nav item in place of Rewards, the `/rewards/` redirect pages and the `/app/` `page=reward` mapping all follow the flag, with no other code change.

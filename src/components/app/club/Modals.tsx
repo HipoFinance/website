@@ -174,6 +174,11 @@ const Connect = observer(({ club, modal }: Props & { modal: Extract<Modal, { kin
       </ErrorLine>
       <Actions>
         <Button onClick={() => void club.cancelChange(false)}>{t('club.common.cancel')}</Button>
+        {!modal.reconnect && !club.busy && (
+          <Button kind='primary' onClick={() => void club.startLink(modal.flow)}>
+            {t('club.common.retry')}
+          </Button>
+        )}
       </Actions>
     </>
   )
