@@ -13,7 +13,7 @@ Las recompensas base de staking no requieren ninguna configuración: hGRAM gana 
 
 **Las recompensas en HPO son distintas: Hipo tiene que saber que la billetera existe.** Una billetera empieza a generar HPO en cuanto hayas hecho una de estas dos cosas, una sola vez:
 
-- Abrir la [página de recompensas](/rewards/) en la app de Hipo con esa billetera conectada, **o**
+- Abrir la [página de recompensas](/club/) en la app de Hipo con esa billetera conectada, **o**
 - Conectar esa billetera en [Hipo Club](https://t.me/HipoFinanceBot/join).
 
 A partir de ahí, la billetera sigue generando recompensas sobre su propio saldo. Nada la da de baja: conectar otra billetera más adelante no la detiene, y desconectarla de la app tampoco.
@@ -47,7 +47,7 @@ Conectar una billetera en la [app de Hipo](/stake/) en hipo.finance la registra 
 
 ## Paso a paso: añadir una billetera
 
-1. **Registra la billetera nueva para las recompensas.** Conéctala en la app de Hipo y abre una vez la [página de recompensas](/rewards/). A partir de ahí genera HPO sobre lo que contenga. Si nunca has recibido un airdrop del Club, ya has terminado.
+1. **Registra la billetera nueva para las recompensas.** Conéctala en la app de Hipo y abre una vez la [página de recompensas](/club/). A partir de ahí genera HPO sobre lo que contenga. Si nunca has recibido un airdrop del Club, ya has terminado.
 2. **Conéctala también en Hipo Club si guarda algo de tu HPO de recompensas.** Eso es lo que hace que su saldo cuente para la cantidad que debes conservar. El orden en que conectes las billeteras no importa.
 3. **Comprueba tu nivel después.** Si Hipo Club sigue mostrando tu nivel, todo está en orden.
 

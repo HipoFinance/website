@@ -13,7 +13,7 @@ Die Basis-Staking-Rewards brauchen überhaupt keine Einrichtung: hGRAM gewinnt i
 
 **Bei HPO-Rewards ist es anders — Hipo muss wissen, dass die Wallet existiert.** Eine Wallet beginnt zu verdienen, sobald Sie eines von beidem einmal getan haben:
 
-- Die [Rewards-Seite](/rewards/) in der Hipo-App mit dieser verbundenen Wallet geöffnet, **oder**
+- Die [Rewards-Seite](/club/) in der Hipo-App mit dieser verbundenen Wallet geöffnet, **oder**
 - diese Wallet in [Hipo Club](https://t.me/HipoFinanceBot/join) verbunden.
 
 Danach verdient die Wallet weiter auf ihr eigenes Guthaben. Nichts hebt die Registrierung auf: eine später verbundene andere Wallet stoppt sie nicht, und das Trennen von der App ebenso wenig.
@@ -47,7 +47,7 @@ Eine Wallet in der [Hipo-App](/stake/) auf hipo.finance zu verbinden, registrier
 
 ## Schritt für Schritt: eine Wallet hinzufügen
 
-1. **Registrieren Sie die neue Wallet für Rewards.** Verbinden Sie sie in der Hipo-App und öffnen Sie die [Rewards-Seite](/rewards/) einmal. Sie verdient nun HPO auf alles, was sie hält. Wenn Sie nie einen Club-Airdrop erhalten haben, sind Sie fertig.
+1. **Registrieren Sie die neue Wallet für Rewards.** Verbinden Sie sie in der Hipo-App und öffnen Sie die [Rewards-Seite](/club/) einmal. Sie verdient nun HPO auf alles, was sie hält. Wenn Sie nie einen Club-Airdrop erhalten haben, sind Sie fertig.
 2. **Verbinden Sie sie auch in Hipo Club, wenn sie verdientes HPO von Ihnen hält.** Erst dadurch zählt ihr Guthaben zu dem Betrag, den Sie behalten sollen. Die Reihenfolge, in der Sie Wallets verbinden, spielt keine Rolle.
 3. **Prüfen Sie danach Ihre Stufe.** Zeigt Hipo Club weiterhin Ihre Stufe, ist alles in Ordnung.
 

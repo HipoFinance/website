@@ -13,7 +13,7 @@ Wenn Sie GRAM mit Hipo staken, werden Sie über drei getrennte Ströme in drei v
 - **Weitere Rewards**\
   HPO halten → einen Anteil an den Einnahmen des Protokolls erhalten — ausgezahlt **am Ende jeder Hipo-Club-Season**
 
-Alle drei lassen sich in der [Hipo-App](/rewards/) und im [Hipo Club](https://t.me/HipoFinanceBot/join) verfolgen.
+Alle drei lassen sich in der [Hipo-App](/club/) und im [Hipo Club](https://t.me/HipoFinanceBot/join) verfolgen.
 
 ## Basis-Rewards: der Wechselkurs
 

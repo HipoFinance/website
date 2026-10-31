@@ -20,7 +20,7 @@ Stake ettiğinizde veya unstake ettiğinizde, üstüne küçük bir gas ön öde
 
 ## Kendi rakamlarınızı okumak
 
-Unstake iadesi çekimle birlikte geldiği için, ham çekim ödemesi saf staking ödülünü bir miktar olduğundan fazla gösterir: iade edilen gası da taşır. Bir cüzdanın gerçek staking getirisini ölçmek için her döngüdeki tüm akışları netleştirin: (gönderilen yatırmalar − yatırma iadeleri) ile (talep anındaki iadeler + çekim ödemesi). [Ödüller sayfası](/rewards/) ödüllerinizi sizin için takip eder.
+Unstake iadesi çekimle birlikte geldiği için, ham çekim ödemesi saf staking ödülünü bir miktar olduğundan fazla gösterir: iade edilen gası da taşır. Bir cüzdanın gerçek staking getirisini ölçmek için her döngüdeki tüm akışları netleştirin: (gönderilen yatırmalar − yatırma iadeleri) ile (talep anındaki iadeler + çekim ödemesi). [Ödüller sayfası](/club/rewards/) ödüllerinizi sizin için takip eder.
 
 ## Güncel tutarlar nereden geliyor
 

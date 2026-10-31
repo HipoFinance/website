@@ -13,7 +13,7 @@ Temel staking ödülleri hiçbir kurulum gerektirmez: hGRAM, bağlı olsun ya da
 
 **HPO ödülleri farklıdır — Hipo'nun o cüzdanın varlığından haberi olmalıdır.** Bir cüzdan, şu iki şeyden birini bir kez yaptığınızda HPO kazanmaya başlar:
 
-- O cüzdan bağlıyken Hipo uygulamasındaki [Ödüller sayfasını](/rewards/) açmak, **veya**
+- O cüzdan bağlıyken Hipo uygulamasındaki [Ödüller sayfasını](/club/) açmak, **veya**
 - o cüzdanı [Hipo Club](https://t.me/HipoFinanceBot/join) içinde bağlamak.
 
 Bundan sonra cüzdan kendi bakiyesi üzerinden kazanmaya devam eder. Bu kaydı hiçbir şey geri almaz: sonradan başka bir cüzdan bağlamanız onu durdurmaz, uygulamadan bağlantısını kesmeniz de durdurmaz.
@@ -47,7 +47,7 @@ hipo.finance üzerindeki [Hipo uygulamasında](/stake/) bir cüzdan bağlamak on
 
 ## Adım adım: cüzdan ekleme
 
-1. **Yeni cüzdanı ödüller için kaydedin.** Hipo uygulamasında bağlayın ve [Ödüller sayfasını](/rewards/) bir kez açın. Artık içinde tuttuğu her şey üzerinden HPO kazanır. Hiç Club airdrop'u almadıysanız işiniz bitti.
+1. **Yeni cüzdanı ödüller için kaydedin.** Hipo uygulamasında bağlayın ve [Ödüller sayfasını](/club/) bir kez açın. Artık içinde tuttuğu her şey üzerinden HPO kazanır. Hiç Club airdrop'u almadıysanız işiniz bitti.
 2. **Ödül HPO'nuzun bir kısmını tutuyorsa Hipo Club'da da bağlayın.** Bakiyesinin, tutmanız gereken miktara sayılmasını sağlayan şey budur. Cüzdanları hangi sırayla bağladığınız fark etmez.
 3. **Sonrasında seviyenizi kontrol edin.** Hipo Club hâlâ seviyenizi gösteriyorsa her şey yolundadır.
 

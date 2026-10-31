@@ -5,7 +5,7 @@ title: 'Bagaimana Cara Kerja Hipo?'
 1. **Stake GRAM**\
    Setorkan GRAM Anda ke Hipo untuk mulai mendapatkan imbalan staking di TON — lihat [kurs saat ini](/stats/).
 2. **Dapatkan hGRAM yang likuid**\
-   Terima hGRAM, token likuid yang mewakili GRAM Anda yang di-stake. Nilainya naik seiring [imbalan staking](/rewards/) terkumpul, dan Anda bisa memakainya di seluruh [DeFi](/defi/).
+   Terima hGRAM, token likuid yang mewakili GRAM Anda yang di-stake. Nilainya naik seiring [imbalan staking](/club/rewards/) terkumpul, dan Anda bisa memakainya di seluruh [DeFi](/defi/).
 3. **Unstake kapan pun Anda mau**\
    Ubah hGRAM Anda kembali menjadi GRAM melalui Hipo. **Penuh** diselesaikan setelah putaran validasi berjalan berakhir dan memberi kurs yang lebih baik; **Instan** dibayarkan langsung ketika Hipo memegang cukup GRAM bebas. Dengan cara mana pun, Anda menerima stake Anda ditambah imbalan yang diperolehnya.
 

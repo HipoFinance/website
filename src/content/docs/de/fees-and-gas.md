@@ -20,7 +20,7 @@ Beim Staken oder Unstaken wird zusätzlich eine kleine Gas-Vorauszahlung angehä
 
 ## Ihre eigenen Zahlen lesen
 
-Da die Unstake-Erstattung zusammen mit der Auszahlung eintrifft, überzeichnet eine reine Auszahlungssumme den tatsächlichen Staking-Reward leicht — sie enthält das zurückerstattete Gas. Um die reale Staking-Rendite einer Wallet zu ermitteln, saldieren Sie alle Flüsse pro Zyklus: (gesendete Einzahlungen − Einzahlungserstattungen) gegenüber (Erstattungen zum Anfragezeitpunkt + Auszahlungssumme). Die [Rewards-Seite](/rewards/) verfolgt Ihre Rewards für Sie.
+Da die Unstake-Erstattung zusammen mit der Auszahlung eintrifft, überzeichnet eine reine Auszahlungssumme den tatsächlichen Staking-Reward leicht — sie enthält das zurückerstattete Gas. Um die reale Staking-Rendite einer Wallet zu ermitteln, saldieren Sie alle Flüsse pro Zyklus: (gesendete Einzahlungen − Einzahlungserstattungen) gegenüber (Erstattungen zum Anfragezeitpunkt + Auszahlungssumme). Die [Rewards-Seite](/club/rewards/) verfolgt Ihre Rewards für Sie.
 
 ## Woher die aktuellen Beträge stammen
 

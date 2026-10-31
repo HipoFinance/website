@@ -20,7 +20,7 @@ Quando você faz staking ou unstake, um pequeno adiantamento de gas é anexado �
 
 ## Como ler os seus próprios números
 
-Como a devolução do unstake chega junto com o saque, um pagamento bruto de saque superestima um pouco a recompensa pura de staking — ele carrega o gas devolvido. Para medir o retorno real de staking de uma carteira, compense todos os fluxos por ciclo: (depósitos enviados − devoluções de depósito) contra (devoluções no momento do pedido + pagamento do saque). A [página de Recompensas](/rewards/) acompanha as suas recompensas por você.
+Como a devolução do unstake chega junto com o saque, um pagamento bruto de saque superestima um pouco a recompensa pura de staking — ele carrega o gas devolvido. Para medir o retorno real de staking de uma carteira, compense todos os fluxos por ciclo: (depósitos enviados − devoluções de depósito) contra (devoluções no momento do pedido + pagamento do saque). A [página de Recompensas](/club/rewards/) acompanha as suas recompensas por você.
 
 ## De onde vêm os valores atuais
 

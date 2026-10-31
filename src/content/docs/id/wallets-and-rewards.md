@@ -13,7 +13,7 @@ Imbalan staking dasar tidak memerlukan pengaturan apa pun: nilai hGRAM tumbuh te
 
 **Imbalan HPO berbeda — Hipo harus tahu bahwa dompet itu ada.** Sebuah dompet mulai menghasilkan HPO setelah Anda melakukan salah satu dari ini, satu kali:
 
-- Membuka [halaman Imbalan](/rewards/) di aplikasi Hipo dengan dompet itu terhubung, **atau**
+- Membuka [halaman Imbalan](/club/) di aplikasi Hipo dengan dompet itu terhubung, **atau**
 - menghubungkan dompet itu di [Hipo Club](https://t.me/HipoFinanceBot/join).
 
 Setelah itu dompet terus menghasilkan atas saldonya sendiri. Tidak ada yang membatalkan pendaftaran itu: menghubungkan dompet lain di kemudian hari tidak menghentikannya, begitu pula memutus sambungannya dari aplikasi.
@@ -47,7 +47,7 @@ Menghubungkan dompet di [aplikasi Hipo](/stake/) pada hipo.finance mendaftarkann
 
 ## Langkah demi langkah: menambahkan dompet
 
-1. **Daftarkan dompet baru untuk imbalan.** Hubungkan di aplikasi Hipo dan buka [halaman Imbalan](/rewards/) satu kali. Dompet itu kini menghasilkan HPO atas apa pun yang disimpannya. Jika Anda tidak pernah menerima airdrop Club, selesai.
+1. **Daftarkan dompet baru untuk imbalan.** Hubungkan di aplikasi Hipo dan buka [halaman Imbalan](/club/) satu kali. Dompet itu kini menghasilkan HPO atas apa pun yang disimpannya. Jika Anda tidak pernah menerima airdrop Club, selesai.
 2. **Hubungkan juga di Hipo Club, jika dompet itu menyimpan sebagian HPO imbalan Anda.** Itulah yang membuat saldonya dihitung untuk jumlah yang harus Anda simpan. Urutan menghubungkan dompet tidak berpengaruh.
 3. **Periksa level Anda setelahnya.** Jika Hipo Club masih menampilkan level Anda, semuanya beres.
 

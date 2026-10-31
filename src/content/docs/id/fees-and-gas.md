@@ -20,7 +20,7 @@ Saat Anda men-stake atau meng-unstake, sejumlah kecil prabayar gas ditambahkan d
 
 ## Membaca angka Anda sendiri
 
-Karena pengembalian dari unstake tiba bersama penarikan, pembayaran penarikan mentah sedikit melebih-lebihkan imbalan staking murni — di dalamnya terbawa gas yang dikembalikan. Untuk mengukur hasil staking sebenarnya dari sebuah dompet, hitung selisih seluruh aliran per siklus: (setoran yang dikirim − pengembalian setoran) dibandingkan (pengembalian saat permintaan + pembayaran penarikan). [Halaman Imbalan](/rewards/) melacak imbalan Anda untuk Anda.
+Karena pengembalian dari unstake tiba bersama penarikan, pembayaran penarikan mentah sedikit melebih-lebihkan imbalan staking murni — di dalamnya terbawa gas yang dikembalikan. Untuk mengukur hasil staking sebenarnya dari sebuah dompet, hitung selisih seluruh aliran per siklus: (setoran yang dikirim − pengembalian setoran) dibandingkan (pengembalian saat permintaan + pembayaran penarikan). [Halaman Imbalan](/club/rewards/) melacak imbalan Anda untuk Anda.
 
 ## Dari mana angka saat ini berasal
 

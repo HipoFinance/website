@@ -13,7 +13,7 @@ Hipo ile GRAM stake etmek size üç ayrı akıştan, üç farklı zamanlamayla �
 - **Ekstra ödüller**\
   HPO tutun → protokol gelirinden pay alın — **her Hipo Club sezonunun sonunda** ödenir
 
-Üçü de [Hipo uygulamasından](/rewards/) ve [Hipo Club](https://t.me/HipoFinanceBot/join) üzerinden takip edilebilir.
+Üçü de [Hipo uygulamasından](/club/) ve [Hipo Club](https://t.me/HipoFinanceBot/join) üzerinden takip edilebilir.
 
 ## Temel ödüller: dönüşüm oranı
 

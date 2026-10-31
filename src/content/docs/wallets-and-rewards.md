@@ -13,7 +13,7 @@ Base staking rewards need no setup at all: hGRAM grows in value against GRAM eve
 
 **HPO rewards are different — Hipo has to know the wallet exists.** A wallet starts earning HPO once you have done either of these, once:
 
-- Opened the [Rewards page](/rewards/) in the Hipo app with that wallet connected, **or**
+- Opened the [Rewards page](/club/) in the Hipo app with that wallet connected, **or**
 - Connected that wallet in [Hipo Club](https://t.me/HipoFinanceBot/join).
 
 After that the wallet keeps earning on its own balance. Nothing un-registers it: connecting a different wallet later does not stop it, and neither does disconnecting it from the app.
@@ -47,7 +47,7 @@ Connecting a wallet in the [Hipo app](/stake/) on hipo.finance registers it for 
 
 ## Step by step: adding a wallet
 
-1. **Register the new wallet for rewards.** Connect it in the Hipo app and open the [Rewards page](/rewards/) once. It now earns HPO on whatever it holds. If you never received a Club airdrop, you are done.
+1. **Register the new wallet for rewards.** Connect it in the Hipo app and open the [Rewards page](/club/) once. It now earns HPO on whatever it holds. If you never received a Club airdrop, you are done.
 2. **Connect it in Hipo Club as well, if it holds any of your rewarded HPO.** That is what makes its balance count toward the amount you are expected to keep. The order you connect wallets in does not matter.
 3. **Check your level afterwards.** If Hipo Club still shows your level, everything is in order.
 

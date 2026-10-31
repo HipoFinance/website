@@ -13,7 +13,7 @@ Les récompenses de staking de base ne demandent aucune configuration : les hGR
 
 **Les récompenses en HPO, elles, sont différentes — Hipo doit savoir que le portefeuille existe.** Un portefeuille commence à gagner des HPO dès que tu as fait l’une de ces deux choses, une fois :
 
-- ouvert la [page Récompenses](/rewards/) de l’app Hipo avec ce portefeuille connecté, **ou**
+- ouvert la [page Récompenses](/club/) de l’app Hipo avec ce portefeuille connecté, **ou**
 - connecté ce portefeuille dans le [Hipo Club](https://t.me/HipoFinanceBot/join).
 
 Ensuite, le portefeuille continue de gagner sur son propre solde. Rien ne le désinscrit : connecter un autre portefeuille plus tard ne l’arrête pas, et le déconnecter de l’app non plus.
@@ -47,7 +47,7 @@ Connecter un portefeuille dans l’[app Hipo](/stake/) sur hipo.finance l’insc
 
 ## Pas à pas : ajouter un portefeuille
 
-1. **Inscris le nouveau portefeuille pour les récompenses.** Connecte-le dans l’app Hipo et ouvre la [page Récompenses](/rewards/) une fois. Il gagne désormais des HPO sur tout ce qu’il détient. Si tu n’as jamais reçu d’airdrop du Club, c’est terminé.
+1. **Inscris le nouveau portefeuille pour les récompenses.** Connecte-le dans l’app Hipo et ouvre la [page Récompenses](/club/) une fois. Il gagne désormais des HPO sur tout ce qu’il détient. Si tu n’as jamais reçu d’airdrop du Club, c’est terminé.
 2. **Connecte-le aussi dans le Hipo Club s’il détient une partie de tes HPO de récompense.** C’est ce qui fait compter son solde dans le montant que tu es censé conserver. L’ordre dans lequel tu connectes les portefeuilles n’a aucune importance.
 3. **Vérifie ton niveau ensuite.** Si le Hipo Club affiche toujours ton niveau, tout est en ordre.
 

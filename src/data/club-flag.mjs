@@ -2,15 +2,15 @@
 // the site: the /club/ pages in every locale, the Club item in every nav (in place of Rewards), the
 // /rewards/ → /club/ redirect pages, the `club` sitemap group and the /app/ mapping of page=reward.
 //
-// CLUB_LIVE stays false until the launch commit at L (Sat 2026-10-31 09:00 UTC); before that the live
-// site shows today's Rewards page. PUBLIC_CLUB=1 builds the Club for a local preview without changing
+// CLUB_LIVE is true from the launch commit at L (Sat 2026-10-31 09:00 UTC); before that the site showed
+// today's Rewards page. PUBLIC_CLUB=1 builds the Club for a local preview without changing
 // the constant (`PUBLIC_CLUB=1 npm run dev`). The mock server is a second, separate switch
 // (PUBLIC_CLUB_MOCK=1, see src/components/app/club/mock.ts); a build without it contains no mock code.
 //
 // Plain ESM so astro.config.mjs (Node), the Astro pages and the island (Vite) can all import it. Vite
 // replaces import.meta.env.PUBLIC_CLUB at build time; Node has process.env instead.
 
-export const CLUB_LIVE = false
+export const CLUB_LIVE = true
 
 /** @returns {boolean} true when this build contains the Club */
 export function clubBuilt() {

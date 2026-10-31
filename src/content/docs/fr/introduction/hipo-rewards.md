@@ -13,7 +13,7 @@ Staker des GRAM avec Hipo te rémunère via trois flux distincts, sur trois ryth
 - **Récompenses supplémentaires**\
   Détiens des HPO → reçois une part des revenus du protocole — versée **à la fin de chaque saison du Hipo Club**
 
-Les trois se suivent dans l’[app Hipo](/rewards/) et dans le [Hipo Club](https://t.me/HipoFinanceBot/join).
+Les trois se suivent dans l’[app Hipo](/club/) et dans le [Hipo Club](https://t.me/HipoFinanceBot/join).
 
 ## Récompenses de base : le taux de conversion
 

@@ -17,7 +17,7 @@ import {
 } from '../src/components/app/club/api.ts'
 import { intentCovers } from '../src/components/app/club/payments.ts'
 import { interpolate } from '../src/i18n/make-t.ts'
-import { CLUB_TG_BOT_ID, clubBuildProblems } from '../src/data/club-flag.mjs'
+import { CLUB_LIVE, CLUB_TG_BOT_ID, clubBuildProblems } from '../src/data/club-flag.mjs'
 
 const club = JSON.parse(readFileSync(new URL('../src/i18n/en/club.json', import.meta.url), 'utf8'))
 
@@ -146,8 +146,9 @@ check('the bot id: the default is @HipoFinanceBot’s, and a Club build needs an
   assert.equal(build({ PUBLIC_CLUB: '1', PUBLIC_CLUB_TG_BOT_ID: '12a' }).length, 1)
   assert.equal(build({ PUBLIC_CLUB: '1' }, undefined, { botId: '' }).length, 1)
   assert.equal(build({ PUBLIC_CLUB: '1' }, undefined, { botId: 'SET-ME' }).length, 1)
-  // The flag off (the live site before L), the dev server and the local mock preview never fail on it.
-  assert.deepEqual(build({}, undefined, { botId: '' }), [])
+  // The flag off (the live site before L), the dev server and the local mock preview never fail on it;
+  // with the flag on (from L) every build holds the Club and needs the id.
+  assert.equal(build({}, undefined, { botId: '' }).length, CLUB_LIVE ? 1 : 0)
   assert.deepEqual(
     clubBuildProblems({ processEnv: { PUBLIC_CLUB: '1' }, viteEnv: { PUBLIC_CLUB: '1' }, command: 'dev', botId: '' }),
     [],

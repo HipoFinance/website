@@ -20,7 +20,7 @@ Quand tu stakes ou unstakes, une petite avance de gas est ajoutée par-dessus (a
 
 ## Lire tes propres chiffres
 
-Parce que le remboursement de l’unstake arrive avec le retrait, un versement de retrait brut surestime légèrement la récompense de staking pure : il inclut le gas rendu. Pour mesurer le rendement de staking réel d’un portefeuille, compense tous les flux de chaque cycle : (dépôts envoyés − remboursements de dépôt) face à (remboursements au moment de la demande + versement du retrait). La [page Récompenses](/rewards/) suit tes récompenses à ta place.
+Parce que le remboursement de l’unstake arrive avec le retrait, un versement de retrait brut surestime légèrement la récompense de staking pure : il inclut le gas rendu. Pour mesurer le rendement de staking réel d’un portefeuille, compense tous les flux de chaque cycle : (dépôts envoyés − remboursements de dépôt) face à (remboursements au moment de la demande + versement du retrait). La [page Récompenses](/club/rewards/) suit tes récompenses à ta place.
 
 ## D’où viennent les montants actuels
 

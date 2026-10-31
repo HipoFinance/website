@@ -9,6 +9,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-31 — Hipo Club goes live at L
+
+- `CLUB_LIVE = true` in `src/data/club-flag.mjs`: the 44 Club URLs (4 tabs × 11 locales), their sitemap group, the Club nav item in place of Rewards, the `/rewards/` redirect pages and the `/app/` `page=reward` mapping all follow the flag, with no other code change.
+- `deploy.yml` gains a second post-deploy render check, for `https://hipo.finance/club/` (`--expect='Hipo Club'`), after the stats/stake one.
+- Internal `/rewards/` links now point at `/club/` (registration and tracking) or `/club/rewards/` (reward history) in the docs of all 11 locales, `public/llms.txt` and the 2nd-anniversary blog post, since `/rewards/` is now a redirect page. Link text unchanged.
+- `FALLBACK_COEFFICIENTS` in `src/data/club.ts` are 1–10 (the level number), the Season 6 rules' values.
+- Left open: the English docs rewrite of the Club rules (spec 12 item 4), deferred until Milad agrees, and the rules text in `llms.txt` (item 5).
+- Spec: [specs/club-website.md](specs/club-website.md) §12.
+
 ## 2026-10-31 — Hipo Club pages, hidden until the launch
 
 - The new Club (`/club/` in every locale, its React island under `src/components/app/club/`, the nav item, the `/rewards/` → `/club/` redirects and the `club` sitemap group) ships behind `CLUB_LIVE = false` in `src/data/club-flag.mjs`; the launch commit at L (2026-10-31 09:00 UTC) turns it on, and until then the live site shows today's Rewards page.

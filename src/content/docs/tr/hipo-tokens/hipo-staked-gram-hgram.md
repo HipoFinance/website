@@ -8,7 +8,7 @@ Hipo ile stake ettiğinizde, stake edilmiş GRAM'ınızı temsil eden likit bir 
 
 Her doğrulama turundan sonra staking ödülleri **hGRAM'ın fiyatına eklenir**; yani değeri GRAM'a kıyasla kademeli olarak artar.
 
-Bu kazançları elle takip etmek zor olabileceğinden, artık **her doğrulama turundaki staking ödüllerinizi tam olarak** doğrudan [**Hipo uygulamasında**](/rewards/) görebilirsiniz.
+Bu kazançları elle takip etmek zor olabileceğinden, artık **her doğrulama turundaki staking ödüllerinizi tam olarak** doğrudan [**Hipo uygulamasında**](/club/rewards/) görebilirsiniz.
 
 hGRAM sayesinde **GRAM'ınız staking ödülü kazanırken likiditenizi korursunuz**. Ayrıca hGRAM'ı TON üzerindeki çeşitli [DeFi işlemlerinde](/defi/) kullanabilirsiniz.
 

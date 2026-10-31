@@ -13,7 +13,7 @@ title: 'مكافآت Hipo'
 - **مكافآت إضافية**\
   احتفظ برموز HPO → تستلم حصة من إيرادات البروتوكول — تُدفع **في نهاية كل موسم من Hipo Club**
 
-يمكن تتبّع المسارات الثلاثة جميعها في [تطبيق Hipo](/rewards/) و [Hipo Club](https://t.me/HipoFinanceBot/join).
+يمكن تتبّع المسارات الثلاثة جميعها في [تطبيق Hipo](/club/) و [Hipo Club](https://t.me/HipoFinanceBot/join).
 
 ## المكافآت الأساسية: سعر الصرف
 

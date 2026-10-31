@@ -13,7 +13,7 @@ Hacer staking de GRAM con Hipo te paga en tres flujos separados, con tres ritmos
 - **Recompensas extra**\
   Ten HPO → recibe una parte de los ingresos del protocolo: se paga **al final de cada temporada de Hipo Club**
 
-Los tres se pueden seguir en la [app de Hipo](/rewards/) y en [Hipo Club](https://t.me/HipoFinanceBot/join).
+Los tres se pueden seguir en la [app de Hipo](/club/) y en [Hipo Club](https://t.me/HipoFinanceBot/join).
 
 ## Recompensas base: la tasa de cambio
 

@@ -13,7 +13,7 @@ Men-stake GRAM di Hipo memberi Anda imbalan lewat tiga aliran terpisah, dengan t
 - **Imbalan ekstra**\
   Pegang HPO → terima bagi hasil dari pendapatan protokol — dibayarkan **pada akhir setiap season Hipo Club**
 
-Ketiganya dapat dilacak di [aplikasi Hipo](/rewards/) dan [Hipo Club](https://t.me/HipoFinanceBot/join).
+Ketiganya dapat dilacak di [aplikasi Hipo](/club/) dan [Hipo Club](https://t.me/HipoFinanceBot/join).
 
 ## Imbalan dasar: nilai tukar
 

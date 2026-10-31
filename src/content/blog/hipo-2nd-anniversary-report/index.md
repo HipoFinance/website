@@ -164,7 +164,7 @@ Previously, calculating exact earnings from hGRAM price appreciation was challen
 
 This feature addressed a frequently requested need for greater transparency in the Hipo ecosystem, providing users with a clear record of their staking performance.
 
-Users can access this functionality in the “Reward” section of the Hipo Web App: [Staking Rewards Tracker](/rewards/)
+Users can access this functionality in the “Reward” section of the Hipo Web App: [Staking Rewards Tracker](/club/rewards/)
 
 ### Profit Sharing for HPO Holders
 

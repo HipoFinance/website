@@ -5,7 +5,7 @@ title: 'Wie funktioniert Hipo?'
 1. **GRAM staken**\
    Zahlen Sie Ihr GRAM bei Hipo ein und verdienen Sie Staking-Rewards auf TON — siehe die [aktuelle Rate](/stats/).
 2. **Liquides hGRAM erhalten**\
-   Sie erhalten hGRAM, einen liquiden Token, der Ihr gestaktes GRAM repräsentiert. Sein Wert steigt, während sich [Staking-Rewards](/rewards/) ansammeln, und Sie können ihn im [DeFi](/defi/) einsetzen.
+   Sie erhalten hGRAM, einen liquiden Token, der Ihr gestaktes GRAM repräsentiert. Sein Wert steigt, während sich [Staking-Rewards](/club/rewards/) ansammeln, und Sie können ihn im [DeFi](/defi/) einsetzen.
 3. **Unstaken, wann Sie wollen**\
    Wandeln Sie Ihr hGRAM über Hipo wieder in GRAM um. **Vollständig** wird nach dem Ende der laufenden Validierungsrunde abgerechnet und bringt den besseren Kurs; **Sofort** zahlt sofort aus, wenn Hipo genügend freies GRAM hält. In beiden Fällen erhalten Sie Ihre Einlage plus die erwirtschafteten Rewards.
 

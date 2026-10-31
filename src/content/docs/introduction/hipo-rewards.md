@@ -13,7 +13,7 @@ Staking GRAM with Hipo pays you in three separate streams, on three different cl
 - **Extra rewards**\
   Hold HPO → receive a share of protocol revenue — paid **at the end of each Hipo Club season**
 
-All three are trackable in the [Hipo app](/rewards/) and [Hipo Club](https://t.me/HipoFinanceBot/join).
+All three are trackable in the [Hipo app](/club/) and [Hipo Club](https://t.me/HipoFinanceBot/join).
 
 ## Base rewards: the exchange rate
 

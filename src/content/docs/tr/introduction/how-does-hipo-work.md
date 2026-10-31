@@ -5,7 +5,7 @@ title: 'Hipo Nasıl Çalışır?'
 1. **GRAM stake edin**\
    TON üzerinde staking ödülleri kazanmaya başlamak için GRAM'ınızı Hipo'ya yatırın — [güncel orana](/stats/) bakın.
 2. **Likit hGRAM alın**\
-   Stake edilmiş GRAM'ınızı temsil eden likit bir token olan hGRAM'ı alın. Değeri [staking ödülleri](/rewards/) biriktikçe artar ve onu [DeFi](/defi/) genelinde kullanabilirsiniz.
+   Stake edilmiş GRAM'ınızı temsil eden likit bir token olan hGRAM'ı alın. Değeri [staking ödülleri](/club/rewards/) biriktikçe artar ve onu [DeFi](/defi/) genelinde kullanabilirsiniz.
 3. **İstediğiniz zaman stake'ten çıkın**\
    hGRAM'ınızı Hipo üzerinden yeniden GRAM'a çevirin. **Tam** seçeneği mevcut doğrulama turu bittikten sonra sonuçlanır ve daha iyi oranı verir; **Anında** seçeneği ise Hipo yeterli serbest GRAM tuttuğunda hemen ödeme yapar. Her iki durumda da stake ettiğiniz miktarı ve kazandığı ödülleri alırsınız.
 

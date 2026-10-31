@@ -331,7 +331,7 @@ Official Hipo website: https://hipo.finance/
 Official Hipo accounts and addresses (the authoritative anti-impersonation list): https://hipo.finance/verify/
 Hipo app (stake): https://hipo.finance/stake/
 Hipo app (unstake): https://hipo.finance/unstake/
-Hipo app (rewards): https://hipo.finance/rewards/
+Hipo app (rewards): https://hipo.finance/club/
 Hipo app (protocol stats): https://hipo.finance/stats/
 hGRAM in DeFi (pools and integrations): https://hipo.finance/defi/
 Hipo vs other liquid staking protocols (0% fee, realized yield in GRAM): https://hipo.finance/vs/

@@ -20,7 +20,7 @@ Cuando haces staking o retiras del staking, se adjunta por encima un pequeño pr
 
 ## Interpretar tus propias cifras
 
-Como el reembolso del unstaking llega con el retiro, el pago bruto de un retiro sobrestima ligeramente la recompensa pura del staking: lleva incluido el gas devuelto. Para medir el rendimiento real de staking de una billetera, calcula el neto de todos los flujos por ciclo: (depósitos enviados − reembolsos de depósito) frente a (reembolsos en el momento de la solicitud + pago del retiro). La [página de recompensas](/rewards/) hace ese seguimiento por ti.
+Como el reembolso del unstaking llega con el retiro, el pago bruto de un retiro sobrestima ligeramente la recompensa pura del staking: lleva incluido el gas devuelto. Para medir el rendimiento real de staking de una billetera, calcula el neto de todos los flujos por ciclo: (depósitos enviados − reembolsos de depósito) frente a (reembolsos en el momento de la solicitud + pago del retiro). La [página de recompensas](/club/rewards/) hace ese seguimiento por ti.
 
 ## De dónde salen las cantidades actuales
 

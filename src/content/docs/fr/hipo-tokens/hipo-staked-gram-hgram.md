@@ -8,7 +8,7 @@ En stakant avec Hipo, tu reçois des **hGRAM**, un token liquide qui représente
 
 Après chaque cycle de validation, les récompenses de staking sont **accumulées dans le prix du hGRAM**, dont la valeur augmente donc progressivement par rapport au GRAM.
 
-Comme il peut être difficile de suivre ces gains à la main, tu peux désormais **voir tes récompenses de staking exactes pour chaque cycle de validation directement dans l’**[**app Hipo**](/rewards/).
+Comme il peut être difficile de suivre ces gains à la main, tu peux désormais **voir tes récompenses de staking exactes pour chaque cycle de validation directement dans l’**[**app Hipo**](/club/rewards/).
 
 Avec hGRAM, tu **gardes ta liquidité pendant que tes GRAM gagnent des récompenses de staking**. Tu peux aussi utiliser hGRAM dans diverses [activités DeFi](/defi/) sur TON.
 

@@ -13,7 +13,7 @@ title: 'پاداش‌های Hipo'
 - **پاداش اضافی**\
   HPO نگه دارید → سهمی از درآمد پروتکل بگیرید — **در پایان هر فصل Hipo Club** پرداخت می‌شود
 
-هر سه در [اپ Hipo](/rewards/) و [Hipo Club](https://t.me/HipoFinanceBot/join) قابل پیگیری‌اند.
+هر سه در [اپ Hipo](/club/) و [Hipo Club](https://t.me/HipoFinanceBot/join) قابل پیگیری‌اند.
 
 ## پاداش پایه: نرخ تبدیل
 

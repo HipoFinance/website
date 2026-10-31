@@ -8,7 +8,7 @@ Wenn Sie mit Hipo staken, erhalten Sie **hGRAM**, einen liquiden Token, der Ihr 
 
 Nach jeder Validierungsrunde werden die Staking-Rewards **in den Preis von hGRAM eingerechnet**, sein Wert steigt also gegenüber GRAM allmählich an.
 
-Da sich diese Erträge von Hand nur schwer verfolgen lassen, können Sie Ihre genauen Staking-Rewards für jede Validierungsrunde jetzt **direkt in der** [**Hipo App**](/rewards/) **einsehen**.
+Da sich diese Erträge von Hand nur schwer verfolgen lassen, können Sie Ihre genauen Staking-Rewards für jede Validierungsrunde jetzt **direkt in der** [**Hipo App**](/club/rewards/) **einsehen**.
 
 Mit hGRAM bleiben Sie **liquide, während Ihr GRAM Staking-Rewards erwirtschaftet**. Sie können hGRAM außerdem für verschiedene [DeFi-Aktivitäten](/defi/) auf TON nutzen.
 

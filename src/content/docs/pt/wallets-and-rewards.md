@@ -13,7 +13,7 @@ As recompensas básicas de staking não exigem nenhuma configuração: o hGRAM v
 
 **Com as recompensas em HPO é diferente — a Hipo precisa saber que a carteira existe.** Uma carteira começa a render HPO assim que você fizer uma destas duas coisas, uma vez:
 
-- Abrir a [página de Recompensas](/rewards/) no app da Hipo com essa carteira conectada, **ou**
+- Abrir a [página de Recompensas](/club/) no app da Hipo com essa carteira conectada, **ou**
 - conectar essa carteira no [Hipo Club](https://t.me/HipoFinanceBot/join).
 
 A partir daí a carteira continua rendendo sobre o próprio saldo. Nada cancela esse registro: conectar outra carteira depois não a interrompe, e desconectá-la do app também não.
@@ -47,7 +47,7 @@ Conectar uma carteira no [app da Hipo](/stake/) em hipo.finance a registra para 
 
 ## Passo a passo: adicionar uma carteira
 
-1. **Registre a nova carteira para recompensas.** Conecte-a no app da Hipo e abra a [página de Recompensas](/rewards/) uma vez. Ela já rende HPO sobre o que guardar. Se você nunca recebeu um airdrop do Club, terminou aqui.
+1. **Registre a nova carteira para recompensas.** Conecte-a no app da Hipo e abra a [página de Recompensas](/club/) uma vez. Ela já rende HPO sobre o que guardar. Se você nunca recebeu um airdrop do Club, terminou aqui.
 2. **Conecte-a também no Hipo Club, se ela guardar parte do seu HPO recebido.** É isso que faz o saldo dela contar para o valor que você deve manter. A ordem em que você conecta as carteiras não importa.
 3. **Confira seu nível depois.** Se o Hipo Club ainda mostra seu nível, está tudo certo.
 

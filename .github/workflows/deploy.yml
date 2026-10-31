@@ -88,3 +88,6 @@ jobs:
             --expect='hGRAM' \
             https://hipo.finance/stats/ \
             https://hipo.finance/stake/
+          node scripts/render-check.mjs \
+            --expect='Hipo Club' \
+            https://hipo.finance/club/

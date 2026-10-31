@@ -20,7 +20,7 @@ When you stake or unstake, a small gas prepayment is attached on top (currently 
 
 ## Reading your own numbers
 
-Because the unstake refund arrives with the withdrawal, a raw withdrawal payout slightly overstates the pure staking reward — it carries the returned gas. To measure a wallet’s real staking return, net all flows per cycle: (deposits sent − deposit refunds) versus (request-time refunds + withdrawal payout). The [Rewards page](/rewards/) tracks your rewards for you.
+Because the unstake refund arrives with the withdrawal, a raw withdrawal payout slightly overstates the pure staking reward — it carries the returned gas. To measure a wallet’s real staking return, net all flows per cycle: (deposits sent − deposit refunds) versus (request-time refunds + withdrawal payout). The [Rewards page](/club/rewards/) tracks your rewards for you.
 
 ## Where the current amounts come from
 

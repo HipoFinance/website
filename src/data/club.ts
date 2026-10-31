@@ -16,11 +16,12 @@ const REWARDS_URL = 'https://api.hipogang.io/wallet-rewards?address=EQAAAAAAAAAA
 
 const FETCH_TIMEOUT_MS = 10000
 
-// The values the endpoint returned on 2026-10-16, used when it is unreachable. A stale rate is
+// The values the endpoint returned on 2026-10-16 (reward rate) and the Season 6 rules' coefficients
+// (the level number, from 2026-10-31), used when it is unreachable. A stale rate is
 // worth more here than a blank table: /vs/ exists to put real figures in the static HTML, and both
 // numbers move rarely (the coefficients only by a governance vote).
 const FALLBACK_REWARD_RATE = 0.0015295
-const FALLBACK_COEFFICIENTS = [1, 1.2, 1.6, 2.2, 3, 4, 5.2, 6.6, 8.2, 10]
+const FALLBACK_COEFFICIENTS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 // TON's validation round, and so Hipo's reward interval. Model.ts reads the live round boundaries
 // and falls back to this same constant; a marketing page that rebuilds on every deploy does not
