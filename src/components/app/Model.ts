@@ -27,8 +27,16 @@ import * as fmt from '../../i18n/format.ts'
 // The English app catalog, bundled as the compile-time fallback (spec §D); other locales arrive through
 // the #i18n-app JSON tag that AppLayout inlines into the static shell.
 import enApp from '../../i18n/en/app.json'
+import { clubBuilt } from '../../data/club-flag.mjs'
 
-type ActivePage = 'stake' | 'reward' | 'stats' | 'defi'
+export type ActivePage = 'stake' | 'reward' | 'club' | 'stats' | 'defi'
+
+// The Club's four tabs (specs/club-website.md §1); the Leaderboard is a section of Overview.
+export type ClubTab = 'overview' | 'rewards' | 'friends' | 'community'
+
+// Whether this build has the Club (src/data/club-flag.mjs): its routes, and the Club nav item in place
+// of Rewards. False until the launch commit, so the live site keeps today's Rewards page.
+export const CLUB_ON = clubBuilt()
 
 type ActiveTab = 'stake' | 'unstake'
 
@@ -308,6 +316,7 @@ interface Route {
   path: string
   activePage: ActivePage
   activeTab?: ActiveTab
+  clubTab?: ClubTab
 }
 
 // location.pathname is the single source of truth for app navigation. The island is mounted on
@@ -318,6 +327,14 @@ const routes: Route[] = [
   { path: '/rewards/', activePage: 'reward' },
   { path: '/stats/', activePage: 'stats' },
   { path: '/defi/', activePage: 'defi' },
+  ...(CLUB_ON
+    ? ([
+        { path: '/club/', activePage: 'club', clubTab: 'overview' },
+        { path: '/club/rewards/', activePage: 'club', clubTab: 'rewards' },
+        { path: '/club/friends/', activePage: 'club', clubTab: 'friends' },
+        { path: '/club/community/', activePage: 'club', clubTab: 'community' },
+      ] satisfies Route[])
+    : []),
 ]
 
 function normalizePath(pathname: string): string {
@@ -333,9 +350,14 @@ function routeForPathname(pathname: string): Route | undefined {
 
 // A route without an activeTab keeps whichever tab is current, so returning to the stake page
 // lands on the tab the user left it on, as the old #/tab= fragment did.
-function routeForState(activePage: ActivePage, activeTab: ActiveTab): Route {
+function routeForState(activePage: ActivePage, activeTab: ActiveTab, clubTab: ClubTab = 'overview'): Route {
   return (
-    routes.find((route) => route.activePage === activePage && (route.activeTab ?? activeTab) === activeTab) ?? routes[0]
+    routes.find(
+      (route) =>
+        route.activePage === activePage &&
+        (route.activeTab ?? activeTab) === activeTab &&
+        (route.clubTab ?? clubTab) === clubTab,
+    ) ?? routes[0]
   )
 }
 
@@ -653,6 +675,7 @@ export class Model {
   walletState?: WalletState
   activePage: ActivePage = defaultActivePage
   activeTab: ActiveTab = defaultActiveTab
+  clubTab: ClubTab = 'overview'
   statsRange: StatsRange = defaultStatsRange
   // The amount input (spec §E). `amountRaw` is the text exactly as typed — the controlled input's value —
   // `amount` its canonical ASCII reading ("1234.5"; '' when the field is empty or unparseable) and
@@ -761,6 +784,7 @@ export class Model {
       walletState: observable,
       activePage: observable,
       activeTab: observable,
+      clubTab: observable,
       amountRaw: observable,
       amount: observable,
       amountInvalid: observable,
@@ -2251,17 +2275,26 @@ export class Model {
     if (route.activeTab != null) {
       this.setActiveTab(route.activeTab)
     }
+    if (route.clubTab != null && this.clubTab !== route.clubTab) {
+      this.clubTab = route.clubTab
+    }
   }
 
   // The bare (unprefixed) route for the current page and tab — what the language switcher links to in
   // each locale. Derived from observable state, not location.pathname, so observers re-render on
   // in-app navigation.
   get activePath(): string {
-    return routeForState(this.activePage, this.activeTab).path
+    return routeForState(this.activePage, this.activeTab, this.clubTab).path
   }
 
   navigateToPage = (activePage: ActivePage) => {
-    this.navigateToPath(routeForState(activePage, this.activeTab).path)
+    this.navigateToPath(
+      routeForState(activePage, this.activeTab, activePage === 'club' ? 'overview' : this.clubTab).path,
+    )
+  }
+
+  navigateToClubTab = (clubTab: ClubTab) => {
+    this.navigateToPath(routeForState('club', this.activeTab, clubTab).path)
   }
 
   navigateToTab = (activeTab: ActiveTab) => {

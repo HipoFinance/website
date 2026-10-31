@@ -1,0 +1,28 @@
+---
+// /rewards/ and /<locale>/rewards/ once the Club is live (specs/club-website.md §12): a redirect page to
+// the same locale's /club/. location.replace for browsers, a meta refresh without JavaScript, a
+// canonical to the target and noindex; out of the sitemap (astro.config.mjs).
+import { dirOf, langOf, localeOf, localizedPath } from '../../i18n/locale.ts'
+
+const locale = localeOf(Astro)
+const target = localizedPath('/club/', locale)
+const canonical = new URL(target, Astro.site).href
+---
+
+<!doctype html>
+<html lang={langOf(locale)} dir={dirOf(locale)}>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Hipo Club | Hipo</title>
+    <meta name='robots' content='noindex' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <meta http-equiv='refresh' content={`0; url=${target}`} />
+    <link rel='canonical' href={canonical} />
+    <script is:inline define:vars={{ target }}>
+      location.replace(target + location.search + location.hash)
+    </script>
+  </head>
+  <body>
+    <p><a href={target}>Hipo Club</a></p>
+  </body>
+</html>

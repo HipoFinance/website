@@ -1,0 +1,20 @@
+---
+// The Club's localized twin of src/pages/club/[...tab].astro, for every built locale; behind the same
+// flag.
+import ShellRoute from '../../../components/routes/ShellRoute.astro'
+import { localeParams } from '../../../i18n/locale.ts'
+import { clubBuilt } from '../../../data/club-flag.mjs'
+
+export function getStaticPaths() {
+  if (!clubBuilt()) {
+    return []
+  }
+  return localeParams().flatMap(({ params }) =>
+    [undefined, 'rewards', 'friends', 'community'].map((tab) => ({ params: { ...params, tab } })),
+  )
+}
+
+const tab = (Astro.params.tab ?? 'overview') as 'overview' | 'rewards' | 'friends' | 'community'
+---
+
+<ShellRoute page='club' clubTab={tab} />

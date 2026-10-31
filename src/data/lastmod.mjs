@@ -55,6 +55,9 @@ const ROUTES = {
   stake: { catalogs: [], prose: ['shell/stake'] },
   unstake: { catalogs: [], prose: ['shell/unstake'] },
   rewards: { catalogs: [], prose: ['shell/rewards'] },
+  // /club/ (built only with the Club flag on) dates from its own catalog and cards; its three
+  // sub-tabs get no lastmod, like any path absent here.
+  club: { catalogs: ['club.json'], prose: ['shell/club'] },
   stats: { catalogs: [], prose: ['shell/stats'] },
   defi: { catalogs: [], prose: ['shell/defi'] },
 }

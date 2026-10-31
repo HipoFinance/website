@@ -17,6 +17,9 @@ path  2  src/data/lst.ts  computes each protocol's exchange rate and growth  Ali
 path  2  src/data/gauge.ts  yearly earnings, nano-to-GRAM and TVL-in-USD conversions  Alireza 2026-10-11
 path  2  src/components/routes/VerifyRoute.astro  the list of official wallet and contract addresses  Alireza 2026-10-11
 path  2  public/tonconnect-manifest.json  the identity the wallet shows when it asks the user to sign  Alireza 2026-10-11
+path  3  src/components/app/club/clubTx.ts  builds the Club claim and upgrade transactions (amount, payload, hipo.ton)  Alireza (spec club-website) 2026-10-27
+path  3  src/components/app/club/payments.ts  the payment guard before every Club send: chain check, pending lock, re-read, server time  Alireza (spec club-website) 2026-10-27
+path  3  src/components/app/club/ClubModel.ts  the checks before a Club claim or upgrade, and the revenue-share withdrawal request  Alireza (spec club-website) 2026-10-27
 declined  package-lock.json  fires on every dependency change; Alireza left it out  Alireza 2026-10-11
 declined  scripts/backfill-lst-rates.mjs  a hand-run script that only reads the chain  Alireza 2026-10-11
 declined  src/data/lst-rates.json  data, changed on every refresh  Alireza 2026-10-11

@@ -1,11 +1,13 @@
 ---
-// The whole document of a dApp shell page (`/stake/`, `/unstake/`, `/rewards/`, `/stats/`,
+// The whole document of a dApp shell page (`/stake/`, `/unstake/`, `/rewards/`, `/club/…`, `/stats/`,
 // `/defi/`), shared by the English route and its `[locale]` twin (spec §B). `page` picks the static
-// copy component and the seo.json keys; the island itself is mounted by AppLayout.
+// copy component and the seo.json keys; the island itself is mounted by AppLayout. The Club's four
+// tabs share one page id; `clubTab` picks their seo.json keys and path.
 import Layout from '../../layouts/AppLayout.astro'
 import StakePage from '../pages/StakePage.astro'
 import UnstakePage from '../pages/UnstakePage.astro'
 import RewardsPage from '../pages/RewardsPage.astro'
+import ClubPage from '../pages/ClubPage.astro'
 import StatsPage from '../pages/StatsPage.astro'
 import DefiPage from '../pages/DefiPage.astro'
 import { shellJsonLd, type ShellPage } from '../pages/shellJsonLd'
@@ -14,17 +16,27 @@ import { getT } from '../../i18n/t.ts'
 
 interface Props {
   page: ShellPage
+  clubTab?: 'overview' | 'rewards' | 'friends' | 'community'
 }
 
-const { page } = Astro.props
-const Page = { stake: StakePage, unstake: UnstakePage, rewards: RewardsPage, stats: StatsPage, defi: DefiPage }[page]
+const { page, clubTab = 'overview' } = Astro.props
+const Page = {
+  stake: StakePage,
+  unstake: UnstakePage,
+  rewards: RewardsPage,
+  club: ClubPage,
+  stats: StatsPage,
+  defi: DefiPage,
+}[page]
 
 const locale = localeOf(Astro)
 const { t } = getT(locale, ['seo'])
-const title = t(`seo.${page}.title`)
-const description = t(`seo.${page}.description`)
+const seoKey = page === 'club' ? `seo.club.${clubTab}` : `seo.${page}`
+const title = t(`${seoKey}.title`)
+const description = t(`${seoKey}.description`)
+const path = page === 'club' ? (clubTab === 'overview' ? '/club/' : `/club/${clubTab}/`) : undefined
 
-const jsonLd = await shellJsonLd({ page, title, description, locale })
+const jsonLd = await shellJsonLd({ page, title, description, locale, path })
 ---
 
 <Layout title={title} description={description} page={page} jsonLd={jsonLd}>

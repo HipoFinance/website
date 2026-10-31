@@ -42,24 +42,24 @@ The base is what your stake is **worth in GRAM right now** — your hGRAM balanc
 
 ### Level coefficients
 
-The coefficient is not the level number — it starts at 1× and accelerates as you climb:
+From Season 6 (31 October 2026), the coefficient is your level number:
 
-| Level | 1    | 2    | 3    | 4    | 5   | 6   | 7    | 8    | 9    | 10  |
-| ----- | ---- | ---- | ---- | ---- | --- | --- | ---- | ---- | ---- | --- |
-| Rate  | 1.0× | 1.2× | 1.6× | 2.2× | 3×  | 4×  | 5.2× | 6.6× | 8.2× | 10× |
+| Level | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Rate  | 1×  | 2×  | 3×  | 4×  | 5×  | 6×  | 7×  | 8×  | 9×  | 10× |
 
-Each level is worth more than the one before it: moving from Level 1 to Level 2 adds 0.2×, while moving from Level 9 to Level 10 adds 1.8× — nine times as much. The reward for climbing is back-loaded.
+Each level adds the same 1×: Level 2 earns twice what Level 1 earns, Level 5 five times, Level 10 ten times. Until the end of Season 5 the rate rose more steeply, from 1.2× at Level 2 to 8.2× at Level 9.
 
 ### What that works out to
 
 Annual HPO rewards at the current rate:
 
-| Stake (GRAM) | Level 1 (1×) | Level 5 (3×) | Level 10 (10×) |
+| Stake (GRAM) | Level 1 (1×) | Level 5 (5×) | Level 10 (10×) |
 | ------------ | ------------ | ------------ | -------------- |
-| 1,000        | ~736 HPO     | ~2,208 HPO   | ~7,360 HPO     |
-| 5,000        | ~3,680 HPO   | ~11,040 HPO  | ~36,800 HPO    |
-| 10,000       | ~7,360 HPO   | ~22,080 HPO  | ~73,600 HPO    |
-| 50,000       | ~36,800 HPO  | ~110,400 HPO | ~368,000 HPO   |
+| 1,000        | ~736 HPO     | ~3,680 HPO   | ~7,360 HPO     |
+| 5,000        | ~3,680 HPO   | ~18,400 HPO  | ~36,800 HPO    |
+| 10,000       | ~7,360 HPO   | ~36,800 HPO  | ~73,600 HPO    |
+| 50,000       | ~36,800 HPO  | ~184,000 HPO | ~368,000 HPO   |
 
 ### What it is worth
 

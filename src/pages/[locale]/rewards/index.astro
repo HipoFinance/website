@@ -1,8 +1,13 @@
 ---
 import ShellRoute from '../../../components/routes/ShellRoute.astro'
+import ClubRedirect from '../../../components/routes/ClubRedirect.astro'
 import { localeParams } from '../../../i18n/locale.ts'
+import { clubBuilt } from '../../../data/club-flag.mjs'
 
 export const getStaticPaths = localeParams
+
+// Today's Rewards page until the launch commit; a redirect to /<locale>/club/ once the Club flag is on.
+const club = clubBuilt()
 ---
 
-<ShellRoute page='rewards' />
+{club ? <ClubRedirect /> : <ShellRoute page='rewards' />}

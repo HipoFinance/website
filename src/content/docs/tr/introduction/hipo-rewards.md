@@ -42,24 +42,24 @@ Hesabın temeli, stake'inizin **şu anda GRAM cinsinden ne ettiğidir** — gün
 
 ### Seviye katsayıları
 
-Katsayı, seviye numarasının kendisi değildir — 1× ile başlar ve yükseldikçe hızlanır:
+6. Sezon'dan (31 Ekim 2026) itibaren katsayı, seviye numaranızdır:
 
-| Seviye | 1    | 2    | 3    | 4    | 5   | 6   | 7    | 8    | 9    | 10  |
-| ------ | ---- | ---- | ---- | ---- | --- | --- | ---- | ---- | ---- | --- |
-| Oran   | 1,0× | 1,2× | 1,6× | 2,2× | 3×  | 4×  | 5,2× | 6,6× | 8,2× | 10× |
+| Seviye | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  |
+| ------ | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Oran   | 1×  | 2×  | 3×  | 4×  | 5×  | 6×  | 7×  | 8×  | 9×  | 10× |
 
-Her seviye bir öncekinden daha değerlidir: 1. seviyeden 2. seviyeye geçmek 0,2× ekler, 9. seviyeden 10. seviyeye geçmek ise 1,8× — dokuz katı. Yükselmenin ödülü sona doğru ağırlaşır.
+Her seviye aynı 1× değerini ekler: 2. seviye 1. seviyenin iki katını, 5. seviye beş katını, 10. seviye on katını kazanır. 5. Sezon'un sonuna kadar oran daha dik yükseliyordu: 2. seviyede 1,2×'ten 9. seviyede 8,2×'e.
 
 ### Pratikte ne kadar ediyor
 
 Güncel oranda yıllık HPO ödülleri:
 
-| Stake (GRAM) | 1. seviye (1×) | 5. seviye (3×) | 10. seviye (10×) |
+| Stake (GRAM) | 1. seviye (1×) | 5. seviye (5×) | 10. seviye (10×) |
 | ------------ | -------------- | -------------- | ---------------- |
-| 1.000        | ~736 HPO       | ~2.208 HPO     | ~7.360 HPO       |
-| 5.000        | ~3.680 HPO     | ~11.040 HPO    | ~36.800 HPO      |
-| 10.000       | ~7.360 HPO     | ~22.080 HPO    | ~73.600 HPO      |
-| 50.000       | ~36.800 HPO    | ~110.400 HPO   | ~368.000 HPO     |
+| 1.000        | ~736 HPO       | ~3.680 HPO     | ~7.360 HPO       |
+| 5.000        | ~3.680 HPO     | ~18.400 HPO    | ~36.800 HPO      |
+| 10.000       | ~7.360 HPO     | ~36.800 HPO    | ~73.600 HPO      |
+| 50.000       | ~36.800 HPO    | ~184.000 HPO   | ~368.000 HPO     |
 
 ### Değeri ne kadar
 

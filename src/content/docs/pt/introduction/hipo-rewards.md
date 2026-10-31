@@ -42,24 +42,24 @@ A base é quanto o que você tem em staking **vale em GRAM neste momento** — o
 
 ### Coeficientes de nível
 
-O coeficiente não é o número do nível — ele começa em 1× e acelera conforme você sobe:
+A partir da Temporada 6 (31 de outubro de 2026), o coeficiente é o número do seu nível:
 
-| Nível       | 1    | 2    | 3    | 4    | 5   | 6   | 7    | 8    | 9    | 10  |
-| ----------- | ---- | ---- | ---- | ---- | --- | --- | ---- | ---- | ---- | --- |
-| Coeficiente | 1,0× | 1,2× | 1,6× | 2,2× | 3×  | 4×  | 5,2× | 6,6× | 8,2× | 10× |
+| Nível       | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  |
+| ----------- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Coeficiente | 1×  | 2×  | 3×  | 4×  | 5×  | 6×  | 7×  | 8×  | 9×  | 10× |
 
-Cada nível vale mais do que o anterior: ir do nível 1 para o nível 2 acrescenta 0,2×, enquanto ir do nível 9 para o nível 10 acrescenta 1,8× — nove vezes mais. A recompensa por subir vem concentrada no fim.
+Cada nível soma o mesmo 1×: o nível 2 ganha o dobro do nível 1, o nível 5 cinco vezes mais e o nível 10 dez vezes mais. Até o fim da Temporada 5, a taxa subia de forma mais acentuada, de 1,2× no nível 2 a 8,2× no nível 9.
 
 ### O que isso dá na prática
 
 Recompensas anuais em HPO na taxa atual:
 
-| Em staking (GRAM) | Nível 1 (1×) | Nível 5 (3×) | Nível 10 (10×) |
+| Em staking (GRAM) | Nível 1 (1×) | Nível 5 (5×) | Nível 10 (10×) |
 | ----------------- | ------------ | ------------ | -------------- |
-| 1.000             | ~736 HPO     | ~2.208 HPO   | ~7.360 HPO     |
-| 5.000             | ~3.680 HPO   | ~11.040 HPO  | ~36.800 HPO    |
-| 10.000            | ~7.360 HPO   | ~22.080 HPO  | ~73.600 HPO    |
-| 50.000            | ~36.800 HPO  | ~110.400 HPO | ~368.000 HPO   |
+| 1.000             | ~736 HPO     | ~3.680 HPO   | ~7.360 HPO     |
+| 5.000             | ~3.680 HPO   | ~18.400 HPO  | ~36.800 HPO    |
+| 10.000            | ~7.360 HPO   | ~36.800 HPO  | ~73.600 HPO    |
+| 50.000            | ~36.800 HPO  | ~184.000 HPO | ~368.000 HPO   |
 
 ### Quanto isso vale
 

@@ -73,6 +73,39 @@ html.tma body {
      etc.) come from the global.css compilation, which app pages also load. */
   --font-body: 'Heebo', ui-sans-serif, system-ui, sans-serif;
   --font-fredoka: 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
+
+  /* The Club's status strips and chips (specs/club-website.md §11): four tones, each a ground, a
+     border and a foreground, re-declared for the light scheme below. Warm Dark values from the
+     wireframes' strip colors. */
+  --color-tone-info-bg: #26211f;
+  --color-tone-info-border: #433a36;
+  --color-tone-info-fg: #c2b5ac;
+  --color-tone-success-bg: #1f2a23;
+  --color-tone-success-border: #3f6b4c;
+  --color-tone-success-fg: #8fd6a5;
+  --color-tone-warn-bg: #2e2519;
+  --color-tone-warn-border: #7a5a26;
+  --color-tone-warn-fg: #f2bf67;
+  --color-tone-neutral-bg: #26211f;
+  --color-tone-neutral-border: #433a36;
+  --color-tone-neutral-fg: #b8ada6;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-tone-info-bg: #fbf7f1;
+    --color-tone-info-border: #e7dccf;
+    --color-tone-info-fg: #6f6058;
+    --color-tone-success-bg: #eef7f0;
+    --color-tone-success-border: #9fd0ad;
+    --color-tone-success-fg: #1d7a3c;
+    --color-tone-warn-bg: #fdf4e3;
+    --color-tone-warn-border: #e2bd72;
+    --color-tone-warn-fg: #8a5a00;
+    --color-tone-neutral-bg: #f6f1ea;
+    --color-tone-neutral-border: #dbcdb9;
+    --color-tone-neutral-fg: #6f6058;
+  }
 }
 
 /* Bidi isolation for formatted values, mirrored from global.css: this stylesheet is compiled

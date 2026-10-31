@@ -20,6 +20,7 @@ import { useRef, useEffect, useLayoutEffect } from 'react'
 import AmountAlert from './AmountAlert.tsx'
 import MultisigGuidance from './MultisigGuidance.tsx'
 import TmaApp from './tma/TmaApp.tsx'
+import ClubLoader from './ClubLoader.tsx'
 
 const App = observer(() => {
   const modelRef = useRef<Model | null>(null)
@@ -69,6 +70,8 @@ const App = observer(() => {
     page = <Defi model={model} />
   } else if (model.activePage === 'reward') {
     page = <Reward model={model} />
+  } else if (model.activePage === 'club') {
+    page = <ClubLoader model={model} />
   } else if (model.activePage === 'stats') {
     page = <StatsPage model={model} />
   }

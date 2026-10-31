@@ -9,9 +9,10 @@ import Banner from '../components/Banner.astro'
 import AppShell from '../components/app/shell/AppShell.astro'
 import type { ShellPage } from '../components/pages/shellJsonLd'
 import { dirOf, langOf, localeOf, localizedPath, stripLocale } from '../i18n/locale.ts'
-import { getAppCatalog, getT } from '../i18n/t.ts'
+import { getAppCatalog, getClubCatalog, getT } from '../i18n/t.ts'
 import { appStats, fetchGauge, statsCards } from '../data/gauge.ts'
 import { fetchStatsSeed } from '../data/stats.ts'
+import { clubBuilt } from '../data/club-flag.mjs'
 
 interface Props {
   title: string
@@ -53,6 +54,9 @@ const {
 // the island, so the tag is emitted for other locales only. `<` is escaped so no catalog value can close
 // the script element.
 const appCatalogJson = locale === 'en' ? undefined : JSON.stringify(getAppCatalog(locale)).replace(/</g, '\\u003c')
+// The Club's own catalog, on Club pages only (the island bundles the English one in its Club chunk).
+const clubCatalogJson =
+  page === 'club' && locale !== 'en' ? JSON.stringify(getClubCatalog(locale)).replace(/</g, '\\u003c') : undefined
 
 // Live protocol figures, fetched once per build (src/data/gauge.ts). They are rendered into the
 // static shell below AND inlined as JSON so the island can seed itself from the same payload —
@@ -77,7 +81,9 @@ const cards = page === 'stats' ? statsCards(locale, gauge, seed?.rate) : {}
 const footerNav = [
   { href: '/stake/', label: t('site.app.nav.stake') },
   { href: '/unstake/', label: t('site.app.nav.unstake') },
-  { href: '/rewards/', label: t('site.app.nav.rewards') },
+  clubBuilt()
+    ? { href: '/club/', label: t('site.app.nav.club') }
+    : { href: '/rewards/', label: t('site.app.nav.rewards') },
   { href: '/stats/', label: t('site.app.nav.stats') },
   { href: '/defi/', label: t('site.app.nav.defi') },
   { href: '/docs/', label: t('site.app.nav.docs') },
@@ -145,6 +151,7 @@ const footerNav = [
            catalog with no request. */
         appCatalogJson && <script type='application/json' id='i18n-app' set:html={appCatalogJson} />
       }
+      {clubCatalogJson && <script type='application/json' id='i18n-club' set:html={clubCatalogJson} />}
       {
         /* The gauge payload the island seeds itself from (Model.readInlineGauge). Kept next to the
            catalog tag, inside the static shell, so a ClientRouter swap hands the persisted island a

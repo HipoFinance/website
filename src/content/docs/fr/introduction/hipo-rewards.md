@@ -42,24 +42,24 @@ La base de calcul est ce que vaut ta mise **en GRAM à l’instant présent** �
 
 ### Les coefficients de niveau
 
-Le coefficient n’est pas le numéro du niveau — il part de 1× et s’accélère à mesure que tu montes :
+À partir de la saison 6 (31 octobre 2026), le coefficient est ton numéro de niveau :
 
-| Niveau | 1    | 2    | 3    | 4    | 5   | 6   | 7    | 8    | 9    | 10  |
-| ------ | ---- | ---- | ---- | ---- | --- | --- | ---- | ---- | ---- | --- |
-| Taux   | 1,0× | 1,2× | 1,6× | 2,2× | 3×  | 4×  | 5,2× | 6,6× | 8,2× | 10× |
+| Niveau | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  |
+| ------ | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Taux   | 1×  | 2×  | 3×  | 4×  | 5×  | 6×  | 7×  | 8×  | 9×  | 10× |
 
-Chaque niveau vaut plus que le précédent : passer du niveau 1 au niveau 2 ajoute 0,2×, alors que passer du niveau 9 au niveau 10 ajoute 1,8× — neuf fois plus. La récompense de l’ascension arrive tard.
+Chaque niveau ajoute le même 1× : le niveau 2 gagne deux fois plus que le niveau 1, le niveau 5 cinq fois plus, le niveau 10 dix fois plus. Jusqu’à la fin de la saison 5, le taux montait plus fort, de 1,2× au niveau 2 à 8,2× au niveau 9.
 
 ### Ce que cela donne
 
 Récompenses annuelles en HPO au taux actuel :
 
-| Mise (GRAM) | Niveau 1 (1×) | Niveau 5 (3×) | Niveau 10 (10×) |
+| Mise (GRAM) | Niveau 1 (1×) | Niveau 5 (5×) | Niveau 10 (10×) |
 | ----------- | ------------- | ------------- | --------------- |
-| 1 000       | ~736 HPO      | ~2 208 HPO    | ~7 360 HPO      |
-| 5 000       | ~3 680 HPO    | ~11 040 HPO   | ~36 800 HPO     |
-| 10 000      | ~7 360 HPO    | ~22 080 HPO   | ~73 600 HPO     |
-| 50 000      | ~36 800 HPO   | ~110 400 HPO  | ~368 000 HPO    |
+| 1 000       | ~736 HPO      | ~3 680 HPO    | ~7 360 HPO      |
+| 5 000       | ~3 680 HPO    | ~18 400 HPO   | ~36 800 HPO     |
+| 10 000      | ~7 360 HPO    | ~36 800 HPO   | ~73 600 HPO     |
+| 50 000      | ~36 800 HPO   | ~184 000 HPO  | ~368 000 HPO    |
 
 ### Ce que cela vaut
 

@@ -13,14 +13,17 @@ import { localizedPath, type Locale } from '../../../i18n/locale.ts'
 import { getT } from '../../../i18n/t.ts'
 import ShellIcon from './ShellIcon.astro'
 import ShellLanguageSwitcher from './ShellLanguageSwitcher.astro'
+import { clubBuilt } from '../../../data/club-flag.mjs'
 
 interface Props {
   locale: Locale
-  activePage: 'stake' | 'reward' | 'stats' | 'defi'
+  activePage: 'stake' | 'reward' | 'club' | 'stats' | 'defi'
 }
 
 const { locale, activePage } = Astro.props
 const { t } = getT(locale, ['app'])
+// Rewards until the launch commit, the Club after it (src/data/club-flag.mjs), as in Header.tsx.
+const club = clubBuilt()
 
 // Same items in the same order as Header.tsx's `siteLinks`.
 const siteLinks: { href: string; label: string; appPage?: Props['activePage'] }[] = [
@@ -29,7 +32,9 @@ const siteLinks: { href: string; label: string; appPage?: Props['activePage'] }[
   { href: '/docs/', label: 'app.nav.docs' },
   { href: '/faq/', label: 'app.nav.faq' },
   { href: '/stake/', label: 'app.nav.stake', appPage: 'stake' },
-  { href: '/rewards/', label: 'app.nav.rewards', appPage: 'reward' },
+  club
+    ? { href: '/club/', label: 'app.nav.club', appPage: 'club' }
+    : { href: '/rewards/', label: 'app.nav.rewards', appPage: 'reward' },
   { href: '/stats/', label: 'app.nav.stats', appPage: 'stats' },
   { href: '/defi/', label: 'app.nav.defi', appPage: 'defi' },
 ]
@@ -38,7 +43,9 @@ const siteLinks: { href: string; label: string; appPage?: Props['activePage'] }[
 const tabs: { page: Props['activePage']; label: string; icon: 'coins' | 'gift' | 'chart-line' | 'arrow-left-right' }[] =
   [
     { page: 'stake', label: 'app.nav.stake', icon: 'coins' },
-    { page: 'reward', label: 'app.nav.rewards', icon: 'gift' },
+    club
+      ? { page: 'club', label: 'app.nav.club', icon: 'gift' }
+      : { page: 'reward', label: 'app.nav.rewards', icon: 'gift' },
     { page: 'stats', label: 'app.nav.stats', icon: 'chart-line' },
     { page: 'defi', label: 'app.nav.defi', icon: 'arrow-left-right' },
   ]

@@ -84,6 +84,7 @@
   "app.multisig.unstakeInstructions": "أرسل {amount} إلى عنوان الخزينة أدناه مع التعليق النصي {comment}. يُلغي هذا الستاكينغ عن رصيدك {entire} من hGRAM؛ وتُرَدّ الرسوم غير المستخدمة.",
   "app.multisig.verifyDestination": "هذا هو عقد محفظة hGRAM الخاصة بك، المشتق من عنوان محفظتك متعددة التواقيع — وليس خزينة Hipo. {link}",
   "app.multisig.verifyDestinationLink": "تحقَّق منه على Tonviewer",
+  "app.nav.club": "النادي",
   "app.nav.defi": "DeFi",
   "app.nav.docs": "الوثائق",
   "app.nav.faq": "الأسئلة الشائعة",

@@ -42,24 +42,24 @@ Grundlage ist, was Ihr Stake **gerade jetzt in GRAM wert ist** — Ihr hGRAM-Gut
 
 ### Level-Koeffizienten
 
-Der Koeffizient ist nicht die Levelnummer — er beginnt bei 1× und beschleunigt sich, je weiter Sie aufsteigen:
+Ab Saison 6 (31. Oktober 2026) ist der Koeffizient Ihre Levelnummer:
 
-| Level | 1    | 2    | 3    | 4    | 5   | 6   | 7    | 8    | 9    | 10  |
-| ----- | ---- | ---- | ---- | ---- | --- | --- | ---- | ---- | ---- | --- |
-| Rate  | 1,0× | 1,2× | 1,6× | 2,2× | 3×  | 4×  | 5,2× | 6,6× | 8,2× | 10× |
+| Level | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Rate  | 1×  | 2×  | 3×  | 4×  | 5×  | 6×  | 7×  | 8×  | 9×  | 10× |
 
-Jedes Level ist mehr wert als das davor: Der Schritt von Level 1 auf Level 2 bringt 0,2× zusätzlich, der Schritt von Level 9 auf Level 10 dagegen 1,8× — das Neunfache. Der Lohn für den Aufstieg kommt spät.
+Jedes Level bringt dasselbe 1× dazu: Level 2 verdient doppelt so viel wie Level 1, Level 5 das Fünffache, Level 10 das Zehnfache. Bis zum Ende von Saison 5 stieg der Satz steiler, von 1,2× auf Level 2 bis 8,2× auf Level 9.
 
 ### Was dabei herauskommt
 
 Jährliche HPO-Rewards beim aktuellen Satz:
 
-| Stake (GRAM) | Level 1 (1×) | Level 5 (3×) | Level 10 (10×) |
+| Stake (GRAM) | Level 1 (1×) | Level 5 (5×) | Level 10 (10×) |
 | ------------ | ------------ | ------------ | -------------- |
-| 1.000        | ~736 HPO     | ~2.208 HPO   | ~7.360 HPO     |
-| 5.000        | ~3.680 HPO   | ~11.040 HPO  | ~36.800 HPO    |
-| 10.000       | ~7.360 HPO   | ~22.080 HPO  | ~73.600 HPO    |
-| 50.000       | ~36.800 HPO  | ~110.400 HPO | ~368.000 HPO   |
+| 1.000        | ~736 HPO     | ~3.680 HPO   | ~7.360 HPO     |
+| 5.000        | ~3.680 HPO   | ~18.400 HPO  | ~36.800 HPO    |
+| 10.000       | ~7.360 HPO   | ~36.800 HPO  | ~73.600 HPO    |
+| 50.000       | ~36.800 HPO  | ~184.000 HPO | ~368.000 HPO   |
 
 ### Was das wert ist
 

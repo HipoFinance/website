@@ -84,6 +84,7 @@
   "app.multisig.unstakeInstructions": "Надішли {amount} на адресу скарбниці нижче з текстовим коментарем {comment}. Це виведе зі стейкінгу {entire} твій баланс hGRAM; невикористана комісія повертається.",
   "app.multisig.verifyDestination": "Це контракт твого власного hGRAM-гаманця, похідний від адреси твого мультисига, а не скарбниця Hipo. {link}",
   "app.multisig.verifyDestinationLink": "Перевірити на Tonviewer",
+  "app.nav.club": "Club",
   "app.nav.defi": "DeFi",
   "app.nav.docs": "Документація",
   "app.nav.faq": "FAQ",

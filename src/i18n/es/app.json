@@ -85,6 +85,7 @@
   "app.multisig.verifyDestination": "Este es tu propio contrato de billetera hGRAM, derivado de tu dirección multisig — no es la tesorería de Hipo. {link}",
   "app.multisig.verifyDestinationLink": "Verifícalo en Tonviewer",
   "app.nav.defi": "DeFi",
+  "app.nav.club": "Club",
   "app.nav.docs": "Docs",
   "app.nav.faq": "FAQ",
   "app.nav.home": "Inicio",

@@ -1,20 +1,23 @@
 import { useEffect, useState, type MouseEvent } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Coins, Gift, ChartLine, ArrowLeftRight, type LucideIcon } from 'lucide-react'
-import { Model } from './Model'
+import { CLUB_ON, Model } from './Model'
 import LanguageSwitcher from './LanguageSwitcher'
 
 interface Props {
   model: Model
 }
 
-type Page = 'stake' | 'reward' | 'stats' | 'defi'
+type Page = 'stake' | 'reward' | 'club' | 'stats' | 'defi'
 
 // The app pages reachable from the mobile bottom tab bar. Same icons as the mini app's TmaTabs.
 // Labels are catalog keys, resolved through model.t at render time.
+// The second slot is Rewards before the launch commit and the Club after it (CLUB_ON).
 const pages: { page: Page; label: string; icon: LucideIcon }[] = [
   { page: 'stake', label: 'app.nav.stake', icon: Coins },
-  { page: 'reward', label: 'app.nav.rewards', icon: Gift },
+  CLUB_ON
+    ? { page: 'club', label: 'app.nav.club', icon: Gift }
+    : { page: 'reward', label: 'app.nav.rewards', icon: Gift },
   { page: 'stats', label: 'app.nav.stats', icon: ChartLine },
   { page: 'defi', label: 'app.nav.defi', icon: ArrowLeftRight },
 ]
@@ -29,7 +32,9 @@ const siteLinks: { href: string; label: string; appPage?: Page }[] = [
   { href: '/docs/', label: 'app.nav.docs' },
   { href: '/faq/', label: 'app.nav.faq' },
   { href: '/stake/', label: 'app.nav.stake', appPage: 'stake' },
-  { href: '/rewards/', label: 'app.nav.rewards', appPage: 'reward' },
+  CLUB_ON
+    ? { href: '/club/', label: 'app.nav.club', appPage: 'club' }
+    : { href: '/rewards/', label: 'app.nav.rewards', appPage: 'reward' },
   { href: '/stats/', label: 'app.nav.stats', appPage: 'stats' },
   { href: '/defi/', label: 'app.nav.defi', appPage: 'defi' },
 ]

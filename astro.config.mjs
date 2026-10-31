@@ -5,6 +5,8 @@ import sitemap from '@astrojs/sitemap'
 import starlight from '@astrojs/starlight'
 import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { lastmodFor } from './src/data/lastmod.mjs'
+import { loadEnv } from 'vite'
+import { clubBuildProblems, clubBuilt } from './src/data/club-flag.mjs'
 import { DEFAULT_LOCALE, LOCALES, builtLocales, indexableLocales } from './src/i18n/registry.mjs'
 import remarkLocalizeLinks from './src/i18n/remark-localize-links.mjs'
 import rehypeHeadingAnchors from './src/blog/rehype-heading-anchors.mjs'
@@ -14,7 +16,8 @@ import rehypeResponsiveImages from './src/blog/rehype-responsive-images.mjs'
 // vs, and any future top-level page) — in every indexable locale. The blog is English-only, so its
 // group gets the one chunk `en-blog` (BLOG_CHUNK) instead of one per locale.
 const SITEMAP_GROUPS = ['site', 'app', 'docs']
-const APP_SECTIONS = new Set(['stake', 'unstake', 'rewards', 'stats', 'defi'])
+// `club` exists only with the Club flag on (src/data/club-flag.mjs); listing it while off changes nothing.
+const APP_SECTIONS = new Set(['stake', 'unstake', 'rewards', 'club', 'stats', 'defi'])
 const BLOG_CHUNK = `${DEFAULT_LOCALE}-blog`
 
 // Blog posts whose frontmatter sets `noindex: true`, as `/blog/<slug>/` paths. The page itself carries
@@ -405,6 +408,25 @@ export default defineConfig({
   },
 
   integrations: [
+    // The Club's build guards (src/data/club-flag.mjs): the flags agree between this file and the
+    // pages, no mock build in CI, no Club build without the Telegram bot id.
+    {
+      name: 'club-build-guards',
+      hooks: {
+        'astro:config:setup': ({ command }) => {
+          const modeAt = process.argv.indexOf('--mode')
+          const mode = modeAt >= 0 ? process.argv[modeAt + 1] : command === 'dev' ? 'development' : 'production'
+          const problems = clubBuildProblems({
+            processEnv: process.env,
+            viteEnv: loadEnv(mode, process.cwd(), 'PUBLIC_'),
+            command,
+          })
+          if (problems.length > 0) {
+            throw new Error('Club build guard: ' + problems.join('; '))
+          }
+        },
+      },
+    },
     react(),
     sitemap({
       // /app/ is a legacy redirect stub (noindex); it has no content of its own to index. Draft
@@ -416,6 +438,16 @@ export default defineConfig({
         }
         if (NOINDEX_BLOG_PATHS.has(new URL(page).pathname)) {
           return false
+        }
+        // With the Club live, /rewards/ and /<locale>/rewards/ are noindex redirect pages to /club/.
+        if (clubBuilt()) {
+          const parts = new URL(page).pathname.split('/').filter(Boolean)
+          if (parts.length > 0 && LOCALES[parts[0]] !== undefined) {
+            parts.shift()
+          }
+          if (parts.length === 1 && parts[0] === 'rewards') {
+            return false
+          }
         }
         const segment = new URL(page).pathname.split('/')[1]
         return LOCALES[segment]?.status !== 'draft'

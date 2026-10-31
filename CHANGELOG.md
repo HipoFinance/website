@@ -9,6 +9,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-31 — Hipo Club pages, hidden until the launch
+
+- The new Club (`/club/` in every locale, its React island under `src/components/app/club/`, the nav item, the `/rewards/` → `/club/` redirects and the `club` sitemap group) ships behind `CLUB_LIVE = false` in `src/data/club-flag.mjs`; the launch commit at L (2026-10-31 09:00 UTC) turns it on, and until then the live site shows today's Rewards page.
+- Claim guard (`payments.ts`): a plain first-page read falls back to toncenter's archive when v4.hipo.finance has lost the history, accepted only when its newest transaction matches v4's `lastLt`; a claim made before L counts as applied only once it is older than the look-back plus an hour. Checked by `scripts/club-tx-selftest.mjs` (52 checks) and a money audit, re-checked closed.
+- Translated into the ten released locales (`club.json`, the three shell cards, the seo, site and app keys); native review is still owed for plurals in ar and ru, "claim" in uk and decimal commas in pt, tr and uk.
+- Docs `introduction/hipo-rewards.md`, all eleven locales: from Season 6 the reward coefficient is the level number, 1×–10× (club-server `specs/club-coefficients-1-to-10.md`); the ar page's review mark was reset by the hash update.
+- Left for the launch commit: the flag, the deploy render check, internal links to `/club/` and `FALLBACK_COEFFICIENTS` → 1–10. Spec: [`specs/club-website.md`](specs/club-website.md).
+
 ## 2026-10-26 — The top-level docs folder is ignored by git
 
 - `.gitignore` gets `/docs/`, anchored to the repo root so `src/content/docs/` and `public/docs/` stay tracked, because the repo is public and `docs/` holds internal planning bundles (the Hipo Club redesign spec, wireframes, build plan and production read totals).

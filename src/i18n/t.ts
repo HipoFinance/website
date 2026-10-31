@@ -25,8 +25,9 @@ export type CatalogKey =
   | keyof typeof import('./en/seo.json')
   | keyof typeof import('./en/app.json')
   | keyof typeof import('./en/blog.json')
+  | keyof typeof import('./en/club.json')
 
-export const NAMESPACES = ['site', 'landing', 'hpo', 'faq', 'verify', 'vs', 'seo', 'app', 'blog'] as const
+export const NAMESPACES = ['site', 'landing', 'hpo', 'faq', 'verify', 'vs', 'seo', 'app', 'blog', 'club'] as const
 export type Namespace = (typeof NAMESPACES)[number]
 
 // All catalogs, statically imported at build time. meta.json (review sidecar) and docs-sidebar.json are
@@ -57,7 +58,7 @@ const translators = new Map<string, Translator>()
 // is always merged in as the fallback.
 export function getT(
   locale: Locale,
-  namespaces: readonly string[] = NAMESPACES.filter((n) => n !== 'app' && n !== 'blog'),
+  namespaces: readonly string[] = NAMESPACES.filter((n) => n !== 'app' && n !== 'blog' && n !== 'club'),
 ): Translator {
   const cacheKey = locale + ':' + namespaces.join(',')
   let translator = translators.get(cacheKey)
@@ -72,4 +73,10 @@ export function getT(
 // in AppLayout and as the island's catalog.
 export function getAppCatalog(locale: Locale): Catalog {
   return { ...merged(DEFAULT_LOCALE, ['app']), ...merged(locale, ['app']) }
+}
+
+// The Club's namespace for a locale, the locale's own keys only (the island bundles the English one),
+// inlined on Club pages as #i18n-club and merged into /i18n/<locale>.json for the Mini App.
+export function getClubCatalog(locale: Locale): Catalog {
+  return merged(locale, ['club'])
 }

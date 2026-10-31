@@ -8,6 +8,7 @@
 import { localeOf, localizedPath } from '../i18n/locale.ts'
 import { getT } from '../i18n/t.ts'
 import LanguageSwitcher from './LanguageSwitcher.astro'
+import { clubBuilt } from '../data/club-flag.mjs'
 
 interface Props {
   active?: 'home' | 'hpo' | 'faq'
@@ -25,7 +26,10 @@ const items = [
   { key: 'docs', href: '/docs/', label: t('site.nav.docs') },
   { key: 'faq', href: '/faq/', label: t('site.nav.faq') },
   { key: 'stake', href: '/stake/', label: t('site.nav.stake') },
-  { key: 'rewards', href: '/rewards/', label: t('site.nav.rewards') },
+  // Rewards until the launch commit, the Club after it (src/data/club-flag.mjs).
+  clubBuilt()
+    ? { key: 'club', href: '/club/', label: t('site.nav.club') }
+    : { key: 'rewards', href: '/rewards/', label: t('site.nav.rewards') },
   { key: 'stats', href: '/stats/', label: t('site.nav.stats') },
   { key: 'defi', href: '/defi/', label: t('site.nav.defi') },
 ].map((item) => ({ ...item, href: localizedPath(item.href, locale) }))

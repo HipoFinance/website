@@ -84,6 +84,7 @@
   "app.multisig.unstakeInstructions": "Отправьте {amount} на адрес казны ниже с текстовым комментарием {comment}. Это выведет из стейкинга {entire} ваш баланс hGRAM; неиспользованная комиссия вернётся.",
   "app.multisig.verifyDestination": "Это ваш собственный контракт hGRAM-кошелька, полученный из адреса вашего мультисига, — не казна Hipo. {link}",
   "app.multisig.verifyDestinationLink": "Проверить на Tonviewer",
+  "app.nav.club": "Club",
   "app.nav.defi": "DeFi",
   "app.nav.docs": "Документация",
   "app.nav.faq": "FAQ",

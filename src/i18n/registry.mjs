@@ -43,6 +43,7 @@ export const RESERVED_SEGMENTS = [
   'stake',
   'unstake',
   'rewards',
+  'club',
   'stats',
   'defi',
   'hpo',

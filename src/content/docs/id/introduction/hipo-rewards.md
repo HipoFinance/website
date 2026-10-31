@@ -42,24 +42,24 @@ Dasar perhitungannya adalah **nilai stake Anda dalam GRAM saat ini** — saldo h
 
 ### Koefisien level
 
-Koefisiennya bukan angka levelnya — dimulai dari 1× lalu makin cepat naik saat Anda memanjat:
+Mulai Musim 6 (31 Oktober 2026), koefisiennya adalah nomor level Anda:
 
-| Level     | 1    | 2    | 3    | 4    | 5   | 6   | 7    | 8    | 9    | 10  |
-| --------- | ---- | ---- | ---- | ---- | --- | --- | ---- | ---- | ---- | --- |
-| Koefisien | 1,0× | 1,2× | 1,6× | 2,2× | 3×  | 4×  | 5,2× | 6,6× | 8,2× | 10× |
+| Level     | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  |
+| --------- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Koefisien | 1×  | 2×  | 3×  | 4×  | 5×  | 6×  | 7×  | 8×  | 9×  | 10× |
 
-Setiap level bernilai lebih besar daripada level sebelumnya: naik dari Level 1 ke Level 2 menambah 0,2×, sedangkan naik dari Level 9 ke Level 10 menambah 1,8× — sembilan kali lipatnya. Imbalan dari memanjat level menumpuk di bagian akhir.
+Setiap level menambah 1× yang sama: Level 2 memperoleh dua kali lipat Level 1, Level 5 lima kali lipat, Level 10 sepuluh kali lipat. Hingga akhir Musim 5, tarifnya naik lebih curam, dari 1,2× di Level 2 hingga 8,2× di Level 9.
 
 ### Berapa hasilnya
 
 Imbalan HPO tahunan dengan tarif saat ini:
 
-| Stake (GRAM) | Level 1 (1×) | Level 5 (3×) | Level 10 (10×) |
+| Stake (GRAM) | Level 1 (1×) | Level 5 (5×) | Level 10 (10×) |
 | ------------ | ------------ | ------------ | -------------- |
-| 1.000        | ~736 HPO     | ~2.208 HPO   | ~7.360 HPO     |
-| 5.000        | ~3.680 HPO   | ~11.040 HPO  | ~36.800 HPO    |
-| 10.000       | ~7.360 HPO   | ~22.080 HPO  | ~73.600 HPO    |
-| 50.000       | ~36.800 HPO  | ~110.400 HPO | ~368.000 HPO   |
+| 1.000        | ~736 HPO     | ~3.680 HPO   | ~7.360 HPO     |
+| 5.000        | ~3.680 HPO   | ~18.400 HPO  | ~36.800 HPO    |
+| 10.000       | ~7.360 HPO   | ~36.800 HPO  | ~73.600 HPO    |
+| 50.000       | ~36.800 HPO  | ~184.000 HPO | ~368.000 HPO   |
 
 ### Berapa nilainya
 

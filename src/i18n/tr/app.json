@@ -85,6 +85,7 @@
   "app.multisig.verifyDestination": "Bu, multisig adresinizden türetilen kendi hGRAM cüzdan sözleşmenizdir — Hipo hazinesi değildir. {link}",
   "app.multisig.verifyDestinationLink": "Tonviewer'da kontrol edin",
   "app.nav.defi": "DeFi",
+  "app.nav.club": "Club",
   "app.nav.docs": "Dokümanlar",
   "app.nav.faq": "SSS",
   "app.nav.home": "Ana sayfa",

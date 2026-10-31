@@ -1,0 +1,10 @@
+---
+import ShellPage from './ShellPage.astro'
+import { localeOf } from '../../i18n/locale.ts'
+import { getT } from '../../i18n/t.ts'
+
+// The static copy under the Club's island: its explainer cards (src/content/prose/<locale>/shell/club/).
+const { t } = getT(localeOf(Astro), ['site'])
+---
+
+<ShellPage page='club' heading={t('site.shell.club.heading')} />

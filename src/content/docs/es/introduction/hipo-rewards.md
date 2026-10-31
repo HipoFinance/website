@@ -42,24 +42,24 @@ La base es lo que tu staking **vale en GRAM ahora mismo** —tu saldo de hGRAM a
 
 ### Coeficientes por nivel
 
-El coeficiente no es el número de nivel: empieza en 1× y se acelera a medida que subes.
+A partir de la Temporada 6 (31 de octubre de 2026), el coeficiente es tu número de nivel:
 
-| Nivel | 1    | 2    | 3    | 4    | 5   | 6   | 7    | 8    | 9    | 10  |
-| ----- | ---- | ---- | ---- | ---- | --- | --- | ---- | ---- | ---- | --- |
-| Tasa  | 1,0× | 1,2× | 1,6× | 2,2× | 3×  | 4×  | 5,2× | 6,6× | 8,2× | 10× |
+| Nivel | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Tasa  | 1×  | 2×  | 3×  | 4×  | 5×  | 6×  | 7×  | 8×  | 9×  | 10× |
 
-Cada nivel vale más que el anterior: pasar del Nivel 1 al Nivel 2 añade 0,2×, mientras que pasar del Nivel 9 al Nivel 10 añade 1,8×, nueve veces más. La recompensa por escalar llega al final.
+Cada nivel suma el mismo 1×: el Nivel 2 gana el doble que el Nivel 1, el Nivel 5 cinco veces más y el Nivel 10 diez veces más. Hasta el final de la Temporada 5 la tasa subía con más pendiente, de 1,2× en el Nivel 2 a 8,2× en el Nivel 9.
 
 ### A cuánto equivale
 
 Recompensas anuales en HPO con la tasa actual:
 
-| Staking (GRAM) | Nivel 1 (1×) | Nivel 5 (3×) | Nivel 10 (10×) |
+| Staking (GRAM) | Nivel 1 (1×) | Nivel 5 (5×) | Nivel 10 (10×) |
 | -------------- | ------------ | ------------ | -------------- |
-| 1.000          | ~736 HPO     | ~2.208 HPO   | ~7.360 HPO     |
-| 5.000          | ~3.680 HPO   | ~11.040 HPO  | ~36.800 HPO    |
-| 10.000         | ~7.360 HPO   | ~22.080 HPO  | ~73.600 HPO    |
-| 50.000         | ~36.800 HPO  | ~110.400 HPO | ~368.000 HPO   |
+| 1.000          | ~736 HPO     | ~3.680 HPO   | ~7.360 HPO     |
+| 5.000          | ~3.680 HPO   | ~18.400 HPO  | ~36.800 HPO    |
+| 10.000         | ~7.360 HPO   | ~36.800 HPO  | ~73.600 HPO    |
+| 50.000         | ~36.800 HPO  | ~184.000 HPO | ~368.000 HPO   |
 
 ### Cuánto vale
 

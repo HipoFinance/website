@@ -7,13 +7,14 @@
 // I18N_INCLUDE_DRAFTS=1); English is bundled in the island and needs no file.
 import type { APIRoute } from 'astro'
 import { localeParams, type Locale } from '../../i18n/locale.ts'
-import { getAppCatalog } from '../../i18n/t.ts'
+import { getAppCatalog, getClubCatalog } from '../../i18n/t.ts'
 
 export const getStaticPaths = localeParams
 
 export const GET: APIRoute = ({ params }) => {
   const locale = params.locale as Locale
-  return new Response(JSON.stringify(getAppCatalog(locale)), {
+  // The Club's keys ride along: the Mini App opens /club/ with no locale in the URL (club/ClubModel.ts).
+  return new Response(JSON.stringify({ ...getAppCatalog(locale), ...getClubCatalog(locale) }), {
     headers: { 'Content-Type': 'application/json; charset=utf-8' },
   })
 }

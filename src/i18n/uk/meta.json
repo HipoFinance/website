@@ -339,6 +339,10 @@
     "sourceHash": "e82b30928515e14242de05b823972127ab9f3936",
     "reviewed": false
   },
+  "app.nav.club": {
+    "sourceHash": "4014019824fdf070c6a39bf014c44be092f8f162",
+    "reviewed": false
+  },
   "app.nav.defi": {
     "sourceHash": "0ce66d2e3a7fbcd6a71d6ae0589fb9800604003d",
     "reviewed": false
@@ -911,6 +915,1982 @@
     "sourceHash": "ca073b8a2659a6117fbf7f0b1b03ff5579ec001c",
     "reviewed": false
   },
+  "club.balances.changeWallet": {
+    "sourceHash": "3a5a90379d29da520ec01e70a1efe1fb66db8018",
+    "reviewed": false
+  },
+  "club.balances.hpo": {
+    "sourceHash": "6f88766ea440d97d0b5daa1e9e180055a3149ea0",
+    "reviewed": false
+  },
+  "club.balances.hton": {
+    "sourceHash": "39612881a4e0bfdd6a690145cb7b021352bad307",
+    "reviewed": false
+  },
+  "club.balances.inPool": {
+    "sourceHash": "87ecf266d1a4341de7b03cb732bc1c9eb7577e4e",
+    "reviewed": false
+  },
+  "club.balances.inWallet": {
+    "sourceHash": "2af3e0bbfa049cb9977f32b5e5e7eb20c00c390b",
+    "reviewed": false
+  },
+  "club.balances.none": {
+    "sourceHash": "815a6c542893293ad7bdaa2e1ccdeca45b2535e3",
+    "reviewed": false
+  },
+  "club.balances.note": {
+    "sourceHash": "14e8b9aa57184ddf06b83aa0a7ba7a7d551efeb0",
+    "reviewed": false
+  },
+  "club.balances.subtitle": {
+    "sourceHash": "c9b0be104eb448bc1c99a215aeec1b458111233e",
+    "reviewed": false
+  },
+  "club.balances.subtitleNoTime": {
+    "sourceHash": "931edc17464604eb0a7025309063a7283ad847ee",
+    "reviewed": false
+  },
+  "club.balances.title": {
+    "sourceHash": "6047c3d1354e408871469ab5cb76c05b242ce244",
+    "reviewed": false
+  },
+  "club.board.band": {
+    "sourceHash": "e9f1906811f22062c8771bc74a1875529401fea5",
+    "reviewed": false
+  },
+  "club.board.byGrowth": {
+    "sourceHash": "8720105d4d608111a9c9e769f8ec7bc1cc95ccf9",
+    "reviewed": false
+  },
+  "club.board.byHpo": {
+    "sourceHash": "5fd52ac3ffa74780ba29716bc23ce606e4cd2c90",
+    "reviewed": false
+  },
+  "club.board.colBand": {
+    "sourceHash": "895f49cf2852b3d72847bd8f71a7dbf57ebe0148",
+    "reviewed": false
+  },
+  "club.board.colGrowth": {
+    "sourceHash": "de886b7696df90a4d6bda6904672a79b0cab0cb7",
+    "reviewed": false
+  },
+  "club.board.colMember": {
+    "sourceHash": "6853c98a6f4358bbfed1b3b9c81d308649299b0f",
+    "reviewed": false
+  },
+  "club.board.empty": {
+    "sourceHash": "72aed75f81d273684cf0f5326139d8e095183df2",
+    "reviewed": false
+  },
+  "club.board.growthBand": {
+    "sourceHash": "1c54239bb5c64cfaab098642cbfdf25445e00aa8",
+    "reviewed": false
+  },
+  "club.board.growthOver": {
+    "sourceHash": "466343faea55162f2a0f318d82d35334fcd60c5b",
+    "reviewed": false
+  },
+  "club.board.hideName": {
+    "sourceHash": "7ea66b73ddadc40ea5fbe65610913a9eba6fa833",
+    "reviewed": false
+  },
+  "club.board.levelPicker": {
+    "sourceHash": "7c7f5d049fad2569721d446c4a811f9bd5da5393",
+    "reviewed": false
+  },
+  "club.board.levelYours": {
+    "sourceHash": "290a4976260dbc23c18ddb47c67c701d4b3ebd08",
+    "reviewed": false
+  },
+  "club.board.names": {
+    "sourceHash": "9430bd481cabbbd804b609cb1980db9c69c159eb",
+    "reviewed": false
+  },
+  "club.board.subtitle": {
+    "sourceHash": "fe31dea1c8010c9b5b465d4f3f174c9a05522571",
+    "reviewed": false
+  },
+  "club.board.subtitleGrowth": {
+    "sourceHash": "947ae991a312c1fbaa3678b9e0cf458d431574f2",
+    "reviewed": false
+  },
+  "club.board.title": {
+    "sourceHash": "54f72cb369175659012f7e57275e64655a6c4488",
+    "reviewed": false
+  },
+  "club.board.why.noClaim": {
+    "sourceHash": "85e10b3a5e9fec0cdd0dd923326bd6c5dc947510",
+    "reviewed": false
+  },
+  "club.board.why.noWallet": {
+    "sourceHash": "b843369dbb742420749ebc7e53896c7e0e2af454",
+    "reviewed": false
+  },
+  "club.board.why.notRanked": {
+    "sourceHash": "cd50725d5ac5c188cf44614b42616caa77bb9e0e",
+    "reviewed": false
+  },
+  "club.board.why.suspended": {
+    "sourceHash": "196c80dc091e9e0690db899c49a255c07a3049ed",
+    "reviewed": false
+  },
+  "club.board.you": {
+    "sourceHash": "4032bf2396a25b4e0b9dbf1efb593c6d97fc127d",
+    "reviewed": false
+  },
+  "club.chip.active": {
+    "sourceHash": "a733b809d2f1233496ab516eed0f3ef75cf3791a",
+    "reviewed": false
+  },
+  "club.chip.atRisk": {
+    "sourceHash": "b04189af94347517be4d6d3894c69cf2107f33d7",
+    "reviewed": false
+  },
+  "club.chip.reset": {
+    "sourceHash": "44c57abd888a66b36d4b7c902134063e4a097223",
+    "reviewed": false
+  },
+  "club.chip.resetOn": {
+    "sourceHash": "b56818b1135994f2b1280df6dc96dfb5668ed188",
+    "reviewed": false
+  },
+  "club.chip.restored": {
+    "sourceHash": "b54d624624973900072c913477b4987cdfa9ec25",
+    "reviewed": false
+  },
+  "club.chip.suspended": {
+    "sourceHash": "794696a720669c524ad273a139db0fd375e6608b",
+    "reviewed": false
+  },
+  "club.claim.button": {
+    "sourceHash": "5ede6f503b15cbb74a193031192e5552c4adaba5",
+    "reviewed": false
+  },
+  "club.claim.claimedNo": {
+    "sourceHash": "8de95fd5b4121e2d7c337a70f664f13c28c3c275",
+    "reviewed": false
+  },
+  "club.claim.claimedSeason": {
+    "sourceHash": "502a42c623e674abf10599d7af7775f45a84f1ff",
+    "reviewed": false
+  },
+  "club.claim.claimedYes": {
+    "sourceHash": "5397e0583f14f6c88de06b1ef28f460a1fb5b0ae",
+    "reviewed": false
+  },
+  "club.claim.connectClub": {
+    "sourceHash": "16dfe975b70c57df2469d09a015072049a81619f",
+    "reviewed": false
+  },
+  "club.claim.history": {
+    "sourceHash": "90ccd6497400b5576aeca1bd94af74aae1e0a250",
+    "reviewed": false
+  },
+  "club.claim.inProgress": {
+    "sourceHash": "cd188ed353b8d2d4760eca7d32560bed4f5dde4a",
+    "reviewed": false
+  },
+  "club.claim.linkClubWallet": {
+    "sourceHash": "74a8b58b5b45deb2e5f48adb2e61840576e29513",
+    "reviewed": false
+  },
+  "club.claim.loading": {
+    "sourceHash": "33ce417454bfd838897deaeee2355e818a5d4160",
+    "reviewed": false
+  },
+  "club.claim.needsTelegram": {
+    "sourceHash": "39c27185323dd56eaca5f05ed04d19c4deff912e",
+    "reviewed": false
+  },
+  "club.claim.opensAtMin": {
+    "sourceHash": "06b0812356e140af7540568c52c2e9fe9f6707e2",
+    "reviewed": false
+  },
+  "club.claim.perRound": {
+    "sourceHash": "078bb31d844ea5942439e40064da07a8ea8b56c1",
+    "reviewed": false
+  },
+  "club.claim.perRoundValue": {
+    "sourceHash": "5c35d82f3086c17233babbfbd3f4bca183d9f242",
+    "reviewed": false
+  },
+  "club.claim.split": {
+    "sourceHash": "7777bfb247fc7f2c9e44030cbee5fe51bcef4b35",
+    "reviewed": false
+  },
+  "club.claim.splitCommunity": {
+    "sourceHash": "cb9c8204645dbd7aa80292d41d9d12061a042bcf",
+    "reviewed": false
+  },
+  "club.claim.terms": {
+    "sourceHash": "bc1e9ffa120296bd090cf9ebf59c6a10e4763622",
+    "reviewed": false
+  },
+  "club.claim.title": {
+    "sourceHash": "b438775ac18b3a3706bfdf679ea12ceb423ebb3c",
+    "reviewed": false
+  },
+  "club.claim.toMin": {
+    "sourceHash": "6782504308a9ad2ab28d169c6535e99596abb895",
+    "reviewed": false
+  },
+  "club.claim.toMinRounds": {
+    "sourceHash": "5b9d3ad6f2531338bfcedaa00ea8bd5000cee67f",
+    "reviewed": false
+  },
+  "club.claim.unknown": {
+    "sourceHash": "9e0d678f87c5ed84431a63ea6510c7dbd16350cb",
+    "reviewed": false
+  },
+  "club.claim.walletOnly": {
+    "sourceHash": "603f68cd9f4c937ef9fea78f2f9ba07806d4c2bf",
+    "reviewed": false
+  },
+  "club.common.back": {
+    "sourceHash": "b52b36b7269fbfc58ec24bb724691951a3decbe8",
+    "reviewed": false
+  },
+  "club.common.boostValue": {
+    "sourceHash": "72f816501ae92fd0a57d186d8b37f977311520c7",
+    "reviewed": false
+  },
+  "club.common.buyAmount": {
+    "sourceHash": "96ebf94475565747a594f076f1a71215d25a7025",
+    "reviewed": false
+  },
+  "club.common.buyHpo": {
+    "sourceHash": "131949f3d136642712501f8de212ae3621eb91f4",
+    "reviewed": false
+  },
+  "club.common.cancel": {
+    "sourceHash": "77dfd2135f4db726c47299bb55be26f7f4525a46",
+    "reviewed": false
+  },
+  "club.common.close": {
+    "sourceHash": "bbfa773e5a63a5ea58c9b6207e608ca0120e592a",
+    "reviewed": false
+  },
+  "club.common.connectWallet": {
+    "sourceHash": "ffee40873db706166223f9538f8602a8e3217399",
+    "reviewed": false
+  },
+  "club.common.contactSupport": {
+    "sourceHash": "c5dada1f5893bf6f8d06269f09e2b2e7f3ab1a45",
+    "reviewed": false
+  },
+  "club.common.days": {
+    "sourceHash": "088b2d35730e2f54a64603bd651e6a218863786e",
+    "reviewed": false
+  },
+  "club.common.dismiss": {
+    "sourceHash": "70afe9eff3f2888493d9b5169fec8331af1810de",
+    "reviewed": false
+  },
+  "club.common.done": {
+    "sourceHash": "e9b450d14bc2363d292c84f17cfad5cfbd58a458",
+    "reviewed": false
+  },
+  "club.common.gramAmount": {
+    "sourceHash": "ec56273b3f8db7855ae1139a465c1c27ea52932a",
+    "reviewed": false
+  },
+  "club.common.hpoAmount": {
+    "sourceHash": "55316b9520ba4602e69b8cae1bbb3225d640cee3",
+    "reviewed": false
+  },
+  "club.common.learnMore": {
+    "sourceHash": "824d76b124e6289f372e2ff6bcba91e8939343bd",
+    "reviewed": false
+  },
+  "club.common.levelN": {
+    "sourceHash": "1b2ef16e10fc64fa111a6fd7e3354ff81d9fedc7",
+    "reviewed": false
+  },
+  "club.common.linkTelegram": {
+    "sourceHash": "9ab2168f28f7dff0b0015316856735bbc0287aa5",
+    "reviewed": false
+  },
+  "club.common.notNow": {
+    "sourceHash": "e45714907316a161b3c502a4678cf42c0f4824d9",
+    "reviewed": false
+  },
+  "club.common.retry": {
+    "sourceHash": "9f5cd8a2e8807d73efa02c844bfbca9fe552b283",
+    "reviewed": false
+  },
+  "club.common.utc": {
+    "sourceHash": "3b54dce6618041c38e317e4f8d98d631084995fa",
+    "reviewed": false
+  },
+  "club.community.body": {
+    "sourceHash": "9890140024232be06ce53228d1670c1d64da6e95",
+    "reviewed": false
+  },
+  "club.community.chat": {
+    "sourceHash": "96efe53dee50385e229f98c90edf8852b4d97e6a",
+    "reviewed": false
+  },
+  "club.community.limzo": {
+    "sourceHash": "dcc45dab9ccc3cbc20d15d233d09a6b0ee5ea868",
+    "reviewed": false
+  },
+  "club.community.title": {
+    "sourceHash": "bd75778d468946c6cf42b1f73f9f48203c84e085",
+    "reviewed": false
+  },
+  "club.connectClub.body": {
+    "sourceHash": "7167e28339203e83d713d5168c2f6ede8fffcb8f",
+    "reviewed": false
+  },
+  "club.connectClub.title": {
+    "sourceHash": "2a542946c3151a0a7584676b9ae1eaf7fd948057",
+    "reviewed": false
+  },
+  "club.error.authUsed": {
+    "sourceHash": "f45ff6b0ef800519f65191548efaef31e2fdfd10",
+    "reviewed": false
+  },
+  "club.error.badAuth": {
+    "sourceHash": "7a5949a435ec7145fa3bf5e962a4f6ba7a3accb6",
+    "reviewed": false
+  },
+  "club.error.badChallenge": {
+    "sourceHash": "eb06cfc15865dfa54b701db04d0a62df1dcdbbf9",
+    "reviewed": false
+  },
+  "club.error.badOrigin": {
+    "sourceHash": "468042ed06a3eb3d97fca262be1b6675e652d150",
+    "reviewed": false
+  },
+  "club.error.badProof": {
+    "sourceHash": "29a87668ff4f279614cd2133a02e97029a147116",
+    "reviewed": false
+  },
+  "club.error.badRequest": {
+    "sourceHash": "9d7fee97042923a01ef44d455688a6a86d86c182",
+    "reviewed": false
+  },
+  "club.error.badSession": {
+    "sourceHash": "e3d3fcf47f3dd3af33012c1f0374d486ae20ae8e",
+    "reviewed": false
+  },
+  "club.error.balance": {
+    "sourceHash": "b2c1f9934f3f12ad1b4ef5fe33a01d5314ba807d",
+    "reviewed": false
+  },
+  "club.error.balanceUnavailable": {
+    "sourceHash": "19b1222c99d762f8b2f75478b2776acb1ad5c8c4",
+    "reviewed": false
+  },
+  "club.error.belowMin": {
+    "sourceHash": "2cb8834a1f5a2875eba5d53fd43352b5184d8b31",
+    "reviewed": false
+  },
+  "club.error.busy": {
+    "sourceHash": "900884e16ada5fc29ddac303e761c8b155b1d3f8",
+    "reviewed": false
+  },
+  "club.error.changed": {
+    "sourceHash": "5fe5632366a11d3c4c9f70e4c9403b517ccf4b86",
+    "reviewed": false
+  },
+  "club.error.claimsNotOpen": {
+    "sourceHash": "e2e9e7afd6a3fa7538af9372dddcbaa06aa39f4c",
+    "reviewed": false
+  },
+  "club.error.custodian": {
+    "sourceHash": "b96e1baa0e843fb1c0f13e763a93b4cbb5b021fa",
+    "reviewed": false
+  },
+  "club.error.deadline": {
+    "sourceHash": "c29093913b63f90405f0698a32ef20d40f462c7c",
+    "reviewed": false
+  },
+  "club.error.expired": {
+    "sourceHash": "dca8e996f5b911aa2f71fa8f2b8cf05a0c3c0463",
+    "reviewed": false
+  },
+  "club.error.feeInvalid": {
+    "sourceHash": "5e167a63ea5def46570c6ede1d3aa014ac0272ec",
+    "reviewed": false
+  },
+  "club.error.feeMismatch": {
+    "sourceHash": "f412948396fee390ade49e39d8b3a6104e794a03",
+    "reviewed": false
+  },
+  "club.error.feesChanging": {
+    "sourceHash": "7369536d016cf1eabeb79b441dce50d1231425cc",
+    "reviewed": false
+  },
+  "club.error.frozen": {
+    "sourceHash": "4b3db1a3711ef69b6398e88e7afa1512491ec854",
+    "reviewed": false
+  },
+  "club.error.gate": {
+    "sourceHash": "8dd700bb837086a26801cb422fdb436f56bc947e",
+    "reviewed": false
+  },
+  "club.error.intentFailed": {
+    "sourceHash": "24487f93a0071c40cca3971cf3cb68a7e00c9eb9",
+    "reviewed": false
+  },
+  "club.error.lockReleased": {
+    "sourceHash": "07c7bb66ade768a356fc79b9888e6fd539def73f",
+    "reviewed": false
+  },
+  "club.error.locked": {
+    "sourceHash": "679b6c70d88d5fffae93eb5196afad47d2841aaa",
+    "reviewed": false
+  },
+  "club.error.loginFailed": {
+    "sourceHash": "f363b56d316d2b35398e3b66ff0d92ddda436644",
+    "reviewed": false
+  },
+  "club.error.mismatch": {
+    "sourceHash": "caba628036749c4e53dbfdb21f5154f70a7f622f",
+    "reviewed": false
+  },
+  "club.error.mockUpgrade": {
+    "sourceHash": "03458cf5513c52e2116bc2bc4de49fc3e06e01c4",
+    "reviewed": false
+  },
+  "club.error.noClubWallet": {
+    "sourceHash": "58d66072a9e804c02a90507c131278a10120e8f0",
+    "reviewed": false
+  },
+  "club.error.noCredentials": {
+    "sourceHash": "2947a92648412e78ebbc496ed2228d8d08abddf4",
+    "reviewed": false
+  },
+  "club.error.noServerTime": {
+    "sourceHash": "f085f23563d446e8037993048a642c4f41cdc152",
+    "reviewed": false
+  },
+  "club.error.noSession": {
+    "sourceHash": "83337e5fa80875e7e7a5f0b83143e1209c69c899",
+    "reviewed": false
+  },
+  "club.error.noWallet": {
+    "sourceHash": "7779b598f9f4b4fed2c525475b9682c64daf261f",
+    "reviewed": false
+  },
+  "club.error.notAWallet": {
+    "sourceHash": "1e91e84a128a9a22de30fe0d6be84b78c5a41746",
+    "reviewed": false
+  },
+  "club.error.notApplied": {
+    "sourceHash": "bd636efba7d9a0582e4f589876769e7f2b3dce46",
+    "reviewed": false
+  },
+  "club.error.notOpen": {
+    "sourceHash": "3499be08a2463b434ccd4579f9365e74e0b57afc",
+    "reviewed": false
+  },
+  "club.error.onItsWay": {
+    "sourceHash": "25cd27329bf40cd1e18a4285153cf3f030387d2b",
+    "reviewed": false
+  },
+  "club.error.pageLimit": {
+    "sourceHash": "02acc79b7685a024da7274f89f5d24c4db4d292d",
+    "reviewed": false
+  },
+  "club.error.payInProgress": {
+    "sourceHash": "1325507d00ce1eac2bfcf741d62afc4a8d661f7c",
+    "reviewed": false
+  },
+  "club.error.paymentInProgress": {
+    "sourceHash": "e6b6ce5f5b98fb18fe8adac206edbf896198d864",
+    "reviewed": false
+  },
+  "club.error.rateLimited": {
+    "sourceHash": "ebe9e51ee7cafc3e9259841543bea7b0b744f03b",
+    "reviewed": false
+  },
+  "club.error.readFailed": {
+    "sourceHash": "02acc79b7685a024da7274f89f5d24c4db4d292d",
+    "reviewed": false
+  },
+  "club.error.reauth": {
+    "sourceHash": "dde601a4f66f06fa643b19b817cc0d18afd687f6",
+    "reviewed": false
+  },
+  "club.error.rejected": {
+    "sourceHash": "9b929c48a66a445763ac373b2d0a4c3b6f2ab6d3",
+    "reviewed": false
+  },
+  "club.error.retry": {
+    "sourceHash": "4244e822a06c6b8a10bfbd81b1c3e1a2e0b3c376",
+    "reviewed": false
+  },
+  "club.error.sameWallet": {
+    "sourceHash": "abe39d1d40414fa4fdb99125788feb3fa61aa670",
+    "reviewed": false
+  },
+  "club.error.serverRead": {
+    "sourceHash": "2f7202c6b1e09b3f1145f157f3d0330414a92a18",
+    "reviewed": false
+  },
+  "club.error.stale": {
+    "sourceHash": "02acc79b7685a024da7274f89f5d24c4db4d292d",
+    "reviewed": false
+  },
+  "club.error.storage": {
+    "sourceHash": "d637a52a07b4f768c1782be8ab799774f4a160fc",
+    "reviewed": false
+  },
+  "club.error.switchLimit": {
+    "sourceHash": "5f46571a55e93396fda31d3f1354e29eec52eeb6",
+    "reviewed": false
+  },
+  "club.error.switchPending": {
+    "sourceHash": "c52f97bec111d0375fe331e19b16f63b590ee296",
+    "reviewed": false
+  },
+  "club.error.topLevel": {
+    "sourceHash": "7b172c725d6efddfaeffc5db1ffa1fac621f260c",
+    "reviewed": false
+  },
+  "club.error.unknownBalance": {
+    "sourceHash": "c5d0e5d1b82ea3cf78f9b39bdedbbeca20079b6a",
+    "reviewed": false
+  },
+  "club.error.walletChanged": {
+    "sourceHash": "4390b614be9e7e52f57874b52f339f03d9356934",
+    "reviewed": false
+  },
+  "club.error.walletChangedHands": {
+    "sourceHash": "e615a31dc4c900b431e6eb567f04f0a859aa66a6",
+    "reviewed": false
+  },
+  "club.error.walletError": {
+    "sourceHash": "a5b94d8368566a74cd2467fa08aec1f56f325cbd",
+    "reviewed": false
+  },
+  "club.error.walletTaken": {
+    "sourceHash": "d660f69414dfe81cd0f7a4f9274b65bb285519af",
+    "reviewed": false
+  },
+  "club.error.wrapup": {
+    "sourceHash": "5b6906ee96d941ef6d30a6de34dc89ede63454f9",
+    "reviewed": false
+  },
+  "club.flow.doneBelowBody": {
+    "sourceHash": "71c53c5e3f6411f0df8d94dc9f44ae09ec644d7e",
+    "reviewed": false
+  },
+  "club.flow.doneBelowTitle": {
+    "sourceHash": "3c99afe06cbf98f7037629ad43a9f022ed08d625",
+    "reviewed": false
+  },
+  "club.flow.doneBody": {
+    "sourceHash": "a67b3ba0859466c733fef0b34874bd41f7d25da1",
+    "reviewed": false
+  },
+  "club.flow.doneFirstBody": {
+    "sourceHash": "6f3a1c5f92b854ecb4499f0d51a0b3da9d947f35",
+    "reviewed": false
+  },
+  "club.flow.doneTitle": {
+    "sourceHash": "96717f7087e1f54266769534afcd8f89958ca8ef",
+    "reviewed": false
+  },
+  "club.flow.finishedTitle": {
+    "sourceHash": "6d7b345318dcd4ecbc9f04b61d3fe3f387517eae",
+    "reviewed": false
+  },
+  "club.flow.finishingBody": {
+    "sourceHash": "dfc2ecf62059f5887afc2b26090b2af3a21f25ba",
+    "reviewed": false
+  },
+  "club.flow.finishingTitle": {
+    "sourceHash": "7eaa5912917069a1b69747456fb156bf7aa72084",
+    "reviewed": false
+  },
+  "club.flow.releasedBody": {
+    "sourceHash": "822921da91fbad65d40b10354d14648621301ed4",
+    "reviewed": false
+  },
+  "club.flow.releasedTitle": {
+    "sourceHash": "a9390a00274d1220627667739c19c1e98afd1510",
+    "reviewed": false
+  },
+  "club.flow.welcomeBackBody": {
+    "sourceHash": "c0b0a4797a41087fb964c4b5de3be4491a893434",
+    "reviewed": false
+  },
+  "club.flow.welcomeBackGrace": {
+    "sourceHash": "ea8a7b78da97f117e1d66c3c3fdb983ef444250c",
+    "reviewed": false
+  },
+  "club.flow.welcomeBackTitle": {
+    "sourceHash": "7f2963c8050f8c4e60fb5f679bf7c17399632b0b",
+    "reviewed": false
+  },
+  "club.friends.body": {
+    "sourceHash": "4a69d9aa58acd12a341f2faf9230c362a9688200",
+    "reviewed": false
+  },
+  "club.friends.colFriend": {
+    "sourceHash": "2394299d6feb2b15a7b93d335060360fa48cec5a",
+    "reviewed": false
+  },
+  "club.friends.colTheirs": {
+    "sourceHash": "742455d776a20298243575ace28d177057370ebb",
+    "reviewed": false
+  },
+  "club.friends.colYours": {
+    "sourceHash": "b2a37c99fc79770096a5cf918a5f5270b02fe3ef",
+    "reviewed": false
+  },
+  "club.friends.copied": {
+    "sourceHash": "8e3df45a49dba2b26f8ea64a22410bde72f9c8ac",
+    "reviewed": false
+  },
+  "club.friends.copy": {
+    "sourceHash": "af74f7c5362aaee985bf8cda3dd75fc80751ce51",
+    "reviewed": false
+  },
+  "club.friends.earned": {
+    "sourceHash": "5631c2d6c25cf0821bb2f8b60f60b4b0e0473ff8",
+    "reviewed": false
+  },
+  "club.friends.empty": {
+    "sourceHash": "622111c06c774c7991056474bc54a0697422bb3e",
+    "reviewed": false
+  },
+  "club.friends.emptyFilter": {
+    "sourceHash": "f4eb34bdb3927b54039dbdafa483b1f1eff8215d",
+    "reviewed": false
+  },
+  "club.friends.filterAll": {
+    "sourceHash": "63cae911b59dddc68a639766e0a560642224185b",
+    "reviewed": false
+  },
+  "club.friends.filterEarning": {
+    "sourceHash": "a386431e66167ffdf61247b76cef690155aa76df",
+    "reviewed": false
+  },
+  "club.friends.filterNotStaking": {
+    "sourceHash": "123b94e7177cc08da1378cf2bdac0e03052b47b8",
+    "reviewed": false
+  },
+  "club.friends.joined": {
+    "sourceHash": "82586111f669ac79b1a7482bad4847d428457ef1",
+    "reviewed": false
+  },
+  "club.friends.linkLabel": {
+    "sourceHash": "5b855fefeef5de5ba6f0539d92fe019a0b4a40c2",
+    "reviewed": false
+  },
+  "club.friends.listTitle": {
+    "sourceHash": "d2b3ee8a89c032b4cbca36639c01adbf97a4fa52",
+    "reviewed": false
+  },
+  "club.friends.more": {
+    "sourceHash": "25911d48e023cd10fc08d378641ee620f5e39d86",
+    "reviewed": false
+  },
+  "club.friends.needsTelegram": {
+    "sourceHash": "c2a9e53cbe8ce96f703bcc7057403fc10b33a116",
+    "reviewed": false
+  },
+  "club.friends.notStakingNote": {
+    "sourceHash": "d23d4f17e8d12caadf5ab821f0a0f0478c8a78a8",
+    "reviewed": false
+  },
+  "club.friends.note": {
+    "sourceHash": "9cfa8b6ed6918b8e5901c95cca3de02e5cf0ec01",
+    "reviewed": false
+  },
+  "club.friends.share": {
+    "sourceHash": "26ea633cf7dc22fd883b20c9c0df981f158d5f42",
+    "reviewed": false
+  },
+  "club.friends.shareText": {
+    "sourceHash": "0169c3959337f6a62a7c43510f026357d3380968",
+    "reviewed": false
+  },
+  "club.friends.title": {
+    "sourceHash": "55f3c89fb3a2c63cd72548ade5c4dba0132d3782",
+    "reviewed": false
+  },
+  "club.gate.belowMin": {
+    "sourceHash": "2cb8834a1f5a2875eba5d53fd43352b5184d8b31",
+    "reviewed": false
+  },
+  "club.gate.frozen": {
+    "sourceHash": "553874d891d90d4431f6a491d7c1927acde59d42",
+    "reviewed": false
+  },
+  "club.gate.inProgress": {
+    "sourceHash": "9ae93dc618ce33d53f604e16668dd49d51198186",
+    "reviewed": false
+  },
+  "club.gate.launching": {
+    "sourceHash": "c8c27cf9c94e06d39269334290609467125d01bc",
+    "reviewed": false
+  },
+  "club.gate.linkWait": {
+    "sourceHash": "73feab2dfaa1e6a19434342661572b28a7869d05",
+    "reviewed": false
+  },
+  "club.gate.noLink": {
+    "sourceHash": "1288a67351822899e720b514c52bc8464acbef32",
+    "reviewed": false
+  },
+  "club.gate.noWallet": {
+    "sourceHash": "6654d1d7deaf47293aef6848df609cb7bffd3905",
+    "reviewed": false
+  },
+  "club.gate.revertHold": {
+    "sourceHash": "e26b0a75a0bfa309ec41e927ce2416aa0d8d541c",
+    "reviewed": false
+  },
+  "club.gate.switchPending": {
+    "sourceHash": "e614499f56d2403b1a7f4120097de474ff4e1963",
+    "reviewed": false
+  },
+  "club.gate.unknown": {
+    "sourceHash": "8dd700bb837086a26801cb422fdb436f56bc947e",
+    "reviewed": false
+  },
+  "club.header.link": {
+    "sourceHash": "d0517071aa376e797705058bbad4b658954b9930",
+    "reviewed": false
+  },
+  "club.header.linked": {
+    "sourceHash": "8aefb5dd3213a962d0d10d7f03fda8ac240dbee1",
+    "reviewed": false
+  },
+  "club.header.linkedAs": {
+    "sourceHash": "46b54759ed29143d864341eadf014d310a6dda85",
+    "reviewed": false
+  },
+  "club.header.logout": {
+    "sourceHash": "6e78c91f5a05fc0d4f1a787d38e3d6fe2f856d46",
+    "reviewed": false
+  },
+  "club.header.notLinked": {
+    "sourceHash": "1d574ecadbbc05916f8439f532975b3c0780ed40",
+    "reviewed": false
+  },
+  "club.header.seasonEnds": {
+    "sourceHash": "8c1828019888138a37fea975076f93db164d11c2",
+    "reviewed": false
+  },
+  "club.header.seasonOpen": {
+    "sourceHash": "ed6e68f6357db1e58b17e9c3a38d7c22a3a86589",
+    "reviewed": false
+  },
+  "club.header.subtitle": {
+    "sourceHash": "7a2fe6caad1ba943abb3a6303d0d681308a01a70",
+    "reviewed": false
+  },
+  "club.header.title": {
+    "sourceHash": "4014019824fdf070c6a39bf014c44be092f8f162",
+    "reviewed": false
+  },
+  "club.hpo.above": {
+    "sourceHash": "e623697d58e7f31a214b012a0c4c269263716e0d",
+    "reviewed": false
+  },
+  "club.hpo.add": {
+    "sourceHash": "081af3eb01b20f1343685e0f28ec7d5263fd7608",
+    "reviewed": false
+  },
+  "club.hpo.alertsOff": {
+    "sourceHash": "e66ac8cb78eefb0ebc0b89893744fb23eda7ef55",
+    "reviewed": false
+  },
+  "club.hpo.alertsOn": {
+    "sourceHash": "474be7a003dfc33d74aa1e1acb3cd6f99e46bd5b",
+    "reviewed": false
+  },
+  "club.hpo.alertsTurnOff": {
+    "sourceHash": "8807c2b3fd0fb52c4791bd1199d1bbc43da10e41",
+    "reviewed": false
+  },
+  "club.hpo.alertsTurnOn": {
+    "sourceHash": "26563efc2a047ff588a474e34521f75d621f1b87",
+    "reviewed": false
+  },
+  "club.hpo.alertsUnreachable": {
+    "sourceHash": "49e9c253a930cbffc5887029df23edc0430a27d7",
+    "reviewed": false
+  },
+  "club.hpo.chipAbove": {
+    "sourceHash": "0b563b0f5d52728cf5aeb3f6c8e2cac9039cfd22",
+    "reviewed": false
+  },
+  "club.hpo.chipBelow": {
+    "sourceHash": "20706876dd0b3cac4b21fa5223bb626909e1e974",
+    "reviewed": false
+  },
+  "club.hpo.chipNone": {
+    "sourceHash": "78626b40a705cecd7a0787bede1a27ff6ea1f7e2",
+    "reviewed": false
+  },
+  "club.hpo.footer": {
+    "sourceHash": "e748f0e6b5a4193a935f1685648aa8a49d942eac",
+    "reviewed": false
+  },
+  "club.hpo.footerNoTime": {
+    "sourceHash": "6ed1cabf0f57cb45b6e8b4c97dc454fbc0140603",
+    "reviewed": false
+  },
+  "club.hpo.growth": {
+    "sourceHash": "5d18e81bdf1e71a073dc42780465222c359f83a5",
+    "reviewed": false
+  },
+  "club.hpo.marker": {
+    "sourceHash": "a10d6016511a9ca0968c5b1e72d24284755fb125",
+    "reviewed": false
+  },
+  "club.hpo.noMinimum": {
+    "sourceHash": "2033973236b308b453e5cfc67d28880ba2ee810b",
+    "reviewed": false
+  },
+  "club.hpo.nudge": {
+    "sourceHash": "f13303782573104ee1f97a60a74e1a86801eaa57",
+    "reviewed": false
+  },
+  "club.hpo.rank": {
+    "sourceHash": "2e709fdcfe9e8233f3711176672b9883551cfebf",
+    "reviewed": false
+  },
+  "club.hpo.rankBand": {
+    "sourceHash": "c651052719dadf49e4f98a5c1787e53300bcd05c",
+    "reviewed": false
+  },
+  "club.hpo.ratio": {
+    "sourceHash": "8fc68349aa828ec2e548a3038ea5ad4106960959",
+    "reviewed": false
+  },
+  "club.hpo.restored": {
+    "sourceHash": "61f56a61f9ad75a80143047d4082115abb19d1a1",
+    "reviewed": false
+  },
+  "club.hpo.title": {
+    "sourceHash": "c8d0c5eb6e4c6bb9ddf469c886e066a71a8d98d4",
+    "reviewed": false
+  },
+  "club.level.boost": {
+    "sourceHash": "d2ab70aad7ede1657f1f7fd25486acce168a5451",
+    "reviewed": false
+  },
+  "club.level.ladderHigh": {
+    "sourceHash": "b434fbc0f6c3b056a4a9b2fd6fd6482c762e4506",
+    "reviewed": false
+  },
+  "club.level.ladderLow": {
+    "sourceHash": "9e026b859beba911d944788c71dd7397f1649aa6",
+    "reviewed": false
+  },
+  "club.level.line": {
+    "sourceHash": "cd24f6309ff1f42bd20548fe685c09397a142a58",
+    "reviewed": false
+  },
+  "club.level.lineGrace": {
+    "sourceHash": "514278649751d17535b1d1d7ff9064696fbef3e9",
+    "reviewed": false
+  },
+  "club.level.lineLink": {
+    "sourceHash": "9ba89ddbd51285b7bd1735a227ab94edd33e5a3a",
+    "reviewed": false
+  },
+  "club.level.lineReset": {
+    "sourceHash": "3ff39834e8fcc606049bec289338f9d0f1b91db3",
+    "reviewed": false
+  },
+  "club.level.lineSuspended": {
+    "sourceHash": "de32c9477b872d70cb86067bf258a0d4cadecb42",
+    "reviewed": false
+  },
+  "club.level.notClubWallet": {
+    "sourceHash": "237d337958195aad3d9ff9801772e2b8fa5b79a8",
+    "reviewed": false
+  },
+  "club.level.suspendedBoost": {
+    "sourceHash": "b1cc91d7231a80d13cba7dfdd8d8a51685bb6de0",
+    "reviewed": false
+  },
+  "club.level.title": {
+    "sourceHash": "0ad2c23784fcc157e58f4a12434fe06d31fc21c2",
+    "reviewed": false
+  },
+  "club.level.walletOnly": {
+    "sourceHash": "df509aaef8b6c2d7187d6b213f407009858aef74",
+    "reviewed": false
+  },
+  "club.levelUp.boost": {
+    "sourceHash": "2da2851fff39350c99bb7ad4124737e960d9de37",
+    "reviewed": false
+  },
+  "club.levelUp.button": {
+    "sourceHash": "7be715588d8e17798a96ff707c88f8cd0d9a9cd7",
+    "reviewed": false
+  },
+  "club.levelUp.checkAbove": {
+    "sourceHash": "581c6692a177d8babc2f7764ba5fcc210b6b760f",
+    "reviewed": false
+  },
+  "club.levelUp.checkClaim": {
+    "sourceHash": "997273929d1997d31467b8e5670e928a090f49b0",
+    "reviewed": false
+  },
+  "club.levelUp.colBoost": {
+    "sourceHash": "2da2851fff39350c99bb7ad4124737e960d9de37",
+    "reviewed": false
+  },
+  "club.levelUp.colFee": {
+    "sourceHash": "5c25ba7ff8438e85dab6da1b5573ab748a0b87d4",
+    "reviewed": false
+  },
+  "club.levelUp.colLevel": {
+    "sourceHash": "7c7f5d049fad2569721d446c4a811f9bd5da5393",
+    "reviewed": false
+  },
+  "club.levelUp.done": {
+    "sourceHash": "e5fd9cfe0e8039111d54b588e77b2bb0cad41c3a",
+    "reviewed": false
+  },
+  "club.levelUp.fee": {
+    "sourceHash": "c6e89c9caf21476cc928ffc4707e00550f300343",
+    "reviewed": false
+  },
+  "club.levelUp.feeValue": {
+    "sourceHash": "39c6ac5e670af8b003f4d2397c5c2a3f1824dd92",
+    "reviewed": false
+  },
+  "club.levelUp.instantLabel": {
+    "sourceHash": "753aa8467ab5e9cd8e7dcbf8239dd276c73c1b70",
+    "reviewed": false
+  },
+  "club.levelUp.instantTitle": {
+    "sourceHash": "339c66d8af40fcad3526e7157e088514ffda9d37",
+    "reviewed": false
+  },
+  "club.levelUp.next": {
+    "sourceHash": "edee9402d198b04ac77dcf5dc9cc3dac44573782",
+    "reviewed": false
+  },
+  "club.levelUp.noMinimum": {
+    "sourceHash": "c77b9c2eb99c81be226cdbf57b339a0381706d3e",
+    "reviewed": false
+  },
+  "club.levelUp.notYet": {
+    "sourceHash": "3a230353f0073e04f9a1e459a962979ad87e9ed4",
+    "reviewed": false
+  },
+  "club.levelUp.note": {
+    "sourceHash": "3f6cc86c2bb20e52849f9cd98136274c10d98eb0",
+    "reviewed": false
+  },
+  "club.levelUp.noteSuspended": {
+    "sourceHash": "c14d9f80f578dc6968dd00ea434c32c190ad0197",
+    "reviewed": false
+  },
+  "club.levelUp.perRound": {
+    "sourceHash": "6e0de858345d14db620e5609d82821f307e30ec8",
+    "reviewed": false
+  },
+  "club.levelUp.seasonBody": {
+    "sourceHash": "3012f654e9535cbc080ec9d7e2228120838b41d6",
+    "reviewed": false
+  },
+  "club.levelUp.seasonHold": {
+    "sourceHash": "ec9514dbe0f95fa342886a98647d2f271d76fcc4",
+    "reviewed": false
+  },
+  "club.levelUp.seasonHoldBody": {
+    "sourceHash": "2174bc61b02db91e41ad3332ee733e01edad7ae7",
+    "reviewed": false
+  },
+  "club.levelUp.seasonLabel": {
+    "sourceHash": "49ac41a3a8950e8bc6f2fba72fef3f30442e28cb",
+    "reviewed": false
+  },
+  "club.levelUp.seasonQualified": {
+    "sourceHash": "1da2a8f65faa90a2855bebe170baf5809c9191ff",
+    "reviewed": false
+  },
+  "club.levelUp.seasonQualifiedBody": {
+    "sourceHash": "c703659664e85fe72c39fb7dd1e1df080772b2c9",
+    "reviewed": false
+  },
+  "club.levelUp.seasonResetBody": {
+    "sourceHash": "e0d4236b58bd22a7d3bc1627a270c24b27275361",
+    "reviewed": false
+  },
+  "club.levelUp.seasonTitle": {
+    "sourceHash": "be163f0ed706a102aa040c14047a1be0244354b8",
+    "reviewed": false
+  },
+  "club.levelUp.seasonTop": {
+    "sourceHash": "ada4e01f2661c7e6e483d851c578209bf87e9669",
+    "reviewed": false
+  },
+  "club.levelUp.seasonTopBody": {
+    "sourceHash": "d503e0d515f3f773a1d481742f6180d4b507cdc4",
+    "reviewed": false
+  },
+  "club.levelUp.short": {
+    "sourceHash": "bab7219f7271835d603f7087f63342fc9c748821",
+    "reviewed": false
+  },
+  "club.levelUp.table": {
+    "sourceHash": "e172db5db15e8cc7ab96d6ca6cfea51142de8fed",
+    "reviewed": false
+  },
+  "club.levelUp.title": {
+    "sourceHash": "17361b2189f78fe0165a8565a2717822b390c498",
+    "reviewed": false
+  },
+  "club.levelUp.topBody": {
+    "sourceHash": "d503e0d515f3f773a1d481742f6180d4b507cdc4",
+    "reviewed": false
+  },
+  "club.levelUp.topTitle": {
+    "sourceHash": "4941bc2761b73d70f98edc8844da5f4b3263f76e",
+    "reviewed": false
+  },
+  "club.levelUp.yesRatio": {
+    "sourceHash": "7db8c6b4168e443753930f217ecde8f88914ef27",
+    "reviewed": false
+  },
+  "club.levelUp.you": {
+    "sourceHash": "8af56de68279cb6f5ed022f31af18b9fcdcc2e92",
+    "reviewed": false
+  },
+  "club.link.connectFirstBody": {
+    "sourceHash": "152c50471a5831a080820e1f737f6f82770a2a7f",
+    "reviewed": false
+  },
+  "club.link.connectFirstTitle": {
+    "sourceHash": "27eb5e1cea83d83feaf51da2e9a7d6b566418652",
+    "reviewed": false
+  },
+  "club.modal.accountValue": {
+    "sourceHash": "d43b78efe174a88dd958dd08ae3f3285a5bcc4c5",
+    "reviewed": false
+  },
+  "club.modal.change.body": {
+    "sourceHash": "48b92786d73217553345cbe9d22789848e52d922",
+    "reviewed": false
+  },
+  "club.modal.change.connect": {
+    "sourceHash": "f67894ea36c5dafb9951d17f18a68f55266afadc",
+    "reviewed": false
+  },
+  "club.modal.change.hold": {
+    "sourceHash": "a9e1412c6f803981c2f093632fab64b85ce094d7",
+    "reviewed": false
+  },
+  "club.modal.change.next": {
+    "sourceHash": "a393356a7dd5662d6e5e00253edccf76874b1a07",
+    "reviewed": false
+  },
+  "club.modal.change.rate": {
+    "sourceHash": "25d28819154492c27a0a92e263aa7013a2319672",
+    "reviewed": false
+  },
+  "club.modal.change.release": {
+    "sourceHash": "d717196493b40617f49d4a1d095a798307f4921f",
+    "reviewed": false
+  },
+  "club.modal.change.title": {
+    "sourceHash": "92d0bb940dfbf2955b3a2923e5453df331a4a3f6",
+    "reviewed": false
+  },
+  "club.modal.change.unclaimed": {
+    "sourceHash": "feb320206c9086855950d4a8d67c37a0c6bae5cc",
+    "reviewed": false
+  },
+  "club.modal.choose.body2": {
+    "sourceHash": "66e86ea62edf71e1c10482ceaaedfc96509dd202",
+    "reviewed": false
+  },
+  "club.modal.choose.body3": {
+    "sourceHash": "400126b7ffb66fd2140d13769e28521da88548d9",
+    "reviewed": false
+  },
+  "club.modal.choose.body3Tma": {
+    "sourceHash": "f513cf041b7cc6e352d96ae4293459478106024e",
+    "reviewed": false
+  },
+  "club.modal.choose.cancel2": {
+    "sourceHash": "ad2e7b4b34d2bfe1a125dd5bb0246a24c4bc1951",
+    "reviewed": false
+  },
+  "club.modal.choose.later": {
+    "sourceHash": "3524c98bfd4e5ed43709ed46cdcfa0b609263b25",
+    "reviewed": false
+  },
+  "club.modal.choose.reconnect": {
+    "sourceHash": "1f8ce401b2a4caf8dac6a4ed1f0cc83da0cb5a4b",
+    "reviewed": false
+  },
+  "club.modal.choose.reconnectNote": {
+    "sourceHash": "3d6b6b9a5fbe9f449dedf570fdfb106ea4967808",
+    "reviewed": false
+  },
+  "club.modal.choose.switch": {
+    "sourceHash": "5adfe52bdfba60b9054eb1c6185985aa7feea9ff",
+    "reviewed": false
+  },
+  "club.modal.choose.switchNote": {
+    "sourceHash": "3204176d1a570c62a08feab74a12f6e3e31b5103",
+    "reviewed": false
+  },
+  "club.modal.choose.title2": {
+    "sourceHash": "7d5627163d3335ac2212e0e212e1beaa476f83ea",
+    "reviewed": false
+  },
+  "club.modal.choose.title3": {
+    "sourceHash": "ace5063bd3e24479aa697ef81d3448a0038e959a",
+    "reviewed": false
+  },
+  "club.modal.claim.after": {
+    "sourceHash": "3928135ca577eb6e408503549d39860af1699ee2",
+    "reviewed": false
+  },
+  "club.modal.claim.changes": {
+    "sourceHash": "2f75c24e254ad627dbbc8c4c764743ca59ebc4ac",
+    "reviewed": false
+  },
+  "club.modal.claim.effect": {
+    "sourceHash": "0ba2ad1a576a97daa799a8d1a018616ec1dacb99",
+    "reviewed": false
+  },
+  "club.modal.claim.effectGrace": {
+    "sourceHash": "9d2d1b646a42340e3200d0b4f83c0bba4180f907",
+    "reviewed": false
+  },
+  "club.modal.claim.effectSuspended": {
+    "sourceHash": "1948f8a96848e36391003b4cf9921b91846b00aa",
+    "reviewed": false
+  },
+  "club.modal.claim.effectTop": {
+    "sourceHash": "10f89e61828e8617ed70391fd60efe231f6d8ca9",
+    "reviewed": false
+  },
+  "club.modal.claim.fee": {
+    "sourceHash": "5877f940da91c771ec0c5c691d4a991620a71b44",
+    "reviewed": false
+  },
+  "club.modal.claim.feeValue": {
+    "sourceHash": "a5f9267f9e76e8d3fd192c489b270d84088155ee",
+    "reviewed": false
+  },
+  "club.modal.claim.nextSeason": {
+    "sourceHash": "c0263a85c4bf85684780c08d81131cecd472dec7",
+    "reviewed": false
+  },
+  "club.modal.claim.note": {
+    "sourceHash": "89f989363bfe9aa92259b17c23999df3fcf810be",
+    "reviewed": false
+  },
+  "club.modal.claim.receive": {
+    "sourceHash": "29cc70a6ace646669b7ca2e64d63a32fd8bda446",
+    "reviewed": false
+  },
+  "club.modal.claim.sentTo": {
+    "sourceHash": "319bb810cae9ce4cc183db2e94e2bd4d63763c77",
+    "reviewed": false
+  },
+  "club.modal.claim.title": {
+    "sourceHash": "5ede6f503b15cbb74a193031192e5552c4adaba5",
+    "reviewed": false
+  },
+  "club.modal.claimDone.body": {
+    "sourceHash": "5f50ebcec8e4b95e60add5fb0a01e76bb4ae183f",
+    "reviewed": false
+  },
+  "club.modal.claimDone.bodyBelow": {
+    "sourceHash": "2bedeae23b293f5ae5fc3984258984f59d9661cb",
+    "reviewed": false
+  },
+  "club.modal.claimDone.bodyQualified": {
+    "sourceHash": "81867e0afb2cef9e652ab3dceecfca55f51a0c7c",
+    "reviewed": false
+  },
+  "club.modal.claimDone.title": {
+    "sourceHash": "83c87884b09b5032bb7c089b415a21c7162bb924",
+    "reviewed": false
+  },
+  "club.modal.claimDone.titleBelow": {
+    "sourceHash": "4a1db26a22c1ebfa7c8811233deeae9d59bc81ee",
+    "reviewed": false
+  },
+  "club.modal.claimDone.titleQualified": {
+    "sourceHash": "fb1698836abfbdfa285900daa28b27f6b653cb45",
+    "reviewed": false
+  },
+  "club.modal.clubLevel": {
+    "sourceHash": "6cd1264ce80ceada373b84903c623990f76a640d",
+    "reviewed": false
+  },
+  "club.modal.confirm.after": {
+    "sourceHash": "79ba5e1b3f99abfd54ef8d839ba12bd2ac4d79cb",
+    "reviewed": false
+  },
+  "club.modal.confirm.again": {
+    "sourceHash": "b6fffc5ab71ca7dff2ef12cdf4d3dc83bdc6e358",
+    "reviewed": false
+  },
+  "club.modal.confirm.belowBody": {
+    "sourceHash": "72e3525f8441f3a6d7cebb87306bb0397a05f7fa",
+    "reviewed": false
+  },
+  "club.modal.confirm.belowTitle": {
+    "sourceHash": "b63a83f9cfa92324473d41073d05ed8baf039d4e",
+    "reviewed": false
+  },
+  "club.modal.confirm.cancelKeep": {
+    "sourceHash": "c7f7c11c657f227711dcd18cd17eabc76919ef1c",
+    "reviewed": false
+  },
+  "club.modal.confirm.claimsOpen": {
+    "sourceHash": "fa4d4741dd0331a59092d3089eb8885bb0da0c66",
+    "reviewed": false
+  },
+  "club.modal.confirm.eligible": {
+    "sourceHash": "481b0edd0f981cb8309f2e6cc1f32084885b75d7",
+    "reviewed": false
+  },
+  "club.modal.confirm.firstNote": {
+    "sourceHash": "7d005763e84d2f59abdfb0fc9bc006a87965a017",
+    "reviewed": false
+  },
+  "club.modal.confirm.fromName": {
+    "sourceHash": "00f28b338437ae39216f2b2046b55e6e242eb843",
+    "reviewed": false
+  },
+  "club.modal.confirm.levelBoost": {
+    "sourceHash": "27ac70666276d65e158968534aefe37514b95d5c",
+    "reviewed": false
+  },
+  "club.modal.confirm.link": {
+    "sourceHash": "299902f4accf0714ed93196376255a8d01629bee",
+    "reviewed": false
+  },
+  "club.modal.confirm.meets": {
+    "sourceHash": "79c9144c46b73ab6fc1c6a458605e5a63888be7e",
+    "reviewed": false
+  },
+  "club.modal.confirm.note": {
+    "sourceHash": "e9f276fe5e1b61078e2891d7869e5777300293f9",
+    "reviewed": false
+  },
+  "club.modal.confirm.now": {
+    "sourceHash": "e3b82040565bb4be6b11f778a2e3df327ed20a3b",
+    "reviewed": false
+  },
+  "club.modal.confirm.switch": {
+    "sourceHash": "5de9d9197de2330f242450d4f0af1cf662df89a3",
+    "reviewed": false
+  },
+  "club.modal.confirm.title": {
+    "sourceHash": "9f3990131c09d2d6a00f35135456711210189a5f",
+    "reviewed": false
+  },
+  "club.modal.confirm.titleFirst": {
+    "sourceHash": "7558ee0344f113004ff747ed888e47dafbc625ad",
+    "reviewed": false
+  },
+  "club.modal.confirm.void": {
+    "sourceHash": "4764aa08875a9587beb7d298636b4b6d587ad3ee",
+    "reviewed": false
+  },
+  "club.modal.confirm.voidPayment": {
+    "sourceHash": "b09228e3cb60b370455ee089a0b8cfdf2fd76d84",
+    "reviewed": false
+  },
+  "club.modal.confirm.wallet": {
+    "sourceHash": "b17104096531cc4eb527ae9db9ffa86199ea5d36",
+    "reviewed": false
+  },
+  "club.modal.confirmInWallet": {
+    "sourceHash": "695946f11ccad03bc4f7255ce818a6ebaebde7aa",
+    "reviewed": false
+  },
+  "club.modal.connect.body": {
+    "sourceHash": "3ee8de769cbe62b5c0b41c787b7424fb4fe4010f",
+    "reviewed": false
+  },
+  "club.modal.connect.reconnectBody": {
+    "sourceHash": "c75d852d1e342b75e420e7b06fa55456d3acdee0",
+    "reviewed": false
+  },
+  "club.modal.connect.reconnectTitle": {
+    "sourceHash": "af258da36b12d51f3cfa44cf92d4e7c70186d58e",
+    "reviewed": false
+  },
+  "club.modal.connect.title": {
+    "sourceHash": "f67894ea36c5dafb9951d17f18a68f55266afadc",
+    "reviewed": false
+  },
+  "club.modal.connect.waiting": {
+    "sourceHash": "032341e25ee83bc3504f56cbdae2aed72b8368f0",
+    "reviewed": false
+  },
+  "club.modal.connectedNow": {
+    "sourceHash": "5a7b862a0247129f4e5e534932306f75f982b3bd",
+    "reviewed": false
+  },
+  "club.modal.currentWallet": {
+    "sourceHash": "6ac6d80a567573276270c0ab0de47ded58b52bf8",
+    "reviewed": false
+  },
+  "club.modal.levelBoost": {
+    "sourceHash": "ff1013d7b9cd4c7d00e19d50f0c7bb55a7ab4459",
+    "reviewed": false
+  },
+  "club.modal.linkedWallet": {
+    "sourceHash": "9d3fbd5fe713cf6b7e59b9ff9d3b3807f4f2a555",
+    "reviewed": false
+  },
+  "club.modal.minimum": {
+    "sourceHash": "55e983e66077ce18b8537f298f32c417fdc77e0a",
+    "reviewed": false
+  },
+  "club.modal.notApplied.read": {
+    "sourceHash": "e3bb72e9fc3de011b01d00c920afd4690bc48803",
+    "reviewed": false
+  },
+  "club.modal.notApplied.title": {
+    "sourceHash": "978a641e0cbd711ef7f7a0e93b147cc0850d72b7",
+    "reviewed": false
+  },
+  "club.modal.release.after": {
+    "sourceHash": "8a19c60a30348b08192153d81d9c44d78187ab3b",
+    "reviewed": false
+  },
+  "club.modal.release.body": {
+    "sourceHash": "f0979d2470e2bc79aeb39f7003b1a95b270bf885",
+    "reviewed": false
+  },
+  "club.modal.release.button": {
+    "sourceHash": "786b40c7092ecd4b7886123845fb4f4251ac6978",
+    "reviewed": false
+  },
+  "club.modal.release.grace": {
+    "sourceHash": "2ad17abf12c684f38bec293f05c2e95fff5f0ff1",
+    "reviewed": false
+  },
+  "club.modal.release.title": {
+    "sourceHash": "064ebfe35ec4afe458b28e04e8569867a97f8634",
+    "reviewed": false
+  },
+  "club.modal.telegramAccount": {
+    "sourceHash": "9b8ac26e7b4a631327a1834706b62a06d842b15c",
+    "reviewed": false
+  },
+  "club.modal.tg.body": {
+    "sourceHash": "cc154955c1e0f9969cc5b35a5899912336094080",
+    "reviewed": false
+  },
+  "club.modal.tg.continue": {
+    "sourceHash": "8a1abea95df39fb94ffcdb8abf3a7a211bad30d9",
+    "reviewed": false
+  },
+  "club.modal.tg.note": {
+    "sourceHash": "64601734734ee7308822b157556ee7fbd61893d3",
+    "reviewed": false
+  },
+  "club.modal.tg.step1": {
+    "sourceHash": "7c8013151c33a6fa48667c5dcc141f15d6af8c36",
+    "reviewed": false
+  },
+  "club.modal.tg.step1Note": {
+    "sourceHash": "128aa1d7dd7ca26868be13d0ac3e164a201e527c",
+    "reviewed": false
+  },
+  "club.modal.tg.step2": {
+    "sourceHash": "2521980a4747b9f5e2fdcf0aa5116fbe8ef33a4b",
+    "reviewed": false
+  },
+  "club.modal.tg.step2NoWallet": {
+    "sourceHash": "74f6417b7480b44784a494c4ff7ad7b4b87d3afa",
+    "reviewed": false
+  },
+  "club.modal.tg.step2Note": {
+    "sourceHash": "2ce4ed72507bbb0a98afa0b778173075e05c34c0",
+    "reviewed": false
+  },
+  "club.modal.tg.title": {
+    "sourceHash": "57f5328cb57afb9a6b374b4e4ea798a9a9040d99",
+    "reviewed": false
+  },
+  "club.modal.upgrade.after": {
+    "sourceHash": "232344e70d46929ea81b32f4ef1580908d8fe757",
+    "reviewed": false
+  },
+  "club.modal.upgrade.note": {
+    "sourceHash": "191542f18dea5df65ad0cd0c25018bcfcff94611",
+    "reviewed": false
+  },
+  "club.modal.upgrade.noteSuspended": {
+    "sourceHash": "9a920e84e8094399302a749111bc2af5b380d7b9",
+    "reviewed": false
+  },
+  "club.modal.upgrade.now": {
+    "sourceHash": "e3b82040565bb4be6b11f778a2e3df327ed20a3b",
+    "reviewed": false
+  },
+  "club.modal.upgrade.paidTo": {
+    "sourceHash": "91219d3bff4f61d38980706a37aeded0dcc83e0b",
+    "reviewed": false
+  },
+  "club.modal.upgrade.pay": {
+    "sourceHash": "93b3f450606d9d056506e6141c0f967555040e26",
+    "reviewed": false
+  },
+  "club.modal.upgrade.title": {
+    "sourceHash": "ab83d421a8600231b55533aaa38c1e594a498c6c",
+    "reviewed": false
+  },
+  "club.modal.upgradeDone.body": {
+    "sourceHash": "b43c2024b88d6ebf3b2ed6548258be5550aa7dbe",
+    "reviewed": false
+  },
+  "club.modal.upgradeDone.title": {
+    "sourceHash": "9b0be8ab5e5dda63e1dffce0999e7057982b513c",
+    "reviewed": false
+  },
+  "club.modal.walletHpo": {
+    "sourceHash": "207f1be73484448f7e98c9c714e666c22afb342d",
+    "reviewed": false
+  },
+  "club.panel.buyHint": {
+    "sourceHash": "7f6df9628dafb41e37e96a89ddac34757d76edef",
+    "reviewed": false
+  },
+  "club.panel.deadline": {
+    "sourceHash": "90a8f78223e2e438b518145115ac28e172115ea4",
+    "reviewed": false
+  },
+  "club.panel.fellBelow": {
+    "sourceHash": "bba26643c3b41b6afc8b695e9fedae7ffb5bb28c",
+    "reviewed": false
+  },
+  "club.panel.graceDeadline": {
+    "sourceHash": "a8b70b239105fa9259bd05579563d3a04338d29c",
+    "reviewed": false
+  },
+  "club.panel.graceEnded": {
+    "sourceHash": "aa891d167d4e073f9d926c1b80657a509d2578a6",
+    "reviewed": false
+  },
+  "club.panel.graceNote": {
+    "sourceHash": "ed9390b882469f45ec152af670bbef270ff1cf8d",
+    "reviewed": false
+  },
+  "club.panel.graceNoteNoAlerts": {
+    "sourceHash": "7187151ba6b6c506fc6431eb787d67d25925b371",
+    "reviewed": false
+  },
+  "club.panel.graceTitle": {
+    "sourceHash": "500ee01c937282a2655f6a5c6838bea6f65d5511",
+    "reviewed": false
+  },
+  "club.panel.ifStillBelow": {
+    "sourceHash": "c213660e12f3b884b4ab976ab164a1742d20dace",
+    "reviewed": false
+  },
+  "club.panel.now": {
+    "sourceHash": "e3b82040565bb4be6b11f778a2e3df327ed20a3b",
+    "reviewed": false
+  },
+  "club.panel.nowGrace": {
+    "sourceHash": "647be28e7e8ade76605435500be2f8608642965a",
+    "reviewed": false
+  },
+  "club.panel.nowSuspended": {
+    "sourceHash": "3f7752e801ebc449152f612575b74f4e967b10a8",
+    "reviewed": false
+  },
+  "club.panel.restoreDeadline": {
+    "sourceHash": "e00be26a5b4b8e3268d82d17b46f3635fd0db18a",
+    "reviewed": false
+  },
+  "club.panel.restoreNote": {
+    "sourceHash": "a4c68d976e323e4cebd1c2acee4f671066ffeb0b",
+    "reviewed": false
+  },
+  "club.panel.restoreTitle": {
+    "sourceHash": "199bb25faa56069b3d91184683033f321b29ee17",
+    "reviewed": false
+  },
+  "club.paused.button": {
+    "sourceHash": "131e314c6038beb1e5ace18da6c58045a1e3efdf",
+    "reviewed": false
+  },
+  "club.pay.otherOnItsWay": {
+    "sourceHash": "5f79ae9b9cf8abf0eca21bd16a75b79db1812b92",
+    "reviewed": false
+  },
+  "club.pay.upgradeOnItsWay": {
+    "sourceHash": "449515f736439ed5ed1030f7c5c4627c2db94892",
+    "reviewed": false
+  },
+  "club.revenue.belowMin": {
+    "sourceHash": "dde0f62bb55d559b1b0fdbcf6690d8f3f646e642",
+    "reviewed": false
+  },
+  "club.revenue.body": {
+    "sourceHash": "d35366e111bb19d0cf8453dd0951dcbcdf04dd7d",
+    "reviewed": false
+  },
+  "club.revenue.button": {
+    "sourceHash": "c89217c6d19db545289ce82331f04ffb6337e23b",
+    "reviewed": false
+  },
+  "club.revenue.done": {
+    "sourceHash": "502d1a53a7c85595cac2ae61fc5a467b230380d4",
+    "reviewed": false
+  },
+  "club.revenue.failed": {
+    "sourceHash": "a45d238274f9872209a986c0dec63d4a6c26d7b3",
+    "reviewed": false
+  },
+  "club.revenue.fee": {
+    "sourceHash": "c6e89c9caf21476cc928ffc4707e00550f300343",
+    "reviewed": false
+  },
+  "club.revenue.feeValue": {
+    "sourceHash": "31bf0e651b0635a97478a76f532490a152c2c222",
+    "reviewed": false
+  },
+  "club.revenue.inFlight": {
+    "sourceHash": "00f9e694786264c32e95c1a04c1cd27c7fcf0db4",
+    "reviewed": false
+  },
+  "club.revenue.needsTelegram": {
+    "sourceHash": "53ceda63b7dfd8245a4bdfa5f1c49ea92921fc3e",
+    "reviewed": false
+  },
+  "club.revenue.noWallet": {
+    "sourceHash": "81faa336d6067af786e1a2e4fcc87ec9face540c",
+    "reviewed": false
+  },
+  "club.revenue.past": {
+    "sourceHash": "3709e6470a89606e312d24608f4307d325ac0ceb",
+    "reviewed": false
+  },
+  "club.revenue.receive": {
+    "sourceHash": "3f3063b6c2cab42a54004eb756d5c1b36196fdd0",
+    "reviewed": false
+  },
+  "club.revenue.rules": {
+    "sourceHash": "4da60bd70178a58f27147b39ec8eb1659daf0426",
+    "reviewed": false
+  },
+  "club.revenue.title": {
+    "sourceHash": "b1957b05fcb6ab3e55962edfce5f5cecccfc166a",
+    "reviewed": false
+  },
+  "club.revenue.withdrawable": {
+    "sourceHash": "7345ca6fb2e2db5c2da93e8265a972340366638b",
+    "reviewed": false
+  },
+  "club.rewards.baseBody": {
+    "sourceHash": "d61e6fadf312aa4d2953d5ac95b7160c2ea7a162",
+    "reviewed": false
+  },
+  "club.rewards.baseConnect": {
+    "sourceHash": "b3835e5a8830c47fccd9ec6c2046bc813e312a06",
+    "reviewed": false
+  },
+  "club.rewards.baseSub": {
+    "sourceHash": "d2d801ec3eb0c28d28d1247d6e5c1254dd96e64f",
+    "reviewed": false
+  },
+  "club.rewards.baseTitle": {
+    "sourceHash": "2484f8a18563bb6b14f71b43976a05be56b63fe6",
+    "reviewed": false
+  },
+  "club.rewards.boostedSub": {
+    "sourceHash": "2eccb8ebdd4477816a2ad69af42831ce87c14705",
+    "reviewed": false
+  },
+  "club.rewards.boostedTitle": {
+    "sourceHash": "63ab3c52805034210fda5fc5ff308cb4d5a166bf",
+    "reviewed": false
+  },
+  "club.rewards.claimsEmpty": {
+    "sourceHash": "8e0cb02b956ff9f7ff50a93dd1d7e3154580e7b9",
+    "reviewed": false
+  },
+  "club.rewards.claimsNote": {
+    "sourceHash": "d3b165ebf3827e7b46df79e829d24d0824ad661f",
+    "reviewed": false
+  },
+  "club.rewards.claimsTitle": {
+    "sourceHash": "792d890ed8d7bf3c66701a9e00016c0cc286f3d9",
+    "reviewed": false
+  },
+  "club.rewards.colClaimed": {
+    "sourceHash": "20c67eabf6a53fdea624840c586fd0dc93c19e1d",
+    "reviewed": false
+  },
+  "club.rewards.colDate": {
+    "sourceHash": "eb9a4bc1c0c153e4e4b042a79113b815b7e3021d",
+    "reviewed": false
+  },
+  "club.rewards.colRound": {
+    "sourceHash": "33eadfc594f96bf79c5af17368ddcc151a19614f",
+    "reviewed": false
+  },
+  "club.rewards.colStream": {
+    "sourceHash": "df063869e11d7a9aa132cd4a984f7b5eb870d656",
+    "reviewed": false
+  },
+  "club.rewards.colWallet": {
+    "sourceHash": "b60862f4855a392f00cc9f27e0862c0b979075a6",
+    "reviewed": false
+  },
+  "club.rewards.earnedSince": {
+    "sourceHash": "e5c948ee026ba17fa801f31c312762dc91a2bee7",
+    "reviewed": false
+  },
+  "club.rewards.earnedTotal": {
+    "sourceHash": "b3f3f2e84bbc3304bb1682b0680ae55428f54640",
+    "reviewed": false
+  },
+  "club.rewards.filter.all": {
+    "sourceHash": "6a72085653e4c5be8c7640c868ef787cbcf063d1",
+    "reviewed": false
+  },
+  "club.rewards.filter.referral": {
+    "sourceHash": "1c6984ff9c3a861a0e3ee5acd38b37058323cf2e",
+    "reviewed": false
+  },
+  "club.rewards.filter.staking": {
+    "sourceHash": "1b5a571459ec0eb244454cdb7505583c41cc4264",
+    "reviewed": false
+  },
+  "club.rewards.historyEmpty": {
+    "sourceHash": "e49cc1c896e162f45f13534ae19b10c980818955",
+    "reviewed": false
+  },
+  "club.rewards.historyTitle": {
+    "sourceHash": "0ee6dca01c346746b3b89990a6429d0f92e80eb5",
+    "reviewed": false
+  },
+  "club.rewards.lifetime": {
+    "sourceHash": "9ee46f93b8b58557670092bf9ed20994a1a9203e",
+    "reviewed": false
+  },
+  "club.rewards.lifetimeValue": {
+    "sourceHash": "7bc6285a492d735c3adc01cec6c30ceedfb26fc3",
+    "reviewed": false
+  },
+  "club.rewards.needsTelegram": {
+    "sourceHash": "252a6d70798eba21249b7cbf1ccb4f98217730db",
+    "reviewed": false
+  },
+  "club.rewards.perRound": {
+    "sourceHash": "430347355b94dd3a06deb80d793ed9ad74abb939",
+    "reviewed": false
+  },
+  "club.rewards.ready": {
+    "sourceHash": "77ff149a020300fa130754f1444629459ada9f28",
+    "reviewed": false
+  },
+  "club.rewards.readySplit": {
+    "sourceHash": "479e52508757dfb19f19e1b4e1b06e655d693e5e",
+    "reviewed": false
+  },
+  "club.rewards.readySplitNoWallet": {
+    "sourceHash": "0ea9565df57b8965980900ea25a843d9502bd5d1",
+    "reviewed": false
+  },
+  "club.rewards.referralBefore": {
+    "sourceHash": "085812de11cce204da327f702ee20347359c1561",
+    "reviewed": false
+  },
+  "club.rewards.stakeMore": {
+    "sourceHash": "7d4f2770acdfb158ad705cd22a5b2cd52485d47b",
+    "reviewed": false
+  },
+  "club.rewards.stakeMoreBody": {
+    "sourceHash": "47d60e0c71e45f5e33419ee372a549edc7c9931a",
+    "reviewed": false
+  },
+  "club.rewards.stakeMoreTitle": {
+    "sourceHash": "21a3929bec2bde5e8fd1d8641c44c2f6b1b80df7",
+    "reviewed": false
+  },
+  "club.rewards.streamReferral": {
+    "sourceHash": "9cc926f03c76322d38544f40ceb325c4003fbdb2",
+    "reviewed": false
+  },
+  "club.rewards.streamStaking": {
+    "sourceHash": "1b5a571459ec0eb244454cdb7505583c41cc4264",
+    "reviewed": false
+  },
+  "club.rewards.tx": {
+    "sourceHash": "1a7b7c1b33d161f45804730c70b75175dccd9883",
+    "reviewed": false
+  },
+  "club.status.a0Body": {
+    "sourceHash": "3ef136cecf5b1722e53c6150733d62ac1380ae71",
+    "reviewed": false
+  },
+  "club.status.a0Title": {
+    "sourceHash": "336fadecac062cb0227311ea0937d8e2c47bf21d",
+    "reviewed": false
+  },
+  "club.status.aBody": {
+    "sourceHash": "01c0d993650d0b089d0809dc4f91a772617c8131",
+    "reviewed": false
+  },
+  "club.status.aTitle": {
+    "sourceHash": "085415d546263d50689b092430560323f920cf5a",
+    "reviewed": false
+  },
+  "club.status.bBody": {
+    "sourceHash": "6771929c2bf44f8e8b1d946c844558eb2d61fe59",
+    "reviewed": false
+  },
+  "club.status.bTitle": {
+    "sourceHash": "dcce900201301e6a98a81cce12ce16732f087412",
+    "reviewed": false
+  },
+  "club.status.bTopBody": {
+    "sourceHash": "870c05fb75f8c8329d94056213bb0f39597663ec",
+    "reviewed": false
+  },
+  "club.status.bTopTitle": {
+    "sourceHash": "61f0c8b7c3b117ca8e847caf7331d009e3a80760",
+    "reviewed": false
+  },
+  "club.status.belowMinBody": {
+    "sourceHash": "b7292c05730911fe4ecd76985ddae5156564f4c7",
+    "reviewed": false
+  },
+  "club.status.belowMinBodyNoEstimate": {
+    "sourceHash": "c51ba246bf2b345f3e0308d63abca83c609fef9d",
+    "reviewed": false
+  },
+  "club.status.cBody": {
+    "sourceHash": "20f3eb48ed8398a6c1c5d1dcd9f3af84f6680912",
+    "reviewed": false
+  },
+  "club.status.cTitle": {
+    "sourceHash": "dd4a5aa8a4c16473351e5fc6dd7df71adf5c954c",
+    "reviewed": false
+  },
+  "club.status.cTopBody": {
+    "sourceHash": "bd2ebd17b3e5d00213af9cb567e2a23dbf34b267",
+    "reviewed": false
+  },
+  "club.status.cTopTitle": {
+    "sourceHash": "4909efeeafd17242f7d4cc44d4449e7895345470",
+    "reviewed": false
+  },
+  "club.status.chooseWallet": {
+    "sourceHash": "880e2bf59e9baf59b0f346d64f39d6b3b77a88f6",
+    "reviewed": false
+  },
+  "club.status.connectBody": {
+    "sourceHash": "e7fca4419a08b3f67f14debf512abb76c7094be8",
+    "reviewed": false
+  },
+  "club.status.connectTitle": {
+    "sourceHash": "d7c43191284c4b63bf2ac510da149c35c444cd22",
+    "reviewed": false
+  },
+  "club.status.d2Body": {
+    "sourceHash": "73d9e6fd32828c371151da94866a63ccf8854302",
+    "reviewed": false
+  },
+  "club.status.d2Title": {
+    "sourceHash": "ef4ff61acbb7075fdcadd438b14dbc1c46ff9922",
+    "reviewed": false
+  },
+  "club.status.dBody": {
+    "sourceHash": "63cc5e7cc2c6475aa966a32501e3e69e608e6c8a",
+    "reviewed": false
+  },
+  "club.status.dTitle": {
+    "sourceHash": "a7c54399fa78df8f992ff3037d72972373ae5ac7",
+    "reviewed": false
+  },
+  "club.status.eBody": {
+    "sourceHash": "098f6dd93b43c286837906a2ec121ac12dfcdf17",
+    "reviewed": false
+  },
+  "club.status.eTitle": {
+    "sourceHash": "b586167df5f78ed30ed9eea9969c930413c43b75",
+    "reviewed": false
+  },
+  "club.status.errorBody": {
+    "sourceHash": "563862b7d73ea62defbe398c40b6e0b43f9eee44",
+    "reviewed": false
+  },
+  "club.status.errorTitle": {
+    "sourceHash": "82560f169fdcf5be410543a33692f4dd5c2717ad",
+    "reviewed": false
+  },
+  "club.status.fBody": {
+    "sourceHash": "b41497bd126f2472c0c85d7f2ec425bd861b26b8",
+    "reviewed": false
+  },
+  "club.status.fBodyNext": {
+    "sourceHash": "cdc23e3fd1e46e493a1990f6a95f50b6516c000d",
+    "reviewed": false
+  },
+  "club.status.fTitle": {
+    "sourceHash": "088e7a53ddc4b73365e42fb972ce27a053f2f3e2",
+    "reviewed": false
+  },
+  "club.status.frozenBody": {
+    "sourceHash": "4f25af3fb124773e1222b74cfa319dd13d608022",
+    "reviewed": false
+  },
+  "club.status.frozenTitle": {
+    "sourceHash": "d0b9d0a2eaeb899f3fdef0ece3fbd5bf052e5b98",
+    "reviewed": false
+  },
+  "club.status.gBody": {
+    "sourceHash": "9bc79dcff9d9c8b1a1414bd04beec51750f6ac32",
+    "reviewed": false
+  },
+  "club.status.gTitle": {
+    "sourceHash": "d70a8921478010c14dd083e9fea8993f7d940ddf",
+    "reviewed": false
+  },
+  "club.status.launchingBody": {
+    "sourceHash": "eb6d0664081a86e79e491d09f69b7101e9370929",
+    "reviewed": false
+  },
+  "club.status.launchingTitle": {
+    "sourceHash": "b23d681ed17534e54abd59823e1c87d146661a6d",
+    "reviewed": false
+  },
+  "club.status.nolinkBody": {
+    "sourceHash": "634c8dd6589f0b04e59868223bb6b4dafcea2c33",
+    "reviewed": false
+  },
+  "club.status.nolinkBodyConnect": {
+    "sourceHash": "5eeab396431e0249c6163f587ff1326d83cb461c",
+    "reviewed": false
+  },
+  "club.status.nolinkButton": {
+    "sourceHash": "299902f4accf0714ed93196376255a8d01629bee",
+    "reviewed": false
+  },
+  "club.status.nolinkTitle": {
+    "sourceHash": "731f35fb41262f27c8f0141998fe02dbeff094d1",
+    "reviewed": false
+  },
+  "club.status.onItsWayBody": {
+    "sourceHash": "3384975d4205263882d12f6b5ff88e3e7cf46189",
+    "reviewed": false
+  },
+  "club.status.onItsWayBodyNoAmount": {
+    "sourceHash": "839141a38311578cf77b42522f22f8763adc3b59",
+    "reviewed": false
+  },
+  "club.status.onItsWayTitle": {
+    "sourceHash": "8f314841d841aff0e9e26e6a904e5b0f0e0c6b20",
+    "reviewed": false
+  },
+  "club.status.pausedBody": {
+    "sourceHash": "5d3fb131c93097fb2ddf0b191174c3a320e3e25b",
+    "reviewed": false
+  },
+  "club.status.pausedTitle": {
+    "sourceHash": "ad315037d6211e526571bd6b357a66ed72117707",
+    "reviewed": false
+  },
+  "club.status.upgradeOnItsWayBody": {
+    "sourceHash": "bdf84e8fd103bd2a4a99ac23bbe71294c512f9aa",
+    "reviewed": false
+  },
+  "club.status.upgradeOnItsWayBodyNoLevel": {
+    "sourceHash": "c88691e4900e14082bf6da819c8dd10cff5c2843",
+    "reviewed": false
+  },
+  "club.status.upgradeOnItsWayTitle": {
+    "sourceHash": "2f47205f6e1fa9af1a0de180d5e6cfbc4710ac30",
+    "reviewed": false
+  },
+  "club.tabs.community": {
+    "sourceHash": "bfd58ee3a270f3a931009900e1008d549bbd7453",
+    "reviewed": false
+  },
+  "club.tabs.friends": {
+    "sourceHash": "c11d5e1d35fb7e158e57f09ec98d28e19d6cb900",
+    "reviewed": false
+  },
+  "club.tabs.label": {
+    "sourceHash": "a35210933e61fc3542aeaa8611428e7b3fa54a71",
+    "reviewed": false
+  },
+  "club.tabs.overview": {
+    "sourceHash": "0efc2e6be4c23b9a513d7ce0dcff8ed80e8912e7",
+    "reviewed": false
+  },
+  "club.tabs.rewards": {
+    "sourceHash": "2f4f4b7fbc81bc11d4aa9263fddf484f1eb90d99",
+    "reviewed": false
+  },
+  "club.teaser.communityBody": {
+    "sourceHash": "0be90fe5f04f51f8de5d2bdab05144bc70a76248",
+    "reviewed": false
+  },
+  "club.teaser.communityTitle": {
+    "sourceHash": "bd75778d468946c6cf42b1f73f9f48203c84e085",
+    "reviewed": false
+  },
+  "club.teaser.friendsBody": {
+    "sourceHash": "e84f9ab13f78d2fbfc2496976abf9b4307e73b97",
+    "reviewed": false
+  },
+  "club.teaser.friendsLink": {
+    "sourceHash": "67746367a8d04ff9013274f79a8f0b3b1eb5b916",
+    "reviewed": false
+  },
+  "club.teaser.friendsLinkBody": {
+    "sourceHash": "dbbe7771af484c5a644deeb5ad5d975b3763f6d7",
+    "reviewed": false
+  },
+  "club.teaser.friendsTitle": {
+    "sourceHash": "782ea276a86bbc5afa757a7a0b3532de878d0a04",
+    "reviewed": false
+  },
+  "club.teaser.open": {
+    "sourceHash": "cf9b77061f7b3126b49d50a6fa68f7ca8c26b7a3",
+    "reviewed": false
+  },
+  "club.teaser.revenueBody": {
+    "sourceHash": "286340dc374822ca3b93df6ae43725b41193f308",
+    "reviewed": false
+  },
+  "club.teaser.revenueNone": {
+    "sourceHash": "c7dfb6f1d9c58a41a7c5eec76e7ed6dbd3750804",
+    "reviewed": false
+  },
+  "club.teaser.revenueTitle": {
+    "sourceHash": "9f685efc6c74d4eea3ca93b9809368ed743f107a",
+    "reviewed": false
+  },
+  "club.upgrade.connectClub": {
+    "sourceHash": "f4aadda48c309c1ef32e8037c06f3fcacd537c3a",
+    "reviewed": false
+  },
+  "club.upgrade.linkClubWallet": {
+    "sourceHash": "40413bc89de43b1232a4ab5a59d41796f0666601",
+    "reviewed": false
+  },
+  "club.upgrade.needsTelegram": {
+    "sourceHash": "faba6220720e8f64a5490efe9c2865e2e34f7641",
+    "reviewed": false
+  },
   "docs-sidebar//docs/": {
     "sourceHash": "7de70c1b9faa8dd17ac41426e19ab86ba2546068",
     "reviewed": false
@@ -1240,7 +3220,7 @@
     "reviewed": false
   },
   "docs/introduction/hipo-rewards.md": {
-    "sourceHash": "d20fb1393a17a1d5cfe59ab851880d17ecd2ac2f",
+    "sourceHash": "a121f0f81c26cfe230122468757fe32d0c8b11b6",
     "reviewed": false
   },
   "docs/introduction/hipo-stats.md": {
@@ -2187,6 +4167,18 @@
     "sourceHash": "7421180d9addb027572ff18042b545fe595e156b",
     "reviewed": false
   },
+  "prose/shell/club/cards/01-how-hipo-club-works.md": {
+    "sourceHash": "e1c72b5819d0c2bb7764a21ba73778ef23a71495",
+    "reviewed": false
+  },
+  "prose/shell/club/cards/02-claims-and-your-level-minimum.md": {
+    "sourceHash": "dd7edc6ef4a27500c05f21dd0342cfbf36fdabb9",
+    "reviewed": false
+  },
+  "prose/shell/club/cards/03-moving-up.md": {
+    "sourceHash": "35aeaf357969c7c1c233c5139e16c7db6a0e074a",
+    "reviewed": false
+  },
   "prose/shell/defi/cards/01-a-defi-compatible-token.md": {
     "sourceHash": "9b2daa861d16e6207f94d03a7ad28b7f9a108f91",
     "reviewed": false
@@ -2303,6 +4295,38 @@
     "sourceHash": "66f1fde1dfc93769048f7cca4382df638ead8cec",
     "reviewed": false
   },
+  "seo.club.community.description": {
+    "sourceHash": "95516b7d69770c87999563a6686110bf26cca842",
+    "reviewed": false
+  },
+  "seo.club.community.title": {
+    "sourceHash": "5c52b2f37c58ee2dfcabf01c865420ac4aff1f92",
+    "reviewed": false
+  },
+  "seo.club.friends.description": {
+    "sourceHash": "d562af14f255e51defc0972e4f6e559c55ea5eb2",
+    "reviewed": false
+  },
+  "seo.club.friends.title": {
+    "sourceHash": "6a6488ee9686a4d49ef5568169cba07a2aa90bdd",
+    "reviewed": false
+  },
+  "seo.club.overview.description": {
+    "sourceHash": "2ec24f1ba83a61b81f4b07e282fbb41a6b072d0f",
+    "reviewed": false
+  },
+  "seo.club.overview.title": {
+    "sourceHash": "505c669ca7456d90362a4555f4e898a48136314a",
+    "reviewed": false
+  },
+  "seo.club.rewards.description": {
+    "sourceHash": "91bb16cac518898950c448facc5953381d92f5b3",
+    "reviewed": false
+  },
+  "seo.club.rewards.title": {
+    "sourceHash": "34009f1be9ac3dc260e2c274cbb90913f25c273f",
+    "reviewed": false
+  },
   "seo.defi.description": {
     "sourceHash": "f27263484ab32101de132a38a0ba5a9a3d405719",
     "reviewed": false
@@ -2401,6 +4425,10 @@
   },
   "site.app.loading": {
     "sourceHash": "7dc100437b51bdd7185f7b240aa037ebdabc8609",
+    "reviewed": false
+  },
+  "site.app.nav.club": {
+    "sourceHash": "4014019824fdf070c6a39bf014c44be092f8f162",
     "reviewed": false
   },
   "site.app.nav.defi": {
@@ -2527,6 +4555,10 @@
     "sourceHash": "3cc897df92f3c662c558282854712b2d591c52b9",
     "reviewed": false
   },
+  "site.nav.club": {
+    "sourceHash": "4014019824fdf070c6a39bf014c44be092f8f162",
+    "reviewed": false
+  },
   "site.nav.defi": {
     "sourceHash": "0ce66d2e3a7fbcd6a71d6ae0589fb9800604003d",
     "reviewed": false
@@ -2577,6 +4609,10 @@
   },
   "site.notFound.title": {
     "sourceHash": "115ed306945d13c48efca1a44547e08d76f01f71",
+    "reviewed": false
+  },
+  "site.shell.club.heading": {
+    "sourceHash": "ee016bba8a0447b9646e229fd44e8025f2fd7700",
     "reviewed": false
   },
   "site.shell.defi.heading": {

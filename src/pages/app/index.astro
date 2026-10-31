@@ -8,6 +8,10 @@
 import '../../styles/global.css'
 import { DEFAULT_LOCALE } from '../../i18n/registry.mjs'
 import { dirOf, langOf } from '../../i18n/locale.ts'
+import { clubBuilt } from '../../data/club-flag.mjs'
+
+// page=reward goes to the Club once it is live (src/data/club-flag.mjs).
+const rewardTarget = clubBuilt() ? '/club/' : '/rewards/'
 ---
 
 <!doctype html>
@@ -23,7 +27,7 @@ import { dirOf, langOf } from '../../i18n/locale.ts'
     <p>Redirecting…</p>
     <p><a class='text-accent hover:text-accent-hover underline' href='/stake/'>Continue to the Hipo app</a></p>
 
-    <script is:inline>
+    <script is:inline define:vars={{ rewardTarget }}>
       ;(() => {
         var hash = location.hash.replace(/^#\/?/, '')
         var segments = hash.split('/').filter(Boolean)
@@ -39,7 +43,7 @@ import { dirOf, langOf } from '../../i18n/locale.ts'
         })
 
         var target = '/stake/'
-        if (page === 'reward') target = '/rewards/'
+        if (page === 'reward') target = rewardTarget
         else if (page === 'stats') target = '/stats/'
         else if (page === 'defi') target = '/defi/'
         else if (tab === 'unstake') target = '/unstake/'

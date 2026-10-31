@@ -9,6 +9,7 @@ import MultisigGuidance from '../MultisigGuidance.tsx'
 import Defi from '../Defi.tsx'
 import Reward from '../Reward.tsx'
 import StatsPage from '../StatsPage.tsx'
+import ClubLoader from '../ClubLoader.tsx'
 
 interface Props {
   model: Model
@@ -43,6 +44,11 @@ const TmaApp = observer(({ model }: Props) => {
     page = <Defi model={model} />
   } else if (activePage === 'reward') {
     page = <Reward model={model} />
+  } else if (activePage === 'club') {
+    // The Club's four tabs sit at the top of the page as a segmented row, the same component as on
+    // the web (specs/club-website.md §10, Open question 1 (a)); the bottom row stays Stake · Club ·
+    // Stats · DeFi.
+    page = <ClubLoader model={model} />
   } else if (activePage === 'stats') {
     page = <StatsPage model={model} />
   }

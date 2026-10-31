@@ -15,6 +15,8 @@ const TmaHeader = observer(({ model }: Props) => {
   let title = model.isStakeTabActive ? t('app.stake.titleStake') : t('app.stake.titleUnstake')
   if (model.activePage === 'reward') {
     title = t('app.nav.rewards')
+  } else if (model.activePage === 'club') {
+    title = t('app.nav.club')
   } else if (model.activePage === 'stats') {
     title = t('app.nav.stats')
   } else if (model.activePage === 'defi') {

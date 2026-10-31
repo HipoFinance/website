@@ -1,5 +1,10 @@
 ---
 import ShellRoute from '../../components/routes/ShellRoute.astro'
+import ClubRedirect from '../../components/routes/ClubRedirect.astro'
+import { clubBuilt } from '../../data/club-flag.mjs'
+
+// Today's Rewards page until the launch commit; a redirect to /club/ once the Club flag is on.
+const club = clubBuilt()
 ---
 
-<ShellRoute page='rewards' />
+{club ? <ClubRedirect /> : <ShellRoute page='rewards' />}

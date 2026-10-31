@@ -21,7 +21,9 @@ import './pollyfills.ts'
 // The deep path is unversioned: @ton/ton publishes no exports map, so nothing enforces it. Check
 // that dist/client/TonClient4 still exists when bumping @ton/ton, and expect a build-time
 // resolution error rather than a runtime surprise if it moves.
-export { Address, Dictionary, fromNano, toNano } from '@ton/core'
+// Cell and beginCell are for the Club's payloads and chain check (club/clubTx.ts, club/payments.ts),
+// which take them from here so that @ton/core stays in this one chunk, after the polyfill.
+export { Address, Cell, Dictionary, beginCell, fromNano, toNano } from '@ton/core'
 export { TonClient4 } from '@ton/ton/dist/client/TonClient4.js'
 export {
   ParticipationState,

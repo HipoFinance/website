@@ -36,11 +36,9 @@ const { locale, page, stats, cards, seed } = Astro.props
 
 // Model's route table maps /rewards/ to the internal id 'reward'; the header's active state and
 // the bottom tab bar both key off that id, so the mapping has to match.
-const activePage = { stake: 'stake', unstake: 'stake', rewards: 'reward', stats: 'stats', defi: 'defi' }[page] as
-  | 'stake'
-  | 'reward'
-  | 'stats'
-  | 'defi'
+const activePage = { stake: 'stake', unstake: 'stake', rewards: 'reward', club: 'club', stats: 'stats', defi: 'defi' }[
+  page
+] as 'stake' | 'reward' | 'club' | 'stats' | 'defi'
 
 const isStakeForm = page === 'stake' || page === 'unstake'
 ---

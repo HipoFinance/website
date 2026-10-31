@@ -1,17 +1,20 @@
 import { observer } from 'mobx-react-lite'
 import { Coins, Gift, ChartLine, ArrowLeftRight, type LucideIcon } from 'lucide-react'
-import { Model } from '../Model'
+import { CLUB_ON, Model } from '../Model'
 
 interface Props {
   model: Model
 }
 
-type Page = 'stake' | 'reward' | 'stats' | 'defi'
+type Page = 'stake' | 'reward' | 'club' | 'stats' | 'defi'
 
 // Labels are catalog keys, resolved through model.t at render time.
+// The second slot is Rewards before the launch commit and the Club after it (CLUB_ON, same icon).
 const pages: { page: Page; label: string; icon: LucideIcon }[] = [
   { page: 'stake', label: 'app.nav.stake', icon: Coins },
-  { page: 'reward', label: 'app.nav.rewards', icon: Gift },
+  CLUB_ON
+    ? { page: 'club', label: 'app.nav.club', icon: Gift }
+    : { page: 'reward', label: 'app.nav.rewards', icon: Gift },
   { page: 'stats', label: 'app.nav.stats', icon: ChartLine },
   { page: 'defi', label: 'app.nav.defi', icon: ArrowLeftRight },
 ]
