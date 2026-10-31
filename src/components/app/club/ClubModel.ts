@@ -933,8 +933,10 @@ export class ClubModel {
   }
 
   private fetchWalletRewards(address: Address): Promise<WalletRewards> {
-    const raw = address.toRawString()
-    return this.mock !== undefined ? this.mock.walletRewards(raw) : fetchWalletRewards(raw)
+    // /wallet-rewards parses only the user-friendly form (club-server currentwallet.go ParseAddr)
+    return this.mock !== undefined
+      ? this.mock.walletRewards(address.toRawString())
+      : fetchWalletRewards(address.toString())
   }
 
   private async loadAccount() {
