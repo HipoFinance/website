@@ -54,6 +54,11 @@ function loadWidget(): Promise<TelegramLogin> {
   return loading
 }
 
+/** Loads Telegram's login script ahead of the click that opens it. */
+export function preloadTelegramLogin(): Promise<void> {
+  return loadWidget().then(() => undefined)
+}
+
 /** Opens Telegram's login popup; resolves to the widget fields, or undefined when it was closed. */
 export async function telegramLogin(lang?: string): Promise<WidgetData | undefined> {
   if (!/^[0-9]+$/.test(TELEGRAM_BOT_ID)) {

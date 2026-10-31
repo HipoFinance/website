@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-10-31 — Club wallet switch: the fresh Telegram login opens from a click
+
+- A switch, first link or release whose Telegram login is over an hour old is refused with `reauth`. The page then opened Telegram's login popup by itself, a minute or more after the member's click, so the browser blocked it, the login never answered and the dialog stayed stuck (seen on the live switch test, 13:31 UTC).
+- Now the dialog shows "For a wallet change, log in with Telegram again." and remembers the step; the member's next click on that step's button (Retry, or the confirm or release button) opens the login and repeats the step. A click on another step's button drops it, a Cancel during the login stops it, and a refused confirm starts over with a fresh prepare (the server has used up its record). The login script is preloaded at the refusal, so the popup opens right after the click. No new strings.
+- Left open: the server could refuse `reauth` already at the challenge, so the login comes before the wallet step instead of after it; that is a club-server change, after launch day.
+
 ## 2026-10-31 — Club wallet switch: wait for the wallet's real proof
 
 - The wallet-link proof wait (`ClubModel.ts` `requestProof`) ended on the first TON Connect event without a ton_proof. TON Connect re-sends a connected account without its proof (a restored session, a bridge reconnect), so with Tonkeeper Desktop the real proof was missed, the server's challenge went unused and the "Choose the wallet…" dialog stayed open with only Cancel.
