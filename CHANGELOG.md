@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-01 — Connect buttons say "Connecting…" while a stored wallet restores
+
+- With a stored TonConnect session the app restores the wallet on open (TonConnect and chain chunks, the wallet list, the bridge), which can take long on a slow network; meanwhile the Mini App header pill, the Club "Connect wallet" and the Rewards Connect stayed pressable, and a press only joined the restore and then did nothing (seen in the Mini App as "Connect does not work").
+- Every Connect button (desktop and Mini App header, Club status box and notices, Rewards, the stake/unstake submit) is now disabled and says "Connecting…" while `isWalletLoading`; `Model.isButtonEnabled` is false and `buttonLabel` is "Connecting…" in that state only, so the send path is unchanged.
+- New strings `app.common.connecting` and `club.common.connecting`, translated into the ten released locales.
+- Reviewed at tier 3 (Model.ts is on the money map): two money audits and a staking-lens review found no loss; left open: a page kept open across a deploy still caches a failed TonConnect chunk import (`loadTonConnect`), not seen in practice.
+
 ## 2026-10-31 — Club wallet switch: the fresh Telegram login opens from a click
 
 - A switch, first link or release whose Telegram login is over an hour old is refused with `reauth`. The page then opened Telegram's login popup by itself, a minute or more after the member's click, so the browser blocked it, the login never answered and the dialog stayed stuck (seen on the live switch test, 13:31 UTC).

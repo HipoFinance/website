@@ -20,6 +20,7 @@
   "app.chart.time": "Zeit",
   "app.common.close": "Schließen",
   "app.common.connectWallet": "Wallet verbinden",
+  "app.common.connecting": "Wird verbunden…",
   "app.common.max": "Max.",
   "app.common.okay": "Okay",
   "app.common.stake": "Staken",

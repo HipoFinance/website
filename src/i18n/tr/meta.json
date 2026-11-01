@@ -83,6 +83,10 @@
     "sourceHash": "ffee40873db706166223f9538f8602a8e3217399",
     "reviewed": false
   },
+  "app.common.connecting": {
+    "sourceHash": "fd3e796994266a5384f0a5150ff74b828dc5391f",
+    "reviewed": false
+  },
   "app.common.max": {
     "sourceHash": "a95e85aed56318093b024674e217cae0bd30241d",
     "reviewed": false
@@ -1173,6 +1177,10 @@
   },
   "club.common.connectWallet": {
     "sourceHash": "ffee40873db706166223f9538f8602a8e3217399",
+    "reviewed": false
+  },
+  "club.common.connecting": {
+    "sourceHash": "fd3e796994266a5384f0a5150ff74b828dc5391f",
     "reviewed": false
   },
   "club.common.contactSupport": {

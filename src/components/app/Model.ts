@@ -1439,8 +1439,10 @@ export class Model {
     return nano != null && nano > 0n
   }
 
+  // While a stored session restores, a Connect press would only wait for it (see connect), so the
+  // button takes none until the answer is in.
   get isButtonEnabled() {
-    return !this.isWalletConnected || this.isAmountPositive
+    return this.isWalletConnected ? this.isAmountPositive : !this.isWalletLoading
   }
 
   // A deposit goes to the fixed treasury address, so nothing in it depends on which wallet is
@@ -1469,6 +1471,8 @@ export class Model {
       } else {
         return this.t('app.model.buttonUnstake')
       }
+    } else if (this.isWalletLoading) {
+      return this.t('app.common.connecting')
     } else if (this.canConnectAndStake) {
       return this.t('app.model.buttonConnectAndStake')
     } else {

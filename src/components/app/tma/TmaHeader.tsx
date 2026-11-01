@@ -51,12 +51,16 @@ const TmaHeader = observer(({ model }: Props) => {
           {model.connectedAddressShort}
         </button>
       ) : (
+        // A stored session is restored on open, which can take a while on a slow network; a press
+        // meanwhile would only wait for it, so the pill says so and takes no presses.
         <button
           type='button'
-          className='border-border bg-surface text-accent ms-auto flex min-h-[34px] shrink-0 cursor-pointer items-center rounded-full border px-3 py-[7px] text-xs font-semibold'
+          disabled={model.isWalletLoading}
+          aria-busy={model.isWalletLoading}
+          className='border-border bg-surface text-accent ms-auto flex min-h-[34px] shrink-0 cursor-pointer items-center rounded-full border px-3 py-[7px] text-xs font-semibold disabled:cursor-progress disabled:opacity-70'
           onClick={model.connect}
         >
-          {t('app.tma.connect')}
+          {model.isWalletLoading ? t('app.common.connecting') : t('app.tma.connect')}
         </button>
       )}
     </header>

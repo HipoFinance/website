@@ -193,14 +193,16 @@ const Reward = observer(({ model }: Props) => {
               </p>
               {!tma && <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />}
               <button
-                className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover h-14 w-full cursor-pointer rounded-2xl text-[17px] font-semibold'
+                disabled={model.isWalletLoading}
+                aria-busy={model.isWalletLoading}
+                className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover h-14 w-full cursor-pointer rounded-2xl text-[17px] font-semibold disabled:cursor-progress disabled:opacity-70'
                 onClick={(e) => {
                   model.connect()
                   const target = e.target as HTMLInputElement
                   target.blur()
                 }}
               >
-                {t('app.common.connectWallet')}
+                {model.isWalletLoading ? t('app.common.connecting') : t('app.common.connectWallet')}
               </button>
               {tma && <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />}
             </>

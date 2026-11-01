@@ -20,6 +20,7 @@
   "app.chart.time": "Час",
   "app.common.close": "Закрити",
   "app.common.connectWallet": "Підключити гаманець",
+  "app.common.connecting": "Підключення…",
   "app.common.max": "Макс.",
   "app.common.okay": "Гаразд",
   "app.common.stake": "Стейкінг",
