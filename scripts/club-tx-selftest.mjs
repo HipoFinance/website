@@ -845,7 +845,18 @@ const idle = (txs) => ({
     throw new Error('500')
   },
 })
-const archiveOf = (txs) => async () => txs.map((tx) => ({ lt: tx.lt, now: tx.now, matches: [] }))
+const HEAD = Buffer.alloc(32).toString('base64') // fakeClient's account.last.hash
+// Each entry's hash stands for its lt, so its previous hash names the next entry; the newest is HEAD.
+const hashOf = (lt, newest) => (newest ? HEAD : `h${lt}`)
+const archiveEntry = (tx, i = 1) => ({
+  lt: tx.lt,
+  now: tx.now,
+  matches: [],
+  prevLt: tx.prevTransactionLt,
+  prevHash: hashOf(tx.prevTransactionLt, false),
+  hash: hashOf(tx.lt, i === 0),
+})
+const archiveOf = (txs) => async () => txs.map((tx, i) => archiveEntry(tx, i))
 
 await check('reader: an idle wallet the v4 node cannot read is read from the archive', async () => {
   const old = chainOf(5, { step: 30 * 3600 }).map((tx) => ({ ...tx, now: tx.now - 2 * LOOKBACK }))
@@ -888,10 +899,79 @@ await check('reader: the archive is refused unless it is the same chain and past
     }).read(CLUB),
     (e) => e instanceof ChainReadError && e.failure === 'readFailed',
   )
-  // a read that must reach a lock with transactions since it, or by time alone, never takes the archive
-  await fails({ archivePage: archiveOf(old) }, { downToLt: old[2].lt })
+  // a read that must reach a lock the archive page does not reach, by lt or by time, never takes it
+  await fails({ archivePage: archiveOf(old) }, { downToLt: old[2].lt - 1n })
   await fails({ archivePage: archiveOf(old) }, { downToTime: T0 - 3 * LOOKBACK })
-  await fails({ archivePage: archiveOf(old) }, { downToLt: old[0].lt - 1n, downToTime: T0 - 600 })
+  // a read from a cursor never takes it
+  await fails({ archivePage: archiveOf(old) }, { from: { lt: old[0].lt.toString(), hash: '' } })
+})
+
+await check('reader: a wallet used in the last 24 h whose older page fails is read from the archive', async () => {
+  // 30 transactions an hour apart: the v4 node serves the first page (3), then fails on the next
+  const active = chainOf(30)
+  const deps = (archive) => ({
+    tonClient: () => fakeClient(active, { failAt: 2 }),
+    parseAddress: (v) => Address.parse(v),
+    archivePage: archiveOf(archive),
+  })
+  const result = await createChainReader(deps(active)).read(CLUB)
+  assert.equal(result.reachedLookback, true)
+  assert.equal(result.txs.length, 30)
+  assert.equal(result.coveredFrom, active[29].lt)
+  assert.equal(result.cursor, undefined)
+  // with a lock it must also reach: by lt and by time
+  const lock = await createChainReader(deps(active)).read(CLUB, { downToLt: active[20].lt, downToTime: T0 - 20 * 3600 })
+  assert.equal(lock.txs.length, 30)
+  const refused = (archive, options) =>
+    assert.rejects(
+      createChainReader(deps(archive)).read(CLUB, options),
+      (e) => e instanceof ChainReadError && e.failure === 'readFailed',
+    )
+  // the archive page does not reach past the lookback (20 of 25, the oldest 19 h old)
+  await refused(active.slice(0, 20))
+  // it does not reach the lock
+  await refused(active, { downToLt: active[29].lt - 1n })
+  await refused(active, { downToTime: active[29].now })
+  // another chain head: its newest transaction is not the account's last one
+  await refused(active.slice(1))
+  // out of order, or disagreeing with a transaction the v4 node already gave (time or matches)
+  await refused([active[0], active[2], active[1], ...active.slice(3)])
+  await refused(active.map((tx, i) => (i === 1 ? { ...tx, now: tx.now - 1 } : tx)))
+  const withClaim = (archive) => async () =>
+    archive.map((tx, i) => ({ ...archiveEntry(tx, i), matches: i === 2 ? [{ op: 'claim' }] : [] }))
+  // a gap: a transaction left out of the middle of the page, the rest unchanged
+  await refused([...active.slice(0, 10), ...active.slice(11)])
+  // linked by lt but not by hash: an entry below the head swapped for another transaction
+  await assert.rejects(
+    createChainReader({
+      ...deps(active),
+      archivePage: async () =>
+        active.map((tx, i) => ({ ...archiveEntry(tx, i), hash: i === 7 ? 'swapped' : archiveEntry(tx, i).hash })),
+    }).read(CLUB),
+    (e) => e instanceof ChainReadError && e.failure === 'readFailed',
+  )
+  // the page's newest transaction is not the account's last one by hash
+  await assert.rejects(
+    createChainReader({
+      ...deps(active),
+      archivePage: async () =>
+        active.map((tx, i) => ({ ...archiveEntry(tx, i), hash: i === 0 ? 'other' : archiveEntry(tx, i).hash })),
+    }).read(CLUB),
+    (e) => e instanceof ChainReadError && e.failure === 'readFailed',
+  )
+  // an entry without its decoded previous transaction
+  await assert.rejects(
+    createChainReader({
+      ...deps(active),
+      archivePage: async () =>
+        active.map((tx, i) => ({ ...archiveEntry(tx, i), prevLt: i === 5 ? undefined : tx.prevTransactionLt })),
+    }).read(CLUB),
+    (e) => e instanceof ChainReadError && e.failure === 'readFailed',
+  )
+  await assert.rejects(
+    createChainReader({ ...deps(active), archivePage: withClaim(active) }).read(CLUB),
+    (e) => e instanceof ChainReadError && e.failure === 'readFailed',
+  )
 })
 
 await check('reader: a lock with nothing since it on an idle wallet is read from the archive', async () => {
@@ -1193,6 +1273,61 @@ await check('continueLockRead: nothing more is read, or stored, before validUnti
   assert.equal(out, r)
   assert.equal(reads, 0)
   assert.equal(readLocks(store)[0].resume, undefined)
+})
+
+await check('archive: each transaction is decoded from its data; a page that disagrees is refused', async () => {
+  // transaction$0111 account_addr lt prev_trans_hash prev_trans_lt now (the rest is not read)
+  const txCell = (lt, prevHash, prevLt, now) =>
+    beginCell()
+      .storeUint(0b0111, 4)
+      .storeBuffer(Buffer.alloc(32, 1))
+      .storeUint(lt, 64)
+      .storeBuffer(prevHash)
+      .storeUint(prevLt, 64)
+      .storeUint(now, 32)
+      .endCell()
+  const older = txCell(1990n, Buffer.alloc(32, 9), 1980n, T0 - 100)
+  const newer = txCell(2000n, older.hash(), 1990n, T0 - 50)
+  const entry = (cell, lt, now, over = {}) => ({
+    transaction_id: { lt: lt.toString(), hash: cell.hash().toString('base64') },
+    utime: now,
+    data: cell.toBoc().toString('base64'),
+    out_msgs: [],
+    ...over,
+  })
+  const load = (result) =>
+    archiveFirstPage(
+      CLUB,
+      HIPO,
+      (v) => Address.parse(v),
+      (b) => Cell.fromBase64(b),
+      async () => ({ ok: true, json: async () => ({ ok: true, result }) }),
+    )
+  const page = await load([entry(newer, 2000n, T0 - 50), entry(older, 1990n, T0 - 100)])
+  assert.deepEqual(page, [
+    {
+      lt: 2000n,
+      now: T0 - 50,
+      matches: [],
+      prevLt: 1990n,
+      prevHash: older.hash().toString('base64'),
+      hash: newer.hash().toString('base64'),
+    },
+    {
+      lt: 1990n,
+      now: T0 - 100,
+      matches: [],
+      prevLt: 1980n,
+      prevHash: Buffer.alloc(32, 9).toString('base64'),
+      hash: older.hash().toString('base64'),
+    },
+  ])
+  // the listed lt, time or hash disagrees with the transaction's own data: the whole page is refused
+  assert.equal(await load([entry(newer, 2001n, T0 - 50)]), undefined)
+  assert.equal(await load([entry(newer, 2000n, T0 - 51)]), undefined)
+  assert.equal(await load([entry(newer, 2000n, T0 - 50, { transaction_id: { lt: '2000', hash: 'x' } })]), undefined)
+  // data that is not a transaction
+  assert.equal(await load([entry(beginCell().storeUint(0, 8).endCell(), 2000n, T0 - 50)]), undefined)
 })
 
 // ------------------------------------------------- claim locks settled on load (2026-11-01)

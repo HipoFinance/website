@@ -9,6 +9,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-01 — Claim works for a wallet used in the last 24 hours
+
+- Members whose wallet had any transaction in the last day could not claim: the claim dialog said "Couldn't check your wallet's recent payments" (two members confirmed in Hipo Chat, 149559 and 149555). Before a send the page reads the wallet's last 24 h from `v4.hipo.finance`, which keeps about 16 h, so the page older than that failed; the archive fallback was allowed only for a wallet idle more than 24 h.
+- `createChainReader` (`club/payments.ts`) now takes the archive's first page whenever the node cannot serve a page, at any depth, but only when that page is the whole read on its own: its newest transaction is the account's last one, it reaches past the lookback, and it reaches the lock asked for (`downToLt`, `downToTime`); a read from a cursor never takes it, so an archive page is never merged with pages read elsewhere. Otherwise the read still fails as `readFailed`.
+- The archive page is checked rather than trusted: each transaction is decoded from its own data (its lt, time and previous transaction must agree with the listed fields), the page must link with no gap (each transaction's previous lt and hash name the next one), its newest transaction must be the account's last one by hash, and every transaction the v4 node already gave must appear in it unchanged; the archive request gives up after 8 s (an AbortController timer that also covers the body, which older iOS webviews support), so a hung request cannot hold the payment buttons (money audit and review notes).
+- This replaces the narrower rule of the entry below (archive for a lock read only when nothing happened since the lock); that case is covered by the general one.
+- Left open: a wallet whose whole history is shorter than 24 h and longer than the node keeps still fails, because the archive page cannot show it reached the wallet's first transaction. Checked live (read only) on the two members' wallets and on the earlier stuck-claim wallet: each now reads complete with the 24 h check clear. New self-test checks (decoding from real transaction cells, gap, head, order, overlap); 61 pass. Matches are still read from toncenter's message list, checked against the v4 node only where the two overlap.
+
 ## 2026-11-01 — A claim the wallet never sent no longer leaves the Club page "on its way" for good
 
 - A member pressed Claim, the wallet never sent the fee, and the page kept "Your claim is on its way" with Claim off: the page's local claim lock was released by the chain only in the payment guard, which runs on the Claim press that the lock itself turns off.

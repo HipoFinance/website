@@ -121,6 +121,11 @@ export interface ChainTx {
   lt: bigint
   now: number
   matches: MatchedMessage[]
+  // Only on an archive transaction, decoded from its own data: the account's previous transaction
+  // and this one's hash (base64), so the archive page can be checked for gaps and for its head.
+  prevLt?: bigint
+  prevHash?: string
+  hash?: string
 }
 
 // An outgoing message to hipo.ton with a Club op. `level` is the upgrade's n; undefined when the body
@@ -404,6 +409,8 @@ export interface ChainDeps {
 // toncenter's getTransactions: a liteserver proxy with full history, open to any origin.
 export const ARCHIVE_URL = 'https://toncenter.com/api/v2/getTransactions'
 export const ARCHIVE_PAGE = 20
+// A hung archive request would hold every payment press of the tab: it gives up after this.
+export const ARCHIVE_TIMEOUT_MS = 8000
 
 /**
  * The account's newest ARCHIVE_PAGE transactions from toncenter, newest first, parsed the way the v4
@@ -418,11 +425,23 @@ export async function archiveFirstPage(
 ): Promise<ChainTx[] | undefined> {
   try {
     const url = `${ARCHIVE_URL}?address=${encodeURIComponent(address.toString())}&limit=${ARCHIVE_PAGE}&archival=true`
-    const response = await fetchFn(url)
-    if (!response.ok) {
-      return undefined
+    // AbortController with a timer, not AbortSignal.timeout, which Safari before 16 lacks.
+    const abort = new AbortController()
+    const timer = setTimeout(() => abort.abort(), ARCHIVE_TIMEOUT_MS)
+    // The timer covers the body too: a reply that sends its headers and then stalls is given up.
+    const aborted = new Promise<never>((_, reject) =>
+      abort.signal.addEventListener('abort', () => reject(new Error('archive timeout'))),
+    )
+    let json: any
+    try {
+      const response = await Promise.race([fetchFn(url, { signal: abort.signal }), aborted])
+      if (!response.ok) {
+        return undefined
+      }
+      json = await Promise.race([response.json(), aborted])
+    } finally {
+      clearTimeout(timer)
     }
-    const json = await response.json()
     if (json?.ok !== true || !Array.isArray(json.result)) {
       return undefined
     }
@@ -444,7 +463,28 @@ export async function archiveFirstPage(
           matches.push(match)
         }
       }
-      return { lt: BigInt(tx.transaction_id.lt), now: Number(tx.utime), matches }
+      const lt = BigInt(tx.transaction_id.lt)
+      const now = Number(tx.utime)
+      if (typeof tx.data !== 'string' || tx.data === '') {
+        return { lt, now, matches }
+      }
+      // transaction$0111 account_addr:bits256 lt:uint64 prev_trans_hash:bits256 prev_trans_lt:uint64
+      // now:uint32 …; a page whose data disagrees with its own fields is refused whole.
+      const cell = cellFromBase64(tx.data)
+      const slice = cell.beginParse()
+      if (slice.loadUint(4) !== 0b0111) {
+        throw new Error('not a transaction')
+      }
+      slice.skip(256)
+      const ownLt = slice.loadUintBig(64)
+      const prevHash = slice.loadBuffer(32).toString('base64')
+      const prevLt = slice.loadUintBig(64)
+      const ownNow = slice.loadUint(32)
+      const hash = cell.hash().toString('base64')
+      if (ownLt !== lt || ownNow !== now || (tx.transaction_id.hash && tx.transaction_id.hash !== hash)) {
+        throw new Error('data disagrees')
+      }
+      return { lt, now, matches, prevLt, prevHash, hash }
     })
   } catch {
     return undefined
@@ -529,29 +569,56 @@ export function createChainReader(deps: ChainDeps): ChainReader {
             // an empty batch: the archive below, or readFailed
           }
           if (batch.length === 0) {
-            // The v4 node cannot read a transaction older than its history. A plain read (no cursor,
-            // no lock to reach) takes the first page from the archive instead, but only when it is the
-            // same chain (its newest transaction is the account's last one) and that transaction is
-            // already past the lookback, so the page is the whole read the v4 path would have made.
-            // A read that must reach a lock may too when the account's last transaction is at or below
-            // the lock's startLt: nothing happened since the lock, so the archive page covers it (an
-            // idle wallet whose request never landed, a member's report of 2026-11-01).
-            const plain =
-              page === 0 &&
-              from === undefined &&
-              (options.downToLt === undefined ? options.downToTime === undefined : lastLt <= options.downToLt)
-            if (plain && deps.archivePage !== undefined) {
+            // The v4 node keeps about 16 h, so a page older than that fails, on the first page of an
+            // idle wallet or further back for a wallet used in the last 24 h (a member's report of
+            // 2026-11-01). The read is then the archive's first page instead, but only when that page
+            // is the whole read on its own: the same chain (its newest transaction is the account's
+            // last one), contiguous from there down past the lookback, and down to the lock (downToLt,
+            // downToTime) when one is asked for, so it is never merged with pages read elsewhere. A
+            // read from a cursor never takes it.
+            if (from === undefined && deps.archivePage !== undefined) {
               const archived = await deps.archivePage(address, hipo)
               const newest = archived?.[0]
-              if (newest !== undefined && newest.lt === lastLt && newest.now < blockTime - LOOKBACK) {
-                return {
-                  blockTime,
-                  balance,
-                  lastLt,
-                  txs: archived!,
-                  coveredFrom: archived![archived!.length - 1].lt,
-                  reachedLookback: true,
-                }
+              const oldest = archived?.[archived.length - 1]
+              // What the archive alone decides is narrowed: its page must be in order (lt falling, time
+              // never rising), and every transaction the v4 node already gave inside its range must be
+              // in it unchanged (time and matches).
+              const ordered = archived?.every(
+                (tx, i) => i === 0 || (tx.lt < archived[i - 1].lt && tx.now <= archived[i - 1].now),
+              )
+              const agrees =
+                oldest !== undefined &&
+                txs
+                  .filter((tx) => tx.lt >= oldest.lt)
+                  .every((tx) => {
+                    const same = archived!.find((other) => other.lt === tx.lt)
+                    return (
+                      same !== undefined &&
+                      same.now === tx.now &&
+                      JSON.stringify(same.matches) === JSON.stringify(tx.matches)
+                    )
+                  })
+              // No gap: each transaction's previous one (lt and hash) is the next on the page. And the newest is the
+              // account's last transaction by hash, not by lt alone.
+              const linked = archived?.every(
+                (tx, i) =>
+                  tx.prevLt !== undefined &&
+                  (i === archived.length - 1 ||
+                    (tx.prevLt === archived[i + 1].lt && tx.prevHash === archived[i + 1].hash)),
+              )
+              if (
+                newest !== undefined &&
+                oldest !== undefined &&
+                ordered === true &&
+                linked === true &&
+                newest.hash === account.account.last.hash &&
+                agrees &&
+                newest.lt === lastLt &&
+                oldest.now < blockTime - LOOKBACK &&
+                (options.downToLt === undefined || oldest.lt <= options.downToLt) &&
+                (options.downToTime === undefined || oldest.now < options.downToTime)
+              ) {
+                return { blockTime, balance, lastLt, txs: archived!, coveredFrom: oldest.lt, reachedLookback: true }
               }
             }
             throw new ChainReadError('readFailed')
