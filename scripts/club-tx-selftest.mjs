@@ -36,10 +36,12 @@ import {
   createChainReader,
   judgeChain,
   judgeLock,
+  lockCovered,
   matchOfBody,
   readLocks,
   removeLock,
   sendClubPayment,
+  settleDueClaimLocks,
   writeLock,
 } from '../src/components/app/club/payments.ts'
 
@@ -886,9 +888,28 @@ await check('reader: the archive is refused unless it is the same chain and past
     }).read(CLUB),
     (e) => e instanceof ChainReadError && e.failure === 'readFailed',
   )
-  // a read that must reach a lock, or continues from a cursor, never takes the archive
+  // a read that must reach a lock with transactions since it, or by time alone, never takes the archive
   await fails({ archivePage: archiveOf(old) }, { downToLt: old[2].lt })
   await fails({ archivePage: archiveOf(old) }, { downToTime: T0 - 3 * LOOKBACK })
+  await fails({ archivePage: archiveOf(old) }, { downToLt: old[0].lt - 1n, downToTime: T0 - 600 })
+})
+
+await check('reader: a lock with nothing since it on an idle wallet is read from the archive', async () => {
+  const old = chainOf(3).map((tx) => ({ ...tx, now: tx.now - 2 * LOOKBACK }))
+  const reader = createChainReader({
+    tonClient: () => idle(old),
+    parseAddress: (v) => Address.parse(v),
+    archivePage: archiveOf(old),
+  })
+  const result = await reader.read(CLUB, { downToLt: old[0].lt, downToTime: T0 - 600 })
+  assert.equal(result.reachedLookback, true)
+  assert.equal(result.lastLt, old[0].lt)
+  const lock = { id: 'b'.repeat(32), account: '42', target: 'claim', validUntil: T0 - 300, created: T0 - 600 }
+  assert.equal(lockCovered({ ...lock, startLt: old[0].lt.toString() }, result), true)
+  assert.deepEqual(judgeLock({ ...lock, startLt: old[0].lt.toString() }, result, { claims: [] }, new Set()), {
+    kind: 'released',
+    by: 'chain',
+  })
 })
 
 await check(
@@ -1172,6 +1193,99 @@ await check('continueLockRead: nothing more is read, or stored, before validUnti
   assert.equal(out, r)
   assert.equal(reads, 0)
   assert.equal(readLocks(store)[0].resume, undefined)
+})
+
+// ------------------------------------------------- claim locks settled on load (2026-11-01)
+
+// A claim lock from a request the wallet never answered, created at T0 - 600, due at T0 - 240.
+function dueClaimLock(over = {}) {
+  return {
+    id: 'e'.repeat(32),
+    account: '42',
+    target: 'claim',
+    validUntil: T0 - 300,
+    created: T0 - 600,
+    startLt: '1000',
+    wallet: CLUB.toRawString(),
+    ...over,
+  }
+}
+
+function loadCtx(store, over = {}) {
+  const ctx = context({ store, ctx: { webLocks: null, ...over } })
+  ctx.reads = []
+  const chainRead = over.chainRead ?? (async () => read({ lastLt: 1000n }))
+  ctx.chain = { read: async (address, options) => (ctx.reads.push({ address, options }), chainRead(address, options)) }
+  return ctx
+}
+
+const noEvidence = { clubLevel: 3, claims: [] }
+
+await check('load: a due claim lock with nothing landed is released, read from its own wallet', async () => {
+  const store = new MemoryStore()
+  writeLock(store, dueClaimLock())
+  const ctx = loadCtx(store)
+  assert.equal(await settleDueClaimLocks(ctx, CLUB, noEvidence), true)
+  assert.equal(readLocks(store).length, 0)
+  assert.equal(ctx.reads.length, 1)
+  assert.ok(ctx.reads[0].address.equals(CLUB))
+  assert.deepEqual(ctx.reads[0].options, { downToLt: 1000n, downToTime: T0 - 660 })
+})
+
+await check('load: a claim lock before validUntil + 60 is not read and kept', async () => {
+  const store = new MemoryStore()
+  writeLock(store, dueClaimLock({ validUntil: T0 + 5 - 59 }))
+  const ctx = loadCtx(store)
+  assert.equal(await settleDueClaimLocks(ctx, CLUB, noEvidence), false)
+  assert.equal(readLocks(store).length, 1)
+  assert.equal(ctx.reads.length, 0)
+})
+
+await check('load: a due claim lock whose claim landed in the last 24 h is kept (on its way)', async () => {
+  const store = new MemoryStore()
+  writeLock(store, dueClaimLock())
+  const ctx = loadCtx(store, { chainRead: async () => read({ lastLt: 1001n, txs: [claimTx(T0 - 500, 1001n)] }) })
+  assert.equal(await settleDueClaimLocks(ctx, CLUB, noEvidence), false)
+  assert.equal(readLocks(store).length, 1)
+})
+
+await check('load: a failed, stale or uncovering read keeps the lock', async () => {
+  for (const chainRead of [
+    async () => {
+      throw new ChainReadError('readFailed')
+    },
+    async () => read({ blockTime: T0 + 5 - 61, lastLt: 1000n }),
+  ]) {
+    const store = new MemoryStore()
+    writeLock(store, dueClaimLock())
+    assert.equal(await settleDueClaimLocks(loadCtx(store, { chainRead }), CLUB, noEvidence), false)
+    assert.equal(readLocks(store).length, 1)
+  }
+})
+
+await check('load: upgrade locks are left alone; a lock of another account too', async () => {
+  const store = new MemoryStore()
+  writeLock(store, dueClaimLock({ id: 'f'.repeat(32), target: 4 }))
+  writeLock(store, dueClaimLock({ id: 'a'.repeat(32), account: '43' }))
+  const ctx = loadCtx(store)
+  assert.equal(await settleDueClaimLocks(ctx, CLUB, noEvidence), false)
+  assert.equal(readLocks(store).length, 2)
+  assert.equal(ctx.reads.length, 0)
+})
+
+await check('load: nothing runs while another tab holds the payment Web Lock', async () => {
+  const store = new MemoryStore()
+  writeLock(store, dueClaimLock())
+  const busy = { request: async (_name, _options, callback) => callback(null) }
+  const ctx = loadCtx(store, { webLocks: busy })
+  assert.equal(await settleDueClaimLocks(ctx, CLUB, noEvidence), false)
+  assert.equal(readLocks(store).length, 1)
+  assert.equal(ctx.reads.length, 0)
+  let name
+  const free = { request: async (n, _options, callback) => ((name = n), callback({})) }
+  assert.equal(await settleDueClaimLocks(loadCtx(store, { webLocks: free }), CLUB, noEvidence), true)
+  assert.equal(name, PAY_WEB_LOCK + '42')
+  assert.equal(readLocks(store).length, 0)
 })
 
 // ------------------------------------------------- the server's "payment in progress" record

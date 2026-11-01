@@ -54,10 +54,13 @@ import {
   archiveFirstPage,
   createChainReader,
   intentCovers,
+  claimLockDue,
   locksFor,
   readLocks,
   sendClubPayment,
+  settleDueClaimLocks,
   settleLocks,
+  type AppliedEvidence,
   type GuardOverview,
   type GuardStatus,
   type KeyValueStore,
@@ -84,6 +87,8 @@ const FINISHING_FOR = 3 * 60_000
 // when it closed without a wallet (cancelled) or with one whose proof has not come yet.
 const PROOF_AFTER_CANCEL = 5_000
 const PROOF_AFTER_SELECT = 120_000
+// How often a load may check the due claim locks on the chain (settleDueClaimLocks).
+const CLAIM_LOCK_CHECK_EVERY = 5 * 60_000
 // Revenue share: offered from 10 GRAM; the server deducts 0.5 GRAM (withdrawrewards.go:61).
 export const REVENUE_MIN = 10
 export const REVENUE_FEE = 0.5
@@ -264,6 +269,10 @@ export class ClubModel {
   // One immediate retry with the stored token after a refused widget or initData (loadFailed).
   private retriedBadAuth = false
   private pendingWidget?: Record<string, unknown>
+  // A load's check of the due claim locks on the chain (settleDueClaimLocks), while it runs: the next
+  // load skips it and a payment press waits for it. At most one check per CLAIM_LOCK_CHECK_EVERY.
+  private claimLockCheck?: Promise<void>
+  private claimLockCheckedAt = 0
   private timers: ReturnType<typeof setTimeout>[] = []
   private pollTimer?: ReturnType<typeof setTimeout>
   private loadSeq = 0
@@ -973,6 +982,7 @@ export class ClubModel {
       }
     })
     this.settleLocksFromServer()
+    void this.settleDueClaimLocks()
     // The revenue-share balance and the base GRAM history of the Club wallet (/wallet-rewards).
     const club = this.parse(overview.clubWallet)
     if (club !== undefined && this.walletRewardsFor !== club.toRawString()) {
@@ -1121,6 +1131,50 @@ export class ClubModel {
     runInAction(() => {
       this.claimOnItsWay = claimHeld ? (this.claimOnItsWay ?? Math.floor(Date.now() / 1000)) : undefined
     })
+  }
+
+  // A claim lock past its deadline is judged on the chain at a load, at most every
+  // CLAIM_LOCK_CHECK_EVERY, not only in the guard: the guard runs on the Claim press, which the lock
+  // itself turns off. Nothing is loaded unless such a lock is held; a failure keeps the lock for a
+  // later load.
+  private async settleDueClaimLocks() {
+    const account = this.session?.account
+    const club = this.parse(this.overview?.clubWallet)
+    const now = this.serverNow()
+    if (account === undefined || club === undefined || now === undefined || this.claimLockCheck !== undefined) {
+      return
+    }
+    if (Date.now() - this.claimLockCheckedAt < CLAIM_LOCK_CHECK_EVERY) {
+      return
+    }
+    if (!locksFor(this.storage, account, 'claim').some((lock) => claimLockDue(lock, now))) {
+      return
+    }
+    const o = this.overview!
+    const evidence = {
+      clubLevel: this.status?.clubLevel,
+      claims: [...(o.claimInProgress ? [o.claimInProgress] : []), ...o.recentClaims],
+    }
+    this.claimLockCheckedAt = Date.now()
+    this.claimLockCheck = this.checkDueClaimLocks(account, club, evidence)
+    await this.claimLockCheck
+  }
+
+  private async checkDueClaimLocks(account: string, club: Address, evidence: AppliedEvidence) {
+    try {
+      const ctx = await this.paymentContext()
+      // The account, the Club wallet and the evidence were read before that await.
+      if (ctx.account !== account) {
+        return
+      }
+      if (await settleDueClaimLocks(ctx, club, evidence)) {
+        this.settleLocksFromServer()
+      }
+    } catch {
+      // Kept: the next load, or the guard on a press, tries again.
+    } finally {
+      this.claimLockCheck = undefined
+    }
   }
 
   async loadRewards() {
@@ -1990,6 +2044,9 @@ export class ClubModel {
     this.setBusy(true)
     this.setError(undefined)
     const before = this.overview
+    // This tab's check of the due claim locks holds the payment Web Lock; the guard would be refused
+    // as "locked" while it runs.
+    await this.claimLockCheck
     const result = await sendClubPayment(await this.paymentContext(), kind, snapshot)
     this.setBusy(false)
     switch (result.outcome) {

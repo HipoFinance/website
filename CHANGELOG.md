@@ -9,6 +9,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-01 — A claim the wallet never sent no longer leaves the Club page "on its way" for good
+
+- A member pressed Claim, the wallet never sent the fee, and the page kept "Your claim is on its way" with Claim off: the page's local claim lock was released by the chain only in the payment guard, which runs on the Claim press that the lock itself turns off.
+- Each Club load now judges every claim lock past its validUntil + 60 s (server time) on a chain read of the wallet that paid it, with the guard's own `judgeLock` and paging, and drops it when nothing landed; a lock whose fee landed, a younger lock, or a failed or stale read is kept as before (`settleDueClaimLocks` in `club/payments.ts`, called from `ClubModel.load`).
+- It runs at most once every 5 minutes per tab, under the guard's Web Lock, and skips while another tab is in the guard; a Claim or Upgrade press in the same tab waits for it rather than being refused as "on its way". It sends nothing. Upgrade locks are left out, because the Upgrade press is not turned off by them and its guard releases them.
+- The chain reader now takes the archive's first page also for a read that must reach a lock when the wallet has no transaction since the lock (its last lt is at or below the lock's startLt): the v4 node keeps about 16 h, so an idle wallet with a lock always failed as `readFailed`, on load and on the press alike; the archive is still taken only when its newest transaction is the account's last one and older than 24 h.
+- Release (3) at validUntil + 60 relies on the server's payment-in-progress record (open to validUntil + 1260) more than on the wallet: Tonkeeper Web signs its own 300 s expiry from chain time, not the request's validUntil (money audit note, accepted).
+- Eight new checks in `scripts/club-tx-selftest.mjs`; checked live on the member's wallet (read only): the old reader failed, the new one releases the lock. Left open: a claim fee that landed more than 24 h ago and was never applied still keeps the page "on its way" and never reaches its "wasn't applied; contact support" step, for the same reason.
+
 ## 2026-11-01 — Connect buttons say "Connecting…" while a stored wallet restores
 
 - With a stored TonConnect session the app restores the wallet on open (TonConnect and chain chunks, the wallet list, the bridge), which can take long on a slow network; meanwhile the Mini App header pill, the Club "Connect wallet" and the Rewards Connect stayed pressable, and a press only joined the restore and then did nothing (seen in the Mini App as "Connect does not work").

@@ -533,8 +533,14 @@ export function createChainReader(deps: ChainDeps): ChainReader {
             // no lock to reach) takes the first page from the archive instead, but only when it is the
             // same chain (its newest transaction is the account's last one) and that transaction is
             // already past the lookback, so the page is the whole read the v4 path would have made.
-            const plain = page === 0 && from === undefined && options.downToLt === undefined
-            if (plain && options.downToTime === undefined && deps.archivePage !== undefined) {
+            // A read that must reach a lock may too when the account's last transaction is at or below
+            // the lock's startLt: nothing happened since the lock, so the archive page covers it (an
+            // idle wallet whose request never landed, a member's report of 2026-11-01).
+            const plain =
+              page === 0 &&
+              from === undefined &&
+              (options.downToLt === undefined ? options.downToTime === undefined : lastLt <= options.downToLt)
+            if (plain && deps.archivePage !== undefined) {
               const archived = await deps.archivePage(address, hipo)
               const newest = archived?.[0]
               if (newest !== undefined && newest.lt === lastLt && newest.now < blockTime - LOOKBACK) {
@@ -1061,6 +1067,84 @@ export async function settleLocksWithChain(
     }
   }
   return { held, verdict }
+}
+
+/** A claim lock whose request can no longer land by `now` (server time): validUntil + 60 is past. */
+export function claimLockDue(lock: PendingLock, now: number): boolean {
+  return now >= lock.validUntil + LAND_MARGIN
+}
+
+/**
+ * §6 step 6 (3) when the page loads, for claim locks only. While a claim lock is held the page shows
+ * "on its way" and turns Claim off, and the guard that releases a lock runs only on that press, so a
+ * request that never landed (the wallet never answered) kept the member there for good (a member's
+ * report, 2026-11-01). Each claim lock past validUntil + 60 is judged here on a read of the wallet
+ * that paid it, paged on as in the guard; a younger lock, or a read that fails, is kept for the next
+ * load or the guard. It runs under the guard's Web Lock, and not at all while another tab of this
+ * browser is in the guard. Returns whether a lock was released.
+ */
+export async function settleDueClaimLocks(
+  ctx: Pick<PaymentContext, 'account' | 'chain' | 'store' | 'parseAddress' | 'serverNow' | 'webLocks'>,
+  clubWallet: Address,
+  evidence: AppliedEvidence,
+): Promise<boolean> {
+  const account = ctx.account
+  if (account === undefined) {
+    return false
+  }
+  const run = async () => {
+    const now = ctx.serverNow()
+    if (now === undefined) {
+      return false
+    }
+    let released = false
+    for (const lock of locksFor(ctx.store, account, 'claim').filter((lock) => claimLockDue(lock, now))) {
+      // A lock without a wallet (old locks) is judged on the Club wallet's read, as in the guard.
+      const address = lock.wallet !== undefined ? ctx.parseAddress(lock.wallet) : clubWallet
+      if (address === undefined) {
+        continue
+      }
+      let read: ChainRead
+      try {
+        read = await ctx.chain.read(address, {
+          downToLt: lockStartLt(lock),
+          downToTime: lock.created - CHAIN_TIME_SKEW,
+        })
+      } catch {
+        continue
+      }
+      if (chainReadProblem(read, ctx.serverNow() ?? now) !== undefined) {
+        continue
+      }
+      const acks = readAcks(ctx.store)
+      let judged = judgeLock(lock, read, evidence, acks)
+      if (judged.kind === 'keep' && judged.why === 'waiting') {
+        judged = judgeLock(lock, await continueLockRead(ctx, address, lock, read), evidence, acks)
+      }
+      if (judged.kind === 'released') {
+        removeLock(ctx.store, lock)
+        released = true
+      }
+    }
+    return released
+  }
+  const locks = ctx.webLocks === undefined ? defaultWebLocks() : ctx.webLocks
+  if (locks === null) {
+    return run()
+  }
+  let ran = false
+  try {
+    return await locks.request(PAY_WEB_LOCK + account, { ifAvailable: true }, async (held) => {
+      ran = true
+      return held == null ? false : run()
+    })
+  } catch (e) {
+    // The Web Lock itself failed (a sandboxed frame): run without it, once.
+    if (ran) {
+      throw e
+    }
+    return run()
+  }
 }
 
 /**
