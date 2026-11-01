@@ -570,7 +570,6 @@ export class ClubMock implements ClubTransport {
           ...head,
           id,
           kind: release ? 'release' : a.clubWallet === undefined ? 'link' : 'switch',
-          claims_from_wallet_void: false,
           club_wallet_masked: a.clubWallet === undefined ? undefined : this.mask(a.clubWallet),
           new_wallet: to,
           new_wallet_masked: to === undefined ? undefined : this.mask(to),
@@ -580,7 +579,6 @@ export class ClubMock implements ClubTransport {
           new_wallet_hpo: release ? undefined : hpo(newHpo),
           below_minimum: !release && newHpo < a.minimum,
           counted_hpo: release ? hpo(0) : undefined,
-          claims_open_at: release || a.clubWallet === undefined ? undefined : now + DAY,
           expires_at: expiresAt,
         }
       }
@@ -606,10 +604,9 @@ export class ClubMock implements ClubTransport {
           a.clubWallet = undefined
           a.holdings = 0
         } else {
-          const initial = a.clubWallet === undefined
           a.clubWallet = intent.to
           a.holdings = meets ? a.minimum + 4210.66 : Math.max(0, a.minimum - 11873.4)
-          a.claimsOpenAt = initial ? undefined : now + DAY
+          a.claimsOpenAt = now + 60
         }
         if (a.holdings < a.minimum && a.state === 'ok') {
           a.state = 'grace'
@@ -683,8 +680,6 @@ export class ClubMock implements ClubTransport {
       gate = { ok: false, reason: 'frozen' }
     } else if (a.switchPending) {
       gate = { ok: false, reason: 'switch_pending' }
-    } else if (a.claimsOpenAt !== undefined && a.claimsOpenAt > now) {
-      gate = { ok: false, reason: 'link_wait', opens_at: a.claimsOpenAt }
     } else if (a.unclaimed < 100) {
       gate = { ok: false, reason: 'below_min' }
     }
@@ -756,7 +751,7 @@ export class ClubMock implements ClubTransport {
       claim_min: 100,
       last_round_hpo: perRound(coefficient),
       claim: gate,
-      claims_open_at: a.claimsOpenAt !== undefined && a.claimsOpenAt > now ? a.claimsOpenAt : undefined,
+      claims_open_at: a.claimsOpenAt !== undefined && now < a.claimsOpenAt + 60 ? a.claimsOpenAt : undefined,
       claim_in_progress:
         a.inProgress === undefined
           ? undefined

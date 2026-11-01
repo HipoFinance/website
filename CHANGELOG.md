@@ -9,6 +9,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-01 — Club wallet switch without the takeover protection
+
+- The Club page no longer asks for a fresh Telegram login before a wallet change, and drops the switch-back and "claim fee won't be paid" warnings and the "Claims open on {date}" line, because club-server dropped the takeover protection (Alireza's decision; the stolen-session risk is accepted).
+- After a change the Claim button shows "Claim opens in m:ss" for about two minutes, counted by server time and re-rendered each second, and turns on by itself; the margin covers the gap between the server and chain clocks.
+- A reason this page has no sentence for, as an older server would send, shows the generic gate or error sentence instead of a raw key.
+- `club.claim.opensIn` added and seven keys removed in all eleven locales (fr: "Réclamation possible dans {time}").
+- Reviewed by a code review (2 rounds) and the money audit twice, with no confirmed failing case.
+- Spec: club-server `specs/club-switch-drop-takeover-protection.md`.
+
 ## 2026-11-01 — Claim works for a wallet used in the last 24 hours
 
 - Members whose wallet had any transaction in the last day could not claim: the claim dialog said "Couldn't check your wallet's recent payments" (two members confirmed in Hipo Chat, 149559 and 149555). Before a send the page reads the wallet's last 24 h from `v4.hipo.finance`, which keeps about 16 h, so the page older than that failed; the archive fallback was allowed only for a wallet idle more than 24 h.

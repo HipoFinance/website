@@ -1111,6 +1111,10 @@
     "sourceHash": "06b0812356e140af7540568c52c2e9fe9f6707e2",
     "reviewed": false
   },
+  "club.claim.opensIn": {
+    "sourceHash": "5b975560efe0e2f529837d2cff954c86b0985756",
+    "reviewed": false
+  },
   "club.claim.perRound": {
     "sourceHash": "078bb31d844ea5942439e40064da07a8ea8b56c1",
     "reviewed": false
@@ -1419,10 +1423,6 @@
     "sourceHash": "02acc79b7685a024da7274f89f5d24c4db4d292d",
     "reviewed": false
   },
-  "club.error.reauth": {
-    "sourceHash": "dde601a4f66f06fa643b19b817cc0d18afd687f6",
-    "reviewed": false
-  },
   "club.error.rejected": {
     "sourceHash": "9b929c48a66a445763ac373b2d0a4c3b6f2ab6d3",
     "reviewed": false
@@ -1465,10 +1465,6 @@
   },
   "club.error.walletChanged": {
     "sourceHash": "4390b614be9e7e52f57874b52f339f03d9356934",
-    "reviewed": false
-  },
-  "club.error.walletChangedHands": {
-    "sourceHash": "e615a31dc4c900b431e6eb567f04f0a859aa66a6",
     "reviewed": false
   },
   "club.error.walletError": {
@@ -1639,20 +1635,12 @@
     "sourceHash": "c8c27cf9c94e06d39269334290609467125d01bc",
     "reviewed": false
   },
-  "club.gate.linkWait": {
-    "sourceHash": "73feab2dfaa1e6a19434342661572b28a7869d05",
-    "reviewed": false
-  },
   "club.gate.noLink": {
     "sourceHash": "1288a67351822899e720b514c52bc8464acbef32",
     "reviewed": false
   },
   "club.gate.noWallet": {
     "sourceHash": "6654d1d7deaf47293aef6848df609cb7bffd3905",
-    "reviewed": false
-  },
-  "club.gate.revertHold": {
-    "sourceHash": "e26b0a75a0bfa309ec41e927ce2416aa0d8d541c",
     "reviewed": false
   },
   "club.gate.switchPending": {
@@ -2159,10 +2147,6 @@
     "sourceHash": "c7f7c11c657f227711dcd18cd17eabc76919ef1c",
     "reviewed": false
   },
-  "club.modal.confirm.claimsOpen": {
-    "sourceHash": "fa4d4741dd0331a59092d3089eb8885bb0da0c66",
-    "reviewed": false
-  },
   "club.modal.confirm.eligible": {
     "sourceHash": "481b0edd0f981cb8309f2e6cc1f32084885b75d7",
     "reviewed": false
@@ -2205,14 +2189,6 @@
   },
   "club.modal.confirm.titleFirst": {
     "sourceHash": "7558ee0344f113004ff747ed888e47dafbc625ad",
-    "reviewed": false
-  },
-  "club.modal.confirm.void": {
-    "sourceHash": "4764aa08875a9587beb7d298636b4b6d587ad3ee",
-    "reviewed": false
-  },
-  "club.modal.confirm.voidPayment": {
-    "sourceHash": "b09228e3cb60b370455ee089a0b8cfdf2fd76d84",
     "reviewed": false
   },
   "club.modal.confirm.wallet": {

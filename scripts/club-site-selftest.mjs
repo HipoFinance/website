@@ -35,7 +35,7 @@ function check(name, fn) {
 // ------------------------------------------------------------------------------------ the gate
 
 // The claim gate reasons spec 2b sends (§6a).
-const REASONS = ['in_progress', 'frozen', 'switch_pending', 'link_wait', 'revert_hold', 'below_min', 'no_link']
+const REASONS = ['in_progress', 'frozen', 'switch_pending', 'below_min', 'no_link']
 
 check('every claim gate sentence is shown with its date, never a literal {date}', () => {
   const overview = { claim: { ok: false, opensAt: 1793500000 }, claimsOpenAt: 1793400000 }
@@ -46,10 +46,8 @@ check('every claim gate sentence is shown with its date, never a literal {date}'
     const text = interpolate(club[key], { date: String(dateAt) })
     assert.ok(!/[{}]/.test(text), `${key}: ${text}`)
   }
-  assert.equal(gateMessage('link_wait', overview).key, 'club.gate.linkWait')
-  assert.equal(gateMessage('link_wait', overview).dateAt, 1793500000)
   // No opens_at on the gate: claims_open_at.
-  assert.equal(gateMessage('revert_hold', { claim: { ok: false }, claimsOpenAt: 1793400000 }).dateAt, 1793400000)
+  assert.equal(gateMessage('below_min', { claim: { ok: false }, claimsOpenAt: 1793400000 }).dateAt, 1793400000)
 })
 
 // ------------------------------------------------------- the server's "payment in progress" record
@@ -176,14 +174,13 @@ check('a flag the config and the pages would read differently stops the build', 
   assert.deepEqual(build({ PUBLIC_CLUB: '1' }, { PUBLIC_CLUB: '1' }), [])
 })
 
-check('a wallet change is decided by the server: no local block, undo warning and new sentences exist', () => {
+check('a wallet change is decided by the server: no local block and no undo warning exist', () => {
   const model = readFileSync(new URL('../src/components/app/club/ClubModel.ts', import.meta.url), 'utf8')
   assert.ok(!model.includes('paymentBlocksWalletChange'))
   assert.ok(club['club.error.paymentInProgress'] && !/25 min/.test(JSON.stringify(club)))
   assert.match(club['club.error.walletChanged'], /Club wallet changed/)
-  assert.match(club['club.modal.confirm.voidPayment'], /may not count after this change/)
-  const modals = readFileSync(new URL('../src/components/app/club/Modals.tsx', import.meta.url), 'utf8')
-  assert.equal(modals.split('club.modal.confirm.voidPayment').length - 1, 2)
+  assert.ok(club['club.modal.confirm.void'] === undefined && club['club.modal.confirm.voidPayment'] === undefined)
+  assert.match(club['club.claim.opensIn'], /\{time\}/)
 })
 
 console.log(`club-site-selftest: ${count} checks passed`)

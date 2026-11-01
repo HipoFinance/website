@@ -198,10 +198,6 @@ const Confirm = observer(({ club, modal }: Props & { modal: Extract<Modal, { kin
           {Number(p.minimum ?? '0') > 0 && ' ' + t('club.modal.release.grace')}
           {' ' + t('club.modal.release.after', { name })}
         </p>
-        {p.claimsFromWalletVoid && <p className='text-tone-warn-fg text-sm'>{t('club.modal.confirm.void')}</p>}
-        {p.claimsFromWalletVoid && club.paymentOpen && (
-          <p className='text-tone-warn-fg text-sm'>{t('club.modal.confirm.voidPayment')}</p>
-        )}
         <ErrorLine>
           {club.actionError !== undefined ? t(club.actionError.key, club.actionError.params) : undefined}
         </ErrorLine>
@@ -279,15 +275,6 @@ const Confirm = observer(({ club, modal }: Props & { modal: Extract<Modal, { kin
           ? t('club.modal.confirm.firstNote', { name })
           : t('club.modal.confirm.note', { old: p.clubWalletMasked ?? '—', amount: club.amount2(o?.unclaimed), name })}
       </p>
-      {p.claimsOpenAt !== undefined && (
-        <p className='text-text-muted text-sm'>
-          {t('club.modal.confirm.claimsOpen', { date: club.date(p.claimsOpenAt, true) })}
-        </p>
-      )}
-      {p.claimsFromWalletVoid && <p className='text-tone-warn-fg text-sm'>{t('club.modal.confirm.void')}</p>}
-      {p.claimsFromWalletVoid && club.paymentOpen && (
-        <p className='text-tone-warn-fg text-sm'>{t('club.modal.confirm.voidPayment')}</p>
-      )}
       <ErrorLine>
         {club.actionError !== undefined ? t(club.actionError.key, club.actionError.params) : undefined}
       </ErrorLine>

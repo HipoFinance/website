@@ -77,8 +77,6 @@ type Mock = InstanceType<MockModule['ClubMock']>
 export type ClubTab = 'overview' | 'rewards' | 'friends' | 'community'
 
 const SESSION_KEY = 'hipo.club.session'
-// The steps a `reauth` refusal can stop: a click on another step's button drops the stored one.
-type ReauthStep = 'link' | 'confirm' | 'release'
 const OVERVIEW_POLL = 30_000
 const NOT_OPEN_POLL = 60_000
 const FINISHING_POLL = 15_000
@@ -255,9 +253,6 @@ export class ClubModel {
   modal?: Modal
   notice?: Notice
   actionError?: ActionError
-  // The step a `reauth` refusal stopped. The member's next click on the dialog's button logs in to
-  // Telegram and repeats it: the login popup has to open from a click, or the browser blocks it.
-  reauthRetry?: { step: ReauthStep; run: () => Promise<void> | void }
   busy = false
   decidedLater = false
   promptedMismatchFor?: string
@@ -313,7 +308,6 @@ export class ClubModel {
       modal: observable.ref,
       notice: observable.ref,
       actionError: observable.ref,
-      reauthRetry: observable.ref,
       busy: observable,
       decidedLater: observable,
       claimOnItsWay: observable,
@@ -641,20 +635,27 @@ export class ClubModel {
     if (b < CLAIM_MIN_NANO) {
       return { key: 'club.claim.opensAtMin' }
     }
+    // Reading tick makes the countdown re-render every second and the button turn on at zero by itself.
+    void this.tick
     const now = this.serverNow()
     if (now === undefined) {
       return { key: 'club.claim.loading' }
     }
     if (o.claimsOpenAt !== undefined && now < o.claimsOpenAt + CLAIMS_OPEN_MARGIN) {
-      return { key: 'club.gate.linkWait', params: { date: this.date(o.claimsOpenAt + CLAIMS_OPEN_MARGIN, true) } }
+      const left = Math.max(0, Math.ceil(o.claimsOpenAt + CLAIMS_OPEN_MARGIN - now))
+      const time = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`
+      return { key: 'club.claim.opensIn', params: { time } }
     }
     return undefined
   }
 
-  // The sentence of a claim gate reason (cluboverview `claim.reason`), with the date the link_wait and
-  // revert_hold sentences name: the gate's `opens_at`, else `claims_open_at`.
+  // The sentence of a claim gate reason (cluboverview `claim.reason`), with the gate's `opens_at` as
+  // {date}; a reason this page has no sentence for (an older server's) gets the generic one.
   gateError(reason: string): ActionError {
     const { key, dateAt } = gateMessage(reason, this.overview)
+    if (!this.translator.has(key)) {
+      return { key: 'club.gate.unknown' }
+    }
     return { key, params: { date: this.date(dateAt, true) } }
   }
 
@@ -1279,7 +1280,6 @@ export class ClubModel {
 
   openModal(modal: Modal) {
     this.actionError = undefined
-    this.reauthRetry = undefined
     this.modal = modal
   }
 
@@ -1288,7 +1288,6 @@ export class ClubModel {
     this.proofWait?.end()
     this.modal = undefined
     this.actionError = undefined
-    this.reauthRetry = undefined
     this.busy = false
   }
 
@@ -1297,6 +1296,10 @@ export class ClubModel {
   }
 
   setError(error: ActionError | undefined) {
+    // A refusal reason this page has no sentence for (an older server's) gets the generic one.
+    if (error !== undefined && error.key.startsWith('club.error.') && !this.translator.has(error.key)) {
+      error = { key: 'club.error.retry' }
+    }
     this.actionError = error
   }
 
@@ -1432,7 +1435,6 @@ export class ClubModel {
     runInAction(() => {
       this.decidedLater = false
       this.modal = undefined
-      this.reauthRetry = undefined
       this.busy = false
     })
     void this.load()
@@ -1442,9 +1444,6 @@ export class ClubModel {
 
   // Start linking or switching to a wallet: a fresh TON Connect connect with a ton_proof (§4).
   async startLink(flow: Flow) {
-    if (this.reauthOnClick('link')) {
-      return
-    }
     this.openModal({ kind: 'connect', flow, reconnect: false })
     const attempt = ++this.linkAttempt
     this.setBusy(true)
@@ -1454,7 +1453,7 @@ export class ClubModel {
         return
       }
       if (!challenge.ok || challenge.payload === undefined) {
-        this.refusal(challenge.reason, 'link', () => this.startLink(flow))
+        this.refusal(challenge.reason)
         return
       }
       const proof = await this.requestProof(challenge.payload, attempt)
@@ -1470,7 +1469,7 @@ export class ClubModel {
         return
       }
       if (!prepare.ok) {
-        this.refusal(prepare.reason, 'link', () => this.startLink(flow))
+        this.refusal(prepare.reason)
         return
       }
       runInAction(() => {
@@ -1486,80 +1485,15 @@ export class ClubModel {
     }
   }
 
-  // A refusal reason's sentence; `reauth` reopens the Telegram login and repeats the step.
-  private refusal(reason: string | undefined, step: ReauthStep, repeat: () => Promise<void> | void) {
+  // A refusal reason's sentence.
+  private refusal(reason: string | undefined) {
     this.setBusy(false)
-    if (reason === 'reauth') {
-      runInAction(() => {
-        this.reauthRetry = { step, run: repeat }
-      })
-      this.setError({ key: 'club.error.reauth' })
-      if (this.mock === undefined) {
-        // Load the login now, so the popup opens right after the member's click.
-        void import('./telegramLogin.ts').then((m) => m.preloadTelegramLogin()).catch(() => undefined)
-      }
-      return
-    }
     if (reason === 'switch_limit') {
       const at = this.status?.nextSwitchAt
       this.setError({ key: 'club.error.switchLimit', params: { date: this.date(at, true) } })
       return
     }
     this.setError({ key: refusalKey(reason ?? 'retry') })
-  }
-
-  // Called first by each step a `reauth` refusal can stop, on the member's click: true when it took
-  // the click for the Telegram login instead. A click on another step's button drops the stored one.
-  private reauthOnClick(step: ReauthStep): boolean {
-    const stored = this.reauthRetry
-    if (stored === undefined) {
-      return false
-    }
-    runInAction(() => {
-      this.reauthRetry = undefined
-    })
-    if (stored.step !== step) {
-      return false
-    }
-    this.setError(undefined)
-    this.setBusy(true)
-    void this.reauthThen(stored)
-    return true
-  }
-
-  // The login, then the stored step, unless the dialog was closed or replaced meanwhile.
-  private async reauthThen(stored: { step: ReauthStep; run: () => Promise<void> | void }) {
-    const modal = this.modal
-    try {
-      const widget =
-        this.mock !== undefined
-          ? await this.mock.telegramLogin()
-          : await (await import('./telegramLogin.ts')).telegramLogin(this.model.locale)
-      if (this.modal !== modal) {
-        return
-      }
-      if (widget === undefined) {
-        runInAction(() => {
-          this.reauthRetry = stored
-        })
-        this.setBusy(false)
-        this.setError({ key: 'club.error.reauth' })
-        return
-      }
-      this.transport.close()
-      this.pendingWidget = widget as Record<string, unknown>
-      await this.req('clubstatus')
-      if (this.modal !== modal) {
-        return
-      }
-      await stored.run()
-    } catch {
-      if (this.modal !== modal) {
-        return
-      }
-      this.setBusy(false)
-      this.setError({ key: 'club.error.reauth' })
-    }
   }
 
   // TON Connect returns a ton_proof only when connecting: set the parameters, disconnect, open the
@@ -1684,9 +1618,6 @@ export class ClubModel {
   }
 
   async confirmChange() {
-    if (this.reauthOnClick('confirm')) {
-      return
-    }
     const modal = this.modal
     if (modal?.kind !== 'confirm' || modal.prepare.id === undefined) {
       return
@@ -1698,9 +1629,9 @@ export class ClubModel {
         await this.req(modal.release ? 'clubreleaseconfirm' : 'clublinkconfirm', { id: modal.prepare.id }),
       )
       if (!reply.ok) {
-        // The server used up this confirm's record when it refused it: after the login the step starts
-        // over with a fresh prepare.
-        this.refusal(reply.reason, 'confirm', () => (modal.release ? this.startRelease() : this.startLink(modal.flow)))
+        // The server used up this confirm's record when it refused it: a retry starts over with a fresh
+        // prepare.
+        this.refusal(reply.reason)
         return
       }
       if (reply.token !== undefined && this.session !== undefined) {
@@ -1812,15 +1743,12 @@ export class ClubModel {
   }
 
   async startRelease() {
-    if (this.reauthOnClick('release')) {
-      return
-    }
     this.setBusy(true)
     this.setError(undefined)
     try {
       const prepare = toPrepare(await this.req('clubreleaseprepare'))
       if (!prepare.ok) {
-        this.refusal(prepare.reason, 'release', () => this.startRelease())
+        this.refusal(prepare.reason)
         return
       }
       runInAction(() => {

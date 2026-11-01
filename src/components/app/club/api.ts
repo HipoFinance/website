@@ -134,7 +134,7 @@ export interface ClaimGate {
 
 /**
  * The sentence of a claim gate reason: its catalog key `club.gate.<reason in camelCase>` and the time
- * its {date} names (the gate's `opens_at`, else `claims_open_at`; link_wait and revert_hold need it).
+ * its {date} names (the gate's `opens_at`, else `claims_open_at`), for a sentence that has one.
  */
 export function gateMessage(
   reason: string,
@@ -571,8 +571,6 @@ export function toChallenge(body: unknown): ChallengeReply {
 export interface PrepareReply extends ReplyHead {
   id?: string
   kind?: string
-  revert: boolean
-  claimsFromWalletVoid: boolean
   clubWalletMasked?: string
   previousWalletMasked?: string
   newWallet?: string
@@ -583,7 +581,6 @@ export interface PrepareReply extends ReplyHead {
   newWalletHpo?: string
   belowMinimum: boolean
   countedHpo?: string
-  claimsOpenAt?: number
   expiresAt?: number
 }
 
@@ -593,8 +590,6 @@ export function toPrepare(body: unknown): PrepareReply {
     ...headOf(b),
     id: str(b.id),
     kind: str(b.kind),
-    revert: bool(b.revert),
-    claimsFromWalletVoid: bool(b.claims_from_wallet_void),
     clubWalletMasked: str(b.club_wallet_masked),
     previousWalletMasked: str(b.previous_wallet_masked),
     newWallet: str(b.new_wallet),
@@ -605,7 +600,6 @@ export function toPrepare(body: unknown): PrepareReply {
     newWalletHpo: str(b.new_wallet_hpo),
     belowMinimum: bool(b.below_minimum),
     countedHpo: str(b.counted_hpo),
-    claimsOpenAt: int(b.claims_open_at),
     expiresAt: int(b.expires_at),
   }
 }
