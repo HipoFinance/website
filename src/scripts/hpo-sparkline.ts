@@ -11,6 +11,11 @@
 // so no fake line or shape is ever drawn. A failed fetch shows the Stats page's error line in the
 // chart's place; fewer than two points shows its "no data" line.
 //
+// The line ends at the live price the card shows (hpo-data.js sets window.hpoLivePrice and fires
+// hpo:live-price): the query_range grid is snapped down to the step, so its last point is up to one
+// step old, while the card and CoinGecko show the live figure. A page left open refetches the range
+// when the live point drifts more than one step past the grid.
+//
 // The readout reuses the card's own price figure: while a point is picked, #hpoPrice shows that
 // point's price (the live text is kept in data-live and restored on leave; hpo-data.js writes a
 // refreshed price there meanwhile) and #hpoHoverTime shows its time where the range's change is.
@@ -22,6 +27,12 @@ import { LOCALES } from '../i18n/registry.mjs'
 import type { Locale } from '../i18n/locale.ts'
 import { formatDate, formatSignedPercent, formatUsdPrice } from '../i18n/format.ts'
 import { interpolate } from '../i18n/make-t.ts'
+
+declare global {
+  interface Window {
+    hpoLivePrice?: ChartPoint
+  }
+}
 
 const svgNs = 'http://www.w3.org/2000/svg'
 const height = 120
@@ -57,9 +68,11 @@ function init(svg: SVGSVGElement) {
 
   let range: StatsRange = defaultRange
   let loaded: Loaded | undefined
+  // The gauge's live price, appended to the grid's points by series() once it is newer than them.
+  let live: ChartPoint | undefined = validLive(window.hpoLivePrice)
   let failed = false
   let width = measure()
-  // The picked point, as an index into loaded.points.
+  // The picked point, as an index into series().
   let hovered: number | undefined
   // The hover marks of the current drawing, placed by applyHover.
   let marks: { group: SVGGElement; hairline: SVGLineElement; ring: SVGCircleElement; dot: SVGCircleElement } | undefined
@@ -82,6 +95,29 @@ function init(svg: SVGSVGElement) {
   // The range the drawing and the readout describe: the loaded one while a switch is in flight.
   function shown(): StatsRange {
     return loaded?.range ?? range
+  }
+
+  function validLive(p: ChartPoint | undefined): ChartPoint | undefined {
+    return p != null && Number.isFinite(p.t) && Number.isFinite(p.v) && p.v > 0 ? p : undefined
+  }
+
+  // The loaded points, with the live price after them when it is newer than the last of them.
+  function series(): ChartPoint[] {
+    if (loaded == null || loaded.points.length === 0) {
+      return []
+    }
+    const last = loaded.points[loaded.points.length - 1]
+    // Not across a gap: a live point the line cannot reach would still set the change and the axis.
+    return live !== undefined && live.t > last.t && live.t - last.t <= stepFor(loaded.range) * 2.5
+      ? [...loaded.points, live]
+      : loaded.points
+  }
+
+  // The right edge of the x axis: the live point when it is drawn, otherwise the grid's end.
+  function endT(): number {
+    const points = series()
+    const last = points[points.length - 1]
+    return loaded == null ? 0 : last !== undefined && last === live ? Math.max(loaded.end, last.t) : loaded.end
   }
 
   function rangeLabel(): string {
@@ -124,24 +160,36 @@ function init(svg: SVGSVGElement) {
     note.textContent = text ?? ''
   }
 
-  function load(next: StatsRange) {
+  // A silent load refreshes the shown range in place: no dimming, no change to the pressed pill.
+  function load(next: StatsRange, { silent = false }: { silent?: boolean } = {}) {
     range = next
-    for (const button of buttons) {
-      button.setAttribute('aria-pressed', String(button.dataset.range === next))
+    if (!silent) {
+      for (const button of buttons) {
+        button.setAttribute('aria-pressed', String(button.dataset.range === next))
+      }
     }
     const id = ++requestId
-    svg.style.opacity = '0.6'
-    queryRange(next)
+    if (!silent) {
+      svg.style.opacity = '0.6'
+    }
+    // A silent refresh skips the 5-minute client cache, which would hand back the same stale grid.
+    queryRange(next, undefined, { bustCache: silent })
       .then((result) => {
         if (id !== requestId) {
           return
         }
         const points = (result.series.hipo_hpo_current_price ?? []).filter((p) => Number.isFinite(p.v))
+        // The refreshed grid starts later, so a picked point is found again by its time, not its index.
+        const pickedT = silent && hovered !== undefined ? series()[hovered]?.t : undefined
         loaded = { range: next, points, start: result.start, end: result.end }
         failed = false
+        if (silent) {
+          hovered = pickedT === undefined ? undefined : nearest(pickedT)
+        }
       })
       .catch(() => {
-        if (id !== requestId) {
+        // A failed silent refresh keeps the line already drawn; the next live price retries it.
+        if (id !== requestId || silent) {
           return
         }
         loaded = undefined
@@ -152,7 +200,10 @@ function init(svg: SVGSVGElement) {
           return
         }
         svg.style.opacity = ''
-        hovered = undefined
+        // A silent refresh keeps the picked point (re-found by time above).
+        if (!silent) {
+          hovered = undefined
+        }
         draw()
       })
   }
@@ -186,7 +237,7 @@ function init(svg: SVGSVGElement) {
     marks = undefined
     svg.setAttribute('viewBox', `0 0 ${width} ${height}`)
 
-    const points = loaded?.points ?? []
+    const points = series()
     if (loaded == null || points.length < 2) {
       // A range with no line shows no change: not another window's, and not the baked figure, which is
       // as old as the last deploy and would sit beside the Live badge with nothing to refresh it.
@@ -201,7 +252,7 @@ function init(svg: SVGSVGElement) {
     showNote(undefined)
 
     const start = loaded.start
-    const spanT = loaded.end - start || 1
+    const spanT = endT() - start || 1
     const values = points.map((p) => p.v)
     const minV = Math.min(...values)
     const maxV = Math.max(...values)
@@ -280,7 +331,7 @@ function init(svg: SVGSVGElement) {
   // The index of the point nearest in time to t, or none when the nearest is across a gap: the
   // readout then says nothing rather than a figure from the far side of an outage.
   function nearest(t: number): number | undefined {
-    const points = loaded?.points ?? []
+    const points = series()
     if (points.length === 0) {
       return undefined
     }
@@ -306,7 +357,7 @@ function init(svg: SVGSVGElement) {
     }
     const rect = svg.getBoundingClientRect()
     const ratio = Math.min(1, Math.max(0, (clientX - rect.left) / (rect.width || 1)))
-    hovered = nearest(loaded.start + ratio * (loaded.end - loaded.start))
+    hovered = nearest(loaded.start + ratio * (endT() - loaded.start))
     applyHover()
   }
 
@@ -316,7 +367,7 @@ function init(svg: SVGSVGElement) {
   }
 
   function applyHover() {
-    const point = hovered === undefined ? undefined : loaded?.points[hovered]
+    const point = hovered === undefined ? undefined : series()[hovered]
     if (point === undefined || marks === undefined) {
       marks?.group.setAttribute('visibility', 'hidden')
       restoreLive()
@@ -409,7 +460,7 @@ function init(svg: SVGSVGElement) {
   })
 
   svg.addEventListener('keydown', (e) => {
-    const points = loaded?.points ?? []
+    const points = series()
     if (points.length === 0) {
       return
     }
@@ -426,6 +477,23 @@ function init(svg: SVGSVGElement) {
     applyHover()
   })
   svg.addEventListener('blur', clearHover)
+
+  window.addEventListener('hpo:live-price', (e) => {
+    live = validLive((e as CustomEvent<ChartPoint>).detail)
+    if (
+      live !== undefined &&
+      loaded != null &&
+      // Not while a range switch is in flight: refreshing the old range would cancel the switch.
+      loaded.range === range &&
+      !failed &&
+      hovered === undefined &&
+      live.t - loaded.end > stepFor(loaded.range)
+    ) {
+      load(loaded.range, { silent: true })
+    } else {
+      draw()
+    }
+  })
 
   rangeGroup?.addEventListener('click', (e) => {
     const button = (e.target as Element).closest<HTMLButtonElement>('button[data-range]')

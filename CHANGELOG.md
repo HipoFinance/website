@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-02 — HPO chart ends at the live price
+
+- The /hpo/ hero chart now ends its line at the gauge's live price (`hpo-data.js` publishes it, `hpo-sparkline.ts` appends it), because the query_range grid is snapped down to the step and the line ended up to one step in the past, away from the price card and CoinGecko. The range change, colour and hover include that point.
+- A page left open refetches the shown range silently (no dimming) when the live point is more than one step past the grid, so the live point keeps within the 2.5-step gap rule and stays drawn; it skips the 5-minute client cache, keeps a hovered point (re-found by time), and a failed refresh keeps the line already drawn. A live point more than 2.5 steps past the grid (an outage) is not appended, so it never sets the change without a line to it.
+- Declined: hourly points for the 1M range. It needs a new nginx-allowed step and changes the /stats/ charts too, for little gain once the end is live.
+
 ## 2026-11-02 — Club: no limit on wallet changes
 
 - The Club page no longer knows the "one wallet change per day" limit: the `switch_limit` refusal branch, the `club.error.switchLimit` sentence (all 11 locales, with its `meta.json` hash entries) and the `next_switch_at` / `nextSwitchAt` status field are removed; the server dropped the limit.

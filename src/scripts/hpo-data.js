@@ -197,6 +197,12 @@ let updateHpoData = () => {
       if (!res.ok) {
         return
       }
+      // The chart (hpo-sparkline.ts) ends its line at this point, so it matches the price card.
+      const usd = res.result?.hpo?.market?.current_price?.usd
+      if (Number.isFinite(usd) && usd > 0) {
+        window.hpoLivePrice = { t: Math.floor(Date.now() / 1000), v: usd }
+        window.dispatchEvent(new CustomEvent('hpo:live-price', { detail: window.hpoLivePrice }))
+      }
       const values = gaugeValues(locale, res.result)
       for (const id of IDS) {
         const el = document.getElementById(id)
