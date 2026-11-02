@@ -1136,6 +1136,12 @@ export async function settleLocksWithChain(
   return { held, verdict }
 }
 
+/** What settleDueClaimLocks did: whether a lock was released, and a kept lock's unapplied claim. */
+export interface DueClaimLocks {
+  released: boolean
+  notApplied?: { at: number; ackKey: string }
+}
+
 /** A claim lock whose request can no longer land by `now` (server time): validUntil + 60 is past. */
 export function claimLockDue(lock: PendingLock, now: number): boolean {
   return now >= lock.validUntil + LAND_MARGIN
@@ -1148,23 +1154,27 @@ export function claimLockDue(lock: PendingLock, now: number): boolean {
  * report, 2026-11-01). Each claim lock past validUntil + 60 is judged here on a read of the wallet
  * that paid it, paged on as in the guard; a younger lock, or a read that fails, is kept for the next
  * load or the guard. It runs under the guard's Web Lock, and not at all while another tab of this
- * browser is in the guard. Returns whether a lock was released.
+ * browser is in the guard. Returns whether a lock was released and, when a kept lock's claim landed
+ * more than 24 h ago and was never applied (release (4) waits for the member to read that), the
+ * first such verdict, so the page can show it: the guard that shows it on a press never runs while
+ * the lock turns Claim off.
  */
 export async function settleDueClaimLocks(
   ctx: Pick<PaymentContext, 'account' | 'chain' | 'store' | 'parseAddress' | 'serverNow' | 'webLocks'>,
   clubWallet: Address,
   evidence: AppliedEvidence,
-): Promise<boolean> {
+): Promise<DueClaimLocks> {
   const account = ctx.account
   if (account === undefined) {
-    return false
+    return { released: false }
   }
-  const run = async () => {
+  const run = async (): Promise<DueClaimLocks> => {
     const now = ctx.serverNow()
     if (now === undefined) {
-      return false
+      return { released: false }
     }
     let released = false
+    let notApplied: DueClaimLocks['notApplied']
     for (const lock of locksFor(ctx.store, account, 'claim').filter((lock) => claimLockDue(lock, now))) {
       // A lock without a wallet (old locks) is judged on the Club wallet's read, as in the guard.
       const address = lock.wallet !== undefined ? ctx.parseAddress(lock.wallet) : clubWallet
@@ -1191,9 +1201,11 @@ export async function settleDueClaimLocks(
       if (judged.kind === 'released') {
         removeLock(ctx.store, lock)
         released = true
+      } else if (judged.kind === 'notApplied' && notApplied === undefined) {
+        notApplied = { at: judged.at, ackKey: judged.ackKey }
       }
     }
-    return released
+    return notApplied === undefined ? { released } : { released, notApplied }
   }
   const locks = ctx.webLocks === undefined ? defaultWebLocks() : ctx.webLocks
   if (locks === null) {
@@ -1203,7 +1215,7 @@ export async function settleDueClaimLocks(
   try {
     return await locks.request(PAY_WEB_LOCK + account, { ifAvailable: true }, async (held) => {
       ran = true
-      return held == null ? false : run()
+      return held == null ? { released: false } : run()
     })
   } catch (e) {
     // The Web Lock itself failed (a sandboxed frame): run without it, once.

@@ -56,6 +56,7 @@ import {
   intentCovers,
   claimLockDue,
   locksFor,
+  readAcks,
   readLocks,
   sendClubPayment,
   settleDueClaimLocks,
@@ -116,7 +117,8 @@ export type Modal =
   | { kind: 'claimDone'; amount: string; qualified: boolean; target?: number; below: boolean }
   | { kind: 'upgrade' }
   | { kind: 'upgradeDone'; level: number }
-  | { kind: 'notApplied'; at: number; ackKey: string; payment: 'claim' | 'upgrade' }
+  // `from: 'load'`: opened by the load's check of the due claim locks, not by a payment press.
+  | { kind: 'notApplied'; at: number; ackKey: string; payment: 'claim' | 'upgrade'; from?: 'load' }
 
 export type Tone = 'info' | 'success' | 'warn' | 'neutral'
 
@@ -1168,8 +1170,27 @@ export class ClubModel {
       if (ctx.account !== account) {
         return
       }
-      if (await settleDueClaimLocks(ctx, club, evidence)) {
+      const due = await settleDueClaimLocks(ctx, club, evidence)
+      if (due.released) {
         this.settleLocksFromServer()
+      }
+      // A claim that landed more than 24 h ago and was never applied: its lock waits for the member
+      // to read that, and the guard that shows it never runs while the lock turns Claim off.
+      // An ack stored while this check awaited the chain (the member read an earlier window) is not
+      // shown again.
+      if (
+        due.notApplied !== undefined &&
+        this.modal === undefined &&
+        this.session?.account === account &&
+        !readAcks(this.storage).has(due.notApplied.ackKey)
+      ) {
+        this.openModal({
+          kind: 'notApplied',
+          at: due.notApplied.at,
+          ackKey: due.notApplied.ackKey,
+          payment: 'claim',
+          from: 'load',
+        })
       }
     } catch {
       // Kept: the next load, or the guard on a press, tries again.
@@ -2042,9 +2063,16 @@ export class ClubModel {
     }
   }
 
-  acknowledge(ackKey: string, payment: 'claim' | 'upgrade') {
+  acknowledge(ackKey: string, payment: 'claim' | 'upgrade', from?: 'load') {
     addAck(this.storage, ackKey)
     this.closeModal()
+    if (from === 'load') {
+      // Read at a load: the lock is judged again now that the ack is stored, which releases it
+      // (release (4)) and clears "on its way". The member presses Claim when they choose to.
+      this.claimLockCheckedAt = 0
+      void this.settleDueClaimLocks()
+      return
+    }
     if (payment === 'claim') {
       this.openModal({ kind: 'claim' })
     } else {

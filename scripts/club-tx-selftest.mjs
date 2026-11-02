@@ -1360,7 +1360,7 @@ await check('load: a due claim lock with nothing landed is released, read from i
   const store = new MemoryStore()
   writeLock(store, dueClaimLock())
   const ctx = loadCtx(store)
-  assert.equal(await settleDueClaimLocks(ctx, CLUB, noEvidence), true)
+  assert.deepEqual(await settleDueClaimLocks(ctx, CLUB, noEvidence), { released: true })
   assert.equal(readLocks(store).length, 0)
   assert.equal(ctx.reads.length, 1)
   assert.ok(ctx.reads[0].address.equals(CLUB))
@@ -1371,7 +1371,7 @@ await check('load: a claim lock before validUntil + 60 is not read and kept', as
   const store = new MemoryStore()
   writeLock(store, dueClaimLock({ validUntil: T0 + 5 - 59 }))
   const ctx = loadCtx(store)
-  assert.equal(await settleDueClaimLocks(ctx, CLUB, noEvidence), false)
+  assert.deepEqual(await settleDueClaimLocks(ctx, CLUB, noEvidence), { released: false })
   assert.equal(readLocks(store).length, 1)
   assert.equal(ctx.reads.length, 0)
 })
@@ -1380,7 +1380,7 @@ await check('load: a due claim lock whose claim landed in the last 24 h is kept 
   const store = new MemoryStore()
   writeLock(store, dueClaimLock())
   const ctx = loadCtx(store, { chainRead: async () => read({ lastLt: 1001n, txs: [claimTx(T0 - 500, 1001n)] }) })
-  assert.equal(await settleDueClaimLocks(ctx, CLUB, noEvidence), false)
+  assert.deepEqual(await settleDueClaimLocks(ctx, CLUB, noEvidence), { released: false })
   assert.equal(readLocks(store).length, 1)
 })
 
@@ -1393,7 +1393,7 @@ await check('load: a failed, stale or uncovering read keeps the lock', async () 
   ]) {
     const store = new MemoryStore()
     writeLock(store, dueClaimLock())
-    assert.equal(await settleDueClaimLocks(loadCtx(store, { chainRead }), CLUB, noEvidence), false)
+    assert.deepEqual(await settleDueClaimLocks(loadCtx(store, { chainRead }), CLUB, noEvidence), { released: false })
     assert.equal(readLocks(store).length, 1)
   }
 })
@@ -1403,7 +1403,7 @@ await check('load: upgrade locks are left alone; a lock of another account too',
   writeLock(store, dueClaimLock({ id: 'f'.repeat(32), target: 4 }))
   writeLock(store, dueClaimLock({ id: 'a'.repeat(32), account: '43' }))
   const ctx = loadCtx(store)
-  assert.equal(await settleDueClaimLocks(ctx, CLUB, noEvidence), false)
+  assert.deepEqual(await settleDueClaimLocks(ctx, CLUB, noEvidence), { released: false })
   assert.equal(readLocks(store).length, 2)
   assert.equal(ctx.reads.length, 0)
 })
@@ -1413,13 +1413,49 @@ await check('load: nothing runs while another tab holds the payment Web Lock', a
   writeLock(store, dueClaimLock())
   const busy = { request: async (_name, _options, callback) => callback(null) }
   const ctx = loadCtx(store, { webLocks: busy })
-  assert.equal(await settleDueClaimLocks(ctx, CLUB, noEvidence), false)
+  assert.deepEqual(await settleDueClaimLocks(ctx, CLUB, noEvidence), { released: false })
   assert.equal(readLocks(store).length, 1)
   assert.equal(ctx.reads.length, 0)
   let name
   const free = { request: async (n, _options, callback) => ((name = n), callback({})) }
-  assert.equal(await settleDueClaimLocks(loadCtx(store, { webLocks: free }), CLUB, noEvidence), true)
+  assert.deepEqual(await settleDueClaimLocks(loadCtx(store, { webLocks: free }), CLUB, noEvidence), { released: true })
   assert.equal(name, PAY_WEB_LOCK + '42')
+  assert.equal(readLocks(store).length, 0)
+})
+
+await check('load: a due claim lock whose claim landed over 24 h ago, not applied, is kept and reported', async () => {
+  const store = new MemoryStore()
+  const created = T0 - LOOKBACK - 1000
+  writeLock(store, dueClaimLock({ created, validUntil: created + 300 }))
+  const landed = T0 - LOOKBACK - 500
+  const chainRead = async () => read({ lastLt: 1001n, txs: [claimTx(landed, 1001n)] })
+  const result = await settleDueClaimLocks(loadCtx(store, { chainRead }), CLUB, noEvidence)
+  assert.deepEqual(result, { released: false, notApplied: { at: landed, ackKey: '42|claim|1001' } })
+  assert.equal(readLocks(store).length, 1)
+  // Once the member has read it (the ack is stored), the next check releases the lock.
+  addAck(store, result.notApplied.ackKey)
+  assert.deepEqual(await settleDueClaimLocks(loadCtx(store, { chainRead }), CLUB, noEvidence), { released: true })
+  assert.equal(readLocks(store).length, 0)
+})
+
+await check('load: an ack of another message does not release the lock', async () => {
+  const store = new MemoryStore()
+  const created = T0 - LOOKBACK - 1000
+  writeLock(store, dueClaimLock({ created, validUntil: created + 300 }))
+  addAck(store, '42|claim|999')
+  const chainRead = async () => read({ lastLt: 1001n, txs: [claimTx(T0 - LOOKBACK - 500, 1001n)] })
+  const result = await settleDueClaimLocks(loadCtx(store, { chainRead }), CLUB, noEvidence)
+  assert.equal(result.released, false)
+  assert.equal(result.notApplied?.ackKey, '42|claim|1001')
+  assert.equal(readLocks(store).length, 1)
+})
+
+await check('load: a due claim lock whose claim never landed is released with no notApplied', async () => {
+  const store = new MemoryStore()
+  const created = T0 - LOOKBACK - 1000
+  writeLock(store, dueClaimLock({ created, validUntil: created + 300 }))
+  const ctx = loadCtx(store)
+  assert.deepEqual(await settleDueClaimLocks(ctx, CLUB, noEvidence), { released: true })
   assert.equal(readLocks(store).length, 0)
 })
 

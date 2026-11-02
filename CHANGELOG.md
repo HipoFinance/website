@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-02 — Club: a claim that wasn't applied says so on load, instead of "on its way" for good
+
+- A claim whose 1 GRAM fee landed on chain over 24 h ago but was never applied kept its local lock, so the page showed "Your claim is on its way" with Claim turned off, and the "wasn't applied; contact support" window it needed opened only on a Claim press. The load-time lock check (`settleDueClaimLocks`) now returns that verdict and the page opens the existing window; "I've read this" releases the lock (no Claim window opens), Cancel keeps it until a later load. How a lock is judged and released is unchanged; no new strings.
+- Reviewed (staking lens; a race that could reopen the window after it was read is fixed) and money-audited once: no double payout or wrong release. Accepted by Alireza: if the server held the first fee for the account (frozen, switch pending, move refused) over 24 h and a member who acknowledged pays again as the hold lifts, the second 1 GRAM is lost and refunded by support. Not done: a server-side claim gate on held fees.
+
 ## 2026-11-02 — Stats charts: Y-axis labels no longer repeat
 
 - On a narrow range the compact axis labels all read the same (a user reported "23.2K" on every gridline of Active stakers while the line moved); the chart now adds up to 3 fraction digits until the labels differ. Labels that already differed keep their form. Left open: a range of under about 4 stakers still repeats (its gridlines fall on half-stakers, so no format separates them; a fallback to the exact count was tried and dropped after review), and the rate and price charts, which have no compact axis, are not covered; none of these occurs today.

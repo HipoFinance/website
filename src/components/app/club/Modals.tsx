@@ -476,7 +476,7 @@ const NotApplied = observer(({ club, modal }: Props & { modal: Extract<Modal, { 
       <p className='text-[15px] leading-relaxed'>{t('club.error.notApplied', { date: club.date(modal.at, true) })}</p>
       <Actions>
         <Button onClick={() => club.closeModal()}>{t('club.common.cancel')}</Button>
-        <Button kind='primary' onClick={() => club.acknowledge(modal.ackKey, modal.payment)}>
+        <Button kind='primary' onClick={() => club.acknowledge(modal.ackKey, modal.payment, modal.from)}>
           {t('club.modal.notApplied.read')}
         </Button>
       </Actions>
