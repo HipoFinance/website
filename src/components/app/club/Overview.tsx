@@ -290,7 +290,9 @@ export const YourHpo = observer(({ club }: Props) => {
           </div>
           <p className='text-text-faint text-xs'>{t('club.hpo.marker', { minimum: club.amount2(o.minimum) })}</p>
           {o.ratio !== undefined && (
-            <p className='text-text-muted text-sm'>{t('club.hpo.ratio', { ratio: club.amount(o.ratio, 0) })}</p>
+            <p className='text-text-muted text-sm'>
+              {o.ratio > 1000 ? t('club.hpo.ratioOver') : t('club.hpo.ratio', { ratio: club.amount(o.ratio, 0) })}
+            </p>
           )}
         </div>
       )}
@@ -408,7 +410,9 @@ export const LevelUp = observer(({ club }: Props) => {
                   {reset || minimum === 0
                     ? t('club.levelUp.noMinimum')
                     : above
-                      ? t('club.levelUp.yesRatio', { ratio: club.amount(o.ratio, 0) })
+                      ? o.ratio !== undefined && o.ratio > 1000
+                        ? t('club.levelUp.yesRatioOver')
+                        : t('club.levelUp.yesRatio', { ratio: club.amount(o.ratio, 0) })
                       : t('club.levelUp.short', { short: club.whole(o.short) })}
                 </span>
               </li>

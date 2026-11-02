@@ -9,6 +9,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-02 — Club Overview: clearer "still needed" line and no five-digit percentages
+
+- The claim card's line under the progress bar read "90.65 HPO to the 100 HPO claim minimum", which a member took for a second balance (Hipo Chat C4); it now reads "90.65 more HPO needed to claim (minimum 100 HPO)" (`club.claim.toMin`, `toMinRounds`).
+- A member holding far more than their level minimum saw "61,713% of your claimed HPO held"; above 10× (`ratio > 1000`, so exactly 10× still shows 1,000%) the Your HPO card and the level-up check now say "More than 10× your claimed HPO held" / "yes, more than 10×" (`club.hpo.ratioOver`, `club.levelUp.yesRatioOver`). The ar and fa strings end on a word, not on "×", which would flip in RTL.
+- All 11 locales; native review still owed (ru/uk "claim" wording, tr writes "10 katı").
+
+## 2026-11-02 — Club Rewards tab: the GRAM value of your stake
+
+- The "Base staking rewards" card showed the GRAM earned but no longer the stake's own value (the most requested change in Hipo Chat, B1). It now shows "Your staked balance" (the connected wallet's live hGRAM) and "Value in GRAM" (≈, at the live exchange rate), reusing the old Rewards page's two labels; when the connected wallet is the Club wallet and it has hGRAM in pools, also "In liquidity pools" (the Club wallet's pool hGRAM from the Club overview, × the same rate) and a bold "Total value in GRAM" (`club.rewards.inPoolsGram`, `club.rewards.totalGram`, all 11 locales).
+- The pools and total rows wait until the connected wallet has been read, so the total never counts the pools alone while the wallet loads (review finding). Kept: a Club wallet with no hGRAM of its own but some in pools shows the pools and the total only. Left open (#20): a wallet switch during a chain read may briefly show the previous wallet's balance (Model.ts, older than this change).
+
 ## 2026-11-02 — Club: a claim that wasn't applied says so on load, instead of "on its way" for good
 
 - A claim whose 1 GRAM fee landed on chain over 24 h ago but was never applied kept its local lock, so the page showed "Your claim is on its way" with Claim turned off, and the "wasn't applied; contact support" window it needed opened only on a Claim press. The load-time lock check (`settleDueClaimLocks`) now returns that verdict and the page opens the existing window; "I've read this" releases the lock (no Claim window opens), Cancel keeps it until a later load. How a lock is judged and released is unchanged; no new strings.

@@ -204,12 +204,38 @@ const BaseGram = observer(({ club }: Props) => {
       : (w?.earnedRewards ?? []).map((round) => ({ time: round.time, gram: round.stakeReward ?? 0 }))
   const sum = r?.stakeSumRewards ?? w?.stakeSumRewards
   const since = r?.stakeRewardsSince ?? w?.stakeRewardsSince
+  const m = club.model
+  const split = club.overview?.split
+  const state = m.treasuryState
+  const poolNano = split
+    ? [split.balanceHtonDedust, split.balanceHtonStonfi, split.balanceHtonTonco].reduce((acc, v) => {
+        const n = Number(v ?? '0')
+        return acc + (Number.isFinite(n) ? n : 0)
+      }, 0)
+    : 0
+  const rate = state != null ? Number(state.totalCoins) / Number(state.totalTokens) || 1 : 1
+  // tonBalance is set with walletState once the connected wallet is read; before that htonBalance reads 0
+  // and the total would count the pools alone.
+  const showPools = club.clubWalletConnected && poolNano > 0 && state != null && m.tonBalance != null
+  const gramOf = (nanoValue: number) => m.withUnit('app.model.approxGram', m.formatNano(nanoValue * rate))
   return (
     <Card>
       <CardTitle aside={<span className='text-text-faint text-sm'>{t('club.rewards.baseSub')}</span>}>
         {t('club.rewards.baseTitle')}
       </CardTitle>
       <p className='text-text-muted text-sm leading-relaxed'>{t('club.rewards.baseBody')}</p>
+      {m.htonBalanceInTon != null && (
+        <>
+          <Row label={m.t('app.reward.stakedBalance')} value={m.htonBalanceFormatted} />
+          <Row label={m.t('app.reward.valueInGram')} value={m.htonBalanceInTon} strong={!showPools} />
+        </>
+      )}
+      {showPools && (
+        <>
+          <Row label={t('club.rewards.inPoolsGram')} value={gramOf(poolNano)} />
+          <Row label={t('club.rewards.totalGram')} value={gramOf(Number(m.htonBalance) + poolNano)} strong />
+        </>
+      )}
       {sum !== undefined && (
         <Row
           label={
@@ -218,7 +244,6 @@ const BaseGram = observer(({ club }: Props) => {
               : t('club.rewards.earnedTotal')
           }
           value={t('club.common.gramAmount', { amount: club.amount2(sum) })}
-          strong
         />
       )}
       {rounds.length === 0 ? (

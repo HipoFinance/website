@@ -1140,11 +1140,11 @@
     "reviewed": false
   },
   "club.claim.toMin": {
-    "sourceHash": "6782504308a9ad2ab28d169c6535e99596abb895",
+    "sourceHash": "f2b55a23735110d223e59ba7231a52e9ba4093ab",
     "reviewed": false
   },
   "club.claim.toMinRounds": {
-    "sourceHash": "5b9d3ad6f2531338bfcedaa00ea8bd5000cee67f",
+    "sourceHash": "b0eda5be04558b0ce35ae0378c9bf975e077d860",
     "reviewed": false
   },
   "club.claim.unknown": {
@@ -1759,6 +1759,10 @@
     "sourceHash": "8fc68349aa828ec2e548a3038ea5ad4106960959",
     "reviewed": false
   },
+  "club.hpo.ratioOver": {
+    "sourceHash": "7db13dd94f9ea13d19dab2f1dd31f105b3ad2cd7",
+    "reviewed": false
+  },
   "club.hpo.restored": {
     "sourceHash": "61f56a61f9ad75a80143047d4082115abb19d1a1",
     "reviewed": false
@@ -1949,6 +1953,10 @@
   },
   "club.levelUp.yesRatio": {
     "sourceHash": "7db8c6b4168e443753930f217ecde8f88914ef27",
+    "reviewed": false
+  },
+  "club.levelUp.yesRatioOver": {
+    "sourceHash": "444f3fc27e638e9b787262512d259ac1f152758a",
     "reviewed": false
   },
   "club.levelUp.you": {
@@ -2559,6 +2567,10 @@
     "sourceHash": "0ee6dca01c346746b3b89990a6429d0f92e80eb5",
     "reviewed": false
   },
+  "club.rewards.inPoolsGram": {
+    "sourceHash": "593f3a2ef7730a3ced156aabecf96ceacec7a2be",
+    "reviewed": false
+  },
   "club.rewards.lifetime": {
     "sourceHash": "9ee46f93b8b58557670092bf9ed20994a1a9203e",
     "reviewed": false
@@ -2609,6 +2621,10 @@
   },
   "club.rewards.streamStaking": {
     "sourceHash": "1b5a571459ec0eb244454cdb7505583c41cc4264",
+    "reviewed": false
+  },
+  "club.rewards.totalGram": {
+    "sourceHash": "2e70c41d07ae8731fbf79c8302b87942b884c310",
     "reviewed": false
   },
   "club.rewards.tx": {
