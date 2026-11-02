@@ -1523,7 +1523,7 @@ export class ClubModel {
       this.model.setAddress(result.address)
       return result
     }
-    await this.model.ensureWallet()
+    await this.model.ensureWalletSettled()
     // A Cancel while TON Connect was still loading: open nothing.
     if (attempt !== this.linkAttempt) {
       return undefined
@@ -1785,7 +1785,7 @@ export class ClubModel {
       await new Promise((resolve) => setTimeout(resolve, 600))
       this.model.setAddress(club)
     } else {
-      await this.model.ensureWallet()
+      await this.model.ensureWalletSettled()
       const ui = this.model.tonConnectUI
       if (ui === undefined) {
         return

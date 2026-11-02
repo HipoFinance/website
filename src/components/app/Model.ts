@@ -437,6 +437,10 @@ const preferredTonConnectTheme = (module: TonConnectModule) =>
 // wallet and transaction modals with it.
 const tonConnectWidgetRootId = 'ton-connect-widget-root'
 
+// How long the startup restore of a stored wallet session may hold the Connect buttons on
+// "Connecting…" (see loadWallet). In Chromium it takes about two seconds.
+const restoreTimeout = 8000
+
 // Resolves once the island has painted the given element. Replaces the old initTonConnect
 // setTimeout self-poll, with the same 10 ms cadence.
 function waitForElement(id: string): Promise<void> {
@@ -2945,7 +2949,7 @@ export class Model {
   // injected extensions and WalletConnect never take this path. Every other case simply connects,
   // which leaves the visitor exactly where the old Connect button left them.
   connectAndStake = () => {
-    void this.ensureWallet().then(() => {
+    void this.ensureWalletSettled().then(() => {
       // A stored session finished restoring while the press was in flight, so this is an ordinary
       // Stake after all. send() needs the first account read of the restored address before it will
       // do anything, so wait for that rather than drop the press on the floor.
@@ -3253,6 +3257,17 @@ export class Model {
     return this.walletPending
   }
 
+  // ensureWallet, then the end of a stored session's restore, however long it takes. loadWallet stops
+  // waiting for the restore after restoreTimeout so the buttons come back, but a press must still
+  // not act in that window: openModal or a send would race the restore, and the connect it starts
+  // overwrites the stored session (a browser-extension wallet is signed out). This costs a press
+  // no extra wait in practice: openModal and the embedded send wait for the same wallet list the
+  // restore waits for. Every action that may open the picker or connect goes through this.
+  ensureWalletSettled = async (): Promise<void> => {
+    await this.ensureWallet()
+    await this.tonConnectUI?.connectionRestored.catch(() => undefined)
+  }
+
   private loadWallet = async (): Promise<void> => {
     // connectWallet's onStatusChange parses the account address, so the chain layer has to be in
     // place before TonConnect can report a wallet.
@@ -3269,15 +3284,26 @@ export class Model {
     // TonConnect.connect aborts the restore in flight and writes a pending record over the stored
     // session, so a returning visitor is signed out and the wallet opens with nothing to approve —
     // and sendTransaction, seeing `connected === false`, takes that same connect path instead of
-    // sending. So the load is not finished until the answer is in. TonConnect bounds the restore
-    // itself, and a rejection here only means "not connected", which is the assumption anyway.
-    if (hasStoredWalletSession()) {
-      await this.tonConnectUI?.connectionRestored.catch(() => undefined)
+    // sending. So the load is not finished until the answer is in, or until restoreTimeout: the
+    // restore first fetches TonConnect's wallet list, and a fetch that hangs (seen in Safari) would
+    // otherwise leave the buttons on "Connecting…" for good. After the timeout the restore goes on
+    // in the background and onStatusChange still shows the wallet when it arrives; a press meanwhile
+    // waits for it in ensureWalletSettled. A rejection only means "not connected".
+    const restored = this.tonConnectUI?.connectionRestored
+    if (restored != null && hasStoredWalletSession()) {
+      let timer: ReturnType<typeof setTimeout> | undefined
+      await Promise.race([
+        restored.catch(() => undefined),
+        new Promise<void>((resolve) => {
+          timer = setTimeout(resolve, restoreTimeout)
+        }),
+      ])
+      clearTimeout(timer)
     }
   }
 
   connect = () => {
-    void this.ensureWallet().then(() => {
+    void this.ensureWalletSettled().then(() => {
       // A stored session may have restored while the press was in flight. Opening the picker now
       // would throw the connection that just arrived away.
       if (this.isWalletConnected) {

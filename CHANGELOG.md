@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-02 — Wallet: "Connecting…" ends after 8 seconds
+
+- With a saved wallet, the Connect buttons said "Connecting…" until TonConnect finished restoring it, with no upper limit; in Safari the restore can hang on TonConnect's wallet list (`config.ton.org/wallets-v2.json`), so the button stayed on "Connecting…" for good (reported by Alireza, Safari 20.6.2). The wait is now capped at 8 s: the buttons then show Connect, the restore goes on in the background, and the wallet appears connected when it finishes. Checked in Chromium with the list hung (live: stuck over 30 s; fixed: Connect at 8 s), delayed 20 s (wallet appears at 24 s; a Connect press meanwhile keeps the saved session) and for a new visitor.
+- A press after the 8 s while the restore still runs waits for it (Connect, Connect & Stake, the Club's Link and Reconnect), then checks again: the review found that acting in that window signed out a browser-extension wallet, and that Connect & Stake disconnected a restored wallet 5 minutes later; both checked fixed with the reviewer's own test.
+- Left open: if the wallet list never loads, the Connect dialog cannot open either, since TonConnect needs it; shipping our own copy of the list would be a separate change. Not money-audited (no-go by Alireza).
+
 ## 2026-11-02 — Site menu: five items, bottom tabs on every page
 
 - The menu is now five items on every page: Stake, Club (Rewards while the flag is off), Stats, DeFi, HPO. Docs, FAQ and Blog crowded it, so they moved into the hamburger menu, which now exists only below `lg` and holds just them; Home is the logo. One menu on every page, with Stake first as the core of the business.
