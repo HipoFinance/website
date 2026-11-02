@@ -100,7 +100,6 @@ export interface ClubStatus extends ReplyHead {
   boost?: number
   minimum?: string
   state: string
-  nextSwitchAt?: number
   switchPending: boolean
   frozen: boolean
   notifyFailed: boolean
@@ -118,7 +117,6 @@ export function toStatus(body: unknown): ClubStatus {
     boost: num(b.boost),
     minimum: str(b.minimum),
     state: str(b.state) ?? 'ok',
-    nextSwitchAt: int(b.next_switch_at),
     switchPending: bool(b.switch_pending),
     frozen: bool(b.frozen),
     notifyFailed: bool(b.notify_failed),

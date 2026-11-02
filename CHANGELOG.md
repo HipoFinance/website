@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-02 — Club: no limit on wallet changes
+
+- The Club page no longer knows the "one wallet change per day" limit: the `switch_limit` refusal branch, the `club.error.switchLimit` sentence (all 11 locales, with its `meta.json` hash entries) and the `next_switch_at` / `nextSwitchAt` status field are removed; the server dropped the limit.
+- The mock no longer sets or reports a last-switch time, so two wallet changes in a row succeed there.
+- A `switch_limit` reason from a server still on the old build gets the generic retry sentence (`setError` falls back for a missing key), which is why club-server deploys first.
+- Spec: `club-server/specs/club-switch-drop-change-limit.md`.
+
 ## 2026-11-02 — @ravaliz on the /verify/ team list
 
 - Added Alireza's Telegram handle `@ravaliz` after `@behrang` in the official team accounts on `/verify/` (`VerifyRoute.astro`); handles are not translated, so no locale changed.

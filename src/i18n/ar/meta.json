@@ -1447,10 +1447,6 @@
     "sourceHash": "d637a52a07b4f768c1782be8ab799774f4a160fc",
     "reviewed": false
   },
-  "club.error.switchLimit": {
-    "sourceHash": "5f46571a55e93396fda31d3f1354e29eec52eeb6",
-    "reviewed": false
-  },
   "club.error.switchPending": {
     "sourceHash": "c52f97bec111d0375fe331e19b16f63b590ee296",
     "reviewed": false

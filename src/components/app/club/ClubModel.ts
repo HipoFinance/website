@@ -1488,11 +1488,6 @@ export class ClubModel {
   // A refusal reason's sentence.
   private refusal(reason: string | undefined) {
     this.setBusy(false)
-    if (reason === 'switch_limit') {
-      const at = this.status?.nextSwitchAt
-      this.setError({ key: 'club.error.switchLimit', params: { date: this.date(at, true) } })
-      return
-    }
     this.setError({ key: refusalKey(reason ?? 'retry') })
   }
 

@@ -131,7 +131,6 @@
   "club.error.serverRead": "Der Club war nicht erreichbar. Versuchen Sie es erneut.",
   "club.error.stale": "Die letzten Zahlungen Ihrer Wallet konnten nicht geprüft werden. Versuchen Sie es in einer Minute erneut.",
   "club.error.storage": "Dieser Browser kann die Zahlungsprüfung nicht speichern. Erlauben Sie den Website-Speicher und versuchen Sie es erneut.",
-  "club.error.switchLimit": "Sie können die Wallet am {date} erneut wechseln.",
   "club.error.switchPending": "Ihr Wallet-Wechsel wird noch abgeschlossen. Versuchen Sie es in einigen Minuten erneut.",
   "club.error.topLevel": "Höchstes Level erreicht.",
   "club.error.unknownBalance": "Ihr claimbarer HPO konnte nicht gelesen werden. Versuchen Sie es erneut.",

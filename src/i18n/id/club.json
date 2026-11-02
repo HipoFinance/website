@@ -131,7 +131,6 @@
   "club.error.serverRead": "Tidak dapat menjangkau Club. Coba lagi.",
   "club.error.stale": "Pembayaran terbaru dari dompet Anda tidak dapat diperiksa. Coba lagi dalam semenit.",
   "club.error.storage": "Browser ini tidak dapat menyimpan pemeriksaan pembayaran. Izinkan penyimpanan situs dan coba lagi.",
-  "club.error.switchLimit": "Anda dapat mengganti dompet lagi pada {date}.",
   "club.error.switchPending": "Penggantian dompet Anda masih diselesaikan. Coba lagi dalam beberapa menit.",
   "club.error.topLevel": "Level tertinggi telah tercapai.",
   "club.error.unknownBalance": "HPO yang dapat diklaim tidak dapat dibaca. Coba lagi.",

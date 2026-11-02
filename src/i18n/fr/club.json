@@ -131,7 +131,6 @@
   "club.error.serverRead": "Impossible de joindre le Club. Réessaie.",
   "club.error.stale": "Impossible de vérifier les paiements récents de ton portefeuille. Réessaie dans une minute.",
   "club.error.storage": "Ce navigateur ne peut pas stocker la vérification du paiement. Autorise le stockage du site et réessaie.",
-  "club.error.switchLimit": "Tu pourras de nouveau changer de portefeuille le {date}.",
   "club.error.switchPending": "Ton changement de portefeuille est encore en cours. Réessaie dans quelques minutes.",
   "club.error.topLevel": "Niveau maximum atteint.",
   "club.error.unknownBalance": "Impossible de lire tes HPO réclamables. Réessaie.",

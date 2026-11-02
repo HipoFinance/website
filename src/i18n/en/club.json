@@ -131,7 +131,6 @@
   "club.error.serverRead": "Couldn’t reach the Club. Try again.",
   "club.error.stale": "Couldn’t check your wallet’s recent payments. Try again in a minute.",
   "club.error.storage": "This browser can’t store the payment check. Allow site storage and try again.",
-  "club.error.switchLimit": "You can change wallet again on {date}.",
   "club.error.switchPending": "Your wallet change is still finishing. Try again in a few minutes.",
   "club.error.topLevel": "Top level reached.",
   "club.error.unknownBalance": "Couldn’t read your claimable HPO. Try again.",

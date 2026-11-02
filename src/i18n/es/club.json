@@ -131,7 +131,6 @@
   "club.error.serverRead": "No se pudo acceder al Club. Inténtalo de nuevo.",
   "club.error.stale": "No se pudieron comprobar los pagos recientes de tu billetera. Inténtalo de nuevo en un minuto.",
   "club.error.storage": "Este navegador no puede guardar la comprobación del pago. Permite el almacenamiento del sitio e inténtalo de nuevo.",
-  "club.error.switchLimit": "Podrás cambiar de billetera de nuevo el {date}.",
   "club.error.switchPending": "El cambio de billetera aún se está completando. Inténtalo de nuevo en unos minutos.",
   "club.error.topLevel": "Has llegado al nivel máximo.",
   "club.error.unknownBalance": "No se pudo leer tu HPO reclamable. Inténtalo de nuevo.",

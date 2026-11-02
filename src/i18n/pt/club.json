@@ -131,7 +131,6 @@
   "club.error.serverRead": "Não foi possível acessar o Club. Tente novamente.",
   "club.error.stale": "Não foi possível verificar os pagamentos recentes da sua carteira. Tente novamente em um minuto.",
   "club.error.storage": "Este navegador não consegue guardar a verificação do pagamento. Permita o armazenamento do site e tente novamente.",
-  "club.error.switchLimit": "Você poderá trocar de carteira novamente em {date}.",
   "club.error.switchPending": "A troca da sua carteira ainda está sendo concluída. Tente novamente em alguns minutos.",
   "club.error.topLevel": "Nível máximo alcançado.",
   "club.error.unknownBalance": "Não foi possível ler o seu HPO resgatável. Tente novamente.",

@@ -115,7 +115,6 @@ interface MockAccount {
   hideName: boolean
   alerts: boolean
   friends: number
-  lastSwitchAt?: number
   // The server's "payment in progress" record (clubpayintent).
   payIntent?: { target: 'claim' | 'upgrade'; level?: number; validUntil: number; created: number }
 }
@@ -613,7 +612,6 @@ export class ClubMock implements ClubTransport {
           a.stateSince = now
           a.stateUntil = now + DAY
         }
-        a.lastSwitchAt = now
         return { ...head, state: 'done', token: 'mock-token-' + now, expires_at: now + 7 * DAY }
       }
       case 'clubcancel':
@@ -658,7 +656,6 @@ export class ClubMock implements ClubTransport {
       boost: COEFFICIENTS[a.clubLevel],
       minimum: hpo(a.minimum),
       state: a.state,
-      next_switch_at: a.lastSwitchAt !== undefined ? a.lastSwitchAt + DAY : undefined,
       switch_pending: a.switchPending,
       frozen: a.frozen,
       notify_failed: false,

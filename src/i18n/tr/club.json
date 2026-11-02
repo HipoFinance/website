@@ -131,7 +131,6 @@
   "club.error.serverRead": "Club'a ulaşılamadı. Tekrar deneyin.",
   "club.error.stale": "Cüzdanınızın son ödemeleri kontrol edilemedi. Bir dakika sonra tekrar deneyin.",
   "club.error.storage": "Bu tarayıcı ödeme kontrolünü saklayamıyor. Site depolamasına izin verip tekrar deneyin.",
-  "club.error.switchLimit": "{date} tarihinde cüzdanı tekrar değiştirebilirsiniz.",
   "club.error.switchPending": "Cüzdan değişikliğiniz hâlâ tamamlanıyor. Birkaç dakika sonra tekrar deneyin.",
   "club.error.topLevel": "En üst seviyeye ulaşıldı.",
   "club.error.unknownBalance": "Talep edilebilir HPO'nuz okunamadı. Tekrar deneyin.",
