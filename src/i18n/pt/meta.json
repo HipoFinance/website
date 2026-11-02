@@ -343,6 +343,10 @@
     "sourceHash": "e82b30928515e14242de05b823972127ab9f3936",
     "reviewed": false
   },
+  "app.nav.blog": {
+    "sourceHash": "0b9d2b2362bc33581ba11fddcb0cf0590ebd3a7a",
+    "reviewed": false
+  },
   "app.nav.club": {
     "sourceHash": "4014019824fdf070c6a39bf014c44be092f8f162",
     "reviewed": false
@@ -357,10 +361,6 @@
   },
   "app.nav.faq": {
     "sourceHash": "03688ba6aa340b87549088aa5739944cb6b1dc73",
-    "reviewed": false
-  },
-  "app.nav.home": {
-    "sourceHash": "70f8bb9a8a5393ef080507a89e4b98d139000d65",
     "reviewed": false
   },
   "app.nav.hpo": {
@@ -4547,6 +4547,10 @@
     "sourceHash": "dda6ac27b9d3b234a68e8b2c412e90ab5a03a4e1",
     "reviewed": false
   },
+  "site.header.mainNav": {
+    "sourceHash": "09beb93ca17d07e4c120acae675c11888f452734",
+    "reviewed": false
+  },
   "site.header.menuToggle": {
     "sourceHash": "21f9064a33f2f9661789a128a6be46933bbf4bf0",
     "reviewed": false
@@ -4573,10 +4577,6 @@
   },
   "site.nav.faq": {
     "sourceHash": "03688ba6aa340b87549088aa5739944cb6b1dc73",
-    "reviewed": false
-  },
-  "site.nav.home": {
-    "sourceHash": "70f8bb9a8a5393ef080507a89e4b98d139000d65",
     "reviewed": false
   },
   "site.nav.hpo": {

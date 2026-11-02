@@ -1,5 +1,4 @@
 {
-  "site.nav.home": "Home",
   "site.nav.hpo": "HPO",
   "site.nav.docs": "Docs",
   "site.nav.faq": "FAQ",
@@ -10,6 +9,7 @@
   "site.nav.defi": "DeFi",
   "site.cta.openApp": "Open app",
   "site.header.menuToggle": "Toggle mobile menu",
+  "site.header.mainNav": "Main sections",
   "site.anchor.copy": "Copy link",
   "site.anchor.copied": "Link copied",
   "site.banner.headline": "Earn 100% of staking rewards.",

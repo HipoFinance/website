@@ -1,5 +1,4 @@
 {
-  "site.nav.home": "Головна",
   "site.nav.hpo": "HPO",
   "site.nav.docs": "Документація",
   "site.nav.faq": "FAQ",
@@ -10,6 +9,7 @@
   "site.nav.defi": "DeFi",
   "site.cta.openApp": "Відкрити застосунок",
   "site.header.menuToggle": "Показати або сховати меню",
+  "site.header.mainNav": "Основні розділи",
   "site.anchor.copy": "Копіювати посилання",
   "site.anchor.copied": "Посилання скопійовано",
   "site.banner.headline": "Отримуй 100 % винагород за стейкінг.",

@@ -1,5 +1,4 @@
 {
-  "site.nav.home": "Accueil",
   "site.nav.hpo": "HPO",
   "site.nav.docs": "Docs",
   "site.nav.faq": "FAQ",
@@ -10,6 +9,7 @@
   "site.nav.defi": "DeFi",
   "site.cta.openApp": "Ouvrir l’app",
   "site.header.menuToggle": "Afficher ou masquer le menu mobile",
+  "site.header.mainNav": "Sections principales",
   "site.anchor.copy": "Copier le lien",
   "site.anchor.copied": "Lien copié",
   "site.banner.headline": "Garde 100 % des récompenses de staking.",

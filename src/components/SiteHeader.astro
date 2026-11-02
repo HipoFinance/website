@@ -1,17 +1,21 @@
 ---
-// The one global header for every non-docs static page (home, FAQ, HPO). The app pages render
-// the same bar from React (src/components/app/Header.tsx) so the wallet button can live in it —
-// keep the nav items and classes in sync between the two. One flat menu carries every site and
-// app destination, so the menu never changes between pages; `active` colors the current page's
-// item in coral. Eight items plus the language switcher need room (Russian overflows at
-// 1024 px), so the inline nav shows from xl and the hamburger covers everything below that.
+// The one global header for every non-docs static page (home, FAQ, HPO, blog). The app pages render
+// the same bar from React (src/components/app/Header.tsx) and its static first paint
+// (src/components/app/shell/ShellHeader.astro) — keep the three in sync, items and classes.
+// One flat list of five main items (Stake, the Club slot, Stats, DeFi, HPO) is the inline nav from
+// lg and the fixed bottom tab bar below lg, on every page; five items fit at 1024 px in every locale
+// (measured 2026-11-02, Russian with Open app the widest). The hamburger exists only below lg and
+// holds the secondary links (Docs, FAQ, Blog) and Open app. `active` colors the current page's item
+// in coral. Home is the logo.
 import { localeOf, localizedPath } from '../i18n/locale.ts'
+import { DEFAULT_LOCALE } from '../i18n/registry.mjs'
 import { getT } from '../i18n/t.ts'
 import LanguageSwitcher from './LanguageSwitcher.astro'
+import ShellIcon from './app/shell/ShellIcon.astro'
 import { clubBuilt } from '../data/club-flag.mjs'
 
 interface Props {
-  active?: 'home' | 'hpo' | 'faq'
+  active?: 'hpo' | 'faq'
   // Forwarded to the LanguageSwitcher; false on English-only pages (the blog).
   localized?: boolean
 }
@@ -21,18 +25,27 @@ const locale = localeOf(Astro)
 const { t } = getT(locale, ['site'])
 
 const items = [
-  { key: 'home', href: '/', label: t('site.nav.home') },
-  { key: 'hpo', href: '/hpo/', label: t('site.nav.hpo') },
-  { key: 'docs', href: '/docs/', label: t('site.nav.docs') },
-  { key: 'faq', href: '/faq/', label: t('site.nav.faq') },
-  { key: 'stake', href: '/stake/', label: t('site.nav.stake') },
+  { key: 'stake', href: '/stake/', label: t('site.nav.stake'), icon: 'coins' as const },
   // Rewards until the launch commit, the Club after it (src/data/club-flag.mjs).
   clubBuilt()
-    ? { key: 'club', href: '/club/', label: t('site.nav.club') }
-    : { key: 'rewards', href: '/rewards/', label: t('site.nav.rewards') },
-  { key: 'stats', href: '/stats/', label: t('site.nav.stats') },
-  { key: 'defi', href: '/defi/', label: t('site.nav.defi') },
+    ? { key: 'club', href: '/club/', label: t('site.nav.club'), icon: 'gift' as const }
+    : { key: 'rewards', href: '/rewards/', label: t('site.nav.rewards'), icon: 'gift' as const },
+  { key: 'stats', href: '/stats/', label: t('site.nav.stats'), icon: 'chart-line' as const },
+  { key: 'defi', href: '/defi/', label: t('site.nav.defi'), icon: 'arrow-left-right' as const },
+  { key: 'hpo', href: '/hpo/', label: t('site.nav.hpo'), icon: 'hpo' as const },
 ].map((item) => ({ ...item, href: localizedPath(item.href, locale) }))
+
+// The blog is English-only, so every other locale says so with hreflang (as SiteFooter does).
+const secondary = [
+  { key: 'docs', href: localizedPath('/docs/', locale), label: t('site.nav.docs'), hreflang: undefined },
+  { key: 'faq', href: localizedPath('/faq/', locale), label: t('site.nav.faq'), hreflang: undefined },
+  {
+    key: 'blog',
+    href: '/blog/',
+    label: t('site.footer.blog'),
+    hreflang: locale === DEFAULT_LOCALE ? undefined : 'en',
+  },
+]
 ---
 
 <header>
@@ -45,7 +58,7 @@ const items = [
       <span class='font-fredoka text-text text-2xl font-semibold'>Hipo</span>
     </a>
 
-    <nav class='text-text-muted hidden items-center gap-6 text-[15px] font-medium xl:flex'>
+    <nav class='text-text-muted hidden items-center gap-6 text-[15px] font-medium lg:flex'>
       {
         items.map(({ key, href, label }) => (
           <a href={href} class={key === active ? 'text-accent' : 'hover:text-accent'}>
@@ -60,14 +73,14 @@ const items = [
 
       <a
         href={localizedPath('/stake/', locale)}
-        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover hidden rounded-full px-6 py-[11px] text-[15px] font-semibold whitespace-nowrap xl:inline-block'
+        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover hidden rounded-full px-6 py-[11px] text-[15px] font-semibold whitespace-nowrap lg:inline-block'
       >
         {t('site.cta.openApp')}
       </a>
 
       <button
         id='menu-button'
-        class='text-text xl:hidden'
+        class='text-text lg:hidden'
         title={t('site.header.menuToggle')}
         aria-label={t('site.header.menuToggle')}
       >
@@ -78,12 +91,13 @@ const items = [
     </div>
   </div>
 
-  <div id='mobile-menu' class='hidden px-6 pb-6 xl:hidden'>
+  <div id='mobile-menu' class='hidden px-6 pb-6 lg:hidden'>
     <nav class='text-text-muted flex flex-col gap-1 text-[15px] font-medium'>
       {
-        items.map(({ key, href, label }) => (
+        secondary.map(({ key, href, label, hreflang }) => (
           <a
             href={href}
+            hreflang={hreflang}
             class={`hover:bg-surface hover:text-accent rounded-lg px-3 py-2.5 ${key === active ? 'text-accent' : ''}`}
           >
             {label}
@@ -98,4 +112,26 @@ const items = [
       </a>
     </nav>
   </div>
+
+  <nav
+    aria-label={t('site.header.mainNav')}
+    class='border-border bg-surface-deep fixed start-0 end-0 bottom-0 z-10 flex w-full flex-row border-t select-none lg:hidden'
+  >
+    {
+      items.map(({ key, href, label, icon }) => (
+        <a
+          href={href}
+          aria-label={label}
+          aria-current={key === active ? 'page' : undefined}
+          class={
+            'flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-medium ' +
+            (key === active ? 'text-accent' : 'text-text-muted hover:text-accent')
+          }
+        >
+          <ShellIcon name={icon} class='size-[18px]' maskId='hpo-m-site' />
+          <span set:text={label} />
+        </a>
+      ))
+    }
+  </nav>
 </header>

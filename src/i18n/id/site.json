@@ -1,5 +1,4 @@
 {
-  "site.nav.home": "Beranda",
   "site.nav.hpo": "HPO",
   "site.nav.docs": "Dokumen",
   "site.nav.faq": "FAQ",
@@ -10,6 +9,7 @@
   "site.nav.defi": "DeFi",
   "site.cta.openApp": "Buka aplikasi",
   "site.header.menuToggle": "Alihkan menu seluler",
+  "site.header.mainNav": "Bagian utama",
   "site.anchor.copy": "Salin tautan",
   "site.anchor.copied": "Tautan disalin",
   "site.banner.headline": "Dapatkan 100% imbalan staking.",

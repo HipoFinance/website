@@ -9,6 +9,10 @@
 // here: the island owns them a few hundred milliseconds later, and the nav items are real links
 // that work without JavaScript in the meantime. The language switcher is the exception — see
 // ShellLanguageSwitcher.astro.
+//
+// Structure: one flat list of five main items (Stake, the Club slot, Stats, DeFi, HPO) feeding both
+// the inline nav and the bottom tab bar; the secondary links (Docs, FAQ, Blog) live only in the
+// hamburger menu, which is closed here. Keep in sync with Header.tsx and SiteHeader.astro.
 import { localizedPath, type Locale } from '../../../i18n/locale.ts'
 import { getT } from '../../../i18n/t.ts'
 import ShellIcon from './ShellIcon.astro'
@@ -25,30 +29,21 @@ const { t } = getT(locale, ['app'])
 // Rewards until the launch commit, the Club after it (src/data/club-flag.mjs), as in Header.tsx.
 const club = clubBuilt()
 
-// Same items in the same order as Header.tsx's `siteLinks`.
-const siteLinks: { href: string; label: string; appPage?: Props['activePage'] }[] = [
-  { href: '/', label: 'app.nav.home' },
-  { href: '/hpo/', label: 'app.nav.hpo' },
-  { href: '/docs/', label: 'app.nav.docs' },
-  { href: '/faq/', label: 'app.nav.faq' },
-  { href: '/stake/', label: 'app.nav.stake', appPage: 'stake' },
+// Same five main items in the same order as Header.tsx's `mainItems` (inline nav and bottom tabs).
+const mainItems: {
+  href: string
+  label: string
+  appPage?: Props['activePage']
+  icon: 'coins' | 'gift' | 'chart-line' | 'arrow-left-right' | 'hpo'
+}[] = [
+  { href: '/stake/', label: 'app.nav.stake', appPage: 'stake', icon: 'coins' },
   club
-    ? { href: '/club/', label: 'app.nav.club', appPage: 'club' }
-    : { href: '/rewards/', label: 'app.nav.rewards', appPage: 'reward' },
-  { href: '/stats/', label: 'app.nav.stats', appPage: 'stats' },
-  { href: '/defi/', label: 'app.nav.defi', appPage: 'defi' },
+    ? { href: '/club/', label: 'app.nav.club', appPage: 'club', icon: 'gift' }
+    : { href: '/rewards/', label: 'app.nav.rewards', appPage: 'reward', icon: 'gift' },
+  { href: '/stats/', label: 'app.nav.stats', appPage: 'stats', icon: 'chart-line' },
+  { href: '/defi/', label: 'app.nav.defi', appPage: 'defi', icon: 'arrow-left-right' },
+  { href: '/hpo/', label: 'app.nav.hpo', icon: 'hpo' },
 ]
-
-// Same items in the same order as Header.tsx's `pages`.
-const tabs: { page: Props['activePage']; label: string; icon: 'coins' | 'gift' | 'chart-line' | 'arrow-left-right' }[] =
-  [
-    { page: 'stake', label: 'app.nav.stake', icon: 'coins' },
-    club
-      ? { page: 'club', label: 'app.nav.club', icon: 'gift' }
-      : { page: 'reward', label: 'app.nav.rewards', icon: 'gift' },
-    { page: 'stats', label: 'app.nav.stats', icon: 'chart-line' },
-    { page: 'defi', label: 'app.nav.defi', icon: 'arrow-left-right' },
-  ]
 ---
 
 <div class='font-body text-text w-full'>
@@ -63,10 +58,10 @@ const tabs: { page: Props['activePage']; label: string; icon: 'coins' | 'gift' |
 
     <nav
       aria-label={t('app.header.siteNav')}
-      class='text-text-muted hidden items-center gap-6 text-[15px] font-medium xl:flex'
+      class='text-text-muted hidden items-center gap-6 text-[15px] font-medium lg:flex'
     >
       {
-        siteLinks.map(({ href, label, appPage }) => (
+        mainItems.map(({ href, label, appPage }) => (
           <a
             href={localizedPath(href, locale)}
             class={appPage != null && appPage === activePage ? 'text-accent' : 'hover:text-accent'}
@@ -103,7 +98,7 @@ const tabs: { page: Props['activePage']; label: string; icon: 'coins' | 'gift' |
       <button
         type='button'
         disabled
-        class='text-text cursor-pointer xl:hidden'
+        class='text-text cursor-pointer lg:hidden'
         title={t('app.header.toggleMenu')}
         aria-label={t('app.header.toggleMenu')}
       >
@@ -119,14 +114,14 @@ const tabs: { page: Props['activePage']; label: string; icon: 'coins' | 'gift' |
     class='border-border bg-surface-deep fixed start-0 end-0 bottom-0 z-10 flex w-full flex-row border-t select-none lg:hidden'
   >
     {
-      tabs.map(({ page, label, icon }) => (
+      mainItems.map(({ href, label, appPage, icon }) => (
         <a
-          href={localizedPath(page === 'reward' ? '/rewards/' : `/${page}/`, locale)}
+          href={localizedPath(href, locale)}
           aria-label={t(label)}
-          aria-current={page === activePage ? 'page' : undefined}
+          aria-current={appPage != null && appPage === activePage ? 'page' : undefined}
           class={
             'flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-medium ' +
-            (page === activePage ? 'text-accent' : 'text-text-muted hover:text-accent')
+            (appPage != null && appPage === activePage ? 'text-accent' : 'text-text-muted hover:text-accent')
           }
         >
           <ShellIcon name={icon} class='size-[18px]' />

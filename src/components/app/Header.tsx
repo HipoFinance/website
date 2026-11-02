@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite'
 import { Coins, Gift, ChartLine, ArrowLeftRight, type LucideIcon } from 'lucide-react'
 import { CLUB_ON, Model } from './Model'
 import LanguageSwitcher from './LanguageSwitcher'
+import HpoIcon from './HpoIcon'
 
 interface Props {
   model: Model
@@ -10,33 +11,29 @@ interface Props {
 
 type Page = 'stake' | 'reward' | 'club' | 'stats' | 'defi'
 
-// The app pages reachable from the mobile bottom tab bar. Same icons as the mini app's TmaTabs.
-// Labels are catalog keys, resolved through model.t at render time.
+// The five main items, in the order of the inline nav and the bottom tab bar: Stake, the Club slot,
+// Stats, DeFi, HPO. Same list as SiteHeader.astro and shell/ShellHeader.astro — keep the three in
+// sync. The tab icons are the mini app's (TmaTabs), HPO is the one-colour coin. Labels are catalog
+// keys, resolved through model.t at render time; hrefs are bare paths, model.localizedPath prefixes
+// the current locale. Items with an appPage stay inside the app's own navigation (no page load);
+// HPO is a plain link, a full page load.
 // The second slot is Rewards before the launch commit and the Club after it (CLUB_ON).
-const pages: { page: Page; label: string; icon: LucideIcon }[] = [
-  { page: 'stake', label: 'app.nav.stake', icon: Coins },
+const mainItems: { href: string; label: string; appPage?: Page; icon?: LucideIcon }[] = [
+  { href: '/stake/', label: 'app.nav.stake', appPage: 'stake', icon: Coins },
   CLUB_ON
-    ? { page: 'club', label: 'app.nav.club', icon: Gift }
-    : { page: 'reward', label: 'app.nav.rewards', icon: Gift },
-  { page: 'stats', label: 'app.nav.stats', icon: ChartLine },
-  { page: 'defi', label: 'app.nav.defi', icon: ArrowLeftRight },
+    ? { href: '/club/', label: 'app.nav.club', appPage: 'club', icon: Gift }
+    : { href: '/rewards/', label: 'app.nav.rewards', appPage: 'reward', icon: Gift },
+  { href: '/stats/', label: 'app.nav.stats', appPage: 'stats', icon: ChartLine },
+  { href: '/defi/', label: 'app.nav.defi', appPage: 'defi', icon: ArrowLeftRight },
+  { href: '/hpo/', label: 'app.nav.hpo' },
 ]
 
-// Keep in sync with src/components/SiteHeader.astro — same items in the same order with the same
-// classes, so the one flat menu reads identically on the static pages and the app pages. Links
-// with an appPage stay inside the app's own navigation instead of a full page load. hrefs are
-// bare paths; model.localizedPath prefixes the current locale.
-const siteLinks: { href: string; label: string; appPage?: Page }[] = [
-  { href: '/', label: 'app.nav.home' },
-  { href: '/hpo/', label: 'app.nav.hpo' },
+// Secondary links: only in the hamburger menu, under the main items. The blog is English-only
+// (hreflang on other locales, as in SiteFooter.astro) and has no locale prefix.
+const secondaryLinks: { href: string; label: string; blog?: boolean }[] = [
   { href: '/docs/', label: 'app.nav.docs' },
   { href: '/faq/', label: 'app.nav.faq' },
-  { href: '/stake/', label: 'app.nav.stake', appPage: 'stake' },
-  CLUB_ON
-    ? { href: '/club/', label: 'app.nav.club', appPage: 'club' }
-    : { href: '/rewards/', label: 'app.nav.rewards', appPage: 'reward' },
-  { href: '/stats/', label: 'app.nav.stats', appPage: 'stats' },
-  { href: '/defi/', label: 'app.nav.defi', appPage: 'defi' },
+  { href: '/blog/', label: 'app.nav.blog', blog: true },
 ]
 
 const Header = observer(({ model }: Props) => {
@@ -76,9 +73,9 @@ const Header = observer(({ model }: Props) => {
 
         <nav
           aria-label={model.t('app.header.siteNav')}
-          className='text-text-muted hidden items-center gap-6 text-[15px] font-medium xl:flex'
+          className='text-text-muted hidden items-center gap-6 text-[15px] font-medium lg:flex'
         >
-          {siteLinks.map(({ href, label, appPage }) => (
+          {mainItems.map(({ href, label, appPage }) => (
             <a
               key={href}
               href={model.localizedPath(href)}
@@ -124,7 +121,7 @@ const Header = observer(({ model }: Props) => {
 
           <button
             type='button'
-            className='text-text cursor-pointer xl:hidden'
+            className='text-text cursor-pointer lg:hidden'
             title={model.t('app.header.toggleMenu')}
             aria-label={model.t('app.header.toggleMenu')}
             onClick={() => setMenuOpen(!menuOpen)}
@@ -137,19 +134,18 @@ const Header = observer(({ model }: Props) => {
       </div>
 
       {menuOpen && (
-        <div className='px-6 pb-4 xl:hidden'>
+        <div className='px-6 pb-4 lg:hidden'>
           <nav
             aria-label={model.t('app.header.siteNav')}
             className='text-text-muted flex flex-col gap-1 text-[15px] font-medium'
           >
-            {siteLinks.map(({ href, label, appPage }) => (
+            {secondaryLinks.map(({ href, label, blog }) => (
               <a
                 key={href}
-                href={model.localizedPath(href)}
-                className={`hover:bg-surface hover:text-accent rounded-lg px-3 py-2.5 ${
-                  isActive(appPage) ? 'text-accent' : ''
-                }`}
-                onClick={siteLinkClick(appPage)}
+                href={blog ? href : model.localizedPath(href)}
+                hrefLang={blog && model.locale !== 'en' ? 'en' : undefined}
+                className='hover:bg-surface hover:text-accent rounded-lg px-3 py-2.5'
+                onClick={siteLinkClick()}
               >
                 {model.t(label)}
               </a>
@@ -158,31 +154,40 @@ const Header = observer(({ model }: Props) => {
         </div>
       )}
 
-      {/* Bottom tab bar: the app pages within thumb's reach below lg. Between lg and xl the inline nav
-          is still hidden, but the hamburger menu carries the same links and there is no thumb to serve. */}
+      {/* Bottom tab bar: the five main items within thumb's reach below lg, where the inline nav is hidden.
+          The hamburger (also below lg only) carries just the secondary links. */}
       <nav
         aria-label={model.t('app.header.appSections')}
         className='border-border bg-surface-deep fixed start-0 end-0 bottom-0 z-10 flex w-full flex-row border-t select-none lg:hidden'
       >
-        {pages.map(({ page, label, icon: Icon }) => {
-          const active = model.activePage === page
-          return (
+        {mainItems.map(({ href, label, appPage, icon: Icon }) => {
+          const active = isActive(appPage)
+          const className =
+            'flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-medium ' +
+            (active ? 'text-accent' : 'text-text-muted hover:text-accent')
+          const content = (
+            <>
+              {Icon ? <Icon className='size-[18px]' aria-hidden='true' /> : <HpoIcon className='size-[18px]' />}
+              <span>{model.t(label)}</span>
+            </>
+          )
+          return appPage != null ? (
             <button
-              key={page}
+              key={href}
               type='button'
               aria-label={model.t(label)}
               aria-current={active ? 'page' : undefined}
-              className={
-                'flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-medium ' +
-                (active ? 'text-accent' : 'text-text-muted hover:text-accent')
-              }
+              className={className}
               onClick={() => {
-                model.navigateToPage(page)
+                model.navigateToPage(appPage)
               }}
             >
-              <Icon className='size-[18px]' aria-hidden='true' />
-              <span>{model.t(label)}</span>
+              {content}
             </button>
+          ) : (
+            <a key={href} href={model.localizedPath(href)} aria-label={model.t(label)} className={className}>
+              {content}
+            </a>
           )
         })}
       </nav>

@@ -1,5 +1,4 @@
 {
-  "site.nav.home": "خانه",
   "site.nav.hpo": "HPO",
   "site.nav.docs": "مستندات",
   "site.nav.faq": "سؤالات متداول",
@@ -10,6 +9,7 @@
   "site.nav.defi": "DeFi",
   "site.cta.openApp": "باز کردن اپ",
   "site.header.menuToggle": "باز و بسته کردن منوی موبایل",
+  "site.header.mainNav": "بخش‌های اصلی",
   "site.anchor.copy": "کپی لینک",
   "site.anchor.copied": "لینک کپی شد",
   "site.banner.headline": "۱۰۰٪ پاداش استیکینگ را دریافت کنید.",

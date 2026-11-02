@@ -1,5 +1,4 @@
 {
-  "site.nav.home": "Ana Sayfa",
   "site.nav.hpo": "HPO",
   "site.nav.docs": "Dokümanlar",
   "site.nav.faq": "SSS",
@@ -10,6 +9,7 @@
   "site.nav.club": "Club",
   "site.cta.openApp": "Uygulamayı aç",
   "site.header.menuToggle": "Mobil menüyü aç/kapat",
+  "site.header.mainNav": "Ana bölümler",
   "site.anchor.copy": "Bağlantıyı kopyala",
   "site.anchor.copied": "Bağlantı kopyalandı",
   "site.banner.headline": "Staking ödüllerinin %100'ünü kazanın.",

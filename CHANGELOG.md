@@ -9,6 +9,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-02 — Site menu: five items, bottom tabs on every page
+
+- The menu is now five items on every page: Stake, Club (Rewards while the flag is off), Stats, DeFi, HPO. Docs, FAQ and Blog crowded it, so they moved into the hamburger menu, which now exists only below `lg` and holds just them; Home is the logo. One menu on every page, with Stake first as the core of the business.
+- The same five items are a fixed bottom tab bar below `lg` on the static pages too (home, HPO, FAQ, blog, compare, verify), not only in the app; the footer clears it on every page. In the app the HPO tab is a plain link, the other four keep in-app navigation.
+- HPO has a one-colour coin icon (`currentColor`, the face cut out by a mask). The full-colour coin was declined: it would out-shout Stake.
+- Declined: six tabs including Home, because the pt/tr/ru labels do not fit at 360px, and the logo already goes home.
+- The inline nav now shows from `lg` (1024px) instead of `xl`: measured in all eleven locales, the widest (Russian with Open app, and the app header with a connected wallet) still leaves about 80px spare.
+- All 11 locales: the two new strings (`app.nav.blog`, `site.header.mainNav`) translated, the unused `*.nav.home` removed, and the static menu's labels made to match the app's where they differed (de "Staking" → "Staken", ar "الإحصائيات" → "الإحصاءات"), so a tab reads the same on every page.
+- Spec: [specs/site-nav-five-items.md](specs/site-nav-five-items.md).
+
 ## 2026-11-02 — Club Overview: clearer "still needed" line and no five-digit percentages
 
 - The claim card's line under the progress bar read "90.65 HPO to the 100 HPO claim minimum", which a member took for a second balance (Hipo Chat C4); it now reads "90.65 more HPO needed to claim (minimum 100 HPO)" (`club.claim.toMin`, `toMinRounds`).

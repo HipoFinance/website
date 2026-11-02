@@ -1,5 +1,4 @@
 {
-  "site.nav.home": "Главная",
   "site.nav.hpo": "HPO",
   "site.nav.docs": "Документация",
   "site.nav.faq": "FAQ",
@@ -10,6 +9,7 @@
   "site.nav.defi": "DeFi",
   "site.cta.openApp": "Открыть приложение",
   "site.header.menuToggle": "Открыть или закрыть меню",
+  "site.header.mainNav": "Основные разделы",
   "site.anchor.copy": "Скопировать ссылку",
   "site.anchor.copied": "Ссылка скопирована",
   "site.banner.headline": "Получайте 100 % наград за стейкинг.",

@@ -1,7 +1,7 @@
 ---
 // The one site-wide footer (home, FAQ, HPO, and the app pages). Replaces the three per-section
-// footers so every page ends the same way. `app` adds the bottom padding that keeps the footer
-// clear of the app's fixed mobile tab bar.
+// footers so every page ends the same way. Every page gets the bottom padding that keeps the
+// footer clear of the fixed mobile tab bar (SiteHeader.astro, app/Header.tsx). `app` only drops the CTA.
 import { DEFAULT_LOCALE } from '../i18n/registry.mjs'
 import { localeOf, localizedPath } from '../i18n/locale.ts'
 import { getT } from '../i18n/t.ts'
@@ -51,7 +51,7 @@ const docsLinks = [
 ]
 ---
 
-<footer class:list={['font-body bg-surface-deep text-text-faint mt-auto', app && 'pb-20 lg:pb-0']}>
+<footer class='font-body bg-surface-deep text-text-faint mt-auto pb-20 lg:pb-0'>
   <div class='mx-auto w-full max-w-[1120px] px-6 py-10 sm:px-10'>
     {
       /* The closing CTA, in place of the old "Join Hipo on Telegram" strip: that strip duplicated the
