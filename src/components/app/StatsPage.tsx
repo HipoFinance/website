@@ -121,7 +121,8 @@ const StatsPage = observer(({ model }: Props) => {
   // page locale like the rest of the island: digits, separators, percent placement, compact
   // notation, calendar and time format.
   const formatApy = (v: number) => model.formatPercent(v / 100)
-  const formatCompactCount = (v: number) => model.formatCompact(v, 1)
+  const formatCompactAxis = (v: number, digits: number) => model.formatCompact(v, digits)
+  const formatCount = (v: number) => model.formatNumber(v, { maximumFractionDigits: 0 })
   const formatStakedValue = (v: number) => model.withUnit('app.model.gram', model.formatCompact(v, 1))
   const formatRateValue = (v: number) => model.formatRate(v)
   const formatPrice = (v: number) => model.formatUsdPrice(v)
@@ -308,7 +309,7 @@ const StatsPage = observer(({ model }: Props) => {
           series={stakedSeries}
           areaFill={accentAreaFill}
           valueFormat={formatStakedValue}
-          axisFormat={formatCompactCount}
+          axisFormat={formatCompactAxis}
           deltaUnit='%'
           {...chartCommon}
         />
@@ -327,7 +328,7 @@ const StatsPage = observer(({ model }: Props) => {
             series={liquiditySeries}
             areaFill={accentAreaFill}
             valueFormat={formatStakedValue}
-            axisFormat={formatCompactCount}
+            axisFormat={formatCompactAxis}
             deltaUnit='%'
             hideDelta
             {...chartCommon}
@@ -336,7 +337,8 @@ const StatsPage = observer(({ model }: Props) => {
         <LineChart
           title={t('app.statsPage.activeStakers')}
           series={holdersSeries}
-          valueFormat={formatCompactCount}
+          valueFormat={formatCount}
+          axisFormat={formatCompactAxis}
           deltaUnit='%'
           {...chartCommon}
         />

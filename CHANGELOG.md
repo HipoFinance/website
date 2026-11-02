@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-02 — Stats charts: Y-axis labels no longer repeat
+
+- On a narrow range the compact axis labels all read the same (a user reported "23.2K" on every gridline of Active stakers while the line moved); the chart now adds up to 3 fraction digits until the labels differ. Labels that already differed keep their form. Left open: a range of under about 4 stakers still repeats (its gridlines fall on half-stakers, so no format separates them; a fallback to the exact count was tried and dropped after review), and the rate and price charts, which have no compact axis, are not covered; none of these occurs today.
+- The Active stakers hover readout and data table now show the exact count instead of "23.2K"; its axis stays compact.
+- The axis gutter, a fixed 60px before, now grows to fit the widest label, because the longer labels ("23,24 тыс.") were cut off at the card's edge on a phone.
+- Declined: changing the Y scale itself, which already fits the data's range.
+
 ## 2026-11-02 — The app reloads itself once when a deploy removed its files
 
 - A deploy replaces the hashed `/_astro/` files, so a cached or long-open app page could not start or continue the app (the static outline, then nothing; seen after bed2a73). An inline script in `AppLayout.astro` now catches Astro's `astro:hydration-error` and Vite's `vite:preloadError`, fetches a fresh copy of the page and reloads once, only when that copy arrived; offline it does nothing (after review: an offline reload would land on the browser's error page).

@@ -27,7 +27,8 @@ export interface LineChartProps {
   // Fill under the first series, per the design's TVL card. Omitted elsewhere.
   areaFill?: string
   valueFormat: (v: number) => string
-  axisFormat?: (v: number) => string
+  // The chart passes the fewest fraction digits (1 to 3) that keep every gridline label distinct.
+  axisFormat?: (v: number, fractionDigits: number) => string
   deltaUnit: DeltaUnit
   deltaFormat: DeltaFormat
   // Suppress the first-to-last delta in the header. Set it for a series that CYCLES rather than
@@ -58,6 +59,17 @@ interface Size {
 }
 
 const padding = { top: 12, right: 60, bottom: 24, left: 4 }
+
+let measureCtx: CanvasRenderingContext2D | null = null
+
+function labelWidth(text: string, font: string): number {
+  if (measureCtx == null && typeof document !== 'undefined') {
+    measureCtx = document.createElement('canvas').getContext('2d')
+  }
+  if (measureCtx == null) return text.length * 7
+  measureCtx.font = font
+  return measureCtx.measureText(text).width
+}
 
 function clamp(n: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, n))
@@ -241,17 +253,36 @@ const LineChart = ({
 
   useEffect(() => () => clearTimeout(touchDismissTimer.current), [])
 
-  const plotWidth = Math.max(1, size.width - padding.left - padding.right)
+  const allValues = series.flatMap((s) => s.points.map((p) => p.v)).filter((v) => Number.isFinite(v))
+  const rawMin = allValues.length > 0 ? Math.min(...allValues) : 0
+  const rawMax = allValues.length > 0 ? Math.max(...allValues) : 1
+  const ticks = niceTicks(rawMin, rawMax, 4)
+  // Compact labels can collide on a narrow range (23,180 and 23,210 both print "23.2K"), so add
+  // fraction digits until every gridline reads differently; past 3 the collision is accepted.
+  const tickLabels = (() => {
+    if (axisFormat == null) return ticks.map((v) => valueFormat(v))
+    let labels: string[] = []
+    for (let digits = 1; digits <= 3; digits++) {
+      labels = ticks.map((v) => axisFormat(v, digits))
+      if (new Set(labels).size === labels.length) break
+    }
+    return labels
+  })()
+  // The gutter grows to fit the widest label: long compact forms such as "23,24 тыс." would
+  // otherwise be clipped at the card's edge.
+  const labelFont = `12px ${containerRef.current ? getComputedStyle(containerRef.current).fontFamily : 'sans-serif'}`
+  const padRight = Math.max(
+    padding.right,
+    Math.ceil(Math.max(0, ...tickLabels.map((l) => labelWidth(l, labelFont)))) + 6 + 4,
+  )
+
+  const plotWidth = Math.max(1, size.width - padding.left - padRight)
   const plotHeight = Math.max(1, size.height - padding.top - padding.bottom)
   const domainSpan = domainEnd - domainStart || 1
 
   const xScale = (t: number) => padding.left + ((t - domainStart) / domainSpan) * plotWidth
   const xInvert = (px: number) => domainStart + ((px - padding.left) / plotWidth) * domainSpan
 
-  const allValues = series.flatMap((s) => s.points.map((p) => p.v)).filter((v) => Number.isFinite(v))
-  const rawMin = allValues.length > 0 ? Math.min(...allValues) : 0
-  const rawMax = allValues.length > 0 ? Math.max(...allValues) : 1
-  const ticks = niceTicks(rawMin, rawMax, 4)
   const tickMin = ticks[0]
   const tickMax = ticks[ticks.length - 1]
   const tickSpan = tickMax - tickMin || Math.abs(tickMax) || 1
@@ -566,27 +597,27 @@ const LineChart = ({
             // that historical sample.
             onBlur={() => onHover(null)}
           >
-            {ticks.map((tick) => {
+            {ticks.map((tick, i) => {
               const y = yScale(tick)
               return (
                 <g key={tick}>
                   <line
                     x1={padding.left}
-                    x2={size.width - padding.right}
+                    x2={size.width - padRight}
                     y1={y}
                     y2={y}
                     stroke='var(--chart-grid)'
                     strokeWidth={1}
                   />
                   <text
-                    x={size.width - padding.right + 6}
+                    x={size.width - padRight + 6}
                     y={y}
                     dy='0.32em'
                     fontSize={12}
                     className='tabular-nums'
                     fill='var(--chart-ink)'
                   >
-                    {axisFormat != null ? axisFormat(tick) : valueFormat(tick)}
+                    {tickLabels[i]}
                   </text>
                 </g>
               )
@@ -595,7 +626,7 @@ const LineChart = ({
             {xTicks.map((t) => (
               <text
                 key={t}
-                x={clamp(xScale(t), padding.left + 16, size.width - padding.right - 16)}
+                x={clamp(xScale(t), padding.left + 16, size.width - padRight - 16)}
                 y={size.height - 6}
                 fontSize={12}
                 textAnchor='middle'
