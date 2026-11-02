@@ -2,6 +2,11 @@
 
 **Status:** approved 2026-10-27 (Alireza) (spec 3 of the Hipo Club redesign; BUILD-PLAN rev. 6 §4, §9; SPEC v7)
 
+**Later changes:** the takeover protection (fresh login, revert, link wait, revert hold, "This wasn't
+me") was dropped on 2026-11-01, club-server `specs/club-switch-drop-takeover-protection.md`; the 24 h
+wallet-change limit (`switch_limit`, `next_switch_at`) was dropped on 2026-11-02, club-server
+`specs/club-switch-drop-change-limit.md`. Where this spec still describes them, those specs win.
+
 ## Goal
 
 At launch time L (Sat 2026-10-31 09:00 UTC) the Club moves to hipo.finance: a `/club/` section in the
@@ -168,7 +173,7 @@ uncommitted), club-web `c4b6436`.
 | token}` → `{ok, reason, token, expires_at, account}` (`redis/clubsession.go:380-393`). Reasons:
   `not_open, bad_origin, bad_auth, auth_used, rate_limited, bad_session, reauth, busy, frozen,
 bad_request, bad_challenge, bad_proof, not_a_wallet, custodian, retry, balance_unavailable,
-same_wallet, wallet_taken, switch_limit, no_club_wallet, changed, expired, wallet_changed_hands`
+same_wallet, wallet_taken, no_club_wallet, changed, expired, wallet_changed_hands`
   (`clubsession.go:57-79`). `clubstatus` and the prepare reply fields: `redis/clublink.go:272-287,
 362-385`. Protocol version: the server accepts `v` 41 or 42 (`redis/service.go:194`).
 - **Spec 2b (draft, club-server `specs/club-read-api-alerts-xp-off.md`).** Read messages
@@ -297,8 +302,7 @@ payload, signature, timestamp}}` (club-web's mapping, `src/Model.ts:5155-5170`).
 - **Outcomes:** `done` → the board's strip ("… is now your Club wallet", grace notice when below,
   "We sent a confirmation to @name"); `finishing` → "Finishing your wallet change" and `clubstatus`
   every 15 s for up to 3 minutes; each refusal reason has one fixed sentence (`wallet_taken`: "This
-  wallet is linked to another Telegram account", never naming it; `switch_limit`: "You can change
-  wallet again on {next_switch_at}"; `changed`/`expired`: reload; `busy`/`retry`: try again). The new
+  wallet is linked to another Telegram account", never naming it; `changed`/`expired`: reload; `busy`/`retry`: try again). The new
   token from the confirm replaces the stored one.
 - **Reconnect previous** is client-only: disconnect, open TON Connect, compare again; match → "Welcome
   back: … is connected. Nothing changed." During grace it adds "Your grace period keeps running
