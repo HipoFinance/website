@@ -39,6 +39,8 @@
   "site.shell.defi.heading": "hGRAM en TON DeFi",
   "site.shell.club.heading": "Hipo Club: tu nivel, multiplicador y HPO potenciado",
   "site.app.loading": "Cargando la app de Hipo…",
+  "site.app.loadFailed": "No se pudo cargar la página.",
+  "site.app.reload": "Recargar",
   "site.app.pagesNav": "Páginas de la app de Hipo",
   "site.app.nav.stake": "Staking",
   "site.app.nav.unstake": "Unstaking",

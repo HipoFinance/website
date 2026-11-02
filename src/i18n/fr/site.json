@@ -39,6 +39,8 @@
   "site.shell.stats.heading": "Statistiques du protocole Hipo",
   "site.shell.defi.heading": "hGRAM dans la DeFi TON",
   "site.app.loading": "Chargement de l’app Hipo…",
+  "site.app.loadFailed": "Impossible de charger la page.",
+  "site.app.reload": "Recharger",
   "site.app.pagesNav": "Pages de l’app Hipo",
   "site.app.nav.stake": "Staker",
   "site.app.nav.unstake": "Unstaker",

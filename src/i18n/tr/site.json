@@ -39,6 +39,8 @@
   "site.shell.defi.heading": "TON DeFi'de hGRAM",
   "site.shell.club.heading": "Hipo Club: Seviyeniz, Güçlendirmeniz ve Güçlendirilmiş HPO",
   "site.app.loading": "Hipo uygulaması yükleniyor…",
+  "site.app.loadFailed": "Sayfa yüklenemedi.",
+  "site.app.reload": "Yeniden yükle",
   "site.app.pagesNav": "Hipo uygulama sayfaları",
   "site.app.nav.stake": "Stake et",
   "site.app.nav.unstake": "Unstake et",

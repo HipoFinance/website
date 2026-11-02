@@ -39,6 +39,8 @@
   "site.shell.stats.heading": "Статистика протокола Hipo",
   "site.shell.defi.heading": "hGRAM в TON DeFi",
   "site.app.loading": "Загрузка приложения Hipo…",
+  "site.app.loadFailed": "Не удалось загрузить страницу.",
+  "site.app.reload": "Перезагрузить",
   "site.app.pagesNav": "Страницы приложения Hipo",
   "site.app.nav.stake": "Стейкинг",
   "site.app.nav.unstake": "Вывод из стейкинга",

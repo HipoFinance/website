@@ -39,6 +39,8 @@
   "site.shell.stats.heading": "آمار پروتکل Hipo",
   "site.shell.defi.heading": "hGRAM در DeFi شبکه TON",
   "site.app.loading": "در حال بارگذاری اپ Hipo…",
+  "site.app.loadFailed": "صفحه بارگذاری نشد.",
+  "site.app.reload": "بارگذاری دوباره",
   "site.app.pagesNav": "صفحه‌های اپ Hipo",
   "site.app.nav.stake": "استیک",
   "site.app.nav.unstake": "آن‌استیک",

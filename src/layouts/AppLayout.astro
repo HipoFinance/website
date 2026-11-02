@@ -132,6 +132,81 @@ const footerNav = [
       })()
     </script>
 
+    <!-- Stale page: a deploy deletes the old hashed /_astro/ files, so a cached or long-open page can
+         no longer load the app. This is inline because it must work when every app file is gone. It
+         reloads once a minute at most (the sessionStorage guard), so a server that is really broken
+         cannot cause a reload loop; then it shows #app-load-failed instead. -->
+    <script is:inline>
+      ;(function () {
+        if (window.__hipoStaleReload) return
+        window.__hipoStaleReload = true
+        var KEY = 'hipo.staleReload'
+        var reloading = false
+        // Reloads only once the server has answered with the page, so an offline member or a failing
+        // server keeps the page they have (and gets the notice) instead of the browser's error page.
+        function freshReload() {
+          if (reloading) return
+          reloading = true
+          var done = false
+          function finish(ok) {
+            if (done) return
+            done = true
+            if (ok) {
+              location.reload()
+            } else {
+              reloading = false
+              showNotice()
+            }
+          }
+          setTimeout(function () {
+            finish(false)
+          }, 5000)
+          try {
+            fetch(location.href, { cache: 'reload' }).then(
+              function (response) {
+                finish(response.ok)
+              },
+              function () {
+                finish(false)
+              },
+            )
+          } catch (e) {
+            finish(false)
+          }
+        }
+        function showNotice() {
+          var el = document.getElementById('app-load-failed')
+          if (el) {
+            el.hidden = false
+          } else {
+            document.addEventListener('DOMContentLoaded', showNotice)
+          }
+        }
+        function onFailure() {
+          // A reload is already on its way, or the member is offline: a failed load then is no sign
+          // of a deploy, and the page they have stays as it is.
+          if (reloading || navigator.onLine === false) return
+          var recent = true
+          try {
+            var last = Number(window.sessionStorage.getItem(KEY))
+            recent = last > 0 && Date.now() - last < 60000
+            if (!recent) window.sessionStorage.setItem(KEY, String(Date.now()))
+          } catch (e) {
+            recent = true
+          }
+          if (recent) showNotice()
+          else freshReload()
+        }
+        document.addEventListener('astro:hydration-error', function (event) {
+          if (event.detail && event.detail.componentUrl) onFailure()
+        })
+        window.addEventListener('vite:preloadError', onFailure)
+        document.addEventListener('click', function (event) {
+          if (event.target && event.target.closest && event.target.closest('[data-app-reload]')) freshReload()
+        })
+      })()
+    </script>
+
     <SEO title={title} description={description} jsonLd={jsonLd} />
 
     <ClientRouter />
@@ -145,6 +220,21 @@ const footerNav = [
     <div data-tma-hide><Banner /></div>
 
     <main>
+      <!-- Shown by the inline script in <head> when the app's files are gone and a reload was already
+           tried. Outside data-tma-hide so it also shows in Telegram. The display classes are on the
+           inner element, so the hidden attribute on the outer one really hides it. -->
+      <div id='app-load-failed' role='alert' hidden>
+        <div class='font-body text-text flex flex-col items-center gap-4 px-4 py-10 text-center'>
+          <p>{t('site.app.loadFailed')}</p>
+          <button
+            type='button'
+            data-app-reload
+            class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold'
+          >
+            {t('site.app.reload')}
+          </button>
+        </div>
+      </div>
       {
         /* The island's catalog for this locale (see Model.syncLocale); absent for English. Lives in the
            static shell, so a ClientRouter swap between locales hands the persisted island its new

@@ -39,6 +39,8 @@
   "site.shell.stats.heading": "Statistik protokol Hipo",
   "site.shell.defi.heading": "hGRAM di TON DeFi",
   "site.app.loading": "Memuat aplikasi Hipo…",
+  "site.app.loadFailed": "Halaman tidak dapat dimuat.",
+  "site.app.reload": "Muat ulang",
   "site.app.pagesNav": "Halaman aplikasi Hipo",
   "site.app.nav.stake": "Stake",
   "site.app.nav.unstake": "Unstake",

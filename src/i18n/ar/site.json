@@ -39,6 +39,8 @@
   "site.shell.club.heading": "Hipo Club: مستواك وتعزيزك وHPO المعزز",
   "site.shell.defi.heading": "hGRAM في TON DeFi",
   "site.app.loading": "جارٍ تحميل تطبيق Hipo…",
+  "site.app.loadFailed": "تعذّر تحميل الصفحة.",
+  "site.app.reload": "إعادة التحميل",
   "site.app.pagesNav": "صفحات تطبيق Hipo",
   "site.app.nav.stake": "ستاكينغ",
   "site.app.nav.unstake": "إلغاء الستاكينغ",

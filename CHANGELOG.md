@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-02 — The app reloads itself once when a deploy removed its files
+
+- A deploy replaces the hashed `/_astro/` files, so a cached or long-open app page could not start or continue the app (the static outline, then nothing; seen after bed2a73). An inline script in `AppLayout.astro` now catches Astro's `astro:hydration-error` and Vite's `vite:preloadError`, fetches a fresh copy of the page and reloads once, only when that copy arrived; offline it does nothing (after review: an offline reload would land on the browser's error page).
+- At most one automatic reload a minute per tab (`sessionStorage` `hipo.staleReload`); when that blocks a second one, a static "Couldn't load the page." notice with a Reload button shows, on the web and in Telegram (`site.app.loadFailed`, `site.app.reload`, all 11 locales).
+- Declined: clearing the cached failed imports in `loadChain`, `loadTonConnect` and `clubModelFor`; Chromium remembers a failed import for the life of the page, so it changed nothing. Left open: a retry under a new URL for a brief network drop.
+- Spec: [specs/stale-page-reload.md](specs/stale-page-reload.md).
+
 ## 2026-11-02 — HPO chart ends at the live price
 
 - The /hpo/ hero chart now ends its line at the gauge's live price (`hpo-data.js` publishes it, `hpo-sparkline.ts` appends it), because the query_range grid is snapped down to the step and the line ended up to one step in the past, away from the price card and CoinGecko. The range change, colour and hover include that point.
