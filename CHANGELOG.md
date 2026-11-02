@@ -9,6 +9,10 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-02 — @ravaliz on the /verify/ team list
+
+- Added Alireza's Telegram handle `@ravaliz` after `@behrang` in the official team accounts on `/verify/` (`VerifyRoute.astro`); handles are not translated, so no locale changed.
+
 ## 2026-11-01 — Club wallet switch without the takeover protection
 
 - The Club page no longer asks for a fresh Telegram login before a wallet change, and drops the switch-back and "claim fee won't be paid" warnings and the "Claims open on {date}" line, because club-server dropped the takeover protection (Alireza's decision; the stolen-session risk is accepted).
