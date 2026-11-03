@@ -120,6 +120,41 @@ function guard(label: string, call: () => void) {
   }
 }
 
+// Telegram Desktop closes the mini app on Esc, and phones close it on a swipe or the ✕; a mini app
+// cannot stop either, but from Bot API 6.2 it can make Telegram ask first. The question is asked
+// only while something would be lost: a Club window or wallet step, a stake waiting for its
+// result. Each such state is a reason; the question is on while any reason is.
+const closeReasons = new Set<string>()
+let closeApp: TelegramWebApp | undefined
+// undefined until the first apply, so init always sends the state: a reload may keep the old one
+let closeAsked: boolean | undefined
+
+function applyCloseGuard() {
+  const ask = closeReasons.size > 0
+  if (closeApp === undefined || ask === closeAsked) {
+    return
+  }
+  closeAsked = ask
+  const app = closeApp
+  guard(ask ? 'enableClosingConfirmation' : 'disableClosingConfirmation', () => {
+    if (ask) {
+      app.enableClosingConfirmation()
+    } else {
+      app.disableClosingConfirmation()
+    }
+  })
+}
+
+/** Turns one reason for asking before the mini app closes on or off; a no-op outside Telegram. */
+export function setCloseGuard(reason: string, on: boolean) {
+  if (on) {
+    closeReasons.add(reason)
+  } else {
+    closeReasons.delete(reason)
+  }
+  applyCloseGuard()
+}
+
 /**
  * The user's Telegram UI language from the launch data (`initDataUnsafe.user.language_code`: an
  * IETF-style tag such as 'en', 'fa' or 'pt'), for the mini-app locale override (spec §D). Only a
@@ -222,6 +257,12 @@ export async function initTelegramChrome(mode: TmaMode): Promise<boolean> {
     guard('disableVerticalSwipes', () => {
       WebApp.disableVerticalSwipes()
     })
+  }
+
+  // 6.2: the close question, for the reasons set before or after this point (setCloseGuard).
+  if (atLeast('6.2')) {
+    closeApp = WebApp
+    applyCloseGuard()
   }
 
   // 6.9: ask to be allowed to message this user. Telegram only lets the bot write to someone who

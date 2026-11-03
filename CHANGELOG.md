@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-03 — Mini app: Telegram asks before closing while something is open
+
+- In the Telegram mini app (Bot API 6.2+), Telegram's own "close anyway?" question is on while a stake or unstake waits for its result, or a Club window or wallet step is open on a Club page (`setCloseGuard` in `tma/telegram.ts`), because Esc in Telegram Desktop, a swipe or ✕ closed the app and lost the step; a mini app cannot block the close itself.
+- The state is sent once at start too, in case a reload keeps the old flag; no new strings (Telegram shows its own dialog); nothing changes outside Telegram.
+- Unverified until tested on real clients: whether Telegram Desktop's Esc honours the question, and that the wallet hand-off of a Club claim or upgrade is not taken for a close. Left as is: no question while the wallet is still asking for the signature, or after closing a result window.
+
 ## 2026-11-03 — Club: Telegram linking opens on the first press, and says when it can't
 
 - "Link → Continue with Telegram" often did nothing on a first press and worked on the second (Hipo Chat A4, #13): the press first downloaded our login chunk and telegram.org's widget, by which time the browser no longer counted the click and blocked the popup, and Telegram's widget never calls back for a blocked popup, so the press hung with no error. Both now load when the Link Telegram window opens, the button waits (busy) until they have, and the press opens the popup before anything is awaited (`telegramLogin` is synchronous up to `window.open`), which Safari needs.
