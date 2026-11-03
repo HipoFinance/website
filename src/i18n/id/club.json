@@ -109,6 +109,8 @@
   "club.error.lockReleased": "Permintaan Anda sebelumnya tidak berhasil. Anda dapat mencoba lagi sekarang.",
   "club.error.locked": "Pembayaran Anda sedang dikirim. Tidak ada yang dikirim lagi.",
   "club.error.loginFailed": "Login Telegram tidak terbuka. Coba lagi.",
+  "club.error.tgPopupBlocked": "Browser Anda memblokir jendela Telegram. Izinkan pop-up untuk hipo.finance, lalu tekan \"Lanjutkan dengan Telegram\" lagi.",
+  "club.error.tgLoadFailed": "Login Telegram gagal dimuat. Periksa koneksi atau VPN Anda, lalu tekan \"Lanjutkan dengan Telegram\" untuk mencoba lagi.",
   "club.error.mismatch": "Dijeda sampai Anda memilih dompet.",
   "club.error.mockUpgrade": "Upgrade tidak pernah dikirim dari data pratinjau.",
   "club.error.noClubWallet": "Tidak ada dompet Club untuk dilepas.",

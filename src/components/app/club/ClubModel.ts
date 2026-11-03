@@ -82,6 +82,8 @@ const OVERVIEW_POLL = 30_000
 const NOT_OPEN_POLL = 60_000
 const FINISHING_POLL = 15_000
 const FINISHING_FOR = 3 * 60_000
+// How long the Link Telegram window waits for Telegram's login to load before it says so.
+const TG_LOGIN_TIMEOUT = 10_000
 // requestProof: how long the wallet's answer may still arrive after TON Connect's window closes,
 // when it closed without a wallet (cancelled) or with one whose proof has not come yet.
 const PROOF_AFTER_CANCEL = 5_000
@@ -256,6 +258,11 @@ export class ClubModel {
   notice?: Notice
   actionError?: ActionError
   busy = false
+  // Telegram's login (our telegramLogin chunk and telegram.org's script), loaded when the Link
+  // Telegram window opens so that a press reaches the popup at once: a press that first waits for
+  // the downloads is no longer a click to the browser, which then blocks the popup (Hipo Chat A4).
+  tgLogin: 'idle' | 'loading' | 'ready' | 'failed' = 'idle'
+  private tgModule?: typeof import('./telegramLogin.ts')
   decidedLater = false
   promptedMismatchFor?: string
   claimOnItsWay?: number
@@ -311,6 +318,7 @@ export class ClubModel {
       notice: observable.ref,
       actionError: observable.ref,
       busy: observable,
+      tgLogin: observable,
       decidedLater: observable,
       claimOnItsWay: observable,
       withdrawing: observable,
@@ -1302,6 +1310,9 @@ export class ClubModel {
   openModal(modal: Modal) {
     this.actionError = undefined
     this.modal = modal
+    if (modal.kind === 'linkTelegram') {
+      void this.prepareTelegramLogin()
+    }
   }
 
   closeModal() {
@@ -1346,14 +1357,64 @@ export class ClubModel {
 
   // ------------------------------------------------------------------------------ Telegram login
 
+  // Loads Telegram's login ahead of the press; the Continue button waits for it. A load that fails
+  // or takes over TG_LOGIN_TIMEOUT (telegram.org blocked, a blocker extension) shows an error, and
+  // a press then tries again, so the button never stays dead.
+  async prepareTelegramLogin() {
+    if (this.tgLogin === 'loading' || this.tgLogin === 'ready') {
+      return
+    }
+    if (this.mock !== undefined) {
+      runInAction(() => (this.tgLogin = 'ready'))
+      return
+    }
+    runInAction(() => {
+      this.tgLogin = 'loading'
+      if (this.actionError?.key === 'club.error.tgLoadFailed') {
+        this.actionError = undefined
+      }
+    })
+    let timer: ReturnType<typeof setTimeout> | undefined
+    let module: typeof import('./telegramLogin.ts') | undefined
+    try {
+      await Promise.race([
+        import('./telegramLogin.ts').then((m) => {
+          module = m
+          return m.preloadTelegramLogin()
+        }),
+        new Promise<never>((_, reject) => {
+          timer = setTimeout(() => reject(new Error('Telegram login took too long')), TG_LOGIN_TIMEOUT)
+        }),
+      ])
+      this.tgModule = module
+      runInAction(() => (this.tgLogin = 'ready'))
+    } catch {
+      // a hung download is dropped, so that the next try (a VPN turned on) fetches afresh
+      module?.abandonTelegramLogin()
+      runInAction(() => {
+        this.tgLogin = 'failed'
+        // only on the window that asked; opening it again tries the load again
+        if (this.modal?.kind === 'linkTelegram') {
+          this.setError({ key: 'club.error.tgLoadFailed' })
+        }
+      })
+    } finally {
+      clearTimeout(timer)
+    }
+  }
+
   async loginTelegram(after?: After) {
+    if (this.tgLogin !== 'ready') {
+      void this.prepareTelegramLogin()
+      return
+    }
+    // The popup opens here, in the press itself, before anything is awaited (see telegramLogin).
+    const opening =
+      this.mock !== undefined ? this.mock.telegramLogin() : this.tgModule!.telegramLogin(this.model.locale)
     this.setBusy(true)
     this.setError(undefined)
     try {
-      const widget =
-        this.mock !== undefined
-          ? await this.mock.telegramLogin()
-          : await (await import('./telegramLogin.ts')).telegramLogin(this.model.locale)
+      const widget = await opening
       if (widget === undefined) {
         this.setBusy(false)
         return
@@ -1377,6 +1438,10 @@ export class ClubModel {
     } catch (e) {
       this.pendingWidget = undefined
       this.setBusy(false)
+      if (e instanceof Error && e.name === 'PopupBlockedError') {
+        this.setError({ key: 'club.error.tgPopupBlocked' })
+        return
+      }
       const reason = e instanceof ClubSocketError ? (e.reason ?? 'retry') : 'loginFailed'
       this.setError({ key: refusalKey(reason) })
     }

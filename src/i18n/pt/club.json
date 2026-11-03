@@ -109,6 +109,8 @@
   "club.error.lockReleased": "Sua solicitação anterior não foi concluída. Você já pode tentar novamente.",
   "club.error.locked": "Seu pagamento está a caminho. Nada foi enviado de novo.",
   "club.error.loginFailed": "O login do Telegram não abriu. Tente novamente.",
+  "club.error.tgPopupBlocked": "O seu navegador bloqueou a janela do Telegram. Permita pop-ups para hipo.finance e toque de novo em \"Continuar com o Telegram\".",
+  "club.error.tgLoadFailed": "Não foi possível carregar o login do Telegram. Verifique a sua conexão ou VPN e toque em \"Continuar com o Telegram\" para tentar novamente.",
   "club.error.mismatch": "Pausado até você escolher uma carteira.",
   "club.error.mockUpgrade": "Upgrades nunca são enviados a partir de dados de pré-visualização.",
   "club.error.noClubWallet": "Não há carteira do Club para liberar.",

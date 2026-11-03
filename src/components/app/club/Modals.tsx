@@ -39,7 +39,11 @@ const LinkTelegram = observer(({ club, modal }: Props & { modal: Extract<Modal, 
       </ErrorLine>
       <Actions>
         <Button onClick={() => club.closeModal()}>{t('club.common.notNow')}</Button>
-        <Button kind='primary' busy={club.busy} onClick={() => void club.loginTelegram(modal.after)}>
+        <Button
+          kind='primary'
+          busy={club.busy || club.tgLogin === 'loading'}
+          onClick={() => void club.loginTelegram(modal.after)}
+        >
           {t('club.modal.tg.continue')}
         </Button>
       </Actions>

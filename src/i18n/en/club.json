@@ -109,6 +109,8 @@
   "club.error.lockReleased": "Your earlier request didn’t go through. You can try again now.",
   "club.error.locked": "Your payment is on its way. Nothing was sent again.",
   "club.error.loginFailed": "Telegram login didn’t open. Try again.",
+  "club.error.tgPopupBlocked": "Your browser blocked the Telegram window. Allow pop-ups for hipo.finance, then press Continue with Telegram again.",
+  "club.error.tgLoadFailed": "Couldn’t load Telegram login. Check your connection or VPN, then press Continue with Telegram to try again.",
   "club.error.mismatch": "Paused until you choose a wallet.",
   "club.error.mockUpgrade": "Upgrades are never sent from preview data.",
   "club.error.noClubWallet": "There is no Club wallet to release.",

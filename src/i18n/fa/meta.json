@@ -1451,6 +1451,14 @@
     "sourceHash": "c52f97bec111d0375fe331e19b16f63b590ee296",
     "reviewed": false
   },
+  "club.error.tgLoadFailed": {
+    "sourceHash": "3433d43f3ea212e4885659d39779d6749f740f4f",
+    "reviewed": false
+  },
+  "club.error.tgPopupBlocked": {
+    "sourceHash": "c013ffcde49f1adc8de2352e057920c61f3333c2",
+    "reviewed": false
+  },
   "club.error.topLevel": {
     "sourceHash": "7b172c725d6efddfaeffc5db1ffa1fac621f260c",
     "reviewed": false

@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-03 — Club: Telegram linking opens on the first press, and says when it can't
+
+- "Link → Continue with Telegram" often did nothing on a first press and worked on the second (Hipo Chat A4, #13): the press first downloaded our login chunk and telegram.org's widget, by which time the browser no longer counted the click and blocked the popup, and Telegram's widget never calls back for a blocked popup, so the press hung with no error. Both now load when the Link Telegram window opens, the button waits (busy) until they have, and the press opens the popup before anything is awaited (`telegramLogin` is synchronous up to `window.open`), which Safari needs.
+- A blocked popup (null or undefined from `window.open`, watched during the widget's `auth` call) shows "Your browser blocked the Telegram window. Allow pop-ups for hipo.finance, then press Continue with Telegram again." A load that fails or takes over 10 s shows "Couldn't load Telegram login. Check your connection or VPN, then press Continue with Telegram to try again."; the press retries with a fresh request (`&retry=N`, since the browser would join a same-URL script to the hung request).
+- All 11 locales, translated at once on Alireza's word (not in a batch). Code review: no confirmed failing case after one fix round (the hung-load retry). Not money-audited (no-go by Alireza). Left open: #13's other follow-ups (refuse `reauth` at `clubproofchallenge`, `reauthThen` after Cancel, a possible double disconnect) and an older one found in review: press, "Not now", reopen and press while the first popup is open, and the first call wins while the second never settles.
+
 ## 2026-11-02 — Wallet: "Connecting…" ends after 8 seconds
 
 - With a saved wallet, the Connect buttons said "Connecting…" until TonConnect finished restoring it, with no upper limit; in Safari the restore can hang on TonConnect's wallet list (`config.ton.org/wallets-v2.json`), so the button stayed on "Connecting…" for good (reported by Alireza, Safari 20.6.2). The wait is now capped at 8 s: the buttons then show Connect, the restore goes on in the background, and the wallet appears connected when it finishes. Checked in Chromium with the list hung (live: stuck over 30 s; fixed: Connect at 8 s), delayed 20 s (wallet appears at 24 s; a Connect press meanwhile keeps the saved session) and for a new visitor.

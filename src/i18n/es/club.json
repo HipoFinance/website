@@ -109,6 +109,8 @@
   "club.error.lockReleased": "Tu solicitud anterior no se completó. Ya puedes intentarlo de nuevo.",
   "club.error.locked": "Tu pago está en camino. No se envió nada más.",
   "club.error.loginFailed": "No se abrió el inicio de sesión de Telegram. Inténtalo de nuevo.",
+  "club.error.tgPopupBlocked": "Tu navegador bloqueó la ventana de Telegram. Permite las ventanas emergentes para hipo.finance y vuelve a pulsar «Continuar con Telegram».",
+  "club.error.tgLoadFailed": "No se pudo cargar el inicio de sesión de Telegram. Revisa tu conexión o tu VPN y pulsa «Continuar con Telegram» para intentarlo de nuevo.",
   "club.error.mismatch": "En pausa hasta que elijas una billetera.",
   "club.error.mockUpgrade": "Las mejoras nunca se envían desde datos de vista previa.",
   "club.error.noClubWallet": "No hay ninguna billetera del Club que liberar.",

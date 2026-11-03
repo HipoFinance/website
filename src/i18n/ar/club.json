@@ -109,6 +109,8 @@
   "club.error.lockReleased": "لم يكتمل طلبك السابق. يمكنك المحاولة مرة أخرى الآن.",
   "club.error.locked": "دفعتك في الطريق. لم يُرسل شيء مرة أخرى.",
   "club.error.loginFailed": "لم يُفتح تسجيل الدخول عبر Telegram. حاول مرة أخرى.",
+  "club.error.tgPopupBlocked": "حظر المتصفح نافذة Telegram. اسمح بالنوافذ المنبثقة لـ hipo.finance، ثم اضغط «المتابعة عبر Telegram» مرة أخرى.",
+  "club.error.tgLoadFailed": "تعذر تحميل تسجيل الدخول عبر Telegram. تحقق من اتصالك أو VPN، ثم اضغط «المتابعة عبر Telegram» للمحاولة مرة أخرى.",
   "club.error.mismatch": "متوقف حتى تختار محفظة.",
   "club.error.mockUpgrade": "لا تُرسل الترقيات أبدًا من بيانات المعاينة.",
   "club.error.noClubWallet": "لا توجد محفظة نادٍ لإلغاء ربطها.",

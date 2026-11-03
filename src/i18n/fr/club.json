@@ -109,6 +109,8 @@
   "club.error.lockReleased": "Ta demande précédente n’a pas abouti. Tu peux réessayer maintenant.",
   "club.error.locked": "Ton paiement est en route. Rien n’a été renvoyé.",
   "club.error.loginFailed": "La connexion Telegram ne s’est pas ouverte. Réessaie.",
+  "club.error.tgPopupBlocked": "Ton navigateur a bloqué la fenêtre Telegram. Autorise les pop-ups pour hipo.finance, puis appuie de nouveau sur « Continuer avec Telegram ».",
+  "club.error.tgLoadFailed": "La connexion Telegram n’a pas pu se charger. Vérifie ta connexion ou ton VPN, puis appuie sur « Continuer avec Telegram » pour réessayer.",
   "club.error.mismatch": "En pause jusqu’à ce que tu choisisses un portefeuille.",
   "club.error.mockUpgrade": "Les mises à niveau ne sont jamais envoyées à partir de données d’aperçu.",
   "club.error.noClubWallet": "Il n’y a aucun portefeuille Club à libérer.",

@@ -109,6 +109,8 @@
   "club.error.lockReleased": "Önceki isteğiniz tamamlanmadı. Şimdi tekrar deneyebilirsiniz.",
   "club.error.locked": "Ödemeniz yolda. Tekrar bir şey gönderilmedi.",
   "club.error.loginFailed": "Telegram girişi açılmadı. Tekrar deneyin.",
+  "club.error.tgPopupBlocked": "Tarayıcınız Telegram penceresini engelledi. hipo.finance için açılır pencerelere izin verin, ardından tekrar \"Telegram ile devam et\" düğmesine basın.",
+  "club.error.tgLoadFailed": "Telegram girişi yüklenemedi. Bağlantınızı veya VPN'inizi kontrol edin, ardından tekrar denemek için \"Telegram ile devam et\" düğmesine basın.",
   "club.error.mismatch": "Bir cüzdan seçene kadar duraklatıldı.",
   "club.error.mockUpgrade": "Yükseltmeler asla önizleme verisinden gönderilmez.",
   "club.error.noClubWallet": "Serbest bırakılacak bir Club cüzdanı yok.",
