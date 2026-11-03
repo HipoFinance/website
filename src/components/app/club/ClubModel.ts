@@ -45,7 +45,6 @@ import {
   type WalletRewards,
 } from './api.ts'
 import { authBody, authOutcome, sessionFitsInitData, type Credentials } from './auth.ts'
-import { setCloseGuard } from '../tma/telegram'
 import { CLAIM_MIN_NANO, HIPO_TON, parseHpoNano, upgradeAmountNano, upgradeTarget } from './clubTx.ts'
 import {
   CLAIMS_OPEN_MARGIN,
@@ -786,19 +785,6 @@ export class ClubModel {
           void this.load()
         },
       ),
-    )
-    // A Club window or wallet step open on a Club page: Telegram asks before the mini app closes.
-    this.disposers.push(
-      reaction(
-        () => this.model.activePage === 'club' && (this.modal !== undefined || this.busy),
-        (on) => {
-          setCloseGuard('club', on)
-        },
-        { fireImmediately: true },
-      ),
-      () => {
-        setCloseGuard('club', false)
-      },
     )
     const clock = setInterval(() => {
       runInAction(() => {

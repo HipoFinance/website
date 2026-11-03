@@ -19,14 +19,7 @@ import type { Address, OpenedContract, TonClient4 } from '@ton/ton'
 import type { Treasury, TreasuryConfig, Wallet, WalletState } from '@hipo-finance/sdk'
 import type { SeededDelta, StatsSeed } from '../../data/stats.ts'
 import { track } from './analytics'
-import {
-  detectTmaMode,
-  initTelegramChrome,
-  setCloseGuard,
-  telegramLanguageCode,
-  tmaClass,
-  type TmaMode,
-} from './tma/telegram'
+import { detectTmaMode, initTelegramChrome, telegramLanguageCode, tmaClass, type TmaMode } from './tma/telegram'
 import { DEFAULT_LOCALE, LOCALES, isReleased } from '../../i18n/registry.mjs'
 import { dirOf, langOf, localizedPath, matchLocale, stripLocale, type Locale } from '../../i18n/locale.ts'
 import { makeT, type Catalog, type Params, type Translator } from '../../i18n/make-t.ts'
@@ -1213,11 +1206,6 @@ export class Model {
 
     autorun(() => {
       this.connectTonEndpoint()
-    })
-
-    // A stake or unstake waiting for its result: Telegram asks before the mini app closes.
-    autorun(() => {
-      setCloseGuard('transaction', this.waitForTransaction === 'signed' || this.waitForTransaction === 'sent')
     })
 
     autorun(() => {

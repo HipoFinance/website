@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-03 — Mini app: the close question removed again
+
+- Reverts the close question of 6a12504 (Telegram asking before the mini app closes while a stake waits or a Club window is open): tested on Telegram Desktop 9.6 and on a phone, the question was on (`isClosingConfirmationEnabled` true) but neither Esc, ✕ nor a swipe asked, so the change did nothing anywhere.
+- Left as is: a mini app cannot stop Telegram closing it; a Club window or a waiting stake is lost on close, as before.
+
 ## 2026-11-03 — Club: a rate limit or busy answer waits and retries instead of an error
 
 - A `rate_limited` or `busy` refusal of a Club read no longer sets the "Couldn't load the Club" phase: what is shown stays (a first load stays loading), and the read is tried again after 60 s (`rate_limited`, a fixed one-minute window per account) or 5 s (`busy`). Seen 2026-11-03: the error on two devices, gone by itself; the cause is not confirmed, `rate_limited` is the likely one.
