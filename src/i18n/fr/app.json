@@ -211,6 +211,7 @@
   "app.tma.youReceive": "Tu reçois",
   "app.tma.youStake": "Tu stakes",
   "app.tma.youUnstake": "Tu unstakes",
+  "app.wallet.pickerStuck": "Impossible de joindre le service du portefeuille. Vérifie ta connexion ou active un VPN, puis réessaie.",
   "app.wait.bouncedStakeMessage": "Le contrat a renvoyé ta transaction : rien n’a été staké. Tes GRAM sont revenus, moins les frais de réseau.",
   "app.wait.bouncedStakeTitle": "Stake refusé",
   "app.wait.bouncedUnstakeMessage": "Le contrat a renvoyé ta transaction : rien n’a été unstaké. Tes hGRAM sont inchangés.",

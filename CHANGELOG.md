@@ -9,6 +9,17 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-03 — Club: a rate limit or busy answer waits and retries instead of an error
+
+- A `rate_limited` or `busy` refusal of a Club read no longer sets the "Couldn't load the Club" phase: what is shown stays (a first load stays loading), and the read is tried again after 60 s (`rate_limited`, a fixed one-minute window per account) or 5 s (`busy`). Seen 2026-11-03: the error on two devices, gone by itself; the cause is not confirmed, `rate_limited` is the likely one.
+- Every other refusal and failure still shows the error as before. Not covered by a self-test (none reaches `loadFailed`); to be tried by hand.
+
+## 2026-11-03 — Wallet: our own wallet list, and a message when the wallet service can't be reached
+
+- TonConnect now reads its wallet list from our own origin (`/tonconnect/wallets-v2.json`, written by `scripts/wallets-list.mjs` at each build and dev start, from config.ton.org, with the committed `src/data/wallets-v2.fallback.json` when that fails). config.ton.org hangs on filtered networks and the SDK has no timeout, so Connect did nothing; seen in the mini app on 2026-11-03 over a SOCKS tunnel only Telegram used.
+- A Connect press that gets no TonConnect window within 10 seconds shows a notice ("Couldn't reach the wallet service…") with a dismiss button, on every app page and in the mini app; the Club's picker paths use the same timer. While a press is pending the Connect buttons show "Connecting…" and are disabled, so a second press cannot queue behind it.
+- Left open: a blocked TonConnect bridge still prevents connecting without a VPN; the new `app.wallet.pickerStuck` text is translated into all 11 locales.
+
 ## 2026-11-03 — Mini app: Telegram asks before closing while something is open
 
 - In the Telegram mini app (Bot API 6.2+), Telegram's own "close anyway?" question is on while a stake or unstake waits for its result, or a Club window or wallet step is open on a Club page (`setCloseGuard` in `tma/telegram.ts`), because Esc in Telegram Desktop, a swipe or ✕ closed the app and lost the step; a mini app cannot block the close itself.

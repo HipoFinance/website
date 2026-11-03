@@ -211,6 +211,7 @@
   "app.tma.youReceive": "Sie erhalten",
   "app.tma.youStake": "Sie staken",
   "app.tma.youUnstake": "Sie unstaken",
+  "app.wallet.pickerStuck": "Der Wallet-Dienst ist nicht erreichbar. Prüfen Sie Ihre Verbindung oder aktivieren Sie ein VPN und versuchen Sie es dann erneut.",
   "app.wait.bouncedStakeMessage": "Der Contract hat Ihre Transaktion abgelehnt, daher wurde nichts gestakt. Ihr GRAM kam zurück, abzüglich der Netzwerkgebühr.",
   "app.wait.bouncedStakeTitle": "Staking nicht akzeptiert",
   "app.wait.bouncedUnstakeMessage": "Der Contract hat Ihre Transaktion abgelehnt, daher wurde nichts geunstakt. Ihr hGRAM ist unverändert.",

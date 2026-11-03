@@ -81,6 +81,11 @@ export type ClubTab = 'overview' | 'rewards' | 'friends' | 'community'
 const SESSION_KEY = 'hipo.club.session'
 const OVERVIEW_POLL = 30_000
 const NOT_OPEN_POLL = 60_000
+// A rate_limited read (a fixed one-minute window per account) or a busy one is not a failure: keep
+// what is shown, and load again when the window is over.
+const RATE_LIMITED_RETRY = 60_000
+const BUSY_RETRY = 5_000
+const BUSY_RETRIES = 12
 const FINISHING_POLL = 15_000
 const FINISHING_FOR = 3 * 60_000
 // How long the Link Telegram window waits for Telegram's login to load before it says so.
@@ -945,6 +950,7 @@ export class ClubModel {
         return
       }
       this.retriedBadAuth = false
+      this.busyRetries = 0
       runInAction(() => {
         if (this.phase !== 'launching') {
           this.phase = 'ready'
@@ -960,6 +966,9 @@ export class ClubModel {
       await this.loadFailed(e)
     }
   }
+
+  // busy answers in a row (loadFailed)
+  private busyRetries = 0
 
   private mockLoggedOut = false
 
@@ -1104,6 +1113,23 @@ export class ClubModel {
         return
       }
     }
+    // Not the error phase: a first load stays in the loading phase until the retry. busy is a login
+    // in flight; one that lasts past BUSY_RETRIES tries is shown as the error after all.
+    const transient =
+      e instanceof ClubSocketError &&
+      e.kind === 'auth' &&
+      (e.reason === 'rate_limited' || (e.reason === 'busy' && this.busyRetries < BUSY_RETRIES))
+    if (transient) {
+      if (e.reason === 'busy') {
+        this.busyRetries++
+      }
+      runInAction(() => {
+        this.loadError = e.message
+      })
+      this.schedule(e.reason === 'busy' ? BUSY_RETRY : RATE_LIMITED_RETRY)
+      return
+    }
+    this.busyRetries = 0
     runInAction(() => {
       // A failed poll keeps what is shown; a failed first load shows the error.
       if (this.overview === undefined && this.walletRewards === undefined) {
@@ -1602,13 +1628,16 @@ export class ClubModel {
       this.model.setAddress(result.address)
       return result
     }
+    this.model.startPickerWatch()
     await this.model.ensureWalletSettled()
     // A Cancel while TON Connect was still loading: open nothing.
     if (attempt !== this.linkAttempt) {
+      this.model.endConnect()
       return undefined
     }
     const ui = this.model.tonConnectUI
     if (ui === undefined) {
+      this.model.endConnect()
       return undefined
     }
     // Claim the wait before the disconnect below, so an older wait's cleanup leaves these
@@ -1701,7 +1730,7 @@ export class ClubModel {
             selected ? PROOF_AFTER_SELECT : PROOF_AFTER_CANCEL,
           )
         })
-        void ui.openModal()
+        void ui.openModal().then(this.model.endConnect)
       })
     } finally {
       // A newer attempt's wait has already set its own parameters: leave them.
@@ -1864,6 +1893,7 @@ export class ClubModel {
       await new Promise((resolve) => setTimeout(resolve, 600))
       this.model.setAddress(club)
     } else {
+      this.model.startPickerWatch()
       await this.model.ensureWalletSettled()
       const ui = this.model.tonConnectUI
       if (ui === undefined) {
@@ -1879,7 +1909,7 @@ export class ClubModel {
             resolve()
           }
         })
-        void ui.openModal()
+        void ui.openModal().then(this.model.endConnect)
       })
       await new Promise((resolve) => setTimeout(resolve, 500))
     }

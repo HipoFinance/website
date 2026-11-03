@@ -448,6 +448,11 @@ const tonConnectWidgetRootId = 'ton-connect-widget-root'
 // "Connecting…" (see loadWallet). In Chromium it takes about two seconds.
 const restoreTimeout = 8000
 
+// How long a Connect press may go without TonConnect's window opening before the app says the wallet
+// service can't be reached (walletPickerStuck). The window waits for the wallet list, and the
+// list's host hangs on some filtered networks.
+const walletPickerTimeout = 10000
+
 // Resolves once the island has painted the given element. Replaces the old initTonConnect
 // setTimeout self-poll, with the same 10 ms cadence.
 function waitForElement(id: string): Promise<void> {
@@ -721,6 +726,12 @@ export class Model {
   // True while the wallet layer is being fetched, so the header's Connect button can show that the
   // press registered — on a slow connection the chunk is a few hundred KB.
   isWalletLoading = false
+  // A Connect press is waiting for TonConnect's window to open (or the wallet to connect), so a
+  // second press must not queue another continuation behind it.
+  connectPending = false
+  // The window did not open within walletPickerTimeout; WalletPickerNotice shows why.
+  walletPickerStuck = false
+  private pickerTimer: ReturnType<typeof setTimeout> | undefined
   // Flips once ./chain.ts has landed. Observable because the amount field, the fee lines and the
   // staking-in-progress rows are all computed and must recompute when it does; until then they
   // report "not ready" rather than a wrong number, and StakeUnstake disables the form.
@@ -814,6 +825,8 @@ export class Model {
       gauge: observable,
       isGaugeRefreshing: observable,
       isWalletLoading: observable,
+      connectPending: observable,
+      walletPickerStuck: observable,
       isChainReady: observable,
       walletRewardsFetchState: observable,
       walletRewards: observable,
@@ -1458,7 +1471,7 @@ export class Model {
   // While a stored session restores, a Connect press would only wait for it (see connect), so the
   // button takes none until the answer is in.
   get isButtonEnabled() {
-    return this.isWalletConnected ? this.isAmountPositive : !this.isWalletLoading
+    return this.isWalletConnected ? this.isAmountPositive : !this.isConnectBusy
   }
 
   // A deposit goes to the fixed treasury address, so nothing in it depends on which wallet is
@@ -1487,7 +1500,7 @@ export class Model {
       } else {
         return this.t('app.model.buttonUnstake')
       }
-    } else if (this.isWalletLoading) {
+    } else if (this.isConnectBusy) {
       return this.t('app.common.connecting')
     } else if (this.canConnectAndStake) {
       return this.t('app.model.buttonConnectAndStake')
@@ -2961,11 +2974,15 @@ export class Model {
   // injected extensions and WalletConnect never take this path. Every other case simply connects,
   // which leaves the visitor exactly where the old Connect button left them.
   connectAndStake = () => {
+    if (!this.beginConnect()) {
+      return
+    }
     void this.ensureWalletSettled().then(() => {
       // A stored session finished restoring while the press was in flight, so this is an ordinary
       // Stake after all. send() needs the first account read of the restored address before it will
       // do anything, so wait for that rather than drop the press on the floor.
       if (this.isWalletConnected) {
+        this.endConnect()
         void when(() => this.tonBalance != null, { timeout: waitForAccountTimeout })
           .then(() => {
             this.send()
@@ -2980,7 +2997,7 @@ export class Model {
 
       // Chain or treasury still missing: fall back to a plain connect rather than guess an amount.
       if (tonConnectUI == null || treasury == null || amountInNano == null || amountInNano <= 0n) {
-        void tonConnectUI?.openModal()
+        void tonConnectUI?.openModal().then(this.endConnect)
         return
       }
 
@@ -2993,6 +3010,9 @@ export class Model {
       }
       const pending: PendingTx = { kind: 'stake', amountGram: Number(chain!.fromNano(amountInNano)) }
 
+      // The wallet service is reached once its list is in. Inside a wallet's own browser no window
+      // opens, so this, not the window, ends the press.
+      void tonConnectUI.getWallets().then(this.endConnect, () => undefined)
       void this.guardedSendEmbeddedTransaction(tx).then(
         async (result) => {
           // `dispatched` means the deposit travelled in the connect URL but no signed result came
@@ -3314,14 +3334,64 @@ export class Model {
     }
   }
 
+  get isConnectBusy() {
+    return this.isWalletLoading || this.connectPending
+  }
+
+  // Starts watching a press that may open TonConnect's window: false when one is already pending.
+  // If the window has not opened and no wallet has connected within walletPickerTimeout, the press
+  // stops being pending and walletPickerStuck is set. One timer at a time.
+  beginConnect = (): boolean => {
+    if (this.connectPending) {
+      return false
+    }
+    runInAction(() => {
+      this.connectPending = true
+    })
+    this.startPickerWatch()
+    return true
+  }
+
+  // The timer half of beginConnect, for presses that run their own flow (the Club's proof request).
+  startPickerWatch = () => {
+    clearTimeout(this.pickerTimer)
+    runInAction(() => {
+      this.walletPickerStuck = false
+    })
+    this.pickerTimer = setTimeout(() => {
+      runInAction(() => {
+        this.connectPending = false
+        if (!this.isWalletConnected && this.tonConnectUI?.modalState.status !== 'opened') {
+          this.walletPickerStuck = true
+        }
+      })
+    }, walletPickerTimeout)
+  }
+
+  // The window opened, the wallet connected, or the visitor dismissed the message.
+  endConnect = () => {
+    clearTimeout(this.pickerTimer)
+    runInAction(() => {
+      this.connectPending = false
+      this.walletPickerStuck = false
+    })
+  }
+
   connect = () => {
+    if (!this.beginConnect()) {
+      return
+    }
     void this.ensureWalletSettled().then(() => {
       // A stored session may have restored while the press was in flight. Opening the picker now
       // would throw the connection that just arrived away.
       if (this.isWalletConnected) {
+        this.endConnect()
         return
       }
-      void this.tonConnectUI?.openModal()
+      // openModal resolves once the wallet list is in, whether it opened the window or (inside a
+      // wallet's own browser, where there is none) called the injected wallet: the wallet service
+      // was reached, so the "picker stuck" message has nothing left to say.
+      void this.tonConnectUI?.openModal().then(this.endConnect)
     })
   }
 
@@ -3335,7 +3405,14 @@ export class Model {
 
   connectWallet = (module: TonConnectModule) => {
     this.tonConnectUI = new module.TonConnectUI({
-      manifestUrl: 'https://hipo.finance/tonconnect-manifest.json',
+      // Our own connector, for one option TonConnectUI does not pass on: the wallet list from our
+      // copy (scripts/wallets-list.mjs). config.ton.org hangs on some filtered networks and the SDK
+      // fetches it with no timeout, so the window and the session restore waited for it forever.
+      // The rest is what TonConnectUI would build from manifestUrl, less its analytics environment.
+      connector: new module.TonConnect({
+        manifestUrl: 'https://hipo.finance/tonconnect-manifest.json',
+        walletsListSource: '/tonconnect/wallets-v2.json',
+      }),
       // No buttonRootId on purpose: the header renders its own wallet button.
       widgetRootId: tonConnectWidgetRootId,
       actionsConfiguration: tonConnectActionsConfiguration,
@@ -3423,8 +3500,16 @@ export class Model {
       const isNewAddress = address != null && (this.address == null || !this.address.equals(address))
       this.connectedWalletName = wallet?.device.appName
       this.setAddress(address)
+      if (wallet != null) {
+        this.endConnect()
+      }
       if (restored && isNewAddress) {
         track('wallet_connect', { wallet_name: wallet?.device.appName })
+      }
+    })
+    this.tonConnectUI.onModalStateChange((state) => {
+      if (state.status === 'opened') {
+        this.endConnect()
       }
     })
     // The modal is long-lived (it survives ClientRouter swaps, see keepRuntimeStyles), so a

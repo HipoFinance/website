@@ -7,7 +7,8 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node scripts/check-i18n.mjs",
+    "predev": "node scripts/wallets-list.mjs",
+    "prebuild": "node scripts/wallets-list.mjs && node scripts/check-i18n.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",

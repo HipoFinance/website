@@ -193,8 +193,8 @@ const Reward = observer(({ model }: Props) => {
               </p>
               {!tma && <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />}
               <button
-                disabled={model.isWalletLoading}
-                aria-busy={model.isWalletLoading}
+                disabled={model.isConnectBusy}
+                aria-busy={model.isConnectBusy}
                 className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover h-14 w-full cursor-pointer rounded-2xl text-[17px] font-semibold disabled:cursor-progress disabled:opacity-70'
                 onClick={(e) => {
                   model.connect()
@@ -202,7 +202,7 @@ const Reward = observer(({ model }: Props) => {
                   target.blur()
                 }}
               >
-                {model.isWalletLoading ? t('app.common.connecting') : t('app.common.connectWallet')}
+                {model.isConnectBusy ? t('app.common.connecting') : t('app.common.connectWallet')}
               </button>
               {tma && <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />}
             </>

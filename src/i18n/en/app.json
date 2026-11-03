@@ -211,6 +211,7 @@
   "app.tma.youReceive": "You receive",
   "app.tma.youStake": "You stake",
   "app.tma.youUnstake": "You unstake",
+  "app.wallet.pickerStuck": "Couldn't reach the wallet service. Check your connection or turn on a VPN, then try again.",
   "app.wait.bouncedStakeMessage": "The contract returned your transaction, so nothing was staked. Your GRAM came back, less the network fee.",
   "app.wait.bouncedStakeTitle": "Stake not accepted",
   "app.wait.bouncedUnstakeMessage": "The contract returned your transaction, so nothing was unstaked. Your hGRAM is unchanged.",

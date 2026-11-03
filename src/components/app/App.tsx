@@ -9,6 +9,7 @@ import Wait from './Wait.tsx'
 import Stats from './Stats.tsx'
 import LoadingIndicator from './LoadingIndicator.tsx'
 import ErrorDisplay from './ErrorDisplay.tsx'
+import WalletPickerNotice from './WalletPickerNotice.tsx'
 // Heebo is the redesign's body face (--font-body in app.css); Fredoka, the display face, comes
 // from @fontsource-variable/fredoka, imported once in global.css.
 import '@fontsource/heebo/300.css'
@@ -102,6 +103,7 @@ const App = observer(() => {
       <Wait model={model} />
       <LoadingIndicator model={model} />
       <ErrorDisplay model={model} />
+      <WalletPickerNotice model={model} />
       {/* TonConnect renders its modals here (see tonConnectWidgetRootId in Model.ts). It has to
           be inside the island: its default root is appended to document.body, which the
           ClientRouter replaces on every navigation. */}

@@ -211,6 +211,7 @@
   "app.tma.youReceive": "Você recebe",
   "app.tma.youStake": "Você faz staking",
   "app.tma.youUnstake": "Você faz unstake",
+  "app.wallet.pickerStuck": "Não foi possível acessar o serviço da carteira. Verifique sua conexão ou ative uma VPN e tente novamente.",
   "app.wait.bouncedStakeMessage": "O contrato devolveu sua transação, então nenhum staking foi feito. Seu GRAM voltou, menos a taxa de rede.",
   "app.wait.bouncedStakeTitle": "Staking não aceito",
   "app.wait.bouncedUnstakeMessage": "O contrato devolveu sua transação, então nenhum unstake foi feito. Seu hGRAM não mudou.",

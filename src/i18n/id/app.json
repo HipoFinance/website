@@ -211,6 +211,7 @@
   "app.tma.youReceive": "Anda menerima",
   "app.tma.youStake": "Anda men-stake",
   "app.tma.youUnstake": "Anda meng-unstake",
+  "app.wallet.pickerStuck": "Tidak dapat menjangkau layanan dompet. Periksa koneksi Anda atau aktifkan VPN, lalu coba lagi.",
   "app.wait.bouncedStakeMessage": "Kontrak mengembalikan transaksi Anda, jadi tidak ada yang di-stake. GRAM Anda kembali, dikurangi biaya jaringan.",
   "app.wait.bouncedStakeTitle": "Stake tidak diterima",
   "app.wait.bouncedUnstakeMessage": "Kontrak mengembalikan transaksi Anda, jadi tidak ada yang di-unstake. hGRAM Anda tidak berubah.",

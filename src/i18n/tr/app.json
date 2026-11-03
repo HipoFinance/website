@@ -211,6 +211,7 @@
   "app.tma.youReceive": "Alacağınız",
   "app.tma.youStake": "Stake ettiğiniz",
   "app.tma.youUnstake": "Unstake ettiğiniz",
+  "app.wallet.pickerStuck": "Cüzdan hizmetine ulaşılamadı. Bağlantınızı kontrol edin veya bir VPN açın, ardından tekrar deneyin.",
   "app.wait.bouncedStakeMessage": "Sözleşme işleminizi geri gönderdi, bu yüzden hiçbir şey stake edilmedi. GRAM'ınız, ağ ücreti düşülerek geri döndü.",
   "app.wait.bouncedStakeTitle": "Stake kabul edilmedi",
   "app.wait.bouncedUnstakeMessage": "Sözleşme işleminizi geri gönderdi, bu yüzden hiçbir şey unstake edilmedi. hGRAM'ınız değişmedi.",

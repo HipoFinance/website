@@ -109,12 +109,12 @@ const Header = observer(({ model }: Props) => {
               // button dims, says "Connecting…" and stops taking presses.
               <button
                 type='button'
-                disabled={model.isWalletLoading}
-                aria-busy={model.isWalletLoading}
+                disabled={model.isConnectBusy}
+                aria-busy={model.isConnectBusy}
                 className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold whitespace-nowrap disabled:cursor-progress disabled:opacity-70 max-sm:w-full'
                 onClick={model.connect}
               >
-                {model.isWalletLoading ? model.t('app.common.connecting') : model.t('app.common.connectWallet')}
+                {model.isConnectBusy ? model.t('app.common.connecting') : model.t('app.common.connectWallet')}
               </button>
             )}
           </div>

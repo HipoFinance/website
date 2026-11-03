@@ -106,8 +106,8 @@ const StatusStrip = observer(({ club }: Props) => {
   let action: React.ReactNode = null
 
   const connectButton = (
-    <Button kind='primary' disabled={club.model.isWalletLoading} onClick={club.model.connect}>
-      {club.model.isWalletLoading ? t('club.common.connecting') : t('club.common.connectWallet')}
+    <Button kind='primary' disabled={club.model.isConnectBusy} onClick={club.model.connect}>
+      {club.model.isConnectBusy ? t('club.common.connecting') : t('club.common.connectWallet')}
     </Button>
   )
   const linkButton = (

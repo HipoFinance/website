@@ -211,6 +211,7 @@
   "app.tma.youReceive": "Recibes",
   "app.tma.youStake": "Pones en staking",
   "app.tma.youUnstake": "Retiras del staking",
+  "app.wallet.pickerStuck": "No se pudo conectar con el servicio de la billetera. Revisa tu conexión o activa una VPN e inténtalo de nuevo.",
   "app.wait.bouncedStakeMessage": "El contrato devolvió tu transacción, así que no se puso nada en staking. Tu GRAM ha vuelto, menos la comisión de red.",
   "app.wait.bouncedStakeTitle": "Staking no aceptado",
   "app.wait.bouncedUnstakeMessage": "El contrato devolvió tu transacción, así que no se retiró nada del staking. Tu hGRAM no ha cambiado.",

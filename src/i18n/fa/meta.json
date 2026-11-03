@@ -919,6 +919,10 @@
     "sourceHash": "ca073b8a2659a6117fbf7f0b1b03ff5579ec001c",
     "reviewed": false
   },
+  "app.wallet.pickerStuck": {
+    "sourceHash": "806088adb3789f9dd356ff4cd9ed3f3b46776b1e",
+    "reviewed": false
+  },
   "club.balances.changeWallet": {
     "sourceHash": "3a5a90379d29da520ec01e70a1efe1fb66db8018",
     "reviewed": false

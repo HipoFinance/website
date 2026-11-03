@@ -211,6 +211,7 @@
   "app.tma.youReceive": "تستلم",
   "app.tma.youStake": "تودِع في الستاكينغ",
   "app.tma.youUnstake": "تُلغي الستاكينغ",
+  "app.wallet.pickerStuck": "تعذّر الوصول إلى خدمة المحفظة. تحقق من اتصالك أو شغّل VPN، ثم حاول مرة أخرى.",
   "app.wait.bouncedStakeMessage": "أعاد العقد معاملتك، لذلك لم يتم أي ستاكينغ. عاد GRAM الخاص بك، بعد خصم رسوم الشبكة.",
   "app.wait.bouncedStakeTitle": "لم يُقبل الستاكينغ",
   "app.wait.bouncedUnstakeMessage": "أعاد العقد معاملتك، لذلك لم يتم إلغاء أي ستاكينغ. رصيدك من hGRAM لم يتغيّر.",

@@ -211,6 +211,7 @@
   "app.tma.youReceive": "دریافت می‌کنید",
   "app.tma.youStake": "استیک می‌کنید",
   "app.tma.youUnstake": "آن‌استیک می‌کنید",
+  "app.wallet.pickerStuck": "دسترسی به سرویس کیف پول ممکن نشد. اتصال خود را بررسی کنید یا VPN را روشن کنید، سپس دوباره تلاش کنید.",
   "app.wait.bouncedStakeMessage": "قرارداد تراکنش شما را بازگرداند، بنابراین چیزی استیک نشد. GRAM شما بازگشت، منهای کارمزد شبکه.",
   "app.wait.bouncedStakeTitle": "استیک پذیرفته نشد",
   "app.wait.bouncedUnstakeMessage": "قرارداد تراکنش شما را بازگرداند، بنابراین چیزی آن‌استیک نشد. hGRAM شما بدون تغییر است.",

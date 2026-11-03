@@ -11,3 +11,6 @@ dist/
 
 # Internal planning bundles (Hipo Club redesign); the repo is public
 /docs/
+
+# Wallet list for TonConnect, written by scripts/wallets-list.mjs at each build
+/public/tonconnect/

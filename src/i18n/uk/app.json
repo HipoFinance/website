@@ -211,6 +211,7 @@
   "app.tma.youReceive": "Ти отримуєш",
   "app.tma.youStake": "Ти стейкаєш",
   "app.tma.youUnstake": "Ти виводиш",
+  "app.wallet.pickerStuck": "Не вдалося зв’язатися з сервісом гаманця. Перевір з’єднання або увімкни VPN і спробуй ще раз.",
   "app.wait.bouncedStakeMessage": "Контракт повернув твою транзакцію, тож нічого не застейкано. Твої GRAM повернулися, за вирахуванням комісії мережі.",
   "app.wait.bouncedStakeTitle": "Стейк не прийнято",
   "app.wait.bouncedUnstakeMessage": "Контракт повернув твою транзакцію, тож нічого не виведено. Твої hGRAM без змін.",
