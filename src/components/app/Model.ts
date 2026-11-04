@@ -281,6 +281,11 @@ const endpointProbeDelay = 60 * 1000
 // so a stale last block counts as the endpoint being down.
 const staleBlockAge = 10 * 60 * 1000
 
+// Both unset, or both set to the same account.
+function sameAddress(a: Address | undefined, b: Address | undefined): boolean {
+  return a == null ? b == null : b != null && a.equals(b)
+}
+
 function isStaleBlock(now: number): boolean {
   return Date.now() - now * 1000 > staleBlockAge
 }
@@ -2239,8 +2244,7 @@ export class Model {
   // and treating them as one wiped every wallet-derived value below (balances, walletAddress, and
   // walletRewards) mid-session, leaving /rewards/ back at its unhydrated state.
   setAddress = (address?: Address) => {
-    const unchanged = this.address == null ? address == null : address != null && this.address.equals(address)
-    if (unchanged) {
+    if (sameAddress(this.address, address)) {
       return
     }
     clearTimeout(this.timeoutWalletRewards)
@@ -2592,12 +2596,19 @@ export class Model {
           })),
       }
 
+      // The wallet changed while this was in flight: setAddress re-armed the load for the new one.
+      if (!sameAddress(address, this.address)) {
+        return
+      }
       runInAction(() => {
         this.walletRewards = walletRewards
       })
 
       this.setWalletRewardsFetchState('done')
     } catch {
+      if (!sameAddress(address, this.address)) {
+        return
+      }
       // The endpoint has no caching and briefly 503s during a backend deploy, so 'error' must not
       // be terminal. Dropping back to 'init' re-arms the autorun above, which refetches; any data
       // already on screen stays on screen meanwhile (this catch never clears walletRewards).
@@ -2747,7 +2758,9 @@ export class Model {
       const readWallet: Promise<[Address, OpenedContract<Wallet>, typeof this.walletState] | undefined> =
         address == null || lastParent == null
           ? Promise.resolve(undefined)
-          : (this.walletAddress != null
+          : // setAddress clears walletAddress, so one present while the address is still this read's
+            // own was found for it; one from another wallet (switched away and back) is looked up again
+            (sameAddress(address, this.address) && this.walletAddress != null
               ? Promise.resolve(this.walletAddress)
               : retry(() =>
                   tonClient.openAt(lastBlock, chain!.Parent.createFromAddress(lastParent)).getWalletAddress(address),
@@ -2794,6 +2807,11 @@ export class Model {
         }
       }
 
+      // The wallet changed while this read was in flight. Its wallet fields belong to the old address,
+      // and walletAddress would stick (later reads reuse it); the read setAddress started replaces it.
+      if (!sameAddress(address, this.address)) {
+        return
+      }
       runInAction(() => {
         this.tonBalance = accountInfo?.tonBalance
         this.isMultisig = accountInfo?.codeHash != null && multisigCodeHashes.includes(accountInfo.codeHash)
@@ -2806,6 +2824,9 @@ export class Model {
         this.lastBlock = lastBlock
       })
     } catch {
+      if (!sameAddress(address, this.address)) {
+        return
+      }
       this.setErrorMessage(this.t('app.model.errorTonAccess'), retryDelay - 500)
       clearTimeout(this.timeoutReadLastBlock)
       this.timeoutReadLastBlock = setTimeout(() => void this.readLastBlock(), retryDelay)

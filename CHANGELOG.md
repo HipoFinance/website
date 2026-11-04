@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-04 — Staking app: a wallet switch no longer keeps the old wallet's hGRAM wallet
+
+- A chain read or rewards load that was in flight when the wallet changed now drops its result instead of writing it under the new address, and a read reuses the stored hGRAM wallet address only while the wallet is still the one it started with. Before, the old wallet's hGRAM wallet stuck until the next switch or a reload: the old balance and unstake maximum showed, and an unstake went to the old owner's hGRAM wallet, where the contract refuses it and it bounces (gas lost, no hGRAM moved). Reproduced and checked headless by holding one read across a switch.
+- Money-audited twice (prove correct / try to lose money): both found the switch-away-and-back case, fixed by the reuse check; both re-checks closed it.
+- Left open (unconfirmed): a wallet switch while the tab is hidden on /rewards/ can leave the rewards empty until the next navigation; a read whose result is dropped no longer counts toward endpoint failover; a read in flight across an endpoint switch still writes its block and treasury data (older behaviour).
+
 ## 2026-11-04 — Club: a second Telegram login press joins the open popup
 
 - A press on "Continue with Telegram" while the last Telegram login is unanswered (its popup still open after Not now, or just closed while the widget asks Telegram for the result) now joins that login, brings an open popup forward, and only the newest press acts on the answer. Telegram's widget answers only one callback per bot, so the second press waited forever and the first press's next step (for example Claim instead of Friends) ran. A closed popup whose answer doesn't come is given up after 15 s, so the next press opens a fresh one.
