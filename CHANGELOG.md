@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-04 — Type check: `astro check` installed
+
+- `@astrojs/check` and `typescript` added as dev dependencies, so `npx astro check` runs instead of waiting on an install prompt. Not part of `npm run build`.
+- Left open: the first run reports 13 errors already in the code (untyped `result` and `this` in type positions in `Model.ts`, untyped callback in `content.config.ts`, the draft-locale comparisons TypeScript sees as impossible while no locale is draft, Starlight's virtual modules without types); not fixed.
+
 ## 2026-11-03 — Mini app: the close question removed again
 
 - Reverts the close question of 6a12504 (Telegram asking before the mini app closes while a stake waits or a Club window is open): tested on Telegram Desktop 9.6 and on a phone, the question was on (`isClosingConfirmationEnabled` true) but neither Esc, ✕ nor a swipe asked, so the change did nothing anywhere.
