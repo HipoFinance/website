@@ -84,6 +84,8 @@
   "club.community.title": "Винагороди спільноти вже скоро",
   "club.connectClub.body": "Виплати й підвищення надсилаються з твого клубного гаманця, тож підключи його, щоб продовжити.",
   "club.connectClub.title": "Підключи свій клубний гаманець {wallet}",
+  "club.error.accountMoved": "Акаунт Club цього акаунта Telegram перенесено на інший акаунт Telegram. Увійди через нього.",
+  "club.error.accountMoving": "Твій акаунт Club переносять на інший акаунт Telegram. Увійти знову можна буде, коли перенесення завершиться.",
   "club.error.authUsed": "Цей вхід через Telegram уже використано. Увійди ще раз.",
   "club.error.badAuth": "Вхід через Telegram не вдався. Спробуй ще раз.",
   "club.error.badChallenge": "Підпис гаманця застарів. Почни спочатку.",

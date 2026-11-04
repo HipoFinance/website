@@ -84,6 +84,8 @@
   "club.community.title": "Topluluk ödülleri yakında geliyor",
   "club.connectClub.body": "Talepler ve yükseltmeler Club cüzdanınızdan gönderilir; devam etmek için bağlayın.",
   "club.connectClub.title": "Club cüzdanınızı bağlayın: {wallet}",
+  "club.error.accountMoved": "Bu Telegram hesabının Club hesabı başka bir Telegram hesabına taşındı. O hesapla giriş yapın.",
+  "club.error.accountMoving": "Club hesabınız başka bir Telegram hesabına taşınıyor. Taşıma bitince yeniden giriş yapabilirsiniz.",
   "club.error.authUsed": "Bu Telegram girişi zaten kullanıldı. Yeniden giriş yapın.",
   "club.error.badAuth": "Telegram girişi çalışmadı. Tekrar deneyin.",
   "club.error.badChallenge": "Cüzdan imzasının süresi doldu. Baştan başlayın.",

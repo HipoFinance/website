@@ -84,6 +84,8 @@
   "club.community.title": "Community-Rewards kommen bald",
   "club.connectClub.body": "Claims und Upgrades werden von Ihrer Club-Wallet gesendet. Verbinden Sie sie, um fortzufahren.",
   "club.connectClub.title": "Verbinden Sie Ihre Club-Wallet {wallet}",
+  "club.error.accountMoved": "Das Club-Konto dieses Telegram-Kontos wurde zu einem anderen Telegram-Konto verschoben. Melden Sie sich mit diesem an.",
+  "club.error.accountMoving": "Ihr Club-Konto wird zu einem anderen Telegram-Konto verschoben. Sie können sich erneut anmelden, sobald der Umzug abgeschlossen ist.",
   "club.error.authUsed": "Dieser Telegram-Login wurde bereits verwendet. Melden Sie sich erneut an.",
   "club.error.badAuth": "Der Telegram-Login hat nicht funktioniert. Versuchen Sie es erneut.",
   "club.error.badChallenge": "Die Wallet-Signatur ist abgelaufen. Beginnen Sie von vorn.",

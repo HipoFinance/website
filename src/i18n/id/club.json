@@ -84,6 +84,8 @@
   "club.community.title": "Imbalan komunitas segera hadir",
   "club.connectClub.body": "Klaim dan upgrade dikirim dari dompet Club Anda, jadi hubungkan dompet tersebut untuk melanjutkan.",
   "club.connectClub.title": "Hubungkan dompet Club Anda {wallet}",
+  "club.error.accountMoved": "Akun Club dari akun Telegram ini sudah dipindahkan ke akun Telegram lain. Masuk dengan akun tersebut.",
+  "club.error.accountMoving": "Akun Club Anda sedang dipindahkan ke akun Telegram lain. Anda bisa masuk lagi setelah pemindahan selesai.",
   "club.error.authUsed": "Login Telegram tersebut sudah dipakai. Masuk lagi.",
   "club.error.badAuth": "Login Telegram gagal. Coba lagi.",
   "club.error.badChallenge": "Tanda tangan dompet telah kedaluwarsa. Mulai lagi.",

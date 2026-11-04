@@ -84,6 +84,8 @@
   "club.community.title": "As recompensas da comunidade chegam em breve",
   "club.connectClub.body": "Resgates e upgrades são enviados da sua carteira do Club, então conecte-a para continuar.",
   "club.connectClub.title": "Conectar a sua carteira do Club {wallet}",
+  "club.error.accountMoved": "A conta do Club desta conta do Telegram foi movida para outra conta do Telegram. Faça login com ela.",
+  "club.error.accountMoving": "Sua conta do Club está sendo movida para outra conta do Telegram. Você poderá fazer login novamente quando a mudança terminar.",
   "club.error.authUsed": "Esse login do Telegram já foi usado. Faça login novamente.",
   "club.error.badAuth": "O login do Telegram não funcionou. Tente novamente.",
   "club.error.badChallenge": "A assinatura da carteira expirou. Comece de novo.",

@@ -84,6 +84,8 @@
   "club.community.title": "Les récompenses de la communauté arrivent bientôt",
   "club.connectClub.body": "Les réclamations et les mises à niveau sont envoyées depuis ton portefeuille Club : connecte-le pour continuer.",
   "club.connectClub.title": "Connecte ton portefeuille Club {wallet}",
+  "club.error.accountMoved": "Le compte Club de ce compte Telegram a été déplacé vers un autre compte Telegram. Connecte-toi avec celui-là.",
+  "club.error.accountMoving": "Ton compte Club est en cours de déplacement vers un autre compte Telegram. Tu pourras te reconnecter une fois le déplacement terminé.",
   "club.error.authUsed": "Cette connexion Telegram a déjà été utilisée. Connecte-toi à nouveau.",
   "club.error.badAuth": "La connexion Telegram n’a pas fonctionné. Réessaie.",
   "club.error.badChallenge": "La signature du portefeuille a expiré. Recommence.",

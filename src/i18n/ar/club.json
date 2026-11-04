@@ -84,6 +84,8 @@
   "club.community.title": "مكافآت المجتمع قادمة قريبًا",
   "club.connectClub.body": "تُرسل المطالبات والترقيات من محفظة النادي الخاصة بك، لذا اربطها للمتابعة.",
   "club.connectClub.title": "اربط محفظة النادي {wallet}",
+  "club.error.accountMoved": "تم نقل حساب النادي الخاص بحساب Telegram هذا إلى حساب Telegram آخر. سجّل الدخول بذلك الحساب.",
+  "club.error.accountMoving": "يجري نقل حسابك في النادي إلى حساب Telegram آخر. يمكنك تسجيل الدخول من جديد بعد اكتمال النقل.",
   "club.error.authUsed": "سبق استخدام تسجيل الدخول عبر Telegram هذا. سجّل الدخول من جديد.",
   "club.error.badAuth": "لم ينجح تسجيل الدخول عبر Telegram. حاول مرة أخرى.",
   "club.error.badChallenge": "انتهت صلاحية توقيع المحفظة. ابدأ من جديد.",

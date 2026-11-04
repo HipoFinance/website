@@ -84,6 +84,8 @@
   "club.community.title": "Community rewards are coming soon",
   "club.connectClub.body": "Claims and upgrades are sent from your Club wallet, so connect it to continue.",
   "club.connectClub.title": "Connect your Club wallet {wallet}",
+  "club.error.accountMoved": "This Telegram account’s Club account has moved to another Telegram account. Log in with that one.",
+  "club.error.accountMoving": "Your Club account is being moved to another Telegram account. You can log in again once the move is done.",
   "club.error.authUsed": "That Telegram login was already used. Log in again.",
   "club.error.badAuth": "Telegram login didn’t work. Try again.",
   "club.error.badChallenge": "The wallet signature expired. Start again.",

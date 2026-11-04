@@ -84,6 +84,8 @@
   "club.community.title": "Las recompensas de la comunidad llegan pronto",
   "club.connectClub.body": "Las reclamaciones y las mejoras se envían desde tu billetera del Club, así que conéctala para continuar.",
   "club.connectClub.title": "Conecta tu billetera del Club {wallet}",
+  "club.error.accountMoved": "La cuenta del Club de esta cuenta de Telegram se ha movido a otra cuenta de Telegram. Inicia sesión con esa.",
+  "club.error.accountMoving": "Tu cuenta del Club se está moviendo a otra cuenta de Telegram. Podrás volver a iniciar sesión cuando termine el traslado.",
   "club.error.authUsed": "Ese inicio de sesión de Telegram ya se usó. Inicia sesión de nuevo.",
   "club.error.badAuth": "El inicio de sesión de Telegram no funcionó. Inténtalo de nuevo.",
   "club.error.badChallenge": "La firma de la billetera caducó. Empieza de nuevo.",
