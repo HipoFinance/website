@@ -289,6 +289,8 @@ export class ClubModel {
   // older one, so its late steps change nothing. proofWait ends the requestProof wait under way.
   private linkAttempt = 0
   private proofWait?: { end: () => void }
+  // Counts Telegram login presses, so that only the newest one acts on the login's answer.
+  private tgSeq = 0
   private disposers: (() => void)[] = []
   private storage: KeyValueStore
 
@@ -1437,10 +1439,15 @@ export class ClubModel {
     // The popup opens here, in the press itself, before anything is awaited (see telegramLogin).
     const opening =
       this.mock !== undefined ? this.mock.telegramLogin() : this.tgModule!.telegramLogin(this.model.locale)
+    // A second press joins the open popup's login (telegramLogin); only the newest press goes on.
+    const seq = ++this.tgSeq
     this.setBusy(true)
     this.setError(undefined)
     try {
       const widget = await opening
+      if (seq !== this.tgSeq) {
+        return
+      }
       if (widget === undefined) {
         this.setBusy(false)
         return
@@ -1462,6 +1469,9 @@ export class ClubModel {
       await this.load()
       this.afterLogin(after)
     } catch (e) {
+      if (seq !== this.tgSeq) {
+        return
+      }
       this.pendingWidget = undefined
       this.setBusy(false)
       if (e instanceof Error && e.name === 'PopupBlockedError') {
@@ -1651,6 +1661,10 @@ export class ClubModel {
         }
         wait.end = () => finish(undefined)
         if (ended) {
+          // Cancelled during the disconnect; a newer wait (proofWait moved on) keeps its own timer.
+          if (this.proofWait === wait) {
+            this.model.endConnect()
+          }
           resolve(undefined)
           return
         }

@@ -33,6 +33,15 @@ let pendingScript: HTMLScriptElement | undefined
 // to the request that is still hanging.
 let abandoned = 0
 
+interface LoginInFlight {
+  promise: Promise<WidgetData | undefined>
+  popup?: Window | null
+}
+// The login under way, until the widget answers.
+let inFlight: LoginInFlight | undefined
+// How long a closed popup's answer is waited for (the widget's /auth/get request to Telegram).
+const CLOSED_ANSWER_TIMEOUT = 15_000
+
 function loadWidget(): Promise<TelegramLogin> {
   loading ??= new Promise<TelegramLogin>((resolve, reject) => {
     const existing = (window as unknown as { Telegram?: { Login?: TelegramLogin } }).Telegram?.Login
@@ -106,7 +115,17 @@ export function telegramLogin(lang?: string): Promise<WidgetData | undefined> {
   if (login === undefined) {
     return Promise.reject(new Error('Telegram login not loaded yet'))
   }
-  return new Promise((resolve, reject) => {
+  // A press while the last login is unanswered joins it: the widget answers only one callback per
+  // bot, so a second auth call can wait forever (Not now, then the window reopened while the popup
+  // is open, or while the widget is still asking Telegram about a closed one).
+  if (inFlight !== undefined) {
+    if (inFlight.popup != null && !inFlight.popup.closed) {
+      inFlight.popup.focus()
+    }
+    return inFlight.promise
+  }
+  const current: { promise?: Promise<WidgetData | undefined>; popup?: Window | null } = {}
+  const promise = new Promise<WidgetData | undefined>((resolve, reject) => {
     // When the browser blocks the popup, window.open returns null and the widget never calls back,
     // so the press would wait forever. The widget keeps the popup to itself, so window.open is
     // watched for the length of the (synchronous) auth call.
@@ -115,7 +134,7 @@ export function telegramLogin(lang?: string): Promise<WidgetData | undefined> {
     let popup: Window | null | undefined
     window.open = (...args: Parameters<typeof window.open>) => {
       opened = true
-      return (popup = open.apply(window, args))
+      return (popup = current.popup = open.apply(window, args))
     }
     try {
       login.auth({ bot_id: TELEGRAM_BOT_ID, request_access: 'write', lang }, onAuth)
@@ -126,6 +145,15 @@ export function telegramLogin(lang?: string): Promise<WidgetData | undefined> {
     if (opened && !popup) {
       reject(new PopupBlockedError('the Telegram login popup was blocked'))
     }
+
+    // Once the popup is closed the widget asks Telegram for the result; if that never answers, give
+    // up after a while so that the next press opens a fresh popup instead of joining this one.
+    const watch = setInterval(() => {
+      if (popup == null || popup.closed) {
+        clearInterval(watch)
+        setTimeout(() => resolve(undefined), CLOSED_ANSWER_TIMEOUT)
+      }
+    }, 500)
 
     function onAuth(data: unknown) {
       if (data == null || typeof data !== 'object') {
@@ -142,6 +170,15 @@ export function telegramLogin(lang?: string): Promise<WidgetData | undefined> {
       resolve(picked)
     }
   })
+  current.promise = promise
+  inFlight = current as LoginInFlight
+  const clear = () => {
+    if (inFlight === current) {
+      inFlight = undefined
+    }
+  }
+  promise.then(clear, clear)
+  return promise
 }
 
 /** The Mini App's launch data, for `clubauth {init_data}`; undefined outside a real Telegram webview. */

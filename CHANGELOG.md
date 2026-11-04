@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-04 — Club: a second Telegram login press joins the open popup
+
+- A press on "Continue with Telegram" while the last Telegram login is unanswered (its popup still open after Not now, or just closed while the widget asks Telegram for the result) now joins that login, brings an open popup forward, and only the newest press acts on the answer. Telegram's widget answers only one callback per bot, so the second press waited forever and the first press's next step (for example Claim instead of Friends) ran. A closed popup whose answer doesn't come is given up after 15 s, so the next press opens a fresh one.
+- A Cancel while the Club disconnects the old wallet before the proof no longer leaves the 10 s wallet timer running, which showed a false "Couldn't reach the wallet service".
+- Checked and closed without a change: the old `reauth` paths (removed in 7a08d2d; club-server no longer sends `reauth`) and a double disconnect (TonConnect clears the wallet before its first await, so the second call is skipped).
+- Left open (unconfirmed): the Cancel fix's `endConnect` can clear the wallet timer of a header Connect or reconnect started during that same disconnect (one shared timer); `tgSeq` is checked only after the popup's answer, not after `clubstatus`, so a press during that request can run the login twice (older behaviour).
+
 ## 2026-11-04 — Type check: `astro check` installed
 
 - `@astrojs/check` and `typescript` added as dev dependencies, so `npx astro check` runs instead of waiting on an install prompt. Not part of `npm run build`.
