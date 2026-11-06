@@ -51,7 +51,7 @@ Geben Sie die geheime Phrase Ihrer Wallet oder andere sensible Daten niemals an 
 - **Website:** [hipo.finance](https://hipo.finance)
 - **Web-App:** [hipo.finance/stake](/stake/)
 - **Telegram-Kanal:** [@hipofinance](https://t.me/hipofinance)
-- **Telegram-Bot:** [@hipofinancebot](https://t.me/hipofinancebot)
+- **Telegram-Bot:** [@HipoApp](https://t.me/HipoApp) / [@HipoFinanceBot](https://t.me/HipoFinanceBot)
 - **Twitter (X):** [x.com/hipofinance](https://x.com/hipofinance)
 
 ---

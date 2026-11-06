@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-06 — Verify page: the official Telegram bot, @HipoApp
+
+- `/verify/` lists @HipoApp first under Telegram as the official bot (the Hipo app and Hipo Club), notes that @HipoFinanceBot is the same bot under its older username, and its closing note now names the bot as the one Hipo app besides hipo.finance — the old "no Hipo app anywhere but hipo.finance" contradicted the bot. All 11 locales.
+- The phishing docs page (11 locales) and `llms.txt` name the bot by both usernames too; it is the account fake bots copy, so a reader who finds either name must be able to confirm it.
+- Left as they are: the many `t.me/HipoFinanceBot/…` links across the app, docs and prose. They still work, and moving the mini-app deep links (`/join`, `/app`) to the new username is untested.
+
 ## 2026-11-04 — Staking app: a wallet switch no longer keeps the old wallet's hGRAM wallet
 
 - A chain read or rewards load that was in flight when the wallet changed now drops its result instead of writing it under the new address, and a read reuses the stored hGRAM wallet address only while the wallet is still the one it started with. Before, the old wallet's hGRAM wallet stuck until the next switch or a reload: the old balance and unstake maximum showed, and an unstake went to the old owner's hGRAM wallet, where the contract refuses it and it bounces (gas lost, no hGRAM moved). Reproduced and checked headless by holding one read across a switch.

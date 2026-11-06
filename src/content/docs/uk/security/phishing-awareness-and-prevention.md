@@ -51,7 +51,7 @@ title: 'Обізнаність про фішинг і захист від ньо
 - **Сайт:** [hipo.finance](https://hipo.finance)
 - **Вебзастосунок:** [hipo.finance/stake](/stake/)
 - **Канал у Telegram:** [@hipofinance](https://t.me/hipofinance)
-- **Бот у Telegram:** [@hipofinancebot](https://t.me/hipofinancebot)
+- **Бот у Telegram:** [@HipoApp](https://t.me/HipoApp) / [@HipoFinanceBot](https://t.me/HipoFinanceBot)
 - **Twitter (X):** [x.com/hipofinance](https://x.com/hipofinance)
 
 ---

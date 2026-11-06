@@ -51,7 +51,7 @@ title: 'التوعية بالتصيّد الاحتيالي ووسائل الوق
 - **الموقع الإلكتروني:** [hipo.finance](https://hipo.finance)
 - **تطبيق الويب:** [hipo.finance/stake](/stake/)
 - **قناة Telegram:** [@hipofinance](https://t.me/hipofinance)
-- **بوت Telegram:** [@hipofinancebot](https://t.me/hipofinancebot)
+- **بوت Telegram:** [@HipoApp](https://t.me/HipoApp) / [@HipoFinanceBot](https://t.me/HipoFinanceBot)
 - **Twitter (X):** [x.com/hipofinance](https://x.com/hipofinance)
 
 ---

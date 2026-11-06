@@ -21,13 +21,15 @@
   "verify.contracts.hpo": "توكن الحوكمة. لا يوجد سوى HPO واحد؛ تحقّق قبل أن تُبادل.",
   "verify.contracts.note": "القائمة نفسها، مع تقارير التدقيق، موجودة في <a href=\"/docs/contracts-and-audits/\">العقود والتدقيقات</a>.",
   "verify.telegram.heading": "Telegram",
+  "verify.telegram.bot": "البوت الرسمي: تطبيق Hipo و Hipo Club داخل Telegram",
+  "verify.telegram.botNote": "يستجيب البوت نفسه للاسم <a href=\"https://t.me/HipoFinanceBot\" dir=\"ltr\">@HipoFinanceBot</a> أيضًا، وهو الاسم الذي تستخدمه معظم الروابط في هذا الموقع. أي بوت آخر يسمّي نفسه Hipo مزيف.",
   "verify.telegram.announcements": "الإعلانات",
   "verify.telegram.chat": "محادثة المجتمع",
   "verify.telegram.teamHeading": "حسابات الفريق",
   "verify.telegram.teamBody": "هؤلاء أعضاء حقيقيون في الفريق. <strong>لن يراسلوك أبدًا أولًا</strong>، ولا يقدّمون الدعم عبر الرسائل الخاصة أبدًا. إذا تواصل معك أحد بهذه الأسماء من العدم، فهو منتحل ينسخ الاسم والصورة.",
   "verify.web.heading": "الموقع الإلكتروني وحسابات التواصل الاجتماعي",
   "verify.web.site": "— الموقع الإلكتروني الرسمي الوحيد. التوثيق على hipo.finance/docs/ والتطبيق على hipo.finance/stake/؛ ويُعاد توجيه docs.hipo.finance إلى هنا.",
-  "verify.web.note": "لا تدير Hipo أي موقع إلكتروني آخر، ولا بيع توكنات، ولا «بوابة دعم». لا يوجد تطبيق لـ Hipo في أي مكان سوى hipo.finance.",
+  "verify.web.note": "لا تدير Hipo أي موقع إلكتروني آخر، ولا بيع توكنات، ولا «بوابة دعم». لا يوجد تطبيق لـ Hipo في أي مكان سوى hipo.finance وبوت <a href=\"https://t.me/HipoApp\" dir=\"ltr\">@HipoApp</a> في Telegram.",
   "verify.ask.heading": "غير متأكد من شيء؟",
   "verify.ask.body": "اسأل في <a href=\"https://t.me/hipo_chat\">@hipo_chat</a> قبل أن تتصرف بناءً عليه. لن يمانع أحد هناك، والأمر لا يستغرق سوى دقيقة."
 }

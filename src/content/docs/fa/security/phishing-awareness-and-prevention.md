@@ -51,7 +51,7 @@ title: 'آگاهی از فیشینگ و پیشگیری از آن'
 - **وب‌سایت:** [hipo.finance](https://hipo.finance)
 - **وب‌اپ:** [hipo.finance/stake](/stake/)
 - **کانال تلگرام:** [@hipofinance](https://t.me/hipofinance)
-- **ربات تلگرام:** [@hipofinancebot](https://t.me/hipofinancebot)
+- **ربات تلگرام:** [@HipoApp](https://t.me/HipoApp) / [@HipoFinanceBot](https://t.me/HipoFinanceBot)
 - **توییتر (X):** [x.com/hipofinance](https://x.com/hipofinance)
 
 ---

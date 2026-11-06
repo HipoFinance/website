@@ -51,7 +51,7 @@ title: 'Осведомлённость о фишинге и защита от н
 - **Сайт:** [hipo.finance](https://hipo.finance)
 - **Веб-приложение:** [hipo.finance/stake](/stake/)
 - **Канал Telegram:** [@hipofinance](https://t.me/hipofinance)
-- **Бот Telegram:** [@hipofinancebot](https://t.me/hipofinancebot)
+- **Бот Telegram:** [@HipoApp](https://t.me/HipoApp) / [@HipoFinanceBot](https://t.me/HipoFinanceBot)
 - **Twitter (X):** [x.com/hipofinance](https://x.com/hipofinance)
 
 ---

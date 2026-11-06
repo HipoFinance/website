@@ -75,7 +75,15 @@ const contracts = [
   },
 ]
 
+// The bot comes first: it is the Hipo account people transact through, so it is the one a fake bot
+// copies. `note` is the only HTML here — it carries the bot's second username as a link.
 const channels = [
+  {
+    label: t('verify.telegram.bot'),
+    handle: '@HipoApp',
+    url: 'https://t.me/HipoApp',
+    note: tHtml('verify.telegram.botNote'),
+  },
   { label: t('verify.telegram.announcements'), handle: '@HipoFinance', url: 'https://t.me/HipoFinance' },
   { label: t('verify.telegram.chat'), handle: '@hipo_chat', url: 'https://t.me/hipo_chat' },
 ]
@@ -250,6 +258,12 @@ const description = t('seo.verify.description')
                 {channel.handle}
               </a>
               <span class='text-text-muted text-[15px]'>— {channel.label}</span>
+              {channel.note && (
+                <p
+                  class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover w-full text-[15px] leading-[1.6] [&_a]:underline'
+                  set:html={channel.note}
+                />
+              )}
             </li>
           ))
         }
@@ -295,7 +309,10 @@ const description = t('seo.verify.description')
           ))
         }
       </ul>
-      <p class='text-text-muted text-[15px] leading-[1.6]'>{t('verify.web.note')}</p>
+      <p
+        class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover text-[15px] leading-[1.6] [&_a]:underline'
+        set:html={tHtml('verify.web.note')}
+      />
     </section>
 
     <section

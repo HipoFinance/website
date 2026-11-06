@@ -51,7 +51,7 @@ Ne partage jamais la phrase secrète de ton portefeuille ni d’autres données 
 - **Site web :** [hipo.finance](https://hipo.finance)
 - **App web :** [hipo.finance/stake](/stake/)
 - **Canal Telegram :** [@hipofinance](https://t.me/hipofinance)
-- **Bot Telegram :** [@hipofinancebot](https://t.me/hipofinancebot)
+- **Bot Telegram :** [@HipoApp](https://t.me/HipoApp) / [@HipoFinanceBot](https://t.me/HipoFinanceBot)
 - **Twitter (X) :** [x.com/hipofinance](https://x.com/hipofinance)
 
 ---

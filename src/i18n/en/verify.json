@@ -21,13 +21,15 @@
   "verify.contracts.hpo": "The governance token. There is only one HPO; check before you swap.",
   "verify.contracts.note": "The same list, with the audit reports, is in <a href=\"/docs/contracts-and-audits/\">Contracts &amp; Audits</a>.",
   "verify.telegram.heading": "Telegram",
+  "verify.telegram.bot": "Official bot: the Hipo app and Hipo Club inside Telegram",
+  "verify.telegram.botNote": "The same bot also answers to <a href=\"https://t.me/HipoFinanceBot\" dir=\"ltr\">@HipoFinanceBot</a>, the name most links on this site use. Any other bot that calls itself Hipo is fake.",
   "verify.telegram.announcements": "Announcements",
   "verify.telegram.chat": "Community chat",
   "verify.telegram.teamHeading": "Team accounts",
   "verify.telegram.teamBody": "These are real team members. <strong>They will never message you first</strong>, and they never offer support in direct messages. If one of these names contacts you out of nowhere, it is an impersonator copying the name and the photo.",
   "verify.web.heading": "Website and social accounts",
   "verify.web.site": "— the only official website. The docs are at hipo.finance/docs/ and the app at hipo.finance/stake/; docs.hipo.finance redirects here.",
-  "verify.web.note": "Hipo runs no other website, no token sale and no \"support portal\". There is no Hipo app anywhere but hipo.finance.",
+  "verify.web.note": "Hipo runs no other website, no token sale and no \"support portal\". There is no Hipo app anywhere but hipo.finance and the <a href=\"https://t.me/HipoApp\" dir=\"ltr\">@HipoApp</a> bot in Telegram.",
   "verify.ask.heading": "Not sure about something?",
   "verify.ask.body": "Ask in <a href=\"https://t.me/hipo_chat\">@hipo_chat</a> before you act on it. Nobody there will mind, and it takes a minute."
 }

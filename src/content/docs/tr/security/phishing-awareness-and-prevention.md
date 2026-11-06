@@ -51,7 +51,7 @@ Cüzdanınızın gizli ifadesini veya başka hassas verileri kimseyle veya hiçb
 - **Web Sitesi:** [hipo.finance](https://hipo.finance)
 - **Web Uygulaması:** [hipo.finance/stake](/stake/)
 - **Telegram Kanalı:** [@hipofinance](https://t.me/hipofinance)
-- **Telegram Botu:** [@hipofinancebot](https://t.me/hipofinancebot)
+- **Telegram Botu:** [@HipoApp](https://t.me/HipoApp) / [@HipoFinanceBot](https://t.me/HipoFinanceBot)
 - **Twitter (X):** [x.com/hipofinance](https://x.com/hipofinance)
 
 ---

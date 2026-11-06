@@ -21,13 +21,15 @@
   "verify.contracts.hpo": "Token tata kelola. Hanya ada satu HPO; periksa sebelum Anda swap.",
   "verify.contracts.note": "Daftar yang sama, beserta laporan audit, ada di <a href=\"/docs/contracts-and-audits/\">Kontrak &amp; audit</a>.",
   "verify.telegram.heading": "Telegram",
+  "verify.telegram.bot": "Bot resmi: aplikasi Hipo dan Hipo Club di dalam Telegram",
+  "verify.telegram.botNote": "Bot yang sama juga menjawab di <a href=\"https://t.me/HipoFinanceBot\" dir=\"ltr\">@HipoFinanceBot</a>, nama yang dipakai sebagian besar tautan di situs ini. Bot lain mana pun yang menyebut dirinya Hipo itu palsu.",
   "verify.telegram.announcements": "Pengumuman",
   "verify.telegram.chat": "Chat komunitas",
   "verify.telegram.teamHeading": "Akun tim",
   "verify.telegram.teamBody": "Ini adalah anggota tim yang asli. <strong>Mereka tidak akan pernah menghubungi Anda lebih dulu</strong>, dan mereka tidak pernah menawarkan dukungan lewat pesan langsung. Jika salah satu nama ini menghubungi Anda tiba-tiba, itu adalah peniru yang meniru nama dan foto tersebut.",
   "verify.web.heading": "Situs web dan akun media sosial",
   "verify.web.site": "— satu-satunya situs web resmi. Dokumen ada di hipo.finance/docs/ dan aplikasi di hipo.finance/stake/; docs.hipo.finance akan mengarahkan Anda ke sini.",
-  "verify.web.note": "Hipo tidak menjalankan situs web lain, tidak ada penjualan token, dan tidak ada \"portal dukungan\". Tidak ada aplikasi Hipo di mana pun selain hipo.finance.",
+  "verify.web.note": "Hipo tidak menjalankan situs web lain, tidak ada penjualan token, dan tidak ada \"portal dukungan\". Tidak ada aplikasi Hipo di mana pun selain hipo.finance dan bot <a href=\"https://t.me/HipoApp\" dir=\"ltr\">@HipoApp</a> di Telegram.",
   "verify.ask.heading": "Tidak yakin soal sesuatu?",
   "verify.ask.body": "Tanyakan di <a href=\"https://t.me/hipo_chat\">@hipo_chat</a> sebelum Anda bertindak berdasarkan itu. Tidak ada yang akan keberatan di sana, dan hanya perlu waktu semenit."
 }

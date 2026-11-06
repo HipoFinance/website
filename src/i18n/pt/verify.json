@@ -21,13 +21,15 @@
   "verify.contracts.hpo": "O token de governança. Existe apenas um HPO; confira antes de fazer swap.",
   "verify.contracts.note": "A mesma lista, com os relatórios de auditoria, está em <a href=\"/docs/contracts-and-audits/\">Contratos e auditorias</a>.",
   "verify.telegram.heading": "Telegram",
+  "verify.telegram.bot": "Bot oficial: o app da Hipo e o Hipo Club dentro do Telegram",
+  "verify.telegram.botNote": "O mesmo bot também responde por <a href=\"https://t.me/HipoFinanceBot\" dir=\"ltr\">@HipoFinanceBot</a>, o nome que a maioria dos links deste site usa. Qualquer outro bot que se diga Hipo é falso.",
   "verify.telegram.announcements": "Anúncios",
   "verify.telegram.chat": "Chat da comunidade",
   "verify.telegram.teamHeading": "Contas da equipe",
   "verify.telegram.teamBody": "Estes são membros reais da equipe. <strong>Eles nunca vão mandar mensagem para você primeiro</strong>, e nunca oferecem suporte em mensagens diretas. Se um desses nomes entrar em contato do nada, é um golpista copiando o nome e a foto.",
   "verify.web.heading": "Site e contas nas redes sociais",
   "verify.web.site": "— o único site oficial. A documentação está em hipo.finance/docs/ e o app em hipo.finance/stake/; docs.hipo.finance redireciona para cá.",
-  "verify.web.note": "A Hipo não opera nenhum outro site, nenhuma venda de tokens nem nenhum \"portal de suporte\". Não existe app da Hipo em nenhum lugar além do hipo.finance.",
+  "verify.web.note": "A Hipo não opera nenhum outro site, nenhuma venda de tokens nem nenhum \"portal de suporte\". Não existe app da Hipo em nenhum lugar além do hipo.finance e do bot <a href=\"https://t.me/HipoApp\" dir=\"ltr\">@HipoApp</a> no Telegram.",
   "verify.ask.heading": "Não tem certeza sobre algo?",
   "verify.ask.body": "Pergunte em <a href=\"https://t.me/hipo_chat\">@hipo_chat</a> antes de agir. Ninguém vai se importar, e leva um minuto."
 }

@@ -21,13 +21,15 @@
   "verify.contracts.hpo": "Yönetişim tokeni. Tek bir HPO vardır; swap yapmadan önce kontrol edin.",
   "verify.contracts.note": "Aynı liste, denetim raporlarıyla birlikte, <a href=\"/docs/contracts-and-audits/\">Sözleşmeler ve Denetimler</a> sayfasında yer alır.",
   "verify.telegram.heading": "Telegram",
+  "verify.telegram.bot": "Resmi bot: Telegram içinde Hipo uygulaması ve Hipo Club",
+  "verify.telegram.botNote": "Aynı bot <a href=\"https://t.me/HipoFinanceBot\" dir=\"ltr\">@HipoFinanceBot</a> adıyla da yanıt verir; bu sitedeki bağlantıların çoğu bu adı kullanır. Kendine Hipo diyen başka her bot sahtedir.",
   "verify.telegram.announcements": "Duyurular",
   "verify.telegram.chat": "Topluluk sohbeti",
   "verify.telegram.teamHeading": "Ekip hesapları",
   "verify.telegram.teamBody": "Bunlar gerçek ekip üyeleridir. <strong>Size asla ilk mesajı atmazlar</strong> ve özel mesajlarda asla destek sunmazlar. Bu isimlerden biri sizinle bir anda iletişime geçerse, bu ismi ve fotoğrafı kopyalayan bir taklitçidir.",
   "verify.web.heading": "Web sitesi ve sosyal medya hesapları",
   "verify.web.site": "— tek resmi web sitesi. Dokümanlar hipo.finance/docs/ adresinde, uygulama ise hipo.finance/stake/ adresindedir; docs.hipo.finance buraya yönlendirir.",
-  "verify.web.note": "Hipo başka hiçbir web sitesi, token satışı veya “destek portalı” işletmez. hipo.finance dışında hiçbir yerde Hipo uygulaması yoktur.",
+  "verify.web.note": "Hipo başka hiçbir web sitesi, token satışı veya “destek portalı” işletmez. hipo.finance ve Telegram'daki <a href=\"https://t.me/HipoApp\" dir=\"ltr\">@HipoApp</a> botu dışında hiçbir yerde Hipo uygulaması yoktur.",
   "verify.ask.heading": "Bir şeyden emin değil misiniz?",
   "verify.ask.body": "Harekete geçmeden önce <a href=\"https://t.me/hipo_chat\">@hipo_chat</a>'te sorun. Orada kimse bundan rahatsız olmaz ve bu sadece bir dakikanızı alır."
 }

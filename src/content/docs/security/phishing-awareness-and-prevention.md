@@ -51,7 +51,7 @@ Never share your wallet’s secret phrase or other sensitive data with anyone or
 - **Website:** [hipo.finance](https://hipo.finance)
 - **Webapp:** [hipo.finance/stake](/stake/)
 - **Telegram Channel:** [@hipofinance](https://t.me/hipofinance)
-- **Telegram Bot:** [@hipofinancebot](https://t.me/hipofinancebot)
+- **Telegram Bot:** [@HipoApp](https://t.me/HipoApp) / [@HipoFinanceBot](https://t.me/HipoFinanceBot)
 - **Twitter (X):** [x.com/hipofinance](https://x.com/hipofinance)
 
 ---

@@ -21,13 +21,15 @@
   "verify.contracts.hpo": "توکن حاکمیت. فقط یک HPO وجود دارد؛ پیش از سواپ بررسی کنید.",
   "verify.contracts.note": "همین فهرست، همراه با گزارش‌های حسابرسی، در <a href=\"/docs/contracts-and-audits/\">قراردادها و حسابرسی‌ها</a> آمده است.",
   "verify.telegram.heading": "تلگرام",
+  "verify.telegram.bot": "ربات رسمی: اپ Hipo و Hipo Club داخل تلگرام",
+  "verify.telegram.botNote": "همین ربات با نام <a href=\"https://t.me/HipoFinanceBot\" dir=\"ltr\">@HipoFinanceBot</a> هم پاسخ می‌دهد و بیشتر پیوندهای این وب‌سایت از همین نام استفاده می‌کنند. هر ربات دیگری که خود را Hipo بنامد جعلی است.",
   "verify.telegram.announcements": "اعلانات",
   "verify.telegram.chat": "چت جامعه",
   "verify.telegram.teamHeading": "حساب‌های تیم",
   "verify.telegram.teamBody": "این‌ها اعضای واقعی تیم هستند. <strong>آن‌ها هرگز اول به شما پیام نمی‌دهند</strong>، و هرگز در پیام خصوصی پشتیبانی ارائه نمی‌کنند. اگر یکی از این نام‌ها بی‌مقدمه با شما تماس گرفت، یعنی کسی جای او را جا زده و از همان نام و عکس استفاده می‌کند.",
   "verify.web.heading": "وب‌سایت و حساب‌های اجتماعی",
   "verify.web.site": "— تنها وب‌سایت رسمی. مستندات در hipo.finance/docs/ و اپ در hipo.finance/stake/ قرار دارد؛ docs.hipo.finance به اینجا هدایت می‌شود.",
-  "verify.web.note": "Hipo هیچ وب‌سایت دیگر، هیچ فروش توکنی و هیچ «پورتال پشتیبانی» ندارد. هیچ اپ Hipo به‌جز در hipo.finance وجود ندارد.",
+  "verify.web.note": "Hipo هیچ وب‌سایت دیگر، هیچ فروش توکنی و هیچ «پورتال پشتیبانی» ندارد. هیچ اپ Hipo به‌جز در hipo.finance و ربات <a href=\"https://t.me/HipoApp\" dir=\"ltr\">@HipoApp</a> در تلگرام وجود ندارد.",
   "verify.ask.heading": "دربارهٔ چیزی مطمئن نیستید؟",
   "verify.ask.body": "پیش از هر اقدامی، در <a href=\"https://t.me/hipo_chat\">@hipo_chat</a> بپرسید. کسی آنجا ناراحت نمی‌شود، و فقط یک دقیقه وقت می‌گیرد."
 }

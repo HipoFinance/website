@@ -51,7 +51,7 @@ Nunca compartas la frase secreta de tu billetera ni otros datos sensibles con na
 - **Sitio web:** [hipo.finance](https://hipo.finance)
 - **App web:** [hipo.finance/stake](/stake/)
 - **Canal de Telegram:** [@hipofinance](https://t.me/hipofinance)
-- **Bot de Telegram:** [@hipofinancebot](https://t.me/hipofinancebot)
+- **Bot de Telegram:** [@HipoApp](https://t.me/HipoApp) / [@HipoFinanceBot](https://t.me/HipoFinanceBot)
 - **Twitter (X):** [x.com/hipofinance](https://x.com/hipofinance)
 
 ---

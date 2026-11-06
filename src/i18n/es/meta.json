@@ -3276,7 +3276,7 @@
     "reviewed": false
   },
   "docs/security/phishing-awareness-and-prevention.md": {
-    "sourceHash": "159e859406fec7c0c590677b67432324de190ecb",
+    "sourceHash": "95b3837fb7c6fb3fcf327e7c02df4f85321cac31",
     "reviewed": false
   },
   "docs/security/why-your-security-matters.md": {
@@ -4731,6 +4731,14 @@
     "sourceHash": "06b01c44a6f7b2519075dcccf01d9ba0cca20e87",
     "reviewed": false
   },
+  "verify.telegram.bot": {
+    "sourceHash": "fced08e66da0df42f93f5375177386242437e834",
+    "reviewed": false
+  },
+  "verify.telegram.botNote": {
+    "sourceHash": "6a82ff7352785489e1a5053971e5db31986200fa",
+    "reviewed": false
+  },
   "verify.telegram.chat": {
     "sourceHash": "c2f4d4164ba546ae7f5d884902abf8eb79ef2453",
     "reviewed": false
@@ -4780,7 +4788,7 @@
     "reviewed": false
   },
   "verify.web.note": {
-    "sourceHash": "dd8f63ac1f2993c04cd94b0de4f6d46829b962cf",
+    "sourceHash": "ab059662db65562de71e6078d5b673e0028edc31",
     "reviewed": false
   },
   "verify.web.site": {

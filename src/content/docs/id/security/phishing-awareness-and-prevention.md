@@ -51,7 +51,7 @@ Jangan pernah membagikan frasa rahasia dompet Anda atau data sensitif lain kepad
 - **Situs web:** [hipo.finance](https://hipo.finance)
 - **Aplikasi web:** [hipo.finance/stake](/stake/)
 - **Kanal Telegram:** [@hipofinance](https://t.me/hipofinance)
-- **Bot Telegram:** [@hipofinancebot](https://t.me/hipofinancebot)
+- **Bot Telegram:** [@HipoApp](https://t.me/HipoApp) / [@HipoFinanceBot](https://t.me/HipoFinanceBot)
 - **Twitter (X):** [x.com/hipofinance](https://x.com/hipofinance)
 
 ---
