@@ -252,20 +252,31 @@ const description = t('seo.verify.description')
       <h2 class='font-fredoka text-text mb-4 text-2xl font-semibold'>{t('verify.telegram.heading')}</h2>
       <ul class='mb-6 space-y-3'>
         {
-          channels.map((channel) => (
-            <li class='border-border bg-surface flex flex-wrap items-baseline gap-2 rounded-[20px] border p-5'>
-              <a href={channel.url} class='text-accent hover:text-accent-hover font-semibold' dir='ltr'>
-                {channel.handle}
-              </a>
-              <span class='text-text-muted text-[15px]'>— {channel.label}</span>
-              {channel.note && (
+          channels.map((channel) =>
+            channel.note ? (
+              // A card with a note is laid out like the wallet cards: the handle on its own line and the
+              // text under it, without the dash — "— label" would wrap and start a line with the dash.
+              <li class='border-border bg-surface rounded-[20px] border p-5'>
+                <div class='mb-1'>
+                  <a href={channel.url} class='text-accent hover:text-accent-hover font-semibold' dir='ltr'>
+                    {channel.handle}
+                  </a>
+                </div>
+                <div class='text-text-muted text-[15px] leading-[1.6]'>{channel.label}</div>
                 <p
-                  class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover w-full text-[15px] leading-[1.6] [&_a]:underline'
+                  class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover mt-2 text-[15px] leading-[1.6] [&_a]:underline'
                   set:html={channel.note}
                 />
-              )}
-            </li>
-          ))
+              </li>
+            ) : (
+              <li class='border-border bg-surface flex flex-wrap items-baseline gap-2 rounded-[20px] border p-5'>
+                <a href={channel.url} class='text-accent hover:text-accent-hover font-semibold' dir='ltr'>
+                  {channel.handle}
+                </a>
+                <span class='text-text-muted text-[15px]'>— {channel.label}</span>
+              </li>
+            ),
+          )
         }
       </ul>
 

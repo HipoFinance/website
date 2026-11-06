@@ -13,6 +13,7 @@ here — `git log` remains the complete record.
 
 - `/verify/` lists @HipoApp first under Telegram as the official bot (the Hipo app and Hipo Club), notes that @HipoFinanceBot is the same bot under its older username, and its closing note now names the bot as the one Hipo app besides hipo.finance — the old "no Hipo app anywhere but hipo.finance" contradicted the bot. All 11 locales.
 - The phishing docs page (11 locales) and `llms.txt` name the bot by both usernames too; it is the account fake bots copy, so a reader who finds either name must be able to confirm it.
+- The bot's card puts its description under the handle without the dash, like the wallet cards: on a phone the "— label" wrapped and started a line with the dash.
 - Left as they are: the many `t.me/HipoFinanceBot/…` links across the app, docs and prose. They still work, and moving the mini-app deep links (`/join`, `/app`) to the new username is untested.
 
 ## 2026-11-04 — Staking app: a wallet switch no longer keeps the old wallet's hGRAM wallet
