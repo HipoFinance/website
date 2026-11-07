@@ -23,8 +23,8 @@ title: 'Hipo yönetişim tokeni (HPO)'
 
 ### Tokenin kullanım alanları
 
-- **Kâr paylaşımı:** HPO sahipleri, Hipo'nun protokol gelirinden pay alır; bu pay her doğrulama turundan sonra hesaplanır ve her Hipo Club sezonunun sonunda ödenir.
-- **Hipo Club:** ödül olarak alınan HPO'yu elinde tutmak üyenin [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) seviyesini korur — satmak seviyeyi 1'e sıfırlar — ve daha yüksek bir seviye, her doğrulama turunda hGRAM üzerinden daha çok HPO kazandırır; seviyeler Club etkinliğiyle yükselir (anında yükseltme veya sezonluk yükseltme).
+- **Kâr paylaşımı:** HPO sahipleri, Hipo'nun protokol gelirinden pay alır; bu pay her doğrulama turundan sonra hesaplanır ve Hipo Club'da çekilir; protokol ücreti %0 olduğu sürece duraklatılmıştır.
+- **Hipo Club:** üye, talep ettiği HPO'yu (Seviye minimumunu) Club cüzdanında tutarak [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) seviyesini korur ve daha yüksek bir seviye, her doğrulama turunda hGRAM üzerinden daha çok HPO kazandırır; seviyeler sezonluk yükseltme veya anında yükseltme ile yükselir.
 - **Yönetişim:** Sahipler yönetişim oylamalarına katılarak protokol yükseltmelerine, stratejik kararlara ve diğer hayati konulara karar verilmesine yardımcı olabilir.
 
 ### Token dağılımı

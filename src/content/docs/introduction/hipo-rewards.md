@@ -9,11 +9,11 @@ Staking GRAM with Hipo pays you in three separate streams, on three different cl
 - **Base rewards**\
   GRAM staking rewards, reflected in hGRAM's exchange rate against GRAM — settled **every validation round** (~18 h), nothing to claim
 - **Boosted rewards**\
-  Extra HPO on the GRAM value of your stake, at a coefficient set by your [Hipo Club](https://t.me/HipoFinanceBot/join) level — accrues **every validation round**, withdrawable once your balance passes 100 HPO
+  Extra HPO on the GRAM value of your stake, boosted by your [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) level — accrues **every validation round**, claimable once you have 100 HPO, for a 1 GRAM fee
 - **Extra rewards**\
-  Hold HPO → receive a share of protocol revenue — paid **at the end of each Hipo Club season**
+  Hold HPO → receive a share of protocol revenue — **paused** while the protocol fee is 0%
 
-All three are trackable in the [Hipo app](/club/) and [Hipo Club](https://t.me/HipoFinanceBot/join).
+All three are trackable in [Hipo Club](/club/), on the website or in the [Hipo app](https://t.me/HipoApp) on Telegram.
 
 ## Base rewards: the exchange rate
 
@@ -77,17 +77,17 @@ Your level multiplies everything above: at Level 10 the same stake earns ten tim
 
 There are two ways to level up:
 
-- **Seasonal upgrade** — claim your earned rewards at least once during the season; your level rises automatically at the end of it.
-- **Instant upgrade** — pay the level-up fee and your level rises immediately.
+- **Seasonal upgrade** — claim at least once during the season and be above your Level minimum when it ends; you move up one level when the next season starts.
+- **Instant upgrade** — pay the level-up fee in GRAM and move up one level straight away.
 
 Two rules matter:
 
-- **Selling rewarded HPO resets you to Level 1.** The Club is designed to reward people who hold, and this is the mechanism. Sending rewarded HPO to an exchange, or to a wallet you have not connected to the Club, counts as selling; moving it between your own connected wallets does not — see [Using Multiple Wallets](/docs/wallets-and-rewards/).
-- **There is no claiming window.** Rewards accrue every round and can be withdrawn whenever your balance is at least **100 HPO**.
+- **Keep your Level minimum.** Everything you claim adds to it, and your Club wallet has to hold at least that much HPO, in the wallet or its supported liquidity pools. Below it you have 24 hours of grace at your full boost; then your level is suspended and earns 1×, and after 7 more days you return to Level 1. The Club is designed to reward people who hold, and this is the mechanism — see [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **There is no claiming window.** Rewards accrue every round and can be claimed whenever you have at least **100 HPO**, for a 1 GRAM fee.
 
 ## Extra rewards: profit sharing
 
-HPO is Hipo's governance token. Holding it gives you a vote in the [DAO](/docs/dao/) and a share of protocol revenue, distributed at the end of each Hipo Club season — see [Profit Sharing](/docs/profit-sharing/).
+HPO is Hipo's governance token. Holding it gives you a vote in the [DAO](/docs/dao/) and a share of protocol revenue, paused while the protocol fee is 0% — see [Profit Sharing](/docs/profit-sharing/).
 
 :::note
 While the [governance fee](/docs/fees-and-gas/) is **0%**, the protocol collects no revenue, so there is nothing to distribute in this stream. Profit sharing resumes when the fee does. The 0% fee is what makes the base rewards as high as they are.

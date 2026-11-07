@@ -1,78 +1,65 @@
 ---
 title: 'Usar varias billeteras'
-description: 'Cómo siguen tus recompensas a tus billeteras y cómo añadir una segunda billetera sin perder tu nivel de Hipo Club.'
+description: 'Cómo siguen tus recompensas a tus billeteras, cuál es tu billetera del Club y cómo cambiarla sin perder tu nivel.'
 ---
 
-Muchos holders guardan su GRAM, hGRAM y HPO en más de una billetera. No hay problema: Hipo hace el seguimiento de cada billetera por separado y ninguna deja de generar recompensas porque hayas conectado otra.
+Mucha gente guarda su GRAM, hGRAM y HPO en más de una billetera. No pasa nada: Hipo sigue cada billetera por separado, y ninguna deja de ganar porque conectes otra. Lo que cambia de una billetera a otra es el multiplicador: solo tu **billetera del Club** gana con el nivel de tu Hipo Club.
 
-Hay una regla que pilla a la gente por sorpresa, y solo se aplica **después de haber recibido un airdrop de Hipo Club**. Esta página cubre ambas cosas.
+## Cómo empieza a ganar una billetera
 
-## Cómo empieza a generar recompensas una billetera
+Las recompensas base de staking no necesitan ninguna configuración: el hGRAM sube de valor frente a GRAM en cada ronda de validación, en la billetera que lo tenga, esté conectada o no.
 
-Las recompensas base de staking no requieren ninguna configuración: hGRAM gana valor frente a GRAM en cada ronda de validación, esté en la billetera que esté, conectada o no.
+**Las recompensas en HPO son distintas: Hipo tiene que saber que la billetera existe.** Una billetera empieza a ganar HPO cuando haces una de estas dos cosas, una sola vez:
 
-**Las recompensas en HPO son distintas: Hipo tiene que saber que la billetera existe.** Una billetera empieza a generar HPO en cuanto hayas hecho una de estas dos cosas, una sola vez:
+- Abrir [Hipo Club](/club/) en hipo.finance con esa billetera conectada, **o**
+- Vincularla como tu billetera del Club.
 
-- Abrir la [página de recompensas](/club/) en la app de Hipo con esa billetera conectada, **o**
-- Conectar esa billetera en [Hipo Club](https://t.me/HipoFinanceBot/join).
-
-A partir de ahí, la billetera sigue generando recompensas sobre su propio saldo. Nada la da de baja: conectar otra billetera más adelante no la detiene, y desconectarla de la app tampoco.
+Después, la billetera sigue ganando por su propio saldo. Nada la da de baja: conectar otra billetera más adelante no la detiene, ni tampoco desconectarla.
 
 :::caution
-El HPO y el hGRAM que estén en una billetera que **nunca** hayas conectado no generan ninguna recompensa en HPO, ni ahora ni de forma retroactiva. Si repartes tus fondos entre varias billeteras, registra cada una.
+El hGRAM que está en una billetera que **nunca** has conectado no gana ninguna recompensa en HPO, ni ahora ni con carácter retroactivo. Si tienes fondos repartidos en varias billeteras, abre Hipo Club una vez con cada una.
 :::
 
-## Las reglas para varias billeteras
+## Tu billetera del Club y tus otras billeteras
 
-- **Cada billetera genera recompensas sobre su propio saldo.** Las recompensas escalan directamente con la cantidad que se mantiene, así que repartir 100.000 hGRAM entre tres billeteras genera exactamente lo mismo que una sola billetera con 100.000. No hay penalización por repartir ni bonificación por consolidar.
-- **Tu nivel de Hipo Club pertenece a tu cuenta de Telegram, no a una billetera.** Todas las billeteras que conectes generan recompensas con el coeficiente de tu nivel. Subir de nivel las mejora todas a la vez.
-- **Puedes conectar hasta 6 billeteras** a una misma cuenta de Hipo Club.
-- **Las recompensas se contabilizan y se retiran por billetera.** Cada billetera tiene su propio saldo acumulado y su propio umbral de retiro de 100 HPO. No se juntan.
-- **Solo el propietario puede retirar.** Las recompensas acumuladas por una billetera solo las puede retirar la cuenta de Hipo Club a la que esa billetera está conectada, y siempre se envían a esa misma billetera.
+- **Tu nivel de Hipo Club pertenece a tu cuenta de Telegram, no a una billetera.** Una billetera a la vez, tu billetera del Club, gana con el multiplicador de tu nivel. Tus otras billeteras registradas ganan a 1×.
+- **Las reclamaciones pasan por la billetera del Club.** Tu HPO potenciado es un único saldo de tu cuenta de Telegram, que se reclama desde 100 HPO con una comisión de 1 GRAM y se paga a tu billetera del Club. El HPO que gana una billetera mientras no es tu billetera del Club se queda con ella, y se suma a tu cuenta cuando la conviertes en tu billetera del Club.
+- **Las recompensas dependen de la cantidad que tienes.** Repartir el hGRAM entre billeteras da las mismas recompensas base, pero solo la parte que está en tu billetera del Club se potencia. Para tener todo tu multiplicador, mantén tu hGRAM en tu billetera del Club o en sus pools de liquidez compatibles.
+- **Una cuenta por billetera.** Una billetera solo puede ser la billetera del Club de una cuenta de Telegram.
 
-## Después de recibir un airdrop de Hipo Club
+## Tu mínimo de nivel vive en la billetera del Club
 
-Cuando recibes un airdrop del Club, Hipo registra la cantidad que se espera que **conserves**. Hipo Club premia mantener, así que si ese HPO sale de tus billeteras tu nivel se reinicia al Nivel 1 y tu coeficiente de recompensa baja con él.
+Todo lo que reclamas se suma a tu **mínimo de nivel**, y tu billetera del Club, junto con sus pools de liquidez compatibles, tiene que mantener al menos esa cantidad de HPO. El HPO de tus otras billeteras no cuenta.
 
-**La cantidad se cuenta sumando todas tus billeteras de Hipo Club.** Da igual cuál de ellas guarde el HPO, o cuál hayas conectado más recientemente: muévelo entre tus propias billeteras conectadas con total libertad.
+Así que si sacas HPO de tu billetera del Club, incluso a otra billetera tuya, cuenta como por debajo del mínimo. Entonces tienes 24 horas para devolverlo antes de que tu nivel se suspenda. La regla completa está en [Hipo Club](/docs/giveaways-and-prizes/hipo-club/#tu-mínimo-de-nivel).
 
-Lo que sí reinicia tu nivel:
+## Cambiar tu billetera del Club
 
-- Vender el HPO que has recibido como recompensa.
-- Enviarlo a un exchange, o a cualquier billetera que no hayas conectado en Hipo Club.
+1. Abre [Hipo Club](/club/) e inicia sesión con Telegram.
+2. Elige cambiar tu billetera del Club, conecta la nueva billetera y firma la prueba gratuita.
+3. Confirma. Tu nivel, tu mínimo de nivel y tu HPO sin reclamar se quedan con tu cuenta; la billetera anterior vuelve a ganar a 1×.
+
+No hay límite de cambios. Reclamar se desactiva un par de minutos tras un cambio, y no se puede empezar un cambio mientras haya un pago tuyo en camino.
+
+Si la nueva billetera tiene menos HPO que tu mínimo de nivel, la gracia de 24 horas empieza de inmediato, así que mueve tu HPO antes del cambio o justo después.
 
 :::note
-Conectar una billetera en la [app de Hipo](/stake/) en hipo.finance la registra para las recompensas, pero no la convierte en una de tus billeteras de Hipo Club. Solo las billeteras conectadas en la app del Club cuentan para la cantidad que debes conservar, así que conecta ahí también la billetera que guarda tu HPO de recompensas.
+Conectar otra billetera en la [página Stake](/stake/) no cambia tu billetera del Club. El Club pregunta si quieres cambiar, reconectar tu billetera del Club o decidir más tarde. Hasta que elijas, tu billetera del Club sigue ganando, y las reclamaciones y mejoras quedan en pausa.
 :::
-
-## Paso a paso: añadir una billetera
-
-1. **Registra la billetera nueva para las recompensas.** Conéctala en la app de Hipo y abre una vez la [página de recompensas](/club/). A partir de ahí genera HPO sobre lo que contenga. Si nunca has recibido un airdrop del Club, ya has terminado.
-2. **Conéctala también en Hipo Club si guarda algo de tu HPO de recompensas.** Eso es lo que hace que su saldo cuente para la cantidad que debes conservar. El orden en que conectes las billeteras no importa.
-3. **Comprueba tu nivel después.** Si Hipo Club sigue mostrando tu nivel, todo está en orden.
-
-## Si tu nivel bajó al Nivel 1
-
-Hipo Club te mostrará el déficit: cuánto HPO te falta en el conjunto de tus billeteras conectadas.
-
-Devuelve suficiente HPO a cualquier billetera que hayas conectado en Hipo Club, o conecta la billetera que ya lo tiene. Después espera a la siguiente ronda de validación (~18 horas); tu nivel se restablece automáticamente.
-
-Dos cosas que conviene saber mientras hay un reinicio activo: la cantidad requerida **crece un 1 % al día** hasta que la restablezcas, así que actuar antes sale más barato y, una vez restablecida, esa cifra más alta pasa a ser tu nueva cantidad a conservar.
 
 ## Referencia rápida
 
-| Lo que haces                                                 | Efecto en las recompensas                              |
-| ------------------------------------------------------------ | ------------------------------------------------------ |
-| Conectar una billetera nueva en hipo.finance                 | Empieza a generar recompensas. Nada más cambia.        |
-| Abrir la página de recompensas con una billetera             | Registra esa billetera para las recompensas en HPO     |
-| Conectar otra billetera en Hipo Club                         | Su HPO cuenta para lo que debes conservar              |
-| Repartir hGRAM entre varias billeteras                       | Ningún cambio en el total de recompensas               |
-| Mover HPO de recompensas entre tus billeteras del Club       | Ningún efecto sobre tu nivel                           |
-| Vender HPO de recompensas o enviarlo fuera de tus billeteras | El nivel se reinicia al Nivel 1                        |
-| Tener HPO en una billetera que nunca conectaste              | No genera nada y no cuenta para lo que debes conservar |
+| Qué haces                                         | Efecto                                                        |
+| ------------------------------------------------- | ------------------------------------------------------------- |
+| Abrir Hipo Club con una billetera nueva conectada | Empieza a ganar HPO a 1×                                      |
+| Hacerla tu billetera del Club                     | Gana con el multiplicador de tu nivel; su HPO se suma al tuyo |
+| Repartir hGRAM entre billeteras                   | Solo se potencia la parte de tu billetera del Club            |
+| Sacar HPO reclamado de tu billetera del Club      | Cuenta como por debajo del mínimo; 24 h para devolverlo       |
+| Conectar otra billetera en la página Stake        | Tu billetera del Club no cambia hasta que elijas              |
+| Tener hGRAM en una billetera que nunca conectaste | No gana HPO                                                   |
 
 ## Relacionado
 
-- [Recompensas y APY](/docs/introduction/hipo-rewards/) — los tres flujos de recompensas y sus tiempos
-- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — niveles, XP y coeficientes
-- [Reparto de beneficios](/docs/profit-sharing/) — la participación de los holders de HPO en los ingresos
+- [Recompensas y APY](/docs/introduction/hipo-rewards/): los tres flujos de recompensas y sus plazos
+- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/): niveles, multiplicador y mínimo de nivel
+- [Reparto de beneficios](/docs/profit-sharing/): la parte de los ingresos para los holders de HPO

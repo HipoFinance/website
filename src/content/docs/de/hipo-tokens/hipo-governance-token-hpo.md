@@ -23,8 +23,8 @@ Sehen Sie sich die [HPO-Seite](/hpo/) an.
 
 ### Nutzen des Tokens
 
-- **Gewinnbeteiligung:** HPO-Inhaber erhalten einen Anteil an den Protokollerlösen von Hipo, berechnet nach jeder Validierungsrunde und ausgezahlt am Ende jeder Hipo Club Season.
-- **Hipo Club:** Wer erhaltenes HPO hält, behält seine [Hipo Club](/docs/giveaways-and-prizes/hipo-club/)-Stufe — beim Verkauf erfolgt ein Reset auf Stufe 1 — und eine höhere Stufe bringt in jeder Validierungsrunde mehr HPO auf das gehaltene hGRAM; die Stufen steigen durch Club-Aktivität (sofortiges Upgrade oder saisonales Upgrade).
+- **Gewinnbeteiligung:** HPO-Inhaber erhalten einen Anteil an den Protokollerlösen von Hipo, berechnet nach jeder Validierungsrunde und im Hipo Club abgehoben; pausiert, solange die Protokollgebühr 0 % beträgt.
+- **Hipo Club:** Ein Mitglied behält seine [Hipo Club](/docs/giveaways-and-prizes/hipo-club/)-Stufe, indem es das geclaimte HPO (sein Level-Minimum) in seiner Club-Wallet hält, und eine höhere Stufe bringt in jeder Validierungsrunde mehr HPO auf das gehaltene hGRAM; die Stufen steigen durch das saisonale Upgrade oder ein Sofort-Upgrade.
 - **Governance:** Inhaber können an Governance-Abstimmungen teilnehmen und so über Protokoll-Upgrades, strategische Entscheidungen und andere wichtige Fragen mitentscheiden.
 
 ### Verteilung des Tokens

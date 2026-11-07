@@ -3,7 +3,7 @@ title: 'Récompenses de paliers TVL'
 ---
 
 :::note
-**Ce programme a été arrêté et remplacé par** [**Hipo Club**](/docs/giveaways-and-prizes/hipo-club/)**, un système d’incitation plus complet qui récompense les stakers selon leur activité de staking et leur progression à travers les différents niveaux.**
+**Ce programme a été arrêté et remplacé par** [**Hipo Club**](/docs/giveaways-and-prizes/hipo-club/)**, un système d’incitation plus complet qui récompense les stakers en HPO, boostés selon leur niveau du Club.**
 :::
 
 :::tip

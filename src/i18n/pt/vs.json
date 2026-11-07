@@ -40,7 +40,7 @@
   "vs.hpo.colLevel1": "HPO / ano, Nível 1",
   "vs.hpo.colLevelTop": "HPO / ano, Nível {top}",
   "vs.hpo.worth": "<strong>Quanto isso vale:</strong> o HPO tem um preço de mercado, e ele muda. No preço do momento em que esta página foi criada, o bônus adiciona cerca de <strong>{low} pontos percentuais</strong> ao seu retorno anual no Nível 1, e cerca de <strong>{high} pontos</strong> no Nível {top}. Explicamos assim porque um número grande de tokens, sozinho, não diz quanto você está ganhando.",
-  "vs.hpo.note": "Por rodada de validação, um stake ganha o valor em GRAM × {rate} × o multiplicador do Club em HPO, e uma rodada dura cerca de {hours} horas, então aproximadamente {rounds} rodadas cabem em um ano. A taxa é definida pela governança e pode mudar. Vender o HPO recebido como recompensa te leva de volta ao Nível 1.",
+  "vs.hpo.note": "Por rodada de validação, um stake ganha o valor em GRAM × {rate} × o multiplicador do Club em HPO, e uma rodada dura cerca de {hours} horas, então aproximadamente {rounds} rodadas cabem em um ano. A taxa é definida pela governança e pode mudar. Para manter seu nível, mantenha o HPO que você resgata na sua carteira do Club.",
   "vs.exit.heading": "Como reaver seu GRAM",
   "vs.exit.lead": "Você nunca fica travado, e fazer unstake não custa nenhuma taxa. Há duas formas de sair, ambas dentro do protocolo — você não depende de alguém disposto a comprar seus tokens.",
   "vs.exit.fullHeading": "Unstake Completo — geralmente em menos de 18 horas",

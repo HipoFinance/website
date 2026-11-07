@@ -3,6 +3,6 @@ order: 6
 question: 'Como eu ganho HPO fazendo staking, e quando sou pago?'
 ---
 
-Entre no [Hipo Club](https://t.me/HipoFinanceBot/join) e conecte a carteira que contém seu hGRAM. As recompensas em HPO do Hipo Club acumulam após cada rodada de validação sobre o hGRAM que você mantém, a uma taxa definida pelo seu nível no Club, e podem ser sacadas assim que o saldo acumulado ultrapassar 100 HPO. Manter o HPO recebido como recompensa preserva seu nível — vendê-lo reinicia você para o Nível 1 — e os níveis sobem por meio da atividade no Club (um upgrade instantâneo ou o upgrade sazonal).
+Abra o [Hipo Club](/club/), entre com o Telegram e vincule a carteira que contém seu hGRAM como sua carteira do Club. As recompensas em HPO acumulam após cada rodada de validação sobre o hGRAM que você mantém, com boost segundo o seu nível no Club, de 1× a 10×, e podem ser resgatadas na sua carteira do Club quando você tiver 100 HPO, com uma taxa de 1 GRAM. Para manter seu nível, mantenha o HPO que você resgata na sua carteira do Club: tudo o que é resgatado soma ao mínimo do seu nível. Os níveis sobem com o upgrade sazonal ou com um upgrade instantâneo.
 
-A participação nos lucros para holders de HPO é um fluxo separado: é calculada após cada rodada de validação e paga ao final de cada temporada do Hipo Club — veja [Participação nos lucros](/docs/profit-sharing/). Os dois fluxos são rastreados e reivindicados no bot do Hipo Club.
+A participação nos lucros para holders de HPO é um fluxo separado: é calculada após cada rodada de validação e está em pausa enquanto a taxa do protocolo for 0 % — veja [Participação nos lucros](/docs/profit-sharing/). Os dois fluxos são rastreados e resgatados no [Hipo Club](/club/).

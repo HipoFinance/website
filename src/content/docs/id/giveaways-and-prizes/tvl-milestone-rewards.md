@@ -3,7 +3,7 @@ title: 'Imbalan milestone TVL'
 ---
 
 :::note
-**Program ini telah dihentikan dan digantikan oleh** [**Hipo Club**](/docs/giveaways-and-prizes/hipo-club/)**, sistem insentif yang lebih menyeluruh dan memberi imbalan kepada staker berdasarkan aktivitas staking serta kemajuan mereka melalui berbagai level.**
+**Program ini telah dihentikan dan digantikan oleh** [**Hipo Club**](/docs/giveaways-and-prizes/hipo-club/)**, sistem insentif yang lebih menyeluruh dan memberi imbalan HPO kepada staker, di-boost sesuai level Club mereka.**
 :::
 
 :::tip

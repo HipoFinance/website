@@ -1,78 +1,65 @@
 ---
 title: 'Menggunakan beberapa dompet'
-description: 'Bagaimana imbalan mengikuti dompet Anda, dan cara menambahkan dompet kedua tanpa kehilangan level Hipo Club Anda.'
+description: 'Bagaimana imbalan mengikuti dompet Anda, dompet mana yang menjadi dompet Hipo Club Anda, dan cara menggantinya tanpa kehilangan level.'
 ---
 
-Banyak pemegang menyimpan GRAM, hGRAM, dan HPO mereka di lebih dari satu dompet. Itu tidak masalah — Hipo melacak setiap dompet secara terpisah dan tidak ada satu pun yang berhenti menghasilkan hanya karena Anda menghubungkan dompet lain.
-
-Ada satu aturan yang sering mengejutkan pengguna, dan aturan itu hanya berlaku **setelah Anda menerima airdrop Hipo Club**. Halaman ini membahas keduanya.
+Banyak pemegang menyimpan GRAM, hGRAM, dan HPO mereka di lebih dari satu dompet. Itu tidak masalah: Hipo melacak setiap dompet secara terpisah dan tidak ada satu pun yang berhenti menghasilkan hanya karena Anda menghubungkan dompet lain. Yang berbeda dari dompet ke dompet adalah boost-nya: hanya **dompet Club** Anda yang menghasilkan dengan level Hipo Club Anda.
 
 ## Bagaimana sebuah dompet mulai menghasilkan
 
 Imbalan staking dasar tidak memerlukan pengaturan apa pun: nilai hGRAM tumbuh terhadap GRAM di setiap putaran validasi, di dompet mana pun ia disimpan, terhubung atau tidak.
 
-**Imbalan HPO berbeda — Hipo harus tahu bahwa dompet itu ada.** Sebuah dompet mulai menghasilkan HPO setelah Anda melakukan salah satu dari ini, satu kali:
+**Imbalan HPO berbeda: Hipo harus tahu bahwa dompet itu ada.** Sebuah dompet mulai menghasilkan HPO setelah Anda melakukan salah satu hal ini, sekali saja:
 
-- Membuka [halaman Imbalan](/club/) di aplikasi Hipo dengan dompet itu terhubung, **atau**
-- menghubungkan dompet itu di [Hipo Club](https://t.me/HipoFinanceBot/join).
+- Membuka [Hipo Club](/club/) di hipo.finance dengan dompet itu terhubung, **atau**
+- Menautkannya sebagai dompet Club Anda.
 
-Setelah itu dompet terus menghasilkan atas saldonya sendiri. Tidak ada yang membatalkan pendaftaran itu: menghubungkan dompet lain di kemudian hari tidak menghentikannya, begitu pula memutus sambungannya dari aplikasi.
+Setelah itu dompet tersebut terus menghasilkan dari saldonya sendiri. Tidak ada yang membatalkan pendaftarannya: menghubungkan dompet lain nanti tidak menghentikannya, begitu pula memutuskan sambungannya.
 
 :::caution
-HPO dan hGRAM di dompet yang **tidak pernah** Anda hubungkan tidak menghasilkan imbalan HPO sama sekali — tidak sekarang dan tidak secara surut. Jika Anda menyimpan di beberapa dompet, daftarkan setiap dompet.
+hGRAM di dompet yang **belum pernah** Anda hubungkan tidak menghasilkan imbalan HPO sama sekali, baik sekarang maupun secara surut. Jika Anda menyimpan di beberapa dompet, buka Hipo Club sekali dengan masing-masing dompet.
 :::
 
-## Aturan untuk beberapa dompet
+## Dompet Club Anda dan dompet Anda yang lain
 
-- **Setiap dompet menghasilkan atas saldonya sendiri.** Imbalan berbanding lurus dengan jumlah yang disimpan: 100.000 hGRAM yang dibagi ke tiga dompet menghasilkan persis sama dengan satu dompet berisi 100.000. Tidak ada penalti untuk menyebar dan tidak ada bonus untuk menggabungkan.
-- **Level Hipo Club Anda melekat pada akun Telegram Anda, bukan pada dompet.** Setiap dompet yang Anda hubungkan menghasilkan dengan koefisien level Anda. Naik level mengangkat semuanya sekaligus.
-- **Anda dapat menghubungkan hingga 6 dompet** ke satu akun Hipo Club.
-- **Imbalan dilacak dan ditarik per dompet.** Setiap dompet punya saldo terkumpul sendiri dan ambang 100 HPO sendiri. Keduanya tidak digabungkan.
-- **Hanya pemiliknya yang dapat menarik.** Imbalan yang terkumpul pada sebuah dompet hanya dapat ditarik oleh akun Hipo Club tempat dompet itu terhubung, dan selalu dikirim ke dompet yang sama.
+- **Level Hipo Club Anda milik akun Telegram Anda, bukan dompet.** Satu dompet dalam satu waktu, yaitu dompet Club Anda, menghasilkan dengan boost level Anda. Dompet terdaftar Anda yang lain menghasilkan dengan 1×.
+- **Klaim lewat dompet Club.** HPO yang di-boost adalah satu saldo di akun Telegram Anda, bisa diklaim mulai 100 HPO dengan biaya 1 GRAM dan dibayarkan ke dompet Club Anda. HPO yang dihasilkan sebuah dompet saat bukan dompet Club Anda tetap bersama dompet itu, dan bergabung ke akun Anda saat Anda menjadikannya dompet Club.
+- **Imbalan berskala dengan jumlah yang dipegang.** Membagi hGRAM ke beberapa dompet menghasilkan imbalan dasar yang sama, tetapi hanya bagian di dompet Club Anda yang di-boost. Untuk mendapat boost penuh, simpan hGRAM di dompet Club Anda atau pool likuiditas yang didukung.
+- **Satu akun per dompet.** Sebuah dompet hanya bisa menjadi dompet Club dari satu akun Telegram.
 
-## Setelah Anda menerima airdrop Hipo Club
+## Minimal Level Anda ada di dompet Club
 
-Ketika Anda menerima airdrop Club, Hipo mencatat jumlah yang diharapkan Anda **simpan**. Hipo Club memberi imbalan bagi yang menahan: jika HPO itu meninggalkan dompet-dompet Anda, level Anda kembali ke Level 1 dan koefisien imbalan Anda ikut turun.
+Semua yang Anda klaim menambah **minimal Level** Anda, dan dompet Club Anda, bersama pool likuiditas yang didukung, harus menyimpan setidaknya sebanyak itu HPO. HPO di dompet Anda yang lain tidak dihitung.
 
-**Jumlahnya dihitung dari seluruh dompet Hipo Club Anda, dijumlahkan.** Tidak masalah dompet mana yang menyimpan HPO itu, atau mana yang paling baru Anda hubungkan — pindahkan sesuka Anda di antara dompet-dompet yang sudah Anda hubungkan.
+Jadi jika Anda memindahkan HPO keluar dari dompet Club, bahkan ke dompet Anda sendiri yang lain, itu dihitung sebagai di bawah minimal. Anda lalu punya 24 jam untuk mengembalikannya sebelum level Anda ditangguhkan. Aturan lengkapnya ada di [Hipo Club](/docs/giveaways-and-prizes/hipo-club/#minimal-level-anda).
 
-Yang mengatur ulang level Anda:
+## Mengganti dompet Club
 
-- Menjual HPO imbalan Anda.
-- Mengirimnya ke bursa, atau ke dompet mana pun yang belum Anda hubungkan di Hipo Club.
+1. Buka [Hipo Club](/club/) dan masuk dengan Telegram.
+2. Pilih untuk mengganti dompet Club, hubungkan dompet baru, dan tanda tangani bukti gratis.
+3. Konfirmasi. Level, minimal Level, dan HPO yang belum diklaim tetap di akun Anda; dompet lama kembali menghasilkan dengan 1×.
+
+Tidak ada batas seberapa sering Anda mengganti. Klaim dinonaktifkan selama beberapa menit setelah penggantian, dan penggantian tidak bisa dimulai saat salah satu pembayaran Anda sedang dalam perjalanan.
+
+Jika dompet baru menyimpan HPO lebih sedikit dari minimal Level Anda, masa tenggang 24 jam langsung dimulai, jadi pindahkan HPO Anda sebelum atau tepat setelah penggantian.
 
 :::note
-Menghubungkan dompet di [aplikasi Hipo](/stake/) pada hipo.finance mendaftarkannya untuk imbalan, tetapi tidak menjadikannya salah satu dompet Hipo Club Anda. Hanya dompet yang dihubungkan di aplikasi Club yang dihitung untuk jumlah yang harus Anda simpan — jadi hubungkan juga dompet yang menyimpan HPO imbalan Anda di sana.
+Menghubungkan dompet lain di [halaman Stake](/stake/) tidak mengganti dompet Club Anda. Club bertanya apakah akan berganti, menghubungkan kembali dompet Club Anda, atau memutuskan nanti. Sebelum Anda memilih, dompet Club Anda tetap menghasilkan, sedangkan klaim dan upgrade dijeda.
 :::
 
-## Langkah demi langkah: menambahkan dompet
+## Ringkasan cepat
 
-1. **Daftarkan dompet baru untuk imbalan.** Hubungkan di aplikasi Hipo dan buka [halaman Imbalan](/club/) satu kali. Dompet itu kini menghasilkan HPO atas apa pun yang disimpannya. Jika Anda tidak pernah menerima airdrop Club, selesai.
-2. **Hubungkan juga di Hipo Club, jika dompet itu menyimpan sebagian HPO imbalan Anda.** Itulah yang membuat saldonya dihitung untuk jumlah yang harus Anda simpan. Urutan menghubungkan dompet tidak berpengaruh.
-3. **Periksa level Anda setelahnya.** Jika Hipo Club masih menampilkan level Anda, semuanya beres.
-
-## Jika level Anda turun ke Level 1
-
-Hipo Club akan menampilkan kekurangannya — berapa HPO yang kurang di seluruh dompet Anda yang terhubung.
-
-Pindahkan cukup HPO kembali ke dompet mana pun yang sudah Anda hubungkan di Hipo Club, atau hubungkan dompet yang sudah menyimpannya. Lalu tunggu putaran validasi berikutnya (~18 jam); level Anda dipulihkan secara otomatis.
-
-Dua hal yang perlu diketahui selama pengaturan ulang berlangsung: jumlah yang diwajibkan **naik 1% per hari** sampai Anda memulihkannya, jadi bertindak lebih cepat lebih murah, dan setelah dipulihkan, angka yang lebih tinggi itu menjadi jumlah baru yang harus Anda simpan.
-
-## Referensi singkat
-
-| Yang Anda lakukan                                         | Efek pada imbalan                                           |
-| --------------------------------------------------------- | ----------------------------------------------------------- |
-| Menghubungkan dompet baru di hipo.finance                 | Dompet itu mulai menghasilkan. Tidak ada yang lain berubah. |
-| Membuka halaman Imbalan dengan sebuah dompet              | Mendaftarkan dompet itu untuk imbalan HPO                   |
-| Menghubungkan dompet lain di Hipo Club                    | HPO-nya dihitung untuk jumlah yang harus Anda simpan        |
-| Membagi hGRAM ke beberapa dompet                          | Tidak mengubah total imbalan                                |
-| Memindahkan HPO imbalan antar dompet Club Anda            | Tidak berpengaruh pada level Anda                           |
-| Menjual HPO imbalan, atau mengirimnya ke luar dompet Anda | Level kembali ke Level 1                                    |
-| Menyimpan HPO di dompet yang tidak pernah dihubungkan     | Tidak menghasilkan apa pun dan tidak dihitung               |
+| Yang Anda lakukan                                       | Efeknya                                                     |
+| ------------------------------------------------------- | ----------------------------------------------------------- |
+| Membuka Hipo Club dengan dompet baru terhubung          | Dompet mulai menghasilkan HPO dengan 1×                     |
+| Menjadikannya dompet Club Anda                          | Menghasilkan dengan boost level Anda; HPO-nya bergabung     |
+| Membagi hGRAM ke beberapa dompet                        | Hanya bagian di dompet Club Anda yang di-boost              |
+| Memindahkan HPO yang diklaim keluar dari Club           | Dihitung di bawah minimal Level; 24 jam untuk mengembalikan |
+| Menghubungkan dompet lain di halaman Stake              | Dompet Club Anda tidak berubah sampai Anda memilih          |
+| Menyimpan hGRAM di dompet yang tidak pernah dihubungkan | Tidak menghasilkan HPO                                      |
 
 ## Terkait
 
-- [Imbalan & APY](/docs/introduction/hipo-rewards/) — tiga aliran imbalan dan waktunya
-- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — level, XP, dan koefisien
-- [Bagi hasil](/docs/profit-sharing/) — bagian pendapatan untuk pemegang HPO
+- [Rewards & APY](/docs/introduction/hipo-rewards/): tiga aliran imbalan dan waktunya
+- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/): level, boost, dan minimal Level
+- [Bagi Hasil](/docs/profit-sharing/): bagian pendapatan untuk pemegang HPO

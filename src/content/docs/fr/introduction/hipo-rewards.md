@@ -9,11 +9,11 @@ Staker des GRAM avec Hipo te rémunère via trois flux distincts, sur trois ryth
 - **Récompenses de base**\
   Les récompenses de staking des GRAM, reflétées dans le taux de conversion du hGRAM face au GRAM — réglées **à chaque cycle de validation** (~18 h), sans rien à réclamer
 - **Récompenses bonus**\
-  Des HPO supplémentaires sur la valeur en GRAM de ta mise, à un coefficient fixé par ton niveau [Hipo Club](https://t.me/HipoFinanceBot/join) — accumulés **à chaque cycle de validation**, retirables dès que ton solde dépasse 100 HPO
+  Des HPO supplémentaires sur la valeur en GRAM de ta mise, boostés par ton niveau [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — accumulés **à chaque cycle de validation**, réclamables dès que tu as 100 HPO, pour 1 GRAM de frais
 - **Récompenses supplémentaires**\
-  Détiens des HPO → reçois une part des revenus du protocole — versée **à la fin de chaque saison du Hipo Club**
+  Détiens des HPO → reçois une part des revenus du protocole — **en pause** tant que les frais du protocole sont à 0 %
 
-Les trois se suivent dans l’[app Hipo](/club/) et dans le [Hipo Club](https://t.me/HipoFinanceBot/join).
+Les trois se suivent dans le [Hipo Club](/club/), sur le site ou dans l’[app Hipo](https://t.me/HipoApp) sur Telegram.
 
 ## Récompenses de base : le taux de conversion
 
@@ -42,13 +42,13 @@ La base de calcul est ce que vaut ta mise **en GRAM à l’instant présent** �
 
 ### Les coefficients de niveau
 
-À partir de la saison 6 (31 octobre 2026), le coefficient est ton numéro de niveau :
+À partir de la saison 6 (31 octobre 2026), le coefficient est ton numéro de niveau :
 
 | Niveau | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  |
 | ------ | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Taux   | 1×  | 2×  | 3×  | 4×  | 5×  | 6×  | 7×  | 8×  | 9×  | 10× |
 
-Chaque niveau ajoute le même 1× : le niveau 2 gagne deux fois plus que le niveau 1, le niveau 5 cinq fois plus, le niveau 10 dix fois plus. Jusqu’à la fin de la saison 5, le taux montait plus fort, de 1,2× au niveau 2 à 8,2× au niveau 9.
+Chaque niveau ajoute le même 1× : le niveau 2 gagne deux fois plus que le niveau 1, le niveau 5 cinq fois plus, le niveau 10 dix fois plus. Jusqu’à la fin de la saison 5, le taux montait plus fort, de 1,2× au niveau 2 à 8,2× au niveau 9.
 
 ### Ce que cela donne
 
@@ -77,17 +77,17 @@ Ton niveau multiplie tout ce qui précède : au niveau 10, la même mise rappor
 
 Il y a deux façons de monter de niveau :
 
-- **Montée saisonnière** — réclame tes récompenses au moins une fois pendant la saison ; ton niveau monte automatiquement à la fin de celle-ci.
-- **Montée instantanée** — paie les frais de montée de niveau et ton niveau monte immédiatement.
+- **Montée saisonnière** — réclame au moins une fois pendant la saison et sois au-dessus de ton minimum de niveau à sa fin ; tu montes d’un niveau au début de la saison suivante.
+- **Montée instantanée** — paie les frais de montée de niveau en GRAM et monte d’un niveau tout de suite.
 
 Deux règles comptent :
 
-- **Vendre les HPO reçus en récompense te ramène au niveau 1.** Le Club est conçu pour récompenser celles et ceux qui gardent leurs tokens, et c’est le mécanisme qui le garantit. Envoyer des HPO de récompense sur une plateforme d’échange, ou vers un portefeuille que tu n’as pas connecté au Club, compte comme une vente ; les déplacer entre tes propres portefeuilles connectés, non — voir [Utiliser plusieurs portefeuilles](/docs/wallets-and-rewards/).
-- **Il n’y a pas de fenêtre de réclamation.** Les récompenses s’accumulent à chaque cycle et peuvent être retirées dès que ton solde atteint au moins **100 HPO**.
+- **Garde ton minimum de niveau.** Tout ce que tu réclames s’y ajoute, et ton portefeuille Club doit détenir au moins cette quantité de HPO, dans le portefeuille ou ses pools de liquidité pris en charge. En dessous, tu as 24 heures de grâce à ton plein boost ; ensuite ton niveau est suspendu et gagne à 1×, et après 7 jours de plus tu retombes au niveau 1. Le Club est conçu pour récompenser celles et ceux qui gardent leurs tokens, et c’est le mécanisme qui le garantit — voir [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **Il n’y a pas de fenêtre de réclamation.** Les récompenses s’accumulent à chaque cycle et peuvent être réclamées dès que tu as au moins **100 HPO**, pour 1 GRAM de frais.
 
 ## Récompenses supplémentaires : le partage des profits
 
-HPO est le token de gouvernance de Hipo. Le détenir te donne une voix dans la [DAO](/docs/dao/) et une part des revenus du protocole, distribuée à la fin de chaque saison du Hipo Club — voir [Partage des profits](/docs/profit-sharing/).
+HPO est le token de gouvernance de Hipo. Le détenir te donne une voix dans la [DAO](/docs/dao/) et une part des revenus du protocole, en pause tant que les frais du protocole sont à 0 % — voir [Partage des profits](/docs/profit-sharing/).
 
 :::note
 Tant que les [frais de gouvernance](/docs/fees-and-gas/) sont à **0 %**, le protocole ne perçoit aucun revenu : il n’y a donc rien à distribuer dans ce flux. Le partage des profits reprendra en même temps que les frais. Ces frais à 0 % sont précisément ce qui rend les récompenses de base aussi élevées.

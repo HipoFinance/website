@@ -15,7 +15,7 @@ Los términos que se usan en la documentación, la app y las preguntas frecuente
 - **Comisión de gobernanza** — una comisión sobre las recompensas de validación, fijada por la [Hipo DAO](/docs/dao/) y actualmente en 0 %. Consulta [Comisiones y gas](/docs/fees-and-gas/).
 - **GRAM** — el token nativo de TON, antes Toncoin / TON.
 - **hGRAM** — Hipo Staked Gram, el token de staking líquido que recibes por hacer staking de GRAM, antes hTON. Consulta [hGRAM](/docs/hipo-tokens/hipo-staked-gram-hgram/).
-- **Hipo Club** — el programa por niveles cuyo nivel fija el coeficiente de recompensa en HPO sobre el valor en GRAM de tu hGRAM. Consulta [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **Hipo Club** — el programa por niveles cuyo nivel fija el multiplicador del HPO que ganas sobre el valor en GRAM de tu hGRAM. Consulta [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
 - **HPO** — el token de gobernanza y reparto de beneficios de Hipo. Consulta [HPO](/docs/hipo-tokens/hipo-governance-token-hpo/).
 - **Jetton** — el estándar de tokens fungibles de TON (TEP-74); hGRAM y HPO son ambos jettons.
 - **Staking líquido** — staking que emite un token transferible que representa la posición en staking, de modo que sigue siendo utilizable mientras genera recompensas. Consulta [Staking líquido](/docs/introduction/liquid-staking/).
@@ -24,4 +24,3 @@ Los términos que se usan en la documentación, la app y las preguntas frecuente
 - **Tesorería (`Treasury`)** — el contrato inteligente principal de Hipo: custodia el GRAM depositado y lo presta a los prestatarios. Consulta [Contratos y auditorías](/docs/contracts-and-audits/).
 - **TVL** — total value locked, el valor total bloqueado: el GRAM en staking a través de Hipo. Consulta la cifra en vivo en la [página de Stats](/stats/).
 - **Ronda de validación** — el ciclo de unas 18 horas de TON en el que los validadores aseguran la red y ganan recompensas; los depósitos quedan congelados unas 9 horas más tras el final de una ronda. Consulta [Cómo funciona Hipo](/docs/introduction/how-does-hipo-work/).
-- **XP** — la puntuación de actividad en Hipo Club, que se consigue con las tareas del bot; hacer staking no da XP. Consulta [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).

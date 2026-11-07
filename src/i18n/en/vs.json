@@ -40,7 +40,7 @@
   "vs.hpo.colLevel1": "HPO / year, Level 1",
   "vs.hpo.colLevelTop": "HPO / year, Level {top}",
   "vs.hpo.worth": "<strong>What that is worth:</strong> HPO has a market price and it moves. At the price when this page was built, the boost adds about <strong>{low} percentage points</strong> to your annual return at Level 1, and about <strong>{high} points</strong> at Level {top}. We put it this way because a large token number on its own does not tell you what you are earning.",
-  "vs.hpo.note": "Per validation round, a stake earns its GRAM value × {rate} × its Club multiplier in HPO, and a round runs about {hours} hours, so roughly {rounds} rounds fit in a year. The rate is set by governance and can change. Selling rewarded HPO resets you to Level 1.",
+  "vs.hpo.note": "Per validation round, a stake earns its GRAM value × {rate} × its Club multiplier in HPO, and a round runs about {hours} hours, so roughly {rounds} rounds fit in a year. The rate is set by governance and can change. To keep your level, keep the HPO you claim in your Club wallet.",
   "vs.exit.heading": "Getting your GRAM back",
   "vs.exit.lead": "You are never locked in, and unstaking costs no fee. There are two ways out, both inside the protocol — you do not depend on anyone being willing to buy your tokens.",
   "vs.exit.fullHeading": "Full unstake — typically under 18 hours",

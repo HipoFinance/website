@@ -1,55 +1,71 @@
 ---
 title: 'Hipo Club'
-description: 'Una comunidad de quienes creen de verdad en Hipo'
+description: 'HPO potenciado para quienes hacen staking y mantienen'
 ---
 
-Hipo Club es una iniciativa creada para construir una comunidad sólida, responsable e informada que comparte una visión a largo plazo para Hipo Finance.
+Hipo Club añade HPO potenciado a tus recompensas de staking. Tu nivel fija el multiplicador, de 1× en el Nivel 1 a 10× en el Nivel 10, y el Club premia a los miembros que conservan el HPO que les paga.
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/3obpl6nYnLQ" title="¿Qué es Hipo Club?" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+El Club está en [hipo.finance/club/](/club/), y en Telegram es la pestaña Club del bot oficial [@HipoApp](https://t.me/HipoApp).
 
-## ¿Qué es Hipo Club?
+## Cómo funciona
 
-Hipo Club es un sistema por niveles diseñado para recompensar a quienes participan activamente y apoyan a Hipo a largo plazo. Tiene **10 niveles**, y tu nivel determina el coeficiente de recompensas en HPO que ganas sobre el valor en GRAM de tu hGRAM.
+El hGRAM que tienes gana HPO en cada ronda de validación, más o menos cada 18 horas. La cantidad es el valor en GRAM de tu hGRAM, por la tasa de recompensa en HPO, por el multiplicador de tu nivel. El hGRAM cuenta tanto en tu billetera como en los [pools de liquidez compatibles](/defi/). Las tasas y lo que suponen están en [Recompensas de Hipo](/docs/introduction/hipo-rewards/).
 
-### Ventajas principales por nivel
+Hay **10 niveles**, y el multiplicador es el número del nivel:
 
-- **Mayor coeficiente de recompensas:** cada nivel que subes aumenta el HPO que ganas sobre el valor en GRAM de tu hGRAM en cada ronda de validación.
-- **Parte por referidos:** ganas el 1 % de las recompensas en HPO que generan las personas que invitas.
+| Nivel         | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  |
+| ------------- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Multiplicador | 1×  | 2×  | 3×  | 4×  | 5×  | 6×  | 7×  | 8×  | 9×  | 10× |
 
-## Temporadas y recompensas
+## Tu cuenta y tu billetera del Club
 
-Cada temporada dura un trimestre. Las recompensas en HPO se acumulan después de cada ronda de validación y pueden retirarse en cualquier momento, una vez que tu saldo acumulado supera el umbral de **100 HPO**: no hay ventana de reclamación ni descuento por reclamar.
+Tu nivel pertenece a tu **cuenta de Telegram**, junto con tu mínimo de nivel, tu HPO sin reclamar y tus amistades invitadas. Una billetera a la vez, tu **billetera del Club**, gana con el multiplicador de tu nivel y recibe tus reclamaciones.
 
-El reparto de beneficios para los holders de HPO es un flujo aparte, que se paga al final de cada temporada (consulta [Reparto de beneficios](/docs/profit-sharing/)).
+- **Vinculación.** Inicia sesión con Telegram y firma una prueba gratuita en tu billetera. Telegram hace falta para reclamar, mejorar, cambiar de billetera e invitar a amistades.
+- **Cambiar tu billetera del Club.** Puedes pasar a otra billetera cuando quieras: firmas con la nueva y confirmas. Tu nivel y tu HPO sin reclamar se quedan con tu cuenta. Reclamar se desactiva un par de minutos tras el cambio. No se puede vincular una billetera que ya es la billetera del Club de otra cuenta, ni una dirección de exchange o de pool.
+- **Otras billeteras.** Una billetera que no es tu billetera del Club gana a 1×, una vez registrada al abrir el Club con ella conectada. Si más adelante pasa a ser tu billetera del Club, lo que ganó se suma a tu cuenta. Consulta [Usar varias billeteras](/docs/wallets-and-rewards/).
+- **Otra billetera conectada en la página Stake.** El Club nunca cambia por sí solo. Pregunta si quieres cambiar, reconectar tu billetera del Club o decidir más tarde. Hasta que elijas, tu billetera del Club sigue ganando, y las reclamaciones y mejoras quedan en pausa.
 
-## Cómo ganar XP
+## Reclamar
 
-Los XP miden lo activo que eres en Hipo Club. Los ganas haciendo las tareas del Club en el bot: recoger la **recompensa diaria**, responder **cuestionarios**, **ver los vídeos de Hipo en YouTube**, invitar a tus amistades y las demás tareas que muestra el bot.
+Puedes reclamar tu HPO potenciado cuando tengas **100 HPO**, con una comisión de **1 GRAM**. Una reclamación toma todo tu saldo y lo paga a tu billetera del Club. No hay ventana de reclamación ni descuento: las recompensas se acumulan en cada ronda y se pueden reclamar siempre que pases de 100 HPO.
 
-**Hacer staking no da XP.** En su lugar, tus GRAM en staking ganan HPO mediante el coeficiente de recompensas de tu nivel: un mecanismo aparte, descrito en [Recompensas de Hipo](/docs/introduction/hipo-rewards/). Los XP tienen que ver con tu actividad en el Club; el coeficiente, con lo que vale lo que tienes en staking.
+## Tu mínimo de nivel
 
-## Cómo funcionan los niveles
+Todo lo que reclamas se suma a tu **mínimo de nivel**. Para conservar tu nivel, mantén al menos esa cantidad de HPO en tu billetera del Club y en sus pools de liquidez compatibles. El HPO de tus otras billeteras no cuenta.
 
-Hay dos maneras de subir:
+- **24 horas de gracia.** Si bajas del mínimo, tienes 24 horas para volver a superarlo. Tu nivel está a salvo y sigues ganando con todo tu multiplicador.
+- **Hasta 7 días suspendido.** Pasada la gracia, tu nivel se suspende: lo conservas, pero ganas a 1×. Si vuelves a tener el mínimo en esos 7 días, tu nivel vuelve de inmediato.
+- **De vuelta al Nivel 1.** Si pasan los 7 días, vuelves al Nivel 1 y tu antiguo mínimo se borra.
 
-- **Subida instantánea:** pagas la comisión de subida de nivel y tu nivel aumenta de inmediato.
-- **Subida de temporada:** reclamas las recompensas que has ganado al menos una vez durante la temporada; tu nivel sube entonces automáticamente al final de esta, según tu actividad.
+Vender HPO no se penaliza por sí mismo. Lo único que importa es si tu billetera del Club tiene tu mínimo. El Club te envía una alerta por Telegram cuando bajas de él.
 
-Vender el HPO que has recibido como recompensa —o enviarlo fuera de tus billeteras de Hipo Club— reinicia tu nivel al Nivel 1.
+## Subir de nivel
 
-## Responsabilidades de los miembros del Club
+Hay dos formas de subir, y se acumulan, hasta el Nivel 10:
 
-Hipo Club recompensa mantener los tokens. No hay margen de venta: lo que se espera es que conserves el HPO que has recibido como recompensa, y si sale de tus billeteras tu nivel vuelve al Nivel 1 y tienes que subir de nuevo desde ahí.
+- **Subida de temporada (gratis).** Reclama al menos una vez durante una temporada y estate por encima de tu mínimo de nivel cuando termine, y subes un nivel cuando empiece la siguiente temporada.
+- **Subida instantánea.** Paga una comisión en GRAM desde tu billetera del Club a hipo.ton y subes un nivel de inmediato. El nuevo multiplicador se aplica desde la siguiente ronda. Puedes mejorar estando suspendido.
 
-La cantidad se cuenta sumando todas las billeteras que tengas conectadas en Hipo Club, así que mover HPO entre tus propias billeteras conectadas no te cuesta nada. Lo que reinicia tu nivel es venderlo, o enviarlo a un exchange o a una billetera que no hayas conectado; consulta [Usar varias billeteras](/docs/wallets-and-rewards/) para conocer la regla completa y cómo recuperar un nivel que hayas perdido.
+| Subir al nivel  | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10    |
+| --------------- | --- | --- | --- | --- | --- | --- | --- | --- | ----- |
+| Comisión (GRAM) | 20  | 40  | 60  | 100 | 160 | 260 | 420 | 680 | 1,100 |
 
-## Retirar las recompensas
+## Invitar a amistades
 
-Las recompensas se acumulan de forma continua y pueden retirarse en cuanto tu saldo acumulado llega a **100 HPO**.
+Cuando las personas que invitas ganan HPO potenciado, tú ganas el **1 %** de esa cantidad, que se suma a tu saldo reclamable. Una vez reclamado, se suma a tu mínimo de nivel como cualquier otra reclamación.
+
+## Temporadas
+
+La **Temporada 6** empezó el **31 de octubre de 2026** y su final previsto es el **31 de diciembre de 2026**; el Club muestra la fecha y una cuenta atrás. Al terminar una temporada se aplican las subidas de temporada. Una suspensión que sigue en curso lleva sus días restantes a la siguiente temporada.
+
+El reparto de beneficios para los holders de HPO es un flujo aparte, en pausa mientras la comisión del protocolo sea 0 %; consulta [Reparto de beneficios](/docs/profit-sharing/).
 
 :::note
 
-## Qué ha cambiado desde la Temporada 4
+## Qué cambió en la Temporada 6
 
-Las temporadas 1 a 3 funcionaban con otro modelo: 6 niveles, reclamaciones de HPO con descuento al final de cada temporada y un margen de venta por nivel. A partir de la **Temporada 4**, Hipo Club funciona como se describe arriba: 10 niveles, recompensas en HPO directas por ronda, sin descuento por reclamar, sin margen de venta y con reinicio de nivel si se vende el HPO recibido como recompensa.
+Hasta la Temporada 5, el Club contaba juntas todas las billeteras conectadas, los niveles subían con XP de las tareas, cuestionarios y recompensas diarias del bot, y vender el HPO recibido te devolvía al Nivel 1. Desde la **Temporada 6** hay una billetera del Club por cuenta de Telegram, el multiplicador es el número del nivel y la única regla es el mínimo de nivel. Los XP, las tareas y los cuestionarios terminaron con la Temporada 5; los XP ya ganados se conservan, pero ya no cuentan.
+
+Las Temporadas 1–3 funcionaron con un modelo anterior, con 6 niveles, reclamaciones con descuento al final de cada temporada y un límite de venta por nivel: consulta la [Temporada 2](/docs/giveaways-and-prizes/hipo-club/hipo-club-season-2/) y la [Temporada 3](/docs/giveaways-and-prizes/hipo-club/hipo-club-season-3/).
 :::

@@ -40,7 +40,7 @@
   "vs.hpo.colLevel1": "HPO / tahun, Level 1",
   "vs.hpo.colLevelTop": "HPO / tahun, Level {top}",
   "vs.hpo.worth": "<strong>Nilainya:</strong> HPO punya harga pasar dan harganya bergerak. Pada harga saat halaman ini dibuat, tambahan ini menambah sekitar <strong>{low} poin persentase</strong> pada imbal hasil tahunan Anda di Level 1, dan sekitar <strong>{high} poin</strong> di Level {top}. Kami menyampaikannya seperti ini karena angka token yang besar saja tidak memberi tahu Anda berapa yang sebenarnya Anda hasilkan.",
-  "vs.hpo.note": "Per putaran validasi, sebuah stake menghasilkan nilai GRAM-nya × {rate} × pengali Club-nya dalam HPO, dan satu putaran berlangsung sekitar {hours} jam, sehingga kira-kira {rounds} putaran muat dalam setahun. Kurs ini ditetapkan oleh tata kelola dan dapat berubah. Menjual HPO hasil imbalan akan mengembalikan Anda ke Level 1.",
+  "vs.hpo.note": "Per putaran validasi, sebuah stake menghasilkan nilai GRAM-nya × {rate} × pengali Club-nya dalam HPO, dan satu putaran berlangsung sekitar {hours} jam, sehingga kira-kira {rounds} putaran muat dalam setahun. Kurs ini ditetapkan oleh tata kelola dan dapat berubah. Untuk mempertahankan level, simpan HPO yang Anda klaim di dompet Club Anda.",
   "vs.exit.heading": "Mendapatkan kembali GRAM Anda",
   "vs.exit.lead": "Anda tidak pernah terkunci, dan unstake tidak dikenai biaya. Ada dua cara keluar, keduanya di dalam protokol — Anda tidak bergantung pada kesediaan siapa pun untuk membeli token Anda.",
   "vs.exit.fullHeading": "Unstake Penuh — biasanya kurang dari 18 jam",

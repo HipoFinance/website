@@ -65,7 +65,7 @@ The [ambassadors program](/docs/hipo-ambassadors-program/) encourages community-
 
 ## 7. Hipo Club
 
-Hipo Club is a tiered community program that rewards long-term commitment. Members hold hGRAM and earn HPO after every validation round; their level — one of **10** — sets the reward rate. Levels rise through a paid instant upgrade or by claiming rewards at least once during the season, and reset to Level 1 if rewarded HPO is sold. Accrued rewards can be withdrawn once the balance passes 100 HPO.
+Hipo Club is a tiered community program that rewards long-term commitment. Members hold hGRAM and earn HPO after every validation round; their level — one of **10** — sets the boost, from 1× to 10×. Rewards can be claimed once the balance reaches 100 HPO, for a 1 GRAM fee, and everything claimed must stay in the member's Club wallet to keep the level. Levels rise through a paid instant upgrade or the free seasonal upgrade.
 
 [Learn more about how Hipo Club works](/docs/giveaways-and-prizes/hipo-club/)
 

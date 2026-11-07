@@ -9,11 +9,11 @@ Men-stake GRAM di Hipo memberi Anda imbalan lewat tiga aliran terpisah, dengan t
 - **Imbalan dasar**\
   Imbalan staking GRAM, tercermin pada nilai tukar hGRAM terhadap GRAM — diselesaikan **setiap putaran validasi** (~18 jam), tanpa perlu diklaim
 - **Imbalan tambahan**\
-  HPO ekstra atas nilai GRAM dari stake Anda, dengan koefisien yang ditentukan level [Hipo Club](https://t.me/HipoFinanceBot/join) Anda — terkumpul **setiap putaran validasi**, dapat ditarik setelah saldo Anda melampaui 100 HPO
+  HPO ekstra atas nilai GRAM dari stake Anda, di-boost oleh level [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) Anda — terkumpul **setiap putaran validasi**, dapat diklaim setelah Anda punya 100 HPO, dengan biaya 1 GRAM
 - **Imbalan ekstra**\
-  Pegang HPO → terima bagi hasil dari pendapatan protokol — dibayarkan **pada akhir setiap season Hipo Club**
+  Pegang HPO → terima bagi hasil dari pendapatan protokol — **dijeda** selama biaya protokol 0%
 
-Ketiganya dapat dilacak di [aplikasi Hipo](/club/) dan [Hipo Club](https://t.me/HipoFinanceBot/join).
+Ketiganya dapat dilacak di [Hipo Club](/club/), di situs web atau di [aplikasi Hipo](https://t.me/HipoApp) di Telegram.
 
 ## Imbalan dasar: nilai tukar
 
@@ -77,17 +77,17 @@ Level Anda melipatgandakan semua yang di atas: di Level 10, stake yang sama meng
 
 Ada dua cara untuk naik level:
 
-- **Upgrade musiman** — klaim imbalan yang Anda peroleh setidaknya sekali selama season; level Anda naik secara otomatis di akhir season.
-- **Upgrade instan** — bayar biaya upgrade level dan level Anda langsung naik.
+- **Upgrade musiman** — klaim setidaknya sekali selama season dan berada di atas minimal Level Anda saat season berakhir; Anda naik satu level ketika season berikutnya dimulai.
+- **Upgrade instan** — bayar biaya upgrade level dalam GRAM dan naik satu level saat itu juga.
 
 Ada dua aturan yang penting:
 
-- **Menjual HPO hasil imbalan mengatur ulang level Anda ke Level 1.** Club dirancang untuk memberi imbalan kepada orang yang memegang, dan inilah mekanismenya. Mengirim HPO hasil imbalan ke bursa, atau ke dompet yang belum Anda hubungkan ke Club, dihitung sebagai menjual; memindahkannya di antara dompet-dompet Anda sendiri yang terhubung tidak — lihat [Menggunakan beberapa dompet](/docs/wallets-and-rewards/).
-- **Tidak ada jendela klaim.** Imbalan terkumpul setiap putaran dan dapat ditarik kapan saja saldo Anda setidaknya **100 HPO**.
+- **Jaga minimal Level Anda.** Semua yang Anda klaim menambahnya, dan dompet Club Anda harus menyimpan setidaknya sebanyak itu HPO, di dompet atau di pool likuiditas yang didukung. Di bawahnya Anda punya masa tenggang 24 jam dengan boost penuh; setelah itu level Anda ditangguhkan dan menghasilkan 1×, dan setelah 7 hari lagi Anda kembali ke Level 1. Club dirancang untuk memberi imbalan kepada orang yang memegang, dan inilah mekanismenya — lihat [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **Tidak ada jendela klaim.** Imbalan terkumpul setiap putaran dan dapat diklaim kapan saja saat Anda punya setidaknya **100 HPO**, dengan biaya 1 GRAM.
 
 ## Imbalan ekstra: bagi hasil
 
-HPO adalah token tata kelola milik Hipo. Memegangnya memberi Anda hak suara di [DAO](/docs/dao/) dan bagian dari pendapatan protokol, yang dibagikan pada akhir setiap season Hipo Club — lihat [Bagi Hasil](/docs/profit-sharing/).
+HPO adalah token tata kelola milik Hipo. Memegangnya memberi Anda hak suara di [DAO](/docs/dao/) dan bagian dari pendapatan protokol, yang dijeda selama biaya protokol 0% — lihat [Bagi Hasil](/docs/profit-sharing/).
 
 :::note
 Selama [biaya tata kelola](/docs/fees-and-gas/) masih **0%**, protokol tidak mengumpulkan pendapatan, sehingga tidak ada yang bisa dibagikan di aliran ini. Bagi hasil berjalan kembali begitu biaya itu berlaku lagi. Biaya 0% inilah yang membuat imbalan dasar setinggi sekarang.

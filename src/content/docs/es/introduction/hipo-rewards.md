@@ -9,11 +9,11 @@ Hacer staking de GRAM con Hipo te paga en tres flujos separados, con tres ritmos
 - **Recompensas base**\
   Recompensas de staking de GRAM, reflejadas en la tasa de cambio de hGRAM frente a GRAM: se liquidan **en cada ronda de validación** (~18 h), sin nada que reclamar
 - **Recompensas potenciadas**\
-  HPO adicional sobre el valor en GRAM de tu staking, con un coeficiente que fija tu nivel de [Hipo Club](https://t.me/HipoFinanceBot/join): se acumula **en cada ronda de validación** y se puede retirar cuando tu saldo supera los 100 HPO
+  HPO adicional sobre el valor en GRAM de tu staking, potenciado por tu nivel de [Hipo Club](/docs/giveaways-and-prizes/hipo-club/): se acumula **en cada ronda de validación** y se puede reclamar cuando tienes 100 HPO, con una comisión de 1 GRAM
 - **Recompensas extra**\
-  Ten HPO → recibe una parte de los ingresos del protocolo: se paga **al final de cada temporada de Hipo Club**
+  Ten HPO → recibe una parte de los ingresos del protocolo: **en pausa** mientras la comisión del protocolo sea 0 %
 
-Los tres se pueden seguir en la [app de Hipo](/club/) y en [Hipo Club](https://t.me/HipoFinanceBot/join).
+Los tres se pueden seguir en [Hipo Club](/club/), en la web o en la [app de Hipo](https://t.me/HipoApp) en Telegram.
 
 ## Recompensas base: la tasa de cambio
 
@@ -77,17 +77,17 @@ Tu nivel multiplica todo lo anterior: en el Nivel 10 el mismo staking genera die
 
 Hay dos formas de subir de nivel:
 
-- **Subida por temporada**: reclama tus recompensas ganadas al menos una vez durante la temporada; tu nivel sube automáticamente al final de esta.
-- **Subida instantánea**: paga la comisión de subida de nivel y tu nivel sube de inmediato.
+- **Subida por temporada**: reclama al menos una vez durante la temporada y estate por encima de tu mínimo de nivel cuando termine; subes un nivel cuando empieza la siguiente temporada.
+- **Subida instantánea**: paga la comisión de subida de nivel en GRAM y subes un nivel de inmediato.
 
 Hay dos reglas que importan:
 
-- **Vender el HPO recibido como recompensa te devuelve al Nivel 1.** El Club está diseñado para premiar a quien mantiene, y este es el mecanismo. Enviar el HPO de recompensas a un exchange, o a una billetera que no hayas conectado al Club, cuenta como vender; moverlo entre tus propias billeteras conectadas, no. Consulta [Usar varias billeteras](/docs/wallets-and-rewards/).
-- **No hay ventana para reclamar.** Las recompensas se acumulan en cada ronda y se pueden retirar cuando tu saldo sea de al menos **100 HPO**.
+- **Mantén tu mínimo de nivel.** Todo lo que reclamas se suma a él, y tu billetera del Club debe tener al menos esa cantidad de HPO, en la billetera o en sus pools de liquidez compatibles. Por debajo del mínimo tienes 24 horas de gracia con todo tu multiplicador; después tu nivel se suspende y ganas a 1×, y pasados 7 días más vuelves al Nivel 1. El Club está diseñado para premiar a quien mantiene, y este es el mecanismo; consulta [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **No hay ventana para reclamar.** Las recompensas se acumulan en cada ronda y se pueden reclamar cuando tengas al menos **100 HPO**, con una comisión de 1 GRAM.
 
 ## Recompensas extra: reparto de beneficios
 
-HPO es el token de gobernanza de Hipo. Tenerlo te da voto en la [DAO](/docs/dao/) y una parte de los ingresos del protocolo, que se distribuye al final de cada temporada de Hipo Club. Consulta [Reparto de beneficios](/docs/profit-sharing/).
+HPO es el token de gobernanza de Hipo. Tenerlo te da voto en la [DAO](/docs/dao/) y una parte de los ingresos del protocolo, en pausa mientras la comisión del protocolo sea 0 %. Consulta [Reparto de beneficios](/docs/profit-sharing/).
 
 :::note
 Mientras la [comisión de gobernanza](/docs/fees-and-gas/) esté en **0 %**, el protocolo no recauda ingresos, así que no hay nada que distribuir en este flujo. El reparto de beneficios se reanuda cuando lo haga la comisión. Esa comisión del 0 % es lo que hace que las recompensas base sean tan altas como son.

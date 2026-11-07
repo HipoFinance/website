@@ -3,7 +3,7 @@ title: 'TVL Kilometre Taşı Ödülleri'
 ---
 
 :::note
-**Bu program sonlandırılmış ve yerini** [**Hipo Club**](/docs/giveaways-and-prizes/hipo-club/) **almıştır; Hipo Club, stakerları staking etkinliklerine ve farklı seviyelerdeki ilerlemelerine göre ödüllendiren daha kapsamlı bir teşvik sistemidir.**
+**Bu program sonlandırılmış ve yerini** [**Hipo Club**](/docs/giveaways-and-prizes/hipo-club/) **almıştır; Hipo Club, stakerları Club seviyelerine göre güçlendirilmiş HPO ile ödüllendiren daha kapsamlı bir teşvik sistemidir.**
 :::
 
 :::tip

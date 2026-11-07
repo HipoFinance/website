@@ -1,55 +1,71 @@
 ---
 title: 'Hipo Club'
-description: 'Komunitas Para Penganut Sejati Hipo'
+description: 'HPO yang di-boost untuk staker yang menyimpan tokennya'
 ---
 
-Hipo Club adalah inisiatif yang dibuat untuk membangun komunitas yang kuat, bertanggung jawab, dan terinformasi, yang berbagi visi jangka panjang untuk Hipo Finance.
+Hipo Club menambahkan HPO yang di-boost di atas imbalan staking Anda. Level Anda menentukan boost, dari 1× di Level 1 sampai 10× di Level 10, dan Club memberi imbalan kepada anggota yang menyimpan HPO yang dibayarkannya.
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/3obpl6nYnLQ" title="Apa itu Hipo Club?" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+Club ada di [hipo.finance/club/](/club/), dan di Telegram berupa tab Club pada bot resmi [@HipoApp](https://t.me/HipoApp).
 
-## Apa itu Hipo Club?
+## Cara kerjanya
 
-Hipo Club adalah sistem berjenjang yang dirancang untuk memberi imbalan kepada partisipan aktif dan pendukung jangka panjang Hipo. Sistem ini memiliki **10 level**, dan level Anda menentukan koefisien imbalan HPO yang Anda peroleh atas nilai GRAM dari hGRAM Anda.
+hGRAM yang Anda pegang menghasilkan HPO setiap putaran validasi, kira-kira setiap 18 jam. Jumlahnya adalah nilai GRAM dari hGRAM Anda, dikali tarif imbalan HPO, dikali boost level Anda. hGRAM dihitung baik di dompet Anda maupun di [pool likuiditas yang didukung](/defi/). Tarif dan hasil hitungannya ada di [Hipo Rewards](/docs/introduction/hipo-rewards/).
 
-### Manfaat Utama per Level
+Ada **10 level**, dan boost sama dengan nomor level:
 
-- **Koefisien imbalan yang lebih tinggi:** setiap kenaikan level meningkatkan HPO yang Anda peroleh atas nilai GRAM dari hGRAM Anda untuk setiap putaran validasi.
-- **Bagi hasil referral:** Anda memperoleh 1% dari imbalan HPO yang dihasilkan oleh teman yang Anda undang.
+| Level | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Boost | 1×  | 2×  | 3×  | 4×  | 5×  | 6×  | 7×  | 8×  | 9×  | 10× |
 
-## Season & Imbalan
+## Akun Anda dan dompet Club Anda
 
-Setiap season berlangsung satu kuartal. Imbalan HPO terkumpul setelah setiap putaran validasi dan dapat ditarik kapan saja setelah saldo terkumpul Anda melewati ambang batas **100 HPO** — tidak ada jendela klaim dan tidak ada diskon klaim.
+Level Anda milik **akun Telegram** Anda, bersama minimal Level, HPO yang belum diklaim, dan teman yang Anda undang. Satu dompet dalam satu waktu, yaitu **dompet Club** Anda, menghasilkan dengan boost level Anda dan menerima klaim Anda.
 
-Bagi hasil untuk pemegang HPO adalah aliran terpisah, dibayarkan pada akhir setiap season (lihat [Bagi Hasil](/docs/profit-sharing/)).
+- **Menautkan.** Masuk dengan Telegram dan tanda tangani bukti gratis di dompet Anda. Telegram diperlukan untuk mengklaim, upgrade, mengganti dompet, dan mengundang teman.
+- **Mengganti dompet Club.** Anda bisa pindah ke dompet lain kapan saja; Anda menandatangani dengan dompet baru lalu mengonfirmasi. Level dan HPO yang belum diklaim tetap ada di akun Anda. Klaim dinonaktifkan selama beberapa menit setelah penggantian. Dompet yang sudah menjadi dompet Club akun lain, atau alamat bursa atau pool, tidak bisa ditautkan.
+- **Dompet lain.** Dompet yang bukan dompet Club Anda menghasilkan dengan 1×, setelah terdaftar dengan membuka Club saat dompet itu terhubung. Jika kelak menjadi dompet Club Anda, apa yang sudah dihasilkannya bergabung ke akun Anda. Lihat [Menggunakan beberapa dompet](/docs/wallets-and-rewards/).
+- **Dompet lain yang terhubung di halaman Stake.** Club tidak pernah berganti sendiri. Club bertanya apakah akan berganti, menghubungkan kembali dompet Club Anda, atau memutuskan nanti. Sebelum Anda memilih, dompet Club Anda tetap menghasilkan, sedangkan klaim dan upgrade dijeda.
 
-## Cara Mendapatkan XP
+## Mengklaim
 
-XP mengukur seberapa aktif Anda di Hipo Club. Anda mendapatkannya dengan menyelesaikan tugas Club di bot: mengumpulkan **imbalan harian**, menjawab **kuis**, **menonton video YouTube Hipo**, mengundang teman, dan tugas lain yang tercantum di bot.
+Anda bisa mengklaim HPO yang di-boost setelah punya **100 HPO**, dengan biaya **1 GRAM**. Satu klaim mengambil seluruh saldo Anda dan membayarkannya ke dompet Club Anda. Tidak ada jendela klaim dan tidak ada diskon: imbalan terkumpul setiap putaran dan bisa diklaim kapan saja saat Anda di atas 100 HPO.
 
-**Staking tidak menghasilkan XP.** GRAM Anda yang di-stake justru menghasilkan HPO melalui koefisien imbalan level Anda — sebuah mekanisme terpisah, yang dijelaskan di [Imbalan Hipo](/docs/introduction/hipo-rewards/). XP menyangkut keaktifan Anda di Club; koefisien menyangkut berapa nilai stake Anda.
+## Minimal Level Anda
 
-## Cara Kerja Leveling
+Semua yang Anda klaim menambah **minimal Level** Anda. Untuk mempertahankan level, simpan setidaknya sebanyak itu HPO di dompet Club Anda dan pool likuiditas yang didukung. HPO di dompet Anda yang lain tidak dihitung.
 
-Ada dua cara untuk naik level:
+- **Masa tenggang 24 jam.** Jika Anda turun di bawah minimal, Anda punya 24 jam untuk kembali di atasnya. Level Anda aman dan Anda tetap menghasilkan dengan boost penuh.
+- **Ditangguhkan hingga 7 hari.** Setelah masa tenggang, level Anda ditangguhkan: Anda tetap memilikinya, tetapi menghasilkan dengan 1×. Penuhi minimal lagi dalam 7 hari dan level Anda kembali seketika.
+- **Kembali ke Level 1.** Jika 7 hari berlalu, Anda turun ke Level 1 dan minimal lama Anda dihapus.
 
-- **Upgrade instan:** bayar biaya upgrade level dan level Anda langsung naik.
-- **Upgrade musiman:** klaim imbalan yang Anda peroleh setidaknya sekali selama season; level Anda kemudian naik secara otomatis di akhir season, berdasarkan aktivitas Anda.
+Menjual HPO tidak dihukum dengan sendirinya. Yang penting hanyalah apakah dompet Club Anda menyimpan minimal Anda. Club mengirim peringatan Telegram saat Anda turun di bawahnya.
 
-Menjual HPO hasil imbalan Anda — atau mengirimnya keluar dari dompet-dompet Hipo Club Anda — mengatur ulang level Anda ke Level 1.
+## Naik level
 
-## Tanggung Jawab Anggota Club
+Ada dua cara naik level, dan keduanya bisa digabung, hingga Level 10:
 
-Hipo Club memberi imbalan atas holding. Tidak ada allowance jual: sebagai gantinya, Anda diharapkan menyimpan HPO yang Anda terima sebagai imbalan, dan jika HPO itu meninggalkan dompet-dompet Anda, level Anda kembali ke Level 1 dan Anda naik lagi dari sana.
+- **Upgrade musiman (gratis).** Klaim setidaknya sekali selama satu musim dan berada di atas minimal Level Anda saat musim berakhir, maka Anda naik satu level ketika musim berikutnya dimulai.
+- **Upgrade instan.** Bayar biaya dalam GRAM dari dompet Club Anda ke hipo.ton dan naik satu level saat itu juga. Boost baru berlaku mulai putaran berikutnya. Anda bisa upgrade saat ditangguhkan.
 
-Jumlahnya dihitung dari seluruh dompet Hipo Club yang telah Anda hubungkan, dijumlahkan, sehingga memindahkan HPO di antara dompet-dompet Anda sendiri yang terhubung tidak dikenakan biaya apa pun. Yang mengatur ulang level Anda adalah menjualnya, atau mengirimnya ke bursa atau ke dompet yang belum Anda hubungkan — lihat [Menggunakan beberapa dompet](/docs/wallets-and-rewards/) untuk aturan lengkap dan cara memulihkan level yang hilang.
+| Upgrade ke level | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10    |
+| ---------------- | --- | --- | --- | --- | --- | --- | --- | --- | ----- |
+| Biaya (GRAM)     | 20  | 40  | 60  | 100 | 160 | 260 | 420 | 680 | 1.100 |
 
-## Menarik Imbalan
+## Mengundang teman
 
-Imbalan terkumpul secara berkelanjutan dan dapat ditarik kapan saja saldo terkumpul Anda setidaknya **100 HPO**.
+Saat teman yang Anda undang mendapatkan HPO yang di-boost, Anda mendapatkan **1%** darinya, ditambahkan ke saldo yang bisa Anda klaim. Setelah diklaim, jumlah itu menambah minimal Level Anda seperti klaim lainnya.
+
+## Musim
+
+**Musim 6** dimulai pada **31 Oktober 2026**, dan rencana berakhirnya **31 Desember 2026**; Club menampilkan tanggal dan hitung mundurnya. Di akhir musim, upgrade musiman diterapkan. Penangguhan yang masih berjalan membawa sisa harinya ke musim berikutnya.
+
+Bagi hasil untuk pemegang HPO adalah aliran terpisah, dijeda selama biaya protokol 0%; lihat [Bagi Hasil](/docs/profit-sharing/).
 
 :::note
 
-## Apa yang berubah sejak Season 4
+## Apa yang berubah di Musim 6
 
-Season 1–3 berjalan dengan model yang berbeda: 6 level, klaim HPO dengan diskon di akhir setiap season, dan allowance jual per level. Mulai **Season 4** dan seterusnya, Hipo Club bekerja seperti dijelaskan di atas — 10 level, imbalan HPO langsung per putaran, tanpa diskon klaim, tanpa allowance jual, dan reset level ketika HPO hasil imbalan dijual.
+Sampai Musim 5, Club menghitung semua dompet yang terhubung bersama-sama, level naik lewat XP dari tugas bot, kuis, dan imbalan harian, dan menjual HPO hasil imbalan mengembalikan Anda ke Level 1. Mulai **Musim 6** ada satu dompet Club per akun Telegram, boost sama dengan nomor level, dan satu-satunya aturan adalah minimal Level. XP, tugas, dan kuis berakhir bersama Musim 5; XP yang sudah diperoleh tetap tersimpan tetapi tidak lagi dihitung.
+
+Musim 1–3 berjalan dengan model lama: 6 level, klaim berdiskon di akhir tiap musim, dan jatah jual per level: lihat [Musim 2](/docs/giveaways-and-prizes/hipo-club/hipo-club-season-2/) dan [Musim 3](/docs/giveaways-and-prizes/hipo-club/hipo-club-season-3/).
 :::

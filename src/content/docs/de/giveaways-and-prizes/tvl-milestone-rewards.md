@@ -3,7 +3,7 @@ title: 'TVL-Meilenstein-Rewards'
 ---
 
 :::note
-**Dieses Programm wurde eingestellt und durch** [**Hipo Club**](/docs/giveaways-and-prizes/hipo-club/) **ersetzt, ein umfassenderes Anreizsystem, das Staker nach ihrer Staking-Aktivität und ihrem Aufstieg durch die verschiedenen Stufen belohnt.**
+**Dieses Programm wurde eingestellt und durch** [**Hipo Club**](/docs/giveaways-and-prizes/hipo-club/) **ersetzt, ein umfassenderes Anreizsystem, das Staker mit HPO belohnt, geboostet durch ihr Club-Level.**
 :::
 
 :::tip

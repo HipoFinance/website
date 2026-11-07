@@ -1,78 +1,65 @@
 ---
 title: 'Utiliser plusieurs portefeuilles'
-description: 'Comment les récompenses suivent tes portefeuilles, et comment ajouter un second portefeuille sans perdre ton niveau Hipo Club.'
+description: 'Comment les récompenses suivent tes portefeuilles, lequel est ton portefeuille Hipo Club, et comment le changer sans perdre ton niveau.'
 ---
 
-Beaucoup de détenteurs gardent leurs GRAM, hGRAM et HPO dans plusieurs portefeuilles. Aucun problème : Hipo suit chaque portefeuille séparément, et aucun ne cesse de rapporter parce que tu en as connecté un autre.
-
-Il y a une règle qui prend les gens de court, et elle ne s’applique qu’**après avoir reçu un airdrop Hipo Club**. Cette page couvre les deux cas.
+Beaucoup de détenteurs gardent leurs GRAM, hGRAM et HPO dans plusieurs portefeuilles. Aucun problème : Hipo suit chaque portefeuille séparément, et aucun ne cesse de rapporter parce que tu en as connecté un autre. Ce qui change d’un portefeuille à l’autre, c’est le boost : seul ton **portefeuille Club** gagne au niveau de ton Hipo Club.
 
 ## Comment un portefeuille commence à rapporter
 
 Les récompenses de staking de base ne demandent aucune configuration : les hGRAM prennent de la valeur face aux GRAM à chaque cycle de validation, quel que soit le portefeuille qui les détient, connecté ou non.
 
-**Les récompenses en HPO, elles, sont différentes — Hipo doit savoir que le portefeuille existe.** Un portefeuille commence à gagner des HPO dès que tu as fait l’une de ces deux choses, une fois :
+**Les récompenses en HPO sont différentes : Hipo doit savoir que le portefeuille existe.** Un portefeuille commence à gagner des HPO dès que tu as fait l’une de ces deux choses, une seule fois :
 
-- ouvert la [page Récompenses](/club/) de l’app Hipo avec ce portefeuille connecté, **ou**
-- connecté ce portefeuille dans le [Hipo Club](https://t.me/HipoFinanceBot/join).
+- Ouvert le [Hipo Club](/club/) sur hipo.finance avec ce portefeuille connecté, **ou**
+- Associé ce portefeuille comme portefeuille Club.
 
-Ensuite, le portefeuille continue de gagner sur son propre solde. Rien ne le désinscrit : connecter un autre portefeuille plus tard ne l’arrête pas, et le déconnecter de l’app non plus.
+Ensuite, le portefeuille continue de gagner sur son propre solde. Rien ne l’annule : connecter un autre portefeuille plus tard ne l’arrête pas, et le déconnecter non plus.
 
 :::caution
-Des HPO et des hGRAM qui dorment dans un portefeuille que tu n’as **jamais** connecté ne rapportent aucune récompense en HPO — ni maintenant, ni rétroactivement. Si tu détiens sur plusieurs portefeuilles, inscris-les tous.
+Les hGRAM d’un portefeuille que tu n’as **jamais** connecté ne rapportent aucun HPO, ni maintenant ni rétroactivement. Si tu détiens sur plusieurs portefeuilles, ouvre le Hipo Club une fois avec chacun d’eux.
 :::
 
-## Les règles pour plusieurs portefeuilles
+## Ton portefeuille Club et tes autres portefeuilles
 
-- **Chaque portefeuille gagne sur son propre solde.** Les récompenses sont directement proportionnelles au montant détenu : répartir 100 000 hGRAM sur trois portefeuilles rapporte exactement ce que rapporte un seul portefeuille en détenant 100 000. Il n’y a ni pénalité à s’éparpiller, ni bonus à regrouper.
-- **Ton niveau Hipo Club appartient à ton compte Telegram, pas à un portefeuille.** Chaque portefeuille que tu connectes gagne au coefficient de ton niveau. Monter de niveau les fait tous progresser d’un coup.
-- **Tu peux connecter jusqu’à 6 portefeuilles** à un même compte Hipo Club.
-- **Les récompenses sont suivies et retirées par portefeuille.** Chaque portefeuille a son propre solde accumulé et son propre seuil de retrait de 100 HPO. Ils ne sont pas mis en commun.
-- **Seul le propriétaire peut retirer.** Les récompenses accumulées par un portefeuille ne peuvent être retirées que par le compte Hipo Club auquel ce portefeuille est connecté, et elles sont toujours envoyées à ce même portefeuille.
+- **Ton niveau Hipo Club appartient à ton compte Telegram, pas à un portefeuille.** Un seul portefeuille à la fois, ton portefeuille Club, gagne au boost de ton niveau. Tes autres portefeuilles enregistrés gagnent à 1×.
+- **Les réclamations passent par le portefeuille Club.** Tes HPO boostés forment un seul solde sur ton compte Telegram, réclamable dès 100 HPO pour 1 GRAM de frais et versé sur ton portefeuille Club. Les HPO qu’un portefeuille gagne quand il n’est pas ton portefeuille Club restent avec lui, et rejoignent ton compte quand tu en fais ton portefeuille Club.
+- **Les récompenses dépendent du montant détenu.** Répartir tes hGRAM sur plusieurs portefeuilles rapporte les mêmes récompenses de base, mais seule la part qui est dans ton portefeuille Club est boostée. Pour avoir ton plein boost, garde tes hGRAM dans ton portefeuille Club ou ses pools de liquidité pris en charge.
+- **Un compte par portefeuille.** Un portefeuille ne peut être le portefeuille Club que d’un seul compte Telegram.
 
-## Après avoir reçu un airdrop Hipo Club
+## Ton minimum de niveau vit dans le portefeuille Club
 
-Quand tu reçois un airdrop du Club, Hipo enregistre le montant que tu es censé **conserver**. Le Hipo Club récompense la détention : si ces HPO quittent tes portefeuilles, ton niveau retombe au niveau 1 et ton coefficient de récompense baisse avec lui.
+Tout ce que tu réclames s’ajoute à ton **minimum de niveau**, et ton portefeuille Club, avec ses pools de liquidité pris en charge, doit détenir au moins cette quantité de HPO. Les HPO de tes autres portefeuilles ne comptent pas.
 
-**Le montant est compté sur l’ensemble de tes portefeuilles Hipo Club, additionnés.** Peu importe lequel détient les HPO, ou lequel tu as connecté en dernier : déplace-les entre tes propres portefeuilles connectés aussi librement que tu veux.
+Si tu sors des HPO de ton portefeuille Club, même vers un autre de tes portefeuilles, cela compte comme passer sous le minimum. Tu as alors 24 heures pour les remettre avant que ton niveau soit suspendu. La règle complète est dans [Hipo Club](/docs/giveaways-and-prizes/hipo-club/#ton-minimum-de-niveau).
 
-Ce qui, en revanche, réinitialise ton niveau :
+## Changer de portefeuille Club
 
-- vendre les HPO reçus en récompense ;
-- les envoyer sur une plateforme d’échange, ou vers un portefeuille que tu n’as pas connecté dans le Hipo Club.
+1. Ouvre le [Hipo Club](/club/) et connecte-toi avec Telegram.
+2. Choisis de changer de portefeuille Club, connecte le nouveau portefeuille et signe la preuve gratuite.
+3. Confirme. Ton niveau, ton minimum de niveau et tes HPO non réclamés restent attachés à ton compte ; l’ancien portefeuille regagne à 1×.
+
+Il n’y a pas de limite au nombre de changements. Les réclamations sont désactivées pendant quelques minutes après un changement, et un changement ne peut pas démarrer pendant qu’un de tes paiements est en cours.
+
+Si le nouveau portefeuille détient moins de HPO que ton minimum de niveau, les 24 heures de grâce commencent tout de suite : déplace donc tes HPO avant ou juste après le changement.
 
 :::note
-Connecter un portefeuille dans l’[app Hipo](/stake/) sur hipo.finance l’inscrit pour les récompenses, mais n’en fait pas l’un de tes portefeuilles Hipo Club. Seuls les portefeuilles connectés dans l’app du Club comptent dans le montant que tu es censé conserver — connecte donc aussi, là-bas, le portefeuille qui détient tes HPO de récompense.
+Connecter un autre portefeuille sur la [page Stake](/stake/) ne change pas ton portefeuille Club. Le Club te demande s’il faut changer, reconnecter ton portefeuille Club ou décider plus tard. Tant que tu n’as pas choisi, ton portefeuille Club continue de gagner, et les réclamations et les montées de niveau sont en pause.
 :::
-
-## Pas à pas : ajouter un portefeuille
-
-1. **Inscris le nouveau portefeuille pour les récompenses.** Connecte-le dans l’app Hipo et ouvre la [page Récompenses](/club/) une fois. Il gagne désormais des HPO sur tout ce qu’il détient. Si tu n’as jamais reçu d’airdrop du Club, c’est terminé.
-2. **Connecte-le aussi dans le Hipo Club s’il détient une partie de tes HPO de récompense.** C’est ce qui fait compter son solde dans le montant que tu es censé conserver. L’ordre dans lequel tu connectes les portefeuilles n’a aucune importance.
-3. **Vérifie ton niveau ensuite.** Si le Hipo Club affiche toujours ton niveau, tout est en ordre.
-
-## Si ton niveau est retombé au niveau 1
-
-Le Hipo Club affiche le manque : combien de HPO il te manque sur l’ensemble de tes portefeuilles connectés.
-
-Soit tu remets assez de HPO dans un portefeuille que tu as connecté dans le Hipo Club, soit tu connectes le portefeuille qui les détient déjà. Attends ensuite le cycle de validation suivant (~18 heures) ; ton niveau est rétabli automatiquement.
-
-Deux choses à savoir tant qu’une réinitialisation est active : le montant requis **augmente de 1 % par jour** jusqu’à ce que tu le rétablisses, donc agir tôt coûte moins cher, et une fois rétabli, ce montant plus élevé devient ton nouveau montant à conserver.
 
 ## Aide-mémoire
 
-| Ce que tu fais                                                         | Effet sur les récompenses                                      |
-| ---------------------------------------------------------------------- | -------------------------------------------------------------- |
-| Connecter un nouveau portefeuille sur hipo.finance                     | Il commence à rapporter. Rien d’autre ne change.               |
-| Ouvrir la page Récompenses avec un portefeuille                        | Inscrit ce portefeuille pour les récompenses en HPO            |
-| Connecter un autre portefeuille dans le Hipo Club                      | Ses HPO comptent dans le montant que tu dois conserver         |
-| Répartir des hGRAM entre plusieurs portefeuilles                       | Aucun changement sur le total des récompenses                  |
-| Déplacer des HPO de récompense entre tes portefeuilles du Club         | Aucun effet sur ton niveau                                     |
-| Vendre des HPO de récompense, ou les envoyer hors de tes portefeuilles | Le niveau retombe au niveau 1                                  |
-| Détenir des HPO dans un portefeuille jamais connecté                   | Ne rapporte rien, et ne compte pas dans le montant à conserver |
+| Ce que tu fais                                         | Effet                                                            |
+| ------------------------------------------------------ | ---------------------------------------------------------------- |
+| Ouvrir le Hipo Club avec un nouveau portefeuille       | Il commence à gagner des HPO à 1×                                |
+| En faire ton portefeuille Club                         | Il gagne au boost de ton niveau ; ses HPO rejoignent les tiens   |
+| Répartir les hGRAM sur plusieurs portefeuilles         | Seule la part dans ton portefeuille Club est boostée             |
+| Sortir des HPO réclamés de ton portefeuille Club       | Compte comme sous ton minimum de niveau ; 24 h pour les remettre |
+| Connecter un autre portefeuille sur la page Stake      | Ton portefeuille Club ne change pas tant que tu n’as pas choisi  |
+| Détenir des hGRAM dans un portefeuille jamais connecté | Ne rapporte aucun HPO                                            |
 
 ## À lire aussi
 
-- [Récompenses et APY](/docs/introduction/hipo-rewards/) — les trois flux de récompenses et leur calendrier
-- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — niveaux, XP et coefficients
-- [Partage des profits](/docs/profit-sharing/) — la part des revenus revenant aux détenteurs de HPO
+- [Rewards & APY](/docs/introduction/hipo-rewards/) : les trois flux de récompenses et leur calendrier
+- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) : niveaux, boost et minimum de niveau
+- [Partage des profits](/docs/profit-sharing/) : la part des revenus des détenteurs de HPO

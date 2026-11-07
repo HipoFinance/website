@@ -4,6 +4,6 @@ section: 'hpo-token'
 question: 'Hipo Club nedir?'
 ---
 
-Hipo Club, staker'lar ve HPO sahipleri için Hipo'nun ödül programıdır ve Telegram'daki <a href="https://t.me/HipoFinanceBot/join" target="_blank" rel="noopener noreferrer">Hipo Club bot</a>u üzerinden katılınır.
+Hipo Club, staker'lar ve HPO sahipleri için Hipo'nun ödül programıdır; <a href="/club/">hipo.finance/club/</a> adresinde veya Telegram'daki <a href="https://t.me/HipoApp" target="_blank" rel="noopener noreferrer">Hipo uygulamasında</a> yer alır.
 
-Hipo Club HPO ödülleri, her doğrulama turundan sonra elinizde tuttuğunuz hGRAM üzerinden, Club seviyenizin belirlediği bir oranda birikir ve biriken bakiye 100 HPO'yu geçtiğinde çekilebilir. Kazandığınız HPO'yu elinizde tutmak seviyenizi korur — satmanız sizi Seviye 1'e döndürür — ve seviyeler Club etkinliğiyle yükselir (anında yükseltme veya sezonluk yükseltme). Ayrıntılar [Hipo Club dokümanlarında](/docs/giveaways-and-prizes/hipo-club/).
+Hipo Club HPO ödülleri, her doğrulama turundan sonra elinizde tuttuğunuz hGRAM üzerinden, Club seviyenizin 1×'ten 10×'e kadar güçlendirmesiyle birikir ve 100 HPO'nuz olduğunda, 1 GRAM ücretle Club cüzdanınıza talep edilebilir. Seviyenizi korumak için talep ettiğiniz HPO'yu Club cüzdanınızda tutun: talep edilen her şey Seviye minimumunuza eklenir. Seviyeler sezonluk yükseltme veya anında yükseltme ile yükselir. Ayrıntılar [Hipo Club dokümanlarında](/docs/giveaways-and-prizes/hipo-club/).

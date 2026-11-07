@@ -40,7 +40,7 @@
   "vs.hpo.colLevel1": "HPO / yıl, Level 1",
   "vs.hpo.colLevelTop": "HPO / yıl, Level {top}",
   "vs.hpo.worth": "<strong>Bunun değeri ne:</strong> HPO'nun bir piyasa fiyatı var ve bu fiyat hareket ediyor. Bu sayfa oluşturulduğundaki fiyatla, bu artış Level 1'de yıllık getirinize yaklaşık <strong>{low} yüzde puan</strong>, Level {top}'te ise yaklaşık <strong>{high} puan</strong> ekler. Bunu böyle anlatıyoruz, çünkü tek başına büyük bir token sayısı ne kazandığınızı göstermez.",
-  "vs.hpo.note": "Her doğrulama turunda, bir stake GRAM değeri × {rate} × Club çarpanı kadar HPO kazanır, ve bir tur yaklaşık {hours} saat sürer, dolayısıyla bir yıla yaklaşık {rounds} tur sığar. Oran yönetişim tarafından belirlenir ve değişebilir. Kazanılan HPO'yu satmak sizi Level 1'e geri döndürür.",
+  "vs.hpo.note": "Her doğrulama turunda, bir stake GRAM değeri × {rate} × Club çarpanı kadar HPO kazanır, ve bir tur yaklaşık {hours} saat sürer, dolayısıyla bir yıla yaklaşık {rounds} tur sığar. Oran yönetişim tarafından belirlenir ve değişebilir. Seviyenizi korumak için talep ettiğiniz HPO'yu Club cüzdanınızda tutun.",
   "vs.exit.heading": "GRAM'ınızı geri almak",
   "vs.exit.lead": "Asla kilitli kalmazsınız ve unstake etmenin bir komisyonu yoktur. Çıkmanın iki yolu vardır, ikisi de protokolün içinde — tokenlerinizi satın almak isteyen birinin olmasına bağımlı değilsiniz.",
   "vs.exit.fullHeading": "Tam unstake — genellikle 18 saatten kısa sürede",

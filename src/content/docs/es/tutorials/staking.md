@@ -18,7 +18,7 @@ En la pestaña «**Staking**» puedes:
 
 ### Paso 1: elige tu plataforma
 
-Puedes hacer staking de tus GRAM desde la [app web de Hipo](/stake/), la [Telegram Mini App](https://t.me/HipoFinanceBot/app) o incluso a través de [Hipo Club](https://t.me/HipoFinanceBot/join). Elige la plataforma que mejor te venga y podrás hacer staking de GRAM desde cualquiera de estas opciones.
+Puedes hacer staking de tus GRAM desde la [app web de Hipo](/stake/), la [Telegram Mini App](https://t.me/HipoFinanceBot/app) o incluso a través de [Hipo Club](/club/). Elige la plataforma que mejor te venga y podrás hacer staking de GRAM desde cualquiera de estas opciones.
 
 <figure><img src="/docs/images/tutorials-staking-2.png" alt="Las tres formas de hacer staking una al lado de la otra: la app web de Hipo, la Telegram Mini App y el bot de Hipo"></figure>
 

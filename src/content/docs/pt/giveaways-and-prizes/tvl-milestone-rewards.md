@@ -3,7 +3,7 @@ title: 'Recompensas por marcos de TVL'
 ---
 
 :::note
-**Este programa foi descontinuado e substituído pelo** [**Hipo Club**](/docs/giveaways-and-prizes/hipo-club/)**, um sistema de incentivos mais completo que recompensa os stakers de acordo com a atividade de staking e a progressão pelos diferentes níveis.**
+**Este programa foi descontinuado e substituído pelo** [**Hipo Club**](/docs/giveaways-and-prizes/hipo-club/)**, um sistema de incentivos mais completo que recompensa os stakers com HPO, com boost segundo o nível no Club.**
 :::
 
 :::tip

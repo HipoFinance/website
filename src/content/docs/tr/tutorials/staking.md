@@ -18,7 +18,7 @@ title: 'Staking'
 
 ### 1. adım: Platformunuzu seçin
 
-GRAM'ınızı [Hipo web uygulamasıyla](/stake/), [Telegram Mini App](https://t.me/HipoFinanceBot/app) ile ve hatta [Hipo Club](https://t.me/HipoFinanceBot/join) üzerinden stake edebilirsiniz. Size en uygun platformu seçmeniz yeterli; bu seçeneklerin herhangi biriyle GRAM stake edebilirsiniz.
+GRAM'ınızı [Hipo web uygulamasıyla](/stake/), [Telegram Mini App](https://t.me/HipoFinanceBot/app) ile ve hatta [Hipo Club](/club/) üzerinden stake edebilirsiniz. Size en uygun platformu seçmeniz yeterli; bu seçeneklerin herhangi biriyle GRAM stake edebilirsiniz.
 
 <figure><img src="/docs/images/tutorials-staking-2.png" alt="Stake etmenin üç yolu yan yana: Hipo web uygulaması, Telegram Mini App ve Hipo botu"></figure>
 

@@ -18,7 +18,7 @@ title: 'الستاكينغ'
 
 ### الخطوة ١: اختر منصتك
 
-يمكنك إيداع GRAM في الستاكينغ عبر [تطبيق Hipo على الويب](/stake/)، أو [تطبيق Telegram المصغّر](https://t.me/HipoFinanceBot/app)، أو حتى عبر [Hipo Club](https://t.me/HipoFinanceBot/join). ببساطة اختر المنصة التي تناسبك، وستتمكن من إيداع GRAM في الستاكينغ من أي من هذه الخيارات.
+يمكنك إيداع GRAM في الستاكينغ عبر [تطبيق Hipo على الويب](/stake/)، أو [تطبيق Telegram المصغّر](https://t.me/HipoFinanceBot/app)، أو حتى عبر [Hipo Club](/club/). ببساطة اختر المنصة التي تناسبك، وستتمكن من إيداع GRAM في الستاكينغ من أي من هذه الخيارات.
 
 <figure><img src="/docs/images/tutorials-staking-2.png" alt="الطرق الثلاث للإيداع في الستاكينغ جنبًا إلى جنب: تطبيق Hipo على الويب، وتطبيق Telegram المصغّر، وبوت Hipo"></figure>
 

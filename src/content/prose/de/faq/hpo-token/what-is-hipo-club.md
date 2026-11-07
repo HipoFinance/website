@@ -4,6 +4,6 @@ section: 'hpo-token'
 question: 'Was ist Hipo Club?'
 ---
 
-Hipo Club ist Hipos Rewards-Programm für Staker und HPO-Inhaber, dem Sie über den <a href="https://t.me/HipoFinanceBot/join" target="_blank" rel="noopener noreferrer">Hipo-Club-Bot</a> auf Telegram beitreten.
+Hipo Club ist Hipos Rewards-Programm für Staker und HPO-Inhaber, zu finden auf <a href="/club/">hipo.finance/club/</a> oder in der <a href="https://t.me/HipoApp" target="_blank" rel="noopener noreferrer">Hipo-App</a> auf Telegram.
 
-Hipo-Club-HPO-Rewards fallen nach jeder Validierungsrunde auf das von Ihnen gehaltene hGRAM an, zu einer Rate, die von Ihrem Club-Level festgelegt wird, und können abgehoben werden, sobald der angesammelte Betrag 100 HPO übersteigt. Wer das erhaltene HPO hält, behält sein Level — wer es verkauft, wird auf Level 1 zurückgesetzt —, und Levels steigen durch Club-Aktivität (ein sofortiges Upgrade oder das saisonale Upgrade). Details stehen in den [Hipo-Club-Docs](/docs/giveaways-and-prizes/hipo-club/).
+Hipo-Club-HPO-Rewards fallen nach jeder Validierungsrunde auf das von Ihnen gehaltene hGRAM an, geboostet durch Ihr Club-Level von 1× bis 10×, und können an Ihre Club-Wallet geclaimt werden, sobald Sie 100 HPO haben, gegen eine Gebühr von 1 GRAM. Um Ihr Level zu behalten, lassen Sie das geclaimte HPO in Ihrer Club-Wallet: Alles Geclaimte erhöht Ihr Level-Minimum. Levels steigen durch das saisonale Upgrade oder ein Sofort-Upgrade. Details stehen in den [Hipo-Club-Docs](/docs/giveaways-and-prizes/hipo-club/).

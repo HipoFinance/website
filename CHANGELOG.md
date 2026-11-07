@@ -9,6 +9,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-07 — Docs: Hipo Club for Season 6
+
+- The Hipo Club page is rewritten for Season 6: boost 1×–10×, one Club wallet per Telegram account, claims from 100 HPO for 1 GRAM, the Level minimum (24 h grace at full boost, up to 7 days suspended at 1×, then Level 1), the seasonal and instant upgrades with their GRAM fees, 1% for invited friends, Season 6's dates; the old XP-era video is removed.
+- Using Multiple Wallets is rewritten around the Club wallet (other registered wallets earn 1×, HPO elsewhere does not count toward the minimum, changing wallets); Profit Sharing now says revenue sharing is paused while the protocol fee is 0%, with withdrawals of earlier revenue from 10 GRAM.
+- Rewards & APY, the HPO token page, Incentive Programs, TVL Milestones, the Glossary (XP entry removed), the Staking tutorial, four `hpo`/`vs` strings, four HPO FAQ answers and the Rewards page's third card drop the old rules (reset to Level 1 on selling, pooled connected wallets, season-end profit payouts, bot links) for the new ones.
+- Full boost during grace matches club-server's `specs/club-grace-full-boost.md` (club-server 15c2bcf), which must be deployed before this text is true in production.
+- English only so far: the 10 other locales wait for one translation batch. Left as history: the Season 1–3, Hipo Gang and Hipo Fund pages, and `club.json`'s "Upgrades reopen after the Season 5 wrap-up".
+
 ## 2026-11-06 — Verify page: the official Telegram bot, @HipoApp
 
 - `/verify/` lists @HipoApp first under Telegram as the official bot (the Hipo app and Hipo Club), notes that @HipoFinanceBot is the same bot under its older username, and its closing note now names the bot as the one Hipo app besides hipo.finance — the old "no Hipo app anywhere but hipo.finance" contradicted the bot. All 11 locales.

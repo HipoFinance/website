@@ -18,7 +18,7 @@ Di tab "**Stake**", Anda dapat:
 
 ### Langkah 1: Pilih platform Anda
 
-Anda dapat men-stake GRAM menggunakan [aplikasi web Hipo](/stake/), [Telegram Mini App](https://t.me/HipoFinanceBot/app), atau bahkan melalui [Hipo Club](https://t.me/HipoFinanceBot/join). Cukup pilih platform yang paling sesuai untuk Anda, dan Anda dapat men-stake GRAM dari mana pun di antara pilihan tersebut.
+Anda dapat men-stake GRAM menggunakan [aplikasi web Hipo](/stake/), [Telegram Mini App](https://t.me/HipoFinanceBot/app), atau bahkan melalui [Hipo Club](/club/). Cukup pilih platform yang paling sesuai untuk Anda, dan Anda dapat men-stake GRAM dari mana pun di antara pilihan tersebut.
 
 <figure><img src="/docs/images/tutorials-staking-2.png" alt="Tiga cara men-stake berdampingan: aplikasi web Hipo, Telegram Mini App, dan bot Hipo"></figure>
 

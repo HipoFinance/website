@@ -23,8 +23,8 @@ Découvre la [page HPO](/hpo/).
 
 ### Utilité du token
 
-- **Partage des profits :** les détenteurs de HPO reçoivent une part des revenus du protocole Hipo, calculée après chaque cycle de validation et versée à la fin de chaque saison du Hipo Club.
-- **Hipo Club :** conserver les HPO reçus en récompense préserve le niveau [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) d’un membre — les vendre le ramène au niveau 1 — et un niveau plus élevé rapporte davantage de HPO sur ses hGRAM à chaque cycle de validation ; les niveaux montent grâce à l’activité dans le Club (montée instantanée ou montée saisonnière).
+- **Partage des profits :** les détenteurs de HPO reçoivent une part des revenus du protocole Hipo, calculée après chaque cycle de validation et retirée dans le Hipo Club ; en pause tant que les frais du protocole sont à 0 %.
+- **Hipo Club :** un membre garde son niveau [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) en détenant dans son portefeuille Club les HPO qu’il a réclamés (son minimum de niveau), et un niveau plus élevé rapporte davantage de HPO sur ses hGRAM à chaque cycle de validation ; les niveaux montent grâce à la montée saisonnière ou à une montée instantanée.
 - **Gouvernance :** les détenteurs peuvent participer aux votes de gouvernance et contribuer à décider des mises à jour du protocole, des orientations stratégiques et des autres sujets importants.
 
 ### Répartition du token
@@ -36,7 +36,7 @@ Découvre la [page HPO](/hpo/).
 - 2 % : conseillers
 - 13 % : trésorerie
 
-<figure><img src="/docs/images/hipo-tokens-hipo-governance-token-hpo-tokenomics-1.jpg" alt="Diagramme en anneau de la répartition du token HPO : communauté 30 %, liquidité 20 %, équipe 20 %, marketing 15 %, trésorerie 13 %, conseillers 2 %."><figcaption><p>Le diagramme de répartition du token HPO</p></figcaption></figure>
+<figure><img src="/docs/images/hipo-tokens-hipo-governance-token-hpo-tokenomics-1.jpg" alt="Diagramme en anneau de la répartition du token HPO : communauté 30 %, liquidité 20 %, équipe 20 %, marketing 15 %, trésorerie 13 %, conseillers 2 %."><figcaption><p>Le diagramme de répartition du token HPO</p></figcaption></figure>
 
 ### Vesting du token
 

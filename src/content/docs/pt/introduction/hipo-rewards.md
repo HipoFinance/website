@@ -9,11 +9,11 @@ Fazer staking de GRAM com o Hipo paga você em três fluxos separados, em três 
 - **Recompensas base**\
   Recompensas de staking de GRAM, refletidas na taxa de conversão do hGRAM em relação ao GRAM — liquidadas **a cada rodada de validação** (~18 h), sem nada para resgatar
 - **Recompensas turbinadas**\
-  HPO extra sobre o valor em GRAM do que você tem em staking, a um coeficiente definido pelo seu nível no [Hipo Club](https://t.me/HipoFinanceBot/join) — acumulado **a cada rodada de validação**, sacável assim que o seu saldo passar de 100 HPO
+  HPO extra sobre o valor em GRAM do que você tem em staking, com boost segundo o seu nível no [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — acumulado **a cada rodada de validação**, resgatável quando você tiver 100 HPO, com uma taxa de 1 GRAM
 - **Recompensas adicionais**\
-  Manter HPO → receber uma parte da receita do protocolo — paga **ao fim de cada temporada do Hipo Club**
+  Manter HPO → receber uma parte da receita do protocolo — **em pausa** enquanto a taxa do protocolo for 0 %
 
-Dá para acompanhar as três no [app do Hipo](/club/) e no [Hipo Club](https://t.me/HipoFinanceBot/join).
+Dá para acompanhar as três no [Hipo Club](/club/), no site ou no [app do Hipo](https://t.me/HipoApp) no Telegram.
 
 ## Recompensas base: a taxa de conversão
 
@@ -77,17 +77,17 @@ O seu nível multiplica tudo o que está acima: no nível 10, o mesmo valor em s
 
 Há duas formas de subir de nível:
 
-- **Upgrade sazonal** — resgate as recompensas que você ganhou pelo menos uma vez durante a temporada; o seu nível sobe automaticamente no fim dela.
-- **Upgrade instantâneo** — pague a taxa de subida de nível e o seu nível sobe na hora.
+- **Upgrade sazonal** — resgate pelo menos uma vez durante a temporada e esteja acima do mínimo do nível quando ela terminar; você sobe um nível quando a próxima temporada começar.
+- **Upgrade instantâneo** — pague a taxa de subida de nível em GRAM e suba um nível na hora.
 
 Duas regras importam:
 
-- **Vender o HPO recebido como recompensa reinicia você para o nível 1.** O Club foi feito para recompensar quem segura os tokens, e esse é o mecanismo. Enviar o HPO recebido como recompensa para uma exchange, ou para uma carteira que você não conectou ao Club, conta como venda; movê-lo entre as suas próprias carteiras conectadas, não — veja [Usando várias carteiras](/docs/wallets-and-rewards/).
-- **Não há janela de resgate.** As recompensas se acumulam a cada rodada e podem ser sacadas sempre que o seu saldo for de pelo menos **100 HPO**.
+- **Mantenha o mínimo do seu nível.** Tudo o que você resgata soma a ele, e a sua carteira do Club precisa ter pelo menos essa quantidade de HPO, na carteira ou nos pools de liquidez compatíveis. Abaixo dele você tem 24 horas de tolerância com o boost total; depois o nível é suspenso e rende a 1×, e após mais 7 dias você volta ao Nível 1. O Club foi feito para recompensar quem segura os tokens, e esse é o mecanismo — veja [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **Não há janela de resgate.** As recompensas se acumulam a cada rodada e podem ser resgatadas sempre que você tiver pelo menos **100 HPO**, com uma taxa de 1 GRAM.
 
 ## Recompensas adicionais: participação nos lucros
 
-O HPO é o token de governança do Hipo. Mantê-lo dá a você voto na [DAO](/docs/dao/) e uma parte da receita do protocolo, distribuída ao fim de cada temporada do Hipo Club — veja [Participação nos lucros](/docs/profit-sharing/).
+O HPO é o token de governança do Hipo. Mantê-lo dá a você voto na [DAO](/docs/dao/) e uma parte da receita do protocolo, em pausa enquanto a taxa do protocolo for 0 % — veja [Participação nos lucros](/docs/profit-sharing/).
 
 :::note
 Enquanto a [taxa de governança](/docs/fees-and-gas/) for de **0 %**, o protocolo não arrecada receita, então não há nada a distribuir nesse fluxo. A participação nos lucros volta quando a taxa voltar. É a taxa de 0 % que faz as recompensas base serem tão altas quanto são.

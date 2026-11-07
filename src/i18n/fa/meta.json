@@ -3140,7 +3140,7 @@
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-club.md": {
-    "sourceHash": "c1e9802c6e2189926dd5a6093a9c51863c6f245b",
+    "sourceHash": "049036f7339e3681cd8901066aa4d0404564a3b3",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-club/hipo-club-season-2.md": {
@@ -3160,7 +3160,7 @@
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-incentive-programs.md": {
-    "sourceHash": "279b8b10602d04a87ca65ca27e58a88c985c7731",
+    "sourceHash": "490e49589042ae5f34edc75508543d1e9a1097cb",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-nfts.md": {
@@ -3172,11 +3172,11 @@
     "reviewed": false
   },
   "docs/giveaways-and-prizes/tvl-milestone-rewards.md": {
-    "sourceHash": "feeaef9abbb3753eff7a44a5bc0ed30cf2ae8591",
+    "sourceHash": "bd7ea55efc9c4c8b9099c8103a5394b8b04fac9f",
     "reviewed": false
   },
   "docs/glossary.md": {
-    "sourceHash": "8ba26ca9682476502eb14be7ce6076c2a75915ec",
+    "sourceHash": "1658dae88ef0dfdef1bdc4d06af6ca0703e6354c",
     "reviewed": false
   },
   "docs/hipo-ambassadors-program.md": {
@@ -3208,7 +3208,7 @@
     "reviewed": false
   },
   "docs/hipo-tokens/hipo-governance-token-hpo.md": {
-    "sourceHash": "a807b6574e7a9f88ea89f57741dd2dc25e1d7c39",
+    "sourceHash": "3325a5109cb339e41824081b16b146a56db05c7e",
     "reviewed": false
   },
   "docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution.md": {
@@ -3236,7 +3236,7 @@
     "reviewed": false
   },
   "docs/introduction/hipo-rewards.md": {
-    "sourceHash": "95bf5e6c407b902100c1085f68350a77afd248f9",
+    "sourceHash": "ccd6a2124d8191615aca2edcb7120e178c7c09a4",
     "reviewed": false
   },
   "docs/introduction/hipo-stats.md": {
@@ -3268,7 +3268,7 @@
     "reviewed": false
   },
   "docs/profit-sharing.md": {
-    "sourceHash": "d4d2432056363bfe6d670d4a49ff961301266ae3",
+    "sourceHash": "5120fdc53209757f2a5e897771422df5cf8dd53a",
     "reviewed": false
   },
   "docs/risks.md": {
@@ -3288,7 +3288,7 @@
     "reviewed": false
   },
   "docs/tutorials/staking.md": {
-    "sourceHash": "fe300bf46f584bea6706bc37bffaa3db345e051d",
+    "sourceHash": "01626c0a6977057b66079a01750ca949aa9805fc",
     "reviewed": false
   },
   "docs/tutorials/unstaking.md": {
@@ -3296,7 +3296,7 @@
     "reviewed": false
   },
   "docs/wallets-and-rewards.md": {
-    "sourceHash": "2f07ef1a6295f7ad57cb8da2cd9e0c96fb195fb5",
+    "sourceHash": "8f903ef38e43b34b5f8b727a36381b72d8f0a151",
     "reviewed": false
   },
   "faq.page.sections": {
@@ -3564,7 +3564,7 @@
     "reviewed": false
   },
   "hpo.scarcity.held.body": {
-    "sourceHash": "2ce686aa487b0b4d5a82bc35d98f9c3ee26566bf",
+    "sourceHash": "4950ce7102d0815dd85a920e2d2cac163c01445a",
     "reviewed": false
   },
   "hpo.scarcity.held.title": {
@@ -3712,7 +3712,7 @@
     "reviewed": false
   },
   "hpo.utility.level.body": {
-    "sourceHash": "b19455b119ba986a80fec527f007d671369a857b",
+    "sourceHash": "dc10e3a12e849fb4fb6876b1ce202d2bc7e04ff0",
     "reviewed": false
   },
   "hpo.utility.level.title": {
@@ -3720,7 +3720,7 @@
     "reviewed": false
   },
   "hpo.utility.profit.body": {
-    "sourceHash": "62cc872ba0ef04e827667387317a6bc76469d9c6",
+    "sourceHash": "26f06caf0981f8dcc8c242cdfdb58190ad17d6ba",
     "reviewed": false
   },
   "hpo.utility.profit.title": {
@@ -4040,11 +4040,11 @@
     "reviewed": false
   },
   "prose/faq/hpo-token/what-benefits-do-hpo-holders-receive.md": {
-    "sourceHash": "a22d63829febb84280f7f54f8f40ce2a79641f77",
+    "sourceHash": "2504ae1b283797e44f055298adeb86895802a8c5",
     "reviewed": false
   },
   "prose/faq/hpo-token/what-is-hipo-club.md": {
-    "sourceHash": "26ce686cac53d0cf273498e612ef306c077c3c87",
+    "sourceHash": "e24da1ed5bd89cd76df2182d7e27fb56039031d7",
     "reviewed": false
   },
   "prose/faq/hpo-token/what-is-hpo.md": {
@@ -4160,7 +4160,7 @@
     "reviewed": false
   },
   "prose/hpo-faq/02-what-makes-hpo-valuable.md": {
-    "sourceHash": "2c3f3d15c82dc1ab82ea1675c078f51e2031e3b1",
+    "sourceHash": "e69224db901a9df9b3603454095447d2895d7ffb",
     "reviewed": false
   },
   "prose/hpo-faq/03-how-many-hpo-exist-and-how-many-are-burned.md": {
@@ -4176,7 +4176,7 @@
     "reviewed": false
   },
   "prose/hpo-faq/06-how-do-i-earn-hpo-and-get-paid.md": {
-    "sourceHash": "2fcc9a3fd5529d41d644577eaad9185d5286ca56",
+    "sourceHash": "00aacb68dde9289173efe540a395d611b99fb7a7",
     "reviewed": false
   },
   "prose/hpo-faq/07-how-do-i-vote-on-hipo-proposals.md": {
@@ -4232,7 +4232,7 @@
     "reviewed": false
   },
   "prose/shell/rewards/cards/03-base-and-boosted-rewards.md": {
-    "sourceHash": "26a01a4a6cd9d0920b22b0a3fdc0d0226eb4db03",
+    "sourceHash": "894a3b82dc15a4d1fb8b871f043f46534fc0b4d4",
     "reviewed": false
   },
   "prose/shell/rewards/cards/04-learn-more.md": {
@@ -4972,7 +4972,7 @@
     "reviewed": false
   },
   "vs.hpo.note": {
-    "sourceHash": "7aec1963e58681ea020ee1d85fa0ee559650fa8b",
+    "sourceHash": "31d7aeb55e83f566f775e60791714e4d72cb511f",
     "reviewed": false
   },
   "vs.hpo.worth": {

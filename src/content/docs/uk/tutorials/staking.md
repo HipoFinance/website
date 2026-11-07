@@ -18,7 +18,7 @@ title: 'Стейкінг'
 
 ### Крок 1: Обери платформу
 
-Застейкати GRAM можна через [вебзастосунок Hipo](/stake/), [Telegram Mini App](https://t.me/HipoFinanceBot/app) або навіть через [Hipo Club](https://t.me/HipoFinanceBot/join). Просто обери платформу, яка тобі найзручніша, — застейкати GRAM ти зможеш із будь-якої з них.
+Застейкати GRAM можна через [вебзастосунок Hipo](/stake/), [Telegram Mini App](https://t.me/HipoFinanceBot/app) або навіть через [Hipo Club](/club/). Просто обери платформу, яка тобі найзручніша, — застейкати GRAM ти зможеш із будь-якої з них.
 
 <figure><img src="/docs/images/tutorials-staking-2.png" alt="Три способи застейкати поруч: вебзастосунок Hipo, Telegram Mini App і бот Hipo"></figure>
 

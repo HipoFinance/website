@@ -1,55 +1,71 @@
 ---
 title: 'Hipo Club'
-description: 'Uma comunidade dos verdadeiros fãs do Hipo'
+description: 'HPO com boost para quem faz staking e mantém'
 ---
 
-O Hipo Club é uma iniciativa criada para construir uma comunidade forte, responsável e bem informada, que compartilha uma visão de longo prazo para a Hipo Finance.
+O Hipo Club soma HPO com boost às suas recompensas de staking. O seu nível define o boost, de 1× no Nível 1 a 10× no Nível 10, e o Club recompensa quem guarda o HPO que ele paga.
 
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/3obpl6nYnLQ" title="O que é o Hipo Club?" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+O Club fica em [hipo.finance/club/](/club/) e, no Telegram, é a aba Club do bot oficial [@HipoApp](https://t.me/HipoApp).
 
-## O que é o Hipo Club?
+## Como funciona
 
-O Hipo Club é um sistema de níveis feito para recompensar participantes ativos e apoiadores de longo prazo do Hipo. Ele tem **10 níveis**, e o seu nível define o coeficiente de recompensa em HPO que você ganha sobre o valor em GRAM do seu hGRAM.
+O hGRAM que você mantém rende HPO a cada rodada de validação, cerca de a cada 18 horas. O valor é o valor em GRAM do seu hGRAM, vezes a taxa de recompensa em HPO, vezes o boost do seu nível. O hGRAM conta tanto na sua carteira quanto em [pools de liquidez compatíveis](/defi/). As taxas e o que elas representam estão em [Recompensas do Hipo](/docs/introduction/hipo-rewards/).
 
-### Principais benefícios por nível
+Há **10 níveis**, e o boost é o número do nível:
 
-- **Coeficiente de recompensa maior:** cada nível a mais aumenta o HPO que você ganha sobre o valor em GRAM do seu hGRAM a cada rodada de validação.
-- **Participação por indicação:** você ganha 1 % das recompensas em HPO geradas pelos amigos que convidar.
+| Nível | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  |
+| ----- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Boost | 1×  | 2×  | 3×  | 4×  | 5×  | 6×  | 7×  | 8×  | 9×  | 10× |
 
-## Temporadas e recompensas
+## Sua conta e sua carteira do Club
 
-Cada temporada dura um trimestre. As recompensas em HPO são acumuladas depois de cada rodada de validação e podem ser sacadas a qualquer momento, assim que o seu saldo acumulado passar do limite de **100 HPO** — não há janela de resgate nem desconto no resgate.
+Seu nível pertence à sua **conta do Telegram**, junto com o mínimo do nível, o HPO ainda não resgatado e os amigos que você convidou. Uma carteira por vez, a sua **carteira do Club**, rende no boost do seu nível e recebe os seus resgates.
 
-A participação nos lucros para holders de HPO é um fluxo separado, pago no fim de cada temporada (veja [Participação nos lucros](/docs/profit-sharing/)).
+- **Vinculação.** Entre com o Telegram e assine uma prova gratuita na sua carteira. O Telegram é necessário para resgatar, fazer upgrade, trocar de carteira e convidar amigos.
+- **Trocar a carteira do Club.** Você pode mudar para outra carteira quando quiser; assine com a nova carteira e confirme. Seu nível e o HPO não resgatado continuam com a sua conta. O resgate fica desativado por alguns minutos após a troca. Uma carteira que já é a carteira do Club de outra conta, ou um endereço de exchange ou de pool, não pode ser vinculada.
+- **Outras carteiras.** Uma carteira que não é a sua carteira do Club rende a 1×, depois de registrada ao abrir o Club com ela conectada. Se ela se tornar depois a sua carteira do Club, o que rendeu passa para a sua conta. Veja [Usar várias carteiras](/docs/wallets-and-rewards/).
+- **Outra carteira conectada na página Stake.** O Club nunca troca sozinho. Ele pergunta se você quer trocar, reconectar a sua carteira do Club ou decidir depois. Até você escolher, a sua carteira do Club continua rendendo, e resgates e upgrades ficam em pausa.
 
-## Como ganhar XP
+## Resgate
 
-O XP mede o quanto você é ativo no Hipo Club. Você ganha XP cumprindo as tarefas do Club no bot: coletar a **recompensa diária**, responder **quizzes**, **assistir aos vídeos do Hipo no YouTube**, convidar amigos e as demais tarefas que o bot lista.
+Você pode resgatar o seu HPO com boost quando tiver **100 HPO**, com uma taxa de **1 GRAM**. O resgate leva todo o seu saldo e o paga na sua carteira do Club. Não há janela de resgate nem desconto: as recompensas se acumulam a cada rodada e podem ser resgatadas sempre que você passar de 100 HPO.
 
-**Fazer staking não gera XP.** O seu GRAM em staking rende HPO pelo coeficiente de recompensa do seu nível — um mecanismo separado, descrito em [Recompensas do Hipo](/docs/introduction/hipo-rewards/). O XP é sobre atividade no Club; o coeficiente é sobre quanto vale o que você tem em staking.
+## O mínimo do seu nível
 
-## Como funciona a subida de nível
+Tudo o que você resgata soma ao **mínimo do seu nível**. Para manter o nível, mantenha pelo menos essa quantidade de HPO na sua carteira do Club e nos pools de liquidez compatíveis. O HPO em outras carteiras suas não conta.
 
-Há duas formas de subir:
+- **24 horas de tolerância.** Se você ficar abaixo do mínimo, tem 24 horas para voltar a ficar acima. Seu nível está seguro e você continua rendendo com o boost total.
+- **Até 7 dias suspenso.** Passada a tolerância, o seu nível fica suspenso: você o mantém, mas rende a 1×. Se voltar a ter o mínimo em até 7 dias, o nível volta na hora.
+- **De volta ao Nível 1.** Se os 7 dias passarem, você vai para o Nível 1 e o seu mínimo anterior é zerado.
 
-- **Upgrade instantâneo:** pague a taxa de subida de nível e o seu nível aumenta na hora.
-- **Upgrade sazonal:** resgate as recompensas que você ganhou pelo menos uma vez durante a temporada; o seu nível então aumenta automaticamente no fim dela, de acordo com a sua atividade.
+Vender HPO não é penalizado por si só. O que importa é apenas se a sua carteira do Club tem o seu mínimo. O Club envia um alerta no Telegram quando você cai abaixo dele.
 
-Vender o HPO recebido como recompensa — ou enviá-lo para fora das suas carteiras do Hipo Club — reinicia o seu nível para o nível 1.
+## Subir de nível
 
-## Responsabilidades dos membros do Club
+Há duas formas de subir, e elas se somam, até o Nível 10:
 
-O Hipo Club recompensa quem segura os tokens. Não existe cota de venda: em vez disso, espera-se que você mantenha o HPO que recebeu como recompensa, e se ele sair das suas carteiras, o seu nível volta para o nível 1 e você sobe de novo a partir dali.
+- **Upgrade sazonal (grátis).** Resgate pelo menos uma vez durante uma temporada e esteja acima do mínimo do nível quando ela terminar, e você sobe um nível quando a próxima temporada começar.
+- **Upgrade instantâneo.** Pague uma taxa em GRAM da sua carteira do Club para hipo.ton e suba um nível na hora. O novo boost vale a partir da próxima rodada. Você pode fazer upgrade mesmo suspenso.
 
-O valor é somado entre todas as carteiras do Hipo Club que você conectou, então mover o HPO entre as suas próprias carteiras conectadas não custa nada. O que reinicia o seu nível é vendê-lo, ou enviá-lo para uma exchange ou para uma carteira que você não conectou — veja [Usando várias carteiras](/docs/wallets-and-rewards/) para a regra completa e como recuperar um nível perdido.
+| Upgrade para o nível | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10    |
+| -------------------- | --- | --- | --- | --- | --- | --- | --- | --- | ----- |
+| Taxa (GRAM)          | 20  | 40  | 60  | 100 | 160 | 260 | 420 | 680 | 1,100 |
 
-## Sacar recompensas
+## Convidar amigos
 
-As recompensas são acumuladas continuamente e podem ser sacadas sempre que o seu saldo acumulado for de pelo menos **100 HPO**.
+Quando os amigos que você convida ganham HPO com boost, você ganha **1 %** dele, somado ao seu saldo resgatável. Depois de resgatado, ele soma ao mínimo do seu nível como qualquer outro resgate.
+
+## Temporadas
+
+A **Temporada 6** começou em **31 de outubro de 2026**, e o fim previsto é **31 de dezembro de 2026**; o Club mostra a data e uma contagem regressiva. No fim de uma temporada, os upgrades sazonais são aplicados. Uma suspensão em andamento leva os dias restantes para a temporada seguinte.
+
+A participação nos lucros para holders de HPO é um fluxo separado, em pausa enquanto a taxa do protocolo for 0 %; veja [Participação nos lucros](/docs/profit-sharing/).
 
 :::note
 
-## O que mudou desde a temporada 4
+## O que mudou na Temporada 6
 
-As temporadas 1–3 funcionavam com outro modelo: 6 níveis, resgates de HPO com desconto no fim de cada temporada e uma cota de venda por nível. A partir da **temporada 4**, o Hipo Club funciona como descrito acima — 10 níveis, recompensas diretas em HPO por rodada, sem desconto no resgate, sem cota de venda e com reinício de nível quando o HPO recebido como recompensa é vendido.
+Até a Temporada 5, o Club contava todas as carteiras conectadas em conjunto, os níveis subiam com XP de tarefas do bot, quizzes e recompensas diárias, e vender HPO recebido como recompensa mandava você para o Nível 1. A partir da **Temporada 6** há uma carteira do Club por conta do Telegram, o boost é o número do nível, e a única regra é o mínimo do nível. XP, tarefas e quizzes acabaram com a Temporada 5; o XP já ganho é mantido, mas não conta mais.
+
+As Temporadas 1 a 3 seguiam um modelo anterior, com 6 níveis, resgates com desconto no fim de cada temporada e um limite de venda por nível: veja a [Temporada 2](/docs/giveaways-and-prizes/hipo-club/hipo-club-season-2/) e a [Temporada 3](/docs/giveaways-and-prizes/hipo-club/hipo-club-season-3/).
 :::

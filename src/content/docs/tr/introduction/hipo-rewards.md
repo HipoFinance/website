@@ -9,11 +9,11 @@ Hipo ile GRAM stake etmek size üç ayrı akıştan, üç farklı zamanlamayla �
 - **Temel ödüller**\
   hGRAM'ın GRAM karşısındaki dönüşüm oranına yansıyan GRAM staking ödülleri — **her doğrulama turunda** (~18 saat) hesaba geçer, talep etmeniz gereken bir şey olmaz
 - **Artırılmış ödüller**\
-  Stake'inizin GRAM cinsinden değeri üzerinden, [Hipo Club](https://t.me/HipoFinanceBot/join) seviyenizin belirlediği bir katsayıyla ek HPO — **her doğrulama turunda** birikir, bakiyeniz 100 HPO'yu aştığında çekilebilir
+  Stake'inizin GRAM cinsinden değeri üzerinden, [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) seviyenizle güçlendirilmiş ek HPO — **her doğrulama turunda** birikir, 100 HPO'ya ulaştığınızda 1 GRAM ücretle talep edilebilir
 - **Ekstra ödüller**\
-  HPO tutun → protokol gelirinden pay alın — **her Hipo Club sezonunun sonunda** ödenir
+  HPO tutun → protokol gelirinden pay alın — protokol ücreti %0 olduğu sürece **duraklatılmıştır**
 
-Üçü de [Hipo uygulamasından](/club/) ve [Hipo Club](https://t.me/HipoFinanceBot/join) üzerinden takip edilebilir.
+Üçü de [Hipo Club](/club/) üzerinden, web sitesinde veya Telegram'daki [Hipo uygulamasında](https://t.me/HipoApp) takip edilebilir.
 
 ## Temel ödüller: dönüşüm oranı
 
@@ -77,17 +77,17 @@ Seviyeniz yukarıdaki her şeyi çarpar: 10. seviyede aynı stake, 1. seviyede k
 
 Seviye atlamanın iki yolu vardır:
 
-- **Sezonluk yükseltme** — sezon boyunca kazandığınız ödülleri en az bir kez talep edin; seviyeniz sezonun sonunda otomatik olarak yükselir.
-- **Anında yükseltme** — seviye atlama ücretini ödeyin, seviyeniz hemen yükselsin.
+- **Sezonluk yükseltme** — sezon boyunca en az bir kez talep edin ve sezon bittiğinde Seviye minimumunuzun üzerinde olun; sonraki sezon başladığında bir seviye atlarsınız.
+- **Anında yükseltme** — seviye atlama ücretini GRAM olarak ödeyin ve hemen bir seviye atlayın.
 
 İki kural önemlidir:
 
-- **Ödül olarak aldığınız HPO'yu satmak sizi 1. seviyeye sıfırlar.** Club, elde tutan kişileri ödüllendirmek üzere tasarlanmıştır ve mekanizma budur. Ödül HPO'yu bir borsaya ya da Club'a bağlamadığınız bir cüzdana göndermek satmak sayılır; kendi bağlı cüzdanlarınız arasında taşımak sayılmaz — bkz. [Birden fazla cüzdan kullanma](/docs/wallets-and-rewards/).
-- **Talep penceresi yoktur.** Ödüller her turda birikir ve bakiyeniz en az **100 HPO** olduğunda istediğiniz zaman çekilebilir.
+- **Seviye minimumunuzu koruyun.** Talep ettiğiniz her şey ona eklenir ve Club cüzdanınızın, cüzdanda ya da desteklenen likidite havuzlarında, en az o kadar HPO tutması gerekir. Altına düşerseniz tam güçlendirmenizle 24 saatlik ek süreniz olur; sonra seviyeniz askıya alınır ve 1× kazanır, 7 gün daha geçince Seviye 1'e dönersiniz. Club, elde tutan kişileri ödüllendirmek üzere tasarlanmıştır ve mekanizma budur — bkz. [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **Talep penceresi yoktur.** Ödüller her turda birikir ve en az **100 HPO**'nuz olduğunda, 1 GRAM ücretle istediğiniz zaman talep edilebilir.
 
 ## Ekstra ödüller: kâr paylaşımı
 
-HPO, Hipo'nun yönetişim tokenidir. Onu tutmak size [DAO'da](/docs/dao/) oy hakkı ve her Hipo Club sezonunun sonunda dağıtılan protokol gelirinden bir pay verir — bkz. [Kâr paylaşımı](/docs/profit-sharing/).
+HPO, Hipo'nun yönetişim tokenidir. Onu tutmak size [DAO'da](/docs/dao/) oy hakkı ve protokol ücreti %0 olduğu sürece duraklatılmış olan protokol gelirinden bir pay verir — bkz. [Kâr paylaşımı](/docs/profit-sharing/).
 
 :::note
 [Yönetişim komisyonu](/docs/fees-and-gas/) **%0** olduğu sürece protokol gelir toplamaz, dolayısıyla bu akışta dağıtılacak bir şey de olmaz. Komisyon geri geldiğinde kâr paylaşımı da geri gelir. Temel ödülleri bu kadar yüksek yapan şey, %0'lık komisyondur.

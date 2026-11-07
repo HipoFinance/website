@@ -23,8 +23,8 @@ Jelajahi [halaman HPO](/hpo/).
 
 ### Kegunaan token
 
-- **Bagi hasil:** pemegang HPO menerima bagian dari pendapatan protokol Hipo, dihitung setelah setiap putaran validasi dan dibayarkan pada akhir setiap musim Hipo Club.
-- **Hipo Club:** menahan HPO yang diperoleh sebagai imbalan mempertahankan level [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) seorang anggota — menjualnya mengembalikan mereka ke Level 1 — dan level yang lebih tinggi menghasilkan lebih banyak HPO atas hGRAM mereka pada setiap putaran validasi; level naik melalui aktivitas Club (peningkatan instan atau peningkatan musiman).
+- **Bagi hasil:** pemegang HPO menerima bagian dari pendapatan protokol Hipo, dihitung setelah setiap putaran validasi dan ditarik di Hipo Club; dijeda selama biaya protokol 0%.
+- **Hipo Club:** seorang anggota mempertahankan level [Hipo Club](/docs/giveaways-and-prizes/hipo-club/)-nya dengan menyimpan HPO yang telah diklaim (minimal Level-nya) di dompet Club, dan level yang lebih tinggi menghasilkan lebih banyak HPO atas hGRAM mereka pada setiap putaran validasi; level naik melalui upgrade musiman atau upgrade instan.
 - **Tata kelola:** pemegang dapat ikut serta dalam pemungutan suara tata kelola, membantu memutuskan peningkatan protokol, keputusan strategis, dan hal-hal penting lainnya.
 
 ### Distribusi token

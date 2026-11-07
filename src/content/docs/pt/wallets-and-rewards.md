@@ -1,78 +1,65 @@
 ---
 title: 'Usando várias carteiras'
-description: 'Como as recompensas acompanham suas carteiras e como adicionar uma segunda carteira sem perder seu nível do Hipo Club.'
+description: 'Como as recompensas acompanham suas carteiras, qual é a sua carteira do Hipo Club e como trocá-la sem perder o nível.'
 ---
 
-Muitos holders mantêm seus GRAM, hGRAM e HPO em mais de uma carteira. Tudo bem — a Hipo acompanha cada carteira separadamente e nenhuma delas para de render porque você conectou outra.
-
-Existe uma regra que costuma pegar as pessoas de surpresa, e ela só vale **depois que você recebe um airdrop do Hipo Club**. Esta página cobre os dois assuntos.
+Muitos holders mantêm seus GRAM, hGRAM e HPO em mais de uma carteira. Tudo bem: a Hipo acompanha cada carteira separadamente, e nenhuma delas para de render porque você conectou outra. O que muda de carteira para carteira é o boost: só a sua **carteira do Club** rende no nível do seu Hipo Club.
 
 ## Como uma carteira começa a render
 
 As recompensas básicas de staking não exigem nenhuma configuração: o hGRAM valoriza frente ao GRAM a cada rodada de validação, em qualquer carteira que o guarde, conectada ou não.
 
-**Com as recompensas em HPO é diferente — a Hipo precisa saber que a carteira existe.** Uma carteira começa a render HPO assim que você fizer uma destas duas coisas, uma vez:
+**As recompensas em HPO são diferentes: a Hipo precisa saber que a carteira existe.** Uma carteira começa a render HPO depois que você fizer uma destas duas coisas, uma única vez:
 
-- Abrir a [página de Recompensas](/club/) no app da Hipo com essa carteira conectada, **ou**
-- conectar essa carteira no [Hipo Club](https://t.me/HipoFinanceBot/join).
+- Abrir o [Hipo Club](/club/) em hipo.finance com essa carteira conectada, **ou**
+- Vinculá-la como a sua carteira do Club.
 
-A partir daí a carteira continua rendendo sobre o próprio saldo. Nada cancela esse registro: conectar outra carteira depois não a interrompe, e desconectá-la do app também não.
+Depois disso, a carteira continua rendendo sobre o próprio saldo. Nada a remove do registro: conectar outra carteira mais tarde não a faz parar, e desconectá-la também não.
 
 :::caution
-HPO e hGRAM em uma carteira que você **nunca** conectou não rendem nenhuma recompensa em HPO — nem agora nem retroativamente. Se você guarda em várias carteiras, registre cada uma delas.
+O hGRAM numa carteira que você **nunca** conectou não rende nenhuma recompensa em HPO, nem agora nem retroativamente. Se você mantém fundos em várias carteiras, abra o Hipo Club uma vez com cada uma delas.
 :::
 
-## As regras para várias carteiras
+## Sua carteira do Club e suas outras carteiras
 
-- **Cada carteira rende sobre o próprio saldo.** As recompensas escalam diretamente com o valor guardado: 100.000 hGRAM divididos em três carteiras rendem exatamente o mesmo que uma carteira com 100.000. Não há penalidade em espalhar nem bônus em juntar.
-- **Seu nível do Hipo Club pertence à sua conta do Telegram, não a uma carteira.** Toda carteira que você conecta rende com o coeficiente do seu nível. Subir de nível eleva todas de uma vez.
-- **Você pode conectar até 6 carteiras** a uma conta do Hipo Club.
-- **As recompensas são registradas e sacadas por carteira.** Cada carteira tem o próprio saldo acumulado e o próprio limite de 100 HPO. Elas não são somadas.
-- **Só o dono pode sacar.** As recompensas acumuladas por uma carteira só podem ser sacadas pela conta do Hipo Club à qual ela está conectada, e são sempre enviadas para essa mesma carteira.
+- **O seu nível do Hipo Club pertence à sua conta do Telegram, não a uma carteira.** Uma carteira por vez, a sua carteira do Club, rende no boost do seu nível. As suas outras carteiras registradas rendem a 1×.
+- **Os resgates passam pela carteira do Club.** O seu HPO com boost é um único saldo na sua conta do Telegram, resgatado a partir de 100 HPO com uma taxa de 1 GRAM e pago na sua carteira do Club. O HPO que uma carteira rende enquanto não é a sua carteira do Club fica com ela e passa para a sua conta quando você a torna a sua carteira do Club.
+- **As recompensas dependem do valor mantido.** Dividir o hGRAM entre carteiras rende as mesmas recompensas básicas, mas só a parte na sua carteira do Club recebe boost. Para ter o boost total, mantenha o seu hGRAM na carteira do Club ou nos pools de liquidez compatíveis.
+- **Uma conta por carteira.** Uma carteira só pode ser a carteira do Club de uma conta do Telegram.
 
-## Depois de receber um airdrop do Hipo Club
+## O mínimo do nível fica na carteira do Club
 
-Quando você recebe um airdrop do Club, a Hipo registra o valor que espera que você **mantenha**. O Hipo Club recompensa quem segura: se esse HPO sair das suas carteiras, seu nível volta para o Nível 1 e seu coeficiente de recompensa cai junto.
+Tudo o que você resgata soma ao **mínimo do seu nível**, e a sua carteira do Club, junto com os pools de liquidez compatíveis, precisa ter pelo menos essa quantidade de HPO. O HPO nas suas outras carteiras não conta.
 
-**O valor é somado entre todas as suas carteiras do Hipo Club.** Não importa qual delas guarda o HPO, nem qual você conectou por último — mova-o entre as suas carteiras conectadas à vontade.
+Por isso, se você tirar HPO da carteira do Club, mesmo para outra carteira sua, ele conta como abaixo do mínimo. Você tem então 24 horas para trazê-lo de volta antes de o nível ser suspenso. A regra completa está em [Hipo Club](/docs/giveaways-and-prizes/hipo-club/#o-mínimo-do-seu-nível).
 
-O que zera o seu nível:
+## Trocar a carteira do Club
 
-- Vender o HPO recebido como recompensa.
-- Enviá-lo para uma exchange, ou para qualquer carteira que você não tenha conectado no Hipo Club.
+1. Abra o [Hipo Club](/club/) e entre com o Telegram.
+2. Escolha trocar a carteira do Club, conecte a nova carteira e assine a prova gratuita.
+3. Confirme. O seu nível, o mínimo do nível e o HPO não resgatado continuam com a sua conta; a carteira antiga volta a render a 1×.
+
+Não há limite de quantas vezes você pode trocar. O resgate fica desativado por alguns minutos após a troca, e uma troca não pode começar enquanto algum pagamento seu estiver a caminho.
+
+Se a nova carteira tiver menos HPO do que o mínimo do seu nível, a tolerância de 24 horas começa na hora; por isso mova o HPO antes ou logo depois da troca.
 
 :::note
-Conectar uma carteira no [app da Hipo](/stake/) em hipo.finance a registra para recompensas, mas não a torna uma das suas carteiras do Hipo Club. Só as carteiras conectadas no app do Club contam para o valor que você deve manter — então conecte lá também a carteira que guarda o seu HPO recebido.
+Conectar outra carteira na [página Stake](/stake/) não muda a sua carteira do Club. O Club pergunta se você quer trocar, reconectar a sua carteira do Club ou decidir depois. Até você escolher, a sua carteira do Club continua rendendo, e resgates e upgrades ficam em pausa.
 :::
-
-## Passo a passo: adicionar uma carteira
-
-1. **Registre a nova carteira para recompensas.** Conecte-a no app da Hipo e abra a [página de Recompensas](/club/) uma vez. Ela já rende HPO sobre o que guardar. Se você nunca recebeu um airdrop do Club, terminou aqui.
-2. **Conecte-a também no Hipo Club, se ela guardar parte do seu HPO recebido.** É isso que faz o saldo dela contar para o valor que você deve manter. A ordem em que você conecta as carteiras não importa.
-3. **Confira seu nível depois.** Se o Hipo Club ainda mostra seu nível, está tudo certo.
-
-## Se seu nível caiu para o Nível 1
-
-O Hipo Club mostra a diferença — quanto HPO falta somando as suas carteiras conectadas.
-
-Traga HPO de volta para qualquer carteira que você tenha conectado no Hipo Club, ou conecte a carteira que já o guarda. Depois aguarde a próxima rodada de validação (~18 horas); seu nível é restaurado automaticamente.
-
-Duas coisas valem saber enquanto a redefinição está ativa: o valor exigido **cresce 1% por dia** até você restaurá-lo, então agir antes custa menos, e, uma vez restaurado, esse valor maior passa a ser o novo valor a manter.
 
 ## Referência rápida
 
-| O que você faz                                       | Efeito nas recompensas                         |
-| ---------------------------------------------------- | ---------------------------------------------- |
-| Conectar uma nova carteira em hipo.finance           | Ela começa a render. Nada mais muda.           |
-| Abrir a página de Recompensas com uma carteira       | Registra essa carteira para recompensas em HPO |
-| Conectar outra carteira no Hipo Club                 | O HPO dela conta para o que você deve manter   |
-| Dividir hGRAM entre carteiras                        | Nenhuma mudança no total de recompensas        |
-| Mover o HPO recebido entre as suas carteiras do Club | Nenhum efeito no seu nível                     |
-| Vender o HPO recebido, ou enviá-lo para fora         | O nível volta para o Nível 1                   |
-| Guardar HPO em uma carteira nunca conectada          | Não rende nada e não conta para a manutenção   |
+| O que você faz                                    | Efeito                                                   |
+| ------------------------------------------------- | -------------------------------------------------------- |
+| Abrir o Hipo Club com uma nova carteira conectada | Ela começa a render HPO a 1×                             |
+| Torná-la a sua carteira do Club                   | Rende no boost do seu nível; o HPO dela se soma ao seu   |
+| Dividir hGRAM entre carteiras                     | Só a parte na carteira do Club recebe boost              |
+| Tirar o HPO resgatado da carteira do Club         | Conta como abaixo do mínimo; 24 h para trazê-lo de volta |
+| Conectar outra carteira na página Stake           | A carteira do Club não muda até você escolher            |
+| Guardar hGRAM numa carteira nunca conectada       | Não rende HPO                                            |
 
 ## Relacionados
 
-- [Recompensas e APY](/docs/introduction/hipo-rewards/) — os três fluxos de recompensa e seus tempos
-- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — níveis, XP e coeficientes
-- [Divisão de lucros](/docs/profit-sharing/) — a parte da receita dos holders de HPO
+- [Recompensas e APY](/docs/introduction/hipo-rewards/): os três fluxos de recompensa e seus tempos
+- [Hipo Club](/docs/giveaways-and-prizes/hipo-club/): níveis, boost e o mínimo do nível
+- [Divisão de lucros](/docs/profit-sharing/): a parte da receita dos holders de HPO

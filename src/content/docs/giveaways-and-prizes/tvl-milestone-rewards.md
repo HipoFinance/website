@@ -3,7 +3,7 @@ title: 'TVL Milestone Rewards'
 ---
 
 :::note
-**This program has been discontinued and replaced by** [**Hipo Club**](/docs/giveaways-and-prizes/hipo-club/)**, a more comprehensive incentive system that rewards stakers based on their staking activity and progression through different levels.**
+**This program has been discontinued and replaced by** [**Hipo Club**](/docs/giveaways-and-prizes/hipo-club/)**, a more comprehensive incentive system that rewards stakers with HPO, boosted by their Club level.**
 :::
 
 :::tip

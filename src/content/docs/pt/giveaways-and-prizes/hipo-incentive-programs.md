@@ -65,7 +65,7 @@ O [programa de embaixadores](/docs/hipo-ambassadors-program/) estimula o crescim
 
 ## 7. Hipo Club
 
-O Hipo Club é um programa comunitário por níveis que recompensa o compromisso de longo prazo. Os membros mantêm hGRAM e ganham HPO depois de cada rodada de validação; o nível de cada um — um entre **10** — define a taxa de recompensa. Os níveis sobem com um upgrade instantâneo pago ou resgatando recompensas ao menos uma vez durante a temporada, e voltam ao nível 1 se o HPO recebido como recompensa for vendido. As recompensas acumuladas podem ser sacadas quando o saldo passa de 100 HPO.
+O Hipo Club é um programa comunitário por níveis que recompensa o compromisso de longo prazo. Os membros mantêm hGRAM e ganham HPO depois de cada rodada de validação; o nível de cada um — um entre **10** — define o boost, de 1× a 10×. As recompensas podem ser resgatadas quando o saldo chega a 100 HPO, com uma taxa de 1 GRAM, e tudo o que foi resgatado precisa ficar na carteira do Club do membro para manter o nível. Os níveis sobem com um upgrade instantâneo pago ou com o upgrade sazonal gratuito.
 
 [Saiba mais sobre como o Hipo Club funciona](/docs/giveaways-and-prizes/hipo-club/)
 

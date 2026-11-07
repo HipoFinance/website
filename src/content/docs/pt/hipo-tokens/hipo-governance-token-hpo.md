@@ -23,8 +23,8 @@ O **HPO** é o token de governança e participação nos lucros do Hipo, que per
 
 ### Utilidade do token
 
-- **Participação nos lucros:** os holders de HPO recebem uma parte da receita do protocolo Hipo, calculada após cada rodada de validação e paga ao fim de cada temporada do Hipo Club.
-- **Hipo Club:** manter o HPO recebido como recompensa preserva o nível do membro no [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — vendê-lo faz voltar ao nível 1 — e um nível mais alto rende mais HPO sobre o hGRAM a cada rodada de validação; os níveis sobem com a atividade no Club (uma subida instantânea ou a subida sazonal).
+- **Participação nos lucros:** os holders de HPO recebem uma parte da receita do protocolo Hipo, calculada após cada rodada de validação e resgatada no Hipo Club; em pausa enquanto a taxa do protocolo for 0 %.
+- **Hipo Club:** o membro mantém o seu nível no [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) guardando na carteira do Club o HPO que resgatou (o mínimo do nível), e um nível mais alto rende mais HPO sobre o hGRAM a cada rodada de validação; os níveis sobem com o upgrade sazonal ou com um upgrade instantâneo.
 - **Governança:** os holders podem participar das votações de governança, ajudando a decidir sobre atualizações do protocolo, decisões estratégicas e outros assuntos essenciais.
 
 ### Distribuição do token

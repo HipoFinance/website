@@ -9,11 +9,11 @@ Wenn Sie GRAM mit Hipo staken, werden Sie über drei getrennte Ströme in drei v
 - **Basis-Rewards**\
   Staking-Rewards auf GRAM, die sich im Wechselkurs von hGRAM gegenüber GRAM abbilden — verrechnet **in jeder Validierungsrunde** (~18 h), ohne dass Sie etwas beanspruchen müssen
 - **Zusätzliche Rewards**\
-  Extra HPO auf den GRAM-Wert Ihres Stakes, zu einem Koeffizienten, den Ihr [Hipo Club](https://t.me/HipoFinanceBot/join)-Level bestimmt — fällt **in jeder Validierungsrunde** an und ist auszahlbar, sobald Ihr Guthaben 100 HPO übersteigt
+  Extra HPO auf den GRAM-Wert Ihres Stakes, geboostet durch Ihr [Hipo-Club](/docs/giveaways-and-prizes/hipo-club/)-Level — fällt **in jeder Validierungsrunde** an und ist claimbar, sobald Sie 100 HPO haben, gegen eine Gebühr von 1 GRAM
 - **Weitere Rewards**\
-  HPO halten → einen Anteil an den Einnahmen des Protokolls erhalten — ausgezahlt **am Ende jeder Hipo-Club-Season**
+  HPO halten → einen Anteil an den Einnahmen des Protokolls erhalten — **pausiert**, solange die Protokollgebühr 0 % beträgt
 
-Alle drei lassen sich in der [Hipo-App](/club/) und im [Hipo Club](https://t.me/HipoFinanceBot/join) verfolgen.
+Alle drei lassen sich im [Hipo Club](/club/) verfolgen, auf der Website oder in der [Hipo-App](https://t.me/HipoApp) auf Telegram.
 
 ## Basis-Rewards: der Wechselkurs
 
@@ -77,17 +77,17 @@ Ihr Level vervielfacht alles Vorherige: Auf Level 10 verdient derselbe Stake das
 
 Es gibt zwei Wege, aufzusteigen:
 
-- **Saisonales Upgrade** — Beanspruchen Sie Ihre verdienten Rewards mindestens einmal während der Season; Ihr Level steigt dann am Ende automatisch.
-- **Sofort-Upgrade** — Zahlen Sie die Stufenaufstiegs-Gebühr, und Ihr Level steigt sofort.
+- **Saisonales Upgrade** — Claimen Sie mindestens einmal während der Season und liegen Sie bei deren Ende über Ihrem Level-Minimum; zum Start der nächsten Season steigen Sie ein Level auf.
+- **Sofort-Upgrade** — Zahlen Sie die Upgrade-Gebühr in GRAM und steigen Sie sofort ein Level auf.
 
 Zwei Regeln sind wichtig:
 
-- **Der Verkauf von erhaltenem HPO setzt Sie auf Level 1 zurück.** Der Club ist darauf ausgelegt, Menschen zu belohnen, die halten, und das ist der Mechanismus dafür. Erhaltenes HPO an eine Börse zu senden oder an eine Wallet, die Sie nicht mit dem Club verbunden haben, gilt als Verkauf; das Verschieben zwischen Ihren eigenen verbundenen Wallets dagegen nicht — siehe [Mehrere Wallets verwenden](/docs/wallets-and-rewards/).
-- **Es gibt kein Claim-Fenster.** Rewards fallen in jeder Runde an und können ausgezahlt werden, sobald Ihr Guthaben mindestens **100 HPO** beträgt.
+- **Halten Sie Ihr Level-Minimum.** Alles, was Sie claimen, kommt dazu, und Ihre Club-Wallet muss mindestens so viel HPO halten, in der Wallet oder in ihren unterstützten Liquiditätspools. Darunter haben Sie 24 Stunden Schonfrist mit vollem Boost; danach wird Ihr Level ausgesetzt und verdient 1×, und nach weiteren 7 Tagen fallen Sie auf Level 1 zurück. Der Club ist darauf ausgelegt, Menschen zu belohnen, die halten, und das ist der Mechanismus dafür — siehe [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
+- **Es gibt kein Claim-Fenster.** Rewards fallen in jeder Runde an und können geclaimt werden, sobald Sie mindestens **100 HPO** haben, gegen eine Gebühr von 1 GRAM.
 
 ## Weitere Rewards: Gewinnbeteiligung
 
-HPO ist der Governance-Token von Hipo. Wer ihn hält, hat eine Stimme in der [DAO](/docs/dao/) und einen Anteil an den Einnahmen des Protokolls, der am Ende jeder Hipo-Club-Season ausgeschüttet wird — siehe [Gewinnbeteiligung](/docs/profit-sharing/).
+HPO ist der Governance-Token von Hipo. Wer ihn hält, hat eine Stimme in der [DAO](/docs/dao/) und einen Anteil an den Einnahmen des Protokolls, der pausiert, solange die Protokollgebühr 0 % beträgt — siehe [Gewinnbeteiligung](/docs/profit-sharing/).
 
 :::note
 Solange die [Governance-Gebühr](/docs/fees-and-gas/) bei **0 %** liegt, nimmt das Protokoll keine Einnahmen ein, sodass es in diesem Strom nichts zu verteilen gibt. Die Gewinnbeteiligung setzt wieder ein, sobald die Gebühr das tut. Die Gebühr von 0 % ist auch der Grund, warum die Basis-Rewards so hoch sind.

@@ -18,7 +18,7 @@ Im Tab „**Staken**“ können Sie:
 
 ### Schritt 1: Wählen Sie Ihre Plattform
 
-Sie können Ihr GRAM über die [Hipo Web App](/stake/), die [Telegram Mini App](https://t.me/HipoFinanceBot/app) oder sogar über den [Hipo Club](https://t.me/HipoFinanceBot/join) staken. Wählen Sie einfach die Plattform, die am besten zu Ihnen passt — über jede dieser Optionen können Sie GRAM staken.
+Sie können Ihr GRAM über die [Hipo Web App](/stake/), die [Telegram Mini App](https://t.me/HipoFinanceBot/app) oder sogar über den [Hipo Club](/club/) staken. Wählen Sie einfach die Plattform, die am besten zu Ihnen passt — über jede dieser Optionen können Sie GRAM staken.
 
 <figure><img src="/docs/images/tutorials-staking-2.png" alt="Die drei Wege zum Staken nebeneinander: die Hipo Web App, die Telegram Mini App und der Hipo-Bot"></figure>
 
