@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-08 — DeFi page: DeDust Earn opens the pool list for hGRAM
+
+- The DeDust Earn button now opens DeDust's pool list filtered to the two assets, sorted by TVL, instead of the one fixed pool address, at Behrang's request.
+- The old pool link in the 1st-anniversary blog post is left as it was: it is a dated report.
+
 ## 2026-11-08 — Club: "Show my name", the grace panel title, the revenue teaser (11 locales)
 
 - The leaderboard link names its action: "Hide my name", or "Show my name" while the name is hidden (new `club.board.showName`; the tick and `aria-pressed` are gone).
