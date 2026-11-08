@@ -120,10 +120,9 @@ hamburger keeps them one tap away at no cost to the main row.
       the flag is off), and the logo links to the locale's home.
 - [x] At 390px on the same pages, a bottom bar shows the same five items with icons, and the current page's
       item is coral (HPO on `/hpo/`, none on `/`, `/faq/`, `/blog/`, `/vs/` and `/verify/`).
-- [ ] In the app at 390px, tapping Stake, Club, Stats or DeFi switches page without a full reload (the island
-      is not re-created, wallet stays connected); tapping HPO loads `/hpo/`. Not verified in a browser (no
-      wallet in headless runs); by code review, the four app tabs keep `navigateToPage` unchanged and HPO is a
-      plain link that falls back to a full load.
+- [x] In the app at 390px, tapping Stake, Club, Stats or DeFi switches page without a full reload (the island
+      is not re-created, wallet stays connected); tapping HPO loads `/hpo/`. Verified by Behrang on his phone on
+      2026-11-02 (the wallet stays connected); headless runs could not connect a wallet.
 - [x] At 360px, every tab label fits on one line without clipping in en, de, ru, pt, tr, fa and ar, light
       and dark (screenshots).
 - [x] At 390px, the hamburger shows Docs, FAQ, Blog (and Open app on static pages) and no main items; from
