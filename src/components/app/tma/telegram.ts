@@ -197,7 +197,7 @@ export async function initTelegramChrome(mode: TmaMode): Promise<boolean> {
   // startup, which is when the mini app is (re)opened anyway.
   const light = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: light)').matches
   const barColor = light ? '#f1e9de' : '#171312'
-  const backgroundColor = light ? '#faf6ef' : '#201b1a'
+  const backgroundColor = light ? '#faf6ef' : '#1f1b1a'
 
   // Hex colors for setHeaderColor arrived in Bot API 6.9; setBackgroundColor took them from 6.1.
   // Below those versions Telegram keeps the user's theme colors, which is an acceptable fallback.

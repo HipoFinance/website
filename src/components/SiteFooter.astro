@@ -63,12 +63,12 @@ const docsLinks = [
     {
       !app && cta && (
         <div
-          class='border-border mb-10 flex flex-col items-start justify-between gap-4 rounded-[20px] border p-6 sm:flex-row sm:items-center sm:gap-8 sm:px-8 sm:py-7'
-          style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
+          class='border-border rounded-card mb-10 flex flex-col items-start justify-between gap-4 border p-6 sm:flex-row sm:items-center sm:gap-8 sm:px-8 sm:py-7'
+          style='background: linear-gradient(120deg, var(--accent-wash), var(--accent-wash-clear) 60%);'
         >
           <div class='flex flex-col gap-2'>
-            <div class='font-fredoka text-text text-xl font-semibold sm:text-2xl'>{t('site.footer.ctaTitle')}</div>
-            <p class='text-text-muted text-[15px] leading-[1.55]'>{t('site.footer.ctaBody')}</p>
+            <div class='font-display text-text font-heading text-xl sm:text-2xl'>{t('site.footer.ctaTitle')}</div>
+            <p class='text-text-muted text-body leading-[1.55]'>{t('site.footer.ctaBody')}</p>
           </div>
           <a
             class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover shrink-0 rounded-full px-[30px] py-3.5 text-base font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
@@ -85,7 +85,7 @@ const docsLinks = [
         <div class='text-text flex flex-row items-center gap-2.5'>
           <img src='/images/hipo.svg' alt='' class='logo-on-dark size-9' />
           <img src='/images/hipo-light.svg' alt='' class='logo-on-light size-9' />
-          <p class='font-fredoka text-2xl font-semibold'>Hipo</p>
+          <p class='font-wordmark text-2xl font-semibold'>Hipo</p>
         </div>
         <p class='mt-3 text-sm'>{t('site.footer.tagline')}</p>
         <LanguageSwitcher class='mt-4 w-fit text-sm' localized={localized} />

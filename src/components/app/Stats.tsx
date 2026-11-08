@@ -16,8 +16,8 @@ interface TileProps {
 // used to sit behind a question-mark bubble is carried by the title attribute here; the full
 // tooltips live on the Stats page.
 const Tile = ({ label, tooltip, value, accent }: TileProps) => (
-  <div className='border-border bg-surface rounded-[20px] border px-5 py-4'>
-    <p className={'font-fredoka num text-2xl font-semibold ' + (accent === true ? 'text-accent' : 'text-text')}>
+  <div className='border-border bg-surface rounded-card border px-5 py-4'>
+    <p className={'font-display num font-heading text-2xl ' + (accent === true ? 'text-accent' : 'text-text')}>
       {value ?? '—'}
     </p>
     <p className='text-text-muted text-sm' title={tooltip}>
@@ -64,7 +64,7 @@ const Stats = observer(({ model }: Props) => {
 
         <div className='mt-4 flex flex-row justify-center'>
           <button
-            className='text-text-faint hover:text-accent cursor-pointer text-[13px]'
+            className='text-text-faint hover:text-accent text-label cursor-pointer'
             onClick={() => {
               model.navigateToPage('stats')
             }}

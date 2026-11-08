@@ -29,7 +29,7 @@ const zipPath = join(root, 'public/docs/images/brand-kit-file-1.zip')
  *  surface-color tweak.
  *
  *  There are two creams and they are not interchangeable. #efebe5 is the mascot's body in every
- *  piece of artwork (public/images/hipo.svg, both lockups); #f5efe8 is --color-text, the cream
+ *  piece of artwork (public/images/hipo.svg, both lockups); #f3ede8 is --color-text, the cream
  *  the site sets copy in. Listing only the text one — which this file did at first — hands a
  *  partner the wrong fill for the one thing the README tells them not to get wrong. */
 const PALETTE = [
@@ -37,11 +37,12 @@ const PALETTE = [
   ['Coral (on light)', '#e0574b', 'Coral as text or an icon on a light ground, where #ff7e73 loses contrast.'],
   ['Coral shadow', '#c1544a', 'The hard offset shadow under coral buttons.'],
   ['Logo cream', '#efebe5', "The mascot's body in the dark-background logo."],
-  ['Text cream', '#f5efe8', 'Body text on dark grounds.'],
-  ['Ink', '#291f20', 'Body text on light grounds, and the label inside coral buttons.'],
+  ['Text cream', '#f3ede8', 'Body text on dark grounds.'],
+  ['Ink', '#291f20', 'Body text on light grounds, and the linework in the light-background logo.'],
+  ['Ink on coral', '#2b1410', 'The label inside coral buttons.'],
   ['Linework', '#0e0e0e', 'The mascot outline in the dark-background logo.'],
-  ['Warm dark', '#201b1a', 'Page background, dark scheme.'],
-  ['Warm dark surface', '#2b2423', 'Cards and panels, dark scheme.'],
+  ['Warm dark', '#1f1b1a', 'Page background, dark scheme.'],
+  ['Warm dark surface', '#2a2523', 'Cards and panels, dark scheme.'],
   ['Warm cream', '#faf6ef', 'Page background, light scheme.'],
   ['hGRAM brown', '#776464', 'The hGRAM coin face.'],
   ['HPO purple', '#7e22ce', 'The HPO coin face.'],
@@ -202,7 +203,7 @@ function paletteSheet() {
   const cells = PALETTE.map(([name, hex, use], i) => {
     const x = 30 + (i % cols) * cw
     const y = 100 + Math.floor(i / cols) * ch
-    const lines = wrap(use, 40)
+    const lines = wrap(use, 32) // 32 fits the 214-unit column even in a wide fallback font (no Helvetica on Linux)
       .slice(0, 3)
       .map((line, n) => `<text x="${x + 86}" y="${y + 62 + n * 15}" font-size="11" fill="#8d7f76">${xml(line)}</text>`)
       .join('')

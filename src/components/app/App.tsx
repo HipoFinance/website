@@ -10,12 +10,6 @@ import Stats from './Stats.tsx'
 import LoadingIndicator from './LoadingIndicator.tsx'
 import ErrorDisplay from './ErrorDisplay.tsx'
 import WalletPickerNotice from './WalletPickerNotice.tsx'
-// Heebo is the redesign's body face (--font-body in app.css); Fredoka, the display face, comes
-// from @fontsource-variable/fredoka, imported once in global.css.
-import '@fontsource/heebo/300.css'
-import '@fontsource/heebo/400.css'
-import '@fontsource/heebo/500.css'
-import '@fontsource/heebo/700.css'
 import { Model } from './Model'
 import { useRef, useEffect, useLayoutEffect } from 'react'
 import AmountAlert from './AmountAlert.tsx'

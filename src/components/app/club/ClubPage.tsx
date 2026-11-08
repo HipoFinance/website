@@ -1,7 +1,6 @@
 // The Club page (specs/club-website.md §1): its header (season, the Telegram pill), the four tabs as a
 // segmented row — the same row on the web and in the Mini App (§10) — the active tab, and the modals.
 import { useEffect, useState, type ReactNode } from 'react'
-import { Clock } from 'lucide-react'
 import { observer } from 'mobx-react-lite'
 import type { Model, ClubTab } from '../Model'
 import { clubModelFor, type ClubModel } from './ClubModel.ts'
@@ -10,6 +9,7 @@ import RewardsTab from './RewardsTab.tsx'
 import FriendsTab from './FriendsTab.tsx'
 import CommunityTab from './CommunityTab.tsx'
 import Modals from './Modals.tsx'
+import { ClockIcon } from './icons.tsx'
 import { Skeleton, TmaContext } from './ui.tsx'
 
 interface Props {
@@ -59,17 +59,17 @@ const Header = observer(({ club }: { club: ClubModel }) => {
       }
     }
   }
-  const chip = 'flex min-w-0 items-center gap-2 rounded-full border px-4 py-2 text-[15px] leading-normal'
+  const chip = 'flex min-w-0 items-center gap-2 rounded-full border px-4 py-2 text-body leading-normal'
   return (
     <div className='flex min-w-0 flex-wrap items-end justify-between gap-x-6 gap-y-4'>
       <div className='flex min-w-0 flex-col gap-1.5'>
-        <h1 className='font-fredoka text-[44px] leading-[1.1] font-bold'>{t('club.header.title')}</h1>
-        <p className='text-text-muted text-[17px] leading-normal'>{t('club.header.subtitle')}</p>
+        <h1 className='font-display text-display leading-[1.1] font-extrabold'>{t('club.header.title')}</h1>
+        <p className='text-text-muted text-lead leading-normal'>{t('club.header.subtitle')}</p>
       </div>
       <div className='ms-auto flex min-w-0 flex-wrap items-center justify-end gap-2.5'>
         {seasonPill !== undefined && (
           <div className={chip + ' border-border bg-surface'}>
-            <Clock size={16} className='text-text-faint shrink-0' aria-hidden='true' />
+            <ClockIcon size={16} className='text-text-muted' />
             <span className='min-w-0'>{seasonPill}</span>
           </div>
         )}
@@ -110,19 +110,34 @@ const Header = observer(({ club }: { club: ClubModel }) => {
   )
 })
 
+// The md-and-up overrides that turn the segmented switch into the wireframe's underline tabs.
+const DESK_NAV = 'md:gap-2 md:rounded-none md:border-0 md:border-b md:bg-transparent md:p-0'
+const DESK_TAB =
+  'md:-mb-px md:min-h-11 md:flex-none md:rounded-none md:border-b-2 md:bg-transparent md:px-4 md:py-2.5 md:text-body md:shadow-none'
+const DESK_TAB_ON = 'md:border-accent md:font-semibold'
+const DESK_TAB_OFF = 'md:border-transparent md:font-normal'
+
 export const ClubTabs = observer(({ club }: { club: ClubModel }) => {
   const t = club.t
   const active = club.model.clubTab
+  // The Mini App keeps the switch at every width.
+  const desk = !club.tma
   return (
-    <nav aria-label={t('club.tabs.label')} className='bg-surface-deep border-border flex gap-1 rounded-full border p-1'>
+    // A segmented switch on phones and in the Mini App; from md up on the web, the wireframe's
+    // underline tabs (left-aligned links over a bottom rule, the active one underlined in coral).
+    <nav
+      aria-label={t('club.tabs.label')}
+      className={'bg-surface-deep border-border flex gap-1 rounded-full border p-1' + (desk ? ' ' + DESK_NAV : '')}
+    >
       {TABS.map((tab) => (
         <a
           key={tab}
           href={club.model.localizedPath(tab === 'overview' ? '/club/' : `/club/${tab}/`)}
           aria-current={active === tab ? 'page' : undefined}
           className={
-            'flex min-h-10 min-w-0 flex-auto items-center justify-center rounded-full px-1.5 text-center text-[13px] leading-tight font-medium hyphens-auto sm:px-2 sm:text-sm ' +
-            (active === tab ? 'bg-surface text-text shadow-sm' : 'text-text-muted hover:text-accent')
+            'text-label flex min-h-10 min-w-0 flex-auto items-center justify-center rounded-full px-1.5 text-center leading-tight font-medium hyphens-auto sm:px-2 sm:text-sm ' +
+            (active === tab ? 'bg-surface text-text shadow-sm' : 'text-text-muted hover:text-accent') +
+            (desk ? ' ' + DESK_TAB + ' ' + (active === tab ? DESK_TAB_ON : DESK_TAB_OFF) : '')
           }
           onClick={(e) => {
             e.preventDefault()
@@ -171,7 +186,7 @@ const ClubPage = observer(({ model }: Props) => {
       <div
         className={
           'font-body text-text mx-auto flex w-full max-w-[1232px] min-w-0 flex-col px-4 pt-2 pb-28 sm:px-6 lg:pb-12 ' +
-          (club.tma ? 'gap-3.5' : 'gap-5')
+          (club.tma ? 'gap-3.5' : 'gap-6')
         }
       >
         {club.tma ? <ClubTabs club={club} /> : <Header club={club} />}

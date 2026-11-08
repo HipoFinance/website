@@ -32,7 +32,7 @@ when a visual change would change what a reader has to do or read, say so instea
   selected by the OS setting alone. Every change is checked in both.
 - **Coral has two tokens**: `--color-accent` (foreground, darker on cream) and
   `--color-accent-fill` (solid fill under `text-on-accent`). Never `bg-accent`.
-- **Fonts**: Heebo for text, Fredoka for display, per-script subsets in `i18n-fonts.css`. No new
+- **Fonts**: IBM Plex Sans for text, Nunito for display (weight 800, `font-heading`), Fredoka for the "Hipo" wordmark only, per-script subsets in `i18n-fonts.css`. No new
   face without a strong reason and a preload budget check.
 - **Logical properties only** (`ms-`, `pe-`, `start-`), so the page mirrors under RTL; Latin
   tokens inside RTL copy go through `num` or `model.isolate`.

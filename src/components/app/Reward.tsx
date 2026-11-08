@@ -28,8 +28,8 @@ const SeasonCard = observer(({ model }: Props) => {
   const claims = model.seasonClaims
 
   return (
-    <div className='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-7'>
-      <h2 className='font-fredoka text-xl font-semibold'>
+    <div className='border-border bg-surface rounded-card flex flex-col gap-3 border p-7'>
+      <h2 className='font-display font-heading text-xl'>
         {t('app.reward.season.title', { number: model.isolate(model.formatNumber(season.number)) })}
       </h2>
       <div className='text-text-muted flex flex-col gap-1 text-sm'>
@@ -111,7 +111,7 @@ const Reward = observer(({ model }: Props) => {
         </div>
       )}
       <a
-        className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover block h-14 w-full rounded-2xl text-center text-[17px] leading-14 font-semibold'
+        className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover text-lead block h-14 w-full rounded-2xl text-center leading-14 font-semibold'
         href='https://t.me/HipoFinanceBot/join'
         target='_blank'
         rel='noopener noreferrer'
@@ -133,18 +133,18 @@ const Reward = observer(({ model }: Props) => {
   return (
     <div className='font-body text-text mx-auto flex w-full max-w-[1120px] flex-col items-center px-6 pt-10 pb-8'>
       <div className='pb-7 text-center'>
-        <h1 className='font-fredoka mb-2 text-3xl font-semibold sm:text-[34px]'>{t('app.reward.title')}</h1>
+        <h1 className='font-display font-heading mb-2 text-3xl sm:text-[34px]'>{t('app.reward.title')}</h1>
         <p className='text-text-muted text-base'>{t('app.reward.subtitle')}</p>
       </div>
 
       <div className='flex w-full max-w-[480px] flex-col gap-4'>
         {model.isWalletConnected && <SeasonCard model={model} />}
 
-        <div className='border-border bg-surface flex flex-col gap-[18px] rounded-[20px] border p-7'>
+        <div className='border-border bg-surface rounded-card flex flex-col gap-[18px] border p-7'>
           <div className='flex flex-row items-center gap-3.5'>
             <img src='/hpo.png' alt='HPO' className='h-12 w-12' />
             <div>
-              <div className='font-fredoka text-xl font-semibold'>{t('app.reward.hpoRewards')}</div>
+              <div className='font-display font-heading text-xl'>{t('app.reward.hpoRewards')}</div>
               <div className='text-text-muted text-sm'>{t('app.reward.distributedVia')}</div>
             </div>
           </div>
@@ -195,7 +195,7 @@ const Reward = observer(({ model }: Props) => {
               <button
                 disabled={model.isConnectBusy}
                 aria-busy={model.isConnectBusy}
-                className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover h-14 w-full cursor-pointer rounded-2xl text-[17px] font-semibold disabled:cursor-progress disabled:opacity-70'
+                className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover text-lead h-14 w-full cursor-pointer rounded-2xl font-semibold disabled:cursor-progress disabled:opacity-70'
                 onClick={(e) => {
                   model.connect()
                   const target = e.target as HTMLInputElement
@@ -210,15 +210,15 @@ const Reward = observer(({ model }: Props) => {
         </div>
 
         {model.isWalletConnected && rewards == null && model.walletRewardsFetchState === 'error' && (
-          <div className='border-border bg-surface flex flex-col rounded-[20px] border p-7'>
-            <h2 className='font-fredoka mb-4 text-xl font-semibold'>{t('app.reward.recent')}</h2>
+          <div className='border-border bg-surface rounded-card flex flex-col border p-7'>
+            <h2 className='font-display font-heading mb-4 text-xl'>{t('app.reward.recent')}</h2>
             <p className='text-text-muted mt-4 text-center text-sm'>{t('app.reward.tryAgain')}</p>
           </div>
         )}
 
         {model.isWalletConnected && rewards != null && (
-          <div className='border-border bg-surface flex flex-col rounded-[20px] border p-7'>
-            <h2 className='font-fredoka mb-4 text-xl font-semibold'>{t('app.reward.recent')}</h2>
+          <div className='border-border bg-surface rounded-card flex flex-col border p-7'>
+            <h2 className='font-display font-heading mb-4 text-xl'>{t('app.reward.recent')}</h2>
 
             {rewards.earnedRewards.map((reward, i) => (
               <div className='flex w-full flex-col gap-2 py-3.5 text-sm' key={i}>
@@ -287,7 +287,7 @@ const Reward = observer(({ model }: Props) => {
                 <p className='text-text-muted text-center text-sm'>{t('app.reward.startStaking')}</p>
                 <img src='/images/app/hpo-hgram-gram-gift.webp' alt='' className='h-36 object-contain' />
                 <button
-                  className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover h-14 w-full cursor-pointer rounded-2xl text-[17px] font-semibold'
+                  className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover text-lead h-14 w-full cursor-pointer rounded-2xl font-semibold'
                   onClick={() => {
                     model.navigateToTab('stake')
                   }}

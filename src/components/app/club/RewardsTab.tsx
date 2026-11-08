@@ -3,16 +3,16 @@
 // filters), past claims; base GRAM rewards; and revenue sharing (§8), collapsed at the bottom.
 import { useEffect, useState, type ReactNode } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Zap } from 'lucide-react'
 import type { ClubModel } from './ClubModel.ts'
 import { REVENUE_FEE } from './ClubModel.ts'
+import { BoltIcon } from './icons.tsx'
 import {
-  bigNumber,
   Button,
   Card,
   CardTitle,
   ErrorLine,
   Eyebrow,
+  figure,
   footnote,
   inset,
   Pill,
@@ -31,14 +31,14 @@ interface Props {
 type Stream = 'all' | 'staking' | 'referral'
 
 const TONVIEWER = 'https://tonviewer.com/transaction/'
-// R1: a section is a heading row (coloured dot, Fredoka heading, outlined tag) followed by sibling
+// R1: a section is a heading row (coloured dot, display heading, outlined tag) followed by sibling
 // cards, not one card with boxes nested inside.
 function SectionHeading({ dot, title, tag }: { dot: string; title: ReactNode; tag: ReactNode }) {
   return (
     <div className='flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2'>
-      <span className={'size-3 shrink-0 rounded-full ' + dot} aria-hidden='true'></span>
-      <h2 className='font-fredoka min-w-0 text-[26px] leading-tight font-bold'>{title}</h2>
-      <span className='border-border-strong text-text-secondary rounded-full border px-2.5 py-0.5 text-[13px] font-semibold'>
+      <span className={'size-7 shrink-0 rounded-full ' + dot} aria-hidden='true'></span>
+      <h2 className='font-display text-section min-w-0 leading-normal font-extrabold'>{title}</h2>
+      <span className='border-border-control text-text-secondary text-label rounded-full border px-2.5 py-[3px] leading-normal font-semibold'>
         {tag}
       </span>
     </div>
@@ -46,7 +46,7 @@ function SectionHeading({ dot, title, tag }: { dot: string; title: ReactNode; ta
 }
 
 const statGrid = 'grid gap-4 grid-cols-[repeat(auto-fit,minmax(240px,1fr))]'
-const statValue = 'font-fredoka num text-[28px] leading-tight font-bold wrap-anywhere'
+const statValue = 'font-display num text-stat leading-tight font-extrabold wrap-anywhere'
 const thEnd = tableTh.replace('text-start', 'text-end')
 
 function StatCard({
@@ -61,7 +61,7 @@ function StatCard({
   children?: ReactNode
 }) {
   return (
-    <Card>
+    <Card className='sm:px-6 sm:py-5'>
       <div className='flex min-w-0 flex-col gap-1'>
         <p className='text-text-muted text-sm'>{label}</p>
         <p className={valueClass}>{value}</p>
@@ -77,14 +77,14 @@ const Boosted = observer(({ club }: Props) => {
   const r = club.rewards
   const o = club.overview
   const heading = (
-    <SectionHeading dot='bg-hpo' title={t('club.rewards.boostedTitle')} tag={t('club.rewards.boostedSub')} />
+    <SectionHeading dot='bg-club-boosted' title={t('club.rewards.boostedTitle')} tag={t('club.rewards.boostedSub')} />
   )
   if (club.session === undefined) {
     return (
       <div className='flex flex-col gap-6'>
         {heading}
         <Card>
-          <p className='text-text-muted text-[15px] leading-normal'>{t('club.rewards.needsTelegram')}</p>
+          <p className='text-text-muted text-body leading-normal'>{t('club.rewards.needsTelegram')}</p>
           {!club.tma && (
             <Button kind='primary' className='self-start' onClick={() => club.openModal({ kind: 'linkTelegram' })}>
               {t('club.common.linkTelegram')}
@@ -115,10 +115,10 @@ const Boosted = observer(({ club }: Props) => {
       {heading}
       <Card className='sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-6'>
         <div className='flex min-w-0 flex-col gap-1'>
-          <Eyebrow icon={Zap}>{t('club.rewards.ready')}</Eyebrow>
-          <p className={bigNumber}>{t('club.common.hpoAmount', { amount: club.amount2(r.unclaimed) })}</p>
+          <Eyebrow icon={BoltIcon}>{t('club.rewards.ready')}</Eyebrow>
+          <p className={figure}>{t('club.common.hpoAmount', { amount: club.amount2(r.unclaimed) })}</p>
           {streams !== undefined && (
-            <p className='text-text-muted text-sm leading-normal'>
+            <p className='text-text-faint text-sm leading-normal'>
               {t(club.clubWallet === undefined ? 'club.rewards.readySplitNoWallet' : 'club.rewards.readySplit', {
                 // The community part shows once there is one (Rewards.dc.html shows staking + referral).
                 split: t(Number(streams.community ?? '0') > 0 ? 'club.claim.splitCommunity' : 'club.claim.split', {
@@ -153,7 +153,7 @@ const Boosted = observer(({ club }: Props) => {
         {/* The value is a sentence (two streams), so it takes a smaller size than a single figure. */}
         <StatCard
           label={t('club.rewards.lifetime')}
-          valueClass='font-fredoka num text-xl leading-snug font-semibold wrap-anywhere'
+          valueClass='font-display num text-xl leading-snug font-extrabold wrap-anywhere'
           value={t('club.rewards.lifetimeValue', {
             staking: club.amount2(r.totals.staking),
             referral: club.amount2(r.totals.referral),
@@ -176,7 +176,7 @@ const Boosted = observer(({ club }: Props) => {
           {t('club.rewards.historyTitle')}
         </CardTitle>
         {rows.length === 0 ? (
-          <p className='text-text-muted text-[15px] leading-normal'>{t('club.rewards.historyEmpty')}</p>
+          <p className='text-text-muted text-body leading-normal'>{t('club.rewards.historyEmpty')}</p>
         ) : (
           <div className='overflow-x-auto'>
             <table className='w-full min-w-[300px]'>
@@ -209,10 +209,10 @@ const Boosted = observer(({ club }: Props) => {
         )}
       </Card>
 
-      <Card>
+      <Card className='gap-3'>
         <CardTitle>{t('club.rewards.claimsTitle')}</CardTitle>
         {r.claims.length === 0 ? (
-          <p className='text-text-muted text-[15px] leading-normal'>{t('club.rewards.claimsEmpty')}</p>
+          <p className='text-text-muted text-body leading-normal'>{t('club.rewards.claimsEmpty')}</p>
         ) : (
           <div className='overflow-x-auto'>
             <table className='w-full min-w-[360px]'>
@@ -283,8 +283,8 @@ const BaseGram = observer(({ club }: Props) => {
   const hasStats = m.htonBalanceInTon != null || sum !== undefined
   return (
     <div className='border-border mt-6 flex flex-col gap-6 border-t pt-8'>
-      <SectionHeading dot='bg-series-a' title={t('club.rewards.baseTitle')} tag={t('club.rewards.baseSub')} />
-      <p className='text-text-muted -mt-2 text-[15px] leading-normal'>{t('club.rewards.baseBody')}</p>
+      <SectionHeading dot='bg-club-base' title={t('club.rewards.baseTitle')} tag={t('club.rewards.baseSub')} />
+      <p className='text-text-muted text-body -mt-2 leading-normal'>{t('club.rewards.baseBody')}</p>
       {hasStats && (
         <div className={statGrid}>
           {m.htonBalanceInTon != null && (
@@ -315,7 +315,7 @@ const BaseGram = observer(({ club }: Props) => {
       <Card>
         <CardTitle>{t('club.rewards.gramTitle')}</CardTitle>
         {rounds.length === 0 ? (
-          <p className='text-text-muted text-[15px] leading-normal'>
+          <p className='text-text-muted text-body leading-normal'>
             {t(club.connected === undefined ? 'club.rewards.baseConnect' : 'club.rewards.historyEmpty')}
           </p>
         ) : (
@@ -338,13 +338,14 @@ const BaseGram = observer(({ club }: Props) => {
             </table>
           </div>
         )}
-        <div className={inset + ' flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'}>
+        <div className={inset + ' flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'}>
           <div className='flex min-w-0 flex-col gap-0.5'>
-            <p className='font-semibold'>{t('club.rewards.stakeMoreTitle')}</p>
+            <p className='text-body font-bold'>{t('club.rewards.stakeMoreTitle')}</p>
             <p className='text-text-muted text-sm leading-normal'>{t('club.rewards.stakeMoreBody')}</p>
           </div>
           <Button
             kind='primary'
+            size='sm'
             className='self-start sm:self-center'
             onClick={() => club.model.navigateToTab('stake')}
           >
@@ -362,33 +363,35 @@ export const Revenue = observer(({ club }: Props) => {
   const block = club.withdrawBlock
   const history = club.walletRewards?.hpoWithdrawals ?? []
   return (
-    <details className='border-border-strong rounded-[20px] border border-dashed bg-transparent p-5 sm:p-6'>
-      <summary className='font-fredoka cursor-pointer text-lg font-semibold'>{t('club.revenue.title')}</summary>
+    <details className='border-border-strong rounded-card border border-dashed bg-transparent px-5 py-5 sm:px-6'>
+      <summary className='font-body text-lead cursor-pointer leading-normal font-semibold'>
+        {t('club.revenue.title')}
+      </summary>
       <div className='mt-3.5 flex flex-col gap-3.5'>
-        <p className='text-text-secondary text-[15px] leading-normal'>{t('club.revenue.body')}</p>
+        <p className='text-text-secondary text-body leading-normal'>{t('club.revenue.body')}</p>
         <div className='grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-3'>
           <div className='flex min-w-0 flex-col gap-0.5'>
-            <span className='text-text-muted text-[13px]'>{t('club.revenue.withdrawable')}</span>
+            <span className='text-text-muted text-sm'>{t('club.revenue.withdrawable')}</span>
             <span className='num text-xl font-semibold wrap-anywhere'>
               {t('club.common.gramAmount', { amount: club.amount2(r) })}
             </span>
           </div>
           <div className='flex min-w-0 flex-col gap-0.5'>
-            <span className='text-text-muted text-[13px]'>{t('club.revenue.fee')}</span>
+            <span className='text-text-muted text-sm'>{t('club.revenue.fee')}</span>
             <span className='num'>{t('club.revenue.feeValue', { fee: club.amount(REVENUE_FEE, 1) })}</span>
           </div>
           {r !== undefined && r > REVENUE_FEE && (
             <div className='flex min-w-0 flex-col gap-0.5'>
-              <span className='text-text-muted text-[13px]'>{t('club.revenue.paidAs')}</span>
+              <span className='text-text-muted text-sm'>{t('club.revenue.paidAs')}</span>
               <span className='leading-normal'>
                 {t('club.revenue.paidAsValue', { amount: club.amount2(r - REVENUE_FEE) })}
               </span>
             </div>
           )}
         </div>
-        <p className='text-text-muted text-sm leading-normal'>{t('club.revenue.rules')}</p>
+        <p className='text-text-faint text-sm leading-normal'>{t('club.revenue.rules')}</p>
         {history.length > 0 && (
-          <p className='text-text-muted text-sm leading-normal'>
+          <p className='text-text-faint text-sm leading-normal'>
             {t('club.revenue.past', {
               list: history
                 .slice(0, 3)
@@ -402,6 +405,7 @@ export const Revenue = observer(({ club }: Props) => {
         )}
         <Button
           kind='secondary'
+          size='sm'
           className='self-start'
           disabled={block !== undefined}
           busy={club.withdrawing}

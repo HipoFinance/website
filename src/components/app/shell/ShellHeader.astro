@@ -53,12 +53,12 @@ const mainItems: {
     <a href={localizedPath('/', locale)} class='flex flex-none items-center gap-2.5'>
       <img src='/images/hipo.svg' alt='Hipo' class='logo-on-dark size-9' />
       <img src='/images/hipo-light.svg' alt='Hipo' class='logo-on-light size-9' />
-      <span class='font-fredoka text-2xl font-semibold'>Hipo</span>
+      <span class='font-wordmark text-2xl font-semibold'>Hipo</span>
     </a>
 
     <nav
       aria-label={t('app.header.siteNav')}
-      class='text-text-muted hidden items-center gap-6 text-[15px] font-medium lg:flex'
+      class='text-text-muted text-body hidden items-center gap-6 font-medium lg:flex'
     >
       {
         mainItems.map(({ href, label, appPage }) => (

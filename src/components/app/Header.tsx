@@ -98,12 +98,12 @@ const Header = observer(({ model }: Props) => {
         <a href={model.localizedPath('/')} className='flex flex-none items-center gap-2.5'>
           <img src='/images/hipo.svg' alt='Hipo' className='logo-on-dark size-9' />
           <img src='/images/hipo-light.svg' alt='Hipo' className='logo-on-light size-9' />
-          <span className='font-fredoka text-2xl font-semibold'>Hipo</span>
+          <span className='font-wordmark text-2xl font-semibold'>Hipo</span>
         </a>
 
         <nav
           aria-label={model.t('app.header.siteNav')}
-          className='text-text-muted hidden items-center gap-6 text-[15px] font-medium lg:flex'
+          className='text-text-muted text-body hidden items-center gap-6 font-medium lg:flex'
         >
           {mainItems.map(({ href, label, appPage }) => (
             <a
@@ -168,7 +168,7 @@ const Header = observer(({ model }: Props) => {
         <div ref={menuRef} className='px-6 pb-4 lg:hidden'>
           <nav
             aria-label={model.t('app.header.siteNav')}
-            className='text-text-muted flex flex-col gap-1 text-[15px] font-medium'
+            className='text-text-muted text-body flex flex-col gap-1 font-medium'
           >
             {secondaryLinks.map(({ href, label, blog }) => (
               <a

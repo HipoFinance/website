@@ -5,18 +5,19 @@
  * its own: no Tailwind directives, no dependency on global.css. Two things happen here:
  *
  *   1. @font-face rules for the *script subset only* of each added family (Arabic for fa and, with a
- *      different pair, ar; Cyrillic for ru), with the `unicode-range` each fontsource
+ *      different pair, ar), with the `unicode-range` each fontsource
  *      package declares. Fontsource 5.3 ships its variable families as a single `wght.css` covering every
  *      subset, and the static families' per-subset stylesheets (Lalezar's
  *      `arabic-400.css`) omit `unicode-range`, so the rules are written out here against the packages'
  *      woff2 files instead of `@import`ed. A browser downloads a face only when a
  *      rendered font-family names it *and* a glyph falls in its range — English pages never name these
  *      families, so they cost English visitors nothing but the CSS below. Latin glyphs on a translated
- *      page fall through to Heebo / Fredoka, which stay in every stack.
+ *      page fall through to IBM Plex Sans / Nunito, which stay in every stack.
  *
  *   2. Per-`<html lang>` overrides of the family tokens. Tailwind emits @theme tokens on `:root, :host`
  *      (specificity 0,1,0) and Starlight sets `--sl-font` on a layered `:root`, so `html[lang="…"]`
- *      (0,1,1) wins without !important. Latin locales (en de tr id pt es fr) keep Heebo + Fredoka.
+ *      (0,1,1) wins without !important. Latin and Cyrillic locales (en de tr id pt es fr, ru uk) need no
+ *      override: the base IBM Plex Sans + Nunito (global.css, docs.css) carry both scripts.
  *
  * Swapping a family for a locale is a package swap plus an edit to the matching block below.
  */
@@ -39,13 +40,13 @@
 }
 
 /* Lalezar is the popular Persian display face and ships a single weight. Declaring it over the range
- * 400-700 lets `font-semibold` (600) match this face directly instead of synthesizing a fake bold —
- * it is already heavy by design. */
+ * 400-900 lets `font-semibold` (600) and `font-extrabold` (800, the Club's display weight) match this
+ * face directly instead of synthesizing a fake bold — it is already heavy by design. */
 @font-face {
   font-family: 'Lalezar';
   font-style: normal;
   font-display: swap;
-  font-weight: 400 700;
+  font-weight: 400 900;
   src: url('@fontsource/lalezar/files/lalezar-arabic-400-normal.woff2') format('woff2');
   unicode-range:
     U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F,
@@ -77,79 +78,43 @@
     U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
 }
 
-/* ---------- Cyrillic: Roboto (body) + Nunito (display) — ru ----------
- * Nunito replaces Comfortaa as the display face. Comfortaa is a much lighter typeface than Fredoka at
- * the same nominal weight, so every heading mixing Cyrillic with Latin (`Как работает Hipo`,
- * `Стейкинг GRAM № 1`) rendered the two halves at visibly different stroke weights. Nunito is rounded
- * like Fredoka, carries conventional Cyrillic letterforms, and reaches 1000 on the weight axis. */
-
-@font-face {
-  font-family: 'Roboto Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url('@fontsource-variable/roboto/files/roboto-cyrillic-wght-normal.woff2') format('woff2-variations');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-
-@font-face {
-  font-family: 'Roboto Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url('@fontsource-variable/roboto/files/roboto-cyrillic-ext-wght-normal.woff2') format('woff2-variations');
-  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
-
-@font-face {
-  font-family: 'Nunito Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 200 1000;
-  src: url('@fontsource-variable/nunito/files/nunito-cyrillic-wght-normal.woff2') format('woff2-variations');
-  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
-}
-
-@font-face {
-  font-family: 'Nunito Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 200 1000;
-  src: url('@fontsource-variable/nunito/files/nunito-cyrillic-ext-wght-normal.woff2') format('woff2-variations');
-  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
-}
+/* ---------- Cyrillic — ru, uk ----------
+ * No faces here any more: since 2026-11-08 the base faces are IBM Plex Sans (body) and Nunito
+ * (display), and both packages, imported whole in global.css and docs.css, ship their Cyrillic
+ * subsets with `unicode-range`. Roboto (the old ru body face) is gone. Ukrainian's own letters — Є/є
+ * U+0404/0454, І/і U+0406/0456, Ї/ї U+0407/0457 and Ґ/ґ U+0490/0491 — sit inside the base cyrillic
+ * subset; the hryvnia sign U+20B4 reaches cyrillic-ext, which is fetched on demand. */
 
 /* ---------- Family tokens per locale ----------
- * --font-body / --font-fredoka are the Tailwind @theme tokens behind `font-body` and `font-fredoka`
- * (global.css, app.css). --sl-font is Starlight's body face and
- * --hipo-font-display the docs display face (docs.css). Heebo / Fredoka stay in every stack for the
- * Latin glyphs the script subsets above don't carry. */
+ * --font-body / --font-display are the Tailwind @theme tokens behind `font-body` and `font-display`
+ * (global.css, app.css; `--font-fredoka` is an alias of --font-display and follows it). --sl-font is
+ * Starlight's body face and --hipo-font-display the docs display face (docs.css). IBM Plex Sans /
+ * Nunito stay in every stack for the Latin glyphs the script subsets above don't carry. The wordmark
+ * (`--font-wordmark`, `--hipo-font-wordmark`) is never swapped: "Hipo" is Latin in every locale. */
 
 html[lang='fa'] {
-  --font-body: 'Vazirmatn Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-fredoka: 'Lalezar', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
-  --sl-font: 'Vazirmatn Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --hipo-font-display: 'Lalezar', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
+  --font-body: 'Vazirmatn Variable', 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Lalezar', 'Nunito Variable', ui-sans-serif, system-ui, sans-serif;
+  --sl-font: 'Vazirmatn Variable', 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --hipo-font-display: 'Lalezar', 'Nunito Variable', ui-sans-serif, system-ui;
 }
 
 /* Arabic runs a different family from Persian: Cairo in both roles (see the section above). */
 html[lang='ar'] {
-  --font-body: 'Cairo Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-fredoka: 'Cairo Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
-  --sl-font: 'Cairo Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --hipo-font-display: 'Cairo Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
+  --font-body: 'Cairo Variable', 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Cairo Variable', 'Nunito Variable', ui-sans-serif, system-ui, sans-serif;
+  --sl-font: 'Cairo Variable', 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --hipo-font-display: 'Cairo Variable', 'Nunito Variable', ui-sans-serif, system-ui;
 }
 
-/* uk shares ru's pair: Ukrainian's own letters — Є/є U+0404/0454, І/і U+0406/0456, Ї/ї U+0407/0457
- * and Ґ/ґ U+0490/0491 — all sit inside the base cyrillic range declared above, so this costs no new
- * font file. The hryvnia sign U+20B4 is the one character that would reach cyrillic-ext, which is
- * already declared and would simply be fetched on demand. */
-html[lang='ru'],
-html[lang='uk'] {
-  --font-body: 'Roboto Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-fredoka: 'Nunito Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
-  --sl-font: 'Roboto Variable', 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --hipo-font-display: 'Nunito Variable', 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
+/* The display weight: 800 in the base (`--font-weight-heading` in global.css/app.css,
+ * `--hipo-font-weight-display` in docs.css). Cairo and Lalezar are heavy faces and keep the 600 they
+ * had before the token, so ar and fa look as they did. Lalezar has one weight; Cairo is variable,
+ * where 600 vs 800 shows. The Club's `font-extrabold` stays a fixed 800 here too. */
+html[lang='fa'],
+html[lang='ar'] {
+  --font-weight-heading: 600;
+  --hipo-font-weight-display: 600;
 }
 
 /* ---------- Metrics ----------

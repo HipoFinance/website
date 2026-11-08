@@ -484,15 +484,15 @@ const LineChart = ({
   return (
     // physical on purpose: chart is dir="ltr" — SVG coordinates, the padding object, and the
     // pointer-derived tooltip position below stay physical regardless of page direction.
-    <div dir='ltr' className='border-border bg-surface text-text rounded-[20px] border p-6'>
+    <div dir='ltr' className='border-border bg-surface text-text rounded-card border p-6'>
       <div className='flex flex-row items-baseline'>
-        <p className='font-fredoka text-[18px] font-semibold'>{title}</p>
+        <p className='font-display font-heading text-[18px]'>{title}</p>
         {status === 'refreshing' && <RefreshCw className='text-text-faint ms-2 size-4 animate-spin' />}
         {/* Both labels share ONE grid cell, so the slot is always as wide as the wider of the two and the
             title's wrap never changes when a pointer enters a chart. Reserving that width is not fussiness:
             at 390px "Available for instant unstaking" plus a timestamp does not fit on one line, so without
             it, hovering would reflow the title to two lines and push the whole card down. */}
-        <span className='ms-auto grid shrink-0 ps-3 text-[13px]'>
+        <span className='text-label ms-auto grid shrink-0 ps-3'>
           <span className={'num col-start-1 row-start-1 text-end ' + (inspecting ? 'text-text-muted' : 'invisible')}>
             {hoverTimeFormat(hoveredTs ?? domainEnd)}
           </span>
@@ -502,7 +502,7 @@ const LineChart = ({
         </span>
       </div>
 
-      {caption != null && <p className='text-text-faint mt-1 text-[13px]'>{caption}</p>}
+      {caption != null && <p className='text-text-faint text-label mt-1'>{caption}</p>}
 
       {/* The readout row replaces both the old single-series delta line and the multi-series legend, so
           there is one shape for one series and for two: every line's current value, in that line's
@@ -534,8 +534,8 @@ const LineChart = ({
               {series.length > 1 && (
                 <span className='size-2 shrink-0 self-center rounded-full' style={{ backgroundColor: r.color }} />
               )}
-              <span className='font-fredoka num text-text text-[22px] font-semibold'>{value ?? '\u00a0'}</span>
-              {series.length > 1 && <span className='text-text-muted text-[13px]'>{r.name}</span>}
+              <span className='font-display num text-text text-title font-heading'>{value ?? '\u00a0'}</span>
+              {series.length > 1 && <span className='text-text-muted text-label'>{r.name}</span>}
               {/* The delta is first-to-last over the whole range, and the only thing on the card that said
                   so -- the range label -- has just been replaced by the hovered timestamp. Left visible
                   it would read as the change AT that point, which it is not. `invisible` rather than
@@ -544,7 +544,7 @@ const LineChart = ({
               {r.delta != null && (
                 <span
                   className={
-                    'num text-[13px] font-medium ' +
+                    'num text-label font-medium ' +
                     (hoverValues != null ? 'invisible ' : '') +
                     (r.delta.direction === 'up' ? 'text-positive' : 'text-accent')
                   }

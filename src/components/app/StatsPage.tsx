@@ -20,10 +20,9 @@ const accentColor = 'var(--color-accent)'
 const positiveColor = 'var(--color-positive)'
 const inkColor = 'var(--color-text)'
 // For a series that is context rather than the headline. The same warm grey the chart already uses
-// for its own axis labels (--chart-ink), and the one text token that keeps its value across both
-// schemes, so a subordinate line reads as subordinate on either ground.
+// for its own axis labels (--chart-ink), so a subordinate line reads as subordinate on either ground.
 const mutedColor = 'var(--color-text-faint)'
-const accentAreaFill = 'rgba(255,126,115,.12)'
+const accentAreaFill = 'var(--accent-wash)'
 
 interface StatCardProps {
   value?: string
@@ -41,19 +40,19 @@ interface StatCardProps {
 // always-shown selectable line under everything else — the precise figure behind the compact
 // headline, there to be copied.
 const StatCard = ({ value, label, caption, accent, delta, exact }: StatCardProps) => (
-  <div className='border-border bg-surface rounded-[20px] border px-6 py-5'>
-    <div className={'font-fredoka num text-[30px] font-semibold ' + (accent === true ? 'text-accent' : 'text-text')}>
+  <div className='border-border bg-surface rounded-card border px-6 py-5'>
+    <div className={'font-display num text-display-sm font-heading ' + (accent === true ? 'text-accent' : 'text-text')}>
       {value ?? '—'}
     </div>
     <div className='text-text-muted text-sm'>{label}</div>
     {delta != null ? (
-      <div className={'pt-1 text-[13px] font-medium ' + (delta.direction === 'up' ? 'text-positive' : 'text-accent')}>
+      <div className={'text-label pt-1 font-medium ' + (delta.direction === 'up' ? 'text-positive' : 'text-accent')}>
         {delta.text}
       </div>
     ) : (
-      caption != null && <div className='text-text-faint pt-1 text-[13px] font-medium'>{caption}</div>
+      caption != null && <div className='text-text-faint text-label pt-1 font-medium'>{caption}</div>
     )}
-    {exact != null && <div className='text-text-faint pt-1 text-[13px]'>{exact}</div>}
+    {exact != null && <div className='text-text-faint text-label pt-1'>{exact}</div>}
   </div>
 )
 
@@ -88,8 +87,8 @@ interface SectionProps {
 const Section = observer(({ model, title, stats, showSupply, showHolders }: SectionProps) => {
   const t = model.t
   return (
-    <div className='border-border bg-surface text-text-muted flex flex-col gap-2.5 rounded-[20px] border p-6 text-sm'>
-      <p className='font-fredoka text-text pb-1 text-[18px] font-semibold'>{title}</p>
+    <div className='border-border bg-surface text-text-muted rounded-card flex flex-col gap-2.5 border p-6 text-sm'>
+      <p className='font-display text-text font-heading pb-1 text-[18px]'>{title}</p>
       <Row label={t('app.statsPage.price')} value={stats.price} />
       <Row
         label={t('app.statsPage.change24h')}
@@ -249,7 +248,7 @@ const StatsPage = observer(({ model }: Props) => {
     <div className='font-body text-text mx-auto w-full max-w-[1232px] px-4 pt-6 pb-8 sm:px-6'>
       <div className='flex flex-row flex-wrap items-baseline justify-between gap-3 pb-7'>
         <div>
-          <h1 className='font-fredoka mb-1.5 text-3xl font-semibold sm:text-[44px]'>{t('app.statsPage.title')}</h1>
+          <h1 className='font-display sm:text-display font-heading mb-1.5 text-3xl'>{t('app.statsPage.title')}</h1>
           <p className='text-text-muted text-base'>{t('app.statsPage.subtitle')}</p>
         </div>
         <RangeSelector value={model.statsRange} onChange={model.setStatsRange} t={t} />

@@ -15,40 +15,63 @@
  * stylesheet). Keep the two in sync by hand if the palette changes.
  */
 
-@import '@fontsource-variable/fredoka';
-@import '@fontsource/heebo/300.css';
-@import '@fontsource/heebo/400.css';
-@import '@fontsource/heebo/500.css';
-@import '@fontsource/heebo/700.css';
+/* The same faces as src/styles/global.css: Nunito (display), IBM Plex Sans (body), and Fredoka's
+   Latin subset for the "Hipo" site title alone. Keep the two in sync. */
+@import '@fontsource-variable/nunito';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
 /* Per-script faces + per-<html lang> overrides of --sl-font / --hipo-font-display (spec §F). */
 @import './i18n-fonts.css';
 
+@font-face {
+  font-family: 'Fredoka Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 700;
+  src: url('@fontsource-variable/fredoka/files/fredoka-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   /* Warm Dark palette (see src/styles/global.css @theme). */
-  --hipo-bg: #201b1a;
+  --hipo-bg: #1f1b1a;
   --hipo-bg-nav: #241f1e;
-  --hipo-surface: #2b2423;
+  --hipo-surface: #2a2523;
   --hipo-surface-deep: #171312;
-  --hipo-border: #3d3331;
-  --hipo-text: #f5efe8;
-  --hipo-text-muted: #c2b5ac;
-  --hipo-text-faint: #8d7f76;
-  --hipo-body: #d9cfc6;
+  --hipo-border: #3a322e;
+  --hipo-text: #f3ede8;
+  --hipo-text-muted: #b8ada6;
+  --hipo-text-faint: #9c918a;
+  --hipo-body: #d9cfc8;
   --hipo-accent: #ff7e73;
   --hipo-accent-hover: #ff958c;
   --hipo-accent-high: #ffc4bf;
   --hipo-accent-tint: rgba(255, 126, 115, 0.14);
-  --hipo-on-accent: #291f20;
+  --hipo-on-accent: #2b1410;
   --hipo-overlay: rgba(23, 19, 18, 0.72);
   /* Coral as a solid fill under --hipo-on-accent text. Brand-constant, so it is declared once
      and never re-declared for the light scheme — see the note in src/styles/global.css. */
   --hipo-accent-fill: #ff7e73;
 
+  /* Radii and text sizes: the same values as the --radius-* / --text-* tokens in global.css
+     @theme (token list in .claude/rules/styling.md). Keep in sync by hand. */
+  --hipo-radius-tile: 16px;
+  --hipo-radius-input: 12px;
+  --hipo-radius-chip: 10px;
+  --hipo-text-caption: 12px;
+
   color-scheme: dark;
 
-  --sl-font: 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  /* Display face for the site title and article headings; swapped per locale in i18n-fonts.css. */
-  --hipo-font-display: 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui;
+  --sl-font: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  /* Display face for article headings; swapped per locale in i18n-fonts.css. */
+  --hipo-font-display: 'Nunito Variable', ui-sans-serif, system-ui;
+  /* Its weight, as --font-weight-heading in global.css: 800, and 600 for ar/fa (i18n-fonts.css). */
+  --hipo-font-weight-display: 800;
+  /* The "Hipo" site title is the wordmark, which stays Fredoka in every locale. */
+  --hipo-font-wordmark: 'Fredoka Variable', ui-sans-serif, system-ui;
 
   /* Fixed heading sizes per the design (h1 40px, h3 24px), regardless of Starlight's own
      viewport-based type scale below 50rem/72rem. */
@@ -98,8 +121,8 @@
 
 /* Light palette. Accent darkens to keep its contrast on cream; --hipo-accent-high inverts from
    "lighter than accent" to "darker than accent", since Starlight uses it as the high-contrast
-   accent for text on --sl-color-accent-low. --hipo-text-faint is unchanged: it reads as a faint
-   label on both grounds. */
+   accent for text on --sl-color-accent-low. --hipo-text-faint is darker than the dark scheme's so it
+   holds 4.5:1 on cream. */
 :root[data-theme='light'] {
   --hipo-bg: #faf6ef;
   --hipo-bg-nav: #fbf8f2;
@@ -108,13 +131,13 @@
   --hipo-border: #e7dccf;
   --hipo-text: #291f20;
   --hipo-text-muted: #6f6058;
-  --hipo-text-faint: #8d7f76;
+  --hipo-text-faint: #776a62;
   --hipo-body: #3f342f;
   --hipo-accent: #e0574b;
   --hipo-accent-hover: #c9483c;
   --hipo-accent-high: #a83a2f;
   --hipo-accent-tint: rgba(224, 87, 75, 0.1);
-  --hipo-on-accent: #291f20;
+  --hipo-on-accent: #2b1410;
   --hipo-overlay: rgba(41, 31, 32, 0.5);
 
   color-scheme: light;
@@ -128,7 +151,7 @@
 }
 
 .site-title {
-  font-family: var(--hipo-font-display);
+  font-family: var(--hipo-font-wordmark);
   font-weight: 600;
 }
 
@@ -141,9 +164,10 @@ a:hover {
   color: var(--hipo-accent);
 }
 
-/* Article headings use the display face (Fredoka); body text stays on --sl-font (Heebo). */
+/* Article headings use the display face (Nunito); body text stays on --sl-font (IBM Plex Sans). */
 .sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
   font-family: var(--hipo-font-display);
+  font-weight: var(--hipo-font-weight-display);
 }
 
 .sl-markdown-content strong:not(:where(.not-content *)),
@@ -161,7 +185,7 @@ a:hover {
   button[data-open-modal] {
     background-color: var(--hipo-surface-deep);
     border-color: var(--hipo-border);
-    border-radius: 10px;
+    border-radius: var(--hipo-radius-chip);
     color: var(--hipo-text-faint);
   }
   button[data-open-modal]:hover {
@@ -174,7 +198,7 @@ a:hover {
    Starlight's default solid-fill pill. Scoped to #starlight__sidebar so it can't collide with the
    "On this page" ToC, which uses a different `aria-current` value. */
 #starlight__sidebar .group-label .large {
-  font: 600 12px var(--sl-font);
+  font: 600 var(--hipo-text-caption) var(--sl-font);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--hipo-text-faint);
@@ -201,7 +225,7 @@ a:hover {
 /* Prev/next pagination cards: faint label, coral title, flat (no shadow). */
 .pagination-links a {
   color: var(--hipo-text-faint);
-  border-radius: 12px;
+  border-radius: var(--hipo-radius-input);
   box-shadow: none;
 }
 .pagination-links a:hover {
@@ -239,5 +263,5 @@ a:hover {
   height: auto;
   margin: 1.5rem 0;
   border: 1px solid var(--hipo-border);
-  border-radius: 16px;
+  border-radius: var(--hipo-radius-tile);
 }

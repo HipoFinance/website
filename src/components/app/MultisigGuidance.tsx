@@ -175,9 +175,9 @@ const MultisigGuidance = observer(({ model }: Props) => {
 
   return (
     <>
-      <div className='font-body text-text fixed start-0 top-0 z-1000 flex h-full w-full overflow-y-auto bg-black/60 p-8'>
-        <div className='border-border bg-surface m-auto w-96 max-w-sm rounded-[20px] border p-8 shadow-2xl'>
-          <h1 className='font-fredoka text-center text-xl font-semibold'>{t('app.multisig.titleFallback')}</h1>
+      <div className='font-body text-text bg-scrim fixed start-0 top-0 z-1000 flex h-full w-full overflow-y-auto p-8'>
+        <div className='border-border bg-surface rounded-card m-auto w-96 max-w-sm border p-8 shadow-2xl'>
+          <h1 className='font-display font-heading text-center text-xl'>{t('app.multisig.titleFallback')}</h1>
           <p className='mt-4 text-sm'>{t('app.multisig.introFallback')}</p>
           {model.multisigPayloadDeepLink != null && (
             <OpenWalletButton model={model} href={model.multisigPayloadDeepLink} />

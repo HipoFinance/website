@@ -27,12 +27,12 @@ const Heading = level
     class='aspect-[1200/630] w-full object-cover'
   />
   <div class='flex min-w-0 flex-col gap-2 p-5'>
-    <time datetime={post.data.publishedAt.toISOString().slice(0, 10)} class='text-text-muted text-[13px]'>
+    <time datetime={post.data.publishedAt.toISOString().slice(0, 10)} class='text-text-muted text-label'>
       {formatPostDate(post.data.publishedAt)}
     </time>
-    <Heading class='font-fredoka text-text group-hover:text-accent text-lg leading-snug font-semibold'>
+    <Heading class='font-display text-text group-hover:text-accent font-heading text-lg leading-snug'>
       {post.data.title}
     </Heading>
-    <p class='text-text-muted line-clamp-3 text-[15px] leading-[1.55]'>{post.data.description}</p>
+    <p class='text-text-muted text-body line-clamp-3 leading-[1.55]'>{post.data.description}</p>
   </div>
 </a>

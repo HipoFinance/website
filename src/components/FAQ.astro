@@ -43,9 +43,9 @@ const groups = sections.map((section) => ({
   <div
     class='mx-auto grid w-full max-w-[1180px] grid-cols-1 gap-8 px-6 pt-10 pb-20 md:px-12 lg:grid-cols-[220px_1fr] lg:items-start lg:gap-14'
   >
-    <nav class='flex flex-row flex-wrap gap-1 text-[15px] font-medium lg:sticky lg:top-8 lg:flex-col'>
+    <nav class='text-body flex flex-row flex-wrap gap-1 font-medium lg:sticky lg:top-8 lg:flex-col'>
       <span
-        class='text-text-faint hidden w-full px-3 pb-2 text-[13px] font-semibold tracking-[.08em] uppercase lg:block'
+        class='text-text-faint text-label hidden w-full px-3 pb-2 font-semibold tracking-[.08em] uppercase lg:block'
       >
         {t('faq.page.sections')}
       </span>
@@ -54,7 +54,7 @@ const groups = sections.map((section) => ({
           <a
             href={`#${section.id}`}
             class:list={[
-              'rounded-[10px] px-3 py-2',
+              'rounded-chip px-3 py-2',
               i === 0 ? 'bg-surface text-text' : 'text-text-muted hover:bg-surface hover:text-text',
             ]}
           >
@@ -65,12 +65,12 @@ const groups = sections.map((section) => ({
     </nav>
 
     <div class='flex min-w-0 flex-col gap-2'>
-      <h1 class='font-fredoka text-text mb-6 text-[32px] font-semibold sm:text-[44px]'>{t('faq.page.title')}</h1>
+      <h1 class='font-display text-text sm:text-display font-heading mb-6 text-[32px]'>{t('faq.page.title')}</h1>
 
       {
         groups.map((group, gi) => (
           <section id={group.id} class='scroll-mt-6 pb-6'>
-            <h2 class='anchor-host font-fredoka text-accent mb-4 text-2xl font-semibold sm:text-[26px]'>
+            <h2 class='anchor-host font-display text-accent sm:text-section font-heading mb-4 text-2xl'>
               {group.heading}
               <AnchorLink anchor={group.id} />
             </h2>
@@ -81,11 +81,11 @@ const groups = sections.map((section) => ({
                   open={gi === 0 && i === 0}
                   class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
                 >
-                  <summary class='anchor-host text-text cursor-pointer text-[17px] font-medium'>
+                  <summary class='anchor-host text-text text-lead cursor-pointer font-medium'>
                     {entry.data.question}
                     <AnchorLink anchor={anchor} />
                   </summary>
-                  <div class='prose-answer text-text-muted pt-3 text-[15px] leading-[1.6]'>
+                  <div class='prose-answer text-text-muted text-body pt-3 leading-[1.6]'>
                     <Content />
                   </div>
                 </details>

@@ -15,7 +15,7 @@ const StakeUnstake = observer(({ model }: Props) => {
   return (
     <div className='font-body text-text mx-auto flex w-full max-w-[1120px] flex-col items-center px-6 pt-10 pb-8'>
       <div className='pb-7 text-center'>
-        <h1 className='font-fredoka mb-2 text-3xl font-semibold sm:text-[34px]'>
+        <h1 className='font-display font-heading mb-2 text-3xl sm:text-[34px]'>
           {stake ? t('app.stake.titleStake') : t('app.stake.titleUnstake')}
         </h1>
         <p className='text-text-muted text-base'>
@@ -23,7 +23,7 @@ const StakeUnstake = observer(({ model }: Props) => {
         </p>
       </div>
 
-      <div className='border-border bg-surface mb-7 flex flex-row gap-1.5 rounded-full border p-[5px] text-[15px] font-semibold select-none'>
+      <div className='border-border bg-surface text-body mb-7 flex flex-row gap-1.5 rounded-full border p-[5px] font-semibold select-none'>
         <button
           type='button'
           aria-pressed={stake}
@@ -62,7 +62,7 @@ const StakeUnstake = observer(({ model }: Props) => {
             (model.isWalletConnected ? ' max-h-80' : ' max-h-0')
           }
         >
-          <div className='border-border bg-surface-deep text-text-muted mx-3.5 -mb-[18px] rounded-t-[16px] border border-b-0 px-[22px] pt-4 pb-[34px] text-sm'>
+          <div className='border-border bg-surface-deep text-text-muted rounded-t-tile mx-3.5 -mb-[18px] border border-b-0 px-[22px] pt-4 pb-[34px] text-sm'>
             <div className='flex flex-row flex-wrap pb-2'>
               <p className='font-light'>{t('app.stake.gramBalance')}</p>
               <p className='text-text num ms-auto font-medium'>{model.tonBalanceFormatted}</p>
@@ -101,13 +101,13 @@ const StakeUnstake = observer(({ model }: Props) => {
           </div>
         </div>
 
-        <div className='border-border bg-surface relative flex flex-col gap-4 rounded-[20px] border p-7'>
+        <div className='border-border bg-surface rounded-card relative flex flex-col gap-4 border p-7'>
           <div className='text-base font-medium'>{stake ? t('app.common.stake') : t('app.common.unstake')}</div>
 
           <label>
             <div
               className={
-                'bg-surface-deep flex flex-row items-center gap-3 rounded-[14px] border px-4 py-3.5 ' +
+                'bg-surface-deep rounded-control flex flex-row items-center gap-3 border px-4 py-3.5 ' +
                 (model.isAmountValid ? 'border-border focus-within:border-text-faint' : 'border-accent')
               }
             >
@@ -152,7 +152,7 @@ const StakeUnstake = observer(({ model }: Props) => {
               <div className='grid grid-cols-2 gap-3'>
                 <div
                   className={
-                    'bg-surface-deep flex cursor-pointer flex-col gap-2 rounded-[14px] border-2 p-3.5 select-none ' +
+                    'bg-surface-deep rounded-control flex cursor-pointer flex-col gap-2 border-2 p-3.5 select-none ' +
                     (model.unstakeOption === 'best' ? 'border-accent' : 'border-border')
                   }
                   onClick={() => {
@@ -161,7 +161,7 @@ const StakeUnstake = observer(({ model }: Props) => {
                 >
                   <div className='flex flex-row items-center gap-2'>
                     <Clock className='text-accent size-4' />
-                    <p className='text-[15px] font-semibold'>{t('app.stake.optionFull')}</p>
+                    <p className='text-body font-semibold'>{t('app.stake.optionFull')}</p>
                     <span
                       className={'text-accent ms-auto font-bold' + (model.unstakeOption === 'best' ? '' : ' invisible')}
                     >
@@ -177,7 +177,7 @@ const StakeUnstake = observer(({ model }: Props) => {
 
                 <div
                   className={
-                    'bg-surface-deep flex cursor-pointer flex-col gap-2 rounded-[14px] border-2 p-3.5 select-none ' +
+                    'bg-surface-deep rounded-control flex cursor-pointer flex-col gap-2 border-2 p-3.5 select-none ' +
                     (model.unstakeOption === 'instant' ? 'border-accent' : 'border-border')
                   }
                   onClick={() => {
@@ -186,7 +186,7 @@ const StakeUnstake = observer(({ model }: Props) => {
                 >
                   <div className='flex flex-row items-center gap-2'>
                     <Zap className='text-accent size-4' />
-                    <p className='text-[15px] font-semibold'>{t('app.stake.optionInstant')}</p>
+                    <p className='text-body font-semibold'>{t('app.stake.optionInstant')}</p>
                     <span
                       className={
                         'text-accent ms-auto font-bold' + (model.unstakeOption === 'instant' ? '' : ' invisible')
@@ -288,7 +288,7 @@ const StakeUnstake = observer(({ model }: Props) => {
         </div>
 
         {/* Reassurance at the money moment: a human to reach before committing funds. */}
-        <p className='text-text-faint pt-5 text-center text-[13px]'>
+        <p className='text-text-faint text-label pt-5 text-center'>
           {nodes(t('app.stake.questions'), {
             link: (
               <a
@@ -303,7 +303,7 @@ const StakeUnstake = observer(({ model }: Props) => {
           })}
         </p>
 
-        <div className='text-text-faint flex flex-row flex-wrap justify-center gap-x-6 gap-y-2 pt-3 text-[13px]'>
+        <div className='text-text-faint text-label flex flex-row flex-wrap justify-center gap-x-6 gap-y-2 pt-3'>
           <a className='hover:text-accent' href={model.localizedPath('/docs/')}>
             {t('app.stake.docs')}
           </a>

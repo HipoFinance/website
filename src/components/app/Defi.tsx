@@ -23,7 +23,7 @@ const Row = ({ logo, name, round, actions }: RowProps) => (
       {actions.map(({ label, href, target }) => (
         <a
           key={target + label}
-          className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover rounded-full px-3.5 py-1.5 text-[13px] font-semibold'
+          className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover text-label rounded-full px-3.5 py-1.5 font-semibold'
           href={href}
           target={target}
           rel='noopener noreferrer'
@@ -36,8 +36,8 @@ const Row = ({ logo, name, round, actions }: RowProps) => (
 )
 
 const Section = ({ title, description, children }: { title: string; description: string; children: ReactNode }) => (
-  <div className='border-border bg-surface rounded-[20px] border p-6'>
-    <h2 className='font-fredoka text-xl font-semibold'>{title}</h2>
+  <div className='border-border bg-surface rounded-card border p-6'>
+    <h2 className='font-display font-heading text-xl'>{title}</h2>
     <p className='text-text-muted mt-1 mb-4 text-sm'>{description}</p>
     <div className='flex flex-col'>{children}</div>
   </div>
@@ -51,7 +51,7 @@ const Defi = observer(({ model }: Props) => {
   return (
     <div className='font-body text-text mx-auto w-full max-w-[560px] px-6 pt-10 pb-8'>
       <div className='pb-7 text-center'>
-        <h1 className='font-fredoka mb-2 text-3xl font-semibold sm:text-[34px]'>{t('app.defi.title')}</h1>
+        <h1 className='font-display font-heading mb-2 text-3xl sm:text-[34px]'>{t('app.defi.title')}</h1>
         <p className='text-text-muted mx-auto max-w-lg text-base'>{t('app.defi.subtitle')}</p>
       </div>
 

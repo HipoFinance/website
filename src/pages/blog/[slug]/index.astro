@@ -93,7 +93,7 @@ const jsonLd = {
 
     <article class='relative min-w-0'>
       <header class='mb-8 flex flex-col gap-4'>
-        <h1 class='font-fredoka text-text text-[34px] leading-[1.15] font-semibold tracking-[-0.5px] sm:text-[44px]'>
+        <h1 class='font-display text-text sm:text-display font-heading text-[34px] leading-[1.15] tracking-[-0.5px]'>
           {data.title}
         </h1>
         {data.subtitle && <p class='text-text-muted text-lg leading-[1.55] sm:text-xl'>{data.subtitle}</p>}
@@ -129,7 +129,7 @@ const jsonLd = {
     {
       related.length > 0 && (
         <section class='mt-14'>
-          <h2 class='font-fredoka text-text mb-5 text-2xl font-semibold'>{t('blog.related.title')}</h2>
+          <h2 class='font-display text-text font-heading mb-5 text-2xl'>{t('blog.related.title')}</h2>
           <div class='grid grid-cols-1 gap-5 sm:grid-cols-3'>
             {related.map((other) => (
               <PostCard post={other} level='h3' />

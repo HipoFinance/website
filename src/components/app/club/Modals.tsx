@@ -38,20 +38,20 @@ const ChoiceCard = ({
       (busy ? 'cursor-not-allowed opacity-60' : 'hover:border-accent cursor-pointer')
     }
   >
-    <span className='font-semibold'>{title}</span>
+    <span className='font-bold'>{title}</span>
     <span className='text-text-muted text-sm leading-normal'>{note}</span>
   </button>
 )
 
 const Actions = ({ children }: { children: React.ReactNode }) => (
-  <div className='flex flex-col-reverse gap-2 sm:flex-row sm:justify-end'>{children}</div>
+  <div className='flex flex-col-reverse gap-2.5 sm:flex-row sm:justify-end'>{children}</div>
 )
 
 const LinkTelegram = observer(({ club, modal }: Props & { modal: Extract<Modal, { kind: 'linkTelegram' }> }) => {
   const t = club.t
   return (
     <>
-      <p className='text-text-muted text-[15px] leading-relaxed'>{t('club.modal.tg.body')}</p>
+      <p className='text-text-secondary text-body leading-normal'>{t('club.modal.tg.body')}</p>
       <ol className='flex flex-col gap-2'>
         <li className='border-border flex flex-wrap justify-between gap-2 rounded-xl border p-3 text-sm'>
           <span className='font-semibold'>{t('club.modal.tg.step1')}</span>
@@ -90,7 +90,7 @@ const ChangeWallet = observer(({ club }: Props) => {
   const name = o?.displayName ?? ''
   return (
     <>
-      <p className='text-text-muted text-[15px] leading-relaxed'>{t('club.modal.change.body')}</p>
+      <p className='text-text-secondary text-body leading-normal'>{t('club.modal.change.body')}</p>
       <div className={facts}>
         <Row
           label={t('club.modal.telegramAccount')}
@@ -102,7 +102,7 @@ const ChangeWallet = observer(({ club }: Props) => {
         />
         <Row label={t('club.modal.minimum')} value={t('club.common.hpoAmount', { amount: club.amount2(o?.minimum) })} />
       </div>
-      <ul className='text-text-muted flex list-disc flex-col gap-1.5 ps-5 text-sm leading-relaxed'>
+      <ul className='text-text-secondary text-body flex list-disc flex-col gap-1 ps-[18px] leading-normal'>
         <li>{t('club.modal.change.rate', { level: club.level(o?.clubLevel), boost: club.boost(o?.boost) })}</li>
         <li>{t('club.modal.change.hold', { minimum: club.amount2(o?.minimum), level: club.level(o?.clubLevel) })}</li>
         <li>{t('club.modal.change.unclaimed', { amount: club.amount2(o?.unclaimed) })}</li>
@@ -132,7 +132,7 @@ const Choose = observer(({ club, modal }: Props & { modal: Extract<Modal, { kind
   const connected = club.mask(club.connected)
   return (
     <>
-      <p className='text-text-muted text-[15px] leading-relaxed'>
+      <p className='text-text-secondary text-body leading-normal'>
         {modal.flow === 2
           ? t('club.modal.choose.body2', { wallet: club.clubWalletMasked, name })
           : t(club.tma ? 'club.modal.choose.body3Tma' : 'club.modal.choose.body3', {
@@ -191,7 +191,7 @@ const Connect = observer(({ club, modal }: Props & { modal: Extract<Modal, { kin
   const t = club.t
   return (
     <>
-      <p className='text-text-muted text-[15px] leading-relaxed'>
+      <p className='text-text-secondary text-body leading-normal'>
         {modal.reconnect
           ? t('club.modal.connect.reconnectBody', { wallet: club.clubWalletMasked })
           : t('club.modal.connect.body')}
@@ -221,7 +221,7 @@ const Confirm = observer(({ club, modal }: Props & { modal: Extract<Modal, { kin
   if (modal.release) {
     return (
       <>
-        <p className='text-[15px] leading-relaxed'>
+        <p className='text-text-secondary text-body leading-normal'>
           {t('club.modal.release.body', { wallet: p.clubWalletMasked ?? club.clubWalletMasked, name })}
           {Number(p.minimum ?? '0') > 0 && ' ' + t('club.modal.release.grace')}
           {' ' + t('club.modal.release.after', { name })}
@@ -248,13 +248,13 @@ const Confirm = observer(({ club, modal }: Props & { modal: Extract<Modal, { kin
   const level = club.level(p.clubLevel)
   const short = Number(p.minimum ?? '0') - Number(p.newWalletHpo ?? '0')
   // W3: roomier cells, the header muted at weight 500.
-  const th = 'px-2.5 py-2.5 text-start font-medium'
+  const th = 'px-2.5 py-2 text-start font-medium'
   const td = 'num px-2.5 py-2.5'
   const label = 'text-text-muted px-2.5 py-2.5'
   return (
     <>
       <div className='overflow-x-auto'>
-        <table className='w-full min-w-[300px] text-[15px]'>
+        <table className='text-body w-full min-w-[300px]'>
           <thead className='text-text-muted text-sm'>
             <tr>
               <th className={th}></th>
@@ -270,7 +270,8 @@ const Confirm = observer(({ club, modal }: Props & { modal: Extract<Modal, { kin
             </tr>
             <tr className='border-border border-t'>
               <td className={label}>{t('club.modal.confirm.levelBoost')}</td>
-              <td className={td}>{t('club.modal.levelBoost', { level, boost: club.boost(p.boost) })}</td>
+              {/* "Level 7 · 5.2×", the board's pair with the After column (levelBoost adds "boost"). */}
+              <td className={td}>{`${t('club.common.levelN', { level })} · ${club.boost(p.boost)}`}</td>
               <td className={td}>{t('club.modal.confirm.fromName', { level, boost: club.boost(p.boost), name })}</td>
             </tr>
             <tr className='border-border border-t'>
@@ -289,18 +290,18 @@ const Confirm = observer(({ club, modal }: Props & { modal: Extract<Modal, { kin
         </table>
       </div>
       {p.belowMinimum ? (
-        <div className='bg-tone-warn-bg border-tone-warn-border flex flex-col gap-1 rounded-[14px] border px-4 py-3.5'>
+        <div className='bg-tone-warn-bg border-tone-warn-border rounded-control flex flex-col gap-1 border px-4 py-3.5'>
           <p className='text-tone-warn-fg font-semibold'>
             {t('club.modal.confirm.belowTitle', { wallet: p.newWalletMasked ?? '—', short: club.amountUp(short) })}
           </p>
           <p className='text-text-secondary text-sm leading-normal'>{t('club.modal.confirm.belowBody', { level })}</p>
         </div>
       ) : (
-        <p className='bg-tone-success-bg border-tone-success-border text-text-secondary rounded-[14px] border px-4 py-3.5 text-sm leading-normal'>
+        <p className='bg-tone-success-bg border-tone-success-border text-text-secondary rounded-control border px-4 py-3.5 text-sm leading-normal'>
           {t('club.modal.confirm.meets', { wallet: p.newWalletMasked ?? '—', level })}
         </p>
       )}
-      <p className='text-text-muted text-sm leading-relaxed'>
+      <p className='text-text-secondary text-sm leading-normal'>
         {first
           ? t('club.modal.confirm.firstNote', { name })
           : t('club.modal.confirm.note', { old: p.clubWalletMasked ?? '—', amount: club.amount2(o?.unclaimed), name })}
@@ -371,7 +372,7 @@ const Claim = observer(({ club }: Props) => {
           value={t('club.common.hpoAmount', { amount: club.amount2(holdings + b) })}
         />
       </div>
-      <p className='text-text-faint text-sm leading-relaxed'>
+      <p className='text-text-secondary text-sm leading-normal'>
         {t('club.modal.claim.note', { wallet: club.clubWalletMasked })}
       </p>
       <ErrorLine>
@@ -398,7 +399,7 @@ const ClaimDone = observer(({ club, modal }: Props & { modal: Extract<Modal, { k
   const level = modal.target !== undefined ? club.level(modal.target - 1) : ''
   return (
     <>
-      <p className='text-[15px] leading-relaxed'>
+      <p className='text-text-secondary text-body leading-normal'>
         {modal.below
           ? t('club.modal.claimDone.bodyBelow', {
               amount: club.amount2(modal.amount),
@@ -444,14 +445,14 @@ const Upgrade = observer(({ club }: Props) => {
           })}
           strong
         />
-        <Row label={t('club.levelUp.fee')} value={t('club.levelUp.feeValue', { fee })} strong />
+        <Row label={t('club.levelUp.fee')} value={t('club.common.gramAmount', { amount: fee })} strong />
         <Row label={t('club.modal.upgrade.paidTo')} value='hipo.ton' />
         <Row
           label={t('club.levelUp.perRound')}
-          value={`~${club.amount(o?.estimateNow, 0)} → ~${club.amount(o?.estimateNext, 0)} HPO`}
+          value={`~${club.amount2(o?.estimateNow)} → ~${club.amount2(o?.estimateNext)} HPO`}
         />
       </div>
-      <p className='text-text-faint text-sm leading-relaxed'>
+      <p className='text-text-secondary text-sm leading-normal'>
         {suspended
           ? t('club.modal.upgrade.noteSuspended', {
               level: club.level(offer !== undefined ? offer.n - 1 : undefined),
@@ -487,7 +488,7 @@ const UpgradeDone = observer(({ club, modal }: Props & { modal: Extract<Modal, {
   const t = club.t
   return (
     <>
-      <p className='text-[15px] leading-relaxed'>
+      <p className='text-text-secondary text-body leading-normal'>
         {t('club.modal.upgradeDone.body', { level: club.level(modal.level) })}
       </p>
       <Actions>
@@ -503,7 +504,7 @@ const NotApplied = observer(({ club, modal }: Props & { modal: Extract<Modal, { 
   const t = club.t
   return (
     <>
-      <p className='text-[15px] leading-relaxed'>{t('club.error.notApplied', { date: club.date(modal.at, true) })}</p>
+      <p className='text-body leading-relaxed'>{t('club.error.notApplied', { date: club.date(modal.at, true) })}</p>
       <Actions>
         <Button onClick={() => club.closeModal()}>{t('club.common.cancel')}</Button>
         <Button kind='primary' onClick={() => club.acknowledge(modal.ackKey, modal.payment, modal.from)}>

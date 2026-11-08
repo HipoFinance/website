@@ -27,7 +27,7 @@ const Wait = observer(({ model }: Props) => {
         <div className='bg-accent-fill wait-progress h-full rounded-full'></div>
       </div>
     )
-    heading = <h1 className='font-fredoka text-center text-xl font-semibold'>{t('app.wait.finalizingTitle')}</h1>
+    heading = <h1 className='font-display font-heading text-center text-xl'>{t('app.wait.finalizingTitle')}</h1>
     message = <p className='text-text-muted mt-4 text-center text-sm'>{t('app.wait.finalizingMessage')}</p>
   } else if (model.waitForTransaction === 'timeout' || model.waitForTransaction === 'unreachable') {
     // Same shape, different claim. 'timeout' means the chain was answering and the transaction never
@@ -37,7 +37,7 @@ const Wait = observer(({ model }: Props) => {
     img = <img src='/images/app/warning-dark.svg' alt='' className='m-4 mx-auto h-16' />
     progress = <></>
     heading = (
-      <h1 className='font-fredoka text-center text-xl font-semibold'>
+      <h1 className='font-display font-heading text-center text-xl'>
         {t(unreachable ? 'app.wait.unreachableTitle' : 'app.wait.timeoutTitle')}
       </h1>
     )
@@ -64,7 +64,7 @@ const Wait = observer(({ model }: Props) => {
     img = <img src='/images/app/warning-dark.svg' alt='' className='m-4 mx-auto h-16' />
     progress = <></>
     heading = (
-      <h1 className='font-fredoka text-center text-xl font-semibold'>
+      <h1 className='font-display font-heading text-center text-xl'>
         {t(stake ? 'app.wait.bouncedStakeTitle' : 'app.wait.bouncedUnstakeTitle')}
       </h1>
     )
@@ -88,7 +88,7 @@ const Wait = observer(({ model }: Props) => {
     // exactly as it was — which is the opposite of what this screen used to say here.
     img = <img src='/images/app/warning-dark.svg' alt='' className='m-4 mx-auto h-16' />
     progress = <></>
-    heading = <h1 className='font-fredoka text-center text-xl font-semibold'>{t('app.wait.rejectedTitle')}</h1>
+    heading = <h1 className='font-display font-heading text-center text-xl'>{t('app.wait.rejectedTitle')}</h1>
     message = <p className='text-text-muted mt-4 text-center text-sm'>{t('app.wait.rejectedMessage')}</p>
     button = (
       <button
@@ -109,7 +109,7 @@ const Wait = observer(({ model }: Props) => {
     img = <img src='/images/app/logo-dark.svg' alt='' className='m-4 mx-auto h-32' />
     progress = <></>
     heading = (
-      <h1 className='font-fredoka text-center text-xl font-semibold'>
+      <h1 className='font-display font-heading text-center text-xl'>
         {queued
           ? t(stake ? 'app.wait.queuedStakeTitle' : 'app.wait.queuedUnstakeTitle')
           : t(stake ? 'app.wait.stakedTitle' : 'app.wait.unstakedTitle')}
@@ -141,8 +141,8 @@ const Wait = observer(({ model }: Props) => {
 
   if (model.waitForTransaction !== 'no') {
     return (
-      <div className='font-body text-text fixed start-0 top-0 z-1000 flex h-full w-full overflow-y-auto bg-black/60 p-8'>
-        <div className='border-border bg-surface m-auto w-96 max-w-sm rounded-[20px] border p-8 shadow-2xl'>
+      <div className='font-body text-text bg-scrim fixed start-0 top-0 z-1000 flex h-full w-full overflow-y-auto p-8'>
+        <div className='border-border bg-surface rounded-card m-auto w-96 max-w-sm border p-8 shadow-2xl'>
           {img}
           {progress}
           {heading}

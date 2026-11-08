@@ -120,41 +120,45 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
       </div>
 
       <h1
-        class='font-fredoka text-text [&_em]:text-accent text-[36px] leading-[1.1] font-semibold tracking-[-0.5px] sm:text-[48px] lg:leading-[1.08] [&_em]:not-italic'
+        class='font-display text-text [&_em]:text-accent sm:text-display-lg font-heading text-[36px] leading-[1.1] tracking-[-0.5px] lg:leading-[1.08] [&_em]:not-italic'
         set:html={tHtml('vs.hero.title')}
       />
 
       <p
-        class='text-text-muted [&_strong]:text-text max-w-[560px] text-[17px] leading-[1.6] lg:text-[19px]'
+        class='text-text-muted [&_strong]:text-text text-lead max-w-[560px] leading-[1.6] lg:text-[19px]'
         set:html={tHtml('vs.hero.lead')}
       />
 
       <dl class='grid grid-cols-2 gap-4 sm:grid-cols-3'>
-        <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
+        <div class='border-border bg-surface rounded-card border px-6 py-5'>
           <dt class='text-text-muted mb-1 text-sm'>{t('vs.hero.statApy')}</dt>
-          <dd class='font-fredoka text-accent num text-[30px] font-semibold' data-vs-live='apy'>{apyText ?? '—'}</dd>
+          <dd class='font-display text-accent num text-display-sm font-heading' data-vs-live='apy'>
+            {apyText ?? '—'}
+          </dd>
         </div>
-        <div class='border-border bg-surface rounded-[20px] border px-6 py-5'>
+        <div class='border-border bg-surface rounded-card border px-6 py-5'>
           <dt class='text-text-muted mb-1 text-sm'>{t('vs.hero.statFee')}</dt>
-          <dd class='font-fredoka text-positive num text-[30px] font-semibold' data-vs-live='fee'>{feeText ?? '—'}</dd>
+          <dd class='font-display text-positive num text-display-sm font-heading' data-vs-live='fee'>
+            {feeText ?? '—'}
+          </dd>
         </div>
-        <div class='border-border bg-surface col-span-2 rounded-[20px] border px-6 py-5 sm:col-span-1'>
+        <div class='border-border bg-surface rounded-card col-span-2 border px-6 py-5 sm:col-span-1'>
           <dt class='text-text-muted mb-1 text-sm'>{t('vs.hero.statStaked')}</dt>
-          <dd class='font-fredoka text-text num text-[26px] font-semibold sm:text-[30px]' data-vs-live='staked'>
+          <dd class='font-display text-text num text-section sm:text-display-sm font-heading' data-vs-live='staked'>
             {stakedText ?? '—'}
           </dd>
         </div>
       </dl>
 
-      <p class='text-text-faint text-[13px] leading-[1.6]'>{t('vs.hero.note')}</p>
+      <p class='text-text-faint text-label leading-[1.6]'>{t('vs.hero.note')}</p>
     </section>
 
     <!-- What the fee is worth. Hipo's own numbers only in this section. -->
     <section class='pb-14'>
-      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>{t('vs.worth.heading')}</h2>
-      <p class='text-text-muted mb-6 max-w-[560px] text-[17px] leading-[1.6]' set:html={worthLead} />
+      <h2 class='font-display text-text text-stat font-heading mb-3 sm:text-[32px]'>{t('vs.worth.heading')}</h2>
+      <p class='text-text-muted text-lead mb-6 max-w-[560px] leading-[1.6]' set:html={worthLead} />
 
-      <div class='border-border bg-surface overflow-x-auto rounded-[20px] border'>
+      <div class='border-border bg-surface rounded-card overflow-x-auto border'>
         <table class='w-full min-w-[420px] text-start'>
           <thead>
             <tr class='border-border bg-surface-deep border-b'>
@@ -185,39 +189,37 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
         </table>
       </div>
 
-      <p class='text-text-faint mt-3 text-[13px] leading-[1.6]'>{t('vs.worth.note')}</p>
+      <p class='text-text-faint text-label mt-3 leading-[1.6]'>{t('vs.worth.note')}</p>
     </section>
 
     <!-- The measured comparison. Every figure here is derived from contract reads at historical
          blocks; the method block at the end of the section names them. -->
     <section class='pb-14'>
-      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>{t('vs.compare.heading')}</h2>
-      <p class='text-text-muted mb-4 max-w-[600px] text-[17px] leading-[1.6]'>{t('vs.compare.lead')}</p>
+      <h2 class='font-display text-text text-stat font-heading mb-3 sm:text-[32px]'>{t('vs.compare.heading')}</h2>
+      <p class='text-text-muted text-lead mb-4 max-w-[600px] leading-[1.6]'>{t('vs.compare.lead')}</p>
 
       {
         /* The hero quotes the protocol's CURRENT APY, straight off the contract, and it is a much
            larger number than anything below — it is an instantaneous rate from the latest rounds,
            not a year's outcome. Leaving both on the page without saying so would be the same
            advertised-versus-realized confusion this section exists to clear up, aimed at us. */
-        apyText != null && (
-          <p class='text-text-faint mb-6 max-w-[600px] text-[15px] leading-[1.6]' set:html={vsCurrent} />
-        )
+        apyText != null && <p class='text-text-faint text-body mb-6 max-w-[600px] leading-[1.6]' set:html={vsCurrent} />
       }
 
       <!-- Two groups, not one wrapping row: the presets must break to their own line together
            rather than leaving one chip stranded below the other three. -->
       <div class='mb-6 flex flex-wrap items-center gap-x-4 gap-y-3'>
         <div class='flex flex-wrap items-center gap-2.5'>
-          <label class='text-text-muted text-[15px]' for='vsStakeInput'>{t('vs.compare.stakeLabel')}</label>
+          <label class='text-text-muted text-body' for='vsStakeInput'>{t('vs.compare.stakeLabel')}</label>
           <input
             id='vsStakeInput'
             type='number'
             min='1'
             step='100'
             value={DEFAULT_STAKE}
-            class='border-border bg-surface text-text num focus-visible:outline-accent w-[140px] rounded-xl border px-3 py-2 text-[17px] font-medium focus-visible:outline-2'
+            class='border-border bg-surface text-text num focus-visible:outline-accent text-lead w-[140px] rounded-xl border px-3 py-2 font-medium focus-visible:outline-2'
           />
-          <span class='text-text-muted text-[15px]'>{t('vs.compare.stakeOn', { date: windowStart })}</span>
+          <span class='text-text-muted text-body'>{t('vs.compare.stakeOn', { date: windowStart })}</span>
         </div>
         <div class='flex items-center gap-2 sm:ms-auto'>
           {
@@ -227,7 +229,7 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
                 data-vs-stake={preset}
                 aria-pressed={preset === DEFAULT_STAKE ? 'true' : 'false'}
                 aria-label={`${gram(preset)} GRAM`}
-                class='border-border bg-surface text-text-muted hover:border-border-strong aria-pressed:bg-accent-fill aria-pressed:text-on-accent num cursor-pointer rounded-full border px-3.5 py-1.5 text-[13px] font-medium whitespace-nowrap aria-pressed:border-transparent'
+                class='border-border bg-surface text-text-muted hover:border-border-strong aria-pressed:bg-accent-fill aria-pressed:text-on-accent num text-label cursor-pointer rounded-full border px-3.5 py-1.5 font-medium whitespace-nowrap aria-pressed:border-transparent'
               >
                 {compact(preset)}
               </button>
@@ -236,45 +238,45 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
         </div>
       </div>
 
-      <div class='border-border bg-surface mb-8 grid gap-6 rounded-[20px] border p-6 sm:grid-cols-3'>
+      <div class='border-border bg-surface rounded-card mb-8 grid gap-6 border p-6 sm:grid-cols-3'>
         {
           outcome.others.map((other) => (
             <div>
-              <div class='font-fredoka text-accent num text-[38px] leading-none font-semibold'>
+              <div class='font-display text-accent num font-heading text-[38px] leading-none'>
                 <span data-vs-cell={`extra:${other.id}`}>{gram(other.extra)}</span>
-                <span class='text-[20px]'> GRAM</span>
+                <span class='text-title-sm'> GRAM</span>
               </div>
               <div class='text-text-muted mt-1.5 text-sm'>{t('vs.compare.extra', { name: NAMES[other.id] })}</div>
-              <div class='text-text-faint text-[13px]'>
+              <div class='text-text-faint text-label'>
                 {gramUsd == null ? '' : <span data-vs-cell={`extraUsd:${other.id}`}>{usd(other.extra * gramUsd)}</span>}
               </div>
             </div>
           ))
         }
         <div>
-          <div class='font-fredoka text-text num text-[38px] leading-none font-semibold'>
+          <div class='font-display text-text num font-heading text-[38px] leading-none'>
             <span data-vs-cell='hipoEnd'>{gram(outcome.hipoEnd)}</span>
           </div>
           <div class='text-text-muted mt-1.5 text-sm' set:html={hipoEndLabel} />
-          <div class='text-text-faint text-[13px]'>
+          <div class='text-text-faint text-label'>
             {gramUsd == null ? '' : <span data-vs-cell='hipoEndUsd'>{usd(outcome.hipoEnd * gramUsd)}</span>}
           </div>
         </div>
       </div>
 
-      <h3 class='font-fredoka text-text mb-2 text-xl font-semibold'>{t('vs.compare.chartHeading')}</h3>
-      <p class='text-text-muted mb-5 max-w-[600px] text-[15px] leading-[1.6]'>{t('vs.compare.chartLead')}</p>
+      <h3 class='font-display text-text font-heading mb-2 text-xl'>{t('vs.compare.chartHeading')}</h3>
+      <p class='text-text-muted text-body mb-5 max-w-[600px] leading-[1.6]'>{t('vs.compare.chartLead')}</p>
 
-      <div class='border-border bg-surface mb-4 rounded-[20px] border p-5'>
+      <div class='border-border bg-surface rounded-card mb-4 border p-5'>
         <div class='mb-3 flex flex-wrap gap-x-5 gap-y-2'>
-          <span class='text-text-muted inline-flex items-center gap-2 text-[13px]'>
+          <span class='text-text-muted text-label inline-flex items-center gap-2'>
             <i class='bg-text-faint inline-block h-[3px] w-3.5 rounded-sm'></i>Hipo
           </span>
-          <span class='text-text-muted inline-flex items-center gap-2 text-[13px]'>
+          <span class='text-text-muted text-label inline-flex items-center gap-2'>
             <i class='inline-block h-[3px] w-3.5 rounded-sm' style='background: var(--color-series-a)'></i>
             {NAMES.tonstakers}
           </span>
-          <span class='text-text-muted inline-flex items-center gap-2 text-[13px]'>
+          <span class='text-text-muted text-label inline-flex items-center gap-2'>
             <i class='inline-block h-[3px] w-3.5 rounded-sm' style='background: var(--color-series-b)'></i>
             {NAMES.stakee}
           </span>
@@ -288,8 +290,8 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
         />
       </div>
 
-      <h3 class='font-fredoka text-text mt-8 mb-3 text-xl font-semibold'>{t('vs.compare.tableHeading')}</h3>
-      <div class='border-border bg-surface overflow-x-auto rounded-[20px] border'>
+      <h3 class='font-display text-text font-heading mt-8 mb-3 text-xl'>{t('vs.compare.tableHeading')}</h3>
+      <div class='border-border bg-surface rounded-card overflow-x-auto border'>
         <table class='w-full min-w-[480px] text-start'>
           <thead>
             <tr class='border-border bg-surface-deep border-b'>
@@ -340,15 +342,15 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
           </tbody>
         </table>
       </div>
-      <p class='text-text-faint mt-3 text-[13px] leading-[1.6]'>{t('vs.compare.tableNote')}</p>
+      <p class='text-text-faint text-label mt-3 leading-[1.6]'>{t('vs.compare.tableNote')}</p>
 
-      <div class='border-border mt-6 rounded-[20px] border p-6'>
-        <h3 class='font-fredoka text-text mb-2 text-lg font-semibold'>{t('vs.compare.methodHeading')}</h3>
-        <p class='text-text-muted mb-4 text-[15px] leading-[1.6]'>{t('vs.compare.methodBody')}</p>
+      <div class='border-border rounded-card mt-6 border p-6'>
+        <h3 class='font-display text-text font-heading mb-2 text-lg'>{t('vs.compare.methodHeading')}</h3>
+        <p class='text-text-muted text-body mb-4 leading-[1.6]'>{t('vs.compare.methodBody')}</p>
         <ul class='space-y-2'>
           {
             METHOD.map((item) => (
-              <li class='text-text-muted flex flex-wrap items-baseline gap-x-2 text-[13px]'>
+              <li class='text-text-muted text-label flex flex-wrap items-baseline gap-x-2'>
                 <span class='text-text font-medium'>{item.name}</span>
                 <code class='min-w-0 font-mono break-all' dir='ltr'>
                   {item.address}
@@ -360,7 +362,7 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
             ))
           }
         </ul>
-        <p class='text-text-faint mt-4 text-[13px] leading-[1.6]'>
+        <p class='text-text-faint text-label mt-4 leading-[1.6]'>
           {t('vs.compare.methodNote', { date: windowStart })}
         </p>
       </div>
@@ -368,9 +370,9 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
 
     <!-- The HPO boost, valued honestly: a big token count means nothing without its price. -->
     <section class='pb-14'>
-      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>{t('vs.hpo.heading')}</h2>
+      <h2 class='font-display text-text text-stat font-heading mb-3 sm:text-[32px]'>{t('vs.hpo.heading')}</h2>
       <p
-        class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover mb-6 max-w-[560px] text-[17px] leading-[1.6] [&_a]:underline'
+        class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover text-lead mb-6 max-w-[560px] leading-[1.6] [&_a]:underline'
         set:html={tHtml('vs.hpo.lead', {
           low: points(club.coefficients[0]),
           high: points(topCoefficient),
@@ -378,7 +380,7 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
         })}
       />
 
-      <div class='border-border bg-surface overflow-x-auto rounded-[20px] border'>
+      <div class='border-border bg-surface rounded-card overflow-x-auto border'>
         <table class='w-full min-w-[420px] text-start'>
           <thead>
             <tr class='border-border bg-surface-deep border-b'>
@@ -410,7 +412,7 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
       {
         boostLow !== undefined && boostHigh !== undefined && (
           <p
-            class='text-text-muted [&_strong]:text-text mt-4 max-w-[560px] text-[15px] leading-[1.6]'
+            class='text-text-muted [&_strong]:text-text text-body mt-4 max-w-[560px] leading-[1.6]'
             set:html={tHtml('vs.hpo.worth', {
               low: points(boostLow),
               high: points(boostHigh),
@@ -420,7 +422,7 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
         )
       }
 
-      <p class='text-text-faint mt-2 text-[13px] leading-[1.6]'>
+      <p class='text-text-faint text-label mt-2 leading-[1.6]'>
         {
           t('vs.hpo.note', {
             rate: String(club.rewardRate),
@@ -433,48 +435,48 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
 
     <!-- Getting out. The question this audience asks second. -->
     <section class='pb-14'>
-      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>{t('vs.exit.heading')}</h2>
-      <p class='text-text-muted mb-6 max-w-[560px] text-[17px] leading-[1.6]'>{t('vs.exit.lead')}</p>
+      <h2 class='font-display text-text text-stat font-heading mb-3 sm:text-[32px]'>{t('vs.exit.heading')}</h2>
+      <p class='text-text-muted text-lead mb-6 max-w-[560px] leading-[1.6]'>{t('vs.exit.lead')}</p>
 
       <div class='grid gap-4 md:grid-cols-2'>
-        <div class='border-border bg-surface rounded-[20px] border p-6'>
-          <h3 class='font-fredoka text-text mb-2 text-xl font-semibold'>{t('vs.exit.fullHeading')}</h3>
-          <p class='text-text-muted text-[15px] leading-[1.6]'>{t('vs.exit.fullBody')}</p>
+        <div class='border-border bg-surface rounded-card border p-6'>
+          <h3 class='font-display text-text font-heading mb-2 text-xl'>{t('vs.exit.fullHeading')}</h3>
+          <p class='text-text-muted text-body leading-[1.6]'>{t('vs.exit.fullBody')}</p>
         </div>
-        <div class='border-border bg-surface rounded-[20px] border p-6'>
-          <h3 class='font-fredoka text-text mb-2 text-xl font-semibold'>{t('vs.exit.instantHeading')}</h3>
-          <p class='text-text-muted text-[15px] leading-[1.6]'>{t('vs.exit.instantBody')}</p>
+        <div class='border-border bg-surface rounded-card border p-6'>
+          <h3 class='font-display text-text font-heading mb-2 text-xl'>{t('vs.exit.instantHeading')}</h3>
+          <p class='text-text-muted text-body leading-[1.6]'>{t('vs.exit.instantBody')}</p>
         </div>
       </div>
 
-      <p class='text-text-faint mt-3 text-[13px] leading-[1.6]'>{t('vs.exit.note')}</p>
+      <p class='text-text-faint text-label mt-3 leading-[1.6]'>{t('vs.exit.note')}</p>
     </section>
 
     <!-- Credibility, which is what this audience actually checks. -->
     <section class='pb-14'>
-      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>{t('vs.trust.heading')}</h2>
+      <h2 class='font-display text-text text-stat font-heading mb-3 sm:text-[32px]'>{t('vs.trust.heading')}</h2>
       <ul class='grid gap-3 md:grid-cols-2'>
-        <li class='border-border bg-surface rounded-[20px] border p-6'>
-          <strong class='font-fredoka text-text mb-1 block text-lg font-semibold'>{t('vs.trust.walletHeading')}</strong>
-          <span class='text-text-muted text-[15px] leading-[1.6]'>{t('vs.trust.walletBody')}</span>
+        <li class='border-border bg-surface rounded-card border p-6'>
+          <strong class='font-display text-text font-heading mb-1 block text-lg'>{t('vs.trust.walletHeading')}</strong>
+          <span class='text-text-muted text-body leading-[1.6]'>{t('vs.trust.walletBody')}</span>
         </li>
-        <li class='border-border bg-surface rounded-[20px] border p-6'>
-          <strong class='font-fredoka text-text mb-1 block text-lg font-semibold'>{t('vs.trust.openHeading')}</strong>
+        <li class='border-border bg-surface rounded-card border p-6'>
+          <strong class='font-display text-text font-heading mb-1 block text-lg'>{t('vs.trust.openHeading')}</strong>
           <span
-            class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover text-[15px] leading-[1.6] [&_a]:underline'
+            class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover text-body leading-[1.6] [&_a]:underline'
             set:html={tHtml('vs.trust.openBody')}
           />
         </li>
-        <li class='border-border bg-surface rounded-[20px] border p-6'>
-          <strong class='font-fredoka text-text mb-1 block text-lg font-semibold'>
+        <li class='border-border bg-surface rounded-card border p-6'>
+          <strong class='font-display text-text font-heading mb-1 block text-lg'>
             {t('vs.trust.custodyHeading')}
           </strong>
-          <span class='text-text-muted text-[15px] leading-[1.6]'>{t('vs.trust.custodyBody')}</span>
+          <span class='text-text-muted text-body leading-[1.6]'>{t('vs.trust.custodyBody')}</span>
         </li>
-        <li class='border-border bg-surface rounded-[20px] border p-6'>
-          <strong class='font-fredoka text-text mb-1 block text-lg font-semibold'>{t('vs.trust.dataHeading')}</strong>
+        <li class='border-border bg-surface rounded-card border p-6'>
+          <strong class='font-display text-text font-heading mb-1 block text-lg'>{t('vs.trust.dataHeading')}</strong>
           <span
-            class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover text-[15px] leading-[1.6] [&_a]:underline'
+            class='text-text-muted [&_a]:text-accent hover:[&_a]:text-accent-hover text-body leading-[1.6] [&_a]:underline'
             set:html={tHtml('vs.trust.dataBody')}
           />
         </li>
@@ -482,18 +484,18 @@ const description = apyText == null ? t('seo.vs.description') : t('seo.vs.descri
     </section>
 
     <section
-      class='border-border mb-14 rounded-[20px] border p-8 text-center'
-      style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
+      class='border-border rounded-card mb-14 border p-8 text-center'
+      style='background: linear-gradient(120deg, var(--accent-wash), var(--accent-wash-clear) 60%);'
     >
-      <h2 class='font-fredoka text-text mb-3 text-[28px] font-semibold sm:text-[32px]'>{t('vs.cta.heading')}</h2>
-      <p class='text-text-muted mx-auto mb-6 max-w-[460px] text-[17px] leading-[1.6]'>{t('vs.cta.lead')}</p>
+      <h2 class='font-display text-text text-stat font-heading mb-3 sm:text-[32px]'>{t('vs.cta.heading')}</h2>
+      <p class='text-text-muted text-lead mx-auto mb-6 max-w-[460px] leading-[1.6]'>{t('vs.cta.lead')}</p>
       <a
         href={locale === 'en' ? '/stake/' : `/${locale}/stake/`}
-        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover inline-block rounded-full px-8 py-[15px] text-[17px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
+        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover text-lead inline-block rounded-full px-8 py-[15px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
       >
         {t('vs.cta.button')}
       </a>
-      <p class='text-text-faint mt-4 text-[13px] leading-[1.6]'>{t('vs.cta.note')}</p>
+      <p class='text-text-faint text-label mt-4 leading-[1.6]'>{t('vs.cta.note')}</p>
     </section>
   </main>
 

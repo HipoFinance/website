@@ -1,32 +1,81 @@
-@import '@fontsource-variable/fredoka';
-@import '@fontsource/heebo/300.css';
-@import '@fontsource/heebo/400.css';
-@import '@fontsource/heebo/500.css';
-@import '@fontsource/heebo/700.css';
+/* The wireframe's two faces (see the token list in .claude/rules/styling.md): Nunito for display,
+   IBM Plex Sans 400/500/600 for text. Both packages declare every subset with its `unicode-range`,
+   so a page downloads only the scripts it renders (Latin, and Cyrillic on ru/uk). */
+@import '@fontsource-variable/nunito';
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
 /* Per-script faces + per-<html lang> family/metric overrides for translated pages (spec §F). */
 @import './i18n-fonts.css';
 @import 'tailwindcss';
 
-@theme {
-  /* Warm Dark faces: `font-body` (Heebo) for text, `font-fredoka` for display/headings.
-     Tailwind 4 derives font-* utilities from the --font-* namespace. */
-  --font-body: 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-fredoka: 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
+/* Fredoka is kept for the "Hipo" wordmark alone (`font-wordmark`), which is always Latin, so only
+   the Latin subset is declared. docs.css carries the same rule. */
+@font-face {
+  font-family: 'Fredoka Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 700;
+  src: url('@fontsource-variable/fredoka/files/fredoka-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
-  /* Warm Dark palette (see changelog 2026-08-11). This is the authored base; the light palette
+@theme {
+  /* The faces: `font-body` (IBM Plex Sans) for text, `font-display` (Nunito) for headings and big
+     figures, `font-wordmark` (Fredoka) for the word "Hipo" beside the mascot and nothing else.
+     Tailwind 4 derives font-* utilities from the --font-* namespace. i18n-fonts.css swaps body and
+     display per locale; the wordmark is never swapped. `--font-fredoka` is the old name of
+     --font-display, kept as an alias for one release (2026-11-08) — remove it after. */
+  --font-body: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Nunito Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-fredoka: var(--font-display);
+  --font-wordmark: 'Fredoka Variable', ui-sans-serif, system-ui, sans-serif;
+  /* The display weight, as the utility `font-heading`: Nunito 800, the wireframe's weight for every
+     heading and big figure. i18n-fonts.css sets it to 600 for ar and fa, whose display faces (Cairo,
+     Lalezar) are heavy already. The Club's `font-extrabold` is a fixed 800 in every locale. */
+  --font-weight-heading: 800;
+
+  /* Corner radii and text sizes from the Club wireframe, by role (token list in
+     .claude/rules/styling.md). Text sizes carry no paired line-height on purpose: they replaced
+     hand-typed `text-[Npx]`, which set font-size only. Pills are Tailwind's `rounded-full`. */
+  --radius-card: 20px;
+  --radius-sheet: 24px;
+  --radius-mini: 18px;
+  --radius-tile: 16px;
+  --radius-control: 14px;
+  --radius-input: 12px;
+  --radius-chip: 10px;
+  --radius-bar: 3px;
+  --text-caption: 12px;
+  --text-label: 13px;
+  --text-small: 14px;
+  --text-body: 15px;
+  --text-lead: 17px;
+  --text-title-sm: 20px;
+  --text-title: 22px;
+  --text-section: 26px;
+  --text-stat: 28px;
+  --text-display-sm: 30px;
+  --text-display: 44px;
+  --text-display-lg: 48px;
+
+  /* Warm Dark palette (see changelog 2026-08-11), set to the Club wireframe's exact values on
+     2026-11-08 — the token list in .claude/rules/styling.md maps each one. This is the authored base; the light palette
      lives in the `prefers-color-scheme: light` block further down, which re-declares these same
      custom properties. There is no toggle — the OS setting is the only input (changelog
      2026-08-22). Dark stays the base so a browser without `prefers-color-scheme` keeps the
      original design. */
-  --color-bg: #201b1a;
-  --color-surface: #2b2423;
+  --color-bg: #1f1b1a;
+  --color-surface: #2a2523;
   --color-surface-deep: #171312;
-  --color-border: #3d3331;
+  --color-border: #3a322e;
   /* One step in from --color-border, for hover on the small `bg-border` chips in the app. */
-  --color-border-strong: #4a3f3c;
-  --color-text: #f5efe8;
-  --color-text-muted: #c2b5ac;
-  --color-text-faint: #8d7f76;
+  --color-border-strong: #433a36;
+  --color-text: #f3ede8;
+  --color-text-muted: #b8ada6;
+  --color-text-faint: #9c918a;
 
   /* Coral plays two roles and they diverge in light mode.
      As a FOREGROUND (links, the hero highlight, the APY stat, hover states) it has to earn its
@@ -38,9 +87,13 @@
   --color-accent-fill: #ff7e73;
   --color-accent-fill-hover: #ff958c;
   --color-accent-shadow: #c1544a;
-  --color-on-accent: #291f20;
+  --color-on-accent: #2b1410;
 
   --color-positive: #4ade80;
+
+  /* The dimmed page behind a modal (the wireframe's rgba(15, 12, 11, 0.78)). The light block keeps
+     the plain black at 60% the modals used before the token existed. */
+  --color-scrim: rgba(15, 12, 11, 0.78);
 
   /* The HPO coin's purple (#7820c8 in /hpo.png), lifted for the warm dark ground. The circulating
      segment of the tokenomics supply bar is drawn in it (the price chart is green or coral by the
@@ -85,6 +138,12 @@
   /* Not surface colors, so they stay out of the --color-* namespace and are read through var()
      from arbitrary utilities and inline styles instead of generating utilities of their own. */
   --hero-glow: rgba(255, 126, 115, 0.28);
+  /* The coral wash in the corner of a card (a gradient from --accent-wash to --accent-wash-clear)
+     and under the /stats/ area charts. Brand coral in both schemes, so declared once. */
+  --accent-wash: rgba(255, 126, 115, 0.12);
+  --accent-wash-clear: rgba(255, 126, 115, 0);
+  /* The fainter band of the /vs/ value-gap chart; the light block deepens it. */
+  --accent-wash-faint: rgba(255, 126, 115, 0.1);
   --art-shadow: rgba(0, 0, 0, 0.45);
   --art-shadow-soft: rgba(0, 0, 0, 0.4);
 
@@ -105,7 +164,9 @@
     --color-border-strong: #dbcdb9;
     --color-text: #291f20;
     --color-text-muted: #6f6058;
-    /* --color-text-faint keeps #8d7f76: it reads as a faint label on both grounds. */
+    /* Darker than the #8d7f76 it shared with the dark scheme until 2026-11-08, which was 3.6:1 on
+       cream; this holds 4.5:1 on bg, surface and surface-raised. */
+    --color-text-faint: #776a62;
 
     --color-accent: #e0574b;
     --color-accent-hover: #c9483c;
@@ -113,6 +174,7 @@
        constants and deliberately not re-declared. */
 
     --color-positive: #16a34a;
+    --color-scrim: rgba(0, 0, 0, 0.6);
 
     /* The coin's own purple holds its contrast on cream. */
     --color-hpo: #7820c8;
@@ -138,6 +200,7 @@
     /* The mascot and the HPO coin cast a warm brown shadow on cream rather than a black one, and
        the coral glow behind the mascot has to push harder to register. */
     --hero-glow: rgba(255, 126, 115, 0.35);
+    --accent-wash-faint: rgba(224, 87, 75, 0.09);
     --art-shadow: rgba(70, 45, 40, 0.22);
     --art-shadow-soft: rgba(70, 45, 40, 0.2);
 

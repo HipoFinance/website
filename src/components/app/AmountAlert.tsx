@@ -22,10 +22,10 @@ const AmountAlert = observer(({ model }: Props) => {
 
   if (model.amountAlert !== 'none') {
     return (
-      <div className='font-body text-text fixed start-0 top-0 z-1000 flex h-full w-full overflow-y-auto bg-black/60 p-8'>
-        <div className='border-border bg-surface m-auto w-96 max-w-sm rounded-[20px] border p-8 shadow-2xl'>
+      <div className='font-body text-text bg-scrim fixed start-0 top-0 z-1000 flex h-full w-full overflow-y-auto p-8'>
+        <div className='border-border bg-surface rounded-card m-auto w-96 max-w-sm border p-8 shadow-2xl'>
           <img src='/images/app/warning-dark.svg' alt='' className='m-4 mx-auto h-16' />
-          <h1 className='font-fredoka text-center text-xl font-semibold'>{heading}</h1>
+          <h1 className='font-display font-heading text-center text-xl'>{heading}</h1>
           <p className='text-text-muted mt-4 text-center text-sm'>{message}</p>
           <button
             className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover mt-6 h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold'

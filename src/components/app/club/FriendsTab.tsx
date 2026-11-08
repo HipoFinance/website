@@ -3,15 +3,15 @@
 // total; the rows, 50 at a time, with the All / Earning / Not staking yet filters. Needs Telegram.
 import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Users } from 'lucide-react'
 import type { ClubModel } from './ClubModel.ts'
 import type { FriendsFilter } from './api.ts'
+import { FriendsIcon } from './icons.tsx'
 import {
-  bigNumber,
   Button,
   Card,
   CardTitle,
   Eyebrow,
+  figure,
   footnote,
   Pill,
   Pills,
@@ -40,8 +40,8 @@ const FriendsTab = observer(({ club }: Props) => {
     return (
       <Card>
         <CardTitle>{t('club.friends.title')}</CardTitle>
-        <p className='text-text-muted text-[15px] leading-normal'>{t('club.friends.body')}</p>
-        <p className='text-text-muted text-[15px] leading-normal'>{t('club.friends.needsTelegram')}</p>
+        <p className='text-text-muted text-body leading-normal'>{t('club.friends.body')}</p>
+        <p className='text-text-muted text-body leading-normal'>{t('club.friends.needsTelegram')}</p>
         {!club.tma && (
           <Button
             kind='primary'
@@ -81,8 +81,8 @@ const FriendsTab = observer(({ club }: Props) => {
     <div className='flex flex-col gap-6'>
       <div className='grid gap-4 md:grid-cols-2'>
         <Card>
-          <CardTitle>{t('club.friends.title')}</CardTitle>
-          <p className='text-text-muted text-[15px] leading-normal'>{t('club.friends.body')}</p>
+          <CardTitle large>{t('club.friends.title')}</CardTitle>
+          <p className='text-text-secondary text-body leading-normal'>{t('club.friends.body')}</p>
           {link !== undefined && (
             <div className='flex flex-col gap-3.5'>
               <div className='flex flex-col gap-1.5'>
@@ -96,23 +96,26 @@ const FriendsTab = observer(({ club }: Props) => {
                     readOnly
                     value={link}
                     onFocus={(e) => e.currentTarget.select()}
-                    className='bg-bg border-border-strong text-text num min-h-11 min-w-0 flex-[1_1_260px] rounded-xl border px-3.5 py-3 text-[15px]'
+                    className='bg-bg border-border-strong text-text num text-body min-h-11 min-w-0 flex-[1_1_260px] rounded-xl border px-3.5 py-3'
                   />
-                  <Button size='sm' onClick={() => void copy()}>
+                  {/* The board's Copy button: radius 12, padding 10px 18px. */}
+                  <Button size='sm' className='!rounded-input !px-[18px] !py-2.5' onClick={() => void copy()}>
                     {t(copied ? 'club.friends.copied' : 'club.friends.copy')}
                   </Button>
                 </div>
               </div>
-              <Button kind='primary' className='self-start' href={club.shareUrl(link)}>
+              <Button kind='primary' size='sm' className='self-start' href={club.shareUrl(link)}>
                 {t('club.friends.share')}
               </Button>
             </div>
           )}
         </Card>
         <Card>
-          <div className='flex min-w-0 flex-col gap-2'>
-            <Eyebrow icon={Users}>{t('club.friends.earned')}</Eyebrow>
-            <p className={bigNumber}>{t('club.common.hpoAmount', { amount: club.amount2(meta.referralTotal) })}</p>
+          <div className='flex min-w-0 flex-col gap-3.5'>
+            <Eyebrow icon={FriendsIcon}>{t('club.friends.earned')}</Eyebrow>
+            <p className={figure.replace('leading-[1.1]', 'leading-none')}>
+              {t('club.common.hpoAmount', { amount: club.amount2(meta.referralTotal) })}
+            </p>
           </div>
           <div className='border-border flex flex-col gap-2 border-t pt-3.5'>
             <Row label={t('club.friends.joined')} value={club.amount(meta.count ?? 0, 0)} />
@@ -141,7 +144,7 @@ const FriendsTab = observer(({ club }: Props) => {
           {t('club.friends.listTitle')}
         </CardTitle>
         {club.friendsRows.length === 0 ? (
-          <p className='text-text-muted text-[15px] leading-normal'>
+          <p className='text-text-muted text-body leading-normal'>
             {t(club.friendsFilter === 'all' ? 'club.friends.empty' : 'club.friends.emptyFilter')}
           </p>
         ) : (

@@ -31,7 +31,7 @@ const idle = 'text-text-muted hover:text-accent'
 <div class='font-body text-text mx-auto flex w-full max-w-[1120px] flex-col items-center px-6 pt-10 pb-8'>
   <div class='pb-7 text-center'>
     <h1
-      class='font-fredoka mb-2 text-3xl font-semibold sm:text-[34px]'
+      class='font-display font-heading mb-2 text-3xl sm:text-[34px]'
       set:text={stake ? t('app.stake.titleStake') : t('app.stake.titleUnstake')}
     />
     <p
@@ -41,7 +41,7 @@ const idle = 'text-text-muted hover:text-accent'
   </div>
 
   <div
-    class='border-border bg-surface mb-7 flex flex-row gap-1.5 rounded-full border p-[5px] text-[15px] font-semibold select-none'
+    class='border-border bg-surface text-body mb-7 flex flex-row gap-1.5 rounded-full border p-[5px] font-semibold select-none'
   >
     <a
       href={localizedPath('/stake/', locale)}
@@ -58,11 +58,11 @@ const idle = 'text-text-muted hover:text-accent'
   <div class='flex w-full max-w-[480px] flex-col'>
     <div class='max-h-0 overflow-hidden transition-all duration-700 motion-reduce:transition-none'></div>
 
-    <div class='border-border bg-surface relative flex flex-col gap-4 rounded-[20px] border p-7'>
+    <div class='border-border bg-surface rounded-card relative flex flex-col gap-4 border p-7'>
       <div class='text-base font-medium' set:text={stake ? t('app.common.stake') : t('app.common.unstake')} />
 
       <label>
-        <div class='bg-surface-deep border-border flex flex-row items-center gap-3 rounded-[14px] border px-4 py-3.5'>
+        <div class='bg-surface-deep border-border rounded-control flex flex-row items-center gap-3 border px-4 py-3.5'>
           <img src={stake ? '/images/app/gram.svg' : '/images/app/hgram.svg'} alt='' class='h-7 w-7' />
           <input
             type='text'
@@ -84,10 +84,10 @@ const idle = 'text-text-muted hover:text-accent'
         !stake && (
           <>
             <div class='grid grid-cols-2 gap-3'>
-              <div class='bg-surface-deep border-accent flex cursor-pointer flex-col gap-2 rounded-[14px] border-2 p-3.5 select-none'>
+              <div class='bg-surface-deep border-accent rounded-control flex cursor-pointer flex-col gap-2 border-2 p-3.5 select-none'>
                 <div class='flex flex-row items-center gap-2'>
                   <ShellIcon name='clock' class='text-accent size-4' />
-                  <p class='text-[15px] font-semibold' set:text={t('app.stake.optionFull')} />
+                  <p class='text-body font-semibold' set:text={t('app.stake.optionFull')} />
                   <span class='text-accent ms-auto font-bold'>✓</span>
                 </div>
                 <p class='text-text-muted text-[12.5px] leading-[1.45]'>
@@ -97,10 +97,10 @@ const idle = 'text-text-muted hover:text-accent'
                 </p>
               </div>
 
-              <div class='bg-surface-deep border-border flex cursor-pointer flex-col gap-2 rounded-[14px] border-2 p-3.5 select-none'>
+              <div class='bg-surface-deep border-border rounded-control flex cursor-pointer flex-col gap-2 border-2 p-3.5 select-none'>
                 <div class='flex flex-row items-center gap-2'>
                   <ShellIcon name='zap' class='text-accent size-4' />
-                  <p class='text-[15px] font-semibold' set:text={t('app.stake.optionInstant')} />
+                  <p class='text-body font-semibold' set:text={t('app.stake.optionInstant')} />
                   <span class='text-accent invisible ms-auto font-bold'>✓</span>
                 </div>
                 <p class='text-text-muted text-[12.5px] leading-[1.45]'>
@@ -162,13 +162,13 @@ const idle = 'text-text-muted hover:text-accent'
     </div>
 
     <p
-      class='text-text-faint pt-5 text-center text-[13px]'
+      class='text-text-faint text-label pt-5 text-center'
       set:html={tHtml('app.stake.questions', {
         link: `<a class="text-accent hover:text-accent-hover" href="https://t.me/hipo_chat" target="_blank" rel="noopener noreferrer">${t('app.stake.askOnTelegram')}</a>`,
       })}
     />
 
-    <div class='text-text-faint flex flex-row flex-wrap justify-center gap-x-6 gap-y-2 pt-3 text-[13px]'>
+    <div class='text-text-faint text-label flex flex-row flex-wrap justify-center gap-x-6 gap-y-2 pt-3'>
       <a class='hover:text-accent' href={localizedPath('/docs/', locale)} set:text={t('app.stake.docs')} />
       <a class='hover:text-accent' href={localizedPath('/faq/', locale)} set:text={t('app.stake.faq')} />
       <a

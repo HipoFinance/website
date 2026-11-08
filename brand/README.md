@@ -72,11 +72,13 @@ The palette sheet in `Colors/` has the full list. The two that matter most:
 
 ## Typography
 
-Hipo sets display type in **Fredoka** and body text in **Heebo**, both from Google Fonts under
-the SIL Open Font License. They are not bundled here — download them from
-<https://fonts.google.com/specimen/Fredoka> and <https://fonts.google.com/specimen/Heebo>.
+Hipo sets display type in **Nunito** and body text in **IBM Plex Sans**; the "Hipo" wordmark is
+set in **Fredoka** on the site. All three are from Google Fonts under the SIL Open Font License. They are not
+bundled here — download them from <https://fonts.google.com/specimen/Nunito>,
+<https://fonts.google.com/specimen/IBM+Plex+Sans> and <https://fonts.google.com/specimen/Fredoka>.
 
-The "Hipo" logotype is custom lettering, not a typeface. Use the supplied file.
+The "Hipo" logotype in this kit is custom lettering, not a typeface: use the supplied file, not
+text typed in Fredoka.
 
 ## Token marks
 

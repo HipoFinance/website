@@ -56,10 +56,10 @@ const secondary = [
     <a href={localizedPath('/', locale)} class='flex flex-none items-center gap-2.5'>
       <img src='/images/hipo.svg' alt='Hipo' class='logo-on-dark size-9' />
       <img src='/images/hipo-light.svg' alt='Hipo' class='logo-on-light size-9' />
-      <span class='font-fredoka text-text text-2xl font-semibold'>Hipo</span>
+      <span class='font-wordmark text-text text-2xl font-semibold'>Hipo</span>
     </a>
 
-    <nav class='text-text-muted hidden items-center gap-6 text-[15px] font-medium lg:flex'>
+    <nav class='text-text-muted text-body hidden items-center gap-6 font-medium lg:flex'>
       {
         items.map(({ key, href, label }) => (
           <a href={href} class={key === active ? 'text-accent' : 'hover:text-accent'}>
@@ -74,7 +74,7 @@ const secondary = [
 
       <a
         href={localizedPath('/stake/', locale)}
-        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover hidden rounded-full px-6 py-[11px] text-[15px] font-semibold whitespace-nowrap lg:inline-block'
+        class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover text-body hidden rounded-full px-6 py-[11px] font-semibold whitespace-nowrap lg:inline-block'
       >
         {t('site.cta.openApp')}
       </a>
@@ -93,7 +93,7 @@ const secondary = [
   </div>
 
   <div id='mobile-menu' class='hidden px-6 pb-6 lg:hidden'>
-    <nav class='text-text-muted flex flex-col gap-1 text-[15px] font-medium'>
+    <nav class='text-text-muted text-body flex flex-col gap-1 font-medium'>
       {
         secondary.map(({ key, href, label, hreflang }) => (
           <a

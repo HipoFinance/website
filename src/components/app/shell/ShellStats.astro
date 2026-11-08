@@ -29,9 +29,9 @@ const tiles: { label: string; tooltip: string; value?: string; accent?: boolean 
     <div class='grid grid-cols-1 gap-3 sm:grid-cols-3'>
       {
         tiles.map(({ label, tooltip, value, accent }) => (
-          <div class='border-border bg-surface rounded-[20px] border px-5 py-4'>
+          <div class='border-border bg-surface rounded-card border px-5 py-4'>
             <p
-              class={'font-fredoka num text-2xl font-semibold ' + (accent === true ? 'text-accent' : 'text-text')}
+              class={'font-display num font-heading text-2xl ' + (accent === true ? 'text-accent' : 'text-text')}
               set:text={value ?? '—'}
             />
             <p class='text-text-muted text-sm' title={tooltip} set:text={label} />
@@ -41,7 +41,7 @@ const tiles: { label: string; tooltip: string; value?: string; accent?: boolean 
     </div>
 
     <div class='mt-4 flex flex-row justify-center'>
-      <span class='text-text-faint text-[13px]'>
+      <span class='text-text-faint text-label'>
         {t('app.stats.moreStats')}
         <span class='inline-block rtl:-scale-x-100'>→</span>
       </span>

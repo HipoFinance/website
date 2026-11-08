@@ -8,11 +8,11 @@ const { t } = getT('en', ['blog'])
 ---
 
 <aside
-  class='border-border bg-surface mt-12 flex flex-col items-start justify-between gap-4 rounded-[20px] border p-6 sm:flex-row sm:items-center sm:gap-8 sm:px-8 sm:py-7'
+  class='border-border bg-surface rounded-card mt-12 flex flex-col items-start justify-between gap-4 border p-6 sm:flex-row sm:items-center sm:gap-8 sm:px-8 sm:py-7'
 >
   <div class='flex flex-col gap-2'>
-    <p class='font-fredoka text-text text-xl font-semibold sm:text-2xl'>{t('blog.cta.title')}</p>
-    <p class='text-text-muted text-[15px] leading-[1.55]'>{t('blog.cta.body')}</p>
+    <p class='font-display text-text font-heading text-xl sm:text-2xl'>{t('blog.cta.title')}</p>
+    <p class='text-text-muted text-body leading-[1.55]'>{t('blog.cta.body')}</p>
   </div>
   <a
     href='/stake/'

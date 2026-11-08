@@ -2,10 +2,10 @@
 // rank, a name, a band and (when the server's switch is on) growth as a 5-point band ("+20–25%") —
 // never a balance; only the member's own row has its holdings and its exact growth.
 import { observer } from 'mobx-react-lite'
-import { Trophy } from 'lucide-react'
 import type { ClubBoardRow } from './api.ts'
 import type { ClubModel } from './ClubModel.ts'
-import { Card, Pill, Pills, rowSelf, tableRow, tableTd, tableTh } from './ui.tsx'
+import { TrophyIcon } from './icons.tsx'
+import { Card, Pill, Pills, rowSelf, tableRow, tableTdBoard as tableTd, tableTh } from './ui.tsx'
 
 interface Props {
   club: ClubModel
@@ -63,6 +63,8 @@ const Leaderboard = observer(({ club }: Props) => {
     row.growth !== undefined ? row.growth > 0 : row.growthBand !== undefined && row.growthBand.low > 0
   const growthCell = (row: ClubBoardRow) =>
     tableTd + ' num text-end whitespace-nowrap' + (positive(row) ? ' text-tone-success-fg' : '')
+  // The own row's change: the wireframe sets it at normal weight in the ordinary text colour.
+  const ownGrowthCell = tableTd + ' num text-end whitespace-nowrap font-normal'
   const top = rows.slice(0, 10)
   const last = top.at(-1)?.rank
   // A "…" row when the own row does not follow straight on from the top rows.
@@ -72,8 +74,8 @@ const Leaderboard = observer(({ club }: Props) => {
     <Card>
       <div className='flex min-w-0 flex-wrap items-center justify-between gap-4'>
         <div className='flex min-w-0 flex-[1_1_16rem] flex-col gap-0.5'>
-          <h2 className='font-fredoka flex items-center gap-2.5 text-xl font-semibold'>
-            <Trophy size={20} strokeWidth={1.8} className='text-text-muted shrink-0' aria-hidden='true' />
+          <h2 className='font-body text-title-sm flex items-center gap-2.5 leading-normal font-semibold'>
+            <TrophyIcon size={20} className='text-text-muted' />
             {t('club.board.title', { level: club.level(level) })}
           </h2>
           <p className='text-text-muted text-sm leading-normal'>
@@ -88,10 +90,10 @@ const Leaderboard = observer(({ club }: Props) => {
               </Pill>
             ))}
           </Pills>
-          <label className='text-text-muted flex items-center gap-2 text-[15px]'>
+          <label className='text-text-muted text-body flex items-center gap-2'>
             {t('club.board.levelPicker')}
             <select
-              className='bg-surface-raised border-border-strong text-text min-h-10 rounded-[10px] border px-2.5 py-2'
+              className='bg-surface-raised border-border-strong text-text rounded-chip min-h-10 border px-2.5 py-2'
               value={level}
               onChange={(e) => void club.loadBoard(Number(e.target.value), by)}
             >
@@ -105,7 +107,7 @@ const Leaderboard = observer(({ club }: Props) => {
         </div>
       </div>
       {hidden !== undefined ? (
-        <p className='text-text-secondary text-[15px] leading-normal'>{hidden}</p>
+        <p className='text-text-secondary text-body leading-normal'>{hidden}</p>
       ) : rows.length === 0 && board?.clubLevel === level ? (
         <p className='text-text-muted text-sm'>{t('club.board.empty', { level: club.level(level) })}</p>
       ) : (
@@ -130,7 +132,7 @@ const Leaderboard = observer(({ club }: Props) => {
               ))}
               {gap && (
                 <tr className={tableRow} aria-hidden='true'>
-                  <td className={tableTd + ' text-text-muted'}>…</td>
+                  <td className={tableTd + ' text-text-faint'}>…</td>
                   <td className={tableTd}></td>
                   <td className={tableTd}></td>
                   {showGrowth && <td className={tableTd}></td>}
@@ -143,7 +145,7 @@ const Leaderboard = observer(({ club }: Props) => {
                     {t('club.board.you', { name: me.name, holdings: club.whole(me.holdings) })}
                   </td>
                   <td className={tableTd + ' whitespace-nowrap'}>{band(me.band)}</td>
-                  {showGrowth && <td className={growthCell(me)}>{growth(me)}</td>}
+                  {showGrowth && <td className={ownGrowthCell}>{growth(me)}</td>}
                 </tr>
               )}
             </tbody>
@@ -151,16 +153,32 @@ const Leaderboard = observer(({ club }: Props) => {
         </div>
       )}
       <div className='border-border flex flex-wrap items-center justify-between gap-3 border-t pt-3'>
-        <p className='text-text-faint min-w-0 flex-1 text-[13px] leading-normal'>{t('club.board.names')}</p>
-        <label className='flex items-center gap-2 text-sm'>
-          <input
-            type='checkbox'
-            className='size-4 accent-[var(--color-accent-fill)]'
-            checked={o.settings.hideName}
-            onChange={(e) => void club.setSetting({ hide_name: e.target.checked })}
-          />
+        <p className='text-text-faint text-label min-w-0 flex-1 leading-normal'>{t('club.board.names')}</p>
+        {/* The wireframe's 13px coral link. Until a "Show my name" text is translated, the label stays and a
+            tick shows the name is hidden (aria-pressed tells screen readers). */}
+        <button
+          type='button'
+          aria-pressed={o.settings.hideName}
+          className={
+            'text-accent text-label inline-flex cursor-pointer items-center gap-1 leading-normal underline-offset-2 ' +
+            (o.settings.hideName ? 'no-underline' : 'underline')
+          }
+          onClick={() => void club.setSetting({ hide_name: !o.settings.hideName })}
+        >
+          {o.settings.hideName && (
+            <svg
+              viewBox='0 0 24 24'
+              className='size-3.5'
+              fill='none'
+              stroke='currentColor'
+              strokeWidth='2.5'
+              aria-hidden='true'
+            >
+              <path d='m5 12 5 5 9-10' strokeLinecap='round' strokeLinejoin='round' />
+            </svg>
+          )}
           {t('club.board.hideName')}
-        </label>
+        </button>
       </div>
     </Card>
   )

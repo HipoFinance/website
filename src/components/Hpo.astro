@@ -198,7 +198,7 @@ const hpoFaq = await Promise.all(
   <section class='grid grid-cols-1 items-center gap-12 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:py-16'>
     <div class='flex flex-col items-start gap-[22px]'>
       <h1
-        class='font-fredoka text-[40px] leading-[1.1] font-semibold hyphens-auto sm:text-[54px]'
+        class='font-display font-heading text-[40px] leading-[1.1] hyphens-auto sm:text-[54px]'
         set:html={tHtml('hpo.hero.title', { accent: '<span class="text-accent">HPO</span>' })}
       />
       <p class='text-text-muted max-w-[480px] text-[19px] leading-[1.6]'>{t('hpo.hero.lead')}</p>
@@ -207,7 +207,7 @@ const hpoFaq = await Promise.all(
           href='https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=HPO'
           target='_blank'
           rel='noopener noreferrer'
-          class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover rounded-full px-9 py-[15px] text-[17px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)]'
+          class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover text-lead rounded-full px-9 py-[15px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)]'
         >
           {t('hpo.hero.buy')}
         </a>
@@ -218,17 +218,17 @@ const hpoFaq = await Promise.all(
     </div>
 
     <div class='flex flex-col gap-2.5'>
-      <div class='border-border bg-surface flex flex-col gap-[18px] rounded-[24px] border p-7'>
+      <div class='border-border bg-surface rounded-sheet flex flex-col gap-[18px] border p-7'>
         <!-- Header and price row share a tighter gap than the card's 18px, so the price reads as part of
         the header; the graph below is pulled up to sit 10px under it. -->
         <div class='flex flex-col gap-2'>
           <div class='flex items-center gap-3'>
             <img src='/hpo.png' class='size-11' alt='HPO' />
             <div>
-              <div class='font-fredoka text-lg font-semibold'>{t('hpo.hero.pair')}</div>
-              <div class='text-text-muted text-[13px]'>{t('hpo.hero.liveData')}</div>
+              <div class='font-display font-heading text-lg'>{t('hpo.hero.pair')}</div>
+              <div class='text-text-muted text-label'>{t('hpo.hero.liveData')}</div>
             </div>
-            <span class='text-positive ms-auto flex items-center gap-1.5 text-[13px] font-medium'>
+            <span class='text-positive text-label ms-auto flex items-center gap-1.5 font-medium'>
               <span class='bg-positive inline-block size-[7px] rounded-full'></span>
               {t('hpo.hero.live')}
             </span>
@@ -241,7 +241,7 @@ const hpoFaq = await Promise.all(
           <div class='flex flex-wrap items-baseline gap-x-3 gap-y-1'>
             <div
               id='hpoPrice'
-              class='font-fredoka num text-[24px] leading-tight font-semibold'
+              class='font-display num font-heading text-[24px] leading-tight'
               set:text={gauge.hpoPrice ?? '—'}
             />
             <!-- The 24h change and the chart's hovered time share one grid cell: while a point of the chart
@@ -256,14 +256,14 @@ const hpoFaq = await Promise.all(
                 <span
                   id='hpoChange'
                   class:list={[
-                    'num text-[14px] font-medium',
+                    'num text-small font-medium',
                     changeDelta?.direction === 'down' ? 'text-accent' : 'text-positive',
                   ]}
                   set:text={changeText ?? ''}
                 />
-                <span id='hpoChangeLabel' class='text-text-muted text-[13px]'>{changeLabel}</span>
+                <span id='hpoChangeLabel' class='text-text-muted text-label'>{changeLabel}</span>
               </div>
-              <span id='hpoHoverTime' class='num text-text-muted invisible col-start-1 row-start-1 text-[13px]'></span>
+              <span id='hpoHoverTime' class='num text-text-muted text-label invisible col-start-1 row-start-1'></span>
             </span>
           </div>
         </div>
@@ -277,7 +277,7 @@ const hpoFaq = await Promise.all(
         <div dir='ltr' class='relative -mt-2'>
           <svg
             id='hpoSparkline'
-            class='focus-visible:outline-accent h-[120px] w-full touch-pan-y rounded-[12px] select-none focus-visible:outline-2 focus-visible:outline-offset-4'
+            class='focus-visible:outline-accent rounded-input h-[120px] w-full touch-pan-y select-none focus-visible:outline-2 focus-visible:outline-offset-4'
             tabindex='0'
             role='img'
             aria-label={t('app.chart.ariaNoData', { title: t('hpo.hero.pair'), range: t('app.chart.range1m') })}
@@ -297,7 +297,7 @@ const hpoFaq = await Promise.all(
           id='hpoRange'
           role='group'
           aria-label={t('app.chart.rangeGroup')}
-          class='bg-surface-deep -mt-1 inline-flex flex-row gap-0.5 self-start rounded-full p-0.5 text-[12px] font-semibold'
+          class='bg-surface-deep text-caption -mt-1 inline-flex flex-row gap-0.5 self-start rounded-full p-0.5 font-semibold'
         >
           {
             ranges.map((r) => (
@@ -323,10 +323,10 @@ const hpoFaq = await Promise.all(
               <div class='border-border flex min-w-0 flex-wrap items-baseline justify-between gap-x-3 border-t py-2.5 first:border-t-0 first:pt-0 last:pb-0 sm:block sm:border-t-0 sm:py-0'>
                 <div
                   id={id}
-                  class='font-fredoka order-2 ms-auto shrink-0 text-[22px] font-semibold whitespace-nowrap sm:whitespace-normal'
+                  class='font-display text-title font-heading order-2 ms-auto shrink-0 whitespace-nowrap sm:whitespace-normal'
                   set:text={value ?? '—'}
                 />
-                <div class='text-text-muted order-1 min-w-0 text-[13px]'>{t(label)}</div>
+                <div class='text-text-muted text-label order-1 min-w-0'>{t(label)}</div>
               </div>
             ))
           }
@@ -336,7 +336,7 @@ const hpoFaq = await Promise.all(
       <!-- How the figures are computed, in one sentence under the card (Behrang asked for it on the
       page itself, not only in the docs), with the docs section that spells out the arithmetic; then the
       CoinGecko chart as the outside reference, on a line of its own since the first sentence ends in a link. -->
-      <div class='text-text-faint flex flex-col gap-1 px-3 text-[12px] leading-relaxed'>
+      <div class='text-text-faint text-caption flex flex-col gap-1 px-3 leading-relaxed'>
         <p set:html={tHtml('hpo.hero.priced', { link: link(supplyDocs, t('hpo.hero.pricedLink')) })} />
         <p set:html={tHtml('hpo.hero.compare', { link: link(coinGeckoHpo, t('hpo.hero.compareLink'), true) })} />
       </div>
@@ -345,16 +345,16 @@ const hpoFaq = await Promise.all(
 
   <!-- HPO utility -->
   <section id='utility' class='py-6'>
-    <h2 class='anchor-host font-fredoka mb-7 text-[40px] font-semibold'>
+    <h2 class='anchor-host font-display font-heading mb-7 text-[40px]'>
       {t('hpo.utility.title')}<AnchorLink anchor='utility' />
     </h2>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
       {
         utility.map(({ icon, key }) => (
-          <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
+          <div class='border-border bg-surface rounded-card flex flex-col gap-2.5 border p-6'>
             <img src={icon} class='size-11' alt='' />
-            <div class='font-fredoka text-[19px] font-semibold'>{t(`hpo.utility.${key}.title`)}</div>
-            <p class='text-text-muted text-[15px] leading-[1.55]'>{t(`hpo.utility.${key}.body`)}</p>
+            <div class='font-display font-heading text-[19px]'>{t(`hpo.utility.${key}.title`)}</div>
+            <p class='text-text-muted text-body leading-[1.55]'>{t(`hpo.utility.${key}.body`)}</p>
           </div>
         ))
       }
@@ -365,7 +365,7 @@ const hpoFaq = await Promise.all(
   <section id='tokenomics' class='py-12'>
     <div class='grid items-start gap-12 lg:grid-cols-2'>
       <div>
-        <h2 class='font-fredoka mb-5 text-[40px] font-semibold'>{t('hpo.buy.title')}</h2>
+        <h2 class='font-display font-heading mb-5 text-[40px]'>{t('hpo.buy.title')}</h2>
         <div class='flex flex-col'>
           {
             buySteps.map((step, i) => (
@@ -376,7 +376,7 @@ const hpoFaq = await Promise.all(
                     : 'grid grid-cols-[56px_1fr] items-center gap-[18px] py-[18px]'
                 }
               >
-                <span class='bg-accent-fill text-on-accent font-fredoka inline-flex size-11 items-center justify-center rounded-[14px] text-[19px] font-semibold'>
+                <span class='bg-accent-fill text-on-accent font-display rounded-control font-heading inline-flex size-11 items-center justify-center text-[19px]'>
                   {step.num}
                 </span>
                 <span class='text-[16px] leading-[1.5]'>{step.text}</span>
@@ -386,10 +386,10 @@ const hpoFaq = await Promise.all(
         </div>
       </div>
       <div>
-        <h2 class='anchor-host font-fredoka mb-5 text-[40px] font-semibold'>
+        <h2 class='anchor-host font-display font-heading mb-5 text-[40px]'>
           {t('hpo.tokenomics.title')}<AnchorLink anchor='tokenomics' />
         </h2>
-        <div class='border-border bg-surface rounded-[20px] border p-6'>
+        <div class='border-border bg-surface rounded-card border p-6'>
           <div class='flex flex-col items-center gap-7 sm:flex-row'>
             <div id='hpoTokenomicsChart' class='relative w-full max-w-[250px] shrink-0'>
               <svg viewBox='0 0 240 240' role='img' aria-label={chartLabel}>
@@ -410,11 +410,11 @@ const hpoFaq = await Promise.all(
                 }
               </svg>
               <div class='absolute inset-0 flex flex-col items-center justify-center gap-0.5 text-center'>
-                <div class='font-fredoka text-[21px] font-semibold'>{formatNumber(locale, HPO_MINTED)}</div>
-                <div class='text-text-muted text-[13px]'>{t('hpo.tokenomics.minted')}</div>
+                <div class='font-display font-heading text-[21px]'>{formatNumber(locale, HPO_MINTED)}</div>
+                <div class='text-text-muted text-label'>{t('hpo.tokenomics.minted')}</div>
               </div>
             </div>
-            <ul class='w-full space-y-2.5 text-[15px]'>
+            <ul class='text-body w-full space-y-2.5'>
               {
                 slices.map((s) => (
                   <li class='flex items-center gap-2.5'>
@@ -429,7 +429,7 @@ const hpoFaq = await Promise.all(
           <!-- Where the 1B are today. The bar's three segments are the shares of the minted supply,
           baked from the gauge and refreshed by hpo-data.js with the figures; with no gauge data the
           track is empty and the figures are em dashes. A flex row, so it mirrors under RTL. -->
-          <h3 class='font-fredoka mt-7 mb-3 text-[17px] font-semibold'>{t('hpo.tokenomics.supplyTitle')}</h3>
+          <h3 class='font-display text-lead font-heading mt-7 mb-3'>{t('hpo.tokenomics.supplyTitle')}</h3>
           <div
             id='hpoSupplyBar'
             class='bg-border flex h-3.5 gap-0.5 overflow-hidden rounded-full'
@@ -467,10 +467,10 @@ const hpoFaq = await Promise.all(
             {
               supplyFigures.map((f) => (
                 <div>
-                  <div class='font-fredoka flex items-center gap-2 text-[19px] font-semibold'>
+                  <div class='font-display font-heading flex items-center gap-2 text-[19px]'>
                     <span
                       id={f.id === 'hpoSupplyHeld' ? 'hpoSupplyHeldSwatch' : undefined}
-                      class={`inline-block size-2.5 shrink-0 rounded-[3px] ${f.id === 'hpoSupplyHeld' && supply?.sections !== undefined ? 'hatch' : f.swatch}`}
+                      class={`rounded-bar inline-block size-2.5 shrink-0 ${f.id === 'hpoSupplyHeld' && supply?.sections !== undefined ? 'hatch' : f.swatch}`}
                       style={
                         f.id === 'hpoSupplyHeld' && supply?.sections !== undefined
                           ? `--hatch-color:${HELD_GREY}`
@@ -484,8 +484,8 @@ const hpoFaq = await Promise.all(
                       </span>
                     </span>
                   </div>
-                  <div class='text-text-muted text-[13px]'>{t(f.label)}</div>
-                  <div class='text-text-faint text-[12px]'>
+                  <div class='text-text-muted text-label'>{t(f.label)}</div>
+                  <div class='text-text-faint text-caption'>
                     <span id={`${f.id}Pct`}>{f.pct ?? DASH}</span> · {t(f.note)}
                   </div>
                 </div>
@@ -494,16 +494,13 @@ const hpoFaq = await Promise.all(
           </div>
           <ul
             id='hpoHeldSections'
-            class='mt-4 grid gap-x-6 gap-y-2 text-[13px] sm:grid-cols-2'
+            class='text-label mt-4 grid gap-x-6 gap-y-2 sm:grid-cols-2'
             hidden={supply?.sections === undefined}
           >
             {
               sectionRows.map((row) => (
                 <li class='flex items-center gap-2' hidden={row.section === undefined}>
-                  <span
-                    class='hatch inline-block size-2.5 shrink-0 rounded-[3px]'
-                    style={`--hatch-color:${row.color}`}
-                  />
+                  <span class='hatch rounded-bar inline-block size-2.5 shrink-0' style={`--hatch-color:${row.color}`} />
                   <span class='min-w-0'>{row.label}</span>
                   <span class='num text-text-muted ms-auto whitespace-nowrap'>
                     <span id={row.id}>{row.section?.amount ?? DASH}</span> ·{' '}
@@ -518,7 +515,7 @@ const hpoFaq = await Promise.all(
           rest; hpo-data.js re-interpolates the template in data-template on each refresh. -->
           <p
             id='hpoFdv'
-            class='text-text-muted mt-4 text-[13px]'
+            class='text-text-muted text-label mt-4'
             data-template={t('hpo.tokenomics.fdv')}
             hidden={supply?.fdv === undefined}
           >
@@ -528,7 +525,7 @@ const hpoFaq = await Promise.all(
                 : t('hpo.tokenomics.fdv', { total: supply.total, fdv: supply.fdv, circulating: supply.circulating })
             }
           </p>
-          <p class='text-text-muted mt-5 text-[15px] leading-[1.55]'>
+          <p class='text-text-muted text-body mt-5 leading-[1.55]'>
             {t('hpo.tokenomics.live')}
             {t('hpo.tokenomics.body')}
             <a href={tokenomicsDocs} class='text-accent'>{t('hpo.tokenomics.learnMore')}</a>
@@ -540,23 +537,23 @@ const hpoFaq = await Promise.all(
 
   <!-- A shrinking supply -->
   <section id='scarcity' class='py-12'>
-    <h2 class='anchor-host font-fredoka mb-2 text-[40px] font-semibold'>
+    <h2 class='anchor-host font-display font-heading mb-2 text-[40px]'>
       {t('hpo.scarcity.title')}<AnchorLink anchor='scarcity' />
     </h2>
     <p class='text-text-muted mb-7 text-[18px]'>{t('hpo.scarcity.subtitle')}</p>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
       {
         scarcity.map(({ icon, key }) => (
-          <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
+          <div class='border-border bg-surface rounded-card flex flex-col gap-2.5 border p-6'>
             <img src={icon} class='size-11' alt='' />
-            <div class='font-fredoka text-[19px] font-semibold'>{t(`hpo.scarcity.${key}.title`)}</div>
-            <p class='text-text-muted text-[15px] leading-[1.55]'>{t(`hpo.scarcity.${key}.body`)}</p>
+            <div class='font-display font-heading text-[19px]'>{t(`hpo.scarcity.${key}.title`)}</div>
+            <p class='text-text-muted text-body leading-[1.55]'>{t(`hpo.scarcity.${key}.body`)}</p>
           </div>
         ))
       }
     </div>
     <p
-      class='text-text-muted mt-5 text-[15px]'
+      class='text-text-muted text-body mt-5'
       set:html={tHtml('hpo.scarcity.details', {
         tokenomicsLink: link(tokenomicsDocs, t('hpo.scarcity.tokenomicsDocs')),
         clubLink: link(clubDocs, t('hpo.scarcity.clubDocs')),
@@ -566,14 +563,14 @@ const hpoFaq = await Promise.all(
 
   <!-- Early investors -->
   <section id='investors' class='py-12'>
-    <h2 class='anchor-host font-fredoka mb-2 text-[40px] font-semibold'>
+    <h2 class='anchor-host font-display font-heading mb-2 text-[40px]'>
       {t('hpo.investors.title')}<AnchorLink anchor='investors' />
     </h2>
     <p class='text-text-muted mb-7 text-[18px]'>{t('hpo.investors.subtitle')}</p>
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-3'>
-      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
-        <div class='font-fredoka text-accent text-[19px] font-semibold'>{t('hpo.investors.metrics.title')}</div>
-        <div class='flex flex-col gap-2 text-[15px] leading-[1.5]'>
+      <div class='border-border bg-surface rounded-card flex flex-col gap-3 border p-6'>
+        <div class='font-display text-accent font-heading text-[19px]'>{t('hpo.investors.metrics.title')}</div>
+        <div class='text-body flex flex-col gap-2 leading-[1.5]'>
           <span
             set:html={tHtml('hpo.investors.metrics.tvl', {
               tvl: `<strong class="text-text font-bold"><span id="hpoTvlGram">${gauge.hpoTvlGram ?? '—'}</span> GRAM</strong>`,
@@ -588,9 +585,9 @@ const hpoFaq = await Promise.all(
           />
         </div>
       </div>
-      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
-        <div class='font-fredoka text-accent text-[19px] font-semibold'>{t('hpo.investors.audited.title')}</div>
-        <div class='flex flex-col gap-2 text-[15px] leading-[1.5]'>
+      <div class='border-border bg-surface rounded-card flex flex-col gap-3 border p-6'>
+        <div class='font-display text-accent font-heading text-[19px]'>{t('hpo.investors.audited.title')}</div>
+        <div class='text-body flex flex-col gap-2 leading-[1.5]'>
           <span
             set:html={tHtml('hpo.investors.audited.audits', {
               count: `<strong class="text-text font-bold">${t('hpo.investors.audited.auditsCount')}</strong>`,
@@ -603,9 +600,9 @@ const hpoFaq = await Promise.all(
           />
         </div>
       </div>
-      <div class='border-border bg-surface flex flex-col gap-3 rounded-[20px] border p-6'>
-        <div class='font-fredoka text-accent text-[19px] font-semibold'>{t('hpo.investors.growth.title')}</div>
-        <div class='flex flex-col gap-2 text-[15px] leading-[1.5]'>
+      <div class='border-border bg-surface rounded-card flex flex-col gap-3 border p-6'>
+        <div class='font-display text-accent font-heading text-[19px]'>{t('hpo.investors.growth.title')}</div>
+        <div class='text-body flex flex-col gap-2 leading-[1.5]'>
           <span>{t('hpo.investors.growth.early')}</span>
           <span>{t('hpo.investors.growth.fundraising')}</span>
         </div>
@@ -615,21 +612,21 @@ const hpoFaq = await Promise.all(
 
   <!-- Watch & learn -->
   <section id='watch' class='py-12'>
-    <h2 class='anchor-host font-fredoka mb-7 text-[40px] font-semibold'>
+    <h2 class='anchor-host font-display font-heading mb-7 text-[40px]'>
       {t('hpo.watch.title')}<AnchorLink anchor='watch' />
     </h2>
     <div class='grid grid-cols-1 gap-6 lg:grid-cols-2'>
-      <div class='border-border bg-surface rounded-[20px] border p-4'>
+      <div class='border-border bg-surface rounded-card border p-4'>
         <iframe
-          class='aspect-video w-full rounded-[12px]'
+          class='rounded-input aspect-video w-full'
           src='https://www.youtube.com/embed/QYU-TWJK1yg'
           title={t('hpo.watch.videoTitle')}
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
           allowfullscreen></iframe>
       </div>
-      <div class='border-border bg-surface rounded-[20px] border p-4'>
+      <div class='border-border bg-surface rounded-card border p-4'>
         <iframe
-          class='aspect-video w-full rounded-[12px]'
+          class='rounded-input aspect-video w-full'
           src='https://youtube.com/embed/ZHAlS4wystU?feature=share'
           title={t('hpo.watch.videoTitle')}
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
@@ -640,7 +637,7 @@ const hpoFaq = await Promise.all(
 
   <!-- FAQ -->
   <section id='faq' class='py-12'>
-    <h2 class='anchor-host font-fredoka mb-7 text-[40px] font-semibold'>
+    <h2 class='anchor-host font-display font-heading mb-7 text-[40px]'>
       {t('hpo.faq.title')}<AnchorLink anchor='faq' />
     </h2>
     <div class='flex flex-col gap-4'>
@@ -651,11 +648,11 @@ const hpoFaq = await Promise.all(
             open={i === 0}
             class='border-border bg-surface scroll-mt-6 rounded-2xl border px-[22px] py-[18px]'
           >
-            <summary class='anchor-host text-text cursor-pointer text-[17px] font-medium'>
+            <summary class='anchor-host text-text text-lead cursor-pointer font-medium'>
               {t('hpo.faq.item', { n: formatNumber(locale, entry.data.order), question: entry.data.question ?? '' })}
               <AnchorLink anchor={anchor} />
             </summary>
-            <div class='hpo-answer text-text-muted flex flex-col gap-2.5 pt-3 text-[15px] leading-[1.6]'>
+            <div class='hpo-answer text-text-muted text-body flex flex-col gap-2.5 pt-3 leading-[1.6]'>
               <Content />
             </div>
           </details>
@@ -668,10 +665,10 @@ const hpoFaq = await Promise.all(
   <section class='py-12 pb-[72px]'>
     <div
       class='border-border flex flex-col items-start justify-between gap-8 rounded-[28px] border p-8 sm:flex-row sm:items-center sm:p-12'
-      style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%)'
+      style='background: linear-gradient(120deg, var(--accent-wash), var(--accent-wash-clear) 60%)'
     >
       <div class='flex max-w-[620px] flex-col gap-2.5'>
-        <h2 class='font-fredoka text-[32px] font-semibold'>{t('hpo.cta.title')}</h2>
+        <h2 class='font-display font-heading text-[32px]'>{t('hpo.cta.title')}</h2>
         <p class='text-text-muted text-[16px] leading-[1.6]'>{t('hpo.cta.body')}</p>
       </div>
       <a

@@ -29,7 +29,7 @@ const TmaHeader = observer(({ model }: Props) => {
       <img src='/images/hipo-light.svg' alt='Hipo' className='logo-on-light h-[34px] w-[34px] shrink-0' />
 
       <div className='min-w-0'>
-        <div className='font-fredoka truncate text-[17px] leading-tight font-semibold'>{title}</div>
+        <div className='font-display text-lead font-heading truncate leading-tight'>{title}</div>
         {/* statsApyFormatted falls back to the gauge while the slower on-chain treasury state
             (which protocolFee still needs) is loading, so the subline fills fast either way. */}
         <div className='text-text-muted truncate text-xs'>

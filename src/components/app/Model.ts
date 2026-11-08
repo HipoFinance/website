@@ -513,7 +513,7 @@ function keepRuntimeStyles(event: Event) {
 
   // And for the Telegram locale override (Model.syncLocale): while it is active the live <html lang dir>
   // differ from what the (English) static page declares, and the swap would reset them to the incoming
-  // document's — one frame of Heebo and LTR before syncLocale re-applies them. Copy them across first,
+  // document's — one frame of the wrong face and LTR before syncLocale re-applies them. Copy them across first,
   // marker included; only onto another default-locale page, since a page whose URL carries a locale
   // declares its own (correct) attributes and is not overridden.
   if (
@@ -3428,7 +3428,8 @@ export class Model {
       // 'en' or 'ru' per the registry; applyTonConnectLanguage re-sets it when the locale changes.
       language: tonConnectLanguage(this.locale),
       // Both palettes are supplied and the active one follows the OS setting, like the rest of
-      // the site (src/styles/global.css). TonConnect has no "system" theme of its own, so the
+      // the site (src/styles/global.css). These are hand copies of the tokens; the token list in
+      // .claude/rules/styling.md names them, so keep them equal to it. TonConnect has no "system" theme of its own, so the
       // media query is read here and re-applied on change via uiOptions.
       uiPreferences: {
         theme: preferredTonConnectTheme(module),
@@ -3436,29 +3437,29 @@ export class Model {
           [module.THEME.DARK]: {
             connectButton: {
               background: '#ff7e73',
-              foreground: '#291f20',
+              foreground: '#2b1410',
             },
             background: {
-              primary: '#2b2423', // dialog background
-              secondary: '#3d3331', // menu item hover background
-              qr: '#f5efe8',
-              tint: '#3d3331',
-              segment: '#2b2423',
+              primary: '#2a2523', // dialog background
+              secondary: '#3a322e', // menu item hover background
+              qr: '#f3ede8',
+              tint: '#3a322e',
+              segment: '#2a2523',
             },
             text: {
-              primary: '#f5efe8', // dialog text
-              secondary: '#c2b5ac', // dialog subtitle
+              primary: '#f3ede8', // dialog text
+              secondary: '#b8ada6', // dialog subtitle
             },
             icon: {
-              primary: '#f5efe8', // browser extension icon
-              secondary: '#c2b5ac', // dialog close
-              tertiary: '#f5efe8', // loading indicator
+              primary: '#f3ede8', // browser extension icon
+              secondary: '#b8ada6', // dialog close
+              tertiary: '#f3ede8', // loading indicator
               success: '#4ade80', // success notification color
               error: '#ff7e73', // error notification color
             },
             constant: {
-              black: '#201b1a', // qrcode color
-              white: '#201b1a', // ton connect footer
+              black: '#1f1b1a', // qrcode color
+              white: '#1f1b1a', // ton connect footer
             },
             accent: '#ff7e73', // coral
           },
@@ -3467,7 +3468,7 @@ export class Model {
             // brand coral here too; everything that is a page surface or a piece of text flips.
             connectButton: {
               background: '#ff7e73',
-              foreground: '#291f20',
+              foreground: '#2b1410',
             },
             background: {
               primary: '#ffffff', // dialog background

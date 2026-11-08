@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import type { ClubModel, Tone } from './ClubModel.ts'
 import { BUY_HPO_URL, HIPO_CHAT_URL } from './ClubModel.ts'
 import { CLAIM_MIN_NANO } from './clubTx.ts'
-import { Button, ErrorLine, inset, Strip, useCardBox } from './ui.tsx'
+import { Button, ErrorLine, Strip, useCardBox } from './ui.tsx'
 
 interface Props {
   club: ClubModel
@@ -24,37 +24,37 @@ export const GracePanel = observer(({ club }: Props) => {
   const left = club.duration(until - now)
   const short = club.amountUp(o.short)
   const minimum = club.amount2(o.minimum)
-  const holdings = club.amount2(o.holdings)
+  const holdings = club.amountDown(o.holdings)
   const level = club.level(o.clubLevel)
   const grace = o.state === 'grace'
   const since = o.stateSince
   const steps = grace
     ? [
-        { when: club.date(since, true), text: t('club.panel.fellBelow', { minimum }) },
+        { when: club.stepDate(since), text: t('club.panel.fellBelow', { minimum }) },
         {
           when: t('club.panel.now'),
           text: t('club.panel.nowGrace', { holdings, short, level, boost: club.boost(o.boost) }),
           current: true,
         },
-        { when: club.date(until, true), text: t('club.panel.ifStillBelow'), future: true },
+        { when: club.stepDate(until, true), text: t('club.panel.ifStillBelow'), future: true },
       ]
     : [
         {
-          when: club.date(since !== undefined ? since - 24 * HOUR : undefined, true),
+          when: club.stepDate(since !== undefined ? since - 24 * HOUR : undefined),
           text: t('club.panel.fellBelow', { minimum }),
         },
-        { when: club.date(since, true), text: t('club.panel.graceEnded') },
+        { when: club.stepDate(since), text: t('club.panel.graceEnded') },
         { when: t('club.panel.now'), text: t('club.panel.nowSuspended', { holdings, short }), current: true },
-        { when: club.date(until, true), text: t('club.panel.deadline'), future: true },
+        { when: club.stepDate(until, true), text: t('club.panel.deadline'), future: true },
       ]
   return (
     // Card's look with the warn border (Card's own border colour cannot be overridden by a class).
     <section className={'border-tone-warn-border bg-surface flex min-w-0 flex-col gap-5 border ' + box}>
       <div className='flex min-w-0 flex-wrap items-baseline justify-between gap-x-4 gap-y-1'>
-        <h2 className='font-fredoka min-w-0 text-[22px] font-semibold'>
+        <h2 className='font-body text-title min-w-0 leading-normal font-semibold'>
           {grace ? t('club.panel.graceTitle') : t('club.panel.restoreTitle', { level })}
         </h2>
-        <p className='text-tone-warn-fg min-w-0 font-semibold'>
+        <p className='text-tone-warn-fg text-body min-w-0 leading-normal font-semibold'>
           {grace
             ? t('club.panel.graceDeadline', { date: club.date(until, true), left })
             : t('club.panel.restoreDeadline', { date: club.date(until, true), left })}
@@ -67,27 +67,28 @@ export const GracePanel = observer(({ club }: Props) => {
             className={
               'flex min-w-0 flex-col gap-0.5 border-t-[3px] pt-2.5 ' +
               (step.future
-                ? 'border-border-strong border-dashed'
+                ? 'border-border-control border-dashed'
                 : step.current
                   ? 'border-tone-warn-fg'
-                  : 'border-border-strong')
+                  : 'border-border-control')
             }
           >
-            <span className={'num text-[13px] ' + (step.current ? 'text-tone-warn-fg' : 'text-text-faint')}>
+            <span className={'num text-label ' + (step.current ? 'text-tone-warn-fg' : 'text-text-faint')}>
               {step.when}
             </span>
-            <span className='text-[15px] leading-normal'>{step.text}</span>
+            <span className='text-body leading-normal'>{step.text}</span>
           </li>
         ))}
       </ol>
-      <div className={inset + ' flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'}>
+      {/* The board's buy box: radius 16, padding 18px 20px. */}
+      <div className='bg-surface-raised rounded-tile flex flex-col gap-3 px-5 py-[18px] sm:flex-row sm:items-center sm:justify-between'>
         <div className='flex min-w-0 flex-col gap-1'>
-          <p className='text-[17px] font-bold'>{t('club.common.buyAmount', { amount: short })}</p>
+          <p className='text-lead font-bold'>{t('club.common.buyAmount', { amount: short })}</p>
           <p className='text-text-muted text-sm leading-normal'>
             {t('club.panel.buyHint', { wallet: club.clubWalletMasked })}
           </p>
         </div>
-        <Button kind='primary' href={BUY_HPO_URL} className='shrink-0'>
+        <Button kind='primary' size='sm' href={BUY_HPO_URL} className='shrink-0'>
           {t('club.common.buyHpo')}
         </Button>
       </div>

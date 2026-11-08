@@ -4,7 +4,7 @@
 // as `.prose-answer` in FAQ.astro). Headings start at h2: the page's one h1 is the title above.
 ---
 
-<div class='blog-prose text-text-muted text-[17px] leading-[1.7]'>
+<div class='blog-prose text-text-muted text-lead leading-[1.7]'>
   <slot />
 </div>
 
@@ -14,9 +14,9 @@
   }
 
   .blog-prose :global(:is(h2, h3, h4, h5, h6)) {
-    font-family: var(--font-fredoka);
+    font-family: var(--font-display);
     color: var(--color-text);
-    font-weight: 600;
+    font-weight: var(--font-weight-heading, 800);
     line-height: 1.25;
     /* Keeps a #anchor jump from landing flush against the top of the viewport. */
     scroll-margin-top: 1.5rem;

@@ -160,11 +160,6 @@ const xLabel = (day: string) =>
   /* The band between a competitor's line and zero — "what Hipo earned on top". Faint enough that
      the two bands overlapping does not read as a third colour. */
   #vsGapChart {
-    --color-series-wash: rgba(255, 126, 115, 0.1);
-  }
-  @media (prefers-color-scheme: light) {
-    #vsGapChart {
-      --color-series-wash: rgba(224, 87, 75, 0.09);
-    }
+    --color-series-wash: var(--accent-wash-faint);
   }
 </style>

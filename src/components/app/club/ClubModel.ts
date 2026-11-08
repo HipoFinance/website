@@ -407,6 +407,18 @@ export class ClubModel {
     return this.amount2(Math.ceil(n * 100) / 100)
   }
 
+  // Cut to 2 decimals, so a holding just under a minimum never shows as reaching it. The cut is done on
+  // the decimal text, not with Math.floor(n * 100), which turns 128.14 into 128.13 (float error).
+  amountDown = (value: string | number | undefined): string => {
+    const n = typeof value === 'string' ? Number(value) : value
+    if (n === undefined || !Number.isFinite(n)) {
+      return '—'
+    }
+    const text = typeof value === 'string' && /^\s*-?\d+(\.\d*)?\s*$/.test(value) ? value.trim() : n.toFixed(10)
+    const cut = /^(-?\d+)(?:\.(\d{0,2}))?/.exec(text)
+    return this.amount2(cut ? Number(cut[1] + '.' + (cut[2] ?? '').padEnd(2, '0')) : n)
+  }
+
   whole = (value: string | number | undefined): string => {
     const n = typeof value === 'string' ? Number(value) : value
     if (n === undefined || !Number.isFinite(n)) {
@@ -437,6 +449,24 @@ export class ClubModel {
       ...(withTime ? { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' } : { timeZone: 'UTC' }),
     })
     return withTime ? this.t('club.common.utc', { time: text }) : text
+  }
+
+  // A grace/restore step's time as the wireframe writes it, "Oct 19 · 14:00": the reader's local time,
+  // or with `utc` the UTC time marked "UTC" (the deadline step, which matches the deadline line).
+  stepDate = (unix: number | undefined, utc = false): string => {
+    if (unix === undefined || unix <= 0) {
+      return '—'
+    }
+    const zone: Intl.DateTimeFormatOptions = utc ? { timeZone: 'UTC' } : {}
+    const day = fmt.formatDate(this.model.locale, unix * 1000, { month: 'short', day: 'numeric', ...zone })
+    const time = fmt.formatDate(this.model.locale, unix * 1000, {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      ...zone,
+    })
+    const text = day + ' · ' + time
+    return utc ? this.t('club.common.utc', { time: text }) : text
   }
 
   // "3h 20m" under two days, whole days above (a 7-day restore window reads "5 days").

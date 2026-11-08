@@ -10,7 +10,7 @@ interface Props {
 
 const RangeSelector = ({ value, onChange, t }: Props) => (
   <div
-    className='border-border bg-surface inline-flex flex-row gap-1.5 rounded-full border p-1 text-[13px] font-semibold'
+    className='border-border bg-surface text-label inline-flex flex-row gap-1.5 rounded-full border p-1 font-semibold'
     role='group'
     aria-label={t('app.chart.rangeGroup')}
   >

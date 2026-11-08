@@ -22,7 +22,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
 
   return (
     <div className='flex min-h-full flex-col gap-3.5 px-4 pt-1.5 pb-4'>
-      <div className='border-border bg-surface flex flex-row gap-1 rounded-full border p-1 text-[13px] font-semibold select-none'>
+      <div className='border-border bg-surface text-label flex flex-row gap-1 rounded-full border p-1 font-semibold select-none'>
         <button
           type='button'
           aria-pressed={stake}
@@ -76,7 +76,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
             size={1}
             dir='ltr'
             className={
-              'placeholder:text-text-faint w-full min-w-0 flex-1 bg-transparent text-start text-[26px] font-semibold focus:outline-none ' +
+              'placeholder:text-text-faint text-section w-full min-w-0 flex-1 bg-transparent text-start font-semibold focus:outline-none ' +
               (model.isAmountValid ? 'text-text' : 'text-accent')
             }
             value={model.amountRaw}
@@ -107,7 +107,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
         <div className='text-text-faint text-xs'>{t('app.tma.youReceive')}</div>
         <div className='flex flex-row items-center gap-2.5'>
           <img src={stake ? '/images/app/hgram.svg' : '/images/app/gram.svg'} alt='' className='h-[26px] w-[26px]' />
-          <span className='num min-w-0 flex-1 truncate text-[26px] font-semibold'>
+          <span className='num text-section min-w-0 flex-1 truncate font-semibold'>
             {receiveAmount == null ? '—' : receiveAmount === '' ? zero : receiveAmount}
           </span>
           <span className='text-text-muted ms-auto shrink-0 text-sm font-medium'>{model.youWillReceiveToken}</span>
@@ -119,7 +119,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
           <div className='grid grid-cols-2 gap-2.5'>
             <div
               className={
-                'bg-surface flex cursor-pointer flex-col gap-1.5 rounded-[14px] border-2 p-3 select-none ' +
+                'bg-surface rounded-control flex cursor-pointer flex-col gap-1.5 border-2 p-3 select-none ' +
                 (model.unstakeOption === 'best' ? 'border-accent' : 'border-border')
               }
               onClick={() => {
@@ -128,7 +128,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
             >
               <div className='flex flex-row items-center gap-1.5'>
                 <Clock className='text-accent size-3.5' />
-                <p className='text-[13px] font-semibold'>{t('app.stake.optionFull')}</p>
+                <p className='text-label font-semibold'>{t('app.stake.optionFull')}</p>
                 <span
                   className={
                     'text-accent ms-auto text-xs font-bold' + (model.unstakeOption === 'best' ? '' : ' invisible')
@@ -146,7 +146,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
 
             <div
               className={
-                'bg-surface flex cursor-pointer flex-col gap-1.5 rounded-[14px] border-2 p-3 select-none ' +
+                'bg-surface rounded-control flex cursor-pointer flex-col gap-1.5 border-2 p-3 select-none ' +
                 (model.unstakeOption === 'instant' ? 'border-accent' : 'border-border')
               }
               onClick={() => {
@@ -155,7 +155,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
             >
               <div className='flex flex-row items-center gap-1.5'>
                 <Zap className='text-accent size-3.5' />
-                <p className='text-[13px] font-semibold'>{t('app.stake.optionInstant')}</p>
+                <p className='text-label font-semibold'>{t('app.stake.optionInstant')}</p>
                 <span
                   className={
                     'text-accent ms-auto text-xs font-bold' + (model.unstakeOption === 'instant' ? '' : ' invisible')
@@ -186,7 +186,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
 
       {hint != null && <div className='text-text-faint -mt-2 px-1 text-[11.5px]'>{hint}</div>}
 
-      <div className='text-text-muted flex flex-col gap-2 px-1 text-[13px]'>
+      <div className='text-text-muted text-label flex flex-col gap-2 px-1'>
         <div className='flex flex-row flex-wrap gap-x-2'>
           <span>{t('app.stake.exchangeRate')}</span>
           <span className='text-text num ms-auto font-medium'>{model.exchangeRateFormatted ?? '—'}</span>
@@ -200,7 +200,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
       <div className='mt-auto flex flex-col gap-2.5 pt-2'>
         <button
           id='submit'
-          className='bg-accent-fill text-on-accent w-full cursor-pointer rounded-[14px] py-[15px] text-[17px] font-semibold disabled:cursor-not-allowed disabled:opacity-60'
+          className='bg-accent-fill text-on-accent rounded-control text-lead w-full cursor-pointer py-[15px] font-semibold disabled:cursor-not-allowed disabled:opacity-60'
           disabled={!model.isButtonEnabled}
           onClick={(e) => {
             const target = e.target as HTMLInputElement

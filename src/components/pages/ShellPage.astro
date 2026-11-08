@@ -21,12 +21,12 @@ const rendered = await Promise.all(cards.map(async (entry) => ({ entry, Content:
 ---
 
 <section class='font-body text-text mx-auto w-full max-w-3xl px-4 pt-8 pb-24'>
-  <h1 class='font-fredoka mb-6 text-center text-3xl font-semibold'>{heading}</h1>
+  <h1 class='font-display font-heading mb-6 text-center text-3xl'>{heading}</h1>
 
   {
     rendered.map(({ entry, Content }, i) => (
-      <div class:list={['border-border bg-surface rounded-[20px] border p-6', i < rendered.length - 1 && 'mb-6']}>
-        <h2 class='font-fredoka mb-2 text-xl font-semibold'>{entry.data.title}</h2>
+      <div class:list={['border-border bg-surface rounded-card border p-6', i < rendered.length - 1 && 'mb-6']}>
+        <h2 class='font-display font-heading mb-2 text-xl'>{entry.data.title}</h2>
         <div class='shell-card-body'>
           <Content />
         </div>

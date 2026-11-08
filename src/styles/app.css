@@ -5,23 +5,16 @@
 
 /* Chart palette for the Warm Dark redesign. Kept as CSS variables (rather than inlined in
    LineChart) so gridline/label colors stay tweakable in one place; the line colors themselves
-   are passed per series from StatsPage using the @theme tokens. The gridline color tracks
-   --color-border across the two schemes; --chart-ink is the faint label color, which reads on
-   both grounds and so is declared once. */
+   are passed per series from StatsPage using the @theme tokens. The gridlines are --color-border
+   and the labels --color-text-faint, read from the global.css tokens so both schemes follow. */
 :root {
-  --chart-grid: #3d3331;
-  --chart-ink: #8d7f76;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --chart-grid: #e7dccf;
-  }
+  --chart-grid: var(--color-border);
+  --chart-ink: var(--color-text-faint);
 }
 
 ::selection {
-  background: #ff7e73;
-  color: #291f20;
+  background: var(--color-accent-fill);
+  color: var(--color-on-accent);
 }
 
 /* TonConnect renders its modal, dropdowns and toasts into #ton-connect-widget-root (see
@@ -67,19 +60,50 @@ html.tma body {
 }
 
 @theme {
-  /* Warm Dark tokens are declared in global.css; these two are app-scoped font utilities.
+  /* Warm Dark tokens are declared in global.css; these are app-scoped font utilities.
      Declaring them here as well as in global.css is deliberate: this stylesheet is compiled
-     separately, so the utilities have to exist in this build too. Color utilities (bg-surface
-     etc.) come from the global.css compilation, which app pages also load. */
-  --font-body: 'Heebo', ui-sans-serif, system-ui, sans-serif;
-  --font-fredoka: 'Fredoka Variable', 'Fredoka', ui-sans-serif, system-ui, sans-serif;
+     separately, so the utilities have to exist in this build too. Keep the five equal to
+     global.css. Color utilities (bg-surface etc.) come from the global.css compilation, which app
+     pages also load. */
+  --font-body: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Nunito Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-fredoka: var(--font-display);
+  --font-wordmark: 'Fredoka Variable', ui-sans-serif, system-ui, sans-serif;
+  /* The display weight (`font-heading`); see global.css. */
+  --font-weight-heading: 800;
+
+  /* Corner radii and text sizes from the Club wireframe, by role (token list in
+     .claude/rules/styling.md). Text sizes carry no paired line-height on purpose: they replaced
+     hand-typed `text-[Npx]`, which set font-size only. Pills are Tailwind's `rounded-full`. Keep equal to global.css (separate compilation). */
+  --radius-card: 20px;
+  --radius-sheet: 24px;
+  --radius-mini: 18px;
+  --radius-tile: 16px;
+  --radius-control: 14px;
+  --radius-input: 12px;
+  --radius-chip: 10px;
+  --radius-bar: 3px;
+  --text-caption: 12px;
+  --text-label: 13px;
+  --text-small: 14px;
+  --text-body: 15px;
+  --text-lead: 17px;
+  --text-title-sm: 20px;
+  --text-title: 22px;
+  --text-section: 26px;
+  --text-stat: 28px;
+  --text-display-sm: 30px;
+  --text-display: 44px;
+  --text-display-lg: 48px;
 
   /* The Club's status strips and chips (specs/club-website.md §11): four tones, each a ground, a
      border and a foreground, re-declared for the light scheme below. Warm Dark values from the
      wireframes' strip colors. */
   --color-tone-info-bg: #26211f;
   --color-tone-info-border: #433a36;
-  --color-tone-info-fg: #c2b5ac;
+  /* The info tone's foreground is the wireframe's info blue (#8fb8f0; re-declared for light below);
+     the neutral one is the muted text colour (#b8ada6) in both schemes. */
+  --color-tone-info-fg: #8fb8f0;
   --color-tone-success-bg: #1f2a23;
   --color-tone-success-border: #3f6b4c;
   --color-tone-success-fg: #8fd6a5;
@@ -88,7 +112,7 @@ html.tma body {
   --color-tone-warn-fg: #f2bf67;
   --color-tone-neutral-bg: #26211f;
   --color-tone-neutral-border: #433a36;
-  --color-tone-neutral-fg: #b8ada6;
+  --color-tone-neutral-fg: var(--color-text-muted);
 
   /* The Club's wireframe-match tokens (specs/club-wireframe-match.md), re-declared for the light
      scheme below. `surface-raised` is an inset tile or bar track inside a card (lighter than the card
@@ -99,13 +123,18 @@ html.tma body {
   --color-border-control: #6b5f58;
   --color-text-secondary: #d9cfc8;
   --color-row-self: #3a2724;
+  /* The Rewards tab's section dots (Rewards.dc.html): Boosted (HPO) and Base (GRAM). Decorative fills
+     with no glyph or text on them, so the same value in both schemes. */
+  --color-club-boosted: #6d3fc4;
+  --color-club-base: #3d8fe0;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     --color-tone-info-bg: #fbf7f1;
     --color-tone-info-border: #e7dccf;
-    --color-tone-info-fg: #6f6058;
+    /* 5.5:1 on the light strip ground #fbf7f1, 5.9:1 on white. */
+    --color-tone-info-fg: #2563b8;
     --color-tone-success-bg: #eef7f0;
     --color-tone-success-border: #9fd0ad;
     --color-tone-success-fg: #1d7a3c;
@@ -114,7 +143,6 @@ html.tma body {
     --color-tone-warn-fg: #8a5a00;
     --color-tone-neutral-bg: #f6f1ea;
     --color-tone-neutral-border: #dbcdb9;
-    --color-tone-neutral-fg: #6f6058;
     --color-surface-raised: #f5efe6;
     --color-border-control: #bba791;
     --color-text-secondary: #4d3f3a;

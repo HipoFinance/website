@@ -14,8 +14,8 @@ const CommunityTab = observer(({ club }: Props) => {
   const t = club.t
   return (
     <Card>
-      <h2 className='font-fredoka text-2xl font-semibold'>{t('club.community.title')}</h2>
-      <p className='text-text-muted text-[15px] leading-normal'>{t('club.community.body')}</p>
+      <h2 className='font-display text-2xl font-extrabold'>{t('club.community.title')}</h2>
+      <p className='text-text-muted text-body leading-normal'>{t('club.community.body')}</p>
       <div className='flex flex-wrap items-center gap-3'>
         <a
           className='border-border-control text-text hover:text-accent inline-flex min-h-11 items-center gap-2 rounded-full border px-4 py-2'
@@ -27,7 +27,7 @@ const CommunityTab = observer(({ club }: Props) => {
           {t('club.community.chat')}
         </a>
         <a
-          className='text-text-muted hover:text-accent text-[13px] underline underline-offset-4'
+          className='text-text-muted hover:text-accent text-label underline underline-offset-4'
           href={LIMZO_URL}
           target='_blank'
           rel='noopener noreferrer'

@@ -80,14 +80,14 @@ const why = [
       </div>
 
       <h1
-        class='font-fredoka text-text text-[36px] leading-[1.1] font-semibold tracking-[-0.5px] sm:text-[48px] lg:text-[60px] lg:leading-[1.08]'
+        class='font-display text-text sm:text-display-lg font-heading text-[36px] leading-[1.1] tracking-[-0.5px] lg:text-[60px] lg:leading-[1.08]'
         set:html={tHtml('landing.hero.title', {
           accent: `<span class="text-accent">${t('landing.hero.titleAccent')}</span>`,
         })}
       />
 
       <p
-        class='text-text-muted max-w-[460px] text-[17px] leading-[1.6] lg:text-[19px]'
+        class='text-text-muted text-lead max-w-[460px] leading-[1.6] lg:text-[19px]'
         set:html={tHtml('landing.hero.lead', {
           holders: `<span id="heroHolders">${gauge.heroHolders ?? t('landing.hero.holdersPlaceholder')}</span>`,
         })}
@@ -96,11 +96,11 @@ const why = [
       <div class='flex flex-wrap items-center gap-3.5'>
         <a
           href={localizedPath('/stake/', locale)}
-          class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover rounded-full px-8 py-[15px] text-[17px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
+          class='bg-accent-fill text-on-accent hover:bg-accent-fill-hover text-lead rounded-full px-8 py-[15px] font-semibold shadow-[0_6px_0_var(--color-accent-shadow)] transition-colors'
         >
           {t('landing.hero.stakeNow')}
         </a>
-        <a href='#how-it-works' class='text-text hover:text-accent px-5 py-[15px] text-[17px] font-medium'>
+        <a href='#how-it-works' class='text-text hover:text-accent text-lead px-5 py-[15px] font-medium'>
           {t('landing.hero.howItWorks')}
         </a>
       </div>
@@ -109,7 +109,7 @@ const why = [
     <div class='relative hidden justify-center lg:flex'>
       <div
         class='absolute inset-[8%_6%] rounded-full'
-        style='background: radial-gradient(closest-side, var(--hero-glow), rgba(255,126,115,0));'
+        style='background: radial-gradient(closest-side, var(--hero-glow), var(--accent-wash-clear));'
       >
       </div>
       <!-- The wrapper above is `hidden lg:flex`, so this art never appears on a phone — but a bare
@@ -137,12 +137,12 @@ const why = [
          audit cards below so the two card grids on this page stay consistent. -->
     <a
       href={localizedPath('/stats/', locale)}
-      class='border-border bg-surface block rounded-[20px] border px-6 py-5 transition-transform hover:scale-[1.02]'
+      class='border-border bg-surface rounded-card block border px-6 py-5 transition-transform hover:scale-[1.02]'
     >
       <div
         id='statStakedUsd'
         title={gauge.stakedExact}
-        class='font-fredoka text-text text-[30px] font-semibold'
+        class='font-display text-text text-display-sm font-heading'
         set:text={gauge.statStakedUsd ?? '—'}
       />
       <div
@@ -154,34 +154,34 @@ const why = [
     </a>
     <a
       href={localizedPath('/stats/', locale)}
-      class='border-border bg-surface block rounded-[20px] border px-6 py-5 transition-transform hover:scale-[1.02]'
+      class='border-border bg-surface rounded-card block border px-6 py-5 transition-transform hover:scale-[1.02]'
     >
-      <div id='statApy' class='font-fredoka text-accent text-[30px] font-semibold' set:text={gauge.statApy ?? '—'} />
+      <div id='statApy' class='font-display text-accent text-display-sm font-heading' set:text={gauge.statApy ?? '—'} />
       <div class='text-text-muted text-sm'>{t('landing.stats.apyCaption')}</div>
     </a>
     <a
       href={localizedPath('/stats/', locale)}
-      class='border-border bg-surface block rounded-[20px] border px-6 py-5 transition-transform hover:scale-[1.02]'
+      class='border-border bg-surface rounded-card block border px-6 py-5 transition-transform hover:scale-[1.02]'
     >
       <div
         id='statHolders'
-        class='font-fredoka text-text text-[30px] font-semibold'
+        class='font-display text-text text-display-sm font-heading'
         set:text={gauge.statHolders ?? '—'}
       />
       <div class='text-text-muted text-sm'>{t('landing.stats.holdersCaption')}</div>
     </a>
     <a
       href={localizedPath('/stats/', locale)}
-      class='border-border bg-surface block rounded-[20px] border px-6 py-5 transition-transform hover:scale-[1.02]'
+      class='border-border bg-surface rounded-card block border px-6 py-5 transition-transform hover:scale-[1.02]'
     >
-      <div id='statFee' class='font-fredoka text-text text-[30px] font-semibold' set:text={gauge.statFee ?? '—'} />
+      <div id='statFee' class='font-display text-text text-display-sm font-heading' set:text={gauge.statFee ?? '—'} />
       <div class='text-text-muted text-sm'>{t('landing.stats.feeCaption')}</div>
     </a>
   </section>
 
   <!-- How Hipo works -->
   <section id='how-it-works' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
-    <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>{t('landing.how.title')}</h2>
+    <h2 class='font-display text-text font-heading mb-2 text-[32px] sm:text-[40px]'>{t('landing.how.title')}</h2>
     <p class='text-text-muted mb-7 text-lg'>{t('landing.how.subtitle')}</p>
 
     <!-- Below sm the four steps plus the closing CTA are a snapping horizontal carousel rather than
@@ -195,38 +195,38 @@ const why = [
     <div
       class='-mx-6 grid snap-x snap-mandatory scroll-p-6 [scrollbar-width:none] auto-cols-[minmax(min(260px,78vw),1fr)] grid-flow-col gap-4 overflow-x-auto px-6 pb-2 sm:mx-0 sm:grid-flow-row sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4 [&::-webkit-scrollbar]:hidden'
     >
-      <div class='border-border bg-surface flex snap-start flex-col gap-3 rounded-[20px] border p-6'>
+      <div class='border-border bg-surface rounded-card flex snap-start flex-col gap-3 border p-6'>
         <img src='/images/gram-3d.svg' alt='GRAM' class='size-[52px]' />
-        <div class='font-fredoka text-text text-xl font-semibold'>{t('landing.how.step1.title')}</div>
-        <div class='text-text-muted text-[15px] leading-[1.55]'>{t('landing.how.step1.body')}</div>
+        <div class='font-display text-text font-heading text-xl'>{t('landing.how.step1.title')}</div>
+        <div class='text-text-muted text-body leading-[1.55]'>{t('landing.how.step1.body')}</div>
       </div>
-      <div class='border-border bg-surface flex snap-start flex-col gap-3 rounded-[20px] border p-6'>
+      <div class='border-border bg-surface rounded-card flex snap-start flex-col gap-3 border p-6'>
         <img src='/images/hgram-3d.svg' alt='hGRAM' class='size-[52px]' />
-        <div class='font-fredoka text-text text-xl font-semibold'>{t('landing.how.step2.title')}</div>
-        <div class='text-text-muted text-[15px] leading-[1.55]'>{t('landing.how.step2.body')}</div>
+        <div class='font-display text-text font-heading text-xl'>{t('landing.how.step2.title')}</div>
+        <div class='text-text-muted text-body leading-[1.55]'>{t('landing.how.step2.body')}</div>
       </div>
-      <div class='border-border bg-surface flex snap-start flex-col gap-3 rounded-[20px] border p-6'>
+      <div class='border-border bg-surface rounded-card flex snap-start flex-col gap-3 border p-6'>
         <img src='/hpo.png' alt='HPO' class='size-[52px]' />
-        <div class='font-fredoka text-text text-xl font-semibold'>{t('landing.how.step3.title')}</div>
-        <div class='text-text-muted text-[15px] leading-[1.55]'>
+        <div class='font-display text-text font-heading text-xl'>{t('landing.how.step3.title')}</div>
+        <div class='text-text-muted text-body leading-[1.55]'>
           {t('landing.how.step3.body')}
           <a href='#hipo-club' class='text-accent hover:text-accent-hover'>{t('landing.how.step3.link')}</a>
         </div>
       </div>
-      <div class='border-border bg-surface flex snap-start flex-col gap-3 rounded-[20px] border p-6'>
+      <div class='border-border bg-surface rounded-card flex snap-start flex-col gap-3 border p-6'>
         <img src='/images/gram.svg' alt={t('landing.how.step4.imageAlt')} class='size-[52px]' />
-        <div class='font-fredoka text-text text-xl font-semibold'>{t('landing.how.step4.title')}</div>
-        <div class='text-text-muted text-[15px] leading-[1.55]'>{t('landing.how.step4.body')}</div>
+        <div class='font-display text-text font-heading text-xl'>{t('landing.how.step4.title')}</div>
+        <div class='text-text-muted text-body leading-[1.55]'>{t('landing.how.step4.body')}</div>
       </div>
 
       <!-- Closing CTA, not a fifth step: the carousel ends on the way into the app. -->
       <div
-        class='border-border flex snap-start flex-col items-start justify-between gap-4 rounded-[20px] border p-6 sm:col-span-2 sm:flex-row sm:items-center sm:gap-8 sm:p-8 lg:col-span-4'
-        style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
+        class='border-border rounded-card flex snap-start flex-col items-start justify-between gap-4 border p-6 sm:col-span-2 sm:flex-row sm:items-center sm:gap-8 sm:p-8 lg:col-span-4'
+        style='background: linear-gradient(120deg, var(--accent-wash), var(--accent-wash-clear) 60%);'
       >
         <div class='flex flex-col gap-2.5'>
-          <div class='font-fredoka text-text text-xl font-semibold sm:text-[28px]'>{t('landing.how.cta.title')}</div>
-          <div class='text-text-muted text-[15px] leading-[1.55] sm:text-[17px] sm:leading-[1.6]'>
+          <div class='font-display text-text sm:text-stat font-heading text-xl'>{t('landing.how.cta.title')}</div>
+          <div class='text-text-muted text-body sm:text-lead leading-[1.55] sm:leading-[1.6]'>
             {t('landing.how.cta.body')}
           </div>
         </div>
@@ -244,12 +244,12 @@ const why = [
   <section id='hipo-community' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
     <div
       class='border-border flex flex-col items-center justify-between gap-10 rounded-[28px] border p-8 lg:flex-row lg:p-12'
-      style='background: linear-gradient(240deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
+      style='background: linear-gradient(240deg, var(--accent-wash), var(--accent-wash-clear) 60%);'
     >
       <div class='flex max-w-[560px] flex-col items-center gap-2.5 text-center lg:items-start lg:text-start'>
         <img src='/images/heart-shine.svg' alt='' class='size-11' />
-        <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>{t('landing.community.title')}</h2>
-        <p class='text-text-muted text-[17px] leading-[1.6]'>
+        <h2 class='font-display text-text text-stat font-heading sm:text-[36px]'>{t('landing.community.title')}</h2>
+        <p class='text-text-muted text-lead leading-[1.6]'>
           <strong class='text-text'>{t('landing.community.lead')}</strong>
           {t('landing.community.body')}
         </p>
@@ -269,12 +269,12 @@ const why = [
   <section id='hipo-club' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
     <div
       class='border-border flex flex-col items-center justify-between gap-10 rounded-[28px] border p-8 lg:flex-row lg:p-12'
-      style='background: linear-gradient(120deg, rgba(255,126,115,.12), rgba(255,126,115,0) 60%);'
+      style='background: linear-gradient(120deg, var(--accent-wash), var(--accent-wash-clear) 60%);'
     >
       <div class='flex max-w-[560px] flex-col items-center gap-2.5 text-center lg:items-start lg:text-start'>
         <img src='/images/star-shine.svg' alt='' class='size-11' />
-        <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>{t('landing.club.title')}</h2>
-        <p class='text-text-muted text-[17px] leading-[1.6]'>
+        <h2 class='font-display text-text text-stat font-heading sm:text-[36px]'>{t('landing.club.title')}</h2>
+        <p class='text-text-muted text-lead leading-[1.6]'>
           {t('landing.club.body')}
           <a
             href={localizedPath('/docs/giveaways-and-prizes/hipo-club/', locale)}
@@ -299,33 +299,33 @@ const why = [
       class='border-border bg-surface grid grid-cols-1 items-center gap-10 rounded-[28px] border p-8 lg:grid-cols-2 lg:p-12'
     >
       <div class='flex flex-col items-start gap-4'>
-        <h2 class='font-fredoka text-text text-[28px] font-semibold sm:text-[36px]'>{t('landing.hpo.title')}</h2>
-        <p class='text-text-muted text-[17px] leading-[1.6]'>{t('landing.hpo.body')}</p>
+        <h2 class='font-display text-text text-stat font-heading sm:text-[36px]'>{t('landing.hpo.title')}</h2>
+        <p class='text-text-muted text-lead leading-[1.6]'>{t('landing.hpo.body')}</p>
 
         <div class='flex flex-wrap gap-7 py-1.5'>
           <div>
             <div
               id='hpoMarketCap'
-              class='font-fredoka text-text text-2xl font-semibold'
+              class='font-display text-text font-heading text-2xl'
               set:text={gauge.hpoMarketCap ?? '—'}
             />
-            <div class='text-text-muted text-[13px]'>{t('landing.hpo.marketCap')}</div>
+            <div class='text-text-muted text-label'>{t('landing.hpo.marketCap')}</div>
           </div>
           <div>
             <div
               id='hpoCirculating'
-              class='font-fredoka text-text text-2xl font-semibold'
+              class='font-display text-text font-heading text-2xl'
               set:text={gauge.hpoCirculating ?? '—'}
             />
-            <div class='text-text-muted text-[13px]'>{t('landing.hpo.circulating')}</div>
+            <div class='text-text-muted text-label'>{t('landing.hpo.circulating')}</div>
           </div>
           <div>
             <div
               id='hpoHolders'
-              class='font-fredoka text-text text-2xl font-semibold'
+              class='font-display text-text font-heading text-2xl'
               set:text={gauge.hpoHolders ?? '—'}
             />
-            <div class='text-text-muted text-[13px]'>{t('landing.hpo.holders')}</div>
+            <div class='text-text-muted text-label'>{t('landing.hpo.holders')}</div>
           </div>
         </div>
 
@@ -356,16 +356,16 @@ const why = [
 
   <!-- Why Hipo -->
   <section id='why-hipo' class='mx-auto w-full max-w-[1280px] px-6 py-12 md:px-12'>
-    <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>{t('landing.why.title')}</h2>
+    <h2 class='font-display text-text font-heading mb-2 text-[32px] sm:text-[40px]'>{t('landing.why.title')}</h2>
     <p class='text-text-muted mb-7 text-lg'>{t('landing.why.subtitle')}</p>
 
     <div class='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
       {
         why.map(({ icon, iconClass, key }) => (
-          <div class='border-border bg-surface flex flex-col gap-2.5 rounded-[20px] border p-6'>
+          <div class='border-border bg-surface rounded-card flex flex-col gap-2.5 border p-6'>
             <img src={icon} alt='' class={iconClass} />
-            <div class='font-fredoka text-text text-[19px] font-semibold'>{t(`landing.why.${key}.title`)}</div>
-            <div class='text-text-muted text-[15px] leading-[1.55]'>{t(`landing.why.${key}.body`)}</div>
+            <div class='font-display text-text font-heading text-[19px]'>{t(`landing.why.${key}.title`)}</div>
+            <div class='text-text-muted text-body leading-[1.55]'>{t(`landing.why.${key}.body`)}</div>
           </div>
         ))
       }
@@ -374,12 +374,12 @@ const why = [
   <!-- Security audits -->
   <section id='audits' class='mx-auto w-full max-w-[1280px] px-6 pt-12 pb-18 md:px-12'>
     <div class='flex flex-wrap items-baseline justify-between gap-2'>
-      <h2 class='font-fredoka text-text mb-2 text-[32px] font-semibold sm:text-[40px]'>{t('landing.audits.title')}</h2>
+      <h2 class='font-display text-text font-heading mb-2 text-[32px] sm:text-[40px]'>{t('landing.audits.title')}</h2>
       <a
         href='https://github.com/HipoFinance/audits'
         target='_blank'
         rel='noopener noreferrer'
-        class='text-accent hover:text-accent-hover text-[15px] font-medium'
+        class='text-accent hover:text-accent-hover text-body font-medium'
       >
         {t('landing.audits.allReports')}
       </a>
@@ -393,9 +393,9 @@ const why = [
             href={audit.href}
             target='_blank'
             rel='noopener noreferrer'
-            class='border-border bg-surface flex flex-col gap-2 rounded-[20px] border p-[22px] transition-transform hover:scale-[1.02]'
+            class='border-border bg-surface rounded-card flex flex-col gap-2 border p-[22px] transition-transform hover:scale-[1.02]'
           >
-            <span class='text-text flex items-center gap-2 text-[17px] font-semibold'>
+            <span class='text-text text-lead flex items-center gap-2 font-semibold'>
               {audit.logo ? (
                 <span class='bg-mark-chip flex size-[26px] items-center justify-center rounded-full'>
                   <img src={audit.logo} alt='' class='h-4' />
@@ -409,8 +409,8 @@ const why = [
               )}
               {audit.name}
             </span>
-            <span class='text-text-muted text-[15px]'>{audit.scope}</span>
-            <span class='text-text-faint text-[13px]'>{audit.date}</span>
+            <span class='text-text-muted text-body'>{audit.scope}</span>
+            <span class='text-text-faint text-label'>{audit.date}</span>
           </a>
         ))
       }
