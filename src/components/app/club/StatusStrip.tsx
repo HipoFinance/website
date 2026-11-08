@@ -83,7 +83,7 @@ export const GracePanel = observer(({ club }: Props) => {
       {/* The board's buy box: radius 16, padding 18px 20px. */}
       <div className='bg-surface-raised rounded-tile flex flex-col gap-3 px-5 py-[18px] sm:flex-row sm:items-center sm:justify-between'>
         <div className='flex min-w-0 flex-col gap-1'>
-          <p className='text-lead font-bold'>{t('club.common.buyAmount', { amount: short })}</p>
+          <p className='text-lead font-bold'>{t('club.status.buyTitle', { amount: short })}</p>
           <p className='text-text-muted text-sm leading-normal'>
             {t('club.panel.buyHint', { wallet: club.clubWalletMasked })}
           </p>

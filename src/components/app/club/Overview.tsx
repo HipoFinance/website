@@ -35,7 +35,7 @@ import {
   tableTdTight,
   tableTh,
 } from './ui.tsx'
-import { BUY_HPO_URL, REVENUE_MIN } from './ClubModel.ts'
+import { BUY_HPO_URL } from './ClubModel.ts'
 
 interface Props {
   club: ClubModel
@@ -748,9 +748,7 @@ export const Teasers = observer(({ club }: Props) => {
             ? t('club.teaser.revenueTitle', { amount: club.amount2(r) })
             : t('club.teaser.revenueNone')}
         </span>
-        <span className='text-text-faint text-sm leading-normal'>
-          {t('club.teaser.revenueBody', { min: club.amount(REVENUE_MIN, 0) })}
-        </span>
+        <span className='text-text-faint text-sm leading-normal'>{t('club.teaser.revenueBody')}</span>
       </a>
     </div>
   )

@@ -154,30 +154,13 @@ const Leaderboard = observer(({ club }: Props) => {
       )}
       <div className='border-border flex flex-wrap items-center justify-between gap-3 border-t pt-3'>
         <p className='text-text-faint text-label min-w-0 flex-1 leading-normal'>{t('club.board.names')}</p>
-        {/* The wireframe's 13px coral link. Until a "Show my name" text is translated, the label stays and a
-            tick shows the name is hidden (aria-pressed tells screen readers). */}
+        {/* The wireframe's 13px coral link; its text names the action, so it flips with the setting. */}
         <button
           type='button'
-          aria-pressed={o.settings.hideName}
-          className={
-            'text-accent text-label inline-flex cursor-pointer items-center gap-1 leading-normal underline-offset-2 ' +
-            (o.settings.hideName ? 'no-underline' : 'underline')
-          }
+          className='text-accent text-label cursor-pointer leading-normal underline underline-offset-2'
           onClick={() => void club.setSetting({ hide_name: !o.settings.hideName })}
         >
-          {o.settings.hideName && (
-            <svg
-              viewBox='0 0 24 24'
-              className='size-3.5'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='2.5'
-              aria-hidden='true'
-            >
-              <path d='m5 12 5 5 9-10' strokeLinecap='round' strokeLinejoin='round' />
-            </svg>
-          )}
-          {t('club.board.hideName')}
+          {t(o.settings.hideName ? 'club.board.showName' : 'club.board.hideName')}
         </button>
       </div>
     </Card>

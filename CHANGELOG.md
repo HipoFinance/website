@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-08 — Club: "Show my name", the grace panel title, the revenue teaser (11 locales)
+
+- The leaderboard link names its action: "Hide my name", or "Show my name" while the name is hidden (new `club.board.showName`; the tick and `aria-pressed` are gone).
+- The grace panel's title is its own text again, "Buy {amount} HPO" (new `club.status.buyTitle`), while the strip button stays "Get {amount} HPO".
+- The revenue teaser drops "Withdrawals from 10 GRAM", as the wireframe; the minimum is still on Rewards under Revenue sharing.
+- Declined: the dated strip title ("before Oct 30") and "Level 2 the season after next"; both keep the current wording. "Next season runs …" still waits for server dates.
+
 ## 2026-11-08 — Club: the 15 wireframe texts in all 11 locales
 
 - The 15 Club texts whose English changed in the design-tokens round (765a723) are translated into the 10 other locales, so no locale shows the old wording; the i18n check now has no stale keys.

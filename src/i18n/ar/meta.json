@@ -1015,6 +1015,10 @@
     "sourceHash": "9430bd481cabbbd804b609cb1980db9c69c159eb",
     "reviewed": false
   },
+  "club.board.showName": {
+    "sourceHash": "f6a30abbff27b2994344f7d3ed9564736198edef",
+    "reviewed": false
+  },
   "club.board.subtitle": {
     "sourceHash": "fe31dea1c8010c9b5b465d4f3f174c9a05522571",
     "reviewed": false
@@ -2699,6 +2703,10 @@
     "sourceHash": "c51ba246bf2b345f3e0308d63abca83c609fef9d",
     "reviewed": false
   },
+  "club.status.buyTitle": {
+    "sourceHash": "96ebf94475565747a594f076f1a71215d25a7025",
+    "reviewed": false
+  },
   "club.status.cBody": {
     "sourceHash": "20f3eb48ed8398a6c1c5d1dcd9f3af84f6680912",
     "reviewed": false
@@ -2892,7 +2900,7 @@
     "reviewed": false
   },
   "club.teaser.revenueBody": {
-    "sourceHash": "286340dc374822ca3b93df6ae43725b41193f308",
+    "sourceHash": "21981f21e9a7c0ea9e228f9e2b36254e8dde0003",
     "reviewed": false
   },
   "club.teaser.revenueNone": {
