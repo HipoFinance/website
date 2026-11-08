@@ -1,6 +1,7 @@
 // The Club page (specs/club-website.md §1): its header (season, the Telegram pill), the four tabs as a
 // segmented row — the same row on the web and in the Mini App (§10) — the active tab, and the modals.
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
+import { Clock } from 'lucide-react'
 import { observer } from 'mobx-react-lite'
 import type { Model, ClubTab } from '../Model'
 import { clubModelFor, type ClubModel } from './ClubModel.ts'
@@ -9,7 +10,7 @@ import RewardsTab from './RewardsTab.tsx'
 import FriendsTab from './FriendsTab.tsx'
 import CommunityTab from './CommunityTab.tsx'
 import Modals from './Modals.tsx'
-import { Skeleton } from './ui.tsx'
+import { Skeleton, TmaContext } from './ui.tsx'
 
 interface Props {
   model: Model
@@ -17,37 +18,71 @@ interface Props {
 
 const TABS: ClubTab[] = ['overview', 'rewards', 'friends', 'community']
 
+// Marks where the day count goes in the season line, so the "D days left" part can be set in bold
+// whatever the locale's word order (H1). A private-use character never appears in a catalog.
+const DAYS_MARK = '\uE000'
+
 const Header = observer(({ club }: { club: ClubModel }) => {
   const t = club.t
   const o = club.overview
   const season = o?.season
-  let seasonLine: string | undefined
+  // H1: the season pill — "Season N ends <date> · **D days left**", the part after the last " · "
+  // that holds the day count in bold (just the number if a locale has no such part).
+  let seasonPill: ReactNode
   if (season?.number !== undefined) {
     if (season.end === undefined) {
-      seasonLine = t('club.header.seasonOpen', { number: club.amount(season.number, 0) })
+      seasonPill = t('club.header.seasonOpen', { number: club.amount(season.number, 0) })
     } else {
-      const days = Math.max(0, Math.ceil((season.end - club.displayNow) / 86400))
-      seasonLine = t('club.header.seasonEnds', {
+      const days = club.amount(Math.max(0, Math.ceil((season.end - club.displayNow) / 86400)), 0)
+      const line = t('club.header.seasonEnds', {
         number: club.amount(season.number, 0),
         date: club.date(season.end),
-        days: club.amount(days, 0),
+        days: DAYS_MARK,
       })
+      const cut = line.lastIndexOf(' · ')
+      if (cut >= 0 && line.indexOf(DAYS_MARK, cut) >= 0) {
+        seasonPill = (
+          <>
+            {line.slice(0, cut + 3)}
+            <strong className='font-semibold'>{line.slice(cut + 3).replace(DAYS_MARK, days)}</strong>
+          </>
+        )
+      } else {
+        const [before, after = ''] = line.split(DAYS_MARK)
+        seasonPill = (
+          <>
+            {before}
+            <strong className='font-semibold'>{days}</strong>
+            {after}
+          </>
+        )
+      }
     }
   }
+  const chip = 'flex min-w-0 items-center gap-2 rounded-full border px-4 py-2 text-[15px] leading-normal'
   return (
-    <div className='flex min-w-0 flex-col gap-3 sm:flex-row sm:items-end sm:justify-between'>
-      <div className='flex min-w-0 flex-col gap-1'>
-        <h1 className='font-fredoka text-3xl font-semibold'>{t('club.header.title')}</h1>
-        <p className='text-text-muted text-[15px]'>{t('club.header.subtitle')}</p>
-        {seasonLine !== undefined && <p className='text-text-faint text-sm'>{seasonLine}</p>}
+    <div className='flex min-w-0 flex-wrap items-end justify-between gap-x-6 gap-y-4'>
+      <div className='flex min-w-0 flex-col gap-1.5'>
+        <h1 className='font-fredoka text-[44px] leading-[1.1] font-bold'>{t('club.header.title')}</h1>
+        <p className='text-text-muted text-[17px] leading-normal'>{t('club.header.subtitle')}</p>
       </div>
-      {!club.tma &&
-        (!club.sessionKnown ? (
-          <Skeleton className='h-9 w-48 self-start rounded-full sm:self-auto' />
+      <div className='ms-auto flex min-w-0 flex-wrap items-center justify-end gap-2.5'>
+        {seasonPill !== undefined && (
+          <div className={chip + ' border-border bg-surface'}>
+            <Clock size={16} className='text-text-faint shrink-0' aria-hidden='true' />
+            <span className='min-w-0'>{seasonPill}</span>
+          </div>
+        )}
+        {!club.sessionKnown ? (
+          <Skeleton className='h-10 w-48 rounded-full' />
         ) : club.session !== undefined ? (
-          <div className='border-border bg-surface flex min-w-0 flex-wrap items-center gap-x-3 gap-y-1 self-start rounded-full border px-4 py-2 text-sm sm:self-auto'>
-            <span className='text-tone-success-fg min-w-0 truncate'>
-              {o?.displayName ? t('club.header.linkedAs', { name: o.displayName }) : t('club.header.linked')}
+          // H3: linked — a green dot, the name in the ordinary text colour, and the Log out link.
+          <div className={chip + ' border-border bg-surface flex-wrap gap-x-3 gap-y-1'}>
+            <span className='flex min-w-0 items-center gap-2'>
+              <span className='bg-tone-success-fg size-2 shrink-0 rounded-full' aria-hidden='true'></span>
+              <span className='min-w-0 truncate'>
+                {o?.displayName ? t('club.header.linkedAs', { name: o.displayName }) : t('club.header.linked')}
+              </span>
             </span>
             <button
               type='button'
@@ -58,14 +93,19 @@ const Header = observer(({ club }: { club: ClubModel }) => {
             </button>
           </div>
         ) : (
+          // H3: not linked — a dashed outline and a grey dot.
           <button
             type='button'
-            className='border-border bg-surface text-text-muted hover:text-accent cursor-pointer self-start rounded-full border px-4 py-2 text-sm sm:self-auto'
+            className={chip + ' border-border-control text-text hover:text-accent cursor-pointer border-dashed'}
             onClick={() => club.openModal({ kind: 'linkTelegram' })}
           >
-            {t('club.header.notLinked')} · <span className='text-accent'>{t('club.header.link')}</span>
+            <span className='bg-text-faint size-2 shrink-0 rounded-full' aria-hidden='true'></span>
+            <span>
+              {t('club.header.notLinked')} · <span className='text-accent'>{t('club.header.link')}</span>
+            </span>
           </button>
-        ))}
+        )}
+      </div>
     </div>
   )
 })
@@ -111,7 +151,7 @@ const ClubPage = observer(({ model }: Props) => {
 
   if (club === undefined) {
     return (
-      <div className='mx-auto flex w-full max-w-[1120px] flex-col gap-4 px-4 pt-2 pb-28 sm:px-6' aria-busy={!failed}>
+      <div className='mx-auto flex w-full max-w-[1232px] flex-col gap-4 px-4 pt-2 pb-28 sm:px-6' aria-busy={!failed}>
         {failed ? (
           <p className='text-text-muted'>{model.t('app.reward.tryAgain')}</p>
         ) : (
@@ -126,15 +166,23 @@ const ClubPage = observer(({ model }: Props) => {
 
   const tab = model.clubTab
   return (
-    <div className='font-body text-text mx-auto flex w-full max-w-[1120px] min-w-0 flex-col gap-5 px-4 pt-2 pb-28 sm:px-6 lg:pb-12'>
-      {club.tma ? <ClubTabs club={club} /> : <Header club={club} />}
-      {!club.tma && <ClubTabs club={club} />}
-      {tab === 'overview' && <Overview club={club} />}
-      {tab === 'rewards' && <RewardsTab club={club} />}
-      {tab === 'friends' && <FriendsTab club={club} />}
-      {tab === 'community' && <CommunityTab club={club} />}
-      <Modals club={club} />
-    </div>
+    // M1: in the Mini App the cards are tighter and 14px apart (TmaContext tells Card and Strip).
+    <TmaContext.Provider value={club.tma}>
+      <div
+        className={
+          'font-body text-text mx-auto flex w-full max-w-[1232px] min-w-0 flex-col px-4 pt-2 pb-28 sm:px-6 lg:pb-12 ' +
+          (club.tma ? 'gap-3.5' : 'gap-5')
+        }
+      >
+        {club.tma ? <ClubTabs club={club} /> : <Header club={club} />}
+        {!club.tma && <ClubTabs club={club} />}
+        {tab === 'overview' && <Overview club={club} />}
+        {tab === 'rewards' && <RewardsTab club={club} />}
+        {tab === 'friends' && <FriendsTab club={club} />}
+        {tab === 'community' && <CommunityTab club={club} />}
+        <Modals club={club} />
+      </div>
+    </TmaContext.Provider>
   )
 })
 

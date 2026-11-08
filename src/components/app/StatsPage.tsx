@@ -246,7 +246,7 @@ const StatsPage = observer(({ model }: Props) => {
   }
 
   return (
-    <div className='font-body text-text mx-auto w-full max-w-[1180px] px-6 pt-6 pb-8 sm:px-12'>
+    <div className='font-body text-text mx-auto w-full max-w-[1232px] px-4 pt-6 pb-8 sm:px-6'>
       <div className='flex flex-row flex-wrap items-baseline justify-between gap-3 pb-7'>
         <div>
           <h1 className='font-fredoka mb-1.5 text-3xl font-semibold sm:text-[44px]'>{t('app.statsPage.title')}</h1>

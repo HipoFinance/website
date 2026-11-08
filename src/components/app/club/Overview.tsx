@@ -1,13 +1,31 @@
 // The Club's Overview tab (specs/club-website.md §5; SPEC §4, wireframe Main.dc.html): the status
 // strip, the grace/restore panel, the level and claim cards, Your HPO, Level up, the leaderboard,
 // balances and the teasers. Every figure comes from the server; none is written here.
+import type { MouseEvent, ReactNode } from 'react'
 import { observer } from 'mobx-react-lite'
+import { Calendar, ChevronsUp, CircleDot, CirclePause, MessageSquare, Shield, Users, Wallet, Zap } from 'lucide-react'
 import { nodes, Num } from '../Interpolate'
 import type { ClubModel } from './ClubModel.ts'
+import type { ClubTab } from '../Model.ts'
 import { CLAIM_MIN_NANO } from './clubTx.ts'
 import Leaderboard from './Leaderboard.tsx'
 import StatusStrip from './StatusStrip.tsx'
-import { Button, Card, CardTitle, Chip, Row, Skeleton } from './ui.tsx'
+import {
+  bigNumber,
+  Button,
+  Card,
+  CardTitle,
+  Chip,
+  Eyebrow,
+  footnote,
+  inset,
+  Row,
+  rowSelf,
+  Skeleton,
+  tableRow,
+  tableTd,
+  tableTh,
+} from './ui.tsx'
 import { BUY_HPO_URL, REVENUE_MIN } from './ClubModel.ts'
 
 interface Props {
@@ -40,7 +58,7 @@ export const LevelLadder = ({
                 : 'bg-accent-fill'
               : dashed
                 ? 'border-tone-success-fg border border-dashed'
-                : 'bg-surface-deep')
+                : 'bg-surface-raised')
           }
         ></div>
       )
@@ -64,8 +82,10 @@ export const LevelCard = observer(({ club }: Props) => {
     if (a?.clubWallet !== true) {
       return (
         <Card>
-          <CardTitle>{t('club.level.title')}</CardTitle>
-          <p className='text-text-muted text-[15px] leading-relaxed'>{t('club.level.notClubWallet')}</p>
+          <CardTitle variant='eyebrow' icon={Shield}>
+            {t('club.level.title')}
+          </CardTitle>
+          <p className='text-text-muted text-[15px] leading-normal'>{t('club.level.notClubWallet')}</p>
         </Card>
       )
     }
@@ -73,18 +93,20 @@ export const LevelCard = observer(({ club }: Props) => {
     return (
       <Card>
         <CardTitle
+          variant='eyebrow'
+          icon={Shield}
           aside={<Chip tone={chipTone[status]}>{t('club.chip.' + (status === 'at_risk' ? 'atRisk' : status))}</Chip>}
         >
           {t('club.level.title')}
         </CardTitle>
         <div className='flex flex-wrap items-baseline gap-x-3'>
-          <span className='font-fredoka text-4xl font-semibold'>
-            {t('club.common.levelN', { level: club.level(a.clubLevel) })}
+          <span className={bigNumber}>{t('club.common.levelN', { level: club.level(a.clubLevel) })}</span>
+          <span className='text-text-secondary text-[17px]'>
+            {t('club.level.boost', { boost: club.boost(a.boost) })}
           </span>
-          <span className='text-text-muted'>{t('club.level.boost', { boost: club.boost(a.boost) })}</span>
         </div>
         <LevelLadder level={a.clubLevel ?? 0} suspended={status === 'suspended'} nextDashed={false} />
-        <p className='text-text-muted text-sm leading-relaxed'>{t('club.level.walletOnly')}</p>
+        <p className='text-text-secondary text-[15px] leading-normal'>{t('club.level.walletOnly')}</p>
       </Card>
     )
   }
@@ -113,12 +135,12 @@ export const LevelCard = observer(({ club }: Props) => {
   }
   return (
     <Card>
-      <CardTitle aside={<Chip tone={chipTone[chip]}>{chipLabel}</Chip>}>{t('club.level.title')}</CardTitle>
+      <CardTitle variant='eyebrow' icon={Shield} aside={<Chip tone={chipTone[chip]}>{chipLabel}</Chip>}>
+        {t('club.level.title')}
+      </CardTitle>
       <div className='flex flex-wrap items-baseline gap-x-3'>
-        <span className='font-fredoka text-4xl font-semibold'>
-          {t('club.common.levelN', { level: club.level(o.clubLevel) })}
-        </span>
-        <span className='text-text-muted'>
+        <span className={bigNumber}>{t('club.common.levelN', { level: club.level(o.clubLevel) })}</span>
+        <span className='text-text-secondary text-[17px]'>
           {suspended ? t('club.level.suspendedBoost') : t('club.level.boost', { boost: club.boost(o.boost) })}
         </span>
       </div>
@@ -127,7 +149,7 @@ export const LevelCard = observer(({ club }: Props) => {
         <Num>{t('club.level.ladderLow')}</Num>
         <Num>{t('club.level.ladderHigh')}</Num>
       </div>
-      <p className='text-text-muted text-sm leading-relaxed'>{line}</p>
+      <p className='text-text-secondary text-[15px] leading-normal'>{line}</p>
     </Card>
   )
 })
@@ -138,12 +160,16 @@ export const ClaimCard = observer(({ club }: Props) => {
   if (club.session === undefined) {
     return (
       <Card>
-        <CardTitle>{t('club.claim.title')}</CardTitle>
-        <p className='text-text-muted text-[15px] leading-relaxed'>{t('club.claim.walletOnly')}</p>
-        <Button kind='primary' onClick={() => club.openModal({ kind: 'linkTelegram', after: 'claim' })}>
-          {t('club.common.linkTelegram')}
-        </Button>
-        <p className='text-text-faint text-xs'>{t('club.claim.terms')}</p>
+        <CardTitle variant='eyebrow' icon={Zap}>
+          {t('club.claim.title')}
+        </CardTitle>
+        <p className='text-text-muted text-[15px] leading-normal'>{t('club.claim.walletOnly')}</p>
+        <div className='mt-auto flex flex-col gap-1.5'>
+          <Button kind='primary' onClick={() => club.openModal({ kind: 'linkTelegram', after: 'claim' })}>
+            {t('club.common.linkTelegram')}
+          </Button>
+          <p className='text-text-faint text-[13px] leading-normal'>{t('club.claim.terms')}</p>
+        </div>
       </Card>
     )
   }
@@ -161,6 +187,8 @@ export const ClaimCard = observer(({ club }: Props) => {
   return (
     <Card>
       <CardTitle
+        variant='eyebrow'
+        icon={Zap}
         aside={
           <button
             type='button'
@@ -174,11 +202,11 @@ export const ClaimCard = observer(({ club }: Props) => {
         {t('club.claim.title')}
       </CardTitle>
       <div className='flex flex-wrap items-baseline gap-x-2'>
-        <span className='font-fredoka num text-4xl font-semibold'>{club.amount2(o.unclaimed)}</span>
-        <span className='text-text-muted'>HPO</span>
+        <span className={bigNumber}>{club.amount2(o.unclaimed)}</span>
+        <span className='text-text-secondary text-[17px]'>HPO</span>
       </div>
       {inProgress !== undefined ? (
-        <p className='text-tone-success-fg text-sm leading-relaxed'>
+        <p className='text-tone-success-fg text-sm leading-normal'>
           {t('club.claim.inProgress', {
             amount: club.amount2(inProgress.amount),
             wallet: club.mask(inProgress.wallet ?? club.clubWallet),
@@ -187,8 +215,8 @@ export const ClaimCard = observer(({ club }: Props) => {
       ) : (
         below && (
           <div className='flex flex-col gap-1.5'>
-            <div className='bg-surface-deep h-2 overflow-hidden rounded-full' aria-hidden='true'>
-              <div className='bg-text-faint h-full' style={{ width: percent + '%' }}></div>
+            <div className='bg-surface-raised h-2 overflow-hidden rounded-full' aria-hidden='true'>
+              <div className='bg-text-muted h-full' style={{ width: percent + '%' }}></div>
             </div>
             <p className='text-text-muted text-sm'>
               {rounds !== undefined
@@ -198,11 +226,11 @@ export const ClaimCard = observer(({ club }: Props) => {
           </div>
         )
       )}
-      <div className='flex flex-col gap-1.5'>
+      <div className='border-border flex flex-col gap-2 border-t pt-4'>
         <Row
           label={t('club.claim.perRound')}
           value={t('club.claim.perRoundValue', {
-            amount: club.amount(o.estimateNow, 0),
+            amount: club.amount2(o.estimateNow),
             boost: club.boost(o.state === 'suspended' ? 1 : o.boost),
           })}
         />
@@ -211,12 +239,14 @@ export const ClaimCard = observer(({ club }: Props) => {
           value={o.claimedThisSeason ? t('club.claim.claimedYes') : t('club.claim.claimedNo')}
         />
       </div>
-      <Button kind='primary' disabled={block !== undefined} onClick={() => void club.openClaim()}>
-        {block === undefined
-          ? t('club.claim.button', { amount: club.amount2(o.unclaimed) })
-          : t(block.key, block.params)}
-      </Button>
-      <p className='text-text-faint text-xs'>{t('club.claim.terms')}</p>
+      <div className='mt-auto flex flex-col gap-1.5'>
+        <Button kind='primary' disabled={block !== undefined} onClick={() => void club.openClaim()}>
+          {block === undefined
+            ? t('club.claim.button', { amount: club.amount2(o.unclaimed) })
+            : t(block.key, block.params)}
+        </Button>
+        <p className='text-text-faint text-[13px] leading-normal'>{t('club.claim.terms')}</p>
+      </div>
     </Card>
   )
 })
@@ -246,6 +276,8 @@ export const YourHpo = observer(({ club }: Props) => {
   return (
     <Card>
       <CardTitle
+        variant='eyebrow'
+        icon={CircleDot}
         aside={
           <Chip tone={reset ? 'neutral' : below ? 'warn' : 'success'}>
             {t(reset ? 'club.hpo.chipNone' : below ? 'club.hpo.chipBelow' : 'club.hpo.chipAbove')}
@@ -254,13 +286,28 @@ export const YourHpo = observer(({ club }: Props) => {
       >
         {t('club.hpo.title')}
       </CardTitle>
-      <div className='flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1'>
-        <div className='flex flex-wrap items-baseline gap-x-2'>
-          <span className='font-fredoka num text-3xl font-semibold'>{club.whole(o.holdings)}</span>
-          <span className='text-text-muted'>HPO</span>
+      <div className='flex flex-wrap items-end justify-between gap-x-6 gap-y-3'>
+        <div className='flex min-w-0 flex-col gap-1'>
+          <div className='flex flex-wrap items-baseline gap-x-2'>
+            <span className={bigNumber}>{club.whole(o.holdings)}</span>
+            <span className='text-text-secondary text-[17px]'>HPO</span>
+          </div>
+          {rank.listed && rank.growth !== undefined && (
+            <p
+              className={
+                'text-[15px] leading-normal ' + (rank.growth >= 0 ? 'text-tone-success-fg' : 'text-tone-warn-fg')
+              }
+            >
+              {t('club.hpo.growth', {
+                growth: (rank.growth >= 0 ? '+' : '−') + club.amount(Math.abs(rank.growth), 1),
+              })}
+            </p>
+          )}
         </div>
         {rank.listed && rank.rank !== undefined && (
-          <p className='text-text-muted text-sm'>
+          // One string in the catalog ("Level N leaderboard · #R"), so it stays one line here; the
+          // wireframe's two-line label/value split would need two new keys.
+          <p className='text-text-secondary min-w-0 text-end text-sm leading-normal font-semibold'>
             {t(rank.band ? 'club.hpo.rankBand' : 'club.hpo.rank', {
               level: club.level(rank.clubLevel),
               rank: club.amount(rank.rank, 0),
@@ -269,14 +316,9 @@ export const YourHpo = observer(({ club }: Props) => {
           </p>
         )}
       </div>
-      {rank.listed && rank.growth !== undefined && (
-        <p className={'text-sm ' + (rank.growth >= 0 ? 'text-tone-success-fg' : 'text-tone-warn-fg')}>
-          {t('club.hpo.growth', { growth: (rank.growth >= 0 ? '+' : '−') + club.amount(Math.abs(rank.growth), 1) })}
-        </p>
-      )}
       {!reset && (
         <div className='flex flex-col gap-2'>
-          <div className='bg-surface-deep relative h-3 rounded-full' aria-hidden='true'>
+          <div className='bg-surface-raised relative h-3.5 rounded-full' aria-hidden='true'>
             <div
               className={
                 'absolute inset-y-0 start-0 rounded-full ' + (below ? 'bg-tone-warn-fg' : 'bg-tone-success-fg')
@@ -288,59 +330,71 @@ export const YourHpo = observer(({ club }: Props) => {
               style={{ insetInlineStart: ((minimum / scale) * 100).toFixed(1) + '%' }}
             ></div>
           </div>
-          <p className='text-text-faint text-xs'>{t('club.hpo.marker', { minimum: club.amount2(o.minimum) })}</p>
-          {o.ratio !== undefined && (
-            <p className='text-text-muted text-sm'>
-              {o.ratio > 1000 ? t('club.hpo.ratioOver') : t('club.hpo.ratio', { ratio: club.amount(o.ratio, 0) })}
-            </p>
-          )}
+          <div className='text-text-muted flex flex-wrap justify-between gap-x-3 gap-y-1 text-[13px] leading-normal'>
+            <span className='min-w-0'>{t('club.hpo.marker', { minimum: club.amount2(o.minimum) })}</span>
+            {o.ratio !== undefined && (
+              <span className='min-w-0'>
+                {o.ratio > 1000 ? t('club.hpo.ratioOver') : t('club.hpo.ratio', { ratio: club.amount(o.ratio, 0) })}
+              </span>
+            )}
+          </div>
         </div>
       )}
-      <p className='text-[15px] leading-relaxed'>{message}</p>
+      <p className='text-[15px] leading-normal'>{message}</p>
       {!below && rank.listed && rank.buy !== undefined && rank.buy.x !== '' && (
-        <div className='flex flex-wrap items-center justify-between gap-3'>
-          <p className='text-text-muted text-sm'>
+        <div className={inset + ' flex flex-wrap items-center justify-between gap-x-4 gap-y-2'}>
+          <p className='min-w-0 flex-1 text-[15px] leading-normal'>
             {t('club.hpo.nudge', {
               x: club.whole(rank.buy.x),
               rank: club.amount(rank.buy.rank, 0),
               level: club.level(rank.clubLevel),
             })}
           </p>
-          <Button href={BUY_HPO_URL}>{t('club.common.buyHpo')}</Button>
+          <a
+            className='text-accent text-[15px] hover:underline'
+            href={BUY_HPO_URL}
+            target={BUY_HPO_URL.startsWith('http') ? '_blank' : undefined}
+            rel='noopener noreferrer'
+          >
+            {t('club.common.buyHpo')}
+          </a>
         </div>
       )}
-      <p className='text-text-faint text-xs leading-relaxed'>
-        {nodes(
-          t(updated !== undefined ? 'club.hpo.footer' : 'club.hpo.footerNoTime', {
-            wallet: club.clubWalletMasked,
-            ago: updated ?? '',
-          }),
-          {
-            link: (
-              <a className='text-accent hover:underline' href={club.model.localizedPath(POOL_HELP)}>
-                {t('club.common.learnMore')}
-              </a>
-            ),
-          },
-        )}
-      </p>
-      <div className='border-border flex flex-wrap items-center justify-between gap-2 border-t pt-3 text-sm'>
-        <span className={settings.alertsUnreachable ? 'text-tone-warn-fg' : 'text-text-muted'}>
-          {t(
-            settings.alertsUnreachable
-              ? 'club.hpo.alertsUnreachable'
-              : settings.alerts
-                ? 'club.hpo.alertsOn'
-                : 'club.hpo.alertsOff',
+      <div className='border-border flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1.5 border-t pt-3.5 text-[13px] leading-normal'>
+        <p className='text-text-faint min-w-0'>
+          {nodes(
+            t(updated !== undefined ? 'club.hpo.footer' : 'club.hpo.footerNoTime', {
+              wallet: club.clubWalletMasked,
+              ago: updated ?? '',
+            }),
+            {
+              link: (
+                <a className='text-accent hover:underline' href={club.model.localizedPath(POOL_HELP)}>
+                  {t('club.common.learnMore')}
+                </a>
+              ),
+            },
           )}
-        </span>
-        <button
-          type='button'
-          className='text-accent cursor-pointer hover:underline'
-          onClick={() => void club.setSetting({ alerts: !settings.alerts })}
-        >
-          {t(settings.alerts ? 'club.hpo.alertsTurnOff' : 'club.hpo.alertsTurnOn')}
-        </button>
+        </p>
+        <p className='min-w-0'>
+          <span className={settings.alertsUnreachable ? 'text-tone-warn-fg' : 'text-text-muted'}>
+            {t(
+              settings.alertsUnreachable
+                ? 'club.hpo.alertsUnreachable'
+                : settings.alerts
+                  ? 'club.hpo.alertsOn'
+                  : 'club.hpo.alertsOff',
+            )}
+          </span>{' '}
+          ·{' '}
+          <button
+            type='button'
+            className='text-accent cursor-pointer hover:underline'
+            onClick={() => void club.setSetting({ alerts: !settings.alerts })}
+          >
+            {t(settings.alerts ? 'club.hpo.alertsTurnOff' : 'club.hpo.alertsTurnOn')}
+          </button>
+        </p>
       </div>
     </Card>
   )
@@ -381,63 +435,68 @@ export const LevelUp = observer(({ club }: Props) => {
   const fee = offer?.fee
   const feeText = typeof fee === 'number' ? club.amount(fee, 0) : '—'
   const levels = club.levels?.levels ?? []
+  const aboveText =
+    reset || minimum === 0
+      ? t('club.levelUp.noMinimum')
+      : above
+        ? o.ratio !== undefined && o.ratio > 1000
+          ? t('club.levelUp.yesRatioOver')
+          : t('club.levelUp.yesRatio', { ratio: club.amount(o.ratio, 0) })
+        : t('club.levelUp.short', { short: club.whole(o.short) })
+  const checks = [
+    {
+      text: t('club.levelUp.checkClaim'),
+      done: o.claimedThisSeason,
+      status: t(o.claimedThisSeason ? 'club.levelUp.done' : 'club.levelUp.notYet'),
+    },
+    { text: t('club.levelUp.checkAbove'), done: above, status: aboveText },
+  ]
+  const thEnd = tableTh.replace('text-start', 'text-end')
   return (
-    <Card>
-      <CardTitle>{t('club.levelUp.title')}</CardTitle>
+    <section aria-labelledby='club-level-up' className='flex min-w-0 flex-col gap-4'>
+      <h2 id='club-level-up' className='font-fredoka flex items-center gap-2.5 text-[22px] font-semibold'>
+        <ChevronsUp size={22} strokeWidth={1.8} className='text-text-muted shrink-0' aria-hidden='true' />
+        {t('club.levelUp.title')}
+      </h2>
       <div className='grid gap-4 md:grid-cols-2'>
-        <div className='border-border flex min-w-0 flex-col gap-2 rounded-2xl border p-4'>
-          <p className='text-text-faint text-xs font-semibold tracking-wide uppercase'>
-            {t('club.levelUp.seasonLabel')}
-          </p>
-          <p className={'font-fredoka text-lg font-semibold ' + seasonTone}>{seasonTitle}</p>
+        <Card>
+          <Eyebrow icon={Calendar}>{t('club.levelUp.seasonLabel')}</Eyebrow>
+          <h3 className={'font-fredoka text-xl font-semibold ' + seasonTone}>{seasonTitle}</h3>
           {!top && (
-            <ul className='flex flex-col gap-1 text-sm'>
-              <li className='flex justify-between gap-3'>
-                <span className='min-w-0 flex-1'>{t('club.levelUp.checkClaim')}</span>
-                <span
-                  className={
-                    'shrink-0 text-end ' + (o.claimedThisSeason ? 'text-tone-success-fg' : 'text-tone-warn-fg')
-                  }
-                >
-                  {t(o.claimedThisSeason ? 'club.levelUp.done' : 'club.levelUp.notYet')}
-                </span>
-              </li>
-              <li className='flex justify-between gap-3'>
-                <span className='min-w-0 flex-1'>{t('club.levelUp.checkAbove')}</span>
-                <span
-                  className={'max-w-[60%] shrink-0 text-end ' + (above ? 'text-tone-success-fg' : 'text-tone-warn-fg')}
-                >
-                  {reset || minimum === 0
-                    ? t('club.levelUp.noMinimum')
-                    : above
-                      ? o.ratio !== undefined && o.ratio > 1000
-                        ? t('club.levelUp.yesRatioOver')
-                        : t('club.levelUp.yesRatio', { ratio: club.amount(o.ratio, 0) })
-                      : t('club.levelUp.short', { short: club.whole(o.short) })}
-                </span>
-              </li>
+            <ul className='flex flex-col gap-2.5 text-[15px] leading-normal'>
+              {checks.map((check, i) => (
+                <li key={i} className='flex min-w-0 items-start gap-2.5'>
+                  {check.done ? (
+                    <CheckMark done className='text-tone-success-fg' />
+                  ) : (
+                    <CheckMark done={false} className='text-text-faint' />
+                  )}
+                  <span className='min-w-0'>
+                    {check.text}{' '}
+                    <span className={check.done ? 'text-tone-success-fg' : 'text-tone-warn-fg'}>· {check.status}</span>
+                  </span>
+                </li>
+              ))}
             </ul>
           )}
-          <p className='text-text-muted text-sm leading-relaxed'>{seasonBody}</p>
-        </div>
-        <div className='border-border flex min-w-0 flex-col gap-2 rounded-2xl border p-4'>
-          <p className='text-text-faint text-xs font-semibold tracking-wide uppercase'>
-            {t('club.levelUp.instantLabel')}
-          </p>
-          <p className='font-fredoka text-lg font-semibold'>
+          <p className={footnote}>{seasonBody}</p>
+        </Card>
+        <Card>
+          <Eyebrow icon={ChevronsUp}>{t('club.levelUp.instantLabel')}</Eyebrow>
+          <h3 className='font-fredoka text-xl font-semibold'>
             {top ? t('club.levelUp.topTitle') : t('club.levelUp.instantTitle', { level: nextLevel })}
-          </p>
+          </h3>
           {!top && (
-            <div className='flex flex-col gap-1'>
+            <div className='flex flex-col gap-2'>
               <Row label={t('club.levelUp.boost')} value={`${club.boost(o.boost)} → ${club.boost(o.nextBoost)}`} />
-              <Row label={t('club.levelUp.fee')} value={t('club.levelUp.feeValue', { fee: feeText })} />
+              <Row label={t('club.levelUp.fee')} value={t('club.levelUp.feeValue', { fee: feeText })} strong />
               <Row
                 label={t('club.levelUp.perRound')}
                 value={`~${club.amount(o.estimateNow, 0)} → ~${club.amount(o.estimateNext, 0)} HPO`}
               />
             </div>
           )}
-          <p className='text-text-muted text-sm leading-relaxed'>
+          <p className={footnote}>
             {top
               ? t('club.levelUp.topBody')
               : suspended
@@ -445,33 +504,30 @@ export const LevelUp = observer(({ club }: Props) => {
                 : t('club.levelUp.note', { level: club.level(Math.min(9, o.clubLevel + 2)) })}
           </p>
           {!top && (
-            <Button disabled={block !== undefined} onClick={() => void club.openUpgrade()}>
+            <Button className='mt-auto' disabled={block !== undefined} onClick={() => void club.openUpgrade()}>
               {block === undefined
                 ? t('club.levelUp.button', { level: nextLevel, fee: feeText })
                 : t(block.key, block.params)}
             </Button>
           )}
-        </div>
+        </Card>
       </div>
       {levels.length > 0 && (
-        <details className='group'>
-          <summary className='text-accent cursor-pointer text-sm'>{t('club.levelUp.table')}</summary>
+        <details className='border-border bg-surface min-w-0 rounded-[20px] border px-5 py-4 sm:px-6'>
+          <summary className='cursor-pointer py-1 font-semibold'>{t('club.levelUp.table')}</summary>
           <div className='mt-3 overflow-x-auto'>
-            <table className='w-full min-w-[280px] text-sm'>
-              <thead className='text-text-faint text-start'>
+            <table className='w-full min-w-[280px] border-collapse'>
+              <thead>
                 <tr>
-                  <th className='py-1.5 text-start font-medium'>{t('club.levelUp.colLevel')}</th>
-                  <th className='py-1.5 text-start font-medium'>{t('club.levelUp.colBoost')}</th>
-                  <th className='py-1.5 text-end font-medium'>{t('club.levelUp.colFee')}</th>
+                  <th className={tableTh}>{t('club.levelUp.colLevel')}</th>
+                  <th className={tableTh}>{t('club.levelUp.colBoost')}</th>
+                  <th className={thEnd}>{t('club.levelUp.colFee')}</th>
                 </tr>
               </thead>
               <tbody>
                 {levels.map((level, i) => (
-                  <tr
-                    key={i}
-                    className={'border-border border-t ' + (i === o.clubLevel ? 'text-accent font-semibold' : '')}
-                  >
-                    <td className='num py-1.5'>
+                  <tr key={i} className={tableRow + (i === o.clubLevel ? ' ' + rowSelf : '')}>
+                    <td className={tableTd + ' num'}>
                       {club.level(i)}
                       {i === o.clubLevel
                         ? ' · ' + t('club.levelUp.you')
@@ -479,8 +535,8 @@ export const LevelUp = observer(({ club }: Props) => {
                           ? ' · ' + t('club.levelUp.next')
                           : ''}
                     </td>
-                    <td className='num py-1.5'>{club.boost(level.coefficient)}</td>
-                    <td className='num py-1.5 text-end'>
+                    <td className={tableTd + ' num'}>{club.boost(level.coefficient)}</td>
+                    <td className={tableTd + ' num text-end'}>
                       {typeof level.fee === 'number' && level.fee > 0
                         ? t('club.levelUp.feeValue', { fee: club.amount(level.fee, 0) })
                         : '—'}
@@ -492,9 +548,31 @@ export const LevelUp = observer(({ club }: Props) => {
           </div>
         </details>
       )}
-    </Card>
+    </section>
   )
 })
+
+// The Level up checklist mark, drawn as the wireframe draws it: a circle of radius 9 with a tick
+// that fills most of it (lucide's CircleCheck tick is about half the size), or the empty circle.
+function CheckMark({ done, className }: { done: boolean; className: string }) {
+  return (
+    <svg
+      width={22}
+      height={22}
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth={2}
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      className={'shrink-0 ' + className}
+      aria-hidden='true'
+    >
+      <circle cx='12' cy='12' r='9' />
+      {done && <path d='m8 12 3 3 5-6' strokeWidth={3.25} />}
+    </svg>
+  )
+}
 
 function nano(value: string | undefined): number {
   const n = Number(value ?? '0')
@@ -533,34 +611,56 @@ export const Balances = observer(({ club }: Props) => {
   const htonTotal = htonWallet + htonPools.reduce((sum, [, v]) => sum + (v as number), 0)
   const hpoTotal = hpoWallet + hpoPools.reduce((sum, [, v]) => sum + (v as number), 0)
   const updated = split?.balancesAt !== undefined ? club.duration(club.displayNow - split.balancesAt) : undefined
-  const group = (title: string, total: number, wallet: number, pools: (string | number)[][]) => (
-    <div className='border-border flex min-w-0 flex-col gap-1.5 rounded-2xl border p-4'>
+  const note = (
+    <p className='text-text-faint text-[13px] leading-normal'>
+      {nodes(t('club.balances.note'), {
+        link: (
+          <a className='text-accent hover:underline' href={club.model.localizedPath(POOL_HELP)}>
+            {t('club.common.learnMore')}
+          </a>
+        ),
+      })}
+    </p>
+  )
+  const group = (title: string, total: number, wallet: number, pools: (string | number)[][], footer?: ReactNode) => (
+    <div className='flex min-w-0 flex-col gap-2.5'>
       <Row label={<span className='text-text font-semibold'>{title}</span>} value={club.amount2(total)} strong />
-      <Row label={t('club.balances.inWallet')} value={club.amount2(wallet)} />
+      <Row
+        label={<span className='text-text-secondary'>{t('club.balances.inWallet')}</span>}
+        value={<span className='text-text-secondary'>{club.amount2(wallet)}</span>}
+      />
       {pools
         .filter(([, v]) => (v as number) > 0)
         .map(([name, v]) => (
           <Row
             key={name as string}
-            label={t('club.balances.inPool', { dex: name as string })}
-            value={club.amount2(v as number)}
+            label={<span className='text-text-secondary'>{t('club.balances.inPool', { dex: name as string })}</span>}
+            value={<span className='text-text-secondary'>{club.amount2(v as number)}</span>}
           />
         ))}
+      {footer}
     </div>
   )
   return (
     <Card>
       <CardTitle
         aside={
-          <Button
+          // "address · Change" as a link (wireframe); there is no bare "Change" key, so the link keeps
+          // the existing "Change wallet" label.
+          <button
+            type='button'
+            className='text-accent disabled:text-text-muted min-w-0 cursor-pointer text-sm hover:underline disabled:cursor-not-allowed disabled:no-underline'
             onClick={() => !club.needTelegram('changeWallet') && club.openModal({ kind: 'changeWallet' })}
             disabled={o.frozen}
           >
-            {t('club.balances.changeWallet')}
-          </Button>
+            <bdi className='num'>{club.clubWalletMasked}</bdi> · {t('club.balances.changeWallet')}
+          </button>
         }
       >
-        {t('club.balances.title')}
+        <span className='inline-flex items-center gap-2.5'>
+          <Wallet size={20} strokeWidth={1.8} className='text-text-muted shrink-0' aria-hidden='true' />
+          {t('club.balances.title')}
+        </span>
       </CardTitle>
       <p className='text-text-muted text-sm'>
         {t(updated !== undefined ? 'club.balances.subtitle' : 'club.balances.subtitleNoTime', {
@@ -571,67 +671,69 @@ export const Balances = observer(({ club }: Props) => {
       {split === undefined ? (
         <p className='text-text-muted text-sm'>{t('club.balances.none')}</p>
       ) : (
-        <div className='grid gap-3 md:grid-cols-2'>
+        <div className='grid gap-6 md:grid-cols-2'>
           {group(t('club.balances.hton'), htonTotal, htonWallet, htonPools)}
-          {group(t('club.balances.hpo'), hpoTotal, hpoWallet, hpoPools)}
+          {group(t('club.balances.hpo'), hpoTotal, hpoWallet, hpoPools, note)}
         </div>
       )}
-      <p className='text-text-faint text-xs'>
-        {nodes(t('club.balances.note'), {
-          link: (
-            <a className='text-accent hover:underline' href={club.model.localizedPath(POOL_HELP)}>
-              {t('club.common.learnMore')}
-            </a>
-          ),
-        })}
-      </p>
     </Card>
   )
 })
+
+// The teaser cards are links as a whole (wireframe); a plain click navigates in-app, a modified
+// click (new tab) is left to the browser.
+const teaserLook =
+  'flex min-w-0 flex-col gap-1.5 rounded-[20px] border px-6 py-5 text-text no-underline transition-colors hover:border-border-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent'
 
 export const Teasers = observer(({ club }: Props) => {
   const t = club.t
   const o = club.overview
   const r = club.revenueBalance
+  const link = (tab: ClubTab) => ({
+    href: club.model.localizedPath('/club/' + (tab === 'overview' ? '' : tab + '/')),
+    onClick: (e: MouseEvent<HTMLAnchorElement>) => {
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+        return
+      }
+      e.preventDefault()
+      club.model.navigateToClubTab(tab)
+    },
+  })
   return (
     <div className='grid gap-4 md:grid-cols-3'>
-      <Card>
-        <p className='text-text-faint text-xs font-semibold tracking-wide uppercase'>{t('club.tabs.friends')}</p>
-        <p className='font-fredoka text-lg font-semibold'>
+      <a {...link('friends')} className={teaserLook + ' border-border bg-surface'}>
+        <Eyebrow icon={Users}>{t('club.tabs.friends')}</Eyebrow>
+        <span className='font-fredoka text-lg font-semibold'>
           {club.session === undefined || o === undefined
             ? t('club.teaser.friendsLink')
             : t('club.teaser.friendsTitle', {
                 count: club.amount(o.friends.count ?? 0, 0),
                 total: club.amount2(o.friends.referralTotal),
               })}
-        </p>
-        <p className='text-text-muted text-sm'>
+        </span>
+        <span className='text-text-muted text-sm leading-normal'>
           {t(club.session === undefined ? 'club.teaser.friendsLinkBody' : 'club.teaser.friendsBody')}
-        </p>
-        <Button kind='quiet' className='self-start' onClick={() => club.model.navigateToClubTab('friends')}>
-          {t('club.teaser.open')}
-        </Button>
-      </Card>
-      <Card>
-        <p className='text-text-faint text-xs font-semibold tracking-wide uppercase'>{t('club.tabs.community')}</p>
-        <p className='font-fredoka text-lg font-semibold'>{t('club.teaser.communityTitle')}</p>
-        <p className='text-text-muted text-sm'>{t('club.teaser.communityBody')}</p>
-        <Button kind='quiet' className='self-start' onClick={() => club.model.navigateToClubTab('community')}>
-          {t('club.teaser.open')}
-        </Button>
-      </Card>
-      <Card>
-        <p className='text-text-faint text-xs font-semibold tracking-wide uppercase'>{t('club.revenue.title')}</p>
-        <p className='font-fredoka text-lg font-semibold'>
+        </span>
+      </a>
+      <a {...link('community')} className={teaserLook + ' border-border bg-surface'}>
+        <Eyebrow icon={MessageSquare}>{t('club.tabs.community')}</Eyebrow>
+        <span className='font-fredoka text-lg font-semibold'>{t('club.teaser.communityTitle')}</span>
+        <span className='text-text-muted text-sm leading-normal'>{t('club.teaser.communityBody')}</span>
+      </a>
+      <a {...link('rewards')} className={teaserLook + ' border-border-strong border-dashed bg-transparent'}>
+        <span className='text-text-faint inline-flex min-w-0 items-center gap-2 text-[13px] tracking-[0.06em] uppercase'>
+          <CirclePause size={16} strokeWidth={1.8} className='shrink-0' aria-hidden='true' />
+          {t('club.revenue.title')}
+        </span>
+        <span className='text-base font-normal'>
           {r !== undefined && r > 0
             ? t('club.teaser.revenueTitle', { amount: club.amount2(r) })
             : t('club.teaser.revenueNone')}
-        </p>
-        <p className='text-text-muted text-sm'>{t('club.teaser.revenueBody', { min: club.amount(REVENUE_MIN, 0) })}</p>
-        <Button kind='quiet' className='self-start' onClick={() => club.model.navigateToClubTab('rewards')}>
-          {t('club.teaser.open')}
-        </Button>
-      </Card>
+        </span>
+        <span className='text-text-faint text-sm leading-normal'>
+          {t('club.teaser.revenueBody', { min: club.amount(REVENUE_MIN, 0) })}
+        </span>
+      </a>
     </div>
   )
 })

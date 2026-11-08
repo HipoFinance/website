@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEvent } from 'react'
+import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Coins, Gift, ChartLine, ArrowLeftRight, type LucideIcon } from 'lucide-react'
 import { CLUB_ON, Model } from './Model'
@@ -11,7 +11,7 @@ interface Props {
 
 type Page = 'stake' | 'reward' | 'club' | 'stats' | 'defi'
 
-// The five main items, in the order of the inline nav and the bottom tab bar: Stake, the Club slot,
+// The five main items, in the order of the inline nav (the bottom tab bar leaves out HPO): Stake, the Club slot,
 // Stats, DeFi, HPO. Same list as SiteHeader.astro and shell/ShellHeader.astro — keep the three in
 // sync. The tab icons are the mini app's (TmaTabs), HPO is the one-colour coin. Labels are catalog
 // keys, resolved through model.t at render time; hrefs are bare paths, model.localizedPath prefixes
@@ -31,6 +31,9 @@ const mainItems: { href: string; label: string; appPage?: Page; icon?: LucideIco
 // Secondary links: only in the hamburger menu, under the main items. The blog is English-only
 // (hreflang on other locales, as in SiteFooter.astro) and has no locale prefix.
 const secondaryLinks: { href: string; label: string; blog?: boolean }[] = [
+  // HPO is in the inline nav on wide screens; below lg it is left out of the bottom tab bar (the app
+  // sections only, as in the Mini App's TmaTabs) and listed here instead.
+  { href: '/hpo/', label: 'app.nav.hpo' },
   { href: '/docs/', label: 'app.nav.docs' },
   { href: '/faq/', label: 'app.nav.faq' },
   { href: '/blog/', label: 'app.nav.blog', blog: true },
@@ -46,6 +49,33 @@ const Header = observer(({ model }: Props) => {
   useEffect(() => {
     document.documentElement.classList.toggle('menu-open', menuOpen)
     return () => document.documentElement.classList.remove('menu-open')
+  }, [menuOpen])
+
+  // A click anywhere outside the menu and its toggle button closes the menu, as does Escape. The
+  // toggle is left out so its own onClick does the toggling; links inside close it in siteLinkClick.
+  const menuRef = useRef<HTMLDivElement>(null)
+  const toggleRef = useRef<HTMLButtonElement>(null)
+  useEffect(() => {
+    if (!menuOpen) {
+      return
+    }
+    const onClick = (e: globalThis.MouseEvent) => {
+      const target = e.target as Node
+      if (!menuRef.current?.contains(target) && !toggleRef.current?.contains(target)) {
+        setMenuOpen(false)
+      }
+    }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMenuOpen(false)
+      }
+    }
+    document.addEventListener('click', onClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('click', onClick)
+      document.removeEventListener('keydown', onKey)
+    }
   }, [menuOpen])
 
   const isActive = (appPage?: Page) => appPage != null && model.activePage === appPage
@@ -64,7 +94,7 @@ const Header = observer(({ model }: Props) => {
           its own line — Connect's label is too long in most locales to share a phone-width row
           with the language switcher. The action group dissolves (`contents`) so its children flow
           as items of this row; ShellHeader.astro mirrors this exactly. */}
-      <div className='mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-6 py-5 max-sm:flex-wrap md:px-12'>
+      <div className='mx-auto flex w-full max-w-[1440px] items-center justify-between gap-4 px-6 py-5 max-sm:flex-wrap md:px-10'>
         <a href={model.localizedPath('/')} className='flex flex-none items-center gap-2.5'>
           <img src='/images/hipo.svg' alt='Hipo' className='logo-on-dark size-9' />
           <img src='/images/hipo-light.svg' alt='Hipo' className='logo-on-light size-9' />
@@ -120,6 +150,7 @@ const Header = observer(({ model }: Props) => {
           </div>
 
           <button
+            ref={toggleRef}
             type='button'
             className='text-text cursor-pointer lg:hidden'
             title={model.t('app.header.toggleMenu')}
@@ -134,7 +165,7 @@ const Header = observer(({ model }: Props) => {
       </div>
 
       {menuOpen && (
-        <div className='px-6 pb-4 lg:hidden'>
+        <div ref={menuRef} className='px-6 pb-4 lg:hidden'>
           <nav
             aria-label={model.t('app.header.siteNav')}
             className='text-text-muted flex flex-col gap-1 text-[15px] font-medium'
@@ -154,42 +185,44 @@ const Header = observer(({ model }: Props) => {
         </div>
       )}
 
-      {/* Bottom tab bar: the five main items within thumb's reach below lg, where the inline nav is hidden.
-          The hamburger (also below lg only) carries just the secondary links. */}
+      {/* Bottom tab bar: the four app sections within thumb's reach below lg, where the inline nav is
+          hidden. The hamburger (also below lg only) carries HPO and the secondary links. */}
       <nav
         aria-label={model.t('app.header.appSections')}
         className='border-border bg-surface-deep fixed start-0 end-0 bottom-0 z-10 flex w-full flex-row border-t select-none lg:hidden'
       >
-        {mainItems.map(({ href, label, appPage, icon: Icon }) => {
-          const active = isActive(appPage)
-          const className =
-            'flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-medium ' +
-            (active ? 'text-accent' : 'text-text-muted hover:text-accent')
-          const content = (
-            <>
-              {Icon ? <Icon className='size-[18px]' aria-hidden='true' /> : <HpoIcon className='size-[18px]' />}
-              <span>{model.t(label)}</span>
-            </>
-          )
-          return appPage != null ? (
-            <button
-              key={href}
-              type='button'
-              aria-label={model.t(label)}
-              aria-current={active ? 'page' : undefined}
-              className={className}
-              onClick={() => {
-                model.navigateToPage(appPage)
-              }}
-            >
-              {content}
-            </button>
-          ) : (
-            <a key={href} href={model.localizedPath(href)} aria-label={model.t(label)} className={className}>
-              {content}
-            </a>
-          )
-        })}
+        {mainItems
+          .filter((item) => item.appPage != null)
+          .map(({ href, label, appPage, icon: Icon }) => {
+            const active = isActive(appPage)
+            const className =
+              'flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-medium ' +
+              (active ? 'text-accent' : 'text-text-muted hover:text-accent')
+            const content = (
+              <>
+                {Icon ? <Icon className='size-[18px]' aria-hidden='true' /> : <HpoIcon className='size-[18px]' />}
+                <span>{model.t(label)}</span>
+              </>
+            )
+            return appPage != null ? (
+              <button
+                key={href}
+                type='button'
+                aria-label={model.t(label)}
+                aria-current={active ? 'page' : undefined}
+                className={className}
+                onClick={() => {
+                  model.navigateToPage(appPage)
+                }}
+              >
+                {content}
+              </button>
+            ) : (
+              <a key={href} href={model.localizedPath(href)} aria-label={model.t(label)} className={className}>
+                {content}
+              </a>
+            )
+          })}
       </nav>
     </div>
   )

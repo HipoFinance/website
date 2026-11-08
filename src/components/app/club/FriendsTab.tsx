@@ -3,9 +3,26 @@
 // total; the rows, 50 at a time, with the All / Earning / Not staking yet filters. Needs Telegram.
 import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
+import { Users } from 'lucide-react'
 import type { ClubModel } from './ClubModel.ts'
 import type { FriendsFilter } from './api.ts'
-import { Button, Card, CardTitle, Row, Skeleton } from './ui.tsx'
+import {
+  bigNumber,
+  Button,
+  Card,
+  CardTitle,
+  Eyebrow,
+  footnote,
+  Pill,
+  Pills,
+  Row,
+  Skeleton,
+  tableRow,
+  tableTd,
+  tableTh,
+} from './ui.tsx'
+
+const thEnd = tableTh.replace('text-start', 'text-end')
 
 interface Props {
   club: ClubModel
@@ -23,8 +40,8 @@ const FriendsTab = observer(({ club }: Props) => {
     return (
       <Card>
         <CardTitle>{t('club.friends.title')}</CardTitle>
-        <p className='text-text-muted text-[15px]'>{t('club.friends.body')}</p>
-        <p className='text-text-muted text-[15px]'>{t('club.friends.needsTelegram')}</p>
+        <p className='text-text-muted text-[15px] leading-normal'>{t('club.friends.body')}</p>
+        <p className='text-text-muted text-[15px] leading-normal'>{t('club.friends.needsTelegram')}</p>
         {!club.tma && (
           <Button
             kind='primary'
@@ -42,6 +59,12 @@ const FriendsTab = observer(({ club }: Props) => {
     return <Skeleton className='h-80' />
   }
   const link = meta.inviteLink
+  // F4: only the decimals a figure needs (up to 2): "3,900", "0.65". A tiny non-zero value keeps
+  // amountFixed's 2 significant digits rather than showing as 0. Display only.
+  const trimmed = (value: string | number | undefined): string => {
+    const n = typeof value === 'string' ? Number(value) : value
+    return n !== undefined && n !== 0 && Math.abs(n) < 0.01 ? club.amountFixed(n, 2) : club.amount(n, 2)
+  }
   const copy = async () => {
     if (link === undefined) {
       return
@@ -55,76 +78,88 @@ const FriendsTab = observer(({ club }: Props) => {
     }
   }
   return (
-    <div className='flex flex-col gap-4'>
-      <Card>
-        <CardTitle>{t('club.friends.title')}</CardTitle>
-        <p className='text-text-muted text-[15px]'>{t('club.friends.body')}</p>
-        {link !== undefined && (
-          <div className='flex flex-col gap-2'>
-            <p className='text-text-muted text-sm'>{t('club.friends.linkLabel')}</p>
-            <p className='bg-surface-deep num min-w-0 rounded-xl px-3 py-2.5 text-sm break-all'>{link}</p>
-            <div className='flex flex-wrap gap-2'>
-              <Button onClick={() => void copy()}>{t(copied ? 'club.friends.copied' : 'club.friends.copy')}</Button>
-              <Button kind='primary' href={club.shareUrl(link)}>
+    <div className='flex flex-col gap-6'>
+      <div className='grid gap-4 md:grid-cols-2'>
+        <Card>
+          <CardTitle>{t('club.friends.title')}</CardTitle>
+          <p className='text-text-muted text-[15px] leading-normal'>{t('club.friends.body')}</p>
+          {link !== undefined && (
+            <div className='flex flex-col gap-3.5'>
+              <div className='flex flex-col gap-1.5'>
+                <label htmlFor='club-invite-link' className='text-text-muted text-sm'>
+                  {t('club.friends.linkLabel')}
+                </label>
+                <div className='flex flex-wrap gap-2'>
+                  <input
+                    id='club-invite-link'
+                    type='text'
+                    readOnly
+                    value={link}
+                    onFocus={(e) => e.currentTarget.select()}
+                    className='bg-bg border-border-strong text-text num min-h-11 min-w-0 flex-[1_1_260px] rounded-xl border px-3.5 py-3 text-[15px]'
+                  />
+                  <Button size='sm' onClick={() => void copy()}>
+                    {t(copied ? 'club.friends.copied' : 'club.friends.copy')}
+                  </Button>
+                </div>
+              </div>
+              <Button kind='primary' className='self-start' href={club.shareUrl(link)}>
                 {t('club.friends.share')}
               </Button>
             </div>
+          )}
+        </Card>
+        <Card>
+          <div className='flex min-w-0 flex-col gap-2'>
+            <Eyebrow icon={Users}>{t('club.friends.earned')}</Eyebrow>
+            <p className={bigNumber}>{t('club.common.hpoAmount', { amount: club.amount2(meta.referralTotal) })}</p>
           </div>
-        )}
-        <div className='flex flex-col gap-1.5'>
-          <Row
-            label={t('club.friends.earned')}
-            value={t('club.common.hpoAmount', { amount: club.amount2(meta.referralTotal) })}
-            strong
-          />
-          <Row label={t('club.friends.joined')} value={club.amount(meta.count ?? 0, 0)} />
-        </div>
-        <p className='text-text-faint text-xs'>{t('club.friends.note')}</p>
-      </Card>
+          <div className='border-border flex flex-col gap-2 border-t pt-3.5'>
+            <Row label={t('club.friends.joined')} value={club.amount(meta.count ?? 0, 0)} />
+          </div>
+          <p className={footnote}>{t('club.friends.note')}</p>
+        </Card>
+      </div>
       <Card>
-        <CardTitle>{t('club.friends.listTitle')}</CardTitle>
-        <div className='flex flex-wrap gap-2' role='group'>
-          {(['all', 'earning', 'not_staking'] as FriendsFilter[]).map((value) => (
-            <button
-              key={value}
-              type='button'
-              aria-pressed={club.friendsFilter === value}
-              className={
-                'min-h-9 cursor-pointer rounded-full border px-3 text-sm ' +
-                (club.friendsFilter === value
-                  ? 'border-accent text-accent font-semibold'
-                  : 'border-border text-text-muted')
-              }
-              onClick={() => void club.loadFriends(value, true)}
-            >
-              {value === 'all'
-                ? t('club.friends.filterAll', { count: club.amount(meta.count ?? 0, 0) })
-                : t(value === 'earning' ? 'club.friends.filterEarning' : 'club.friends.filterNotStaking')}
-            </button>
-          ))}
-        </div>
+        <CardTitle
+          aside={
+            <Pills label={t('club.friends.listTitle')}>
+              {(['all', 'earning', 'not_staking'] as FriendsFilter[]).map((value) => (
+                <Pill
+                  key={value}
+                  active={club.friendsFilter === value}
+                  onClick={() => void club.loadFriends(value, true)}
+                >
+                  {value === 'all'
+                    ? t('club.friends.filterAll', { count: club.amount(meta.count ?? 0, 0) })
+                    : t(value === 'earning' ? 'club.friends.filterEarning' : 'club.friends.filterNotStaking')}
+                </Pill>
+              ))}
+            </Pills>
+          }
+        >
+          {t('club.friends.listTitle')}
+        </CardTitle>
         {club.friendsRows.length === 0 ? (
-          <div className='flex flex-col gap-2'>
-            <p className='text-text-muted text-sm'>
-              {t(club.friendsFilter === 'all' ? 'club.friends.empty' : 'club.friends.emptyFilter')}
-            </p>
-          </div>
+          <p className='text-text-muted text-[15px] leading-normal'>
+            {t(club.friendsFilter === 'all' ? 'club.friends.empty' : 'club.friends.emptyFilter')}
+          </p>
         ) : (
           <div className='overflow-x-auto'>
-            <table className='w-full min-w-[300px] text-sm'>
-              <thead className='text-text-faint'>
+            <table className='w-full min-w-[300px]'>
+              <thead>
                 <tr>
-                  <th className='py-1.5 text-start font-medium'>{t('club.friends.colFriend')}</th>
-                  <th className='py-1.5 text-end font-medium'>{t('club.friends.colTheirs')}</th>
-                  <th className='py-1.5 text-end font-medium'>{t('club.friends.colYours')}</th>
+                  <th className={tableTh}>{t('club.friends.colFriend')}</th>
+                  <th className={thEnd}>{t('club.friends.colTheirs')}</th>
+                  <th className={thEnd}>{t('club.friends.colYours')}</th>
                 </tr>
               </thead>
               <tbody>
                 {club.friendsRows.map((row, i) => (
-                  <tr key={i} className='border-border border-t'>
-                    <td className='max-w-[10rem] truncate py-1.5'>{row.name}</td>
-                    <td className='num py-1.5 text-end'>{club.amountFixed(row.friendHpo, 2)}</td>
-                    <td className='num py-1.5 text-end'>{club.amountFixed(row.yourHpo, 2)}</td>
+                  <tr key={i} className={tableRow}>
+                    <td className={tableTd + ' max-w-[10rem] truncate'}>{row.name}</td>
+                    <td className={tableTd + ' num text-end'}>{trimmed(row.friendHpo)}</td>
+                    <td className={tableTd + ' num text-end'}>{trimmed(row.yourHpo)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -140,7 +175,7 @@ const FriendsTab = observer(({ club }: Props) => {
             {t('club.friends.more')}
           </Button>
         )}
-        <p className='text-text-faint text-xs'>{t('club.friends.notStakingNote')}</p>
+        <p className={footnote}>{t('club.friends.notStakingNote')}</p>
       </Card>
     </div>
   )

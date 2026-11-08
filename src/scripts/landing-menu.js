@@ -7,6 +7,20 @@ menu?.querySelectorAll('a').forEach((link) => {
   link.addEventListener('click', () => toggleMenu())
 })
 
+// A click anywhere outside the open menu and its button closes it, as does Escape (Header.tsx does
+// the same on the app pages).
+const isOpen = () => menu != null && !menu.classList.contains('hidden')
+document.addEventListener('click', (e) => {
+  if (isOpen() && !menu?.contains(e.target) && !button?.contains(e.target)) {
+    toggleMenu()
+  }
+})
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && isOpen()) {
+    toggleMenu()
+  }
+})
+
 let toggleMenu = () => {
   // `hidden` carries the menu's state; the class on <html> only exists so CSS can turn off
   // pull-to-refresh while the menu is open (see html.menu-open in global.css) — Firefox mobile

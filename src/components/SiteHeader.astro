@@ -37,6 +37,7 @@ const items = [
 
 // The blog is English-only, so every other locale says so with hreflang (as SiteFooter does).
 const secondary = [
+  { key: 'hpo', href: localizedPath('/hpo/', locale), label: t('site.nav.hpo'), hreflang: undefined },
   { key: 'docs', href: localizedPath('/docs/', locale), label: t('site.nav.docs'), hreflang: undefined },
   { key: 'faq', href: localizedPath('/faq/', locale), label: t('site.nav.faq'), hreflang: undefined },
   {
@@ -118,20 +119,24 @@ const secondary = [
     class='border-border bg-surface-deep fixed start-0 end-0 bottom-0 z-10 flex w-full flex-row border-t select-none lg:hidden'
   >
     {
-      items.map(({ key, href, label, icon }) => (
-        <a
-          href={href}
-          aria-label={label}
-          aria-current={key === active ? 'page' : undefined}
-          class={
-            'flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-medium ' +
-            (key === active ? 'text-accent' : 'text-text-muted hover:text-accent')
-          }
-        >
-          <ShellIcon name={icon} class='size-[18px]' maskId='hpo-m-site' />
-          <span set:text={label} />
-        </a>
-      ))
+      // The bottom tab bar holds the app sections only (as Header.tsx and the Mini App); HPO is in the
+      // menu below lg.
+      items
+        .filter((item) => item.key !== 'hpo')
+        .map(({ key, href, label, icon }) => (
+          <a
+            href={href}
+            aria-label={label}
+            aria-current={key === active ? 'page' : undefined}
+            class={
+              'flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-medium ' +
+              (key === active ? 'text-accent' : 'text-text-muted hover:text-accent')
+            }
+          >
+            <ShellIcon name={icon} class='size-[18px]' maskId='hpo-m-site' />
+            <span set:text={label} />
+          </a>
+        ))
     }
   </nav>
 </header>

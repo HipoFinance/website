@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import type { ClubModel, Tone } from './ClubModel.ts'
 import { BUY_HPO_URL, HIPO_CHAT_URL } from './ClubModel.ts'
 import { CLAIM_MIN_NANO } from './clubTx.ts'
-import { Button, Card, ErrorLine, Strip } from './ui.tsx'
+import { Button, ErrorLine, inset, Strip, useCardBox } from './ui.tsx'
 
 interface Props {
   club: ClubModel
@@ -15,6 +15,7 @@ const HOUR = 3600
 export const GracePanel = observer(({ club }: Props) => {
   const t = club.t
   const o = club.overview
+  const box = useCardBox()
   if (o === undefined || (o.state !== 'grace' && o.state !== 'suspended')) {
     return null
   }
@@ -47,12 +48,13 @@ export const GracePanel = observer(({ club }: Props) => {
         { when: club.date(until, true), text: t('club.panel.deadline'), future: true },
       ]
   return (
-    <Card>
-      <div className='flex flex-col gap-1'>
-        <h2 className='font-fredoka text-xl font-semibold'>
+    // Card's look with the warn border (Card's own border colour cannot be overridden by a class).
+    <section className={'border-tone-warn-border bg-surface flex min-w-0 flex-col gap-5 border ' + box}>
+      <div className='flex min-w-0 flex-wrap items-baseline justify-between gap-x-4 gap-y-1'>
+        <h2 className='font-fredoka min-w-0 text-[22px] font-semibold'>
           {grace ? t('club.panel.graceTitle') : t('club.panel.restoreTitle', { level })}
         </h2>
-        <p className='text-tone-warn-fg text-sm font-medium'>
+        <p className='text-tone-warn-fg min-w-0 font-semibold'>
           {grace
             ? t('club.panel.graceDeadline', { date: club.date(until, true), left })
             : t('club.panel.restoreDeadline', { date: club.date(until, true), left })}
@@ -74,22 +76,27 @@ export const GracePanel = observer(({ club }: Props) => {
             <span className={'num text-[13px] ' + (step.current ? 'text-tone-warn-fg' : 'text-text-faint')}>
               {step.when}
             </span>
-            <span className='text-sm'>{step.text}</span>
+            <span className='text-[15px] leading-normal'>{step.text}</span>
           </li>
         ))}
       </ol>
-      <div className='bg-surface-deep flex flex-col gap-3 rounded-2xl p-4 sm:flex-row sm:items-center sm:justify-between'>
-        <p className='text-text-muted text-sm'>{t('club.panel.buyHint', { wallet: club.clubWalletMasked })}</p>
+      <div className={inset + ' flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'}>
+        <div className='flex min-w-0 flex-col gap-1'>
+          <p className='text-[17px] font-bold'>{t('club.common.buyAmount', { amount: short })}</p>
+          <p className='text-text-muted text-sm leading-normal'>
+            {t('club.panel.buyHint', { wallet: club.clubWalletMasked })}
+          </p>
+        </div>
         <Button kind='primary' href={BUY_HPO_URL} className='shrink-0'>
-          {t('club.common.buyAmount', { amount: short })}
+          {t('club.common.buyHpo')}
         </Button>
       </div>
-      <p className='text-text-faint text-sm leading-relaxed'>
+      <p className='text-text-muted text-sm leading-normal'>
         {grace
           ? t(o.settings.alerts ? 'club.panel.graceNote' : 'club.panel.graceNoteNoAlerts')
           : t('club.panel.restoreNote', { minimum })}
       </p>
-    </Card>
+    </section>
   )
 })
 
@@ -219,7 +226,7 @@ const StatusStrip = observer(({ club }: Props) => {
       body = t('club.status.gBody', { from: club.level(o?.resetFromLevel), date: club.date(o?.resetAt) })
       action =
         club.upgradeOffer !== undefined && typeof club.upgradeOffer.fee === 'number' ? (
-          <Button kind='primary' disabled={club.upgradeBlock !== undefined} onClick={() => void club.openUpgrade()}>
+          <Button disabled={club.upgradeBlock !== undefined} onClick={() => void club.openUpgrade()}>
             {t('club.levelUp.button', { level: club.level(1), fee: club.amount(club.upgradeOffer.fee, 0) })}
           </Button>
         ) : null
@@ -291,22 +298,41 @@ const StatusStrip = observer(({ club }: Props) => {
       break
   }
 
+  // W4: a flow's notice (e.g. "… is now your Club wallet") takes the state strip's place rather than
+  // stacking above it, for as long as it lives (until dismissed or the next Club page load). When the
+  // view has since moved to one that needs the user (a load error, no wallet, Telegram not linked, a
+  // wallet mismatch, the frozen account), the notice is stale and its state strip, with the action
+  // that resolves it, shows instead.
+  const blocking =
+    view === 'error' ||
+    view === 'connect' ||
+    view === 'connectClub' ||
+    view === 'nolink' ||
+    view === 'paused' ||
+    view === 'frozen'
+  const showNotice = notice !== undefined && !blocking
+  const showState = title !== '' && !showNotice
+  // The below-minimum notice names the amount to buy once the reloaded overview knows it.
+  const noticeShort = o !== undefined && Number(o.short ?? '0') > 0 ? club.amountUp(o.short) : undefined
   return (
     <>
-      {notice !== undefined && (
+      {showNotice && (
         <Strip tone={notice.tone} title={notice.title} body={notice.body}>
-          {notice.action === 'buy' && (
-            <Button kind='primary' href={BUY_HPO_URL}>
-              {t('club.common.buyHpo')}
-            </Button>
-          )}
+          {notice.action === 'buy' &&
+            (noticeShort !== undefined ? (
+              buyButton(noticeShort)
+            ) : (
+              <Button kind='primary' href={BUY_HPO_URL}>
+                {t('club.common.buyHpo')}
+              </Button>
+            ))}
           {notice.action === 'connect' && connectButton}
           <Button kind='quiet' onClick={() => club.setNotice(undefined)}>
             {t('club.common.dismiss')}
           </Button>
         </Strip>
       )}
-      {title !== '' && (
+      {showState && (
         <Strip tone={tone} title={title} body={body}>
           {action}
         </Strip>

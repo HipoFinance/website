@@ -89,6 +89,16 @@ html.tma body {
   --color-tone-neutral-bg: #26211f;
   --color-tone-neutral-border: #433a36;
   --color-tone-neutral-fg: #b8ada6;
+
+  /* The Club's wireframe-match tokens (specs/club-wireframe-match.md), re-declared for the light
+     scheme below. `surface-raised` is an inset tile or bar track inside a card (lighter than the card
+     in dark, a shade darker than the white card in light); `border-control` is the outline of a
+     secondary button and the not-linked chip; `text-secondary` is body copy one step brighter than
+     muted (strip bodies); `row-self` is the coral-tinted ground of the viewer's own table row. */
+  --color-surface-raised: #322b28;
+  --color-border-control: #6b5f58;
+  --color-text-secondary: #d9cfc8;
+  --color-row-self: #3a2724;
 }
 
 @media (prefers-color-scheme: light) {
@@ -105,6 +115,10 @@ html.tma body {
     --color-tone-neutral-bg: #f6f1ea;
     --color-tone-neutral-border: #dbcdb9;
     --color-tone-neutral-fg: #6f6058;
+    --color-surface-raised: #f5efe6;
+    --color-border-control: #bba791;
+    --color-text-secondary: #4d3f3a;
+    --color-row-self: #fde9e5;
   }
 }
 

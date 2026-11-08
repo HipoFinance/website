@@ -10,6 +10,39 @@ interface Props {
   club: ClubModel
 }
 
+// W2: the fact rows of a dialog sit in a raised box.
+const facts = 'bg-surface-raised flex flex-col gap-2.5 rounded-2xl p-4'
+
+// W2 / W5: a choice card of flows 2 and 3 — filled, the suggested one outlined in coral; while a
+// request runs it is disabled and looks it (no hover border).
+const ChoiceCard = ({
+  suggested,
+  busy,
+  onClick,
+  title,
+  note,
+}: {
+  suggested?: boolean
+  busy: boolean
+  onClick: () => void
+  title: React.ReactNode
+  note: React.ReactNode
+}) => (
+  <button
+    type='button'
+    disabled={busy}
+    onClick={onClick}
+    className={
+      'bg-surface-raised flex min-w-0 flex-col gap-1 rounded-2xl border p-4 text-start ' +
+      (suggested ? 'border-accent ' : 'border-border-control ') +
+      (busy ? 'cursor-not-allowed opacity-60' : 'hover:border-accent cursor-pointer')
+    }
+  >
+    <span className='font-semibold'>{title}</span>
+    <span className='text-text-muted text-sm leading-normal'>{note}</span>
+  </button>
+)
+
 const Actions = ({ children }: { children: React.ReactNode }) => (
   <div className='flex flex-col-reverse gap-2 sm:flex-row sm:justify-end'>{children}</div>
 )
@@ -58,7 +91,7 @@ const ChangeWallet = observer(({ club }: Props) => {
   return (
     <>
       <p className='text-text-muted text-[15px] leading-relaxed'>{t('club.modal.change.body')}</p>
-      <div className='flex flex-col gap-1.5'>
+      <div className={facts}>
         <Row
           label={t('club.modal.telegramAccount')}
           value={t('club.modal.accountValue', { name, level: club.level(o?.clubLevel), boost: club.boost(o?.boost) })}
@@ -107,7 +140,7 @@ const Choose = observer(({ club, modal }: Props & { modal: Extract<Modal, { kind
               name,
             })}
       </p>
-      <div className='flex flex-col gap-1.5'>
+      <div className={facts}>
         <Row label={t('club.modal.telegramAccount')} value={name} />
         <Row
           label={t('club.modal.clubLevel')}
@@ -123,33 +156,24 @@ const Choose = observer(({ club, modal }: Props & { modal: Extract<Modal, { kind
         />
         <Row label={t('club.modal.connectedNow')} value={connected} />
       </div>
-      <div className='flex flex-col gap-2'>
-        <button
-          type='button'
-          disabled={club.busy}
-          className='border-border hover:border-accent flex cursor-pointer flex-col gap-0.5 rounded-2xl border p-4 text-start'
+      <div className='grid gap-3 sm:grid-cols-2'>
+        <ChoiceCard
+          suggested
+          busy={club.busy}
           onClick={() => void club.startLink(modal.flow)}
-        >
-          <span className='font-semibold'>{t('club.modal.choose.switch')}</span>
-          <span className='text-text-muted text-sm'>
-            {t('club.modal.choose.switchNote', {
-              wallet: connected,
-              name,
-              level: club.level(s?.clubLevel ?? o?.clubLevel),
-            })}
-          </span>
-        </button>
-        <button
-          type='button'
-          disabled={club.busy}
-          className='border-border hover:border-accent flex cursor-pointer flex-col gap-0.5 rounded-2xl border p-4 text-start'
+          title={t('club.modal.choose.switch')}
+          note={t('club.modal.choose.switchNote', {
+            wallet: connected,
+            name,
+            level: club.level(s?.clubLevel ?? o?.clubLevel),
+          })}
+        />
+        <ChoiceCard
+          busy={club.busy}
           onClick={() => void club.reconnectPrevious(modal.flow)}
-        >
-          <span className='font-semibold'>{t('club.modal.choose.reconnect')}</span>
-          <span className='text-text-muted text-sm'>
-            {t('club.modal.choose.reconnectNote', { wallet: club.clubWalletMasked })}
-          </span>
-        </button>
+          title={t('club.modal.choose.reconnect')}
+          note={t('club.modal.choose.reconnectNote', { wallet: club.clubWalletMasked })}
+        />
       </div>
       <ErrorLine>
         {club.actionError !== undefined ? t(club.actionError.key, club.actionError.params) : undefined}
@@ -223,54 +247,56 @@ const Confirm = observer(({ club, modal }: Props & { modal: Extract<Modal, { kin
   const first = p.clubWalletMasked === undefined
   const level = club.level(p.clubLevel)
   const short = Number(p.minimum ?? '0') - Number(p.newWalletHpo ?? '0')
+  // W3: roomier cells, the header muted at weight 500.
+  const th = 'px-2.5 py-2.5 text-start font-medium'
+  const td = 'num px-2.5 py-2.5'
+  const label = 'text-text-muted px-2.5 py-2.5'
   return (
     <>
       <div className='overflow-x-auto'>
-        <table className='w-full min-w-[300px] text-sm'>
-          <thead className='text-text-faint'>
+        <table className='w-full min-w-[300px] text-[15px]'>
+          <thead className='text-text-muted text-sm'>
             <tr>
-              <th className='py-1.5 text-start font-medium'></th>
-              <th className='py-1.5 text-start font-medium'>{t('club.modal.confirm.now')}</th>
-              <th className='py-1.5 text-start font-medium'>{t('club.modal.confirm.after')}</th>
+              <th className={th}></th>
+              <th className={th}>{t('club.modal.confirm.now')}</th>
+              <th className={th}>{t('club.modal.confirm.after')}</th>
             </tr>
           </thead>
           <tbody>
             <tr className='border-border border-t'>
-              <td className='text-text-muted py-1.5 pe-2'>{t('club.modal.confirm.wallet')}</td>
-              <td className='num py-1.5 pe-3'>{p.clubWalletMasked ?? '—'}</td>
-              <td className='num py-1.5 font-semibold'>{p.newWalletMasked ?? '—'}</td>
+              <td className={label}>{t('club.modal.confirm.wallet')}</td>
+              <td className={td}>{p.clubWalletMasked ?? '—'}</td>
+              <td className={td + ' font-semibold'}>{p.newWalletMasked ?? '—'}</td>
             </tr>
             <tr className='border-border border-t'>
-              <td className='text-text-muted py-1.5 pe-2'>{t('club.modal.confirm.levelBoost')}</td>
-              <td className='num py-1.5 pe-3'>{t('club.modal.levelBoost', { level, boost: club.boost(p.boost) })}</td>
-              <td className='num py-1.5'>
-                {t('club.modal.confirm.fromName', { level, boost: club.boost(p.boost), name })}
-              </td>
+              <td className={label}>{t('club.modal.confirm.levelBoost')}</td>
+              <td className={td}>{t('club.modal.levelBoost', { level, boost: club.boost(p.boost) })}</td>
+              <td className={td}>{t('club.modal.confirm.fromName', { level, boost: club.boost(p.boost), name })}</td>
             </tr>
             <tr className='border-border border-t'>
-              <td className='text-text-muted py-1.5 pe-2'>{t('club.modal.confirm.eligible')}</td>
-              <td className='num py-1.5 pe-3'>{first ? '—' : club.amount2(o?.holdings)}</td>
-              <td className={'num py-1.5 ' + (p.belowMinimum ? 'text-tone-warn-fg' : 'text-tone-success-fg')}>
+              <td className={label}>{t('club.modal.confirm.eligible')}</td>
+              <td className={td}>{first ? '—' : club.amount2(o?.holdings)}</td>
+              <td className={td + ' font-semibold ' + (p.belowMinimum ? 'text-tone-warn-fg' : 'text-tone-success-fg')}>
                 {club.amount2(p.newWalletHpo)}
               </td>
             </tr>
             <tr className='border-border border-t'>
-              <td className='text-text-muted py-1.5 pe-2'>{t('club.modal.minimum')}</td>
-              <td className='num py-1.5'>{club.amount2(p.minimum)}</td>
-              <td className='num py-1.5'>{club.amount2(p.minimum)}</td>
+              <td className={label}>{t('club.modal.minimum')}</td>
+              <td className={td}>{club.amount2(p.minimum)}</td>
+              <td className={td}>{club.amount2(p.minimum)}</td>
             </tr>
           </tbody>
         </table>
       </div>
       {p.belowMinimum ? (
-        <div className='bg-tone-warn-bg border-tone-warn-border flex flex-col gap-1 rounded-2xl border p-4'>
+        <div className='bg-tone-warn-bg border-tone-warn-border flex flex-col gap-1 rounded-[14px] border px-4 py-3.5'>
           <p className='text-tone-warn-fg font-semibold'>
             {t('club.modal.confirm.belowTitle', { wallet: p.newWalletMasked ?? '—', short: club.amountUp(short) })}
           </p>
-          <p className='text-text-muted text-sm'>{t('club.modal.confirm.belowBody', { level })}</p>
+          <p className='text-text-secondary text-sm leading-normal'>{t('club.modal.confirm.belowBody', { level })}</p>
         </div>
       ) : (
-        <p className='text-tone-success-fg text-sm'>
+        <p className='bg-tone-success-bg border-tone-success-border text-text-secondary rounded-[14px] border px-4 py-3.5 text-sm leading-normal'>
           {t('club.modal.confirm.meets', { wallet: p.newWalletMasked ?? '—', level })}
         </p>
       )}

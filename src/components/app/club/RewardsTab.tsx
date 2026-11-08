@@ -1,11 +1,28 @@
 // The Club's Rewards tab (specs/club-website.md §9; wireframe Rewards.dc.html, 2b clubrewards): boosted
 // HPO ready to claim with its split by stream, per-round history (staking and referral rows, with
 // filters), past claims; base GRAM rewards; and revenue sharing (§8), collapsed at the bottom.
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { observer } from 'mobx-react-lite'
+import { Zap } from 'lucide-react'
 import type { ClubModel } from './ClubModel.ts'
 import { REVENUE_FEE } from './ClubModel.ts'
-import { Button, Card, CardTitle, ErrorLine, Row, Skeleton } from './ui.tsx'
+import {
+  bigNumber,
+  Button,
+  Card,
+  CardTitle,
+  ErrorLine,
+  Eyebrow,
+  footnote,
+  inset,
+  Pill,
+  Pills,
+  Row,
+  Skeleton,
+  tableRow,
+  tableTd,
+  tableTh,
+} from './ui.tsx'
 
 interface Props {
   club: ClubModel
@@ -14,27 +31,76 @@ interface Props {
 type Stream = 'all' | 'staking' | 'referral'
 
 const TONVIEWER = 'https://tonviewer.com/transaction/'
+// R1: a section is a heading row (coloured dot, Fredoka heading, outlined tag) followed by sibling
+// cards, not one card with boxes nested inside.
+function SectionHeading({ dot, title, tag }: { dot: string; title: ReactNode; tag: ReactNode }) {
+  return (
+    <div className='flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2'>
+      <span className={'size-3 shrink-0 rounded-full ' + dot} aria-hidden='true'></span>
+      <h2 className='font-fredoka min-w-0 text-[26px] leading-tight font-bold'>{title}</h2>
+      <span className='border-border-strong text-text-secondary rounded-full border px-2.5 py-0.5 text-[13px] font-semibold'>
+        {tag}
+      </span>
+    </div>
+  )
+}
+
+const statGrid = 'grid gap-4 grid-cols-[repeat(auto-fit,minmax(240px,1fr))]'
+const statValue = 'font-fredoka num text-[28px] leading-tight font-bold wrap-anywhere'
+const thEnd = tableTh.replace('text-start', 'text-end')
+
+function StatCard({
+  label,
+  value,
+  valueClass = statValue,
+  children,
+}: {
+  label: ReactNode
+  value: ReactNode
+  valueClass?: string
+  children?: ReactNode
+}) {
+  return (
+    <Card>
+      <div className='flex min-w-0 flex-col gap-1'>
+        <p className='text-text-muted text-sm'>{label}</p>
+        <p className={valueClass}>{value}</p>
+      </div>
+      {children}
+    </Card>
+  )
+}
 
 const Boosted = observer(({ club }: Props) => {
   const t = club.t
   const [filter, setFilter] = useState<Stream>('all')
   const r = club.rewards
   const o = club.overview
+  const heading = (
+    <SectionHeading dot='bg-hpo' title={t('club.rewards.boostedTitle')} tag={t('club.rewards.boostedSub')} />
+  )
   if (club.session === undefined) {
     return (
-      <Card>
-        <CardTitle>{t('club.rewards.boostedTitle')}</CardTitle>
-        <p className='text-text-muted text-[15px]'>{t('club.rewards.needsTelegram')}</p>
-        {!club.tma && (
-          <Button kind='primary' className='self-start' onClick={() => club.openModal({ kind: 'linkTelegram' })}>
-            {t('club.common.linkTelegram')}
-          </Button>
-        )}
-      </Card>
+      <div className='flex flex-col gap-6'>
+        {heading}
+        <Card>
+          <p className='text-text-muted text-[15px] leading-normal'>{t('club.rewards.needsTelegram')}</p>
+          {!club.tma && (
+            <Button kind='primary' className='self-start' onClick={() => club.openModal({ kind: 'linkTelegram' })}>
+              {t('club.common.linkTelegram')}
+            </Button>
+          )}
+        </Card>
+      </div>
     )
   }
   if (r === undefined) {
-    return <Skeleton className='h-72' />
+    return (
+      <div className='flex flex-col gap-6'>
+        {heading}
+        <Skeleton className='h-72' />
+      </div>
+    )
   }
   const streams = r.unclaimedByStream
   const rows = [
@@ -45,31 +111,29 @@ const Boosted = observer(({ club }: Props) => {
     .sort((a, b) => (b.time ?? 0) - (a.time ?? 0))
   const block = club.claimBlock
   return (
-    <Card>
-      <CardTitle aside={<span className='text-text-faint text-sm'>{t('club.rewards.boostedSub')}</span>}>
-        {t('club.rewards.boostedTitle')}
-      </CardTitle>
-      <div className='border-border flex flex-col gap-2 rounded-2xl border p-4'>
-        <p className='text-text-muted text-sm'>{t('club.rewards.ready')}</p>
-        <p className='font-fredoka num text-3xl font-semibold'>
-          {t('club.common.hpoAmount', { amount: club.amount2(r.unclaimed) })}
-        </p>
-        {streams !== undefined && (
-          <p className='text-text-muted text-sm'>
-            {t(club.clubWallet === undefined ? 'club.rewards.readySplitNoWallet' : 'club.rewards.readySplit', {
-              // The community part shows once there is one (Rewards.dc.html shows staking + referral).
-              split: t(Number(streams.community ?? '0') > 0 ? 'club.claim.splitCommunity' : 'club.claim.split', {
-                staking: club.amount2(streams.staking),
-                referral: club.amount2(streams.referral),
-                community: club.amount2(streams.community),
-              }),
-              wallet: club.clubWalletMasked,
-            })}
-          </p>
-        )}
+    <div className='flex flex-col gap-6'>
+      {heading}
+      <Card className='sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-6'>
+        <div className='flex min-w-0 flex-col gap-1'>
+          <Eyebrow icon={Zap}>{t('club.rewards.ready')}</Eyebrow>
+          <p className={bigNumber}>{t('club.common.hpoAmount', { amount: club.amount2(r.unclaimed) })}</p>
+          {streams !== undefined && (
+            <p className='text-text-muted text-sm leading-normal'>
+              {t(club.clubWallet === undefined ? 'club.rewards.readySplitNoWallet' : 'club.rewards.readySplit', {
+                // The community part shows once there is one (Rewards.dc.html shows staking + referral).
+                split: t(Number(streams.community ?? '0') > 0 ? 'club.claim.splitCommunity' : 'club.claim.split', {
+                  staking: club.amount2(streams.staking),
+                  referral: club.amount2(streams.referral),
+                  community: club.amount2(streams.community),
+                }),
+                wallet: club.clubWalletMasked,
+              })}
+            </p>
+          )}
+        </div>
         <Button
           kind='primary'
-          className='self-start'
+          className='self-start sm:self-center'
           disabled={block !== undefined}
           onClick={() => void club.openClaim()}
         >
@@ -77,101 +141,99 @@ const Boosted = observer(({ club }: Props) => {
             ? t('club.claim.button', { amount: club.amount2(r.unclaimed) })
             : t(block.key, block.params)}
         </Button>
-      </div>
-      <div className='grid gap-3 sm:grid-cols-2'>
-        <div className='border-border flex flex-col gap-1 rounded-2xl border p-4'>
-          <p className='text-text-muted text-sm'>{t('club.rewards.perRound')}</p>
-          <p className='font-semibold'>
-            {t('club.claim.perRoundValue', {
-              amount: club.amount(o?.estimateNow, 0),
-              boost: club.boost(o?.state === 'suspended' ? 1 : o?.boost),
-            })}
-          </p>
-        </div>
-        <div className='border-border flex flex-col gap-1 rounded-2xl border p-4'>
-          <p className='text-text-muted text-sm'>{t('club.rewards.lifetime')}</p>
-          <p className='text-sm'>
-            {t('club.rewards.lifetimeValue', {
-              staking: club.amount2(r.totals.staking),
-              referral: club.amount2(r.totals.referral),
-            })}
-          </p>
-        </div>
-      </div>
-
-      <h3 className='font-fredoka mt-2 text-lg font-semibold'>{t('club.rewards.historyTitle')}</h3>
-      <div className='flex flex-wrap gap-2' role='group'>
-        {(['all', 'staking', 'referral'] as const).map((value) => (
-          <button
-            key={value}
-            type='button'
-            aria-pressed={filter === value}
-            className={
-              'min-h-9 cursor-pointer rounded-full border px-3 text-sm ' +
-              (filter === value ? 'border-accent text-accent font-semibold' : 'border-border text-text-muted')
-            }
-            onClick={() => setFilter(value)}
-          >
-            {t('club.rewards.filter.' + value)}
-          </button>
-        ))}
-      </div>
-      {rows.length === 0 ? (
-        <p className='text-text-muted text-sm'>{t('club.rewards.historyEmpty')}</p>
-      ) : (
-        <div className='overflow-x-auto'>
-          <table className='w-full min-w-[300px] text-sm'>
-            <thead className='text-text-faint'>
-              <tr>
-                <th className='py-1.5 text-start font-medium'>{t('club.rewards.colRound')}</th>
-                <th className='py-1.5 text-start font-medium'>{t('club.rewards.colStream')}</th>
-                <th className='py-1.5 text-end font-medium'>HPO</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row, i) => (
-                <tr key={i} className='border-border border-t'>
-                  <td className='num py-1.5'>{club.date(row.time)}</td>
-                  <td className='py-1.5'>
-                    {t(row.stream === 'staking' ? 'club.rewards.streamStaking' : 'club.rewards.streamReferral')}
-                  </td>
-                  <td className='num text-tone-success-fg py-1.5 text-end'>{club.signed(row.hpo, 2, true)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      {r.referralBeforeLaunch !== undefined && (
-        <Row
-          label={t('club.rewards.referralBefore')}
-          value={t('club.common.hpoAmount', { amount: club.amount2(r.referralBeforeLaunch) })}
+      </Card>
+      <div className={statGrid}>
+        <StatCard
+          label={t('club.rewards.perRound')}
+          value={t('club.claim.perRoundValue', {
+            amount: club.amount2(o?.estimateNow),
+            boost: club.boost(o?.state === 'suspended' ? 1 : o?.boost),
+          })}
         />
-      )}
+        {/* The value is a sentence (two streams), so it takes a smaller size than a single figure. */}
+        <StatCard
+          label={t('club.rewards.lifetime')}
+          valueClass='font-fredoka num text-xl leading-snug font-semibold wrap-anywhere'
+          value={t('club.rewards.lifetimeValue', {
+            staking: club.amount2(r.totals.staking),
+            referral: club.amount2(r.totals.referral),
+          })}
+        />
+      </div>
 
-      <h3 className='font-fredoka mt-2 text-lg font-semibold'>{t('club.rewards.claimsTitle')}</h3>
-      {r.claims.length === 0 ? (
-        <p className='text-text-muted text-sm'>{t('club.rewards.claimsEmpty')}</p>
-      ) : (
-        <div className='overflow-x-auto'>
-          <table className='w-full min-w-[300px] text-sm'>
-            <thead className='text-text-faint'>
-              <tr>
-                <th className='py-1.5 text-start font-medium'>{t('club.rewards.colDate')}</th>
-                <th className='py-1.5 text-start font-medium'>{t('club.rewards.colWallet')}</th>
-                <th className='py-1.5 text-end font-medium'>{t('club.rewards.colClaimed')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {r.claims.map((claim, i) => (
-                <tr key={i} className='border-border border-t'>
-                  <td className='num py-1.5'>{club.date(claim.claimTime || claim.requestTime)}</td>
-                  <td className='num py-1.5'>{club.mask(claim.wallet)}</td>
-                  <td className='num py-1.5 text-end'>
-                    {club.amount2(claim.amount)}
-                    {claim.txHash !== undefined && (
-                      <>
-                        {' · '}
+      <Card>
+        <CardTitle
+          aside={
+            <Pills label={t('club.rewards.colStream')}>
+              {(['all', 'staking', 'referral'] as const).map((value) => (
+                <Pill key={value} active={filter === value} onClick={() => setFilter(value)}>
+                  {t('club.rewards.filter.' + value)}
+                </Pill>
+              ))}
+            </Pills>
+          }
+        >
+          {t('club.rewards.historyTitle')}
+        </CardTitle>
+        {rows.length === 0 ? (
+          <p className='text-text-muted text-[15px] leading-normal'>{t('club.rewards.historyEmpty')}</p>
+        ) : (
+          <div className='overflow-x-auto'>
+            <table className='w-full min-w-[300px]'>
+              <thead>
+                <tr>
+                  <th className={tableTh}>{t('club.rewards.colRound')}</th>
+                  <th className={tableTh}>{t('club.rewards.colStream')}</th>
+                  <th className={thEnd}>HPO</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((row, i) => (
+                  <tr key={i} className={tableRow}>
+                    <td className={tableTd + ' num'}>{club.date(row.time)}</td>
+                    <td className={tableTd}>
+                      {t(row.stream === 'staking' ? 'club.rewards.streamStaking' : 'club.rewards.streamReferral')}
+                    </td>
+                    <td className={tableTd + ' num text-tone-success-fg text-end'}>{club.signed(row.hpo, 2, true)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        {r.referralBeforeLaunch !== undefined && (
+          <Row
+            label={t('club.rewards.referralBefore')}
+            value={t('club.common.hpoAmount', { amount: club.amount2(r.referralBeforeLaunch) })}
+          />
+        )}
+      </Card>
+
+      <Card>
+        <CardTitle>{t('club.rewards.claimsTitle')}</CardTitle>
+        {r.claims.length === 0 ? (
+          <p className='text-text-muted text-[15px] leading-normal'>{t('club.rewards.claimsEmpty')}</p>
+        ) : (
+          <div className='overflow-x-auto'>
+            <table className='w-full min-w-[360px]'>
+              <thead>
+                <tr>
+                  <th className={tableTh}>{t('club.rewards.colDate')}</th>
+                  <th className={tableTh}>{t('club.rewards.colWallet')}</th>
+                  <th className={thEnd}>{t('club.rewards.colClaimed')}</th>
+                  <th className={thEnd}>
+                    <span className='sr-only'>{t('club.rewards.tx')}</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {r.claims.map((claim, i) => (
+                  <tr key={i} className={tableRow}>
+                    <td className={tableTd + ' num'}>{club.date(claim.claimTime || claim.requestTime)}</td>
+                    <td className={tableTd + ' num'}>{club.mask(claim.wallet)}</td>
+                    <td className={tableTd + ' num text-end'}>{club.amount2(claim.amount)}</td>
+                    <td className={tableTd + ' text-end'}>
+                      {claim.txHash !== undefined && (
                         <a
                           className='text-accent hover:underline'
                           href={TONVIEWER + claim.txHash}
@@ -180,17 +242,17 @@ const Boosted = observer(({ club }: Props) => {
                         >
                           {t('club.rewards.tx')}
                         </a>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
-      <p className='text-text-faint text-xs'>{t('club.rewards.claimsNote')}</p>
-    </Card>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        <p className={footnote}>{t('club.rewards.claimsNote')}</p>
+      </Card>
+    </div>
   )
 })
 
@@ -218,68 +280,78 @@ const BaseGram = observer(({ club }: Props) => {
   // and the total would count the pools alone.
   const showPools = club.clubWalletConnected && poolNano > 0 && state != null && m.tonBalance != null
   const gramOf = (nanoValue: number) => m.withUnit('app.model.approxGram', m.formatNano(nanoValue * rate))
+  const hasStats = m.htonBalanceInTon != null || sum !== undefined
   return (
-    <Card>
-      <CardTitle aside={<span className='text-text-faint text-sm'>{t('club.rewards.baseSub')}</span>}>
-        {t('club.rewards.baseTitle')}
-      </CardTitle>
-      <p className='text-text-muted text-sm leading-relaxed'>{t('club.rewards.baseBody')}</p>
-      {m.htonBalanceInTon != null && (
-        <>
-          <Row label={m.t('app.reward.stakedBalance')} value={m.htonBalanceFormatted} />
-          <Row label={m.t('app.reward.valueInGram')} value={m.htonBalanceInTon} strong={!showPools} />
-        </>
+    <div className='border-border mt-6 flex flex-col gap-6 border-t pt-8'>
+      <SectionHeading dot='bg-series-a' title={t('club.rewards.baseTitle')} tag={t('club.rewards.baseSub')} />
+      <p className='text-text-muted -mt-2 text-[15px] leading-normal'>{t('club.rewards.baseBody')}</p>
+      {hasStats && (
+        <div className={statGrid}>
+          {m.htonBalanceInTon != null && (
+            <StatCard label={m.t('app.reward.stakedBalance')} value={m.htonBalanceFormatted}>
+              <div className='border-border flex flex-col gap-2 border-t pt-3.5'>
+                <Row label={m.t('app.reward.valueInGram')} value={m.htonBalanceInTon} strong={!showPools} />
+                {showPools && (
+                  <>
+                    <Row label={t('club.rewards.inPoolsGram')} value={gramOf(poolNano)} />
+                    <Row label={t('club.rewards.totalGram')} value={gramOf(Number(m.htonBalance) + poolNano)} strong />
+                  </>
+                )}
+              </div>
+            </StatCard>
+          )}
+          {sum !== undefined && (
+            <StatCard
+              label={
+                since !== undefined
+                  ? t('club.rewards.earnedSince', { date: club.date(since) })
+                  : t('club.rewards.earnedTotal')
+              }
+              value={t('club.common.gramAmount', { amount: club.amount2(sum) })}
+            />
+          )}
+        </div>
       )}
-      {showPools && (
-        <>
-          <Row label={t('club.rewards.inPoolsGram')} value={gramOf(poolNano)} />
-          <Row label={t('club.rewards.totalGram')} value={gramOf(Number(m.htonBalance) + poolNano)} strong />
-        </>
-      )}
-      {sum !== undefined && (
-        <Row
-          label={
-            since !== undefined
-              ? t('club.rewards.earnedSince', { date: club.date(since) })
-              : t('club.rewards.earnedTotal')
-          }
-          value={t('club.common.gramAmount', { amount: club.amount2(sum) })}
-        />
-      )}
-      {rounds.length === 0 ? (
-        <p className='text-text-muted text-sm'>
-          {t(club.connected === undefined ? 'club.rewards.baseConnect' : 'club.rewards.historyEmpty')}
-        </p>
-      ) : (
-        <div className='overflow-x-auto'>
-          <table className='w-full min-w-[260px] text-sm'>
-            <thead className='text-text-faint'>
-              <tr>
-                <th className='py-1.5 text-start font-medium'>{t('club.rewards.colRound')}</th>
-                <th className='py-1.5 text-end font-medium'>GRAM</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rounds.map((row, i) => (
-                <tr key={i} className='border-border border-t'>
-                  <td className='num py-1.5'>{club.date(row.time)}</td>
-                  <td className='num text-tone-success-fg py-1.5 text-end'>{club.signed(row.gram, 4, true)}</td>
+      <Card>
+        {rounds.length === 0 ? (
+          <p className='text-text-muted text-[15px] leading-normal'>
+            {t(club.connected === undefined ? 'club.rewards.baseConnect' : 'club.rewards.historyEmpty')}
+          </p>
+        ) : (
+          <div className='overflow-x-auto'>
+            <table className='w-full min-w-[260px]'>
+              <thead>
+                <tr>
+                  <th className={tableTh}>{t('club.rewards.colRound')}</th>
+                  <th className={thEnd}>GRAM</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {rounds.map((row, i) => (
+                  <tr key={i} className={tableRow}>
+                    <td className={tableTd + ' num'}>{club.date(row.time)}</td>
+                    <td className={tableTd + ' num text-tone-success-fg text-end'}>{club.signed(row.gram, 4, true)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+        <div className={inset + ' flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between'}>
+          <div className='flex min-w-0 flex-col gap-0.5'>
+            <p className='font-semibold'>{t('club.rewards.stakeMoreTitle')}</p>
+            <p className='text-text-muted text-sm leading-normal'>{t('club.rewards.stakeMoreBody')}</p>
+          </div>
+          <Button
+            kind='primary'
+            className='self-start sm:self-center'
+            onClick={() => club.model.navigateToTab('stake')}
+          >
+            {t('club.rewards.stakeMore')}
+          </Button>
         </div>
-      )}
-      <div className='bg-surface-deep flex flex-col gap-3 rounded-2xl p-4 sm:flex-row sm:items-center sm:justify-between'>
-        <div className='flex flex-col gap-0.5'>
-          <p className='font-semibold'>{t('club.rewards.stakeMoreTitle')}</p>
-          <p className='text-text-muted text-sm'>{t('club.rewards.stakeMoreBody')}</p>
-        </div>
-        <Button kind='primary' onClick={() => club.model.navigateToTab('stake')}>
-          {t('club.rewards.stakeMore')}
-        </Button>
-      </div>
-    </Card>
+      </Card>
+    </div>
   )
 })
 
@@ -289,24 +361,31 @@ export const Revenue = observer(({ club }: Props) => {
   const block = club.withdrawBlock
   const history = club.walletRewards?.hpoWithdrawals ?? []
   return (
-    <details className='border-border bg-surface rounded-[20px] border p-5 sm:p-6'>
+    <details className='border-border-strong rounded-[20px] border border-dashed bg-transparent p-5 sm:p-6'>
       <summary className='font-fredoka cursor-pointer text-lg font-semibold'>{t('club.revenue.title')}</summary>
-      <div className='mt-3 flex flex-col gap-3'>
-        <p className='text-text-muted text-sm leading-relaxed'>{t('club.revenue.body')}</p>
-        <Row
-          label={t('club.revenue.withdrawable')}
-          value={t('club.common.gramAmount', { amount: club.amount2(r) })}
-          strong
-        />
-        <Row label={t('club.revenue.fee')} value={t('club.revenue.feeValue', { fee: club.amount(REVENUE_FEE, 1) })} />
-        {r !== undefined && r > REVENUE_FEE && (
-          <p className='text-text-muted text-sm'>
-            {t('club.revenue.receive', { amount: club.amount2(r - REVENUE_FEE), fee: club.amount(REVENUE_FEE, 1) })}
-          </p>
-        )}
-        <p className='text-text-faint text-xs'>{t('club.revenue.rules')}</p>
+      <div className='mt-3.5 flex flex-col gap-3.5'>
+        <p className='text-text-secondary text-[15px] leading-normal'>{t('club.revenue.body')}</p>
+        <div className='grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-3'>
+          <div className='flex min-w-0 flex-col gap-0.5'>
+            <span className='text-text-muted text-[13px]'>{t('club.revenue.withdrawable')}</span>
+            <span className='num text-xl font-semibold wrap-anywhere'>
+              {t('club.common.gramAmount', { amount: club.amount2(r) })}
+            </span>
+          </div>
+          <div className='flex min-w-0 flex-col gap-0.5'>
+            <span className='text-text-muted text-[13px]'>{t('club.revenue.fee')}</span>
+            <span className='num'>{t('club.revenue.feeValue', { fee: club.amount(REVENUE_FEE, 1) })}</span>
+          </div>
+          {/* No "Paid as" label exists in the catalogs yet, so the third fact is the sentence alone. */}
+          {r !== undefined && r > REVENUE_FEE && (
+            <p className='min-w-0 self-end leading-normal'>
+              {t('club.revenue.receive', { amount: club.amount2(r - REVENUE_FEE), fee: club.amount(REVENUE_FEE, 1) })}
+            </p>
+          )}
+        </div>
+        <p className='text-text-muted text-sm leading-normal'>{t('club.revenue.rules')}</p>
         {history.length > 0 && (
-          <p className='text-text-faint text-xs'>
+          <p className='text-text-muted text-sm leading-normal'>
             {t('club.revenue.past', {
               list: history
                 .slice(0, 3)
@@ -339,7 +418,7 @@ const RewardsTab = observer(({ club }: Props) => {
     void club.loadRewards()
   }, [club, club.session])
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-6'>
       <Boosted club={club} />
       <BaseGram club={club} />
       <Revenue club={club} />

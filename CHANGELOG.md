@@ -9,6 +9,19 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-08 — Club pages: the wireframe's look; phone nav without HPO
+
+- The Club pages follow the "Hipo Club Wireframe v1" design ([spec](specs/club-wireframe-match.md)): flat buttons with no offset shadow, card headings as small uppercase labels with icons, roomier tables, filled filter pills, a tinted own row and bigger numbers, from four new colour tokens in both schemes (raised tiles, control borders, secondary text, the own row).
+- Per page: the season pill sits beside the Telegram chip, at the right when they wrap; status strips have tone icons; Level up has tick marks; the leaderboard header is one row; Rewards is section headings plus separate cards; Friends has Invite and Earnings side by side; the wallet dialogs are wider with the choice cards side by side, and after a switch one strip shows instead of two.
+- The Club and Stats content is 1184px wide (Stats was 1084px), and the app header is up to 1440px with 40px sides on every app page, so the header is wider than the content as in the wireframe.
+- On phones the bottom tab bar holds Stake, Club, Stats and DeFi only, like the Mini App; HPO moves to the top of the ☰ menu (app and landing headers and the static shell). Both ☰ menus now close on a click outside them or on Escape.
+- Kept the site's own fonts (Fredoka, Heebo) and the segmented Club tabs (spec club-website.md §10).
+- Left out, because the server does not send the data: the "Earning on" row, the per-level estimate column, balance ranks, per-round Level/Wallet columns, friend status and counts, the APY card, and HPO for "Connected now".
+- Left out because each needs new text, waiting for a translation batch: "Next season runs …", the GRAM table title, the two-line rank, the "Paid as" label.
+- A per-claim Fee column was declined: claim records carry no fee, so a fixed "1 GRAM" could be wrong.
+- The "How community rewards work" card waits for mili's sign-off on its rules.
+- English layout only; no strings changed, so no locale work.
+
 ## 2026-11-07 — Docs: Hipo Club for Season 6
 
 - The Hipo Club page is rewritten for Season 6: boost 1×–10×, one Club wallet per Telegram account, claims from 100 HPO for 1 GRAM, the Level minimum (24 h grace at full boost, up to 7 days suspended at 1×, then Level 1), the seasonal and instant upgrades with their GRAM fees, 1% for invited friends, Season 6's dates; the old XP-era video is removed.
