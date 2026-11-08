@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-08 — Club: the 15 wireframe texts in all 11 locales
+
+- The 15 Club texts whose English changed in the design-tokens round (765a723) are translated into the 10 other locales, so no locale shows the old wording; the i18n check now has no stale keys.
+- Portuguese names the pool without a gendered article ("Pool {dex}"). Left for a native speaker's look: whether "HPO in a pool moves with the pool price" should say the HPO amount changes (only Arabic says so), the short Persian "Nothing yet", and the long German column title.
+- Translations are no longer batched: from now on each change is translated and confirmed before it deploys.
+- Still open as a separate change: five new texts (strip "before {date}", "Level N the season after next", revenue teaser without "Withdrawals from", "Show my name", the grace panel's "Buy X HPO") and "Next season runs …", which needs server dates.
+
 ## 2026-11-08 — The wireframe's design values as the site's base (team review approved)
 
 - The "Hipo Club Wireframe v1" values become the site's tokens ([spec](specs/wireframe-design-tokens.md)), written as a token list in `.claude/rules/styling.md` (wireframe value → token → dark → light), with the rule that a new design value is a token first.

@@ -936,7 +936,7 @@
     "reviewed": false
   },
   "club.balances.inPool": {
-    "sourceHash": "87ecf266d1a4341de7b03cb732bc1c9eb7577e4e",
+    "sourceHash": "6cdabacd9d13a4775ef2eabaa733b6b7db1d638b",
     "reviewed": false
   },
   "club.balances.inWallet": {
@@ -948,7 +948,7 @@
     "reviewed": false
   },
   "club.balances.note": {
-    "sourceHash": "14e8b9aa57184ddf06b83aa0a7ba7a7d551efeb0",
+    "sourceHash": "433fa791786dd4fb240ddea85632f0d9ff1c0e2e",
     "reviewed": false
   },
   "club.balances.subtitle": {
@@ -980,7 +980,7 @@
     "reviewed": false
   },
   "club.board.colGrowth": {
-    "sourceHash": "de886b7696df90a4d6bda6904672a79b0cab0cb7",
+    "sourceHash": "ef91f554e75db6bb713d07ed52ae801f55b8de0f",
     "reviewed": false
   },
   "club.board.colMember": {
@@ -1076,7 +1076,7 @@
     "reviewed": false
   },
   "club.claim.claimedNo": {
-    "sourceHash": "8de95fd5b4121e2d7c337a70f664f13c28c3c275",
+    "sourceHash": "76eb7251c0ac4e4cb5fc88a3e61dbe23f28198a9",
     "reviewed": false
   },
   "club.claim.claimedSeason": {
@@ -1168,7 +1168,7 @@
     "reviewed": false
   },
   "club.common.buyAmount": {
-    "sourceHash": "96ebf94475565747a594f076f1a71215d25a7025",
+    "sourceHash": "0b11fc371c29abe8ccc645a9f7051e4b49f5977d",
     "reviewed": false
   },
   "club.common.buyHpo": {
@@ -1616,7 +1616,7 @@
     "reviewed": false
   },
   "club.friends.notStakingNote": {
-    "sourceHash": "d23d4f17e8d12caadf5ab821f0a0f0478c8a78a8",
+    "sourceHash": "d25de9911ccc0eb494a7a0437155035e9bf8a449",
     "reviewed": false
   },
   "club.friends.note": {
@@ -1636,7 +1636,7 @@
     "reviewed": false
   },
   "club.gate.belowMin": {
-    "sourceHash": "2cb8834a1f5a2875eba5d53fd43352b5184d8b31",
+    "sourceHash": "06b0812356e140af7540568c52c2e9fe9f6707e2",
     "reviewed": false
   },
   "club.gate.frozen": {
@@ -1764,7 +1764,7 @@
     "reviewed": false
   },
   "club.hpo.nudge": {
-    "sourceHash": "f13303782573104ee1f97a60a74e1a86801eaa57",
+    "sourceHash": "748c6e85d62037950b7c4df9480bce3d1a9ad284",
     "reviewed": false
   },
   "club.hpo.rankBandValue": {
@@ -1796,7 +1796,7 @@
     "reviewed": false
   },
   "club.level.ladderHigh": {
-    "sourceHash": "b434fbc0f6c3b056a4a9b2fd6fd6482c762e4506",
+    "sourceHash": "9d007f55998065a529ff22e49c2ba052eff7153e",
     "reviewed": false
   },
   "club.level.ladderLow": {
@@ -1876,7 +1876,7 @@
     "reviewed": false
   },
   "club.levelUp.feeValue": {
-    "sourceHash": "39c6ac5e670af8b003f4d2397c5c2a3f1824dd92",
+    "sourceHash": "bed52127258b3b24ee2685e6237de491491acc0d",
     "reviewed": false
   },
   "club.levelUp.instantLabel": {
@@ -2252,7 +2252,7 @@
     "reviewed": false
   },
   "club.modal.levelBoost": {
-    "sourceHash": "ff1013d7b9cd4c7d00e19d50f0c7bb55a7ab4459",
+    "sourceHash": "afc192e36063afd4a62da784d83930334b9ebc92",
     "reviewed": false
   },
   "club.modal.linkedWallet": {
@@ -2660,11 +2660,11 @@
     "reviewed": false
   },
   "club.status.a0Body": {
-    "sourceHash": "3ef136cecf5b1722e53c6150733d62ac1380ae71",
+    "sourceHash": "7504d24b6b62ebf7f7830e446dfeb4cd0e78182f",
     "reviewed": false
   },
   "club.status.a0Title": {
-    "sourceHash": "336fadecac062cb0227311ea0937d8e2c47bf21d",
+    "sourceHash": "138b687aadf533db2583ff4203427ccf1aac4159",
     "reviewed": false
   },
   "club.status.aBody": {
@@ -2864,11 +2864,11 @@
     "reviewed": false
   },
   "club.teaser.communityBody": {
-    "sourceHash": "0be90fe5f04f51f8de5d2bdab05144bc70a76248",
+    "sourceHash": "d9ec64ce7581d0b0283d29ffd4eb2e284202e49d",
     "reviewed": false
   },
   "club.teaser.communityTitle": {
-    "sourceHash": "bd75778d468946c6cf42b1f73f9f48203c84e085",
+    "sourceHash": "ccab17ff1aef1cfb41e17d76b180997316b48cfd",
     "reviewed": false
   },
   "club.teaser.friendsBody": {
