@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-08 — Club: four wireframe texts, in all 11 locales
+
+- The Your HPO card shows the rank in two lines, as on the wireframe: "Level N leaderboard" over "#R · top X%" (new value-only keys `club.hpo.rankValue` / `rankBandValue`); the Rewards GRAM table has the title "GRAM earned per round"; Revenue sharing's third fact is "Paid as: HPO bought with the remaining X GRAM", the wireframe's wording, which replaces a sentence that repeated the fee shown beside it.
+- Translated into the 10 other locales from each one's existing wording (French keeps its "n°" for the rank); `club.hpo.rank`, `club.hpo.rankBand` and `club.revenue.receive` are no longer used and are removed everywhere.
+- Left out: "Next season runs …" beside Level up, because the server sends only the current season's dates.
+
 ## 2026-11-08 — Club pages: the wireframe's look; phone nav without HPO
 
 - The Club pages follow the "Hipo Club Wireframe v1" design ([spec](specs/club-wireframe-match.md)): flat buttons with no offset shadow, card headings as small uppercase labels with icons, roomier tables, filled filter pills, a tinted own row and bigger numbers, from four new colour tokens in both schemes (raised tiles, control borders, secondary text, the own row).

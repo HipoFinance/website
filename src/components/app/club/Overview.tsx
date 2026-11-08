@@ -305,14 +305,17 @@ export const YourHpo = observer(({ club }: Props) => {
           )}
         </div>
         {rank.listed && rank.rank !== undefined && (
-          // One string in the catalog ("Level N leaderboard · #R"), so it stays one line here; the
-          // wireframe's two-line label/value split would need two new keys.
-          <p className='text-text-secondary min-w-0 text-end text-sm leading-normal font-semibold'>
-            {t(rank.band ? 'club.hpo.rankBand' : 'club.hpo.rank', {
-              level: club.level(rank.clubLevel),
-              rank: club.amount(rank.rank, 0),
-              band: club.amount(rank.band, 0),
-            })}
+          // The wireframe's two lines: the leaderboard's name over the rank (and band).
+          <p className='flex min-w-0 flex-col text-end leading-normal'>
+            <span className='text-text-muted text-sm'>
+              {t('club.board.title', { level: club.level(rank.clubLevel) })}
+            </span>
+            <span className='text-xl font-semibold'>
+              {t(rank.band ? 'club.hpo.rankBandValue' : 'club.hpo.rankValue', {
+                rank: club.amount(rank.rank, 0),
+                band: club.amount(rank.band, 0),
+              })}
+            </span>
           </p>
         )}
       </div>

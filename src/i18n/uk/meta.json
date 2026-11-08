@@ -1767,12 +1767,12 @@
     "sourceHash": "f13303782573104ee1f97a60a74e1a86801eaa57",
     "reviewed": false
   },
-  "club.hpo.rank": {
-    "sourceHash": "2e709fdcfe9e8233f3711176672b9883551cfebf",
+  "club.hpo.rankBandValue": {
+    "sourceHash": "6394f6ca5f998adf3359f7bcb7d5eb267d691acd",
     "reviewed": false
   },
-  "club.hpo.rankBand": {
-    "sourceHash": "c651052719dadf49e4f98a5c1787e53300bcd05c",
+  "club.hpo.rankValue": {
+    "sourceHash": "8ff03b5391eaaed66b211d64f9be779192139ec3",
     "reviewed": false
   },
   "club.hpo.ratio": {
@@ -2483,12 +2483,16 @@
     "sourceHash": "81faa336d6067af786e1a2e4fcc87ec9face540c",
     "reviewed": false
   },
-  "club.revenue.past": {
-    "sourceHash": "3709e6470a89606e312d24608f4307d325ac0ceb",
+  "club.revenue.paidAs": {
+    "sourceHash": "c079c75567f8d63ffed497e91ec368fd3a74d69d",
     "reviewed": false
   },
-  "club.revenue.receive": {
-    "sourceHash": "3f3063b6c2cab42a54004eb756d5c1b36196fdd0",
+  "club.revenue.paidAsValue": {
+    "sourceHash": "ed09abb99b44aa83124481e0a5c68d203c8595c5",
+    "reviewed": false
+  },
+  "club.revenue.past": {
+    "sourceHash": "3709e6470a89606e312d24608f4307d325ac0ceb",
     "reviewed": false
   },
   "club.revenue.rules": {
@@ -2577,6 +2581,10 @@
   },
   "club.rewards.filter.staking": {
     "sourceHash": "1b5a571459ec0eb244454cdb7505583c41cc4264",
+    "reviewed": false
+  },
+  "club.rewards.gramTitle": {
+    "sourceHash": "e919f4475b4a920c8fd7022e478b1655f543b3b8",
     "reviewed": false
   },
   "club.rewards.historyEmpty": {

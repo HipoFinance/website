@@ -313,6 +313,7 @@ const BaseGram = observer(({ club }: Props) => {
         </div>
       )}
       <Card>
+        <CardTitle>{t('club.rewards.gramTitle')}</CardTitle>
         {rounds.length === 0 ? (
           <p className='text-text-muted text-[15px] leading-normal'>
             {t(club.connected === undefined ? 'club.rewards.baseConnect' : 'club.rewards.historyEmpty')}
@@ -376,11 +377,13 @@ export const Revenue = observer(({ club }: Props) => {
             <span className='text-text-muted text-[13px]'>{t('club.revenue.fee')}</span>
             <span className='num'>{t('club.revenue.feeValue', { fee: club.amount(REVENUE_FEE, 1) })}</span>
           </div>
-          {/* No "Paid as" label exists in the catalogs yet, so the third fact is the sentence alone. */}
           {r !== undefined && r > REVENUE_FEE && (
-            <p className='min-w-0 self-end leading-normal'>
-              {t('club.revenue.receive', { amount: club.amount2(r - REVENUE_FEE), fee: club.amount(REVENUE_FEE, 1) })}
-            </p>
+            <div className='flex min-w-0 flex-col gap-0.5'>
+              <span className='text-text-muted text-[13px]'>{t('club.revenue.paidAs')}</span>
+              <span className='leading-normal'>
+                {t('club.revenue.paidAsValue', { amount: club.amount2(r - REVENUE_FEE) })}
+              </span>
+            </div>
           )}
         </div>
         <p className='text-text-muted text-sm leading-normal'>{t('club.revenue.rules')}</p>
