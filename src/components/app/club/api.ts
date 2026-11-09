@@ -391,11 +391,13 @@ export interface ClubRewards extends ReplyHead {
   referralBeforeLaunch?: string
   stakeSumRewards?: string
   stakeRewardsSince?: number
+  season?: { number?: number; start?: number; earnedStaking?: string; earnedReferral?: string }
 }
 
 export function toRewards(body: unknown): ClubRewards {
   const b = obj(body)
   const totals = obj(b.totals)
+  const season = b.season === undefined ? undefined : obj(b.season)
   return {
     ...headOf(b),
     rounds: list(b.rounds).map((value) => {
@@ -413,6 +415,15 @@ export function toRewards(body: unknown): ClubRewards {
     referralBeforeLaunch: str(b.referral_before_launch),
     stakeSumRewards: str(b.stake_sum_rewards),
     stakeRewardsSince: int(b.stake_rewards_since),
+    season:
+      season === undefined
+        ? undefined
+        : {
+            number: int(season.number),
+            start: int(season.start),
+            earnedStaking: str(season.earned_staking),
+            earnedReferral: str(season.earned_referral),
+          },
   }
 }
 

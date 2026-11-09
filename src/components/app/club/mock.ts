@@ -830,6 +830,12 @@ export class ClubMock implements ClubTransport {
       referral_before_launch: empty ? undefined : hpo(41.07),
       stake_sum_rewards: empty ? '0' : '19.4417',
       stake_rewards_since: empty ? undefined : now - 75 * DAY,
+      season: {
+        number: 6,
+        start: now - 9 * DAY,
+        earned_staking: hpo(empty ? 0 : 162.47),
+        earned_referral: hpo(empty ? 0 : 3.91),
+      },
     }
   }
 

@@ -2535,6 +2535,14 @@
     "sourceHash": "63ab3c52805034210fda5fc5ff308cb4d5a166bf",
     "reviewed": false
   },
+  "club.rewards.claimedSub": {
+    "sourceHash": "ddc658d8ca518debc5d36135b42c76922e23250b",
+    "reviewed": false
+  },
+  "club.rewards.claimedTotal": {
+    "sourceHash": "acb44c4650ad50c6d425959e30bb47e010b69d32",
+    "reviewed": false
+  },
   "club.rewards.claimsEmpty": {
     "sourceHash": "8e0cb02b956ff9f7ff50a93dd1d7e3154580e7b9",
     "reviewed": false
@@ -2603,14 +2611,6 @@
     "sourceHash": "593f3a2ef7730a3ced156aabecf96ceacec7a2be",
     "reviewed": false
   },
-  "club.rewards.lifetime": {
-    "sourceHash": "9ee46f93b8b58557670092bf9ed20994a1a9203e",
-    "reviewed": false
-  },
-  "club.rewards.lifetimeValue": {
-    "sourceHash": "7bc6285a492d735c3adc01cec6c30ceedfb26fc3",
-    "reviewed": false
-  },
   "club.rewards.needsTelegram": {
     "sourceHash": "252a6d70798eba21249b7cbf1ccb4f98217730db",
     "reviewed": false
@@ -2639,6 +2639,14 @@
     "sourceHash": "430347355b94dd3a06deb80d793ed9ad74abb939",
     "reviewed": false
   },
+  "club.rewards.perRoundAmount": {
+    "sourceHash": "9c6db909e4d6c360d4593ea3c60ea590a908e19e",
+    "reviewed": false
+  },
+  "club.rewards.perRoundSub": {
+    "sourceHash": "af1c1532c659e6d108412c36c9850a452a49a354",
+    "reviewed": false
+  },
   "club.rewards.ready": {
     "sourceHash": "77ff149a020300fa130754f1444629459ada9f28",
     "reviewed": false
@@ -2653,6 +2661,14 @@
   },
   "club.rewards.referralBefore": {
     "sourceHash": "085812de11cce204da327f702ee20347359c1561",
+    "reviewed": false
+  },
+  "club.rewards.seasonEarned": {
+    "sourceHash": "aea5c7174d387c1c9e7ebf5c1b681d32fad27b63",
+    "reviewed": false
+  },
+  "club.rewards.seasonSince": {
+    "sourceHash": "9267527e8f1b826603a81be679e6506fc40e8f33",
     "reviewed": false
   },
   "club.rewards.stakeMore": {

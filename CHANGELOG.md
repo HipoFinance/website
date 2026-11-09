@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-09 — Club Rewards: "Earned this season" and "Claimed in total" cards
+
+- The Boosted rewards row now has the wireframe's three cards, each with its third line: "Earning per round" (~HPO only; "Level N · boost× on X hGRAM (wallet + LP)" below), a new "Earned this season" (staking + referral boosted HPO since the season start, claimed or not, from the server's new `season` figures), and "Claimed in total" (the level minimum) in place of "Earned in total".
+- The hGRAM on the per-round card counts pool balances only while under 6 h old, as the server's estimate does, so it can differ from the Overview's Balances total when pool data is stale.
+- The all-time staking HPO total is no longer shown anywhere (the all-time referral total still is, on Friends and the Overview). Translated into the 10 released locales; the "One claim before … qualifies you" hint under Claim was left out on purpose.
+- Needs club-server `dcdb56e` deployed and the Season-6 backfill run first; an older server shows "— HPO" on the season card. Spec: club-server `specs/rewards-season-cards.md`.
+
 ## 2026-11-09 — Connecting a wallet registers it on the reward member list
 
 - On connect and on a restored session the app now POSTs the address to `/register-wallet` once per page load, because `/wallet-rewards` becomes a pure read. Retries after 5 s, 30 s and 2 min on a network error, 5xx or 404; a refusal is final; retries stop if the wallet changes.

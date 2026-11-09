@@ -53,11 +53,13 @@ function StatCard({
   label,
   value,
   valueClass = statValue,
+  sub,
   children,
 }: {
   label: ReactNode
   value: ReactNode
   valueClass?: string
+  sub?: ReactNode
   children?: ReactNode
 }) {
   return (
@@ -65,9 +67,25 @@ function StatCard({
       <div className='flex min-w-0 flex-col gap-1'>
         <p className='text-text-muted text-sm'>{label}</p>
         <p className={valueClass}>{value}</p>
+        {sub !== undefined && <p className={footnote}>{sub}</p>}
       </div>
       {children}
     </Card>
+  )
+}
+
+// Balances older than this no longer count the liquidity pools (the Overview shows their age).
+const LP_FRESH = 6 * 3600
+
+// The hGRAM that earns: Club wallet plus the pools, summed as the Overview does, pools only while fresh.
+function eligibleHgram(club: ClubModel, o: NonNullable<ClubModel['overview']>): number {
+  const split = o.split
+  const dec = (value: string | undefined) => (Number.isFinite(Number(value ?? '0')) ? Number(value ?? '0') : 0)
+  const nano = (value: string | undefined) => dec(value) / 1e9
+  const fresh = split?.lpAt !== undefined && club.displayNow - split.lpAt < LP_FRESH
+  return (
+    dec(split?.balanceHton) +
+    (fresh ? nano(split?.balanceHtonDedust) + nano(split?.balanceHtonStonfi) + nano(split?.balanceHtonTonco) : 0)
   )
 }
 
@@ -145,19 +163,36 @@ const Boosted = observer(({ club }: Props) => {
       <div className={statGrid}>
         <StatCard
           label={t('club.rewards.perRound')}
-          value={t('club.claim.perRoundValue', {
-            amount: club.amount2(o?.estimateNow),
-            boost: club.boost(o?.state === 'suspended' ? 1 : o?.boost),
-          })}
+          value={t('club.rewards.perRoundAmount', { amount: club.amount2(o?.estimateNow) })}
+          sub={
+            o === undefined
+              ? undefined
+              : t('club.rewards.perRoundSub', {
+                  level: club.level(o.clubLevel),
+                  boost: club.boost(o.state === 'suspended' ? 1 : o.boost),
+                  hgram: club.amount2(eligibleHgram(club, o)),
+                })
+          }
         />
-        {/* The value is a sentence (two streams), so it takes a smaller size than a single figure. */}
         <StatCard
-          label={t('club.rewards.lifetime')}
-          valueClass='font-display num text-xl leading-snug font-extrabold wrap-anywhere'
-          value={t('club.rewards.lifetimeValue', {
-            staking: club.amount2(r.totals.staking),
-            referral: club.amount2(r.totals.referral),
+          label={t('club.rewards.seasonEarned')}
+          value={t('club.common.hpoAmount', {
+            amount: club.amount2(
+              r.season?.earnedStaking === undefined && r.season?.earnedReferral === undefined
+                ? undefined
+                : Number(r.season?.earnedStaking ?? '0') + Number(r.season?.earnedReferral ?? '0'),
+            ),
           })}
+          sub={
+            r.season?.start === undefined
+              ? undefined
+              : t('club.rewards.seasonSince', { date: club.date(r.season.start) })
+          }
+        />
+        <StatCard
+          label={t('club.rewards.claimedTotal')}
+          value={t('club.common.hpoAmount', { amount: club.amount2(o?.minimum) })}
+          sub={o === undefined ? undefined : t('club.rewards.claimedSub')}
         />
       </div>
 
