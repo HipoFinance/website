@@ -849,6 +849,7 @@ export class Model {
       profitAfterOneYearOnLastLevel: computed,
       unstakingInProgressFormatted: computed,
       unstakingInProgressDetails: computed,
+      nextRewardAt: computed,
       stakingInProgressFormatted: computed,
       stakingInProgressDetails: computed,
       maxAmount: computed,
@@ -1367,6 +1368,30 @@ export class Model {
       amount: this.withUnit('app.model.hgram', this.formatNano(value)),
       estimated: time == null ? undefined : this.remainUntil(time),
     }
+  }
+
+  // When the next staking reward should land, as unix seconds: the stake-release time of the oldest
+  // round that still holds stakes (Staked … Recovering). Once that time passes the stakes are
+  // recovered and the round's reward enters the exchange rate, usually within minutes.
+  get nextRewardAt(): number | undefined {
+    if (!this.isChainReady || this.treasuryState == null) {
+      return
+    }
+    const participations = this.treasuryState.participations
+    let result: number | undefined
+    for (const key of participations.keys()) {
+      const value = participations.get(key)
+      const state = value?.state ?? chain!.ParticipationState.Open
+      const held = value?.stakeHeldUntil ?? 0n
+      if (state < chain!.ParticipationState.Staked || state > chain!.ParticipationState.Recovering || held <= 0n) {
+        continue
+      }
+      const until = Number(held)
+      if (result === undefined || until < result) {
+        result = until
+      }
+    }
+    return result
   }
 
   get stakingInProgressFormatted() {

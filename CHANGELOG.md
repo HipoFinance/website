@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-09 — Club Rewards: next reward time and a per-year estimate (11 locales)
+
+- The "Base staking rewards" section gets a "Next reward" card: a live countdown to the stake-release time of the oldest round still holding stakes (`Model.nextRewardAt`, read from the treasury's participations), the expected local time, and a note that rewards come once per validation round. A member asked for when the round ends and what it pays.
+- The staked-balance card gets "Per year at {APY} APY ≈ X GRAM": the total position (wallet plus DEX pools) times today's APY, marked as an estimate.
+- Declined: a GRAM forecast for the coming round, since the amount is known only when the round ends (Behrang). Both parts show only with a connected wallet holding hGRAM.
+- Not money-audited (no-go by Behrang): tier 3 only because `Model.ts` is on the map; the change adds one read-only getter. Left as is from the review: a round stuck in recovery shows "Any minute now" until it settles, and the time in ar/fa text is not RTL-isolated, as in the Club strip.
+
 ## 2026-11-08 — DeFi page: DeDust Earn opens the pool list for hGRAM
 
 - The DeDust Earn button now opens DeDust's pool list filtered to the two assets, sorted by TVL, instead of the one fixed pool address, at Behrang's request.

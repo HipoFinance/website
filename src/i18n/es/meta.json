@@ -2615,6 +2615,26 @@
     "sourceHash": "252a6d70798eba21249b7cbf1ccb4f98217730db",
     "reviewed": false
   },
+  "club.rewards.nextAt": {
+    "sourceHash": "6100bf4b5e705e4c0ffc14cb8655bacddee42c47",
+    "reviewed": false
+  },
+  "club.rewards.nextIn": {
+    "sourceHash": "bafc785e47c5516e74cf27cbaf0b6896de656058",
+    "reviewed": false
+  },
+  "club.rewards.nextNote": {
+    "sourceHash": "382a8ecc0bad6af55b012e608eabeb618c363c2e",
+    "reviewed": false
+  },
+  "club.rewards.nextSoon": {
+    "sourceHash": "2250bda6a14c27a272f0bad2e6a6b4864f614626",
+    "reviewed": false
+  },
+  "club.rewards.nextTitle": {
+    "sourceHash": "45d35f86844c847e05ae6fdac47be959c6dc27a6",
+    "reviewed": false
+  },
   "club.rewards.perRound": {
     "sourceHash": "430347355b94dd3a06deb80d793ed9ad74abb939",
     "reviewed": false
@@ -2661,6 +2681,14 @@
   },
   "club.rewards.tx": {
     "sourceHash": "1a7b7c1b33d161f45804730c70b75175dccd9883",
+    "reviewed": false
+  },
+  "club.rewards.yearAtApy": {
+    "sourceHash": "a192d231da40c9914d3f39de6ccf89921cc72ae8",
+    "reviewed": false
+  },
+  "club.rewards.yearNote": {
+    "sourceHash": "621abc28407b4edcc149eb9d001f0ed931fec7fd",
     "reviewed": false
   },
   "club.status.a0Body": {

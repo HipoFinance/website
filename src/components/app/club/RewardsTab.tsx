@@ -279,7 +279,9 @@ const BaseGram = observer(({ club }: Props) => {
   // tonBalance is set with walletState once the connected wallet is read; before that htonBalance reads 0
   // and the total would count the pools alone.
   const showPools = club.clubWalletConnected && poolNano > 0 && state != null && m.tonBalance != null
+  const positionNano = Number(m.htonBalance) + (showPools ? poolNano : 0)
   const gramOf = (nanoValue: number) => m.withUnit('app.model.approxGram', m.formatNano(nanoValue * rate))
+  const nextAt = m.nextRewardAt
   const hasStats = m.htonBalanceInTon != null || sum !== undefined
   return (
     <div className='border-border mt-6 flex flex-col gap-6 border-t pt-8'>
@@ -297,7 +299,14 @@ const BaseGram = observer(({ club }: Props) => {
                     <Row label={t('club.rewards.totalGram')} value={gramOf(Number(m.htonBalance) + poolNano)} strong />
                   </>
                 )}
+                {m.apy != null && positionNano > 0 && (
+                  <Row
+                    label={t('club.rewards.yearAtApy', { apy: m.isolate(m.apyFormatted ?? '') })}
+                    value={gramOf(positionNano * m.apy)}
+                  />
+                )}
               </div>
+              {m.apy != null && positionNano > 0 && <p className={footnote}>{t('club.rewards.yearNote')}</p>}
             </StatCard>
           )}
           {sum !== undefined && (
@@ -309,6 +318,23 @@ const BaseGram = observer(({ club }: Props) => {
               }
               value={t('club.common.gramAmount', { amount: club.amount2(sum) })}
             />
+          )}
+          {nextAt !== undefined && m.htonBalanceInTon != null && positionNano > 0 && (
+            <StatCard
+              label={t('club.rewards.nextTitle')}
+              value={
+                nextAt - club.displayNow >= 60
+                  ? t('club.rewards.nextIn', { time: club.duration(nextAt - club.displayNow) })
+                  : t('club.rewards.nextSoon')
+              }
+            >
+              <div className='border-border flex flex-col gap-2 border-t pt-3.5'>
+                <p className='text-text-secondary text-body'>
+                  {t('club.rewards.nextAt', { time: club.stepDate(nextAt) })}
+                </p>
+                <p className={footnote}>{t('club.rewards.nextNote')}</p>
+              </div>
+            </StatCard>
           )}
         </div>
       )}
