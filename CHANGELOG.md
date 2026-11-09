@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-09 — Connecting a wallet registers it on the reward member list
+
+- On connect and on a restored session the app now POSTs the address to `/register-wallet` once per page load, because `/wallet-rewards` becomes a pure read. Retries after 5 s, 30 s and 2 min on a network error, 5xx or 404; a refusal is final; retries stop if the wallet changes.
+- `/wallet-rewards` and the Club code are unchanged. Spec: `club-server specs/register-wallet-endpoint.md`.
+- Declined: keeping registration in `/wallet-rewards` (a read with a hidden write let lookups such as the MCP tool register wallets) and registering at TonConnect proof time (most connects never reach the server).
+
 ## 2026-11-09 — Club Rewards: next reward time and a per-year estimate (11 locales)
 
 - The "Base staking rewards" section gets a "Next reward" card: a live countdown to the stake-release time of the oldest round still holding stakes (`Model.nextRewardAt`, read from the treasury's participations), the expected local time, and a note that rewards come once per validation round. A member asked for when the round ends and what it pays.

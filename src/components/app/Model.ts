@@ -3539,6 +3539,10 @@ export class Model {
       if (wallet != null) {
         this.endConnect()
       }
+      if (isNewAddress) {
+        // Registration onto the reward member list is /register-wallet's job; /wallet-rewards is a read.
+        void this.registerWallet(address)
+      }
       if (restored && isNewAddress) {
         track('wallet_connect', { wallet_name: wallet?.device.appName })
       }
@@ -3551,6 +3555,39 @@ export class Model {
     // The modal is long-lived (it survives ClientRouter swaps, see keepRuntimeStyles), so a
     // scheme change while the app is open has to be pushed into it.
     tonConnectThemeQuery()?.addEventListener('change', this.syncTonConnectTheme)
+  }
+
+  // Raw forms of the addresses already registered (or refused) in this page load; not observable.
+  private registeredWallets = new Set<string>()
+
+  // POSTs the wallet to /register-wallet once per page load. A network error, a 5xx or a 404 is retried
+  // after 5 s, 30 s and 2 min; a refusal is final. Not counted in ongoingRequests (no spinner).
+  private registerWallet = async (address: Address) => {
+    const key = address.toRawString()
+    if (this.registeredWallets.has(key)) {
+      return
+    }
+    this.registeredWallets.add(key)
+    const url = 'https://api.hipogang.io/register-wallet?address=' + address.toString()
+    const delays = [5_000, 30_000, 120_000]
+    for (let attempt = 0; ; attempt++) {
+      try {
+        const res = await fetch(url, { method: 'POST' })
+        if (res.status < 500 && res.status !== 404) {
+          return // ok:true, or a refusal: either way it is remembered and not retried
+        }
+      } catch {
+        // network error: retry below
+      }
+      if (attempt >= delays.length) {
+        return
+      }
+      await new Promise<void>((resolve) => setTimeout(resolve, delays[attempt]))
+      if (!sameAddress(address, this.address)) {
+        this.registeredWallets.delete(key)
+        return
+      }
+    }
   }
 
   syncTonConnectTheme = () => {
