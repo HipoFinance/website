@@ -186,7 +186,7 @@ const Boosted = observer(({ club }: Props) => {
           sub={
             r.season?.start === undefined
               ? undefined
-              : t('club.rewards.seasonSince', { date: club.date(r.season.start) })
+              : t('club.rewards.seasonSince', { date: club.sinceDate(r.season.start) })
           }
         />
         <StatCard
@@ -315,8 +315,6 @@ const BaseGram = observer(({ club }: Props) => {
   // and the total would count the pools alone.
   const showPools = club.clubWalletConnected && poolNano > 0 && state != null && m.tonBalance != null
   const positionNano = Number(m.htonBalance) + (showPools ? poolNano : 0)
-  const gramOf = (nanoValue: number) => m.withUnit('app.model.approxGram', m.formatNano(nanoValue * rate))
-  const nextAt = m.nextRewardAt
   const hasStats = m.htonBalanceInTon != null || sum !== undefined
   return (
     <div className='border-border mt-6 flex flex-col gap-6 border-t pt-8'>
@@ -325,51 +323,36 @@ const BaseGram = observer(({ club }: Props) => {
       {hasStats && (
         <div className={statGrid}>
           {m.htonBalanceInTon != null && (
-            <StatCard label={m.t('app.reward.stakedBalance')} value={m.htonBalanceFormatted}>
-              <div className='border-border flex flex-col gap-2 border-t pt-3.5'>
-                <Row label={m.t('app.reward.valueInGram')} value={m.htonBalanceInTon} strong={!showPools} />
-                {showPools && (
-                  <>
-                    <Row label={t('club.rewards.inPoolsGram')} value={gramOf(poolNano)} />
-                    <Row label={t('club.rewards.totalGram')} value={gramOf(Number(m.htonBalance) + poolNano)} strong />
-                  </>
-                )}
-                {m.apy != null && positionNano > 0 && (
-                  <Row
-                    label={t('club.rewards.yearAtApy', { apy: m.isolate(m.apyFormatted ?? '') })}
-                    value={gramOf(positionNano * m.apy)}
-                  />
-                )}
-              </div>
-              {m.apy != null && positionNano > 0 && <p className={footnote}>{t('club.rewards.yearNote')}</p>}
-            </StatCard>
+            <StatCard
+              label={t('club.rewards.yourHgram')}
+              value={t('club.common.hgramAmount', { amount: club.amount2(positionNano / 1e9) })}
+              sub={t('club.rewards.yourHgramSub', { amount: club.amount2((positionNano * rate) / 1e9) })}
+            />
           )}
           {sum !== undefined && (
             <StatCard
               label={
                 since !== undefined
-                  ? t('club.rewards.earnedSince', { date: club.date(since) })
+                  ? t('club.rewards.earnedSince', { date: club.sinceDate(since) })
                   : t('club.rewards.earnedTotal')
               }
               value={t('club.common.gramAmount', { amount: club.amount2(sum) })}
+              sub={t('club.rewards.earnedSub')}
             />
           )}
-          {nextAt !== undefined && m.htonBalanceInTon != null && positionNano > 0 && (
+          {m.apyFormatted != null && (
             <StatCard
-              label={t('club.rewards.nextTitle')}
-              value={
-                nextAt - club.displayNow >= 60
-                  ? t('club.rewards.nextIn', { time: club.duration(nextAt - club.displayNow) })
-                  : t('club.rewards.nextSoon')
+              label={t('club.rewards.apyTitle')}
+              value={m.apyFormatted}
+              sub={
+                <>
+                  {t('club.rewards.apySub')} ·{' '}
+                  <a href={m.localizedPath('/stats/')} className='text-accent hover:underline'>
+                    {t('club.rewards.apyStats')}
+                  </a>
+                </>
               }
-            >
-              <div className='border-border flex flex-col gap-2 border-t pt-3.5'>
-                <p className='text-text-secondary text-body'>
-                  {t('club.rewards.nextAt', { time: club.stepDate(nextAt) })}
-                </p>
-                <p className={footnote}>{t('club.rewards.nextNote')}</p>
-              </div>
-            </StatCard>
+            />
           )}
         </div>
       )}

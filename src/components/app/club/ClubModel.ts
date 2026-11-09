@@ -299,6 +299,7 @@ export class ClubModel {
     this.chain = chain
     this.transport = transport
     this.mock = mock
+    mock?.fillChain(model)
     this.tma = model.isTelegram
     this.storage = hasStorage() ?? refusingStore
     transport.setAuth(() => this.authBody())
@@ -449,6 +450,23 @@ export class ClubModel {
       ...(withTime ? { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' } : { timeZone: 'UTC' }),
     })
     return withTime ? this.t('club.common.utc', { time: text }) : text
+  }
+
+  // A "since" date on a Rewards card: the year only when it is not the current one, so "Aug 26"
+  // stays short this year and reads "Aug 26, 2026" from next January on. The years are compared in
+  // the locale's own calendar (fa → Jalali), the one the date is written in, and in UTC.
+  sinceDate = (unix: number | undefined): string => {
+    if (unix === undefined || unix <= 0) {
+      return '—'
+    }
+    const year = (at: number) => fmt.formatDate(this.model.locale, at * 1000, { year: 'numeric', timeZone: 'UTC' })
+    const otherYear = year(unix) !== year(this.displayNow)
+    return fmt.formatDate(this.model.locale, unix * 1000, {
+      month: 'short',
+      day: 'numeric',
+      ...(otherYear ? { year: 'numeric' } : {}),
+      timeZone: 'UTC',
+    })
   }
 
   // A grace/restore step's time as the wireframe writes it, "Oct 19 · 14:00": the reader's local time,

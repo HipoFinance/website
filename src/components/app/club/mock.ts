@@ -20,6 +20,9 @@
 // With a real wallet connected the account follows that wallet (its Club wallet is the connected
 // one), the chain reads and the claim send are real, and an upgrade is never sent (payments.ts).
 import type { Address } from '@ton/core'
+import type { TreasuryConfig, WalletState } from '@hipo-finance/sdk'
+import { runInAction } from 'mobx'
+import type { Model } from '../Model'
 import { ClubSocketError, type ClubTransport, type WalletRewards } from './api.ts'
 import { ChainReadError, type ChainRead, type ChainReader } from './payments.ts'
 import type { ClubTx } from './clubTx.ts'
@@ -142,6 +145,35 @@ export class ClubMock implements ClubTransport {
     this.walletA = new chain.Address(0, Buffer.from('5a'.repeat(32), 'hex'))
     this.walletB = new chain.Address(0, Buffer.from('b7'.repeat(32), 'hex'))
     this.acct = this.build(this.scenario)
+  }
+
+  // The preview's made-up chain state: localhost cannot read the chain (the endpoint answers
+  // hipo.finance only), so without this the Rewards tab's "Your hGRAM" and "Staking APY" cards never
+  // show. A rate of 1.1857 GRAM per hGRAM, and two settlement releases (131,072 s) growing by a
+  // factor that annualises to about 17.49% (the last one alone about the same). The wallet fields
+  // (the Club wallet's 412.75 hGRAM) only while the made-up wallet is the connected one: not with no
+  // wallet, and not with a real wallet, whose figures stay what the chain gives. Filled only while
+  // the fields are empty, so a real read, should one ever succeed, is not overwritten.
+  fillChain(model: Model) {
+    const fill = () =>
+      runInAction(() => {
+        model.treasuryState ??= {
+          totalCoins: 1_185_700_000_000_000n,
+          totalTokens: 1_000_000_000_000_000n,
+          windowDuration: 131_072n,
+          previousRate: 1_000_000_000n,
+          midRate: 1_000_335_000n,
+          currentRate: 1_000_670_070n,
+          midRound: 1_794_068_232n,
+          lastSettledRound: 1_794_133_768n,
+        } as unknown as TreasuryConfig
+        if (model.address !== undefined && this.realWallet === undefined && model.tonConnectUI?.wallet == null) {
+          model.tonBalance ??= 25_000_000_000n
+          model.walletState ??= { tokens: 412_750_000_000n } as WalletState
+        }
+      })
+    fill()
+    setInterval(fill, 2000)
   }
 
   now(): number {

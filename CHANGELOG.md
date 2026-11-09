@@ -9,6 +9,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-09 — Club Rewards: Base staking cards as the wireframe, with "Staking APY"
+
+- The Base staking row now has the wireframe's three cards: "Your hGRAM" (wallet + LP hGRAM, "≈ X GRAM · wallet + LP" below; the GRAM, pool, total and per-year rows are gone), "GRAM earned since {date}" with "Already in your hGRAM's value" below, and a new "Staking APY" ("Last 2 rounds · Stats", linking /stats/).
+- The APY is the one the site already computes from the treasury contract (growth over its window of two settlement releases, about two rounds), so "Last 2 rounds" is accurate; the server sends none.
+- The "Next reward" card is removed, as the wireframe has none.
+- The "since" date stays the wallet's own (when its GRAM rewards began to be tracked), not the season start: the server keeps no per-season GRAM figure. That date and the "Earned this season" card's date now carry the year when it is not the current year, counted in the locale's own calendar (fa: Jalali) in UTC.
+- "Your hGRAM" keeps the figure the card already had: the wallet's on-chain hGRAM plus the pool balances the Club server last read. It does not drop pool balances older than 6 hours as "Earning per round" does, so the two can differ after a member leaves a pool; left as it was.
+- The mock preview fills made-up chain state (treasury rates, and the made-up wallet's balance while it is the connected one), as localhost cannot read the chain; without it these two cards never show there.
+- Translated into the 10 other locales.
+
 ## 2026-11-09 — Club Rewards: "Earned this season" and "Claimed in total" cards
 
 - The Boosted rewards row now has the wireframe's three cards, each with its third line: "Earning per round" (~HPO only; "Level N · boost× on X hGRAM (wallet + LP)" below), a new "Earned this season" (staking + referral boosted HPO since the season start, claimed or not, from the server's new `season` figures), and "Claimed in total" (the level minimum) in place of "Earned in total".
