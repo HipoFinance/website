@@ -9,6 +9,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-09 — Persian numbers: "." for decimals, "," for thousands
+
+- Persian pages write `۱,۲۳۴.۵` and `۱۷.۴۹٪` instead of Intl's `۱٬۲۳۴٫۵`, whose momayyez «٫» reads as a comma in most fonts; Persian digits stay. One table in `src/i18n/format.ts` (`DISPLAY_SEPARATORS`); Arabic keeps Intl's marks.
+- The 469 numbers typed into the Persian catalogs, prose and docs swapped the same way; the glossary rule and §E of `specs/multi-language-site.md` record the exception.
+- The amount reader now takes "." as the Persian decimal and "," as its thousands mark (as on the English page), and still reads «٫» and «٬» from Persian keyboards: `۱۲.۳۴۵` is 12.345, `۱,۲۳۴` is 1234 (was refused as unclear), `۱٫۵۰۰` stays 1.5. Needed because the field now shows "." and Max wrote amounts the old reader refused.
+- Declined: leaving the reader untouched (broke Max for amounts like 12.345) and keeping «٫» in the field only (unlike the page).
+- Money-audited once: no string reads as a different amount than before. Accepted, not fixed: with the cursor in the amount field, a language switch re-reads the typed text by the new locale's rules (`Model.relocalizeAmount`), so "10.000" switches between 10 (fa) and 10000 (de) — the risk en already has against de/ru.
+- Spec: [`specs/persian-number-separators.md`](specs/persian-number-separators.md).
+
 ## 2026-11-09 — Club Rewards: Base staking cards as the wireframe, with "Staking APY"
 
 - The Base staking row now has the wireframe's three cards: "Your hGRAM" (wallet + LP hGRAM, "≈ X GRAM · wallet + LP" below; the GRAM, pool, total and per-year rows are gone), "GRAM earned since {date}" with "Already in your hGRAM's value" below, and a new "Staking APY" ("Last 2 rounds · Stats", linking /stats/).

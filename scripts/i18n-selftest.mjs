@@ -129,7 +129,9 @@ check('formatNumber en unchanged', () => {
 })
 
 check('formatNumber native conventions', () => {
-  assert.equal(formatNumber('fa', 1234.5), '۱٬۲۳۴٫۵')
+  // fa writes "," and "." instead of Intl's «٬» «٫» (specs/persian-number-separators.md); ar keeps Intl's.
+  assert.equal(formatNumber('fa', 1234.5), '۱,۲۳۴.۵')
+  assert.equal(formatNumber('fa', 1234567.89, { maximumFractionDigits: 2 }), '۱,۲۳۴,۵۶۷.۸۹')
   assert.equal(formatNumber('ru', 1234.5), '1 234,5')
   assert.equal(formatNumber('de', 1234.5), '1.234,5')
   assert.equal(formatNumber('ar', 1234.5), '١٬٢٣٤٫٥')
@@ -140,8 +142,9 @@ check('formatNumber native conventions', () => {
   // group marks today because GROUP_ONLY folds whitespace; these pin the Intl output itself.
   assert.equal(formatNumber('fr', 1234567.89), '1\u202f234\u202f567,89')
   assert.equal(formatNumber('uk', 1234567.89), '1\u00a0234\u00a0567,89')
-  assert.equal(formatPercent('fa', 0.032), '۳٫۲٪')
-  assert.ok(formatCompact('fa', 1234567).startsWith('۱٫۲'))
+  assert.equal(formatPercent('fa', 0.032), '۳.۲٪')
+  assert.equal(formatPercent('fa', 0.1749), '۱۷.۴۹٪')
+  assert.ok(formatCompact('fa', 1234567).startsWith('۱.۲'))
   assert.ok(formatUsd('de', 1234.5).includes('1.234,50'))
 })
 
@@ -264,9 +267,18 @@ check('parseNumberInput', () => {
   // A foreign single separator placed exactly like a thousands group is ambiguous → invalid, not 1.5.
   // Unaffected by this change: these separators are foreign to fa/ru, not their own group symbol, so
   // they never reach the fallback rule below.
-  assert.equal(p('fa', '1,500'), undefined)
   assert.equal(p('ar', '1,500'), undefined)
-  assert.equal(p('fa', '1,234'), undefined)
+  // fa is no longer such a locale: since specs/persian-number-separators.md "," is fa's own group and
+  // "." its decimal (as in en), so "1,500" is a finished group, 1500, and "." before three digits is a
+  // decimal, where both used to be refused as unclear.
+  assert.equal(p('fa', '1,500'), '1500')
+  assert.equal(p('fa', '1,234'), '1234')
+  assert.equal(p('fa', '۱,۲۳۴'), '1234')
+  assert.equal(p('fa', '۱.۵۰۰'), '1.500')
+  assert.equal(p('fa', '۱۲.۳۴۵'), '12.345')
+  assert.equal(p('fa', '۱,۲۳۴.۵'), '1234.5')
+  // two different separators: the last is the decimal, as in every locale (en reads '1.234,5' the same)
+  assert.equal(p('fa', '۱.۲۳۴,۵'), p('en', '1.234,5'))
   assert.equal(p('ru', '1.500'), undefined)
   assert.equal(p('fa', '1,50'), '1.50')
   assert.equal(p('fa', '1,5000'), '1.5000')
@@ -523,13 +535,33 @@ check('formatAsciiNano', () => {
 
 check('formatInput', () => {
   assert.equal(formatInput('en', '1234.5'), '1234.5')
-  assert.equal(formatInput('fa', '1234.5'), '۱۲۳۴٫۵')
+  assert.equal(formatInput('fa', '1234.5'), '۱۲۳۴.۵')
   // Arabic-Indic digits via the registry's `intl: 'ar-u-nu-arab'` (plain `ar` formats with Latin digits in current ICU).
   assert.equal(formatInput('ar', '1234.5'), '١٢٣٤٫٥')
   assert.equal(formatInput('ru', '1234.5'), '1234,5')
   assert.equal(formatInput('de', '1234.5'), '1234,5')
-  assert.equal(formatInput('fa', '12.'), '۱۲٫')
+  assert.equal(formatInput('fa', '12.'), '۱۲.')
   assert.equal(formatInput('fa', ''), '')
+})
+
+// specs/persian-number-separators.md: fa shows and reads "," for thousands and "." for decimals; what fa
+// shows (grouped or not, from the page or the field) reads back as the same amount, Intl's «٬» «٫» still
+// read as before, and ar keeps Intl's marks.
+check('fa separators: display reads back', () => {
+  for (const x of [0.5, 1, 12.345, 100.1, 1234, 1234.5, 1000000, 1234567.891]) {
+    const shown = formatNumber('fa', x, { maximumFractionDigits: 3 })
+    assert.equal(Number(parseNumberInput('fa', shown)), x, shown)
+    const plain = formatNumber('fa', x, { useGrouping: false, maximumFractionDigits: 3 })
+    assert.equal(Number(parseNumberInput('fa', plain)), x, plain)
+    assert.equal(Number(parseNumberInput('fa', formatInput('fa', String(x)))), x)
+  }
+  assert.equal(formatInput('fa', '12.345'), '۱۲.۳۴۵')
+  assert.equal(parseNumberInput('fa', '۱,۵۰۰.۵'), '1500.5')
+  assert.equal(parseNumberInput('fa', '۱٬۵۰۰٫۵'), '1500.5')
+  assert.equal(parseNumberInput('fa', '۱.۵'), '1.5')
+  assert.equal(parseNumberInput('fa', '۱,۵'), '1.5')
+  assert.equal(parseNumberInput('fa', '۱٫۵۰۰'), '1.500')
+  assert.equal(formatNumber('ar', 1234.5), '١٬٢٣٤٫٥')
 })
 
 check('formatInput/parseNumberInput round trip', () => {

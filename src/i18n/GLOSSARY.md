@@ -20,7 +20,7 @@ directly to a Latin word, and never add Persian plural suffixes to a ticker.
 | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | Hipo                                                                                                    | the protocol / brand                                                                        |
 | GRAM                                                                                                    | the TON network's native coin as named on hipo.finance (formerly "TON" / "Toncoin")         |
-| hGRAM                                                                                                   | Hipo's liquid staking token (formerly "hTON"); unit stays after the number: `۱٬۲۳۴٫۵ hGRAM` |
+| hGRAM                                                                                                   | Hipo's liquid staking token (formerly "hTON"); unit stays after the number: `۱,۲۳۴.۵ hGRAM`   |
 | HPO                                                                                                     | Hipo governance and profit-sharing token                                                    |
 | TON                                                                                                     | the blockchain name ("TON blockchain", "TON DeFi")                                          |
 | TVL, APY, APR, USD                                                                                      | acronyms, keep Latin; gloss once in prose if the language customarily does                  |
@@ -324,7 +324,7 @@ Common to all locales:
   are localised by the build (`remark-localize-links`) — do not prefix them with the locale yourself. Anchor
   ids, heading slugs, file names, JSON keys and prose paths are never translated.
 - Units follow the number and stay Latin: `۱۰ GRAM`, `10 GRAM`, `10 GRAM`. Percent follows the locale
-  (`۳٫۲٪`, `3,2 %`, `3.2%`). Currency uses the locale's placement (`$۱٫۲ میلیون`, `1,2 млн $`, `$1.2 मिलियन`).
+  (`۳.۲٪`, `3,2 %`, `3.2%`). Currency uses the locale's placement (`$۱.۲ میلیون`, `1,2 млн $`, `$1.2 मिलियन`).
 - Copy the English tone: confident, plain, no hype; do not add "risk-free"/"guaranteed" wording.
 - multisig.ton.org's "Arbitrary order" form has three fields whose names are literal, English-only labels in
   that third-party UI: `Destination Address` and `TON Amount` (see `app.multisig.destinationAddress` /
@@ -338,7 +338,8 @@ Persian (`fa`):
 - Register: polite plural «شما», verbs in the polite second person plural («استیک کنید», «دریافت می‌کنید»);
   never the intimate «تو». Avoid ornate Arabic-heavy vocabulary where a common Persian word exists.
 - Digits: Persian digits (۰–۹) everywhere, prose included (decision 2) — step numbers, years, percentages,
-  counts, `۱٬۰۰۰٬۰۰۰٬۰۰۰ HPO`. Thousands separator «٬», decimal «٫». Exceptions: code, addresses, URLs,
+  counts, `۱,۰۰۰,۰۰۰,۰۰۰ HPO`. Thousands separator «,», decimal «.» — not «٬» «٫», whose «٫» reads as a comma
+  (2026-11-09, `specs/persian-number-separators.md`). Exceptions: code, addresses, URLs,
   version strings like `v2`, and the range codes (`24H`, `1W`).
 - Dates: Jalali calendar with Persian digits (decision 9). For historical records — audits, launch dates,
   quarterly reports — give the Gregorian date in parentheses on first mention: «۸ آبان ۱۴۰۲ (۳۰ اکتبر ۲۰۲۳)».

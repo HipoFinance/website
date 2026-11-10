@@ -186,6 +186,9 @@ Two mechanisms, chosen by shape of the text:
   lands where the locale puts it. Units (`GRAM`, `hGRAM`, `HPO`, `TON`) stay Latin.
   _Trade-off accepted: wallets and explorers show ASCII digits, so a Persian user compares `۱٬۲۳۴٫۵` on
   our page with `1,234.5` in Keeper. Addresses and tx hashes are never transformed._
+  _Exception (2026-11-09, `specs/persian-number-separators.md`): Persian displays "," and "." instead of
+  `Intl`'s «٬» «٫» (`۱,۲۳۴.۵ GRAM`, `۳.۲٪`), and the input reader takes "." as fa's decimal and "," as its
+  group (as for en), while still reading «٫» as a decimal and «٬» as a group._
 - **Inputs** accept both native and ASCII digits and any separator the locale uses: the commented-out
   `NumberParser` (`Model.ts:1910`) is revived — it learns the locale's group/decimal symbols from
   `formatToParts` and maps U+0660–0669 / U+06F0–06F9 digits, `٫`, `٬`, `،`, NBSP/NNBSP and bidi marks to

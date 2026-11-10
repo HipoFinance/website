@@ -76,7 +76,7 @@
   "app.multisig.orderSafetyNote": "فقط کیف پول hGRAM متعلق به همین کیف پول چندامضایی این سفارش را می‌پذیرد. اگر از هر کیف پول دیگری ارسال شود، برگشت می‌خورد و چیزی سوزانده نمی‌شود.",
   "app.multisig.showInstructions": "نمایش راهنما",
   "app.multisig.stakeInstructions": "{amount} را با کامنت متنی {comment} به آدرس خزانه زیر بفرستید. کارمزد استفاده‌نشده بازگردانده می‌شود و hGRAM به کیف پول چندامضایی شما ضرب خواهد شد.",
-  "app.multisig.stakeInstructionsNoAmount": "{amount} به‌علاوه ۰٫۱ GRAM برای کارمزد را با کامنت متنی {comment} به آدرس خزانه زیر بفرستید. کارمزد استفاده‌نشده بازگردانده می‌شود و hGRAM به کیف پول چندامضایی شما ضرب خواهد شد.",
+  "app.multisig.stakeInstructionsNoAmount": "{amount} به‌علاوه ۰.۱ GRAM برای کارمزد را با کامنت متنی {comment} به آدرس خزانه زیر بفرستید. کارمزد استفاده‌نشده بازگردانده می‌شود و hGRAM به کیف پول چندامضایی شما ضرب خواهد شد.",
   "app.multisig.textComment": "کامنت متنی",
   "app.multisig.titleFallback": "ایجاد سفارش به‌صورت دستی",
   "app.multisig.tonAmount": "مقدار TON",

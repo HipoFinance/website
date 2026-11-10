@@ -1026,7 +1026,7 @@ export class Model {
   }
 
   // Bidi isolation (FSI … PDI) for values interpolated into Model-composed strings (spec §F), so
-  // `≈ ۱٬۲۳۴٫۵ GRAM` keeps its reading order inside RTL text. Applied for RTL locales only: LTR text
+  // `≈ ۱,۲۳۴.۵ GRAM` keeps its reading order inside RTL text. Applied for RTL locales only: LTR text
   // needs none, and English output stays byte-identical to before.
   isolate = (s: string): string => {
     return dirOf(this.locale) === 'rtl' ? fmt.isolate(s) : s

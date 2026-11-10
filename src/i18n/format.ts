@@ -22,8 +22,21 @@ function numberFormat(locale: Locale, opts?: Intl.NumberFormatOptions): Intl.Num
   return format
 }
 
+// Locales whose separators differ from Intl's. Persian writes "۱,۲۳۴.۵", not Intl's "۱٬۲۳۴٫۵": the
+// momayyez «٫» reads as a comma in most fonts (specs/persian-number-separators.md). Both the display
+// and the amount reader use them (symbolsOf), so what the field shows is what it reads; the reader
+// still takes «٫» as a decimal and «٬» as a group mark, as for every locale.
+const DISPLAY_SEPARATORS: Partial<Record<Locale, { decimal: string; group: string }>> = {
+  fa: { decimal: '.', group: ',' },
+}
+
+function withSeparators(locale: Locale, text: string): string {
+  const own = DISPLAY_SEPARATORS[locale]
+  return own === undefined ? text : text.replace(/٫/g, own.decimal).replace(/٬/g, own.group)
+}
+
 export function formatNumber(locale: Locale, value: number, opts?: Intl.NumberFormatOptions): string {
-  return numberFormat(locale, opts).format(value)
+  return withSeparators(locale, numberFormat(locale, opts).format(value))
 }
 
 // Nanotons → whole tokens (same default as the old Model.formatNano: up to 2 fraction digits).
@@ -31,7 +44,7 @@ export function formatNano(locale: Locale, nano: bigint | number, maxFractionDig
   return formatNumber(locale, Number(nano) / 1e9, { maximumFractionDigits: maxFractionDigits })
 }
 
-// 0.032 → "3.2%" (fa "۳٫۲٪").
+// 0.032 → "3.2%" (fa "۳.۲٪").
 export function formatPercent(locale: Locale, ratio: number, maxFractionDigits = 2): string {
   return formatNumber(locale, ratio, { style: 'percent', maximumFractionDigits: maxFractionDigits })
 }
@@ -41,7 +54,7 @@ export function formatSignedPercent(locale: Locale, ratio: number): string {
   return formatNumber(locale, ratio, { style: 'percent', maximumFractionDigits: 2, signDisplay: 'exceptZero' })
 }
 
-// 1234567 → "1.2M" (fa "۱٫۲ میلیون").
+// 1234567 → "1.2M" (fa "۱.۲ میلیون").
 export function formatCompact(locale: Locale, value: number, maxFractionDigits = 1): string {
   return formatNumber(locale, value, { notation: 'compact', maximumFractionDigits: maxFractionDigits })
 }
@@ -125,6 +138,7 @@ function symbolsOf(locale: Locale): Symbols {
       digits,
       decimal: parts.find((part) => part.type === 'decimal')?.value ?? '.',
       group: parts.find((part) => part.type === 'group')?.value ?? ',',
+      ...DISPLAY_SEPARATORS[locale],
     }
     symbolCache.set(locale, symbols)
   }
@@ -183,9 +197,11 @@ const GROUP_HEAD = /^[1-9][0-9]{0,2}$/
 //     all, so without this fallback such a visitor could never type a decimal amount at all. Likewise
 //     "1.5" in de is invalid (de's decimal is ",") — the field shows the invalid colour until fixed;
 //   - the locale's decimal symbol, alone, is the decimal ("1,5" de, "1.000" en = 1.000);
-//   - a single FOREIGN separator (neither the locale's group nor its decimal: "1.5" ru, "۱.۵" / "۱،۵" fa)
-//     is the decimal too — unless it sits where a thousands group would ("1,500" in fa: a 1–3 digit
-//     head, exactly three digits after), which is ambiguous and therefore invalid, not a guess;
+//   - a single FOREIGN separator (neither the locale's group nor its decimal: "1.5" ru, "۱،۵" fa)
+//     is the decimal too — unless it sits where a thousands group would ("1.500" in ru: a 1–3 digit
+//     head, exactly three digits after), which is ambiguous and therefore invalid, not a guess.
+//     (fa's own marks are "." and "," since specs/persian-number-separators.md, so "1,500" there is
+//     1500 and "۱.۵۰۰" is 1.5, as in en; Intl's «٫» is folded to "." first, see foldIntlDecimal);
 //   - the same non-decimal separator repeated is grouping ("1,234,567" en, Hindi "12,34,567"); the
 //     locale's decimal symbol repeated is garbage;
 //   - two different separators: the last one (occurring once) is the decimal, the other the group
@@ -194,9 +210,18 @@ const GROUP_HEAD = /^[1-9][0-9]{0,2}$/
 // 2–3 (Hindi lakh), the last exactly 3, none after the decimal. Rejects "1.2,3", "1,2,3",
 // "0,123,456", "1,000,00". More than 9 fraction digits (MAX_FRACTION_DIGITS) is rejected too, since
 // toNano could not represent it.
+// A locale whose separators replace Intl's (DISPLAY_SEPARATORS) still reads Intl's decimal as its
+// decimal: Persian keyboards type «٫», so fa "۱٫۵۰۰" stays 1.5 and is not taken for a thousands group.
+// Folded to the locale's own decimal before tokenising. (Intl's group «٬» is group-only already.)
+const INTL_DECIMAL = /\u066b/g
+function foldIntlDecimal(locale: Locale, text: string): string {
+  const own = DISPLAY_SEPARATORS[locale]
+  return own === undefined ? text : text.replace(INTL_DECIMAL, own.decimal)
+}
+
 export function parseNumberInput(locale: Locale, raw: string): string | undefined {
   const symbols = symbolsOf(locale)
-  const cleaned = raw
+  const cleaned = foldIntlDecimal(locale, raw)
     .replace(NATIVE_DIGITS, toAsciiDigit)
     .replace(BIDI_MARKS, '')
     .replace(EDGE_WHITESPACE, '')
@@ -328,7 +353,7 @@ export function isViablePrefix(locale: Locale, raw: string): boolean {
     return true
   }
   const symbols = symbolsOf(locale)
-  const cleaned = raw
+  const cleaned = foldIntlDecimal(locale, raw)
     .replace(NATIVE_DIGITS, toAsciiDigit)
     .replace(BIDI_MARKS, '')
     .replace(LEAD_WHITESPACE, '')
