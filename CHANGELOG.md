@@ -9,6 +9,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-10 — Club Rewards: "Earned on" and the next round in the GRAM table; "Expected per year" card
+
+- The "GRAM earned per round" table has three columns: Round, Earned on (the hGRAM each round counted, from the server's new `hton` field; "—" for rounds recorded before it was kept, so about eight days of dashes) and GRAM. Item 1c of the wireframe.
+- A first row shows the round now running: a clock, "Next round · ends in ~6h 12m (Nov 10, 18:40 UTC)" counting down to the treasury's next stake release (`Model.nextRewardAt`), the hGRAM the next reward counts (the HPO card's figure, wallet + LP with fresh LP only, as Alireza chose; a wallet outside the Club, its own hGRAM) and "≈ +x" GRAM in grey: that hGRAM times the last round's rate rise. Hidden with no wallet, an unknown time, or once the time is over a minute past.
+- The table's first header reads "Round" (new key `colRoundGram`); the HPO table keeps "Round ended". On phones the next-round label takes its own full-width line above its figures.
+- The mock preview has a counting-down next round and per-round hGRAM, three rounds without it.
+- The third Base staking card is now "Expected per year": "≈ x GRAM", the "Your hGRAM" card's GRAM value (wallet + LP) × today's APY (last 2 rounds), plain, not compounded, so it matches the APY its line names: "At the current 17.49% APY · changes every round · Stats". The "Staking APY" title and "Last 2 rounds" line are removed. Asked by Alireza on 2026-11-10 with the table.
+- Translated into the 10 other locales (Persian included) after Alireza approved the English.
+- Spec: [specs/club-gram-rounds-earned-on.md](specs/club-gram-rounds-earned-on.md); server part in club-server.
+
 ## 2026-11-09 — Persian numbers: "." for decimals, "," for thousands
 
 - Persian pages write `۱,۲۳۴.۵` and `۱۷.۴۹٪` instead of Intl's `۱٬۲۳۴٫۵`, whose momayyez «٫» reads as a comma in most fonts; Persian digits stay. One table in `src/i18n/format.ts` (`DISPLAY_SEPARATORS`); Arabic keeps Intl's marks.

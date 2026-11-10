@@ -2519,14 +2519,6 @@
     "sourceHash": "be763e9aba2af6b8baabada85d5e26c043c93fed",
     "reviewed": false
   },
-  "club.rewards.apySub": {
-    "sourceHash": "69ddb3eff9a63dc04c0eefba3ac3036281566b3c",
-    "reviewed": false
-  },
-  "club.rewards.apyTitle": {
-    "sourceHash": "8984c6fded8cf7a57b34b0f017eb645b0c5ca3f0",
-    "reviewed": false
-  },
   "club.rewards.baseBody": {
     "sourceHash": "d61e6fadf312aa4d2953d5ac95b7160c2ea7a162",
     "reviewed": false
@@ -2579,8 +2571,16 @@
     "sourceHash": "eb9a4bc1c0c153e4e4b042a79113b815b7e3021d",
     "reviewed": false
   },
+  "club.rewards.colEarnedOn": {
+    "sourceHash": "006d760b530c28f1d8655b35b7824defb7920475",
+    "reviewed": false
+  },
   "club.rewards.colRound": {
     "sourceHash": "33eadfc594f96bf79c5af17368ddcc151a19614f",
+    "reviewed": false
+  },
+  "club.rewards.colRoundGram": {
+    "sourceHash": "ec7b59833520bb2b53fd4d44b3d581720b55c442",
     "reviewed": false
   },
   "club.rewards.colStream": {
@@ -2629,6 +2629,14 @@
   },
   "club.rewards.needsTelegram": {
     "sourceHash": "252a6d70798eba21249b7cbf1ccb4f98217730db",
+    "reviewed": false
+  },
+  "club.rewards.nextRound": {
+    "sourceHash": "dd66d5f4897e72c3e845621186ab602d216b209f",
+    "reviewed": false
+  },
+  "club.rewards.nextRoundNow": {
+    "sourceHash": "1f0e32d40e11ae5c898707c49a98ae14feabb172",
     "reviewed": false
   },
   "club.rewards.perRound": {
@@ -2689,6 +2697,18 @@
   },
   "club.rewards.tx": {
     "sourceHash": "1a7b7c1b33d161f45804730c70b75175dccd9883",
+    "reviewed": false
+  },
+  "club.rewards.yearSub": {
+    "sourceHash": "51b1863162c109b828a7c255552a3b1f935e9f67",
+    "reviewed": false
+  },
+  "club.rewards.yearTitle": {
+    "sourceHash": "e1c3456aafcda0caeb491adeb4654b9edf78a222",
+    "reviewed": false
+  },
+  "club.rewards.yearValue": {
+    "sourceHash": "edf29c20848d96b8eca832626e66fdeaa59e3b23",
     "reviewed": false
   },
   "club.rewards.yourHgram": {

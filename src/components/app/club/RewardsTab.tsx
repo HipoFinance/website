@@ -5,7 +5,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import { observer } from 'mobx-react-lite'
 import type { ClubModel } from './ClubModel.ts'
 import { REVENUE_FEE } from './ClubModel.ts'
-import { BoltIcon } from './icons.tsx'
+import { BoltIcon, ClockIcon } from './icons.tsx'
 import {
   Button,
   Card,
@@ -88,6 +88,76 @@ function eligibleHgram(club: ClubModel, o: NonNullable<ClubModel['overview']>): 
     (fresh ? nano(split?.balanceHtonDedust) + nano(split?.balanceHtonStonfi) + nano(split?.balanceHtonTonco) : 0)
   )
 }
+
+// "1,234.56 hGRAM", or "—" for a round recorded before the server kept its hGRAM.
+function hgram(club: ClubModel, amount: number | undefined): string {
+  return amount === undefined || !Number.isFinite(amount)
+    ? '—'
+    : club.t('club.common.hgramAmount', { amount: club.amount2(amount) })
+}
+
+// The GRAM table's first row (specs/club-gram-rounds-earned-on.md): the round now running, when the
+// next reward lands, the hGRAM it counts (the HPO "per round" card's figure) and an estimate, that
+// hGRAM times the last round's rise in the rate. None without a connected wallet or a known time,
+// or once the time is more than a minute past (the reward is then on its way and the row would lie).
+function nextRound(
+  club: ClubModel,
+): { label: ReactNode; hton: number | undefined; gram: number | undefined } | undefined {
+  const m = club.model
+  const at = m.nextRewardAt
+  if (club.connected === undefined || at === undefined) {
+    return
+  }
+  const left = at - club.displayNow
+  if (left < -60) {
+    return
+  }
+  // The Club wallet's rows count what the HPO card counts; a wallet outside the Club, its own hGRAM.
+  const o = club.overview
+  const hton =
+    club.rewards !== undefined
+      ? o === undefined
+        ? undefined
+        : eligibleHgram(club, o)
+      : m.htonBalanceInTon != null
+        ? Number(m.htonBalance) / 1e9
+        : undefined
+  const state = m.treasuryState
+  const rise =
+    state == null || state.midRate <= 0n ? undefined : (Number(state.currentRate) - Number(state.midRate)) / 1e9
+  const gram = hton === undefined || rise === undefined || !(rise >= 0) ? undefined : hton * rise
+  // The countdown stays on one line ("~2h 4m" never splits); the date may wrap on a phone.
+  const values = [club.duration(left), club.date(at, true)]
+  const text =
+    left < 60
+      ? club.t('club.rewards.nextRoundNow', { at: MARKS[1] })
+      : club.t('club.rewards.nextRound', { left: MARKS[0], at: MARKS[1] })
+  const label = text.split(/([\uE000\uE001])/).map((part, i) => {
+    const index = MARKS.indexOf(part)
+    if (index < 0) {
+      return part
+    }
+    return index === 0 ? (
+      <span key={i} className='whitespace-nowrap'>
+        {values[index]}
+      </span>
+    ) : (
+      values[index]
+    )
+  })
+  return { label, hton, gram }
+}
+
+function NextLabel({ label }: { label: ReactNode }) {
+  return (
+    <span className='inline-flex items-center gap-1.5'>
+      <ClockIcon size={16} className='text-text-muted' />
+      <span>{label}</span>
+    </span>
+  )
+}
+
+const MARKS = ['\uE000', '\uE001']
 
 const Boosted = observer(({ club }: Props) => {
   const t = club.t
@@ -297,8 +367,12 @@ const BaseGram = observer(({ club }: Props) => {
   const w = club.walletRewards
   const rounds =
     r !== undefined
-      ? r.rounds.map((round) => ({ time: round.time, gram: Number(round.stakeReward ?? '0') }))
-      : (w?.earnedRewards ?? []).map((round) => ({ time: round.time, gram: round.stakeReward ?? 0 }))
+      ? r.rounds.map((round) => ({
+          time: round.time,
+          gram: Number(round.stakeReward ?? '0'),
+          hton: round.hton === undefined ? undefined : Number(round.hton),
+        }))
+      : (w?.earnedRewards ?? []).map((round) => ({ time: round.time, gram: round.stakeReward ?? 0, hton: round.hton }))
   const sum = r?.stakeSumRewards ?? w?.stakeSumRewards
   const since = r?.stakeRewardsSince ?? w?.stakeRewardsSince
   const m = club.model
@@ -316,6 +390,7 @@ const BaseGram = observer(({ club }: Props) => {
   const showPools = club.clubWalletConnected && poolNano > 0 && state != null && m.tonBalance != null
   const positionNano = Number(m.htonBalance) + (showPools ? poolNano : 0)
   const hasStats = m.htonBalanceInTon != null || sum !== undefined
+  const next = nextRound(club)
   return (
     <div className='border-border mt-6 flex flex-col gap-6 border-t pt-8'>
       <SectionHeading dot='bg-club-base' title={t('club.rewards.baseTitle')} tag={t('club.rewards.baseSub')} />
@@ -340,13 +415,15 @@ const BaseGram = observer(({ club }: Props) => {
               sub={t('club.rewards.earnedSub')}
             />
           )}
-          {m.apyFormatted != null && (
+          {m.apy != null && m.apyFormatted != null && m.htonBalanceInTon != null && (
+            // A plain year at today's APY on the "Your hGRAM" card's GRAM value, not compounded,
+            // so it matches the APY the line names.
             <StatCard
-              label={t('club.rewards.apyTitle')}
-              value={m.apyFormatted}
+              label={t('club.rewards.yearTitle')}
+              value={t('club.rewards.yearValue', { amount: club.amount2(((positionNano * rate) / 1e9) * m.apy) })}
               sub={
                 <>
-                  {t('club.rewards.apySub')} ·{' '}
+                  {t('club.rewards.yearSub', { apy: m.apyFormatted })} ·{' '}
                   <a href={m.localizedPath('/stats/')} className='text-accent hover:underline'>
                     {t('club.rewards.apyStats')}
                   </a>
@@ -367,14 +444,39 @@ const BaseGram = observer(({ club }: Props) => {
             <table className='w-full min-w-[260px]'>
               <thead>
                 <tr>
-                  <th className={tableTh}>{t('club.rewards.colRound')}</th>
+                  <th className={tableTh}>{t('club.rewards.colRoundGram')}</th>
+                  <th className={thEnd}>{t('club.rewards.colEarnedOn')}</th>
                   <th className={thEnd}>GRAM</th>
                 </tr>
               </thead>
               <tbody>
+                {next !== undefined && (
+                  <>
+                    {/* Below sm the label gets the row's full width, above its figures. */}
+                    <tr className={tableRow + ' sm:hidden'}>
+                      <td colSpan={3} className={tableTd + ' pb-0'}>
+                        <NextLabel label={next.label} />
+                      </td>
+                    </tr>
+                    <tr className={tableRow + ' max-sm:border-0'}>
+                      <td className={tableTd + ' max-sm:pt-1'}>
+                        <span className='max-sm:hidden'>
+                          <NextLabel label={next.label} />
+                        </span>
+                      </td>
+                      <td className={tableTd + ' num text-end whitespace-nowrap max-sm:pt-1'}>
+                        {hgram(club, next.hton)}
+                      </td>
+                      <td className={tableTd + ' num text-text-muted text-end whitespace-nowrap max-sm:pt-1'}>
+                        {next.gram === undefined ? '—' : '≈ ' + club.signed(next.gram, 4, true)}
+                      </td>
+                    </tr>
+                  </>
+                )}
                 {rounds.map((row, i) => (
                   <tr key={i} className={tableRow}>
-                    <td className={tableTd + ' num'}>{club.date(row.time)}</td>
+                    <td className={tableTd + ' num whitespace-nowrap'}>{club.date(row.time)}</td>
+                    <td className={tableTd + ' num text-end whitespace-nowrap'}>{hgram(club, row.hton)}</td>
                     <td className={tableTd + ' num text-tone-success-fg text-end'}>{club.signed(row.gram, 4, true)}</td>
                   </tr>
                 ))}

@@ -379,6 +379,8 @@ export interface ClubRound {
   time?: number
   hpo?: string
   stakeReward?: string
+  // The hGRAM the round counted (wallet + LP), as stored; absent for rounds recorded before 2026-11-10.
+  hton?: string
 }
 
 export interface ClubRewards extends ReplyHead {
@@ -402,7 +404,7 @@ export function toRewards(body: unknown): ClubRewards {
     ...headOf(b),
     rounds: list(b.rounds).map((value) => {
       const r = obj(value)
-      return { time: int(r.time), hpo: str(r.hpo), stakeReward: str(r.stake_reward) }
+      return { time: int(r.time), hpo: str(r.hpo), stakeReward: str(r.stake_reward), hton: str(r.hton) }
     }),
     claims: list(b.claims).map(toClaimRecord),
     totals: { staking: str(totals.staking), referral: str(totals.referral) },
@@ -656,6 +658,8 @@ export interface WalletClub {
 export interface EarnedRound {
   time?: number
   stakeReward?: number
+  // The hGRAM the round counted; absent for rounds recorded before 2026-11-10.
+  hton?: number
   hpoReward?: number
 }
 
@@ -698,7 +702,12 @@ export function toWalletRewards(result: unknown): WalletRewards {
     }),
     earnedRewards: list(b.earned_rewards).map((value) => {
       const r = obj(value)
-      return { time: int(r.time), stakeReward: anyNum(r.stake_reward), hpoReward: anyNum(r.hpo_reward) }
+      return {
+        time: int(r.time),
+        stakeReward: anyNum(r.stake_reward),
+        hton: anyNum(r.hton),
+        hpoReward: anyNum(r.hpo_reward),
+      }
     }),
     stakeSumRewards: str(b.stake_sum_rewards),
     stakeRewardsSince: int(b.stake_rewards_since),

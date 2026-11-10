@@ -166,6 +166,7 @@ export class ClubMock implements ClubTransport {
           currentRate: 1_000_670_070n,
           midRound: 1_794_068_232n,
           lastSettledRound: 1_794_133_768n,
+          participations: this.participations(),
         } as unknown as TreasuryConfig
         if (model.address !== undefined && this.realWallet === undefined && model.tonConnectUI?.wallet == null) {
           model.tonBalance ??= 25_000_000_000n
@@ -174,6 +175,18 @@ export class ClubMock implements ClubTransport {
       })
     fill()
     setInterval(fill, 2000)
+  }
+
+  // One staked treasury round whose stakes are held until the next 65,536-second boundary, so the GRAM
+  // table's "Next round" row has a time that counts down and rolls over. The two methods the Model
+  // calls on the dictionary (keys() as an array, get()), not a Map: Model sorts keys() in place.
+  private participations() {
+    const round = 1_794_199_304n
+    const value = () => ({
+      state: this.chain.ParticipationState.Staked,
+      stakeHeldUntil: BigInt((Math.floor(this.now() / 65_536) + 1) * 65_536),
+    })
+    return { keys: () => [round], get: (key: bigint) => (key === round ? value() : undefined) }
   }
 
   now(): number {
@@ -834,6 +847,8 @@ export class ClubMock implements ClubTransport {
           time: now - i * ROUND - 3000,
           hpo: hpo(13.75 - i * 0.21),
           stake_reward: (0.2841 - i * 0.0013).toFixed(9),
+          // the last three recorded before the server kept the round's hGRAM
+          ...(i < 7 ? { hton: (512.23 - i * 1.5).toFixed(9) } : {}),
         }))
     return {
       ...head,
@@ -970,6 +985,7 @@ export class ClubMock implements ClubTransport {
       earnedRewards: Array.from({ length: 10 }, (_, i) => ({
         time: now - i * ROUND - 3000,
         stakeReward: 0.2841 - i * 0.0013,
+        hton: i < 7 ? 512.23 - i * 1.5 : undefined,
         hpoReward: 13.75,
       })),
       stakeSumRewards: '19.4417',
