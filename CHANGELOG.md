@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-14 — Gas prepayment 0.1 → 0.03 GRAM: parked
+
+- Proposed lowering the GRAM attached to each stake and unstake from 0.1 to 0.03 (users pay the same; the excess is refunded). Parked by Behrang after the spec's money audit: a Full unstake bill the treasury cannot pay is moved to the next round at the user's expense, so 0.03 would let a bill survive ~8 such moves instead of ~34 before its hGRAM is destroyed. The safe remainder (0.03 for stakes and Instant unstakes only) was judged not worth an SDK release, 11 locales and two audits. Findings and measurements kept in the [spec](specs/gas-prepayment-003.md).
+- Left open, for the contract: the same loss exists at 0.1 for a bill postponed ~35 rounds in a row, and `MinGas.spec.ts` misses it because it funds the burn with `retry_burn_all` instead of `burn_all_fee`.
+
 ## 2026-11-14 — Stake and unstake: "Transaction cost" from measured costs
 
 - The line under the stake and unstake forms said 0.015 GRAM to stake and 0.042 GRAM to unstake, 6–12× what people pay. It now says 0.004 and 0.008, measured on mainnet over 2026-11-09…14 (the 0.1 GRAM prepayment minus what comes back, plus the wallet's own fees): stake median 0.0025 GRAM (n=120), Instant unstake 0.0035 (n=30), Full unstake 0.0073 including its later payout (n=24); rounded up past the 90th percentile (stake p90 0.0032, Full p90 0.0077) so the page rarely shows less than people pay.
