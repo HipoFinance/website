@@ -220,7 +220,7 @@ const StatsPage = observer(({ model }: Props) => {
     { key: 'gram', name: 'GRAM', color: inkColor, points: gramPricePoints },
   ]
   const hpoSeries: ChartSeriesInput[] = [
-    { key: 'hpo', name: 'HPO', color: positiveColor, points: chartsStore.series?.hipo_hpo_current_price ?? [] },
+    { key: 'hpo', name: 'HPO', color: positiveColor, points: chartsStore.hpoPoints },
   ]
 
   const tvlLabel =
@@ -363,6 +363,7 @@ const StatsPage = observer(({ model }: Props) => {
           valueFormat={formatPrice}
           deltaUnit='%'
           {...chartCommon}
+          domainEnd={chartsStore.hpoDomainEnd}
         />
       </div>
 

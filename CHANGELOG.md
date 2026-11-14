@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-14 — Stats HPO chart ends at the live price, as on /hpo/
+
+- The Stats page's HPO price chart now ends at the gauge's live HPO price, the same point the /hpo/ chart and both price cards end at. It used to end at the last Prometheus grid point, up to one step old (2 h on the 1M range), so the two charts disagreed on the latest price. GRAM/hGRAM and the other Stats charts still end at the grid; they have no live figure from the same source.
+- Fixed with it: the Stats charts' 5-minute refresh got the 5-minute client cache back and never moved while the page stayed open; it now bypasses the cache.
+
 ## 2026-11-14 — HPO is an app page: no reload between the four main items
 
 - /hpo/ now shows the app header with Connect/Disconnect and the connected address, and Stake, Club, Stats and HPO switch in place without a reload. The HPO content, URL, title and search tags are unchanged, and the footer keeps its call to action.
