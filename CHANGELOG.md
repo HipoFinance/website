@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-14 — Fewer chain reads on DeFi, Rewards and Club
+
+- The app's block poller no longer reads the chain on /defi/ (a page of links; like /hpo/) and reads every 5 minutes instead of every 10 s on /rewards/ and /club/, which show the hGRAM balance and the rate but nothing that moves by the second. Each still reads once on arrival and on a wallet connect. The stake form stays at 10 s, Stats at 5 minutes. Asked by Behrang.
+- Fixed with it (found in the review, older than this change): Rewards and Club stopped reading for good once the browser tab had been hidden and shown again, and a page opened in a background tab stopped following page changes; both now resume.
+- Declined: dropping Connect wallet from the DeFi page's header. The header stays the same on every page, which is the point of [one header across the site](specs/one-header-across-site.md), and a connected wallet keeps its address there.
+
 ## 2026-11-14 — Stats HPO chart ends at the live price, as on /hpo/
 
 - The Stats page's HPO price chart now ends at the gauge's live HPO price, the same point the /hpo/ chart and both price cards end at. It used to end at the last Prometheus grid point, up to one step old (2 h on the 1M range), so the two charts disagreed on the latest price. GRAM/hGRAM and the other Stats charts still end at the grid; they have no live figure from the same source.

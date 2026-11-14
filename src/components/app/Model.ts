@@ -228,10 +228,10 @@ const retryWalletRewardsDelay = 5 * 1000
 // carries a 1-5s micro-cache upstream, so a sub-5s poll would partly re-read what it just got.
 // Changing this means re-checking that headroom, and the comment in the nginx repo citing it.
 const updateLastBlockDelay = 10 * 1000
-// The Stats page's own cadence. Most of that page is gauge data on a 5 minute refresh and chart
-// data on 300s, but two figures come off the block poller — statsRateFormatted, which has no gauge
-// equivalent at all, and protocolFee — so it does need reading, just not at the form's rate.
-// Matching the gauge means the page moves as one rather than in two rhythms.
+// The cadence of the Stats, Rewards and Club pages. Most of Stats is gauge data on a 5 minute refresh
+// and chart data on 300s, but two figures come off the block poller — statsRateFormatted, which has no
+// gauge equivalent at all, and protocolFee. Rewards and Club show the hGRAM balance and the treasury
+// rate, nothing that moves second to second. Matching the gauge means the pages move as one.
 const updateLastBlockStatsDelay = 5 * 60 * 1000
 const retryDelay = 3 * 1000
 
@@ -2851,28 +2851,32 @@ export class Model {
   }
 
   // The stake form needs a live view: balances, the rate and the fee lines move under someone who
-  // is mid-decision. The Stats page is a snapshot to read, so it polls at the gauge's 5 minute
-  // cadence instead — it cannot stop reading altogether, because statsRateFormatted comes off the
-  // treasury and has no gauge fallback. Either way, coming back re-reads at once:
-  // controlBackgroundJobs calls resume() on an in-app navigation and on the browser tab regaining
-  // visibility, and resume() reads immediately. The failure path in readLastBlock deliberately does
-  // not come through here — a read that failed must still be retried on retryDelay, or a page would
-  // sit on an error with nothing to clear it.
+  // is mid-decision. Stats, Rewards and Club are snapshots to read, so they poll at the 5 minute
+  // cadence instead — they cannot stop reading altogether (the rate has no gauge fallback; the
+  // balance comes off the chain). Arriving on them reads once at once: the readLastBlock autorun
+  // re-runs on the page change (and on a wallet connect). resume() does the same on every polling page,
+  // on an in-app navigation and when the tab regains visibility. The failure path in readLastBlock
+  // deliberately does not come through here — a read that failed must still be retried on
+  // retryDelay, or a page would sit on an error with nothing to clear it.
   scheduleNextBlockRead = () => {
     clearTimeout(this.timeoutReadLastBlock)
-    const delay = this.activePage === 'stats' ? updateLastBlockStatsDelay : updateLastBlockDelay
+    const slow = this.activePage === 'stats' || this.activePage === 'reward' || this.activePage === 'club'
+    const delay = slow ? updateLastBlockStatsDelay : updateLastBlockDelay
     this.timeoutReadLastBlock = setTimeout(() => void this.readLastBlock(), delay)
   }
 
   readLastBlock = async () => {
     const tonClient = this.tonClient
     const address = this.address
+    // Read before the document.hidden check, so the autorun in init() tracks the page even when its
+    // first run comes while the tab is hidden (a page opened in a background tab).
+    const activePage = this.activePage
     clearTimeout(this.timeoutReadLastBlock)
-    // /hpo/ shows only the header, which needs no balance or contract state, so it neither reads nor
-    // re-arms the timer — whichever path brought us here (the autorun in init() re-runs on every page
-    // change, a pending transaction's finally, the retry). Leaving /hpo/ re-runs the autorun, and
-    // setActivePage's resume() reads at once (specs/one-header-across-site.md, phase 2).
-    if (document.hidden || this.activePage === 'hpo') {
+    // /hpo/ shows only the header and /defi/ is a list of links: neither needs a balance or contract
+    // state, so they neither read nor re-arm the timer — whichever path brought us here (the autorun in
+    // init() re-runs on every page change, a pending transaction's finally, the retry). Leaving them
+    // re-runs the autorun, which reads at once (specs/one-header-across-site.md, phase 2).
+    if (document.hidden || activePage === 'hpo' || activePage === 'defi') {
       return
     }
     this.scheduleNextBlockRead()
@@ -3018,8 +3022,11 @@ export class Model {
 
   // The block poller feeds the stake form and — since the rate card must show the protocol rate or
   // nothing at all (see statsRateFormatted) — the Stats page too. Every other page pauses it.
+  // Every page that polls resumes when the tab is shown again; before 2026-11-14 only Stake and Stats did, so
+  // Rewards and Club stopped reading for good after the tab had been hidden once.
   controlBackgroundJobs = () => {
-    if (!document.hidden && (this.activePage === 'stake' || this.activePage === 'stats')) {
+    const polls = ['stake', 'stats', 'reward', 'club'].includes(this.activePage)
+    if (!document.hidden && polls) {
       this.resume()
     } else {
       this.pause()
