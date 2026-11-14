@@ -9,6 +9,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-14 — Unstake: the amount is typed in GRAM
+
+- The unstake field (desktop, Mini App and the static shell) now asks for the GRAM to get back, like the stake field; people found guessing an hGRAM figure until "You will receive" showed the GRAM they wanted too fiddly. The app converts it to hGRAM at the treasury rate, rounded down like the treasury's own payout, and shows the exact hGRAM sent under the field ("You will unstake"; the Mini App's two cards swap to "You receive" / "You unstake"). [Spec](specs/unstake-amount-in-gram.md).
+- Max remembers the exact hGRAM balance and sends that, because converting the GRAM it shows back to hGRAM leaves 1 nano-hGRAM behind, and after a rate move can ask for more than the wallet holds, which refuses the whole unstake. Changing the number, the tab or the wallet forgets it.
+- "Max Instant" and the Mini App's balance line are now in GRAM, rounded down to the two decimals shown so typing them back never trips an alert; the swap link still gets the hGRAM amount; the multisig order still carries hGRAM. Key `app.model.maxInstant` became `app.model.maxInstantGram`, `app.stake.youWillUnstake` is new, and the unstake help card, the "How do I unstake my GRAM?" FAQ answer (also in the FAQPage JSON-LD) and the Unstaking docs page say to enter GRAM, in all 11 locales.
+- The spec and the diff were money-audited (2026-11-14), the spec audit's five notes folded in before the build; checked in a browser against live mainnet reads with a real holder's address loaded read-only.
+- Left as is: the `unstake_confirmed` analytics event keeps reporting the hGRAM amount as `amount_gram`, so the funnel series does not change unit mid-way. The Unstaking tutorial's screenshot (`tutorials-unstaking-1.png`, already the old design) still shows hGRAM in the field. Not touched: `formatAsciiNano` rounds the multisig stake transfer amount to 2 decimals (spec audit, outside this change).
+
 ## 2026-11-14 — Homepage hero pill: two lines on phones
 
 - The "Yearly rewards · Staking fee" pill above the homepage title was a flex row, so each piece of the sentence became its own column and phones broke it into four ragged columns ("Yearly / rewards | 16.43% | · Staking / fee | 0%"), worse in Russian and German.

@@ -308,6 +308,7 @@ const multisigCodeHashes = ['09FNqaYn8Ow1MzQYKXYq+SuVQLIb8DZl+sCcK0bqu6w=']
 // dialog here to catch it.
 interface MultisigSnapshot {
   isStake: boolean
+  // What the message carries (sendAmountInNano): GRAM for a stake, hGRAM for an unstake.
   amountInNano?: bigint
   unstakeOption: UnstakeOption
   queryId: bigint
@@ -673,6 +674,11 @@ const tonConnectActionsConfiguration: NonNullable<TonConnectUiOptions['actionsCo
 // What parseNumberInput emits and toNano may see: digits, at most one '.', digits ("12", "12.", "0.5").
 const canonicalAmount = /^[0-9]+(\.[0-9]*)?$/
 
+// A GRAM figure the visitor may type back into the field (the instant limit, the balance in GRAM),
+// cut to the two decimals formatNano shows. Truncated, never rounded up: a figure shown a hair above
+// the real limit would trip "Not enough hGRAM" or the liquidity alert when typed back.
+const truncToShown = (nano: bigint): bigint => nano - (nano % 10_000_000n)
+
 export class Model {
   initialized = false
   loading = false
@@ -699,6 +705,13 @@ export class Model {
   amountRaw = ''
   amount = ''
   amountInvalid = false
+  // The Max snapshot (specs/unstake-amount-in-gram.md). The unstake field is GRAM, but Max has to burn
+  // the exact hGRAM balance: converting the GRAM it displays back to hGRAM gives balance − 1 nano-hGRAM
+  // after rounding, and after a rate move it can ask for more than the wallet holds, which the wallet
+  // refuses. So Max records the balance itself, and that is what is sent until the number in the field
+  // changes (setAmount), the field is cleared, the tab changes (clearAmount) or the wallet changes
+  // (setAddress). undefined whenever the field holds a typed amount, and always on the stake tab.
+  amountMaxTokens: bigint | undefined = undefined
   unstakeOption: UnstakeOption = 'best'
 
   // The connected wallet's app name ('tonkeeper', 'mytonwallet', …) for the analytics events.
@@ -809,6 +822,7 @@ export class Model {
       amountRaw: observable,
       amount: observable,
       amountInvalid: observable,
+      amountMaxTokens: observable,
       unstakeOption: observable,
       waitForTransaction: observable,
       waitKind: observable,
@@ -841,6 +855,7 @@ export class Model {
       htonBalance: computed,
       htonBalanceFormatted: computed,
       maxBurnableTokensFormatted: computed,
+      htonBalanceInGramFormatted: computed,
       unstakeMoreThanInstantBurnable: computed,
       htonBalanceInTon: computed,
       htonBalanceInTonAfterOneYear: computed,
@@ -854,6 +869,8 @@ export class Model {
       stakingInProgressDetails: computed,
       maxAmount: computed,
       amountInNano: computed,
+      unstakeTokensInNano: computed,
+      sendAmountInNano: computed,
       isAmountValid: computed,
       isAmountPositive: computed,
       isButtonEnabled: computed,
@@ -1256,18 +1273,33 @@ export class Model {
     }
   }
 
+  // The instant limit in GRAM, the unstake field's unit: floor(M · C / T), where M is the treasury's
+  // get_max_burnable_tokens in nano-hGRAM. Truncated to what is shown (truncToShown), so typing the
+  // figure back converts to at most M and never trips the liquidity alert.
   get maxBurnableTokensFormatted() {
-    if (this.maxBurnableTokens != null) {
-      return this.t('app.model.maxInstant', {
-        amount: this.isolate(this.formatNano(Math.max(0, Number(this.maxBurnableTokens ?? 0n)))),
-      })
+    const max = this.maxBurnableTokens
+    const state = this.treasuryState
+    if (max != null && state != null && state.totalTokens > 0n) {
+      const gram = max > 0n ? (max * state.totalCoins) / state.totalTokens : 0n
+      return this.t('app.model.maxInstantGram', { amount: this.isolate(this.formatNano(truncToShown(gram))) })
     }
   }
 
+  // Compared in hGRAM, the unit the treasury's limit is in.
   get unstakeMoreThanInstantBurnable() {
-    const amountInNano = this.amountInNano
+    const tokens = this.unstakeTokensInNano
     const maxBurnableTokens = this.maxBurnableTokens
-    return amountInNano != null && maxBurnableTokens != null && amountInNano > maxBurnableTokens
+    return tokens != null && maxBurnableTokens != null && tokens > maxBurnableTokens
+  }
+
+  // The hGRAM balance as GRAM, for the Mini App's balance line beside the unstake field: the same
+  // floor(b · C / T) that Max puts in the field, cut to the decimals shown (truncToShown).
+  get htonBalanceInGramFormatted() {
+    const state = this.treasuryState
+    if (this.tonBalance != null && state != null && state.totalTokens > 0n) {
+      const gram = ((this.walletState?.tokens ?? 0n) * state.totalCoins) / state.totalTokens
+      return this.withUnit('app.model.approxGram', this.formatNano(truncToShown(gram)))
+    }
   }
 
   get htonBalanceInTon() {
@@ -1440,7 +1472,12 @@ export class Model {
       // reserve enough GRAM for user's ton wallet storage fee + enough funds for future unstake
       return chain == null ? 0n : chain.maxAmountToStake(tonBalance ?? 0n)
     } else {
-      return walletState?.tokens ?? 0n
+      // GRAM, the unstake field's unit: what the whole hGRAM balance pays at the current rate,
+      // floor(b · C / T), rounded down as the treasury pays. What Max displays; what Max SENDS is the
+      // balance itself (amountMaxTokens). 0 with no rate to convert with, as with no balance.
+      const tokens = walletState?.tokens ?? 0n
+      const state = this.treasuryState
+      return state == null || state.totalTokens <= 0n ? 0n : (tokens * state.totalCoins) / state.totalTokens
     }
   }
 
@@ -1453,10 +1490,19 @@ export class Model {
     // No chain layer yet means no toNano, and this is the money path: report "not sendable"
     // rather than improvising a decimal-to-nano conversion. init() starts the fetch immediately,
     // and StakeUnstake keeps the form disabled while isChainReady is false.
-    if (this.amountInvalid || !this.isChainReady) {
+    if (this.amountInvalid) {
       return undefined
     }
-    const amount = this.amount.trim()
+    return this.nanoOf(this.amount)
+  }
+
+  // Canonical ASCII amount → nano, or undefined when it cannot be read (no chain layer, not canonical,
+  // more decimals than toNano takes). '' is 0n.
+  private nanoOf(text: string): bigint | undefined {
+    if (!this.isChainReady) {
+      return undefined
+    }
+    const amount = text.trim()
     if (amount === '') {
       return 0n
     }
@@ -1470,6 +1516,27 @@ export class Model {
     }
   }
 
+  // The hGRAM, in nano, that unstaking the field's GRAM burns: t = floor(g · T / C), rounded down like
+  // the treasury's own muldiv, so the payout floor(t · C / T) never exceeds what was typed (it falls
+  // short by at most ceil(C / T) nano-GRAM) and a typed g ≤ maxAmount never exceeds the balance. The
+  // Max snapshot, when set, is sent as is. undefined when there is no amount or no rate to convert with.
+  get unstakeTokensInNano() {
+    if (this.amountMaxTokens != null) {
+      return this.amountMaxTokens
+    }
+    const nano = this.amountInNano
+    const state = this.treasuryState
+    if (nano == null || state == null || state.totalCoins <= 0n) {
+      return undefined
+    }
+    return (nano * state.totalTokens) / state.totalCoins
+  }
+
+  // What the transaction carries: GRAM to deposit on the stake tab, hGRAM to burn on the unstake tab.
+  get sendAmountInNano() {
+    return this.isStakeTabActive ? this.amountInNano : this.unstakeTokensInNano
+  }
+
   get isAmountValid() {
     // While the chain layer is still downloading, amountInNano is undefined for want of toNano —
     // not because the visitor typed something wrong. Painting the field in its error colour then
@@ -1479,12 +1546,34 @@ export class Model {
       return !this.amountInvalid
     }
     const nano = this.amountInNano
-    return nano != null && nano >= 0n && (this.tonBalance == null || nano <= this.maxAmount)
+    if (nano == null || nano < 0n) {
+      return false
+    }
+    if (this.tonBalance == null) {
+      return true
+    }
+    if (this.isStakeTabActive) {
+      return nano <= this.maxAmount
+    }
+    // Unstake: checked in hGRAM, the unit the wallet contract checks (0 < amount ≤ tokens). An amount
+    // that cannot be converted yet is not painted invalid; isAmountPositive keeps it from being sent.
+    const tokens = this.unstakeTokensInNano
+    return tokens == null || tokens <= (this.walletState?.tokens ?? 0n)
   }
 
+  // On the unstake tab the hGRAM must be known and above zero too: without a rate nothing can be sent
+  // (and a multisig order would be frozen without an amount), and dust that floors to 0 hGRAM would
+  // only bounce off the wallet.
   get isAmountPositive() {
     const nano = this.amountInNano
-    return nano != null && nano > 0n
+    if (nano == null || nano <= 0n) {
+      return false
+    }
+    if (this.isStakeTabActive) {
+      return true
+    }
+    const tokens = this.unstakeTokensInNano
+    return tokens != null && tokens > 0n
   }
 
   // While a stored session restores, a Connect press would only wait for it (see connect), so the
@@ -1530,15 +1619,20 @@ export class Model {
 
   get swapUrl() {
     let url = 'https://groypfi.io/swap/EQDPdq8xjAhytYqfGSX8KcFWIReCufsB9Wdg0pLlYSO_h76w/ton'
-    if (this.isAmountValid && this.isAmountPositive) {
-      url += '?amount=' + this.amount
+    // The swap sells hGRAM, so it gets the hGRAM the unstake would burn, not the field's GRAM.
+    const tokens = this.unstakeTokensInNano
+    if (!this.isStakeTabActive && this.isAmountValid && this.isAmountPositive && tokens != null) {
+      url += '?amount=' + chain!.fromNano(tokens)
     }
     return url
   }
 
-  // Undefined until the exchange rate is known, and an empty string while there is no valid
-  // positive amount to convert — the mini app renders that case as a plain 0, the desktop form as
-  // the bare token name (see youWillReceive).
+  // The hGRAM figure under the field: on the stake tab the hGRAM a deposit mints (an estimate), on
+  // the unstake tab the hGRAM the unstake burns (unstakeTokensInNano, the amount sent — shown to two
+  // decimals like the hGRAM balance, while the message carries it to the nano).
+  // Undefined until the exchange rate is known, and an empty string while there is no valid positive
+  // amount — the mini app renders that case as a plain 0, the desktop form as the bare token name
+  // (see youWillReceive).
   get youWillReceiveAmount() {
     const rate = this.exchangeRate
     const nano = this.amountInNano
@@ -1546,23 +1640,32 @@ export class Model {
       return
     } else if (nano == null || !this.isAmountValid || !this.isAmountPositive) {
       return ''
-    } else {
+    } else if (this.isStakeTabActive) {
       return this.formatNano(Number(nano) * rate)
+    } else {
+      const tokens = this.unstakeTokensInNano
+      return tokens == null ? '' : this.formatNano(tokens)
     }
   }
 
+  // Both tabs: the field is GRAM, the figure under it hGRAM.
   get youWillReceiveToken() {
-    return this.isStakeTabActive ? 'hGRAM' : 'GRAM'
+    return 'hGRAM'
   }
 
+  // Desktop. The stake estimate gets its "~"; the unstake figure is the amount sent (rounded only for
+  // display), so it gets none.
   get youWillReceive() {
     const amount = this.youWillReceiveAmount
     if (amount == null) {
       return
     }
-    return amount === ''
-      ? this.youWillReceiveToken
-      : this.t('app.model.youWillReceive', { amount: this.isolate(amount), token: this.youWillReceiveToken })
+    if (amount === '') {
+      return this.youWillReceiveToken
+    }
+    return this.isStakeTabActive
+      ? this.t('app.model.youWillReceive', { amount: this.isolate(amount), token: this.youWillReceiveToken })
+      : this.withUnit('app.model.hgram', amount)
   }
 
   get exchangeRate() {
@@ -2281,6 +2384,8 @@ export class Model {
     this.multisigHint = false
     this.multisigWalletHint = false
     this.multisigSnapshot = undefined
+    // Another wallet's balance; the field's GRAM is converted again from here on.
+    this.amountMaxTokens = undefined
     this.walletAddress = undefined
     this.wallet = undefined
     this.walletState = undefined
@@ -2406,30 +2511,45 @@ export class Model {
     ) {
       return
     }
+    const before = this.amount
     this.amountRaw = raw
     if (raw.trim() === '') {
       this.amount = ''
       this.amountInvalid = false
-      return
+    } else {
+      const parsed = this.parseNumberInput(raw)
+      this.amount = parsed ?? ''
+      this.amountInvalid = parsed === undefined
     }
-    const parsed = this.parseNumberInput(raw)
-    this.amount = parsed ?? ''
-    this.amountInvalid = parsed === undefined
+    // The Max snapshot outlives only a re-read that leaves the number as it was: an input event with
+    // an unchanged value, relocalizeAmount re-reading the same amount, "105.5" → "105.50". Dropping it
+    // there would send balance − 1 nano-hGRAM (see amountMaxTokens).
+    if (this.amountMaxTokens != null) {
+      const now = this.amountInvalid ? undefined : this.nanoOf(this.amount)
+      if (now == null || now !== this.nanoOf(before)) {
+        this.amountMaxTokens = undefined
+      }
+    }
   }
 
   setAmountToMax = () => {
     if (!this.isChainReady) {
       return
     }
-    this.amount = chain!.fromNano(this.maxAmount)
+    const max = this.maxAmount
+    this.amount = chain!.fromNano(max)
     this.amountRaw = this.formatInput(this.amount)
     this.amountInvalid = false
+    // Unstake: remember the exact balance that GRAM figure stands for (see amountMaxTokens). Not when
+    // it reads 0 — no balance, or no rate to convert with — which is the field as it always was then.
+    this.amountMaxTokens = !this.isStakeTabActive && max > 0n ? (this.walletState?.tokens ?? 0n) : undefined
   }
 
   clearAmount = () => {
     this.amountRaw = ''
     this.amount = ''
     this.amountInvalid = false
+    this.amountMaxTokens = undefined
   }
 
   setWaitForTransaction = (wait: WaitForTransaction) => {
@@ -2467,7 +2587,7 @@ export class Model {
   captureMultisigSnapshot = () => {
     this.multisigSnapshot = {
       isStake: this.isStakeTabActive,
-      amountInNano: this.isAmountValid && this.isAmountPositive ? this.amountInNano : undefined,
+      amountInNano: this.isAmountValid && this.isAmountPositive ? this.sendAmountInNano : undefined,
       unstakeOption: this.unstakeOption,
       queryId: generateRandomQueryId(),
     }
@@ -2936,11 +3056,14 @@ export class Model {
   }
 
   send = () => {
+    // GRAM on the stake tab, hGRAM on the unstake tab — see sendAmountInNano.
+    const amountInNano = this.sendAmountInNano
     if (
       this.address != null &&
       this.isAmountValid &&
       this.isAmountPositive &&
-      this.amountInNano != null &&
+      amountInNano != null &&
+      amountInNano > 0n &&
       this.treasury != null &&
       this.wallet != null &&
       this.tonConnectUI != null &&
@@ -2954,8 +3077,8 @@ export class Model {
       const queryId = generateRandomQueryId()
 
       const message = this.isStakeTabActive
-        ? chain!.createDepositMessage(this.treasury.address, this.amountInNano, queryId)
-        : chain!.createUnstakeMessage(this.wallet.address, this.amountInNano, this.unstakeOption, queryId)
+        ? chain!.createDepositMessage(this.treasury.address, amountInNano, queryId)
+        : chain!.createUnstakeMessage(this.wallet.address, amountInNano, this.unstakeOption, queryId)
 
       const tx: SendTransactionRequest = {
         validUntil: Math.floor(Date.now() / 1000) + txValidUntil,
@@ -2969,7 +3092,7 @@ export class Model {
       const pending: PendingTx = {
         kind: isStake ? 'stake' : 'unstake',
         // hGRAM for an unstake, GRAM for a stake — the spec asks for `amount_gram` on both.
-        amountGram: Number(chain!.fromNano(this.amountInNano)),
+        amountGram: Number(chain!.fromNano(amountInNano)),
         unstakeType: isStake ? undefined : this.unstakeOption,
       }
       // Fired here rather than on success, so the funnel counts everyone who reached the wallet

@@ -5,7 +5,7 @@ title: 'Unstaking'
 ## Unstaker des tokens GRAM sur Hipo
 
 1. **Unstake quand tu veux** : tu peux demander un unstake à tout moment ; la rapidité du règlement dépend du choix entre Complet et Instantané (étape 3).
-2. **Lance l’unstaking** : rends-toi simplement sur l’[app Hipo](/unstake/) et saisis le montant de Hipo Staked GRAM (hGRAM) que tu veux unstaker.
+2. **Lance l’unstaking** : rends-toi simplement sur l’[app Hipo](/unstake/) et saisis combien de GRAM tu veux récupérer. L’app affiche combien de Hipo Staked GRAM (hGRAM) sont ainsi unstakés ; **Max** unstake tout ton solde de hGRAM.
 3. **Choisis Complet ou Instantané** : décide comment l’unstake est traité. **Complet** est réglé après la fin du cycle de validation en cours et te donne le meilleur taux de conversion, puisque tes GRAM continuent de rapporter jusque-là. **Instantané** est traité tout de suite à un taux légèrement inférieur, et aboutit tant que Hipo détient assez de GRAM libres pour le couvrir. L’app affiche le montant maximal que tu peux unstaker instantanément.
 4. **Confirme la transaction** : confirme la transaction dans ton portefeuille, et tu recevras tes GRAM unstakés ainsi que les récompenses accumulées.
 

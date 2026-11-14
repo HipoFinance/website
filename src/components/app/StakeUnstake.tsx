@@ -111,7 +111,8 @@ const StakeUnstake = observer(({ model }: Props) => {
                 (model.isAmountValid ? 'border-border focus-within:border-text-faint' : 'border-accent')
               }
             >
-              <img src={stake ? '/images/app/gram.svg' : '/images/app/hgram.svg'} alt='' className='h-7 w-7' />
+              {/* GRAM on both tabs: the unstake field asks for the GRAM to receive (specs/unstake-amount-in-gram.md). */}
+              <img src='/images/app/gram.svg' alt='' className='h-7 w-7' />
               <input
                 id='amount'
                 type='text'
@@ -263,7 +264,7 @@ const StakeUnstake = observer(({ model }: Props) => {
 
           <div className='text-text-muted flex flex-col gap-2.5 pt-2.5 text-sm'>
             <div className='flex flex-row flex-wrap'>
-              <p>{t('app.stake.youWillReceive')}</p>
+              <p>{stake ? t('app.stake.youWillReceive') : t('app.stake.youWillUnstake')}</p>
               <p className='text-text num ms-auto font-medium'>{model.youWillReceive}</p>
             </div>
             <div className='flex flex-row flex-wrap'>

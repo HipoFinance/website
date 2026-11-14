@@ -223,8 +223,8 @@
     "sourceHash": "55316b9520ba4602e69b8cae1bbb3225d640cee3",
     "reviewed": false
   },
-  "app.model.maxInstant": {
-    "sourceHash": "e44428df3b274346a728742e0561948c2e5e20c7",
+  "app.model.maxInstantGram": {
+    "sourceHash": "a89aa95289a445416b68d9ccee502df98e26291e",
     "reviewed": false
   },
   "app.model.rate": {
@@ -645,6 +645,10 @@
   },
   "app.stake.youWillReceive": {
     "sourceHash": "4eef2ecfed504a6cbe50f3dcaa7350ee513ab549",
+    "reviewed": false
+  },
+  "app.stake.youWillUnstake": {
+    "sourceHash": "5a9122074f76073917fbdd022e576ebb1490ec08",
     "reviewed": false
   },
   "app.stats.apyTooltip": {
@@ -3320,7 +3324,7 @@
     "reviewed": false
   },
   "docs/introduction/how-does-hipo-work/unstaking.md": {
-    "sourceHash": "94243b334f77157c22697058b6b47f05c425a935",
+    "sourceHash": "b4b609014928f4ba03159545b3fb93609cad1560",
     "reviewed": false
   },
   "docs/introduction/how-does-hipo-work/validators.md": {
@@ -4196,7 +4200,7 @@
     "reviewed": false
   },
   "prose/faq/unstaking/how-do-i-unstake-my-gram.md": {
-    "sourceHash": "23b55580ad9556000a7438d232e6a0daced4c295",
+    "sourceHash": "751e6aae41b3a42c94d5aadb2aca655d2ecf37d0",
     "reviewed": false
   },
   "prose/faq/unstaking/how-long-does-unstaking-take.md": {
@@ -4360,7 +4364,7 @@
     "reviewed": false
   },
   "prose/shell/unstake/cards/01-how-unstaking-works.md": {
-    "sourceHash": "213c04e8561288cfb1a77848f24fc89038300a93",
+    "sourceHash": "b0bcf1e428f10ee8240343d4f62c6ddb62cb9b28",
     "reviewed": false
   },
   "prose/shell/unstake/cards/02-full-vs-instant-the-trade-off.md": {

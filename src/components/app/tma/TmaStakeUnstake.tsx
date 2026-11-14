@@ -15,7 +15,9 @@ interface Props {
 const TmaStakeUnstake = observer(({ model }: Props) => {
   const t = model.t
   const stake = model.isStakeTabActive
-  const balance = stake ? model.tonBalanceFormatted : model.htonBalanceFormatted
+  // The unstake field is GRAM too (specs/unstake-amount-in-gram.md), so its balance line is the hGRAM
+  // balance in GRAM, and the second card shows the hGRAM the unstake burns.
+  const balance = stake ? model.tonBalanceFormatted : model.htonBalanceInGramFormatted
   const receiveAmount = model.youWillReceiveAmount
   const hint = stake ? model.stakeRemain : model.unstakeOption === 'best' ? model.unstakeBestRemain : undefined
   const zero = model.formatNumber(0)
@@ -58,7 +60,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
         }
       >
         <div className='text-text-faint flex flex-row justify-between gap-2 text-xs'>
-          <span>{stake ? t('app.tma.youStake') : t('app.tma.youUnstake')}</span>
+          <span>{stake ? t('app.tma.youStake') : t('app.tma.youReceive')}</span>
           {model.isWalletConnected && balance != null && (
             <span className='truncate'>
               {nodes(t('app.tma.balance'), { balance: <bdi className='num'>{balance}</bdi> })}
@@ -67,7 +69,7 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
         </div>
 
         <div className='flex flex-row items-center gap-2.5'>
-          <img src={stake ? '/images/app/gram.svg' : '/images/app/hgram.svg'} alt='' className='h-[26px] w-[26px]' />
+          <img src='/images/app/gram.svg' alt='' className='h-[26px] w-[26px]' />
           <input
             id='amount'
             type='text'
@@ -104,9 +106,9 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
       </label>
 
       <div className='border-border bg-surface-deep flex flex-col gap-2 rounded-2xl border p-4'>
-        <div className='text-text-faint text-xs'>{t('app.tma.youReceive')}</div>
+        <div className='text-text-faint text-xs'>{stake ? t('app.tma.youReceive') : t('app.tma.youUnstake')}</div>
         <div className='flex flex-row items-center gap-2.5'>
-          <img src={stake ? '/images/app/hgram.svg' : '/images/app/gram.svg'} alt='' className='h-[26px] w-[26px]' />
+          <img src='/images/app/hgram.svg' alt='' className='h-[26px] w-[26px]' />
           <span className='num text-section min-w-0 flex-1 truncate font-semibold'>
             {receiveAmount == null ? '—' : receiveAmount === '' ? zero : receiveAmount}
           </span>
