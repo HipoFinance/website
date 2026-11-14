@@ -701,7 +701,10 @@ export class Model {
   walletAddress?: Address
   wallet?: OpenedContract<Wallet>
   walletState?: WalletState
-  activePage: ActivePage = defaultActivePage
+  // Read from the URL at once, not only in init(): the island's first render comes before init()
+  // (a passive effect, after the first paint), and with the default it would paint one frame of the
+  // stake form above the HPO page's static content. applyPathState refines it.
+  activePage: ActivePage = routeForPathname(window.location.pathname)?.activePage ?? defaultActivePage
   activeTab: ActiveTab = defaultActiveTab
   clubTab: ClubTab = 'overview'
   statsRange: StatsRange = defaultStatsRange

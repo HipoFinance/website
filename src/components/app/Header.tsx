@@ -81,10 +81,12 @@ const Header = observer(({ model }: Props) => {
 
   const siteLinkClick = (appPage?: Page) => (e: MouseEvent) => {
     setMenuOpen(false)
-    if (appPage != null) {
-      e.preventDefault()
-      model.navigateToPage(appPage)
+    // A modified or non-primary click stays the browser's: a new tab or window, as on a plain link.
+    if (appPage == null || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+      return
     }
+    e.preventDefault()
+    model.navigateToPage(appPage)
   }
 
   return (

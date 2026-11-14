@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-14 — Homepage as an app page: measured, not shipped
+
+- Phase 4 of [one header across the site](specs/one-header-across-site.md) was built and measured with Lighthouse (mobile, 7 alternated runs each, gzip): the score stays 100, but the hero's LCP rises from 928 to 1077 ms (median) and reached ~2.6 s in 2 of 7 runs, mostly from the app's second render-blocking stylesheet. That fails the agreed rule, so it is kept in `git stash`, not in `main`, for Behrang to decide; the numbers are in the spec.
+- Kept from that work: a direct load of /hpo/ no longer draws one frame of the stake form before its content (the Model now reads the page from the URL when it is created), and Ctrl/Cmd-click or middle-click on an app header link opens a new tab again instead of navigating in place.
+
 ## 2026-11-14 — Footer as wide as the header and content
 
 - The site footer (every page that has it, app pages included) is now 1280px wide with 48px side padding, the same as the header and the content column, instead of 1120px with 40px; its content starts under the logo. Asked by Behrang.
