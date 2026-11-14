@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-14 — App header as wide as the site header
+
+- The app header (Stake, Club, Stats, DeFi and the static shell) is now 1280px wide with 48px side padding, the same as the site header on the homepage, HPO, FAQ and blog, so the logo no longer jumps left when switching to an app page; its inner width (1184px) now matches the content column of every page. [Spec](specs/one-header-across-site.md), phase 1.
+- Undoes the 1440px / 40px header from the Club wireframe work (2026-11-08); the content width from that work is unchanged.
+- Left open: phase 2 (HPO as an app page, no reload between the four main items), phase 3 (Mini App HPO tab) and phase 4 (homepage, after a page-speed measurement) are in the spec, not yet approved. The footer stays narrower (1120px) and was not touched.
+
 ## 2026-11-14 — Gas prepayment 0.1 → 0.03 GRAM: parked
 
 - Proposed lowering the GRAM attached to each stake and unstake from 0.1 to 0.03 (users pay the same; the excess is refunded). Parked by Behrang after the spec's money audit: a Full unstake bill the treasury cannot pay is moved to the next round at the user's expense, so 0.03 would let a bill survive ~8 such moves instead of ~34 before its hGRAM is destroyed. The safe remainder (0.03 for stakes and Instant unstakes only) was judged not worth an SDK release, 11 locales and two audits. Findings and measurements kept in the [spec](specs/gas-prepayment-003.md).

@@ -57,6 +57,8 @@ other Overview / Rewards / Friends / Community items of the comparison list.
 Done in phase 1 follow-ups: content width 1184px (`max-w-[1232px]`), app header up to 1440px with
 40px padding, header chips right-aligned when they wrap, the Level up check mark drawn as the wireframe's.
 
+Amended 2026-11-14: the app header went back to the site's 1280px with 48px padding, so the logo lines up with the 1184px content on every page ([one-header-across-site](one-header-across-site.md), phase 1).
+
 - O1 Status strip: a 24px tone icon on the left; title in the body font, 19px/600, normal text colour.
 - O3 Claim card: divider above the rows, button and terms pinned to the card bottom, per-round with 2 decimals.
 - O4 Your HPO: trend line under the number, rank as a two-line block on the right, legend on one row,

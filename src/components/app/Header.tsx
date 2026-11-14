@@ -93,7 +93,7 @@ const Header = observer(({ model }: Props) => {
           its own line — Connect's label is too long in most locales to share a phone-width row
           with the language switcher. The action group dissolves (`contents`) so its children flow
           as items of this row; ShellHeader.astro mirrors this exactly. */}
-      <div className='mx-auto flex w-full max-w-[1440px] items-center justify-between gap-4 px-6 py-5 max-sm:flex-wrap md:px-10'>
+      <div className='mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-6 py-5 max-sm:flex-wrap md:px-12'>
         <a href={model.localizedPath('/')} className='flex flex-none items-center gap-2.5'>
           <img src='/images/hipo.svg' alt='Hipo' className='logo-on-dark size-9' />
           <img src='/images/hipo-light.svg' alt='Hipo' className='logo-on-light size-9' />
