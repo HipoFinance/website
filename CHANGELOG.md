@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-14 — Stake and unstake: "Transaction cost" from measured costs
+
+- The line under the stake and unstake forms said 0.015 GRAM to stake and 0.042 GRAM to unstake, 6–12× what people pay. It now says 0.004 and 0.008, measured on mainnet over 2026-11-09…14 (the 0.1 GRAM prepayment minus what comes back, plus the wallet's own fees): stake median 0.0025 GRAM (n=120), Instant unstake 0.0035 (n=30), Full unstake 0.0073 including its later payout (n=24); rounded up past the 90th percentile (stake p90 0.0032, Full p90 0.0077) so the page rarely shows less than people pay.
+- One unstake figure for both options, the larger (Full), as Behrang chose; a per-option figure was declined to keep the line simple.
+- Display only: the prepayment actually attached (the SDK's 0.1 GRAM `feeStake`/`feeUnstake`) is unchanged. Left open: the "Fees & Gas" docs page still says about a hundredth of a GRAM is spent; the real figure is a few thousandths.
+
 ## 2026-11-14 — Unstake: the amount is typed in GRAM
 
 - The unstake field (desktop, Mini App and the static shell) now asks for the GRAM to get back, like the stake field; people found guessing an hGRAM figure until "You will receive" showed the GRAM they wanted too fiddly. The app converts it to hGRAM at the treasury rate, rounded down like the treasury's own payout, and shows the exact hGRAM sent under the field ("You will unstake"; the Mini App's two cards swap to "You receive" / "You unstake"). [Spec](specs/unstake-amount-in-gram.md).

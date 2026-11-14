@@ -295,8 +295,14 @@ function isStaleBlock(now: number): boolean {
 // same wallet connected to Hipo from another device or browser).
 class StaleSessionError extends Error {}
 
-const averageStakeFee = 15000000n
-const averageUnstakeFee = 42000000n
+// The "Transaction cost" line: what a stake or unstake really costs the user — the 0.1 GRAM gas
+// prepayment minus what comes back, plus their wallet's own fees. Measured on mainnet 2026-11-09…14
+// over the dApp-shaped flows: stake median 0.0025 GRAM (p90 0.0032, n=120); unstake Instant median
+// 0.0035 (n=30), Full median 0.0073 (p90 0.0077, n=24, request plus its later payout). Rounded up past
+// the p90 so the page rarely shows less than people pay; one unstake figure for both options, the
+// larger (Full). Display only — the prepayment actually attached is the SDK's feeStake/feeUnstake.
+const averageStakeFee = 4000000n
+const averageUnstakeFee = 8000000n
 
 // multisig-contract-v2 code hashes (base64, as returned by TonClient4), computed from the
 // v2.0 build artifact; the same hash is registered as the multisig interface in tonkeeper/tongo
