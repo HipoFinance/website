@@ -17,6 +17,13 @@ const gauge = gaugeValues(locale, await fetchGauge())
 // Pre-rendered attribute for the two staked figures, whose compact value carries the exact amount
 // as a tooltip (landing-data.js sets the same title on both when it refreshes).
 const stakedTitle = gauge.stakedExact === undefined ? '' : ` title="${gauge.stakedExact}"`
+// The hero pill is two facts joined by " · " in every catalog. Each half is its own no-wrap item:
+// on a phone they stack as two lines (so the pill hugs the longer one and never breaks inside
+// "Yearly rewards 16.43%"); from sm up they sit on one row with the "·" drawn between them.
+const heroPill = tHtml('landing.hero.pill', {
+  apy: `<strong id="heroApy" class="text-text">${gauge.heroApy ?? '—'}</strong>`,
+  fee: `<span id="heroFee">${gauge.heroFee ?? '—'}</span>`,
+}).split(' · ')
 
 const audits = [
   {
@@ -68,15 +75,19 @@ const why = [
   >
     <div class='flex flex-col gap-[22px]'>
       <div
-        class='border-border bg-surface text-text-muted flex w-fit items-center gap-2 rounded-full border px-3.5 py-[7px] text-sm font-medium'
+        class='border-border bg-surface text-text-muted flex w-fit max-w-full items-center gap-2 rounded-full border px-3.5 py-[7px] text-sm font-medium'
       >
-        <span class='bg-positive inline-block size-2 rounded-full'></span>
-        <Fragment
-          set:html={tHtml('landing.hero.pill', {
-            apy: `<strong id="heroApy" class="text-text">${gauge.heroApy ?? '—'}</strong>`,
-            fee: `<span id="heroFee">${gauge.heroFee ?? '—'}</span>`,
-          })}
-        />
+        <span class='bg-positive inline-block size-2 shrink-0 rounded-full'></span>
+        <span class='flex min-w-0 flex-col sm:flex-row'>
+          {
+            heroPill.map((part) => (
+              <span
+                class="whitespace-nowrap sm:not-first:before:inline-block sm:not-first:before:w-4 sm:not-first:before:text-center sm:not-first:before:content-['·']"
+                set:html={part}
+              />
+            ))
+          }
+        </span>
       </div>
 
       <h1

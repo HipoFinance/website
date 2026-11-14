@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-14 — Homepage hero pill: two lines on phones
+
+- The "Yearly rewards · Staking fee" pill above the homepage title was a flex row, so each piece of the sentence became its own column and phones broke it into four ragged columns ("Yearly / rewards | 16.43% | · Staking / fee | 0%"), worse in Russian and German.
+- Now the catalog sentence is split at its " · " into two no-wrap items in `Landing.astro`: below `sm` they stack as two lines and the pill hugs the longer one; from `sm` up they sit on one row with the "·" drawn between them. No catalog changed; all 11 already use " · ".
+- Declined: letting the row wrap only when it runs out of room, because a wrapped flex row keeps its full width and leaves a blank strip in the pill.
+
 ## 2026-11-14 — Site menu: Stake, Club, Stats, HPO; DeFi to the ☰ menu
 
 - The main menu (desktop top bar and the phone tab bar, on every page) is now Stake, Club, Stats and HPO. DeFi, a page of links to other services, moves to the ☰ menu above Docs, FAQ and Blog, and to the footer's Docs column; asked by Behrang, leaving room for a fifth item (Jackpot) later.
