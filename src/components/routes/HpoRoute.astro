@@ -1,10 +1,7 @@
 ---
 // The whole `/hpo/` document, shared by the English and the `[locale]` route (spec §B).
-import Layout from '../../layouts/HpoLayout.astro'
+import Layout from '../../layouts/AppLayout.astro'
 import Hpo from '../Hpo.astro'
-import Header from '../SiteHeader.astro'
-import Footer from '../SiteFooter.astro'
-import Banner from '../Banner.astro'
 import { localeOf } from '../../i18n/locale.ts'
 import { getT } from '../../i18n/t.ts'
 import { getProse } from '../../i18n/prose.ts'
@@ -25,10 +22,6 @@ const questions = (await getProse(locale, 'hpo-faq')).map((entry) => ({
 const jsonLd = faqPageJsonLd(questions, { path: '/hpo/', title, description, locale })
 ---
 
-<Layout title={title} description={description} jsonLd={jsonLd}>
-  <Banner />
-
-  <Header active='hpo' />
+<Layout title={title} description={description} page='hpo' jsonLd={jsonLd}>
   <Hpo />
-  <Footer />
 </Layout>

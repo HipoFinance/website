@@ -2,4 +2,4 @@
 // anchors, so there is nothing to alias — every anchor on the page is live.
 import { installDetailsAnchors } from './details-anchors'
 
-installDetailsAnchors()
+installDetailsAnchors('hpo')

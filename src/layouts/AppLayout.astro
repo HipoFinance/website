@@ -18,7 +18,7 @@ import { clubBuilt } from '../data/club-flag.mjs'
 interface Props {
   title: string
   description: string
-  page: ShellPage
+  page: ShellPage | 'hpo'
   jsonLd?: Record<string, any>
 }
 
@@ -75,6 +75,12 @@ const stats = appStats(locale, gauge)
 const seed = page === 'stats' ? await fetchStatsSeed() : undefined
 const seedJson = seed === undefined ? undefined : JSON.stringify(seed).replace(/</g, '\\u003c')
 const cards = page === 'stats' ? statsCards(locale, gauge, seed?.rate) : {}
+
+// /hpo/ is an app page whose island renders only the header: the HPO content is the slot, with its own
+// <main>, so the wrapper below is a <div> there, and the footer keeps its call-to-action and drops the
+// app nav row.
+const isHpo = page === 'hpo'
+const Wrapper = isHpo ? 'div' : 'main'
 
 // Footer nav under the shell copy. /docs/ goes through localizedPath like every other internal link (the
 // SiteFooter's Documentation link already does); docs get their per-locale routes in phase 4, and until
@@ -220,7 +226,7 @@ const footerNav = [
   <body class='bg-bg text-text font-body'>
     <div data-tma-hide><Banner /></div>
 
-    <main>
+    <Wrapper>
       <!-- Shown by the inline script in <head> when the app's files are gone and a reload was already
            tried. Outside data-tma-hide so it also shows in Telegram. The display classes are on the
            inner element, so the hidden attribute on the outer one really hides it. -->
@@ -262,30 +268,32 @@ const footerNav = [
       <div data-app-loading data-tma-hide>
         <AppShell locale={locale} page={page} stats={stats} cards={cards} seed={seed} />
       </div>
-    </main>
+    </Wrapper>
 
     <!-- data-tma-hide: the three wrappers below are the static shell around the island. They are
          hidden wholesale in Telegram Mini App mode (see .tma rules in src/styles/app.css); the
          attribute is the only hook that CSS needs, and it does nothing outside that mode. -->
     <div data-tma-hide><slot /></div>
 
-    <nav
-      aria-label={t('site.app.pagesNav')}
-      class='font-body text-text-faint text-label mx-auto w-full max-w-3xl px-4 pb-12 max-lg:pb-28'
-      data-tma-hide
-    >
-      <ul class='flex flex-wrap justify-center gap-x-6 gap-y-2'>
-        {
-          footerNav.map(({ href, label }) => (
-            <li>
-              <a class='hover:text-accent' href={href} set:text={label} />
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+    {
+      !isHpo && (
+        <nav
+          aria-label={t('site.app.pagesNav')}
+          class='font-body text-text-faint text-label mx-auto w-full max-w-3xl px-4 pb-12 max-lg:pb-28'
+          data-tma-hide
+        >
+          <ul class='flex flex-wrap justify-center gap-x-6 gap-y-2'>
+            {footerNav.map(({ href, label }) => (
+              <li>
+                <a class='hover:text-accent' href={href} set:text={label} />
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
 
-    <div data-tma-hide><SiteFooter app /></div>
+    <div data-tma-hide>{isHpo ? <SiteFooter /> : <SiteFooter app />}</div>
     <!-- Remembers a language picked in the shell's or the island's switcher, and closes their panel on an
          outside click or Escape (LanguageSwitcherScript.astro). -->
     <LanguageSwitcherScript />

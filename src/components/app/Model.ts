@@ -29,7 +29,7 @@ import * as fmt from '../../i18n/format.ts'
 import enApp from '../../i18n/en/app.json'
 import { clubBuilt } from '../../data/club-flag.mjs'
 
-export type ActivePage = 'stake' | 'reward' | 'club' | 'stats' | 'defi'
+export type ActivePage = 'stake' | 'reward' | 'club' | 'stats' | 'defi' | 'hpo'
 
 // The Club's four tabs (specs/club-website.md §1); the Leaderboard is a section of Overview.
 export type ClubTab = 'overview' | 'rewards' | 'friends' | 'community'
@@ -332,13 +332,15 @@ interface Route {
 }
 
 // location.pathname is the single source of truth for app navigation. The island is mounted on
-// these five pages only, so an unknown pathname keeps the defaults instead of guessing.
+// these pages only (on /hpo/ it renders the header alone), so an unknown pathname keeps the defaults
+// instead of guessing.
 const routes: Route[] = [
   { path: '/stake/', activePage: 'stake', activeTab: 'stake' },
   { path: '/unstake/', activePage: 'stake', activeTab: 'unstake' },
   { path: '/rewards/', activePage: 'reward' },
   { path: '/stats/', activePage: 'stats' },
   { path: '/defi/', activePage: 'defi' },
+  { path: '/hpo/', activePage: 'hpo' },
   ...(CLUB_ON
     ? ([
         { path: '/club/', activePage: 'club', clubTab: 'overview' },
@@ -1205,6 +1207,10 @@ export class Model {
     // and for browser back/forward, so this one listener covers all three. Adding the same
     // function twice is a no-op, and init() itself runs only once per Model.
     document.addEventListener('astro:page-load', this.applyPathState)
+    // The swap replaces the static page at once, but astro:page-load waits for the incoming page's
+    // scripts, so without this the previous page's body (e.g. the stake form) would show above the
+    // HPO content until they load. applyPathState is idempotent, so running it twice is fine.
+    document.addEventListener('astro:after-swap', this.applyPathState)
     document.addEventListener('astro:before-swap', keepRuntimeStyles)
     document.addEventListener('astro:after-swap', this.syncLocale)
     document.addEventListener('mousedown', trackInputModality)
@@ -1225,11 +1231,12 @@ export class Model {
     this.initTonConnect()
     this.loadHipoGauge()
 
-    // /defi/ is a page of links: it reads nothing from the chain, so a visitor who lands there
-    // never fetches the chain layer at all. Every other page starts it right away, and this stays
-    // an autorun so navigating away from /defi/ starts it then.
+    // /defi/ is a page of links and /hpo/ shows only the header: they read nothing from the chain,
+    // so a visitor who lands there never fetches the chain layer at all (a stored wallet session
+    // still loads it through ensureWallet()). Every other page starts it right away, and this stays
+    // an autorun so navigating away from them starts it then.
     autorun(() => {
-      if (this.activePage !== 'defi') {
+      if (this.activePage !== 'defi' && this.activePage !== 'hpo') {
         void this.ensureChain()
       }
     })
@@ -2861,7 +2868,11 @@ export class Model {
     const tonClient = this.tonClient
     const address = this.address
     clearTimeout(this.timeoutReadLastBlock)
-    if (document.hidden) {
+    // /hpo/ shows only the header, which needs no balance or contract state, so it neither reads nor
+    // re-arms the timer — whichever path brought us here (the autorun in init() re-runs on every page
+    // change, a pending transaction's finally, the retry). Leaving /hpo/ re-runs the autorun, and
+    // setActivePage's resume() reads at once (specs/one-header-across-site.md, phase 2).
+    if (document.hidden || this.activePage === 'hpo') {
       return
     }
     this.scheduleNextBlockRead()

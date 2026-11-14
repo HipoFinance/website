@@ -2,6 +2,9 @@
 // The small link icon next to a deep-linkable heading or question (/faq/ and /hpo/). It is a real
 // <a href="#id">, so it degrades to a plain in-page link without JS and honours modified clicks;
 // src/scripts/anchor-copy.ts turns a plain click into "copy the absolute URL" instead.
+// `data-astro-reload` keeps Astro's ClientRouter (on /hpo/, an app page) off it: the router's click
+// listener runs first and would otherwise navigate to the hash, moving the page and adding a history
+// entry before anchor-copy.ts can prevent it. On pages without the router the attribute does nothing.
 //
 // The icon is invisible until the reader hovers (or keyboard-focuses) its heading — the parent
 // carries the `anchor-host` class — so it costs nothing visually until it is wanted. It still
@@ -21,6 +24,7 @@ const { t } = getT(localeOf(Astro), ['site'])
   class='anchor-link'
   href={`#${anchor}`}
   data-anchor-copy
+  data-astro-reload
   data-copied={t('site.anchor.copied')}
   aria-label={t('site.anchor.copy')}
   title={t('site.anchor.copy')}

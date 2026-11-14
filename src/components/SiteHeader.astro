@@ -1,5 +1,5 @@
 ---
-// The one global header for every non-docs static page (home, FAQ, HPO, blog). The app pages render
+// The one global header for every non-docs static page (home, FAQ, blog). The app pages render
 // the same bar from React (src/components/app/Header.tsx) and its static first paint
 // (src/components/app/shell/ShellHeader.astro) — keep the three in sync, items and classes.
 // One flat list of four main items (Stake, the Club slot, Stats, HPO) is the inline nav from
@@ -15,7 +15,7 @@ import ShellIcon from './app/shell/ShellIcon.astro'
 import { clubBuilt } from '../data/club-flag.mjs'
 
 interface Props {
-  active?: 'hpo' | 'faq'
+  active?: 'faq'
   // Forwarded to the LanguageSwitcher; false on English-only pages (the blog).
   localized?: boolean
 }

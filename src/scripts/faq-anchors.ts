@@ -3,4 +3,4 @@
 import { installDetailsAnchors } from './details-anchors'
 import { FAQ_ANCHOR_ALIASES } from '../components/faqAnchorAliases'
 
-installDetailsAnchors(FAQ_ANCHOR_ALIASES)
+installDetailsAnchors('faq', FAQ_ANCHOR_ALIASES)

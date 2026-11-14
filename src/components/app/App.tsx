@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react-lite'
+import type { ReactNode } from 'react'
 
 import Header from './Header.tsx'
 import StakeUnstake from './StakeUnstake.tsx'
@@ -52,7 +53,7 @@ const App = observer(() => {
     }
   }, [])
 
-  let page = (
+  let page: ReactNode = (
     <>
       <StakeUnstake model={model} />
       <AmountAlert model={model} />
@@ -69,6 +70,9 @@ const App = observer(() => {
     page = <ClubLoader model={model} />
   } else if (model.activePage === 'stats') {
     page = <StatsPage model={model} />
+  } else if (model.activePage === 'hpo') {
+    // Header only: the HPO content is static Astro below the island.
+    page = null
   }
 
   // Inside the Telegram webview the whole desktop chrome is replaced by the compact one; outside
@@ -83,7 +87,9 @@ const App = observer(() => {
   const chrome = model.isTelegram ? (
     <TmaApp model={model} />
   ) : (
-    <div className='flex min-h-screen flex-col'>
+    // No min-h-screen on /hpo/: its content is static Astro below the island, and a screen-tall
+    // wrapper would leave a gap. Keep in sync with shell/AppShell.astro.
+    <div className={model.activePage === 'hpo' ? 'flex flex-col' : 'flex min-h-screen flex-col'}>
       <Header model={model} />
       {page}
     </div>

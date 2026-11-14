@@ -13,8 +13,8 @@
 // reproduces those numbers on its first paint too.
 //
 // /stake/, /unstake/ and /stats/ get a body mirror. /rewards/ shows nothing until a wallet is
-// connected, and /defi/ still wants its own pass; those two get the header alone, which is still
-// an improvement on a bare spinner.
+// connected, /defi/ still wants its own pass, and /hpo/ is static Astro below the island; those three
+// get the header alone, which is still an improvement on a bare spinner.
 import type { Locale } from '../../../i18n/locale.ts'
 import type { AppStats, StatsCards } from '../../../data/gauge.ts'
 import type { StatsSeed } from '../../../data/stats.ts'
@@ -26,7 +26,7 @@ import ShellStatsPage from './ShellStatsPage.astro'
 
 interface Props {
   locale: Locale
-  page: ShellPage
+  page: ShellPage | 'hpo'
   stats: AppStats
   cards: StatsCards
   seed: StatsSeed | undefined
@@ -36,14 +36,21 @@ const { locale, page, stats, cards, seed } = Astro.props
 
 // Model's route table maps /rewards/ to the internal id 'reward'; the header's active state and
 // the bottom tab bar both key off that id, so the mapping has to match.
-const activePage = { stake: 'stake', unstake: 'stake', rewards: 'reward', club: 'club', stats: 'stats', defi: 'defi' }[
-  page
-] as 'stake' | 'reward' | 'club' | 'stats' | 'defi'
+const activePage = {
+  stake: 'stake',
+  unstake: 'stake',
+  rewards: 'reward',
+  club: 'club',
+  stats: 'stats',
+  defi: 'defi',
+  hpo: 'hpo',
+}[page] as 'stake' | 'reward' | 'club' | 'stats' | 'defi' | 'hpo'
 
 const isStakeForm = page === 'stake' || page === 'unstake'
 ---
 
-<div class='flex min-h-screen flex-col'>
+<!-- No min-h-screen on /hpo/: same as App.tsx, the HPO content follows below. Keep the two identical. -->
+<div class={page === 'hpo' ? 'flex flex-col' : 'flex min-h-screen flex-col'}>
   <ShellHeader locale={locale} activePage={activePage} />
   {
     isStakeForm && (

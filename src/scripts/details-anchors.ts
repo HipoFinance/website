@@ -19,8 +19,21 @@ function currentAnchor(): string {
   return decodeAnchor(location.hash.slice(1))
 }
 
-export function installDetailsAnchors(aliases: Readonly<Record<string, string>> = {}) {
-  function reveal(anchor: string) {
+// The callers already installed in this tab, by their own key (see installDetailsAnchors).
+const installed = new Set<string>()
+
+// How the ClientRouter reached the current page: 'traverse' for back/forward. On a traverse the
+// router has already restored the reader's scroll position, so the reveal on `astro:page-load` stays
+// out of it — otherwise going back to `/hpo/#question` from another app page jumps to the question
+// instead of where the reader was. Undefined on a full page load, which reveals as before.
+let navigationType: string | undefined
+document.addEventListener('astro:before-preparation', (event) => {
+  navigationType = (event as Event & { navigationType?: string }).navigationType
+})
+
+// `key` names the caller ('hpo', 'faq'): each installs its own listeners once, with its own aliases.
+export function installDetailsAnchors(key: string, aliases: Readonly<Record<string, string>> = {}) {
+  function reveal(anchor: string, scroll = false) {
     if (anchor === '') return
     const alias = aliases[anchor]
     const id = alias ?? anchor
@@ -33,8 +46,8 @@ export function installDetailsAnchors(aliases: Readonly<Record<string, string>> 
     const wasClosed = target instanceof HTMLDetailsElement && !target.open
     if (wasClosed) target.open = true
     // The browser already scrolled for a live anchor; re-scroll only when we changed something
-    // (an aliased fragment points elsewhere, an opened <details> may shift layout).
-    if (alias !== undefined || wasClosed) target.scrollIntoView({ block: 'start' })
+    // (an aliased fragment points elsewhere, an opened <details> may shift layout), or when asked to.
+    if (alias !== undefined || wasClosed || scroll) target.scrollIntoView({ block: 'start' })
   }
 
   function revealAnchor() {
@@ -55,11 +68,29 @@ export function installDetailsAnchors(aliases: Readonly<Record<string, string>> 
     reveal(anchor)
   }
 
-  // LandingLayout and HpoLayout have no <ClientRouter />, so this module runs fresh on every full
-  // page load; the `astro:page-load` listener is a harmless no-op today and keeps the behaviour if
-  // a router is added.
+  // /hpo/ runs under <ClientRouter />, so this module runs once per tab while the page changes under
+  // it: `astro:page-load` re-runs the reveal after every in-place switch (and on a direct load).
+  // The listeners on window and document are added once per caller, not on every call.
+  // After an in-place switch: one frame late, and always scrolling. The incoming page still carries the
+  // app's static header shell under the live header until App.tsx removes it on this same event, so a
+  // scroll made before that lands 84 px too far once it goes; rAF runs after every page-load listener,
+  // so the shell is gone by then. Not on the document's own first page-load: the router fires that one
+  // from the window `load` event, after the YouTube embeds, and by then the reader may have scrolled on
+  // (the reveal at module load already put them on the question). `readyState` tells the two apart:
+  // still loading when this module runs within a full page load, 'complete' when it first runs during
+  // an in-place switch — whose `astro:before-preparation` it missed, so `navigationType` can't.
+  let documentLoad = document.readyState !== 'complete'
+  function onPageLoad() {
+    const force = !documentLoad
+    documentLoad = false
+    if (navigationType === 'traverse') return
+    requestAnimationFrame(() => reveal(currentAnchor(), force))
+  }
+
   revealAnchor()
-  document.addEventListener('astro:page-load', revealAnchor)
+  if (installed.has(key)) return
+  installed.add(key)
+  document.addEventListener('astro:page-load', onPageLoad)
   window.addEventListener('hashchange', revealAnchor)
   document.addEventListener('click', onAnchorClick)
 }

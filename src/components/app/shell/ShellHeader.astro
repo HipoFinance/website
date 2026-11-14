@@ -21,7 +21,7 @@ import { clubBuilt } from '../../../data/club-flag.mjs'
 
 interface Props {
   locale: Locale
-  activePage: 'stake' | 'reward' | 'club' | 'stats' | 'defi'
+  activePage: 'stake' | 'reward' | 'club' | 'stats' | 'defi' | 'hpo'
 }
 
 const { locale, activePage } = Astro.props
@@ -41,7 +41,7 @@ const mainItems: {
     ? { href: '/club/', label: 'app.nav.club', appPage: 'club', icon: 'gift' }
     : { href: '/rewards/', label: 'app.nav.rewards', appPage: 'reward', icon: 'gift' },
   { href: '/stats/', label: 'app.nav.stats', appPage: 'stats', icon: 'chart-line' },
-  { href: '/hpo/', label: 'app.nav.hpo', icon: 'hpo' },
+  { href: '/hpo/', label: 'app.nav.hpo', appPage: 'hpo', icon: 'hpo' },
 ]
 ---
 

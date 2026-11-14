@@ -9,14 +9,14 @@ interface Props {
   model: Model
 }
 
-type Page = 'stake' | 'reward' | 'club' | 'stats' | 'defi'
+type Page = 'stake' | 'reward' | 'club' | 'stats' | 'defi' | 'hpo'
 
 // The four main items, the same in the inline nav and the bottom tab bar: Stake, the Club slot,
 // Stats, HPO. Same list as SiteHeader.astro and shell/ShellHeader.astro — keep the three in
 // sync. The tab icons are the mini app's (TmaTabs), HPO is the one-colour coin. Labels are catalog
 // keys, resolved through model.t at render time; hrefs are bare paths, model.localizedPath prefixes
 // the current locale. Items with an appPage stay inside the app's own navigation (no page load);
-// HPO is a plain link, a full page load.
+// HPO is one too, its page is an app page whose island renders only this header.
 // The second slot is Rewards before the launch commit and the Club after it (CLUB_ON).
 const mainItems: { href: string; label: string; appPage?: Page; icon?: LucideIcon }[] = [
   { href: '/stake/', label: 'app.nav.stake', appPage: 'stake', icon: Coins },
@@ -24,7 +24,7 @@ const mainItems: { href: string; label: string; appPage?: Page; icon?: LucideIco
     ? { href: '/club/', label: 'app.nav.club', appPage: 'club', icon: Gift }
     : { href: '/rewards/', label: 'app.nav.rewards', appPage: 'reward', icon: Gift },
   { href: '/stats/', label: 'app.nav.stats', appPage: 'stats', icon: ChartLine },
-  { href: '/hpo/', label: 'app.nav.hpo' },
+  { href: '/hpo/', label: 'app.nav.hpo', appPage: 'hpo' },
 ]
 
 // Secondary links: only in the hamburger menu, under the main items. The blog is English-only

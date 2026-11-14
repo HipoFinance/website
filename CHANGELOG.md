@@ -9,6 +9,15 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-14 — HPO is an app page: no reload between the four main items
+
+- /hpo/ now shows the app header with Connect/Disconnect and the connected address, and Stake, Club, Stats and HPO switch in place without a reload. The HPO content, URL, title and search tags are unchanged, and the footer keeps its call to action.
+- The island renders only the header on /hpo/; the HPO scripts start and stop on page swaps; no blockchain code loads on /hpo/ without a wallet session; Model reads the route on after-swap so the previous page's body never shows above HPO.
+- Found in the code review and fixed: the block poller kept reading the chain every 10 s on /hpo/ once the chain code was loaded (it now stops there; DeFi, Rewards and Club still poll as before, left alone), the link-copy icon on /hpo/ moved the page and added a history entry under the router (`data-astro-reload` on it), and going Back to a `/hpo/#question` entry jumped to the question instead of the reader's place (the reveal now skips back/forward, and runs one frame late so the app's static header shell is gone).
+- Not money-audited (no-go by Behrang): the review script ranked it tier 3 because `Model.ts` is on the money map; the diff touches routing, the chain-load condition and the block poller, not amounts, fees or destinations.
+- Cost: HPO now loads the app's eager script (~52 KB compressed). On phones the content starts about 60px lower because Connect wallet has its own row, as on Stake. HpoLayout is removed.
+- Left open: phase 3 (Mini App HPO tab; until then /hpo/ opened by hand inside Telegram shows the stake page) and phase 4 (homepage, after a page-speed measurement). [Spec](specs/one-header-across-site.md), phase 2.
+
 ## 2026-11-14 — App header as wide as the site header
 
 - The app header (Stake, Club, Stats, DeFi and the static shell) is now 1280px wide with 48px side padding, the same as the site header on the homepage, HPO, FAQ and blog, so the logo no longer jumps left when switching to an app page; its inner width (1184px) now matches the content column of every page. [Spec](specs/one-header-across-site.md), phase 1.

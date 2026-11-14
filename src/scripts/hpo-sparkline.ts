@@ -21,6 +21,11 @@
 // refreshed price there meanwhile) and #hpoHoverTime shows its time where the range's change is.
 // #hpoChange shows the change from the first to the last point of the shown range, labelled with the
 // pill's own text; Hpo.astro bakes it for the opening range.
+//
+// Start/stop, not top-level code: /hpo/ runs under Astro's <ClientRouter />, which runs a bundled
+// module once per browser tab, while the page's DOM (and locale) is replaced on every visit.
+// start() runs at load and on every `astro:page-load`; stop() on `astro:before-swap` removes the
+// window listener, the ResizeObserver and the touch timer, and drops any fetch still in flight.
 import { queryRange, stepFor, STATS_RANGES, type ChartPoint } from '../components/app/charts/prometheus'
 import type { StatsRange } from '../components/app/Model'
 import { LOCALES } from '../i18n/registry.mjs'
@@ -41,18 +46,44 @@ const padTop = 8
 const padBottom = 8
 const defaultRange: StatsRange = '30d'
 
-const svg = document.getElementById('hpoSparkline') as unknown as SVGSVGElement | null
-const note = document.getElementById('hpoSparklineNote')
-const rangeGroup = document.getElementById('hpoRange')
-const elPrice = document.getElementById('hpoPrice')
-const elTime = document.getElementById('hpoHoverTime')
-const elChangeWrap = document.getElementById('hpoChangeWrap')
-const elChange = document.getElementById('hpoChange')
-const elChangeLabel = document.getElementById('hpoChangeLabel')
+let note: HTMLElement | null = null
+let rangeGroup: HTMLElement | null = null
+let elPrice: HTMLElement | null = null
+let elTime: HTMLElement | null = null
+let elChangeWrap: HTMLElement | null = null
+let elChange: HTMLElement | null = null
+let elChangeLabel: HTMLElement | null = null
 
-if (svg != null) {
-  init(svg)
+// The root of the current run and the teardown of what it set up.
+let current: SVGSVGElement | undefined
+let teardown: (() => void) | undefined
+
+function start() {
+  const svg = document.getElementById('hpoSparkline') as unknown as SVGSVGElement | null
+  if (svg == null || svg === current) {
+    return
+  }
+  stop()
+  current = svg
+  note = document.getElementById('hpoSparklineNote')
+  rangeGroup = document.getElementById('hpoRange')
+  elPrice = document.getElementById('hpoPrice')
+  elTime = document.getElementById('hpoHoverTime')
+  elChangeWrap = document.getElementById('hpoChangeWrap')
+  elChange = document.getElementById('hpoChange')
+  elChangeLabel = document.getElementById('hpoChangeLabel')
+  teardown = init(svg)
 }
+
+function stop() {
+  teardown?.()
+  teardown = undefined
+  current = undefined
+}
+
+start()
+document.addEventListener('astro:page-load', start)
+document.addEventListener('astro:before-swap', stop)
 
 interface Loaded {
   range: StatsRange
@@ -61,7 +92,7 @@ interface Loaded {
   end: number
 }
 
-function init(svg: SVGSVGElement) {
+function init(svg: SVGSVGElement): () => void {
   const locale = pageLocale()
   const title = svg.dataset.title ?? ''
   const buttons = Array.from(rangeGroup?.querySelectorAll<HTMLButtonElement>('button[data-range]') ?? [])
@@ -478,7 +509,7 @@ function init(svg: SVGSVGElement) {
   })
   svg.addEventListener('blur', clearHover)
 
-  window.addEventListener('hpo:live-price', (e) => {
+  const onLivePrice = (e: Event) => {
     live = validLive((e as CustomEvent<ChartPoint>).detail)
     if (
       live !== undefined &&
@@ -493,7 +524,8 @@ function init(svg: SVGSVGElement) {
     } else {
       draw()
     }
-  })
+  }
+  window.addEventListener('hpo:live-price', onLivePrice)
 
   rangeGroup?.addEventListener('click', (e) => {
     const button = (e.target as Element).closest<HTMLButtonElement>('button[data-range]')
@@ -504,17 +536,27 @@ function init(svg: SVGSVGElement) {
     }
   })
 
+  let resizeObserver: ResizeObserver | undefined
   if (typeof ResizeObserver === 'function') {
-    new ResizeObserver(() => {
+    resizeObserver = new ResizeObserver(() => {
       const next = measure()
       if (next !== width) {
         width = next
         draw()
       }
-    }).observe(svg)
+    })
+    resizeObserver.observe(svg)
   }
 
   load(range)
+
+  return () => {
+    // A fetch still in flight sees a newer request id and writes nothing.
+    requestId++
+    window.removeEventListener('hpo:live-price', onLivePrice)
+    resizeObserver?.disconnect()
+    clearTimeout(touchDismiss)
+  }
 }
 
 // The registry key whose `lang` matches <html lang> (e.g. lang="fa" → 'fa'); English otherwise.

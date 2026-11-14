@@ -18,13 +18,18 @@
 //
 // Numbers follow the page's locale (spec §E): `<html lang>` is mapped back to its registry key and
 // every value goes through src/i18n/format.ts, so `/fa/` gets Persian digits without any change here.
+//
+// Start/stop, not top-level code: /hpo/ runs under Astro's <ClientRouter />, which runs a bundled
+// module once per browser tab, while the page's DOM (and locale) is replaced on every visit.
+// start() runs at load and on every `astro:page-load`; stop() on `astro:before-swap` clears the
+// timers, the observer and the animation frame, and lets a fetch still in flight land nowhere.
 
 import { LOCALES } from '../i18n/registry.mjs'
 import { formatNumber } from '../i18n/format.ts'
 import { interpolate } from '../i18n/make-t.ts'
 import { gaugeValues, hpoSupply, HPO_SECTION_KEYS } from '../data/gauge.ts'
 
-const locale = pageLocale()
+let locale = 'en'
 
 // Every GaugeValues key that names an element on this page.
 const IDS = ['hpoPrice', 'hpoMarketCap', 'hpoCirculating', 'hpoHolders', 'hpoTvlGram', 'hpoTvlUsd', 'hpoStakers']
@@ -34,31 +39,68 @@ const IDS = ['hpoPrice', 'hpoMarketCap', 'hpoCirculating', 'hpoHolders', 'hpoTvl
 // em dash stays) and counted up to the target (baked, or the gauge's once a refresh landed) the
 // first time the figure itself scrolls fully into view. Reduced-motion users keep the baked figure
 // and get each refresh at once. Once shown, refreshes write the figure directly like every other id.
-let elBurned = document.getElementById('hpoBurned')
-let burnedTarget = Number(elBurned?.dataset.burned) > 0 ? Number(elBurned.dataset.burned) : undefined
+let elBurned = null
+let burnedTarget
 let burnedSeen = false
-let burnedShown = elBurned == null || window.matchMedia('(prefers-reduced-motion: reduce)').matches
+let burnedShown = true
+// The state of the current run; stop() undoes it. `runId` changes on every start and stop, so a
+// fetch or animation frame of an older run sees it is stale.
+let current
+let runId = 0
+let timer
+let raf
+let io
 
-if (!burnedShown) {
-  if (burnedTarget !== undefined) {
-    SetText(elBurned, formatNumber(locale, 0))
+function start() {
+  const root = document.getElementById('hpoPrice')
+  if (root == null || root === current) {
+    return
   }
-  if (typeof IntersectionObserver === 'function') {
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          io.disconnect()
-          burnedSeen = true
-          countBurnedUp()
-        }
-      },
-      { threshold: 1 },
-    )
-    io.observe(elBurned)
-  } else {
-    burnedSeen = true
-    countBurnedUp()
+  stop()
+  current = root
+  const id = ++runId
+  locale = pageLocale()
+  elBurned = document.getElementById('hpoBurned')
+  burnedTarget = Number(elBurned?.dataset.burned) > 0 ? Number(elBurned.dataset.burned) : undefined
+  burnedSeen = false
+  burnedShown = elBurned == null || window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  if (!burnedShown) {
+    if (burnedTarget !== undefined) {
+      SetText(elBurned, formatNumber(locale, 0))
+    }
+    if (typeof IntersectionObserver === 'function') {
+      io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            io?.disconnect()
+            burnedSeen = true
+            countBurnedUp()
+          }
+        },
+        { threshold: 1 },
+      )
+      io.observe(elBurned)
+    } else {
+      burnedSeen = true
+      countBurnedUp()
+    }
   }
+
+  updateHpoData(id)
+}
+
+function stop() {
+  runId++
+  current = undefined
+  clearTimeout(timer)
+  timer = undefined
+  if (raf !== undefined) {
+    cancelAnimationFrame(raf)
+    raf = undefined
+  }
+  io?.disconnect()
+  io = undefined
 }
 
 function countBurnedUp() {
@@ -69,16 +111,20 @@ function countBurnedUp() {
   const target = burnedTarget
   const duration = 1400
   const t0 = performance.now()
+  const id = runId
   const tick = (now) => {
+    if (id !== runId) {
+      return
+    }
     const p = Math.min((now - t0) / duration, 1)
     const eased = 1 - Math.pow(1 - p, 3)
     // The gauge may have refreshed the target mid-count; the last frame lands on the latest.
     SetText(elBurned, formatNumber(locale, Math.round((p < 1 ? target : burnedTarget) * eased)))
     if (p < 1) {
-      requestAnimationFrame(tick)
+      raf = requestAnimationFrame(tick)
     }
   }
-  requestAnimationFrame(tick)
+  raf = requestAnimationFrame(tick)
 }
 
 // The supply bar: the two compact figures and the three percentages and segment widths are
@@ -188,13 +234,18 @@ let updateSupply = (data) => {
   }
 }
 
-let updateHpoData = () => {
-  let timer = setTimeout(updateHpoData, 300000)
+function updateHpoData(id) {
+  if (id !== runId) {
+    return
+  }
+  clearTimeout(timer)
+  timer = setTimeout(() => updateHpoData(id), 300000)
 
   fetch('https://gauge.hipo.finance/data')
     .then((res) => res.json())
     .then((res) => {
-      if (!res.ok) {
+      // A fetch of an earlier run must not write into a later page.
+      if (id !== runId || !res.ok) {
         return
       }
       // The chart (hpo-sparkline.ts) ends its line at this point, so it matches the price card.
@@ -219,12 +270,15 @@ let updateHpoData = () => {
       updateSupply(res.result)
     })
     .catch(() => {
+      if (id !== runId) {
+        return
+      }
       clearTimeout(timer)
-      timer = setTimeout(updateHpoData, 5000)
+      timer = setTimeout(() => updateHpoData(id), 5000)
     })
 }
 
-// A function declaration, hoisted: the burned count's entrance above calls it before this line.
+// A function declaration, hoisted.
 function SetText(el, text) {
   if (el != null && text !== undefined) {
     el.textContent = text
@@ -238,4 +292,6 @@ function pageLocale() {
   return match === undefined ? 'en' : match[0]
 }
 
-updateHpoData()
+start()
+document.addEventListener('astro:page-load', start)
+document.addEventListener('astro:before-swap', stop)

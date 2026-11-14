@@ -1,6 +1,6 @@
 # One header across the site
 
-**Status:** phase 1 implemented 2026-11-14 (approved by Behrang: header width 1280 px, Open question 1 option A); phases 2–4 draft
+**Status:** phase 1 implemented 2026-11-14 (approved by Behrang: header width 1280 px, Open question 1 option A); phase 2 approved 2026-11-14 by Behrang, amended before and during the build (see Phase 2 in Approach), implemented 2026-11-14 except the phone check with a wallet; phases 3–4 draft
 
 ## Goal
 
@@ -105,20 +105,41 @@ page.
 - `/hpo/` moves to `AppLayout` with a new page id `'hpo'`. The island renders only the header for it
   (`App.tsx`: no page body), and the HPO content stays static Astro in the layout's slot, as the SEO copy
   of the other app pages already does. The static shell for `'hpo'` is the header alone, as for
-  `/rewards/` and `/defi/`.
+  `/rewards/` and `/defi/`. Both the island's wrapper (`App.tsx`) and the shell's (`AppShell.astro`)
+  are `min-h-screen`; on `'hpo'` they drop it, or a screen-tall gap would sit between the header and the
+  HPO content.
 - `Model` gets a `/hpo/` route and `'hpo'` in `ActivePage`. Like `/defi/`, HPO does not start the chain
-  code by itself; only a stored wallet session does (through `ensureWallet()`). With a session, block
-  polling on HPO uses the 5-minute Stats delay: the header only needs the address, not a live balance.
+  code by itself; only a stored wallet session does (through `ensureWallet()`). Block polling stops on
+  `'hpo'`: `readLastBlock` returns before reading or re-arming its timer there. (Amended during the
+  build: the first draft assumed `controlBackgroundJobs` already paused it off Stake and Stats, but the
+  `readLastBlock` autorun re-runs on every page change and re-arms the 10 s timer; the code review found
+  it. DeFi, Rewards and Club still poll as before; that is left alone.)
+  The app's loading ring (`LoadingIndicator.tsx`) stays hidden on `'hpo'`, as on `'club'`: no request
+  there is one the visitor waits for.
+- `Model` also reads the route on `astro:after-swap`, not only on `astro:page-load`. The swap replaces
+  the static page at once, but `astro:page-load` waits for the incoming page's scripts. Without this,
+  switching from Stake to HPO would show the stake form above the HPO content until HPO's scripts had
+  loaded.
 - In `Header.tsx` and `ShellHeader.astro` HPO gets `appPage: 'hpo'`, so it navigates in place and is
   coloured as active on `/hpo/`.
 - For `'hpo'`, `AppLayout` keeps what the HPO page has today below the header: the full `SiteFooter`
   with its call to action, and no row of app links. Its outer `<main>` becomes a `<div>`, so
   `Hpo.astro`'s own `<main>` stays the page's single main landmark.
-- The three HPO scripts become swap-safe. Each exports or contains an `init()` that runs on
-  `astro:page-load` when its root element (`#hpoSparkline`, `#hpoPrice`, the FAQ list) is present, and
-  a `teardown()` on `astro:before-swap` that clears the refresh timer, disconnects the observer and
-  removes the `window` listener. `installDetailsAnchors` gets a guard so its global listeners are added
-  once per tab.
+- The three HPO scripts become swap-safe. Each has a `start()` that runs at once and again on
+  `astro:page-load`, sets up only when its root element (`#hpoPrice`, `#hpoSparkline`) is in the page,
+  and does nothing when it is already running on that same element. A `stop()` on `astro:before-swap`
+  clears the refresh timer, disconnects the observers and removes the `window` listener.
+  `installDetailsAnchors` gets a guard so its global listeners are added once per tab. Found while
+  testing and fixed: on Back/Forward its page-load reveal is skipped, so the router's restored scroll
+  position holds (it used to jump to the question); and after an in-place switch the page-load reveal
+  runs one frame late and always scrolls, because the incoming page's static header shell (84 px) is
+  still in place until `App.tsx` removes it on that same event. It does not force the scroll on the
+  document's own first page-load, which the router fires after the embeds load, when the reader may
+  have scrolled on.
+  `anchor-copy.ts` needs no change: its one `document` click listener survives swaps. The link-copy
+  icon (`AnchorLink.astro`) gets `data-astro-reload`, so the router's click listener, which runs first,
+  does not navigate to its hash (found in the code review: the click moved the page and added a
+  history entry).
 - `/hpo/` stays in the sitemap's `site` group, so Search Console keeps its history. Its URL, title,
   JSON-LD and content are unchanged.
 - Inside the Mini App, `/hpo/` is not reachable from any tab or link. If opened by hand
@@ -150,22 +171,25 @@ Phase 1
 Phase 2
 
 - `src/components/app/Model.ts`: `'hpo'` in `ActivePage`; `/hpo/` in `routes`; the `ensureChain` autorun
-  skips `'hpo'` as it skips `'defi'`; `scheduleNextBlockRead` uses the Stats delay on `'hpo'`.
-- `src/components/app/App.tsx`: no page body for `'hpo'`.
+  skips `'hpo'` as it skips `'defi'`; `applyPathState` also on `astro:after-swap`.
+- `src/components/app/App.tsx`: no page body and no `min-h-screen` for `'hpo'`.
+- `src/components/app/LoadingIndicator.tsx`: hidden on `'hpo'`.
+- `src/components/app/Model.ts` `readLastBlock`: returns at once on `'hpo'` (no read, no re-arm).
+- `src/components/AnchorLink.astro`: `data-astro-reload` on the link-copy icon.
 - `src/components/app/Header.tsx`, `src/components/app/shell/ShellHeader.astro`: HPO item gets
   `appPage: 'hpo'`; comments that say HPO is a full page load are corrected.
-- `src/components/pages/shellJsonLd.ts`: `'hpo'` in `ShellPage`.
-- `src/components/app/shell/AppShell.astro`: `'hpo'` maps to the header-only shell.
-- `src/layouts/AppLayout.astro`: for `'hpo'`, a `<div>` instead of `<main>`, the full `SiteFooter`, no
-  app link row.
+- `src/layouts/AppLayout.astro`, `src/components/app/shell/AppShell.astro`: `page` takes
+  `ShellPage | 'hpo'` (`ShellPage` itself stays the shell-copy pages, since `ShellRoute` and
+  `shellJsonLd` are keyed by it). For `'hpo'` the layout has a `<div>` instead of `<main>`, the full
+  `SiteFooter` and no app link row; the shell is the header alone, without `min-h-screen`.
 - `src/components/routes/HpoRoute.astro`: renders `AppLayout page='hpo'` with its existing JSON-LD and
   `Hpo.astro`.
 - `src/layouts/HpoLayout.astro`: deleted (no other user).
 - `src/components/SiteHeader.astro`: `active` no longer takes `'hpo'`.
 - `src/scripts/hpo-data.js`, `src/scripts/hpo-sparkline.ts`, `src/scripts/hpo-anchors.ts`,
   `src/scripts/details-anchors.ts`: swap-safe as in Approach.
-- `.claude/rules/app.md`, `AGENTS.md` ("What this is"): HPO is an app page; `/hpo/` joins the route
-  list and the chain-load exception.
+- `.claude/rules/app.md`, `AGENTS.md` ("What this is" and the layouts sentence): HPO is an app page;
+  `/hpo/` joins the route list and the chain-load exception; `HpoLayout` is gone.
 - `CHANGELOG.md`: one entry.
 
 Phases 3 and 4: their own changes, after their own decisions.
@@ -190,26 +214,33 @@ Phase 1
 
 Phase 2
 
-- [ ] `/hpo/` shows the app header, with HPO coloured as active in the top nav (≥ 1024 px) and in the
-      bottom tab bar (< 1024 px).
-- [ ] Stake → HPO → Stats → HPO → Stake by the header links does not reload the page. Checked by a
+- [x] `/hpo/` shows the app header, with HPO coloured as active in the top nav (≥ 1024 px) and in the
+      bottom tab bar (< 1024 px). (Preview build: HPO is `text-accent` in the top nav at 1440 px and `aria-current=page` in the tab bar at 390 px; screenshots in both schemes.)
+- [x] Stake → HPO → Stats → HPO → Stake by the header links does not reload the page. Checked by a
       `window` marker set on the first page surviving to the last one, and by the network log showing no
-      document request.
-- [ ] After that same route, the HPO price, sparkline, range buttons, burned count and supply bar all
+      document request. (The marker survived; the only document requests were the YouTube embeds; in the first frame after each swap to HPO the island had no stake form.)
+- [x] After that same route, the HPO price, sparkline, range buttons, burned count and supply bar all
       work on the second visit to HPO, and only one gauge refresh timer exists. Checked by counting
-      `/data` requests over the next 5 minutes on Stake: zero.
-- [ ] `/hpo/#<an HPO FAQ anchor>` opens that question both on a direct load and after an in-place
-      switch from Stake.
-- [ ] With no wallet session, loading `/hpo/` fetches neither the chain chunk nor the TonConnect chunk
-      (network log).
+      `/data` requests over the next 5 minutes on Stake: zero. (Second visit: price, sparkline, a range switch to 24H redrew, burned count counted up to 45,848,729, supply bar set. The HPO script made 0 `/data` requests over 330 s on Stake, and after three visits exactly one in 330 s on HPO.)
+- [x] `/hpo/#<an HPO FAQ anchor>` opens that question both on a direct load and after an in-place
+      switch from Stake. (`#how-many-hpo-exist-and-how-many-are-burned` open, direct and from Stake.)
+- [x] With no wallet session, loading `/hpo/` fetches neither the chain chunk nor the TonConnect chunk
+      (network log). (`chain.*.js` and `nacl-fast.*.js`, loaded on `/stake/` but not `/defi/`, are not loaded on `/hpo/`; no TonConnect chunk either.)
 - [ ] With a wallet session, `/hpo/` shows the connected address in the header, and Disconnect works.
-- [ ] `/hpo/` has one `main` element, and the same title, description, canonical, `hreflang` and
-      JSON-LD as before. Diff of the built `dist/hpo/index.html` `<head>` against the current build.
-- [ ] The HPO footer still has its closing call to action.
-- [ ] `/fa/hpo/` renders right-to-left with Persian digits in the live figures, before and after an
-      in-place switch.
-- [ ] `npm run build` passes, and so do `node --experimental-strip-types scripts/i18n-selftest.mjs` and
-      the `check-i18n` gate.
+- [x] `/hpo/` has one `main` element, and the same title, description, canonical, `hreflang` and
+      JSON-LD as before. Diff of the built `dist/hpo/index.html` `<head>` against the current build. (Title, description, canonical, 12 hreflang links, OG/Twitter and JSON-LD byte-identical to the previous build for `/hpo/` and `/fa/hpo/`; one `main`.)
+- [x] The HPO footer still has its closing call to action. (The CTA card is in `dist/hpo/index.html`.)
+- [x] `/fa/hpo/` renders right-to-left with Persian digits in the live figures, before and after an
+      in-place switch. (`dir=rtl`, price `$۰.۰۰۴۹۵۴`, both ways.)
+- [x] `npm run build` passes, and so do `node --experimental-strip-types scripts/i18n-selftest.mjs` and
+      the `check-i18n` gate. (666 pages; selftest 19 groups; check-i18n ok.)
+- [x] With no new block reads on `/hpo/`: `/block/latest` requests with the endpoint answered — Stake 25 s:
+      2, `/hpo/` 60 s: 0, back on Stake 25 s: 2. (Added during the build.)
+- [x] Back from another app page to a `/hpo/#question` entry returns to where the reader was. (Added
+      during the build: y 1205 before, 1203 after Back; the question lands at 24 px on a direct load and
+      after an in-place switch, 3 of 3 runs; `/faq/` anchors and an alias still work.)
+- [x] The link-copy icon on `/hpo/` copies the URL without moving the page or adding a history entry.
+      (Added during the build: `history.length` stays 2, URL unchanged, clipboard holds the anchor URL.)
 - [ ] Behrang checks Stake ↔ HPO on his phone, with a wallet connected.
 
 ## Risks & rollback
