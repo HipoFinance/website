@@ -10,9 +10,9 @@
 // that work without JavaScript in the meantime. The language switcher is the exception — see
 // ShellLanguageSwitcher.astro.
 //
-// Structure: one flat list of five main items (Stake, the Club slot, Stats, DeFi, HPO) feeding both
-// the inline nav and the bottom tab bar; the secondary links (Docs, FAQ, Blog) live only in the
-// hamburger menu, which is closed here. Keep in sync with Header.tsx and SiteHeader.astro.
+// Structure: one flat list of four main items (Stake, the Club slot, Stats, HPO) feeding both
+// the inline nav and the bottom tab bar; the hamburger menu (DeFi, Docs, FAQ, Blog) is closed here.
+// Keep in sync with Header.tsx and SiteHeader.astro.
 import { localizedPath, type Locale } from '../../../i18n/locale.ts'
 import { getT } from '../../../i18n/t.ts'
 import ShellIcon from './ShellIcon.astro'
@@ -29,19 +29,18 @@ const { t } = getT(locale, ['app'])
 // Rewards until the launch commit, the Club after it (src/data/club-flag.mjs), as in Header.tsx.
 const club = clubBuilt()
 
-// Same five main items in the same order as Header.tsx's `mainItems` (inline nav and bottom tabs).
+// Same four main items in the same order as Header.tsx's `mainItems` (inline nav and bottom tabs).
 const mainItems: {
   href: string
   label: string
   appPage?: Props['activePage']
-  icon: 'coins' | 'gift' | 'chart-line' | 'arrow-left-right' | 'hpo'
+  icon: 'coins' | 'gift' | 'chart-line' | 'hpo'
 }[] = [
   { href: '/stake/', label: 'app.nav.stake', appPage: 'stake', icon: 'coins' },
   club
     ? { href: '/club/', label: 'app.nav.club', appPage: 'club', icon: 'gift' }
     : { href: '/rewards/', label: 'app.nav.rewards', appPage: 'reward', icon: 'gift' },
   { href: '/stats/', label: 'app.nav.stats', appPage: 'stats', icon: 'chart-line' },
-  { href: '/defi/', label: 'app.nav.defi', appPage: 'defi', icon: 'arrow-left-right' },
   { href: '/hpo/', label: 'app.nav.hpo', icon: 'hpo' },
 ]
 ---
@@ -114,22 +113,20 @@ const mainItems: {
     class='border-border bg-surface-deep fixed start-0 end-0 bottom-0 z-10 flex w-full flex-row border-t select-none lg:hidden'
   >
     {
-      mainItems
-        .filter((item) => item.appPage != null)
-        .map(({ href, label, appPage, icon }) => (
-          <a
-            href={localizedPath(href, locale)}
-            aria-label={t(label)}
-            aria-current={appPage != null && appPage === activePage ? 'page' : undefined}
-            class={
-              'flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-medium ' +
-              (appPage != null && appPage === activePage ? 'text-accent' : 'text-text-muted hover:text-accent')
-            }
-          >
-            <ShellIcon name={icon} class='size-[18px]' />
-            <span set:text={t(label)} />
-          </a>
-        ))
+      mainItems.map(({ href, label, appPage, icon }) => (
+        <a
+          href={localizedPath(href, locale)}
+          aria-label={t(label)}
+          aria-current={appPage != null && appPage === activePage ? 'page' : undefined}
+          class={
+            'flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-medium ' +
+            (appPage != null && appPage === activePage ? 'text-accent' : 'text-text-muted hover:text-accent')
+          }
+        >
+          <ShellIcon name={icon} class='size-[18px]' />
+          <span set:text={t(label)} />
+        </a>
+      ))
     }
   </nav>
 </div>

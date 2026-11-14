@@ -3,7 +3,7 @@ title: 'Hipo Gang'
 ---
 
 :::note
-انتهى Hipo Gang في **٢٥ فبراير ٢٠٢٥** وحلّ محله [Hipo Club](https://t.me/HipoFinanceBot/join)، حيث تكسب HPO عبر ستاكينغ GRAM والاحتفاظ بـ hGRAM. هذه الصفحة محفوظة كسجل للبرنامج.
+انتهى Hipo Gang في **٢٥ فبراير ٢٠٢٥** وحلّ محله [Hipo Club](/club/)، حيث تكسب HPO عبر ستاكينغ GRAM والاحتفاظ بـ hGRAM. هذه الصفحة محفوظة كسجل للبرنامج.
 :::
 
 ## ما هو Hipo Gang؟

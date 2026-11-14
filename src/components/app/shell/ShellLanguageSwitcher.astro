@@ -5,7 +5,7 @@
 //
 // Unlike the shell's other controls this one is NOT inert: <details> and <a href> need no JavaScript,
 // so it works before the island arrives. The links carry `data-locale` so the document-delegated
-// listener in src/components/LanguageSwitcher.astro (present on every app page via the footer) remembers
+// listener in src/components/LanguageSwitcherScript.astro (AppLayout renders it on every app page) remembers
 // the pick in localStorage — the React twin does that with its own onClick instead.
 import { LOCALES, publicLocales } from '../../../i18n/registry.mjs'
 import { langOf, localeCode, localizedPath, stripLocale, type Locale } from '../../../i18n/locale.ts'

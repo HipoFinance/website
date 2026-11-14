@@ -3,7 +3,7 @@ title: 'Hipo Gang'
 ---
 
 :::note
-Hipo Gang berakhir pada **25 Februari 2025** dan digantikan oleh [Hipo Club](https://t.me/HipoFinanceBot/join), tempat Anda memperoleh HPO dengan men-stake GRAM dan memegang hGRAM. Halaman ini disimpan sebagai catatan program tersebut.
+Hipo Gang berakhir pada **25 Februari 2025** dan digantikan oleh [Hipo Club](/club/), tempat Anda memperoleh HPO dengan men-stake GRAM dan memegang hGRAM. Halaman ini disimpan sebagai catatan program tersebut.
 :::
 
 ## Apa itu Hipo Gang?

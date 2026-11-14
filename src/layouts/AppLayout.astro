@@ -5,6 +5,7 @@ import '../styles/app.css'
 import SEO from '../components/SEO.astro'
 import AppIsland from '../components/app/AppIsland.tsx'
 import SiteFooter from '../components/SiteFooter.astro'
+import LanguageSwitcherScript from '../components/LanguageSwitcherScript.astro'
 import Banner from '../components/Banner.astro'
 import AppShell from '../components/app/shell/AppShell.astro'
 import type { ShellPage } from '../components/pages/shellJsonLd'
@@ -285,5 +286,8 @@ const footerNav = [
     </nav>
 
     <div data-tma-hide><SiteFooter app /></div>
+    <!-- Remembers a language picked in the shell's or the island's switcher, and closes their panel on an
+         outside click or Escape (LanguageSwitcherScript.astro). -->
+    <LanguageSwitcherScript />
   </body>
 </html>

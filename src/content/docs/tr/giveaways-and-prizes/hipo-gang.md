@@ -3,7 +3,7 @@ title: 'Hipo Gang'
 ---
 
 :::note
-Hipo Gang **25 Şubat 2025**'te sona erdi ve yerini, GRAM stake ederek ve hGRAM tutarak HPO kazandığınız [Hipo Club](https://t.me/HipoFinanceBot/join) aldı. Bu sayfa programın kaydı olarak korunmaktadır.
+Hipo Gang **25 Şubat 2025**'te sona erdi ve yerini, GRAM stake ederek ve hGRAM tutarak HPO kazandığınız [Hipo Club](/club/) aldı. Bu sayfa programın kaydı olarak korunmaktadır.
 :::
 
 ## Hipo Gang nedir?

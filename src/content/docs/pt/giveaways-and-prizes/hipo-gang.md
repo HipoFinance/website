@@ -3,7 +3,7 @@ title: 'Hipo Gang'
 ---
 
 :::note
-O Hipo Gang terminou em **25 de fevereiro de 2025** e foi substituído pelo [Hipo Club](https://t.me/HipoFinanceBot/join), onde você ganha HPO fazendo staking de GRAM e mantendo hGRAM. Esta página é mantida como registro do programa.
+O Hipo Gang terminou em **25 de fevereiro de 2025** e foi substituído pelo [Hipo Club](/club/), onde você ganha HPO fazendo staking de GRAM e mantendo hGRAM. Esta página é mantida como registro do programa.
 :::
 
 ## O que é o Hipo Gang?

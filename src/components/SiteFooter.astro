@@ -5,18 +5,15 @@
 import { DEFAULT_LOCALE } from '../i18n/registry.mjs'
 import { localeOf, localizedPath } from '../i18n/locale.ts'
 import { getT } from '../i18n/t.ts'
-import LanguageSwitcher from './LanguageSwitcher.astro'
 
 interface Props {
   app?: boolean
-  // Forwarded to the LanguageSwitcher; false on English-only pages (the blog).
-  localized?: boolean
   // False hides the closing CTA card below, same as `app` — a blog post already ends with its own
   // tracked CTA (StakeCta.astro), so BlogLayout passes this false there; the blog index keeps it.
   cta?: boolean
 }
 
-const { app = false, localized = true, cta = true } = Astro.props
+const { app = false, cta = true } = Astro.props
 const locale = localeOf(Astro)
 const { t } = getT(locale, ['site'])
 
@@ -38,8 +35,9 @@ const socialLinks = [
 const docsLinks = [
   { href: 'https://github.com/HipoFinance', label: 'GitHub', external: true },
   { href: localizedPath('/docs/', locale), label: t('site.footer.documentation'), external: false },
-  { href: localizedPath('/hpo/', locale), label: t('site.footer.aboutHpo'), external: false },
-  { href: localizedPath('/stats/', locale), label: t('site.footer.stats'), external: false },
+  // Stats and HPO are main menu items on every page (header and phone tab bar), so the footer
+  // links DeFi, which the menu keeps only behind ☰.
+  { href: localizedPath('/defi/', locale), label: t('site.nav.defi'), external: false },
   // /vs/ had no static link anywhere before this (specs/search-console-coverage-sitemaps.md).
   { href: localizedPath('/vs/', locale), label: t('site.footer.compare'), external: false },
   { href: localizedPath('/faq/', locale), label: t('site.footer.faq'), external: false },
@@ -88,7 +86,6 @@ const docsLinks = [
           <p class='font-wordmark text-2xl font-semibold'>Hipo</p>
         </div>
         <p class='mt-3 text-sm'>{t('site.footer.tagline')}</p>
-        <LanguageSwitcher class='mt-4 w-fit text-sm' localized={localized} />
       </div>
 
       <div class='flex flex-row flex-wrap gap-x-16 gap-y-8'>

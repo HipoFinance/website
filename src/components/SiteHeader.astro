@@ -2,10 +2,10 @@
 // The one global header for every non-docs static page (home, FAQ, HPO, blog). The app pages render
 // the same bar from React (src/components/app/Header.tsx) and its static first paint
 // (src/components/app/shell/ShellHeader.astro) — keep the three in sync, items and classes.
-// One flat list of five main items (Stake, the Club slot, Stats, DeFi, HPO) is the inline nav from
+// One flat list of four main items (Stake, the Club slot, Stats, HPO) is the inline nav from
 // lg and the fixed bottom tab bar below lg, on every page; five items fit at 1024 px in every locale
-// (measured 2026-11-02, Russian with Open app the widest). The hamburger exists only below lg and
-// holds the secondary links (Docs, FAQ, Blog) and Open app. `active` colors the current page's item
+// (measured 2026-11-02, Russian with Open app the widest), so four fit too. The hamburger exists only
+// below lg and holds DeFi, Docs, FAQ, Blog and Open app. `active` colors the current page's item
 // in coral. Home is the logo.
 import { localeOf, localizedPath } from '../i18n/locale.ts'
 import { DEFAULT_LOCALE } from '../i18n/registry.mjs'
@@ -31,13 +31,12 @@ const items = [
     ? { key: 'club', href: '/club/', label: t('site.nav.club'), icon: 'gift' as const }
     : { key: 'rewards', href: '/rewards/', label: t('site.nav.rewards'), icon: 'gift' as const },
   { key: 'stats', href: '/stats/', label: t('site.nav.stats'), icon: 'chart-line' as const },
-  { key: 'defi', href: '/defi/', label: t('site.nav.defi'), icon: 'arrow-left-right' as const },
   { key: 'hpo', href: '/hpo/', label: t('site.nav.hpo'), icon: 'hpo' as const },
 ].map((item) => ({ ...item, href: localizedPath(item.href, locale) }))
 
 // The blog is English-only, so every other locale says so with hreflang (as SiteFooter does).
 const secondary = [
-  { key: 'hpo', href: localizedPath('/hpo/', locale), label: t('site.nav.hpo'), hreflang: undefined },
+  { key: 'defi', href: localizedPath('/defi/', locale), label: t('site.nav.defi'), hreflang: undefined },
   { key: 'docs', href: localizedPath('/docs/', locale), label: t('site.nav.docs'), hreflang: undefined },
   { key: 'faq', href: localizedPath('/faq/', locale), label: t('site.nav.faq'), hreflang: undefined },
   {
@@ -119,24 +118,20 @@ const secondary = [
     class='border-border bg-surface-deep fixed start-0 end-0 bottom-0 z-10 flex w-full flex-row border-t select-none lg:hidden'
   >
     {
-      // The bottom tab bar holds the app sections only (as Header.tsx and the Mini App); HPO is in the
-      // menu below lg.
-      items
-        .filter((item) => item.key !== 'hpo')
-        .map(({ key, href, label, icon }) => (
-          <a
-            href={href}
-            aria-label={label}
-            aria-current={key === active ? 'page' : undefined}
-            class={
-              'flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-medium ' +
-              (key === active ? 'text-accent' : 'text-text-muted hover:text-accent')
-            }
-          >
-            <ShellIcon name={icon} class='size-[18px]' maskId='hpo-m-site' />
-            <span set:text={label} />
-          </a>
-        ))
+      items.map(({ key, href, label, icon }) => (
+        <a
+          href={href}
+          aria-label={label}
+          aria-current={key === active ? 'page' : undefined}
+          class={
+            'flex min-h-12 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-medium ' +
+            (key === active ? 'text-accent' : 'text-text-muted hover:text-accent')
+          }
+        >
+          <ShellIcon name={icon} class='size-[18px]' maskId='hpo-m-site' />
+          <span set:text={label} />
+        </a>
+      ))
     }
   </nav>
 </header>

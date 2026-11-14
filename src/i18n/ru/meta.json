@@ -3224,11 +3224,11 @@
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-gang.md": {
-    "sourceHash": "19f85d38c31cd6d0dcbd501e80eb070e1d7eb89e",
+    "sourceHash": "53d8a9933097ebd743b21b708d2c817f96b67ff9",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-gang/hipo-gang-season-1.md": {
-    "sourceHash": "d0b981270b43b15ed9f7b080b681c739962862b2",
+    "sourceHash": "ea082a9da6063b46a03fd88b921bb3066a635df6",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-incentive-programs.md": {
@@ -4575,10 +4575,6 @@
     "sourceHash": "b329e00d892208276cf06a47890794bdad716e94",
     "reviewed": false
   },
-  "site.footer.aboutHpo": {
-    "sourceHash": "2f71364079b6c3b75a35ad5fe28b3e75222923b3",
-    "reviewed": false
-  },
   "site.footer.blog": {
     "sourceHash": "0b9d2b2362bc33581ba11fddcb0cf0590ebd3a7a",
     "reviewed": false
@@ -4617,10 +4613,6 @@
   },
   "site.footer.social": {
     "sourceHash": "41a575086b73bd066149552fde2b8782c43e29ed",
-    "reviewed": false
-  },
-  "site.footer.stats": {
-    "sourceHash": "be763e9aba2af6b8baabada85d5e26c043c93fed",
     "reviewed": false
   },
   "site.footer.tagline": {

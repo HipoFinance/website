@@ -3,7 +3,7 @@ title: 'Hipo Gang: Season 1'
 ---
 
 :::note
-Hipo Gang ended on **February 25, 2025** and was replaced by [Hipo Club](https://t.me/HipoFinanceBot/join), where you earn HPO by staking GRAM and holding hGRAM. This page is kept as a record of the programme.
+Hipo Gang ended on **February 25, 2025** and was replaced by [Hipo Club](/club/), where you earn HPO by staking GRAM and holding hGRAM. This page is kept as a record of the programme.
 :::
 
 ## 🎯 Key Highlights

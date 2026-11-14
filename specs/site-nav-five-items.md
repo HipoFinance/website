@@ -1,6 +1,7 @@
 # Site menu: five items, bottom tabs on every page
 
 **Status:** implemented (approved 2026-11-02 by Behrang: HPO moved last, HPO logo as its icon)
+**Amended 2026-11-14 (Behrang):** DeFi left the main items for the hamburger menu and the footer; the main items are Stake, Club slot, Stats, HPO, in the inline nav and the bottom tabs. Room is kept for a fifth item (Jackpot).
 
 ## Goal
 

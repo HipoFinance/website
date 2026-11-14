@@ -9,6 +9,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-14 — Site menu: Stake, Club, Stats, HPO; DeFi to the ☰ menu
+
+- The main menu (desktop top bar and the phone tab bar, on every page) is now Stake, Club, Stats and HPO. DeFi, a page of links to other services, moves to the ☰ menu above Docs, FAQ and Blog, and to the footer's Docs column; asked by Behrang, leaving room for a fifth item (Jackpot) later.
+- The footer's Docs column drops "About HPO" and "Stats", which are main menu items on every site page, and links DeFi in their place; their two catalog keys are removed in all locales.
+- The footer's language dropdown is gone: the header has one on every page. Its script, which the app pages relied on to remember a language picked before the island loads and to close the island's panel on an outside click, moved to `LanguageSwitcherScript.astro`, which `AppLayout` renders directly.
+- "Join Hipo Club" on the home page, and the "replaced by Hipo Club" link in the two Hipo Gang docs pages (all locales), open the Club page `/club/` instead of the Telegram bot. Links that are about the bot or the Mini App themselves, and the 2nd-anniversary blog post, still point at the bot.
+- Declined: an HPO link in the docs header. The docs never had one in their footer either, and in ru and uk it pushes the header's language selector further off the edge at 800–900px.
+- HPO is back in the phone tab bar: the 2026-11-08 change had taken it out to mirror the Mini App, against the approved five-tab design ([spec](specs/site-nav-five-items.md)).
+- The Telegram Mini App keeps its own tabs (Stake, Club, Stats, DeFi) for now; how it gets an HPO screen is left open. No new catalog keys.
+
 ## 2026-11-10 — Club Rewards: "Earned on" and the next round in the GRAM table; "Expected per year" card
 
 - The "GRAM earned per round" table has three columns: Round, Earned on (the hGRAM each round counted, from the server's new `hton` field; "—" for rounds recorded before it was kept, so about eight days of dashes) and GRAM. Item 1c of the wireframe.
