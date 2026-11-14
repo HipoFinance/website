@@ -9,6 +9,10 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-14 — Footer as wide as the header and content
+
+- The site footer (every page that has it, app pages included) is now 1280px wide with 48px side padding, the same as the header and the content column, instead of 1120px with 40px; its content starts under the logo. Asked by Behrang.
+
 ## 2026-11-14 — Fewer chain reads on DeFi, Rewards and Club
 
 - The app's block poller no longer reads the chain on /defi/ (a page of links; like /hpo/) and reads every 5 minutes instead of every 10 s on /rewards/ and /club/, which show the hGRAM balance and the rate but nothing that moves by the second. Each still reads once on arrival and on a wallet connect. The stake form stays at 10 s, Stats at 5 minutes. Asked by Behrang.
