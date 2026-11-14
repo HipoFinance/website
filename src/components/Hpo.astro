@@ -634,6 +634,15 @@ const hpoFaq = await Promise.all(
       </div>
     </div>
   </section>
+  <!-- The Telegram Mini App shows no videos, and a hidden iframe still downloads, so the section is removed
+       as soon as it is parsed (html.tma is set by AppLayout's head probe). TmaApp removes it from the
+       incoming document on an in-place switch, before the swap inserts it. -->
+  <script is:inline>
+    ;(function () {
+      var watch = document.getElementById('watch')
+      if (watch && document.documentElement.classList.contains('tma')) watch.remove()
+    })()
+  </script>
 
   <!-- FAQ -->
   <section id='faq' class='py-12'>

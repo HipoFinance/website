@@ -273,7 +273,8 @@ const footerNav = [
     <!-- data-tma-hide: the three wrappers below are the static shell around the island. They are
          hidden wholesale in Telegram Mini App mode (see .tma rules in src/styles/app.css); the
          attribute is the only hook that CSS needs, and it does nothing outside that mode. -->
-    <div data-tma-hide><slot /></div>
+    <!-- data-tma-content: in the Mini App, TmaApp moves the HPO page's <main> from here into its HPO tab. -->
+    <div data-tma-hide data-tma-content><slot /></div>
 
     {
       !isHpo && (

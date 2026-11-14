@@ -41,6 +41,11 @@ html.tma [data-tma-hide] {
   display: none !important;
 }
 
+/* The HPO tab shows the static /hpo/ page (TmaApp moves it in); its two YouTube videos stay out. */
+html.tma #watch {
+  display: none;
+}
+
 /* The shell scrolls internally instead of the document: a mini app that scrolls its document also
    drags Telegram's sheet around. */
 html.tma,

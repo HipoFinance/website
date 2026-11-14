@@ -1,6 +1,8 @@
 # One header across the site
 
-**Status:** phase 1 implemented 2026-11-14 (approved by Behrang: header width 1280 px, Open question 1 option A); phase 2 approved 2026-11-14 by Behrang, amended before and during the build (see Phase 2 in Approach), implemented 2026-11-14 except the phone check with a wallet; phases 3–4 draft
+**Status:** phase 1 implemented 2026-11-14 (approved by Behrang: header width 1280 px, Open question 1 option A); phase 2 approved 2026-11-14 by Behrang, amended before and during the build (see Phase 2 in Approach), implemented 2026-11-14 and live (b454aa1), phone check passed; phase 3 implemented 2026-11-14 in
+`specs/mini-app-hpo-tab.md` (not committed; the phone check is to come); phase 4 built and measured 2026-11-14,
+fails the LCP rule, kept out of the tree (stash) pending Behrang's decision
 
 ## Goal
 
@@ -226,7 +228,8 @@ Phase 2
       switch from Stake. (`#how-many-hpo-exist-and-how-many-are-burned` open, direct and from Stake.)
 - [x] With no wallet session, loading `/hpo/` fetches neither the chain chunk nor the TonConnect chunk
       (network log). (`chain.*.js` and `nacl-fast.*.js`, loaded on `/stake/` but not `/defi/`, are not loaded on `/hpo/`; no TonConnect chunk either.)
-- [ ] With a wallet session, `/hpo/` shows the connected address in the header, and Disconnect works.
+- [x] With a wallet session, `/hpo/` shows the connected address in the header, and Disconnect works.
+      (Behrang, 2026-11-14: connected and disconnected, switching between the homepage, Stake and HPO.)
 - [x] `/hpo/` has one `main` element, and the same title, description, canonical, `hreflang` and
       JSON-LD as before. Diff of the built `dist/hpo/index.html` `<head>` against the current build. (Title, description, canonical, 12 hreflang links, OG/Twitter and JSON-LD byte-identical to the previous build for `/hpo/` and `/fa/hpo/`; one `main`.)
 - [x] The HPO footer still has its closing call to action. (The CTA card is in `dist/hpo/index.html`.)
@@ -241,7 +244,32 @@ Phase 2
       after an in-place switch, 3 of 3 runs; `/faq/` anchors and an alias still work.)
 - [x] The link-copy icon on `/hpo/` copies the URL without moving the page or adding a history entry.
       (Added during the build: `history.length` stays 2, URL unchanged, clipboard holds the anchor URL.)
-- [ ] Behrang checks Stake ↔ HPO on his phone, with a wallet connected.
+- [x] Behrang checks Stake ↔ HPO on his phone, with a wallet connected. (2026-11-14: "works correctly
+      with no jump".)
+
+Phase 4 (measured 2026-11-14, not shipped)
+
+Lighthouse 13.6, mobile profile (simulated throttling), on `/`, the current `main` (b454aa1) against the
+same tree with phase 4, both served with gzip as GitHub Pages does, the two builds alternated, 7 runs
+each, on the shared dev machine:
+
+| | Today | Phase 4 |
+| --- | --- | --- |
+| Performance score, median | 100 | 100 |
+| LCP (the hero `h1`), median | 928 ms | 1077 ms |
+| LCP, slowest two runs | 950, 940 ms | 2575, 2775 ms |
+| TBT, median | 66 ms | 57 ms |
+| CLS, median | 0.027 | 0.032 |
+
+- The steady cost (+150 ms) is a second render-blocking stylesheet, the app's own Tailwind compilation
+  (`AppLayout.*.css`, 58 KB, 12 KB gzipped), which the homepage did not load before. Without gzip the
+  gap was 1363 → 1813 ms. The island's script is a module and does not block the first paint.
+- In 2 of 7 runs the `h1` was re-reported as LCP at about 2.6 s; the cause was not found.
+- The recommended rule (Open question 2: score −3 or less and no LCP worse than noise, about ±10 ms) is
+  not met. The build is kept in `git stash` (`2026-11-14 phase 4 homepage-as-app-page …`), with two
+  review fixes: Ctrl/Cmd-click on the app logo opens a new tab, and the logo on `/` scrolls to the top.
+- Found while building it and kept: the Model now reads the page from the URL when it is created, so
+  the first render on `/hpo/` no longer draws one frame of the stake form.
 
 ## Risks & rollback
 

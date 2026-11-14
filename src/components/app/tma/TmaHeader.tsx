@@ -21,6 +21,8 @@ const TmaHeader = observer(({ model }: Props) => {
     title = t('app.nav.stats')
   } else if (model.activePage === 'defi') {
     title = t('app.nav.defi')
+  } else if (model.activePage === 'hpo') {
+    title = t('app.nav.hpo')
   }
 
   return (

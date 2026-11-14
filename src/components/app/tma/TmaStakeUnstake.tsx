@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { Clock, Zap } from 'lucide-react'
+import { ArrowLeftRight, Clock, Zap } from 'lucide-react'
 import { Model } from '../Model'
 import { nodes } from '../Interpolate'
 import { onAmountInput } from '../amountInput'
@@ -197,6 +197,19 @@ const TmaStakeUnstake = observer(({ model }: Props) => {
           <span>{t('app.stake.yearlyRewards')}</span>
           <span className='text-positive num ms-auto font-semibold'>{model.apyFormatted ?? '—'}</span>
         </div>
+        {/* DeFi left the tab row for HPO (specs/mini-app-hpo-tab.md); it stays one tap away here, above
+            the mt-auto block, so the spare height of the screen absorbs it and the button stays put. */}
+        <a
+          href={model.localizedPath('/defi/')}
+          className='text-accent flex min-h-8 flex-row items-center gap-1.5 self-end font-medium'
+          onClick={(e) => {
+            e.preventDefault()
+            model.navigateToPage('defi')
+          }}
+        >
+          <ArrowLeftRight className='size-3.5' aria-hidden='true' />
+          {t('app.nav.defi')}
+        </a>
       </div>
 
       <div className='mt-auto flex flex-col gap-2.5 pt-2'>

@@ -1,22 +1,25 @@
 import { observer } from 'mobx-react-lite'
-import { Coins, Gift, ChartLine, ArrowLeftRight, type LucideIcon } from 'lucide-react'
+import { Coins, Gift, ChartLine, type LucideIcon } from 'lucide-react'
 import { CLUB_ON, Model } from '../Model'
+import HpoIcon from '../HpoIcon'
 
 interface Props {
   model: Model
 }
 
-type Page = 'stake' | 'reward' | 'club' | 'stats' | 'defi'
+type Page = 'stake' | 'reward' | 'club' | 'stats' | 'hpo'
 
 // Labels are catalog keys, resolved through model.t at render time.
 // The second slot is Rewards before the launch commit and the Club after it (CLUB_ON, same icon).
-const pages: { page: Page; label: string; icon: LucideIcon }[] = [
+// The same four items as the website's menu (Header.tsx); HPO is its one-colour coin (no icon here).
+// DeFi is a link on the Stake screen (specs/mini-app-hpo-tab.md).
+const pages: { page: Page; label: string; icon?: LucideIcon }[] = [
   { page: 'stake', label: 'app.nav.stake', icon: Coins },
   CLUB_ON
     ? { page: 'club', label: 'app.nav.club', icon: Gift }
     : { page: 'reward', label: 'app.nav.rewards', icon: Gift },
   { page: 'stats', label: 'app.nav.stats', icon: ChartLine },
-  { page: 'defi', label: 'app.nav.defi', icon: ArrowLeftRight },
+  { page: 'hpo', label: 'app.nav.hpo' },
 ]
 
 // Last row of the shell's flex column rather than a fixed overlay: the shell is exactly one
@@ -44,7 +47,7 @@ const TmaTabs = observer(({ model }: Props) => {
               model.navigateToPage(page)
             }}
           >
-            <Icon className='size-[18px]' aria-hidden='true' />
+            {Icon ? <Icon className='size-[18px]' aria-hidden='true' /> : <HpoIcon className='size-[18px]' />}
             <span>{model.t(label)}</span>
           </button>
         )

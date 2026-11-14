@@ -362,6 +362,11 @@ function routeForPathname(pathname: string): Route | undefined {
   return routes.find((route) => route.path === path)
 }
 
+// Whether a same-site path is an app page, which the Mini App can show (TmaApp's link handling).
+export function isAppPath(pathname: string): boolean {
+  return routeForPathname(pathname) != null
+}
+
 // A route without an activeTab keeps whichever tab is current, so returning to the stake page
 // lands on the tab the user left it on, as the old #/tab= fragment did.
 function routeForState(activePage: ActivePage, activeTab: ActiveTab, clubTab: ClubTab = 'overview'): Route {
@@ -773,6 +778,8 @@ export class Model {
   // own. Unobserved — only `locale`/`catalog` above render.
   telegramLocale?: Locale
   telegramCatalogText = ''
+  // A ClientRouter navigation between astro:before-preparation and its astro:page-load. Unobserved.
+  navigationInFlight = false
   tonConnectUI?: TonConnectUI
   // In flight fetch of the wallet layer, so concurrent callers share one load.
   walletPending?: Promise<void>
@@ -1185,6 +1192,33 @@ export class Model {
       this.telegramCatalogText = text
       this.syncLocale()
     })
+    this.alignHpoLocale()
+  }
+
+  // The HPO tab is static page content in the URL's language (and hpo-data.js formats by html.lang),
+  // while the island follows Telegram's language on an unprefixed URL, so an English /hpo/ under a
+  // Telegram locale would show English text with Persian digits. It is replaced by the localized
+  // /hpo/. Runs when the Telegram locale lands and on every astro:page-load; never while a navigation
+  // is in flight (the replace would abort it, losing a tap, and the next page-load runs this again).
+  // It cannot loop: the replaced URL carries the locale, so the next run finds nothing to do.
+  alignHpoLocale = () => {
+    const locale = this.telegramLocale
+    if (!this.isTelegram || locale == null || this.navigationInFlight || this.activePage !== 'hpo') {
+      return
+    }
+    if (stripLocale(window.location.pathname).locale !== DEFAULT_LOCALE) {
+      return
+    }
+    void navigate(localizedPath('/hpo/', locale), { history: 'replace' })
+  }
+
+  startNavigation = () => {
+    this.navigationInFlight = true
+  }
+
+  endNavigation = () => {
+    this.navigationInFlight = false
+    this.alignHpoLocale()
   }
 
   applyTonConnectLanguage = () => {
@@ -1210,6 +1244,9 @@ export class Model {
     // and for browser back/forward, so this one listener covers all three. Adding the same
     // function twice is a no-op, and init() itself runs only once per Model.
     document.addEventListener('astro:page-load', this.applyPathState)
+    // After applyPathState (listeners run in order), so alignHpoLocale sees the new page.
+    document.addEventListener('astro:before-preparation', this.startNavigation)
+    document.addEventListener('astro:page-load', this.endNavigation)
     // The swap replaces the static page at once, but astro:page-load waits for the incoming page's
     // scripts, so without this the previous page's body (e.g. the stake form) would show above the
     // HPO content until they load. applyPathState is idempotent, so running it twice is fine.
@@ -1225,6 +1262,12 @@ export class Model {
       void initTelegramChrome(this.tmaMode).then((confirmed) => {
         if (!confirmed) {
           this.setTelegram(false)
+          // The launch params said Telegram, so Hpo.astro dropped the videos; the website gets them
+          // back by a fresh copy of the page (no hash: it may hold the launch params). Not while a page
+          // switch is under way: replacing would cancel the reader's tap (the videos return on the next visit).
+          if (!this.navigationInFlight && this.activePage === 'hpo' && document.getElementById('watch') == null) {
+            void navigate(window.location.pathname + window.location.search, { history: 'replace' })
+          }
           return
         }
         void this.applyTelegramLocale()

@@ -142,6 +142,29 @@ export async function telegramLanguageCode(mode: TmaMode): Promise<string | unde
 }
 
 /**
+ * Opens `href` (an absolute URL) outside the mini app: a t.me link in Telegram itself
+ * (`openTelegramLink`, 6.1+; below that it would navigate the mini app away), any other link in
+ * Telegram's in-app browser (`openLink`), and a new tab in the `?tma=1` preview or when the SDK fails.
+ * The SDK import returns the module initTelegramChrome already loaded.
+ */
+export async function openOutside(mode: TmaMode, href: string): Promise<void> {
+  if (mode === 'telegram') {
+    try {
+      const WebApp = (await import('@twa-dev/sdk')).default
+      if (new URL(href).hostname === 't.me' && WebApp.isVersionAtLeast('6.1')) {
+        WebApp.openTelegramLink(href)
+      } else {
+        WebApp.openLink(href)
+      }
+      return
+    } catch (e) {
+      console.warn('[hipo] Telegram openLink is unavailable on this client', e)
+    }
+  }
+  window.open(href, '_blank', 'noopener')
+}
+
+/**
  * Applies the mini-app chrome for the session: marks <html> so the static shell is hidden, and —
  * in a real Telegram webview — loads the SDK to blend Telegram's own chrome with ours.
  *

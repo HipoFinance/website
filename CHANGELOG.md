@@ -9,6 +9,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-14 — Mini App: HPO tab in place of DeFi
+
+- The Telegram Mini App's tab row is now Stake, Club, Stats, HPO, the same four items as the website's menu. The HPO tab shows the website's own /hpo/ page inside the app's scroller: the page's content is moved in when the tab opens and dropped before each page switch, so nothing is copied or translated twice and the live price keeps updating. [Spec](specs/mini-app-hpo-tab.md), phase 3 of [one header across the site](specs/one-header-across-site.md).
+- Adjusted for Telegram: the two YouTube videos are removed, not just hidden (a hidden iframe still downloads; the website keeps them), links to other sites and to pages without the app (the docs) open outside the Mini App, since those have no tabs and no way back, the footer stays hidden, and an English HPO page shown under a Telegram language is swapped for that language's page once no page switch is under way, so text and numbers agree and a tap made during the launch is not lost.
+- DeFi is a small link under the rates on the Stake screen, with the existing label; no tab is lit on the DeFi page.
+- Left open: Behrang's phone check.
+- Declined: a compact HPO screen written for the Mini App (the chart rewritten in React and new text in 11 languages), and letting the document scroll on HPO only, which brings back Telegram's pull-to-close.
+
 ## 2026-11-14 — Homepage as an app page: measured, not shipped
 
 - Phase 4 of [one header across the site](specs/one-header-across-site.md) was built and measured with Lighthouse (mobile, 7 alternated runs each, gzip): the score stays 100, but the hero's LCP rises from 928 to 1077 ms (median) and reached ~2.6 s in 2 of 7 runs, mostly from the app's second render-blocking stylesheet. That fails the agreed rule, so it is kept in `git stash`, not in `main`, for Behrang to decide; the numbers are in the spec.
