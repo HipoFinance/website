@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — Club Friends: the table fits a phone
+
+- The Friends table was wider than the card on phones (a fixed 380px minimum and four columns), so it scrolled sideways. Below 640px it now has three columns: the green "Earning" goes under the friend's name, the member's 1% goes in muted text under the friend's amount (the header stacks "Their boosted HPO" over "Your 1%"), the name truncates, and the side padding is tighter. From 640px the four columns are as before.
+- Checked in mock mode with a worst-case row (1,234,567.89 and 12,345.67) at 320, 360, 390 and 640px, in en, de, fr, ru, uk, ar and fa, dark and light: no scroll inside the table and none on the page. No string changed.
+
 ## 2026-11-15 — Unstake: a check badge on the chosen option; the options are buttons
 
 - The chosen Full / Instant card gets a small coral badge with a dark check on its top corner (the other corner in Arabic and Persian), over the border so it takes no room from the title. Since the in-row check mark left this morning the choice was shown by the border's colour alone, which a review flagged against WCAG 1.4.1; Behrang chose the badge over a filled card or one segmented control.

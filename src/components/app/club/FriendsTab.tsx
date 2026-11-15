@@ -22,7 +22,10 @@ import {
   tableTh,
 } from './ui.tsx'
 
-const thEnd = tableTh.replace('text-start', 'text-end')
+// The friends table's cells: tighter side padding on a phone, so its columns fit 320px
+const thTight = tableTh.replace('px-3', 'px-2 sm:px-3') + ' align-bottom'
+const thTightEnd = thTight.replace('text-start', 'text-end')
+const tdTight = tableTd.replace('p-3', 'px-2 py-3 sm:px-3') + ' align-top'
 
 interface Props {
   club: ClubModel
@@ -156,24 +159,44 @@ const FriendsTab = observer(({ club }: Props) => {
           </p>
         ) : (
           <div className='overflow-x-auto'>
-            <table className='w-full min-w-[380px]'>
+            {/* No min-width. On a phone (below sm) the table has three columns, not four: the Status folds
+                under the name, the member's 1% goes under the friend's amount, and the name truncates, so it
+                fits the card at 320px with a seven-figure amount and no horizontal scroll. */}
+            <table className='w-full'>
               <thead>
                 <tr>
-                  <th className={tableTh}>{t('club.friends.colFriend')}</th>
-                  <th className={tableTh}>{t('club.friends.colStatus')}</th>
-                  <th className={thEnd}>{t('club.friends.colTheirs')}</th>
-                  <th className={thEnd}>{t('club.friends.colYours')}</th>
+                  <th className={thTight}>{t('club.friends.colFriend')}</th>
+                  <th className={thTight + ' hidden sm:table-cell'}>{t('club.friends.colStatus')}</th>
+                  <th className={thTightEnd}>
+                    {t('club.friends.colTheirs')}
+                    <span className='block sm:hidden'>{t('club.friends.colYours')}</span>
+                  </th>
+                  <th className={thTightEnd + ' hidden sm:table-cell'}>{t('club.friends.colYours')}</th>
                 </tr>
               </thead>
               <tbody>
                 {club.friendsRows.map((row, i) => (
                   <tr key={i} className={tableRow}>
-                    <td className={tableTd + ' max-w-[10rem] truncate'}>{row.name}</td>
-                    <td className={tableTd + ' text-tone-success-fg font-semibold'}>
+                    <td className={tdTight + ' w-full max-w-0'}>
+                      <div className='truncate'>{row.name}</div>
+                      {row.earningLastRound === true && (
+                        <div className='text-tone-success-fg text-small font-semibold whitespace-nowrap sm:hidden'>
+                          {t('club.friends.statusEarning')}
+                        </div>
+                      )}
+                    </td>
+                    <td
+                      className={tdTight + ' text-tone-success-fg hidden font-semibold whitespace-nowrap sm:table-cell'}
+                    >
                       {row.earningLastRound === true ? t('club.friends.statusEarning') : ''}
                     </td>
-                    <td className={tableTd + ' num text-end'}>{trimmed(row.friendHpo)}</td>
-                    <td className={tableTd + ' num text-end'}>{trimmed(row.yourHpo)}</td>
+                    <td className={tdTight + ' num text-end whitespace-nowrap'}>
+                      {trimmed(row.friendHpo)}
+                      <div className='text-text-muted text-small sm:hidden'>{trimmed(row.yourHpo)}</div>
+                    </td>
+                    <td className={tdTight + ' num hidden text-end whitespace-nowrap sm:table-cell'}>
+                      {trimmed(row.yourHpo)}
+                    </td>
                   </tr>
                 ))}
               </tbody>
