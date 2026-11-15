@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — Mini App opened from search or the bot's profile: Telegram mode kept
+
+- The legacy `/app/` page, which redirects to `/stake/` (or `/stats/`, `/club/`, `/unstake/` for old `#/page=…` links), now carries Telegram's launch parameters (`#tgWebApp…`) along. It used to drop them, so a Mini App opened at `/app/` lost Telegram mode and showed the website, whose new-tab links Telegram ignores (only t.me links opened). Found by Behrang: the Mini App opened through "Open" in Telegram's search results had dead links on Android and Desktop, while the one opened from the bot's Club button worked. That "Open" launches the bot's Main App, whose BotFather URL appears to still be `/app/`.
+- Checked in a headless browser posing as Telegram: launched at `/app/`, the page lands on `/stake/` in Mini App mode and all 27 outside links go to Telegram; old `#/page=…` links without Telegram still land on the right page as the website.
+- Left open: pointing the Main App URL in BotFather at `https://hipo.finance/stake/` directly (a follow-up listed in [site-structure-redesign](specs/site-structure-redesign.md)), which also saves the redirect.
+
 ## 2026-11-15 — Mini App: links to other sites open; the homepage stays static
 
 - In the Telegram Mini App every link to another site or to the docs now opens in Telegram's browser, and every t.me link in Telegram itself, on all screens: the stake form, DeFi's services, Stats' sources, the Club and the HPO tab. Before, only the HPO tab did this; elsewhere the links were plain new-tab links, which Telegram's webview ignores for any address but t.me, so only the Hipo chat link worked (reported by Behrang). Links to app pages still change page in place, and TonConnect's wallet window keeps its own links.

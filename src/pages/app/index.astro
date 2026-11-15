@@ -30,7 +30,7 @@ const rewardTarget = clubBuilt() ? '/club/' : '/rewards/'
     <script is:inline define:vars={{ rewardTarget }}>
       ;(() => {
         var hash = location.hash.replace(/^#\/?/, '')
-        var segments = hash.split('/').filter(Boolean)
+        var segments = hash.split('&')[0].split('/').filter(Boolean)
         var page = null
         var tab = null
 
@@ -48,7 +48,19 @@ const rewardTarget = clubBuilt() ? '/club/' : '/rewards/'
         else if (page === 'defi') target = '/defi/'
         else if (tab === 'unstake') target = '/unstake/'
 
-        location.replace(target)
+        // Telegram's launch parameters (tgWebAppData, tgWebAppVersion, …) ride in the fragment, after
+        // any legacy segments. They go along to the target: without them the page there cannot tell
+        // it is a Mini App and shows the website, whose new-tab links Telegram ignores. BotFather's
+        // Main App URL may still be this page (specs/site-structure-redesign.md).
+        var telegram = location.hash
+          .replace(/^#\/?/, '')
+          .split('&')
+          .filter(function (part) {
+            return part.indexOf('tgWebApp') === 0
+          })
+          .join('&')
+
+        location.replace(target + (telegram ? '#' + telegram : ''))
       })()
     </script>
   </body>
