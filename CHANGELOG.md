@@ -9,6 +9,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — Mini App: the Stake tab is the website's stake form
+
+- The Telegram Mini App's Stake tab now shows the website's stake form instead of its own two-card form, so it gains what only the website had: the balances panel with "Staking starts in …" and "Unstaking in …" (asked for by users; the Mini App had no screen showing a pending unstake), the transaction cost, "Swap on exchange", and the Docs, FAQ, Audits and explorer links. [Spec](specs/mini-app-stake-form-unified.md).
+- Mini App adjustments, under `model.isTelegram`: no title (the Mini App header carries it), the button and the questions line in a bar pinned above the tab row (kept at Behrang's request), `px-4` sides. The website's form is unchanged (before/after screenshots at 390 and 1280px differ only in the loading spinner).
+- `tma/TmaStakeUnstake.tsx` is deleted, so the send checks exist once; its five texts (`app.tma.youStake`, `youReceive`, `youUnstake`, `balance`, `questions`) left all 11 catalogs. No new text.
+- The Mini App's DeFi link on the Stake screen is removed, at Behrang's request; the Mini App now has no way to the DeFi page (it left the tab row for HPO on 2026-11-14). The website form never had one.
+- Declined: the three statistics tiles under the website's form stay out of the Mini App (the header shows the APY and Stats is a tab). Lost on purpose: the swap-screen look and the balance inside the amount card. Left open: a check on a real phone in Telegram, including the keyboard.
+
 ## 2026-11-15 — Mini App: the Main App's dead links come from its address; /app/ keeps Telegram mode
 
 - Found with Behrang: the Mini App opened from Telegram's search results or the bot's profile ("Open", the Main App) had dead links and a white header on Android and Desktop, while the one opened from the bot's menu button worked. The page sent the same `web_app_open_link` request in both (checked in Telegram Desktop's inspector). The cause is the Main App URL in BotFather, `https://club.hipo.finance/`: that old Club address forwards to `https://hipo.finance/club/`, and Telegram drops every message from a page whose origin differs from the one it launched (Telegram Desktop logs "bad webapp origin"), so the links, the header colour and the other calls are ignored. The menu button opens hipo.finance directly. The fix is in BotFather, outside this repo: the Main App URL becomes `https://hipo.finance/club/`, and the `join` Mini App behind invite links needs the same check.

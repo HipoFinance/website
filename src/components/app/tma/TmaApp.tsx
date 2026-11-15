@@ -5,7 +5,7 @@ import { isAppPath, Model } from '../Model'
 import { openOutside } from './telegram'
 import TmaHeader from './TmaHeader.tsx'
 import TmaTabs from './TmaTabs.tsx'
-import TmaStakeUnstake from './TmaStakeUnstake.tsx'
+import StakeUnstake from '../StakeUnstake.tsx'
 import AmountAlert from '../AmountAlert.tsx'
 import MultisigGuidance from '../MultisigGuidance.tsx'
 import Defi from '../Defi.tsx'
@@ -21,8 +21,9 @@ interface Props {
 // the tab row as fixed-size rows and one scroller between them. Document scrolling is off in this
 // mode, which is what keeps Telegram's pull-to-close gesture from fighting the form.
 //
-// Reward / Stats / DeFi keep their existing responsive components; only the stake form has a
-// phone-specific layout. HPO shows the website's own static page (specs/mini-app-hpo-tab.md).
+// Reward / Stats / DeFi keep their existing responsive components; the stake form is the web one with
+// Mini App adjustments (specs/mini-app-stake-form-unified.md). HPO shows the website's own static page
+// (specs/mini-app-hpo-tab.md).
 const TmaApp = observer(({ model }: Props) => {
   const bodyRef = useRef<HTMLDivElement>(null)
   const hostRef = useRef<HTMLDivElement>(null)
@@ -114,7 +115,7 @@ const TmaApp = observer(({ model }: Props) => {
 
   let page = (
     <>
-      <TmaStakeUnstake model={model} />
+      <StakeUnstake model={model} />
     </>
   )
 

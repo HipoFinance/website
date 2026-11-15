@@ -819,10 +819,6 @@
     "sourceHash": "29fb7352dc350378c01698faf15be1f61a284599",
     "reviewed": false
   },
-  "app.tma.balance": {
-    "sourceHash": "2949e86714f0f631b6a53e887c62753b213f69cc",
-    "reviewed": false
-  },
   "app.tma.connect": {
     "sourceHash": "b65463cb6a42a17de514acc4659f7fd331e0876a",
     "reviewed": false
@@ -831,24 +827,8 @@
     "sourceHash": "93b8ebf5cd30a6a0f0809ad1afa3c86477a92b65",
     "reviewed": false
   },
-  "app.tma.questions": {
-    "sourceHash": "5988981eb74f6b37c2769b84c9da4f2e773f708f",
-    "reviewed": false
-  },
   "app.tma.subline": {
     "sourceHash": "cd812a0b0b214f332de561b8b3b08f69a67dc6cb",
-    "reviewed": false
-  },
-  "app.tma.youReceive": {
-    "sourceHash": "29cc70a6ace646669b7ca2e64d63a32fd8bda446",
-    "reviewed": false
-  },
-  "app.tma.youStake": {
-    "sourceHash": "ed9231c9914d616928eeb26b4a105200fd9c2564",
-    "reviewed": false
-  },
-  "app.tma.youUnstake": {
-    "sourceHash": "57bc8a38d1f18e877c591a5108a0c31034c102c0",
     "reviewed": false
   },
   "app.wait.bouncedStakeMessage": {

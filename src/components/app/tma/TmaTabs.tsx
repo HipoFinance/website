@@ -12,7 +12,7 @@ type Page = 'stake' | 'reward' | 'club' | 'stats' | 'hpo'
 // Labels are catalog keys, resolved through model.t at render time.
 // The second slot is Rewards before the launch commit and the Club after it (CLUB_ON, same icon).
 // The same four items as the website's menu (Header.tsx); HPO is its one-colour coin (no icon here).
-// DeFi is a link on the Stake screen (specs/mini-app-hpo-tab.md).
+// DeFi has no tab and, since specs/mini-app-stake-form-unified.md, no link in the Mini App.
 const pages: { page: Page; label: string; icon?: LucideIcon }[] = [
   { page: 'stake', label: 'app.nav.stake', icon: Coins },
   CLUB_ON

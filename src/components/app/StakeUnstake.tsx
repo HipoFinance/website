@@ -12,16 +12,74 @@ const StakeUnstake = observer(({ model }: Props) => {
   const stake = model.isStakeTabActive
   const t = model.t
 
+  const tma = model.isTelegram
+
+  // One button and one question line, placed by mode: in the card and under it on the web, in a bar
+  // pinned to the bottom of the screen in the Mini App (specs/mini-app-stake-form-unified.md).
+  const submitButton = (
+    <button
+      id='submit'
+      className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold disabled:cursor-not-allowed disabled:opacity-60'
+      disabled={!model.isButtonEnabled}
+      onClick={(e) => {
+        const target = e.target as HTMLInputElement
+        target.blur()
+        if (!model.isWalletConnected) {
+          if (model.canConnectAndStake) {
+            model.connectAndStake()
+          } else {
+            model.connect()
+          }
+        } else if (stake && !model.isAmountValid) {
+          model.setAmountAlert('stake-max')
+        } else if (!stake && !model.isAmountValid) {
+          model.setAmountAlert('unstake-max')
+        } else if (!stake && model.unstakeOption === 'instant' && model.unstakeMoreThanInstantBurnable) {
+          model.setAmountAlert('instant-unstake-max')
+        } else {
+          model.send()
+        }
+      }}
+    >
+      {model.buttonLabel}
+    </button>
+  )
+
+  // Reassurance at the money moment: a human to reach before committing funds.
+  const questions = (
+    <p className={'text-text-faint text-label text-center' + (tma ? '' : ' pt-5')}>
+      {nodes(t('app.stake.questions'), {
+        link: (
+          <a
+            className='text-accent hover:text-accent-hover'
+            href='https://t.me/hipo_chat'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            {t('app.stake.askOnTelegram')}
+          </a>
+        ),
+      })}
+    </p>
+  )
+
   return (
-    <div className='font-body text-text mx-auto flex w-full max-w-[1120px] flex-col items-center px-6 pt-5 pb-8 sm:pt-10'>
-      <div className='pb-5 text-center sm:pb-7'>
-        <h1 className='font-display font-heading text-section mb-1 leading-[1.2] sm:mb-2 sm:text-[34px]'>
-          {stake ? t('app.stake.titleStake') : t('app.stake.titleUnstake')}
-        </h1>
-        <p className='text-text-muted text-small sm:text-base'>
-          {stake ? t('app.stake.subtitleStake') : t('app.stake.subtitleUnstake')}
-        </p>
-      </div>
+    <div
+      className={
+        'font-body text-text mx-auto flex w-full max-w-[1120px] flex-col items-center pt-5 sm:pt-10 ' +
+        (tma ? 'min-h-full px-4' : 'px-6 pb-8')
+      }
+    >
+      {!tma && (
+        <div className='pb-5 text-center sm:pb-7'>
+          <h1 className='font-display font-heading text-section mb-1 leading-[1.2] sm:mb-2 sm:text-[34px]'>
+            {stake ? t('app.stake.titleStake') : t('app.stake.titleUnstake')}
+          </h1>
+          <p className='text-text-muted text-small sm:text-base'>
+            {stake ? t('app.stake.subtitleStake') : t('app.stake.subtitleUnstake')}
+          </p>
+        </div>
+      )}
 
       <div className='border-border bg-surface text-body mb-5 grid grid-cols-2 gap-1.5 rounded-full border p-[5px] font-semibold select-none sm:mb-7'>
         <button
@@ -222,32 +280,7 @@ const StakeUnstake = observer(({ model }: Props) => {
             <div className='text-text-faint -mt-2.5 text-[12.5px]'>{model.stakeRemain}</div>
           )}
 
-          <button
-            id='submit'
-            className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover h-14 w-full cursor-pointer rounded-2xl text-lg font-semibold disabled:cursor-not-allowed disabled:opacity-60'
-            disabled={!model.isButtonEnabled}
-            onClick={(e) => {
-              const target = e.target as HTMLInputElement
-              target.blur()
-              if (!model.isWalletConnected) {
-                if (model.canConnectAndStake) {
-                  model.connectAndStake()
-                } else {
-                  model.connect()
-                }
-              } else if (stake && !model.isAmountValid) {
-                model.setAmountAlert('stake-max')
-              } else if (!stake && !model.isAmountValid) {
-                model.setAmountAlert('unstake-max')
-              } else if (!stake && model.unstakeOption === 'instant' && model.unstakeMoreThanInstantBurnable) {
-                model.setAmountAlert('instant-unstake-max')
-              } else {
-                model.send()
-              }
-            }}
-          >
-            {model.buttonLabel}
-          </button>
+          {!tma && submitButton}
 
           {!stake && (
             <div className='-mt-2 flex flex-row'>
@@ -288,21 +321,7 @@ const StakeUnstake = observer(({ model }: Props) => {
           </div>
         </div>
 
-        {/* Reassurance at the money moment: a human to reach before committing funds. */}
-        <p className='text-text-faint text-label pt-5 text-center'>
-          {nodes(t('app.stake.questions'), {
-            link: (
-              <a
-                className='text-accent hover:text-accent-hover'
-                href='https://t.me/hipo_chat'
-                target='_blank'
-                rel='noopener noreferrer'
-              >
-                {t('app.stake.askOnTelegram')}
-              </a>
-            ),
-          })}
-        </p>
+        {!tma && questions}
 
         <div className='text-text-faint text-label flex flex-row flex-wrap justify-center gap-x-6 gap-y-2 pt-3'>
           <a className='hover:text-accent' href={model.localizedPath('/docs/')}>
@@ -324,6 +343,13 @@ const StakeUnstake = observer(({ model }: Props) => {
           </a>
         </div>
       </div>
+
+      {tma && (
+        <div className='bg-bg border-border sticky bottom-0 mt-auto flex w-full max-w-[480px] flex-col gap-2.5 border-t pt-2 pb-4'>
+          {submitButton}
+          {questions}
+        </div>
+      )}
     </div>
   )
 })

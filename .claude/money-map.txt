@@ -10,7 +10,6 @@ path  3  src/components/app/MultisigGuidance.tsx  shows the destination, amount 
 path  2  src/i18n/format.ts  parses the typed amount that is sent, and formats the amount a multisig user copies  Alireza 2026-10-11
 path  2  src/components/app/amountInput.ts  the only writer of the amount field  Alireza 2026-10-11
 path  2  src/components/app/StakeUnstake.tsx  the checks before a send: over the maximum, over the instant liquidity  Alireza 2026-10-11
-path  2  src/components/app/tma/TmaStakeUnstake.tsx  the checks before a send, repeated for the Telegram mini app  Alireza 2026-10-11
 path  2  src/data/club.ts  the HPO reward formula and the APY boost, with fallback constants  Alireza 2026-10-11
 path  2  src/data/lst-geometry.ts  the what-you-would-have-earned calculator of the comparison page  Alireza 2026-10-11
 path  2  src/data/lst.ts  computes each protocol's exchange rate and growth  Alireza 2026-10-11
