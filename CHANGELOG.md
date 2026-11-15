@@ -9,11 +9,10 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
-## 2026-11-15 — Mini App opened from search or the bot's profile: Telegram mode kept
+## 2026-11-15 — Mini App: the Main App's dead links come from its address; /app/ keeps Telegram mode
 
-- The legacy `/app/` page, which redirects to `/stake/` (or `/stats/`, `/club/`, `/unstake/` for old `#/page=…` links), now carries Telegram's launch parameters (`#tgWebApp…`) along. It used to drop them, so a Mini App opened at `/app/` lost Telegram mode and showed the website, whose new-tab links Telegram ignores (only t.me links opened). Found by Behrang: the Mini App opened through "Open" in Telegram's search results had dead links on Android and Desktop, while the one opened from the bot's Club button worked. That "Open" launches the bot's Main App, whose BotFather URL appears to still be `/app/`.
-- Checked in a headless browser posing as Telegram: launched at `/app/`, the page lands on `/stake/` in Mini App mode and all 27 outside links go to Telegram; old `#/page=…` links without Telegram still land on the right page as the website.
-- Left open: pointing the Main App URL in BotFather at `https://hipo.finance/stake/` directly (a follow-up listed in [site-structure-redesign](specs/site-structure-redesign.md)), which also saves the redirect.
+- Found with Behrang: the Mini App opened from Telegram's search results or the bot's profile ("Open", the Main App) had dead links and a white header on Android and Desktop, while the one opened from the bot's menu button worked. The page sent the same `web_app_open_link` request in both (checked in Telegram Desktop's inspector). The cause is the Main App URL in BotFather, `https://club.hipo.finance/`: that old Club address forwards to `https://hipo.finance/club/`, and Telegram drops every message from a page whose origin differs from the one it launched (Telegram Desktop logs "bad webapp origin"), so the links, the header colour and the other calls are ignored. The menu button opens hipo.finance directly. The fix is in BotFather, outside this repo: the Main App URL becomes `https://hipo.finance/club/`, and the `join` Mini App behind invite links needs the same check.
+- Also shipped while looking: the legacy `/app/` page, which redirects to `/stake/` (or `/stats/`, `/club/`, `/unstake/` for old `#/page=…` links), now carries Telegram's launch parameters (`#tgWebApp…`) along instead of dropping them, so a Mini App launched at `/app/` stays in Mini App mode. It was not the cause above. Checked in a headless browser posing as Telegram; old links without Telegram land on the right page as before.
 
 ## 2026-11-15 — Mini App: links to other sites open; the homepage stays static
 
