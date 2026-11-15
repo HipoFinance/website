@@ -9,10 +9,16 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — Mini App: links to other sites open; the homepage stays static
+
+- In the Telegram Mini App every link to another site or to the docs now opens in Telegram's browser, and every t.me link in Telegram itself, on all screens: the stake form, DeFi's services, Stats' sources, the Club and the HPO tab. Before, only the HPO tab did this; elsewhere the links were plain new-tab links, which Telegram's webview ignores for any address but t.me, so only the Hipo chat link worked (reported by Behrang). Links to app pages still change page in place, and TonConnect's wallet window keeps its own links.
+- The call to Telegram now happens within the tap itself; it used to wait for the SDK module first, after the tap had ended. Checked in a headless browser posing as Telegram (27 links on four screens, each one request with the right address and no page change) and in the `?tma=1` preview (a new tab each); a check in real Telegram is still to come.
+- Phase 4 of [one header across the site](specs/one-header-across-site.md) is declined by Behrang: the homepage stays a static page. In 15 interleaved Lighthouse runs on mobile, the homepage as an app page was slower either way: with the app started after the fonts, median LCP 927 → 1183 ms; with the app started at once, the median held (924 → 930 ms) but slow runs went from 1 to 3 in 15, worst score 92 → 74. The cost is the app's scripts in the page (about 5 KB gzipped). The deferred app start was dropped too (entry below).
+
 ## 2026-11-15 — App pages: one stylesheet
 
 - The app pages (Stake, Unstake, Rewards, Club, Stats, DeFi, HPO) load one stylesheet instead of two: `app.css` now imports `global.css` and adds only the app's own tokens and rules, so Tailwind compiles once and nothing is repeated. 14.7 KB gzipped in one file instead of 25.8 KB in two. Computed styles of every element were the same before and after on eight app pages at 390 and 1440 px, light and dark, with and without JavaScript; the homepage, FAQ and blog keep the same `global.css` file.
-- Held back: starting the app on /hpo/ only after the hero's fonts have painted. In 7 interleaved Lighthouse runs it did not show the gain the experiment showed (median LCP 1087 → 1565 ms, from 3 late-LCP runs in 7) and Connect opened about 60 ms later, so it waits for a 15-run measurement together with the homepage ([spec](specs/one-header-across-site.md)).
+- Dropped: starting the app on /hpo/ only after the hero's fonts have painted. Over 22 interleaved Lighthouse runs it made /hpo/ slower, not faster (15-run median LCP 1190 → 2000 ms, runs with LCP above 2 s 2 → 6 in 15) and opened Connect about 60 ms later; see the entry above.
 
 ## 2026-11-15 — Stake form: less space above it on phones, equal tabs
 

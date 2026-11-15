@@ -141,24 +141,46 @@ export async function telegramLanguageCode(mode: TmaMode): Promise<string | unde
   }
 }
 
+// The SDK once initTelegramChrome has loaded and confirmed it, so a link opens within the tap itself:
+// awaiting even an already-loaded import would call Telegram after the click event has ended.
+let loadedWebApp: TelegramWebApp | undefined
+
+function openInTelegram(WebApp: TelegramWebApp, href: string): boolean {
+  try {
+    if (new URL(href).hostname === 't.me' && WebApp.isVersionAtLeast('6.1')) {
+      WebApp.openTelegramLink(href)
+    } else {
+      WebApp.openLink(href)
+    }
+    return true
+  } catch (e) {
+    console.warn('[hipo] Telegram openLink is unavailable on this client', e)
+    return false
+  }
+}
+
 /**
  * Opens `href` (an absolute URL) outside the mini app: a t.me link in Telegram itself
  * (`openTelegramLink`, 6.1+; below that it would navigate the mini app away), any other link in
  * Telegram's in-app browser (`openLink`), and a new tab in the `?tma=1` preview or when the SDK fails.
- * The SDK import returns the module initTelegramChrome already loaded.
+ * Synchronous once the SDK has loaded; a tap before that waits for the import.
  */
-export async function openOutside(mode: TmaMode, href: string): Promise<void> {
+export function openOutside(mode: TmaMode, href: string): void {
   if (mode === 'telegram') {
-    try {
-      const WebApp = (await import('@twa-dev/sdk')).default
-      if (new URL(href).hostname === 't.me' && WebApp.isVersionAtLeast('6.1')) {
-        WebApp.openTelegramLink(href)
-      } else {
-        WebApp.openLink(href)
+    if (loadedWebApp != null) {
+      if (openInTelegram(loadedWebApp, href)) {
+        return
       }
+    } else {
+      void import('@twa-dev/sdk').then(
+        (m) => {
+          if (!openInTelegram(m.default, href)) {
+            window.open(href, '_blank', 'noopener')
+          }
+        },
+        () => window.open(href, '_blank', 'noopener'),
+      )
       return
-    } catch (e) {
-      console.warn('[hipo] Telegram openLink is unavailable on this client', e)
     }
   }
   window.open(href, '_blank', 'noopener')
@@ -199,6 +221,7 @@ export async function initTelegramChrome(mode: TmaMode): Promise<boolean> {
     forget()
     return false
   }
+  loadedWebApp = WebApp
 
   const atLeast = (version: string) => {
     try {

@@ -63,12 +63,16 @@ const TmaApp = observer(({ model }: Props) => {
     }
   }, [activePage])
 
-  // A link off the app opens outside the mini app: another site, or a page of this one without the app
-  // (the docs, /faq/, /blog/), would replace the mini app's page with no tabs and no way back. Links to
-  // app pages (and #anchors on this one) stay in place. Runs
-  // before the ClientRouter's document listener, which skips a click whose default is prevented. A
-  // modified click (only possible in the ?tma=1 preview) is left to the browser.
-  const onHostClick = (event: MouseEvent<HTMLDivElement>) => {
+  // A link off the app opens outside the mini app, on every screen (the stake form's rates and chat
+  // links, Stats' sources, DeFi's services, the Club, the HPO tab): Telegram's webview ignores a
+  // target=_blank link to another site, and a link that navigated in place would replace the mini app
+  // with a page that has no tabs and no way back — another site, or a page of this one without the app
+  // (the docs, /faq/, /blog/). Links to app pages (and #anchors on this one) stay in place. A capture
+  // handler on the shell, so it runs before the links' own handlers and before the ClientRouter's
+  // document listener, which skips a click whose default is prevented. TonConnect's window lives
+  // outside the shell and keeps its own links. A modified click (only possible in the ?tma=1 preview)
+  // is left to the browser.
+  const onLinkClick = (event: MouseEvent<HTMLDivElement>) => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
       return
     }
@@ -84,7 +88,7 @@ const TmaApp = observer(({ model }: Props) => {
       return
     }
     event.preventDefault()
-    void openOutside(model.tmaMode, url.href)
+    openOutside(model.tmaMode, url.href)
   }
 
   // The ClientRouter restores window scroll, not ours, so reset the inner scroller by hand when
@@ -127,11 +131,11 @@ const TmaApp = observer(({ model }: Props) => {
     page = <StatsPage model={model} />
   } else if (activePage === 'hpo') {
     // No React children: the effect above fills it.
-    page = <div ref={hostRef} onClick={onHostClick} />
+    page = <div ref={hostRef} />
   }
 
   return (
-    <div className='tma-shell font-body text-text flex flex-col overflow-hidden'>
+    <div className='tma-shell font-body text-text flex flex-col overflow-hidden' onClickCapture={onLinkClick}>
       <TmaHeader model={model} />
       <div ref={bodyRef} className='flex min-h-0 flex-1 flex-col overflow-x-hidden overflow-y-auto overscroll-contain'>
         {page}

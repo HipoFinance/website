@@ -1,8 +1,8 @@
 # One header across the site
 
 **Status:** phase 1 implemented 2026-11-14 (approved by Behrang: header width 1280 px, Open question 1 option A); phase 2 approved 2026-11-14 by Behrang, amended before and during the build (see Phase 2 in Approach), implemented 2026-11-14 and live (b454aa1), phone check passed; phase 3 implemented 2026-11-14 in
-`specs/mini-app-hpo-tab.md` (not committed; the phone check is to come); phase 4 built and measured 2026-11-14,
-fails the LCP rule, kept out of the tree (stash) pending Behrang's decision
+`specs/mini-app-hpo-tab.md` and live (fbc5a70), the phone check in real Telegram is to come; phase 4 declined 2026-11-15 by Behrang after a
+15-run re-measure (see "Phase 4 re-measured" under Acceptance criteria): the homepage stays static
 
 ## Goal
 
@@ -271,6 +271,29 @@ each, on the shared dev machine:
 - Found while building it and kept: the Model now reads the page from the URL when it is created, so
   the first render on `/hpo/` no longer draws one frame of the stake form.
 
+Phase 4 re-measured (2026-11-15, declined)
+
+After the second stylesheet was removed from every app page (ed10a77: `app.css` imports `global.css`),
+phase 4 was rebuilt on that `main` and measured again: Lighthouse 13.6 mobile, gzip, 15 rounds, the
+order alternating each round, each round started only below a load average of 2.0. "Deferred" starts
+the app's code after the first paint, the web fonts and one more frame (3 s at most).
+
+| | Score, median | LCP, median | Runs with LCP above 2 s | Worst score |
+| --- | --- | --- | --- | --- |
+| `/` today | 99 | 927 ms | 0 of 15 | 94 |
+| `/` phase 4, deferred | 100 | 1183 ms | 1 of 15 | 91 |
+| `/` today (second run) | 99 | 924 ms | 1 of 15 | 92 |
+| `/` phase 4, at once | 98 | 930 ms | 3 of 15 | 74 |
+| `/hpo/` today | 70 | 1190 ms | 2 of 15 | 59 |
+| `/hpo/`, deferred | 68 | 2000 ms | 6 of 15 | 60 |
+
+- The homepage grows by about 5 KB gzipped (the island loader, the stale-deploy reload script, the
+  inlined gauge data). Deferred, most runs paint about 250 ms later; at once, the median holds but the
+  slow runs are more and slower. Neither meets the rule of Open question 2, so Behrang declined phase 4:
+  the homepage keeps its static header from phase 1.
+- The deferred start was dropped on `/hpo/` too (it was worse there in this run and in an earlier 7-run
+  one). The one-stylesheet change shipped on its own, since it changes no computed style.
+
 ## Risks & rollback
 
 - **An HPO script misses its teardown.** Then a timer keeps polling the gauge from other pages, or
@@ -293,7 +316,8 @@ each, on the shared dev machine:
    Recommendation: A, after a word with Alireza, since phase 1 undoes his choice.
 2. **Phase 4: what loss in page speed is acceptable on the homepage?** Recommendation: go ahead if the
    median mobile performance score drops by 3 points or less and LCP does not get worse beyond run-to-run
-   noise. Otherwise keep the homepage static, with phase 1's matching header.
+   noise. Otherwise keep the homepage static, with phase 1's matching header. **Answered 2026-11-15:**
+   the rule was not met in two measurements, and Behrang kept the homepage static.
 3. **Phase 4: what should the homepage's header button say?** It would become "Connect wallet" (or the
    address) instead of "Open app". "Open app" is the clearer invitation for a first visit, but the
    hero already has its own Stake button. Recommendation: "Connect wallet", the same as every other
