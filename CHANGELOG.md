@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — Mini App: the stake button back in the form
+
+- The Mini App's Stake tab drops the button bar pinned above the tab row; the button is back in the form card under the field, as on the website. From Behrang's phone check: the bar hid the focused field behind it when the browser scrolled the field into view, its top and bottom margins differed, the loading indicator and the error bar sat over it, and the links at the end of the page were crowded against it. The Mini App form gets the website's bottom padding back.
+- On first load the button is in view at 390×760 on both tabs, with and without a wallet, and at 360×640 except Unstake with a wallet connected, where the balances panel pushes it about 80px below the fold. Checked in the `?tma=1` preview with an injected wallet state; the website's form is unchanged (screenshots differ only in the loading spinner).
+- Not done: scrolling the field to the middle on focus, which the bar made necessary; with the button under the field, the browser's own scroll-into-view is left as it is. [Spec](specs/mini-app-stake-form-unified.md), amended.
+
 ## 2026-11-15 — Mini App: blank screen after a minimize; the questions line back under the form
 
 - Reported by Behrang on Android: after the Mini App was minimized, by hand or by tapping the Hipo chat link (Telegram minimizes it to open a chat), reopening it showed the header and a blank screen, while the loading spinner kept appearing. The shell's height was Telegram's "stable" viewport height alone; Telegram reports the minimized bar's height as stable and sends no new stable height on restore, so the shell stayed bar-sized. The spinner is drawn outside the shell, hence still visible.

@@ -14,8 +14,9 @@ const StakeUnstake = observer(({ model }: Props) => {
 
   const tma = model.isTelegram
 
-  // One button, placed by mode: in the card on the web, in a bar pinned to the bottom of the screen in
-  // the Mini App (specs/mini-app-stake-form-unified.md).
+  // In the card under the field in both modes. The Mini App pinned it to the bottom of the screen for a
+  // while (specs/mini-app-stake-form-unified.md); the bar hid the focused field behind it and sat in the
+  // strip the loading and error overlays use, so it was dropped.
   const submitButton = (
     <button
       id='submit'
@@ -67,7 +68,7 @@ const StakeUnstake = observer(({ model }: Props) => {
     <div
       className={
         'font-body text-text mx-auto flex w-full max-w-[1120px] flex-col items-center pt-5 sm:pt-10 ' +
-        (tma ? 'min-h-full px-4' : 'px-6 pb-8')
+        (tma ? 'px-4 pb-8' : 'px-6 pb-8')
       }
     >
       {!tma && (
@@ -280,7 +281,7 @@ const StakeUnstake = observer(({ model }: Props) => {
             <div className='text-text-faint -mt-2.5 text-[12.5px]'>{model.stakeRemain}</div>
           )}
 
-          {!tma && submitButton}
+          {submitButton}
 
           {!stake && (
             <div className='-mt-2 flex flex-row'>
@@ -343,12 +344,6 @@ const StakeUnstake = observer(({ model }: Props) => {
           </a>
         </div>
       </div>
-
-      {tma && (
-        <div className='bg-bg border-border sticky bottom-0 mt-auto flex w-full max-w-[480px] flex-col gap-2.5 border-t pt-2 pb-4'>
-          {submitButton}
-        </div>
-      )}
     </div>
   )
 })

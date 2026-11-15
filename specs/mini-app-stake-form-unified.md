@@ -1,6 +1,13 @@
 # Mini App: one stake form with the website
 
-**Status:** implemented 2026-11-15 (approved the same day by Behrang, with the recommended answer to the open question: tiles left out); not yet committed or checked on a phone.
+**Status:** implemented 2026-11-15 (approved the same day by Behrang, with the recommended answer to the open question: tiles left out); live since 207a376; checked on Behrang's Android phone, which led to the amendment below.
+
+**Amended 2026-11-15 after Behrang's phone check:** the pinned bar (Approach 2) is dropped; the button is back in the
+form card under the field, as on the website. The bar hid the focused field behind it when the browser scrolled the
+field into view, had uneven margins, shared the bottom strip with the loading and error overlays, and crowded the
+links. The Mini App root keeps `px-4` and gets the web form's `pb-8`. On first load the button is in view at 390×760
+in every case and at 360×640 except Unstake with a wallet connected (the balances panel pushes it about 80px down).
+The sections below describe the bar as first built.
 
 ## Goal
 
