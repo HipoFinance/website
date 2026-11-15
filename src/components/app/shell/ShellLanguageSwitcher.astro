@@ -27,7 +27,7 @@ const label = t('app.header.language')
   locales.length >= 2 && (
     <details data-i18n-switcher class={'group relative' + (className == null ? '' : ' ' + className)}>
       <summary
-        class='border-border bg-surface text-text-muted hover:text-accent flex min-h-11 cursor-pointer list-none items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm font-medium [&::-webkit-details-marker]:hidden'
+        class='text-text-muted hover:text-accent flex min-h-11 cursor-pointer list-none items-center gap-1.5 text-sm font-medium [&::-webkit-details-marker]:hidden'
         title={label}
       >
         <span class='sr-only'>{label}: </span>

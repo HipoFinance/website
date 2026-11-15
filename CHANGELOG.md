@@ -9,6 +9,10 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — App header: language selector without the pill
+
+- The language selector in the app header (Stake, Club, Stats, DeFi, HPO and the static shell) loses its bordered pill background and is plain text with the globe and the arrow, like the site header's on the homepage, FAQ and blog. Asked by Behrang, to see how it looks before deciding which style both headers use. Text colour, size and the 44px tap height are unchanged; the Mini App has no language selector.
+
 ## 2026-11-14 — Mini App: HPO tab in place of DeFi
 
 - The Telegram Mini App's tab row is now Stake, Club, Stats, HPO, the same four items as the website's menu. The HPO tab shows the website's own /hpo/ page inside the app's scroller: the page's content is moved in when the tab opens and dropped before each page switch, so nothing is copied or translated twice and the live price keeps updating. [Spec](specs/mini-app-hpo-tab.md), phase 3 of [one header across the site](specs/one-header-across-site.md).

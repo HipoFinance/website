@@ -36,7 +36,7 @@ const LanguageSwitcher = observer(({ model, className }: Props) => {
   return (
     <details data-i18n-switcher className={'group relative' + (className == null ? '' : ' ' + className)}>
       <summary
-        className='border-border bg-surface text-text-muted hover:text-accent flex min-h-11 cursor-pointer list-none items-center gap-1.5 rounded-full border px-4 py-2.5 text-sm font-medium [&::-webkit-details-marker]:hidden'
+        className='text-text-muted hover:text-accent flex min-h-11 cursor-pointer list-none items-center gap-1.5 text-sm font-medium [&::-webkit-details-marker]:hidden'
         title={label}
       >
         <span className='sr-only'>{label}: </span>
