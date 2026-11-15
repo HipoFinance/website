@@ -1,8 +1,8 @@
 # Mini App: HPO tab in place of DeFi
 
 **Status:** approved 2026-11-14 by Behrang, with the recommended answers to both open questions (phase 3 of
-`specs/one-header-across-site.md`); implemented 2026-11-14, not committed. Every criterion is checked except Behrang's phone check, which is
-still to come.
+`specs/one-header-across-site.md`); implemented 2026-11-14 and live (fbc5a70). Every criterion is checked, Behrang's phone check
+included (2026-11-15).
 
 ## Goal
 
@@ -159,8 +159,11 @@ Decisions needed: see Open questions.
       from the top, YouTube embeds requested.)
 - [x] `npm run build` passes. (666 pages, including the `check-i18n` gate; the i18n selftest passes,
       19 groups.)
-- [ ] Behrang opens the Mini App in Telegram on his phone and checks the HPO tab, scrolling, and back to
-      Stake.
+- [x] Behrang opens the Mini App in Telegram on his phone and checks the HPO tab, scrolling, and back to
+      Stake. (2026-11-15: the HPO page shows correctly and scrolls, and the DeFi link opens from Stake.
+      Outside links first failed: the app's own screens used plain new-tab links, fixed in de23f5b, and
+      the bot's Main App URL was on club.hipo.finance, so Telegram dropped the page's messages; Behrang
+      moved it to hipo.finance/club/ in BotFather, and links now open from every entry.)
 
 ## Risks & rollback
 

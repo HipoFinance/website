@@ -1,7 +1,7 @@
 # One header across the site
 
 **Status:** phase 1 implemented 2026-11-14 (approved by Behrang: header width 1280 px, Open question 1 option A); phase 2 approved 2026-11-14 by Behrang, amended before and during the build (see Phase 2 in Approach), implemented 2026-11-14 and live (b454aa1), phone check passed; phase 3 implemented 2026-11-14 in
-`specs/mini-app-hpo-tab.md` and live (fbc5a70), the phone check in real Telegram is to come; phase 4 declined 2026-11-15 by Behrang after a
+`specs/mini-app-hpo-tab.md` and live (fbc5a70), phone check in real Telegram passed 2026-11-15; phase 4 declined 2026-11-15 by Behrang after a
 15-run re-measure (see "Phase 4 re-measured" under Acceptance criteria): the homepage stays static
 
 ## Goal
