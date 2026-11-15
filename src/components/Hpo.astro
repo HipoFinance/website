@@ -195,7 +195,9 @@ const hpoFaq = await Promise.all(
   <!-- Hero -->
   <!-- grid-cols-1, not the implicit `auto` column: an auto track never shrinks below the headline's longest
        word, which widened the page on phones in the longer locales (specs/mobile-fit-hpo-hero-and-stake-toggle.md). -->
-  <section class='grid grid-cols-1 items-center gap-12 py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:py-16'>
+  <section
+    class='grid grid-cols-1 items-center gap-12 pt-5 pb-14 sm:pt-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:pt-10 lg:pb-16'
+  >
     <div class='flex flex-col items-start gap-[22px]'>
       <h1
         class='font-display font-heading text-[40px] leading-[1.1] hyphens-auto sm:text-[54px]'

@@ -47,8 +47,14 @@ const App = observer(() => {
       })
     }
     clear()
+    // After a swap, before the view transition captures the new page: on astro:page-load alone the
+    // incoming shell header was in that capture, so the cross-fade showed a second header under the
+    // island's for about half a second — longest on /hpo/, whose page scripts delay page-load.
+    // page-load stays as a fallback for a navigation without a swap event.
+    document.addEventListener('astro:after-swap', clear)
     document.addEventListener('astro:page-load', clear)
     return () => {
+      document.removeEventListener('astro:after-swap', clear)
       document.removeEventListener('astro:page-load', clear)
     }
   }, [])

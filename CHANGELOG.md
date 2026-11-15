@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — No second header when moving to HPO; home and HPO start higher
+
+- Moving between app pages showed a second header under the real one for about half a second, most visibly into `/hpo/`. The incoming page's static shell header was removed only on `astro:page-load`, which waits for that page's scripts, so the view transition's cross-fade had already captured it. `App.tsx` now removes the shell on `astro:after-swap` too, before the capture. Checked with a frame-by-frame headless recording of `/stake/` → `/hpo/` before (two headers at 875ms) and after (one header in every frame), website and Mini App.
+- The home and HPO heroes had 48–64px of top padding (126px from header to title on a phone at home, 135px on desktop at HPO), where `/stake/` starts 20px under the header. Both heroes now start 20px under the header on phones, 32px from 640px (HPO) or 768px (home, its own padding breakpoint), and HPO 40px on desktop; the bottom spacing is unchanged. In the Mini App's HPO tab the hero now starts 20px under the compact header.
+- Copy address on the wallet menu was confirmed on Telegram Desktop and Android by Behrang.
+
 ## 2026-11-15 — App header: one row on phones; the wallet pill opens a menu
 
 - Below 640px the app header is one row, logo · language · wallet pill (or a short "Connect") · menu, 68px tall instead of about 144px, so each app page starts about 76px higher; the Mini App's compact header prompted it. To fit, the "Hipo" word beside the logo is hidden there, the side padding is 16px (as in the Mini App) and the gaps are tighter, and below 360px the language shows its globe without the two-letter code. From 640px the header is as before; the landing header keeps its wordmark, since that is where new visitors arrive.
