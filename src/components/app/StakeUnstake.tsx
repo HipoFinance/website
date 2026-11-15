@@ -13,17 +13,17 @@ const StakeUnstake = observer(({ model }: Props) => {
   const t = model.t
 
   return (
-    <div className='font-body text-text mx-auto flex w-full max-w-[1120px] flex-col items-center px-6 pt-10 pb-8'>
-      <div className='pb-7 text-center'>
-        <h1 className='font-display font-heading mb-2 text-3xl sm:text-[34px]'>
+    <div className='font-body text-text mx-auto flex w-full max-w-[1120px] flex-col items-center px-6 pt-5 pb-8 sm:pt-10'>
+      <div className='pb-5 text-center sm:pb-7'>
+        <h1 className='font-display font-heading text-section mb-1 leading-[1.2] sm:mb-2 sm:text-[34px]'>
           {stake ? t('app.stake.titleStake') : t('app.stake.titleUnstake')}
         </h1>
-        <p className='text-text-muted text-base'>
+        <p className='text-text-muted text-small sm:text-base'>
           {stake ? t('app.stake.subtitleStake') : t('app.stake.subtitleUnstake')}
         </p>
       </div>
 
-      <div className='border-border bg-surface text-body mb-7 flex flex-row gap-1.5 rounded-full border p-[5px] font-semibold select-none'>
+      <div className='border-border bg-surface text-body mb-5 grid grid-cols-2 gap-1.5 rounded-full border p-[5px] font-semibold select-none sm:mb-7'>
         <button
           type='button'
           aria-pressed={stake}

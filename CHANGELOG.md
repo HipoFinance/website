@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — Stake form: less space above it on phones, equal tabs
+
+- On phones the stake form's heading block is tighter: 20px top padding instead of 40, a 26px heading instead of 30, a 14px subtitle instead of 16, and 20px instead of 28 under the heading and under the tabs. The amount field moves up 48px on Stake and 72px on Unstake at 390px width, so more of the form shows without scrolling. Asked by Behrang. Desktop (640px and wider) is unchanged.
+- The Stake and Unstake tab pills are now the same width, set by the longer label, in every locale (they were 71 and 88px on phones in English).
+- The static shell that paints before the app loads carries the same classes, so the page does not jump. The Mini App's stake screen is separate and unchanged.
+- Behrang kept the plain language selector of the entry below for the app header.
+
 ## 2026-11-15 — App header: language selector without the pill
 
 - The language selector in the app header (Stake, Club, Stats, DeFi, HPO and the static shell) loses its bordered pill background and is plain text with the globe and the arrow, like the site header's on the homepage, FAQ and blog. Asked by Behrang, to see how it looks before deciding which style both headers use. Text colour, size and the 44px tap height are unchanged; the Mini App has no language selector.
