@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import { Model } from '../Model'
 import { nodes } from '../Interpolate'
+import WalletMenu from '../WalletMenu'
 
 interface Props {
   model: Model
@@ -43,15 +44,11 @@ const TmaHeader = observer(({ model }: Props) => {
       </div>
 
       {model.isWalletConnected ? (
-        <button
-          type='button'
-          title={t('app.header.disconnectWallet')}
-          aria-label={t('app.tma.disconnectWalletAddress', { address: model.isolate(model.connectedAddressShort) })}
-          className='border-border bg-surface text-text-muted num ms-auto flex min-h-[34px] shrink-0 cursor-pointer items-center rounded-full border px-3 py-[7px] text-xs font-medium'
-          onClick={model.disconnect}
-        >
-          {model.connectedAddressShort}
-        </button>
+        <WalletMenu
+          model={model}
+          className='ms-auto'
+          pillClassName='border-border bg-surface text-text-muted min-h-[34px] cursor-pointer rounded-full border px-3 py-[7px] text-xs font-medium'
+        />
       ) : (
         // A stored session is restored on open, which can take a while on a slow network; a press
         // meanwhile would only wait for it, so the pill says so and takes no presses.

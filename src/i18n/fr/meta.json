@@ -155,16 +155,20 @@
     "sourceHash": "3aa21f8a7fc6db0d3503c2328bf2ae3db2f1c2b9",
     "reviewed": false
   },
+  "app.header.addressCopied": {
+    "sourceHash": "b87931969aa6f244352544a3bafa3e9daab52dab",
+    "reviewed": false
+  },
   "app.header.appSections": {
     "sourceHash": "6d82babf0480b99108326e57dd58fe9ea0c89ca0",
     "reviewed": false
   },
-  "app.header.disconnect": {
-    "sourceHash": "ed28e0686e1251ba046f582a3e9ec02470a5e78d",
+  "app.header.copyAddress": {
+    "sourceHash": "4eaae53e88ef611bf3e38d4bb56028089f91f732",
     "reviewed": false
   },
-  "app.header.disconnectWallet": {
-    "sourceHash": "5071a7d62506ed3b6b43da9f63a5b5c64450f689",
+  "app.header.disconnect": {
+    "sourceHash": "ed28e0686e1251ba046f582a3e9ec02470a5e78d",
     "reviewed": false
   },
   "app.header.language": {
@@ -177,6 +181,10 @@
   },
   "app.header.toggleMenu": {
     "sourceHash": "21f9064a33f2f9661789a128a6be46933bbf4bf0",
+    "reviewed": false
+  },
+  "app.header.walletMenu": {
+    "sourceHash": "e113aa1791df3fbf49119c6bc861d4f837a9fa93",
     "reviewed": false
   },
   "app.model.approxGram": {
@@ -821,10 +829,6 @@
   },
   "app.tma.connect": {
     "sourceHash": "b65463cb6a42a17de514acc4659f7fd331e0876a",
-    "reviewed": false
-  },
-  "app.tma.disconnectWalletAddress": {
-    "sourceHash": "93b8ebf5cd30a6a0f0809ad1afa3c86477a92b65",
     "reviewed": false
   },
   "app.tma.subline": {

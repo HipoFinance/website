@@ -9,6 +9,14 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — App header: one row on phones; the wallet pill opens a menu
+
+- Below 640px the app header is one row, logo · language · wallet pill (or a short "Connect") · menu, 68px tall instead of about 144px, so each app page starts about 76px higher; the Mini App's compact header prompted it. To fit, the "Hipo" word beside the logo is hidden there, the side padding is 16px (as in the Mini App) and the gaps are tighter, and below 360px the language shows its globe without the two-letter code. From 640px the header is as before; the landing header keeps its wordmark, since that is where new visitors arrive.
+- Moving the language switcher into the hamburger menu was built first and dropped: it reversed the approved Amendment 1 of `specs/language-switcher-rollout.md` (foreign-language visitors don't find a switcher inside a menu), and phones would have had no switcher at all until the app loaded. Behrang chose to keep the globe in the bar.
+- The connected pill shows only the short address and opens a small menu, Copy address (the full UQ… form) and Disconnect, on the website and in the Mini App. A tap on your own address used to disconnect at once; now it takes two taps, and the pill is narrower. Behrang chose the menu over an address-plus-logout-icon pill.
+- "Connect wallet" is the short "Connect" on phones, the Mini App's existing label, because "Connecter le portefeuille" did not fit one row at 360px. The static first-paint shell (`ShellHeader.astro`) mirrors all of this; three new strings in all 11 locales, two unused ones removed.
+- Checked in a headless browser, all 11 locales at 320, 359, 360 and 390px plus en at 640 and 1024px, website and Mini App, with a faked connected wallet: every control inside the row, the same header geometry in the shell and the loaded app, no horizontal scroll with the menu open, the full address on the clipboard, and a menu reopened right after a copy stays open (a review finding, fixed). Not money-audited (no-go by Behrang): the one `Model.ts` change is a display getter for that address.
+
 ## 2026-11-15 — Club Friends: the table fits a phone
 
 - The Friends table was wider than the card on phones (a fixed 380px minimum and four columns), so it scrolled sideways. Below 640px it now has three columns: the green "Earning" goes under the friend's name, the member's 1% goes in muted text under the friend's amount (the header stacks "Their boosted HPO" over "Your 1%"), the name truncates, and the side padding is tighter. From 640px the four columns are as before.

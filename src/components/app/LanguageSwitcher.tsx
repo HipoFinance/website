@@ -44,10 +44,11 @@ const LanguageSwitcher = observer(({ model, className }: Props) => {
           <circle cx='12' cy='12' r='9' />
           <path strokeLinecap='round' d='M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18' />
         </svg>
-        {/* Below sm the header bar is tight, so a two-letter code replaces the name. The name stays in
-            the accessibility tree at every width; the code is decoration. */}
+        {/* Below sm the header bar is tight, so a two-letter code replaces the name, and below 360px the
+            globe stands alone. The name stays in the accessibility tree at every width; the code is
+            decoration. */}
         <span className='max-sm:sr-only'>{LOCALES[model.locale].label}</span>
-        <span aria-hidden='true' className='sm:hidden'>
+        <span aria-hidden='true' className='max-[360px]:hidden sm:hidden'>
           {localeCode(model.locale)}
         </span>
         <svg

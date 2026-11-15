@@ -4,6 +4,7 @@ import { Coins, Gift, ChartLine, type LucideIcon } from 'lucide-react'
 import { CLUB_ON, Model } from './Model'
 import LanguageSwitcher from './LanguageSwitcher'
 import HpoIcon from './HpoIcon'
+import WalletMenu from './WalletMenu'
 
 interface Props {
   model: Model
@@ -91,15 +92,14 @@ const Header = observer(({ model }: Props) => {
 
   return (
     <div className='font-body text-text w-full'>
-      {/* Below sm the row wraps into two: logo · language · menu, then Connect/Disconnect full width on
-          its own line — Connect's label is too long in most locales to share a phone-width row
-          with the language switcher. The action group dissolves (`contents`) so its children flow
-          as items of this row; ShellHeader.astro mirrors this exactly. */}
-      <div className='mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-6 py-5 max-sm:flex-wrap md:px-12'>
+      {/* Below sm the header is one row: logo (no wordmark) · language (globe and two-letter code) ·
+          wallet pill or the short Connect · menu. The switcher stays in the bar, never in the menu
+          (specs/language-switcher-rollout.md, Amendment 1). ShellHeader.astro mirrors this exactly. */}
+      <div className='mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-6 py-5 max-sm:px-4 max-sm:py-3 md:px-12'>
         <a href={model.localizedPath('/')} className='flex flex-none items-center gap-2.5'>
           <img src='/images/hipo.svg' alt='Hipo' className='logo-on-dark size-9' />
           <img src='/images/hipo-light.svg' alt='Hipo' className='logo-on-light size-9' />
-          <span className='font-wordmark text-2xl font-semibold'>Hipo</span>
+          <span className='font-wordmark text-2xl font-semibold max-sm:hidden'>Hipo</span>
         </a>
 
         <nav
@@ -118,37 +118,35 @@ const Header = observer(({ model }: Props) => {
           ))}
         </nav>
 
-        <div className='flex min-w-0 items-center gap-4 max-sm:contents'>
-          <LanguageSwitcher model={model} className='max-sm:ms-auto' />
+        <div className='flex min-w-0 items-center gap-4 max-sm:gap-2'>
+          <LanguageSwitcher model={model} />
 
-          <div className='max-sm:order-last max-sm:flex max-sm:basis-full sm:contents'>
-            {model.isWalletConnected ? (
-              <button
-                type='button'
-                title={model.t('app.header.disconnectWallet')}
-                className='border-border bg-surface text-text-muted hover:text-accent min-h-11 cursor-pointer rounded-full border px-5 py-2.5 text-sm font-medium whitespace-nowrap max-sm:w-full'
-                onClick={model.disconnect}
-              >
-                <span>
-                  <bdi className='num'>{model.connectedAddressShort}</bdi> ·{' '}
-                </span>
-                {model.t('app.header.disconnect')}
-              </button>
-            ) : (
-              // Pressing Connect fetches the wallet layer before the modal can open, and a stored
-              // session is restored on open, which can take a while on a slow network; meanwhile the
-              // button dims, says "Connecting…" and stops taking presses.
-              <button
-                type='button'
-                disabled={model.isConnectBusy}
-                aria-busy={model.isConnectBusy}
-                className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold whitespace-nowrap disabled:cursor-progress disabled:opacity-70 max-sm:w-full'
-                onClick={model.connect}
-              >
-                {model.isConnectBusy ? model.t('app.common.connecting') : model.t('app.common.connectWallet')}
-              </button>
-            )}
-          </div>
+          {model.isWalletConnected ? (
+            <WalletMenu
+              model={model}
+              pillClassName='border-border bg-surface text-text-muted hover:text-accent min-h-11 cursor-pointer rounded-full border px-4 py-2.5 text-sm font-medium whitespace-nowrap max-sm:px-3'
+            />
+          ) : (
+            // Pressing Connect fetches the wallet layer before the modal can open, and a stored
+            // session is restored on open, which can take a while on a slow network; meanwhile the
+            // button dims, says "Connecting…" and stops taking presses.
+            <button
+              type='button'
+              disabled={model.isConnectBusy}
+              aria-busy={model.isConnectBusy}
+              className='bg-accent-fill text-on-accent hover:bg-accent-fill-hover min-h-11 cursor-pointer rounded-full px-5 py-2.5 text-sm font-semibold whitespace-nowrap disabled:cursor-progress disabled:opacity-70 max-sm:px-4'
+              onClick={model.connect}
+            >
+              {model.isConnectBusy ? (
+                model.t('app.common.connecting')
+              ) : (
+                <>
+                  <span className='sm:hidden'>{model.t('app.tma.connect')}</span>
+                  <span className='max-sm:hidden'>{model.t('app.common.connectWallet')}</span>
+                </>
+              )}
+            </button>
+          )}
 
           <button
             ref={toggleRef}
@@ -166,7 +164,7 @@ const Header = observer(({ model }: Props) => {
       </div>
 
       {menuOpen && (
-        <div ref={menuRef} className='px-6 pb-4 lg:hidden'>
+        <div ref={menuRef} className='px-6 pb-4 max-sm:px-4 lg:hidden'>
           <nav
             aria-label={model.t('app.header.siteNav')}
             className='text-text-muted text-body flex flex-col gap-1 font-medium'

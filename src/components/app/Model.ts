@@ -906,6 +906,7 @@ export class Model {
       stakeRemain: computed,
       explorerHref: computed,
       treasuryAddressFormatted: computed,
+      connectedAddressFriendly: computed,
       connectedAddressShort: computed,
       multisigIsStake: computed,
       multisigComment: computed,
@@ -1832,13 +1833,16 @@ export class Model {
     }
   }
 
+  // Unbounceable (UQ…), the customary form for wallet addresses.
+  get connectedAddressFriendly() {
+    return this.address?.toString({ bounceable: false }) ?? ''
+  }
+
   get connectedAddressShort() {
-    const address = this.address
-    if (address == null) {
+    const friendly = this.connectedAddressFriendly
+    if (friendly === '') {
       return ''
     }
-    // Unbounceable (UQ…), the customary form for wallet addresses.
-    const friendly = address.toString({ bounceable: false })
     return friendly.slice(0, 4) + '…' + friendly.slice(-4)
   }
 
