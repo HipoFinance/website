@@ -63,10 +63,23 @@ html.tma body {
    bar's height as stable, and on restore Android sends no new stable height, so the stable value
    alone left the shell bar-sized and the screen blank under the header (2026-11-15). The current
    height follows the restore; it is the smaller of the two while the keyboard is open, so typing
-   keeps the stable height as before. */
+   keeps the stable height as before.
+   The min() with 100dvh caps the shell at the real window: after the Hipo chat link minimized the
+   Mini App on Android, reopening it brought, about a second later, a viewport height taller than the
+   window, and the tab row (the shell's last row) was pushed off the bottom (2026-11-15). On Android
+   the window shrinks with the keyboard, so the cap also keeps the shell above it.
+   The base rule has no dvh and the cap sits behind @supports: a declaration holding var() is only
+   checked once the vars are substituted, so a webview without dvh (Android WebView before Chrome
+   108, iOS before 15.4) would drop the whole height to auto, not fall back to an earlier line. */
 .tma-shell {
-  height: max(var(--tg-viewport-stable-height, 100dvh), var(--tg-viewport-height, 100dvh));
+  height: max(var(--tg-viewport-stable-height, 100vh), var(--tg-viewport-height, 100vh));
   background: var(--color-bg);
+}
+
+@supports (height: 100dvh) {
+  .tma-shell {
+    height: min(max(var(--tg-viewport-stable-height, 100dvh), var(--tg-viewport-height, 100dvh)), 100dvh);
+  }
 }
 
 @theme {

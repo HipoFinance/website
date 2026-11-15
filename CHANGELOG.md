@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — Mini App: the tab row stays on screen after the chat link
+
+- Reported by Behrang on Android: after the Hipo chat link minimized the Mini App, reopening it showed the page, then about a second later the bottom tab row was gone; minimizing and reopening by hand put it back, every time. The shell is the larger of Telegram's stable and current viewport heights (since the blank-screen fix earlier today), so a reported height taller than the window pushed the tab row, the shell's last row, off the bottom.
+- Fix: the shell is capped at the real window, `min(…, 100dvh)` on `.tma-shell` in `app.css`, behind `@supports (height: 100dvh)` over a base rule without `dvh`, because a webview without `dvh` (Android WebView before Chrome 108, iOS before 15.4) would otherwise lose the whole height rule (a point from the code review). On Android the window shrinks with the keyboard, so the shell still fits above it. The half-second viewport request after a reopen stays: without it, a reopen that brings no new height would leave the screen blank again.
+- Checked in a headless browser posing as Android Telegram 8.0: a stable 812px report in a 760px window keeps the shell at 760 with the tab row visible; minimize and reopen still restore the full height and the request is still sent. Which report the phone actually gets after the chat link is unconfirmed (no device event log); the cap holds whatever it is. Website pages are unchanged.
+
 ## 2026-11-15 — Mini App: the stake button back in the form
 
 - The Mini App's Stake tab drops the button bar pinned above the tab row; the button is back in the form card under the field, as on the website. From Behrang's phone check: the bar hid the focused field behind it when the browser scrolled the field into view, its top and bottom margins differed, the loading indicator and the error bar sat over it, and the links at the end of the page were crowded against it. The Mini App form gets the website's bottom padding back.
