@@ -42,7 +42,9 @@ const NOT_CATALOGS = new Set(['meta.json', 'docs-sidebar.json'])
 // a translation source: no locale is expected to carry them, and a copy under another locale is an error
 // rather than a translation, because nothing would ever render it.
 const ENGLISH_ONLY_NAMESPACES = new Set(['blog'])
-const KEY_PATTERN = /^[a-z][a-z0-9]*(\.[a-z0-9][a-zA-Z0-9]*)+$/
+// A key may end in a plural form (`_one`, `_other`, ...), picked at runtime with Intl.PluralRules.
+const KEY_PATTERN = /^[a-z][a-z0-9]*(\.[a-z0-9][a-zA-Z0-9]*)+(_(zero|one|two|few|many|other))?$/
+const PLURAL_SUFFIX = /_(zero|one|two|few|many|other)$/
 const LIST_CAP = 20
 
 // ------------------------------------------------------------------------------------------------ util
@@ -313,7 +315,9 @@ function check() {
       }
     }
     for (const key of items.keys()) {
-      if (!english.items.has(key)) {
+      // A plural form English lacks (Russian `_few`, Arabic `_two`) is not extra when English has the key.
+      const pluralOf = PLURAL_SUFFIX.test(key) ? key.replace(PLURAL_SUFFIX, '_other') : undefined
+      if (!english.items.has(key) && !(pluralOf !== undefined && english.items.has(pluralOf))) {
         extra.push(key)
       }
     }

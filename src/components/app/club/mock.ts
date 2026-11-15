@@ -5,6 +5,7 @@
 // The URL picks the scenario:
 //   ?clubState=  A  A0  B  C  D  D2  E  F  G  belowMin  claimed  top  launching  frozen  loading
 //                error  nolink  nowallet  flow2  flow3  empty         (default B)
+//   ?clubCommunity=  points  new                                       the Community tab (off otherwise; not linked = clubState=A)
 //   ?clubChain=  clear  onway  old  stale  pagefail  limit            the chain read of the guard
 //   ?clubSend=   ok  reject  timeout                                   what the fake wallet answers
 //   ?clubNew=    meets  below                                          the HPO of a newly linked wallet
@@ -132,6 +133,9 @@ export class ClubMock implements ClubTransport {
   private auth?: () => Record<string, unknown> | undefined
   private intents = new Map<string, { to?: string; release: boolean; expiresAt: number }>()
   private errOnce = sticky('clubErr')
+  // Read on load, so the Community mode is remembered even when the page opens on another tab: a tab
+  // switch drops the query string before the Community tab asks.
+  private communityMode = sticky('clubCommunity')
   private tgDone = false
   // The made-up wallets: the Club wallet, another of the member's wallets, and a wallet a proof links.
   readonly walletA: Address
@@ -541,6 +545,8 @@ export class ClubMock implements ClubTransport {
         return this.overviewBody(head)
       case 'clubrewards':
         return this.rewardsBody(head)
+      case 'clubcommunity':
+        return this.communityBody(head)
       case 'clubfriends':
         return this.friendsBody(head, body)
       case 'clubleaderboard':
@@ -887,6 +893,80 @@ export class ClubMock implements ClubTransport {
         earned_staking: hpo(empty ? 0 : 162.47),
         earned_referral: hpo(empty ? 0 : 3.91),
       },
+    }
+  }
+
+  // ?clubCommunity=points shows the Community tab's earning state (the wireframe's sample data),
+  // ?clubCommunity=new its "almost set up" state (3 of 7 days in the chat); anything else answers
+  // 'off'. The not-linked state is ?clubState=A (no session). Weeks are the current UTC week and the
+  // ones before it, so "day N of 7" and the review Thursday follow the real date.
+  private communityBody(head: Record<string, unknown>) {
+    const mode = sticky('clubCommunity') ?? this.communityMode
+    if (mode !== 'points' && mode !== 'new') {
+      return { ...head, setting: 'off' }
+    }
+    const day = (n: number) => new Date(n).toISOString().slice(0, 10)
+    const today = Math.floor(Date.now() / (DAY * 1000))
+    const monday = (today - ((today + 3) % 7)) * DAY * 1000
+    const week = (back: number, state: string, p: number, extra = {}) => ({
+      week: day(monday - back * 7 * DAY * 1000),
+      start: day(monday - back * 7 * DAY * 1000),
+      end: day(monday - back * 7 * DAY * 1000 + 6 * DAY * 1000),
+      state,
+      p,
+      base_p: p,
+      a2: 0,
+      h: 0,
+      d: 0,
+      ring: false,
+      why: '',
+      note: '',
+      ...extra,
+    })
+    const params = {
+      weights: { appreciation: 60, replies: 42, days: 18 },
+      targets: { appreciation: 20, replies: 10, days: 7 },
+      per_person_cap: 3,
+      max_points: 120,
+    }
+    if (mode === 'new') {
+      return {
+        ...head,
+        setting: 'points',
+        params,
+        eligibility: { earner: false, why: 'new' },
+        estimate: { ...week(0, '', 0, { why: 'new' }), rank: 0, of: 18, reactors: 0, stickers: 0 },
+        days_in_chat: 3,
+        top: [],
+        weeks: [],
+      }
+    }
+    // The wireframe's numbers are sample data; these follow the real formula, so the parts (35 + 18 + 6)
+    // add up to the total.
+    return {
+      ...head,
+      setting: 'points',
+      params,
+      eligibility: { earner: true, why: '' },
+      estimate: { ...week(0, '', 59, { a2: 14, h: 2, d: 1 }), rank: 6, of: 18, reactors: 4, stickers: 1 },
+      days_in_chat: 7,
+      profile: { level: 12, streak: 9, badges: ['first_words', 'century', 'icebreaker'] },
+      top: [
+        { rank: 1, name: 'Sergey', p: 96, you: false },
+        { rank: 2, name: 'Alfonso', p: 84, you: false },
+        { rank: 3, name: 'Felicia', p: 71, you: false },
+      ],
+      weeks: [
+        week(1, 'review', 52),
+        week(2, 'final', 61, {
+          base_p: 67,
+          note: '6 points removed for reactions from accounts that only react to each other.',
+        }),
+        week(3, 'final', 44),
+        week(4, 'final', 0),
+        week(5, 'final', 70),
+        week(6, 'final', 95),
+      ],
     }
   }
 

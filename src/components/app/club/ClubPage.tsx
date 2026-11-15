@@ -64,7 +64,17 @@ const Header = observer(({ club }: { club: ClubModel }) => {
     <div className='flex min-w-0 flex-wrap items-end justify-between gap-x-6 gap-y-4'>
       <div className='flex min-w-0 flex-col gap-1.5'>
         <h1 className='font-display text-display leading-[1.1] font-extrabold'>{t('club.header.title')}</h1>
-        <p className='text-text-muted text-lead leading-normal'>{t('club.header.subtitle')}</p>
+        {/* Each tab has its own line under the title, as in its wireframe. */}
+        <p className='text-text-muted text-lead leading-normal'>
+          {t(
+            {
+              overview: 'club.header.subtitle',
+              rewards: 'club.header.subtitleRewards',
+              friends: 'club.header.subtitleFriends',
+              community: 'club.header.subtitleCommunity',
+            }[club.model.clubTab] ?? 'club.header.subtitle',
+          )}
+        </p>
       </div>
       <div className='ms-auto flex min-w-0 flex-wrap items-center justify-end gap-2.5'>
         {seasonPill !== undefined && (

@@ -15,6 +15,8 @@ import enClub from '../../../i18n/en/club.json'
 import * as fmt from '../../../i18n/format.ts'
 import {
   ClubSocketError,
+  toCommunity,
+  type ClubCommunity,
   fetchWalletRewards,
   gateMessage,
   headOf,
@@ -242,6 +244,7 @@ export class ClubModel {
   status?: ClubStatus
   overview?: ClubOverview
   rewards?: ClubRewards
+  community?: ClubCommunity
   walletRewards?: WalletRewards
   walletRewardsFor?: string
   friendsRows: ClubFriendRow[] = []
@@ -314,6 +317,7 @@ export class ClubModel {
       status: observable.ref,
       overview: observable.ref,
       rewards: observable.ref,
+      community: observable.ref,
       walletRewards: observable.ref,
       friendsRows: observable.ref,
       friendsMeta: observable.ref,
@@ -952,6 +956,7 @@ export class ClubModel {
       this.status = undefined
       this.overview = undefined
       this.rewards = undefined
+      this.community = undefined
       this.board = undefined
       this.friendsRows = []
       this.friendsMeta = undefined
@@ -1305,6 +1310,38 @@ export class ClubModel {
       }
     } catch {
       // The tab shows its own retry.
+    }
+  }
+
+  // The Community tab's read. Any failure, and any refused reply (rate_limited, ...), leaves `community` as it
+  // was; only a successful reply replaces it.
+  private communityLoading = false
+
+  async loadCommunity() {
+    if (this.session === undefined || this.communityLoading) {
+      return
+    }
+    this.communityLoading = true
+    const account = this.session.account
+    try {
+      const community = toCommunity(await this.req('clubcommunity'))
+      // A reply that lands after a logout or an account switch belongs to the old account: drop it. The
+      // account, not the session object, which a token refresh replaces for the same account.
+      if (this.session?.account !== account) {
+        return
+      }
+      // A refusal keeps the data already shown; with none yet it reads as 'off' (coming soon), which
+      // also stops the tab's 30 s retry: a refusal such as not_open would only repeat.
+      if (!community.ok && this.community !== undefined) {
+        return
+      }
+      runInAction(() => {
+        this.community = community
+      })
+    } catch {
+      // The tab keeps the "coming soon" card and tries again.
+    } finally {
+      this.communityLoading = false
     }
   }
 

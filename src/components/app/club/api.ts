@@ -476,6 +476,152 @@ export function toFriends(body: unknown): ClubFriends {
   }
 }
 
+export type CommunityWhy = '' | 'new' | 'muted' | 'excluded' | 'no_club' | 'not_in_chat' | 'left' | 'void'
+export type CommunityWeekState = 'review' | 'final' | 'frozen' | 'void'
+
+interface CommunityParts {
+  week: string
+  start: string
+  end: string
+  p: number
+  a2: number
+  h: number
+  d: number
+  ring: boolean
+  why: CommunityWhy
+}
+
+// The member's place and counts this week (club-server specs/club-community-points.md §8); each is
+// absent until the server sends it, and the tab shows "—".
+export interface CommunityEstimate extends CommunityParts {
+  rank?: number
+  of?: number
+  reactors?: number
+  stickers?: number
+}
+
+export interface CommunityProfile {
+  level?: number
+  streak?: number
+  badges: string[]
+}
+
+export interface CommunityTop {
+  rank: number
+  name: string
+  p: number
+  you: boolean
+}
+
+export interface CommunityWeek extends CommunityParts {
+  state: CommunityWeekState
+  baseP: number
+  note: string
+}
+
+// `clubcommunity` (club-server specs/club-community-points.md §5). `setting` is 'off' unless the
+// server says 'points'; a failed or malformed reply reads as 'off', the "coming soon" card.
+export interface ClubCommunity extends ReplyHead {
+  setting: 'off' | 'points'
+  params: {
+    weights: { appreciation: number; replies: number; days: number }
+    targets: { appreciation: number; replies: number; days: number }
+    perPersonCap: number
+    maxPoints: number
+  }
+  earner: boolean
+  nowWhy: CommunityWhy
+  estimate?: CommunityEstimate
+  daysInChat?: number
+  profile?: CommunityProfile
+  top: CommunityTop[]
+  weeks: CommunityWeek[]
+}
+
+// Limzo's badge ids in title case: `first_words` reads "First Words".
+export function badgeName(id: string): string {
+  return id
+    .split(/[_\s-]+/)
+    .filter((word) => word !== '')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}
+
+function toWhy(value: unknown): CommunityWhy {
+  return value === 'new' ||
+    value === 'muted' ||
+    value === 'excluded' ||
+    value === 'no_club' ||
+    value === 'not_in_chat' ||
+    value === 'left' ||
+    value === 'void'
+    ? value
+    : ''
+}
+
+function toParts(value: unknown): CommunityParts {
+  const r = obj(value)
+  return {
+    week: str(r.week) ?? '',
+    start: str(r.start) ?? '',
+    end: str(r.end) ?? '',
+    p: num(r.p) ?? 0,
+    a2: num(r.a2) ?? 0,
+    h: num(r.h) ?? 0,
+    d: num(r.d) ?? 0,
+    ring: bool(r.ring),
+    why: toWhy(r.why),
+  }
+}
+
+function toEstimate(value: unknown): CommunityEstimate {
+  const r = obj(value)
+  return { ...toParts(value), rank: num(r.rank), of: num(r.of), reactors: num(r.reactors), stickers: num(r.stickers) }
+}
+
+function toProfile(value: unknown): CommunityProfile {
+  const r = obj(value)
+  return {
+    level: num(r.level),
+    streak: num(r.streak),
+    badges: list(r.badges).flatMap((id) => (typeof id === 'string' && id !== '' ? [badgeName(id)] : [])),
+  }
+}
+
+export function toCommunity(body: unknown): ClubCommunity {
+  const b = obj(body)
+  const params = obj(b.params)
+  const w = obj(params.weights)
+  const g = obj(params.targets)
+  const eligibility = obj(b.eligibility)
+  const head = headOf(b)
+  return {
+    ...head,
+    setting: head.ok && b.setting === 'points' ? 'points' : 'off',
+    params: {
+      weights: { appreciation: num(w.appreciation) ?? 60, replies: num(w.replies) ?? 42, days: num(w.days) ?? 18 },
+      targets: { appreciation: num(g.appreciation) ?? 20, replies: num(g.replies) ?? 10, days: num(g.days) ?? 7 },
+      perPersonCap: num(params.per_person_cap) ?? 3,
+      maxPoints: num(params.max_points) ?? 120,
+    },
+    earner: bool(eligibility.earner),
+    nowWhy: toWhy(eligibility.why),
+    estimate: b.estimate == null ? undefined : toEstimate(b.estimate),
+    daysInChat: num(b.days_in_chat),
+    profile: b.profile == null ? undefined : toProfile(b.profile),
+    top: list(b.top).map((value) => {
+      const r = obj(value)
+      return { rank: num(r.rank) ?? 0, name: str(r.name) ?? '', p: num(r.p) ?? 0, you: bool(r.you) }
+    }),
+    weeks: list(b.weeks).map((value) => {
+      const r = obj(value)
+      const state = r.state === 'final' || r.state === 'frozen' || r.state === 'void' ? r.state : 'review'
+      const p = num(r.p) ?? 0
+      return { ...toParts(r), state, baseP: num(r.base_p) ?? p, note: str(r.note) ?? '' }
+    }),
+  }
+}
+
 export type BoardBy = 'hpo' | 'growth'
 
 export interface ClubBoardRow {
