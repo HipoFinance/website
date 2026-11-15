@@ -237,6 +237,25 @@ export async function initTelegramChrome(mode: TmaMode): Promise<boolean> {
   guard('expand', () => {
     WebApp.expand()
   })
+  // 8.0: when a minimized Mini App is opened again ('activated'), ask Telegram for the viewport once
+  // more. Android reports the minimized bar's height as the stable one and does not send a new stable
+  // height on restore, which left the shell bar-sized (see `.tma-shell` in app.css, whose max() is the
+  // main fix). The request is what telegram-web-app.js itself sends at startup; WebView is its
+  // untyped transport. Sent 500ms after the event, once the restore animation is over: the reply is
+  // taken as stable, and one measured mid-animation would leave the shell short.
+  if (atLeast('8.0')) {
+    guard('onEvent activated', () => {
+      WebApp.onEvent('activated', () => {
+        window.setTimeout(() => {
+          guard('web_app_request_viewport', () => {
+            const view = (window as { Telegram?: { WebView?: { postEvent?: (event: string) => void } } }).Telegram
+              ?.WebView
+            view?.postEvent?.('web_app_request_viewport')
+          })
+        }, 500)
+      })
+    })
+  }
   // The chrome Telegram paints around the mini app has to match whichever palette the page is
   // rendering (src/styles/global.css): --color-surface-deep for the bars, --color-bg behind the
   // content. Telegram gives no callback for a theme change mid-session, so this is read once at

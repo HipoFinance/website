@@ -58,9 +58,14 @@ html.tma body {
 /* --tg-viewport-stable-height is maintained by telegram-web-app.js and, unlike the plain viewport
    height, does not shrink when the keyboard opens — so the bottom tab row keeps its place while an
    amount is being typed. The fallback covers both the moments before the SDK chunk has loaded and
-   the ?tma=1 browser preview, where the var is never set. */
+   the ?tma=1 browser preview, where the vars are never set.
+   The max() with the current height is for a minimized Mini App: Telegram reports the minimized
+   bar's height as stable, and on restore Android sends no new stable height, so the stable value
+   alone left the shell bar-sized and the screen blank under the header (2026-11-15). The current
+   height follows the restore; it is the smaller of the two while the keyboard is open, so typing
+   keeps the stable height as before. */
 .tma-shell {
-  height: var(--tg-viewport-stable-height, 100dvh);
+  height: max(var(--tg-viewport-stable-height, 100dvh), var(--tg-viewport-height, 100dvh));
   background: var(--color-bg);
 }
 

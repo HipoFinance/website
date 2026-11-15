@@ -14,8 +14,8 @@ const StakeUnstake = observer(({ model }: Props) => {
 
   const tma = model.isTelegram
 
-  // One button and one question line, placed by mode: in the card and under it on the web, in a bar
-  // pinned to the bottom of the screen in the Mini App (specs/mini-app-stake-form-unified.md).
+  // One button, placed by mode: in the card on the web, in a bar pinned to the bottom of the screen in
+  // the Mini App (specs/mini-app-stake-form-unified.md).
   const submitButton = (
     <button
       id='submit'
@@ -47,7 +47,7 @@ const StakeUnstake = observer(({ model }: Props) => {
 
   // Reassurance at the money moment: a human to reach before committing funds.
   const questions = (
-    <p className={'text-text-faint text-label text-center' + (tma ? '' : ' pt-5')}>
+    <p className='text-text-faint text-label pt-5 text-center'>
       {nodes(t('app.stake.questions'), {
         link: (
           <a
@@ -321,7 +321,7 @@ const StakeUnstake = observer(({ model }: Props) => {
           </div>
         </div>
 
-        {!tma && questions}
+        {questions}
 
         <div className='text-text-faint text-label flex flex-row flex-wrap justify-center gap-x-6 gap-y-2 pt-3'>
           <a className='hover:text-accent' href={model.localizedPath('/docs/')}>
@@ -347,7 +347,6 @@ const StakeUnstake = observer(({ model }: Props) => {
       {tma && (
         <div className='bg-bg border-border sticky bottom-0 mt-auto flex w-full max-w-[480px] flex-col gap-2.5 border-t pt-2 pb-4'>
           {submitButton}
-          {questions}
         </div>
       )}
     </div>

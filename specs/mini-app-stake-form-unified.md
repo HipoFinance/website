@@ -94,7 +94,8 @@ Mini App adjustments:
    `sticky bottom-0`, the page background, a top border, and the same padding as today's Mini App bar. The root
    gets `min-h-full flex flex-col` and the bar `mt-auto`, so on a short form the bar rests at the bottom and on
    a long one it sticks there while the form scrolls under it. The questions line ("Questions? Ask on
-   Telegram") goes into the bar under the button, as in today's Mini App form. One button element, placed by
+   Telegram") went into the bar under the button at first; Behrang had it moved back under the form card after
+   the release, so the bar holds the button alone. One button element, placed by
    the flag, so there is still one submit handler.
 3. No DeFi link. The draft kept the Mini App form's DeFi link after the summary rows; Behrang had it removed
    after the build, so the Mini App no longer links to DeFi.

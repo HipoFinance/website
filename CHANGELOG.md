@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — Mini App: blank screen after a minimize; the questions line back under the form
+
+- Reported by Behrang on Android: after the Mini App was minimized, by hand or by tapping the Hipo chat link (Telegram minimizes it to open a chat), reopening it showed the header and a blank screen, while the loading spinner kept appearing. The shell's height was Telegram's "stable" viewport height alone; Telegram reports the minimized bar's height as stable and sends no new stable height on restore, so the shell stayed bar-sized. The spinner is drawn outside the shell, hence still visible.
+- Fix: the shell is now the larger of the stable and the current viewport height (`.tma-shell` in `app.css`), so it follows the restore; while the keyboard is open the current height is the smaller one, so typing behaves as before. On Bot API 8.0+ the app also asks Telegram for the viewport again 500ms after it is reopened (`activated`, `web_app_request_viewport` in `tma/telegram.ts`), for a client that sends nothing on restore; the delay is so the reply, which Telegram's script takes as stable, is not measured mid-animation (a point from the code review, unconfirmed on a device).
+- Checked in a headless browser posing as Android Telegram 8.0 with simulated events (minimize to 56px, restore with only an unstable height: back to full height; keyboard: unchanged); not yet on a real phone.
+- The Stake tab's "Questions? Ask on Telegram" line leaves the pinned bar and is back under the form card, at Behrang's request; the bar holds the button alone. The website's form is unchanged.
+
 ## 2026-11-15 — Mini App: the Stake tab is the website's stake form
 
 - The Telegram Mini App's Stake tab now shows the website's stake form instead of its own two-card form, so it gains what only the website had: the balances panel with "Staking starts in …" and "Unstaking in …" (asked for by users; the Mini App had no screen showing a pending unstake), the transaction cost, "Swap on exchange", and the Docs, FAQ, Audits and explorer links. [Spec](specs/mini-app-stake-form-unified.md).
