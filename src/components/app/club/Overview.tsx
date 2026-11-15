@@ -640,7 +640,16 @@ export const Balances = observer(({ club }: Props) => {
       })}
     </p>
   )
-  const group = (title: string, total: number, wallet: number, pools: (string | number)[][], footer?: ReactNode) => (
+  const group = (
+    title: string,
+    total: number,
+    wallet: number,
+    pools: (string | number)[][],
+    rankLabel: string,
+    rank?: number,
+    holders?: number,
+    footer?: ReactNode,
+  ) => (
     <div className='flex min-w-0 flex-col gap-2.5'>
       <Row label={<span className='text-text font-semibold'>{title}</span>} value={club.amount2(total)} strong />
       <Row
@@ -656,6 +665,19 @@ export const Balances = observer(({ club }: Props) => {
             value={<span className='text-text-secondary'>{club.amount2(v as number)}</span>}
           />
         ))}
+      {rank !== undefined && rank > 0 && (
+        <div className='border-border border-t pt-2.5'>
+          <Row
+            label={rankLabel}
+            value={
+              holders !== undefined && holders > 0
+                ? t('club.balances.rankOf', { rank: club.amount(rank, 0), holders: club.amount(holders, 0) })
+                : t('club.balances.rankOnly', { rank: club.amount(rank, 0) })
+            }
+            strong
+          />
+        </div>
+      )}
       {footer}
     </div>
   )
@@ -688,8 +710,25 @@ export const Balances = observer(({ club }: Props) => {
         <p className='text-text-muted text-sm'>{t('club.balances.none')}</p>
       ) : (
         <div className='grid gap-6 md:grid-cols-2'>
-          {group(t('club.balances.hton'), htonTotal, htonWallet, htonPools)}
-          {group(t('club.balances.hpo'), hpoTotal, hpoWallet, hpoPools, note)}
+          {group(
+            t('club.balances.hton'),
+            htonTotal,
+            htonWallet,
+            htonPools,
+            t('club.balances.htonRank'),
+            split.htonRank,
+            split.htonHolders,
+          )}
+          {group(
+            t('club.balances.hpo'),
+            hpoTotal,
+            hpoWallet,
+            hpoPools,
+            t('club.balances.hpoRank'),
+            split.hpoRank,
+            split.hpoHolders,
+            note,
+          )}
         </div>
       )}
     </Card>

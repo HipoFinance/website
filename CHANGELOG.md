@@ -9,6 +9,18 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — Club Overview: wallet ranks in the Balances card
+
+- Each balance group (hGRAM, HPO) ends with a rank row, "#139 of 23,194 holders", and the subtitle adds "ranks among all holders", as in the wireframe. The row is left out when the wallet isn't ranked; with no holder count it shows "#139".
+- Needs the club-server side (`hton_rank`, `hton_holders`, `hpo_rank`, `hpo_holders` on `split` of `cluboverview`); until then the rows don't appear.
+- In all eleven locales. Spec: `specs/club-balances-wallet-ranks.md`.
+
+## 2026-11-15 — Club Friends: a Status column and the "Has earned" filter
+
+- The Friends table gets a Status column (green "Earning" for a friend who earned the member HPO in the last round); the "Earning" filter is now labelled "Has earned", and the filters show counts ("Has earned · N", "Not staking yet · N"). The filter is sent as `has_earned` (it was `earning`), so club-server must deploy first: the live server only knows `earning`.
+- Needs the club-server side (`earning_last_round`, `has_earned_count`, `not_staking_count` on `clubfriends`); against an older server the Status cells are empty and the labels show no count.
+- In all eleven locales; the translations were approved by Alireza (Persian filter label «کسب کرده» by his choice). Spec: `specs/club-friends-status-has-earned.md`.
+
 ## 2026-11-15 — Unstake: the option text under the two options
 
 - The Full and Instant cards on the unstake form show only their icon and title; the chosen option's two lines follow under the pair as one line ("Wait until round ends · Maximum rewards"). Asked by Behrang: on a phone each card wrapped its two lines into three or four, so the page was taller than it needed to be. The cards drop from about 125px to 56px. Both texts share one grid cell and the other is only invisible, so the line is as tall as the longer of the two and switching options never moves the button (a point from the code review: in ru, uk, id and pt one text wraps and the other does not; checked, the button stays put in en, ru, pt, uk, id and the Mini App). Website and Mini App, since the form is one; the static first-paint copy (`ShellStakeForm.astro`) matches, so nothing moves when the app loads. No new text.

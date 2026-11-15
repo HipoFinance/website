@@ -245,7 +245,13 @@ export class ClubModel {
   walletRewards?: WalletRewards
   walletRewardsFor?: string
   friendsRows: ClubFriendRow[] = []
-  friendsMeta?: { inviteLink?: string; count?: number; referralTotal?: string }
+  friendsMeta?: {
+    inviteLink?: string
+    count?: number
+    referralTotal?: string
+    hasEarnedCount?: number
+    notStakingCount?: number
+  }
   friendsFilter: FriendsFilter = 'all'
   friendsDone = false
   friendsLoading = false
@@ -1323,7 +1329,13 @@ export class ClubModel {
         const rows = reset ? reply.rows : [...this.friendsRows, ...reply.rows]
         this.setFriends(
           rows,
-          { inviteLink: reply.inviteLink, count: reply.count, referralTotal: reply.referralTotal },
+          {
+            inviteLink: reply.inviteLink,
+            count: reply.count,
+            referralTotal: reply.referralTotal,
+            hasEarnedCount: reply.hasEarnedCount,
+            notStakingCount: reply.notStakingCount,
+          },
           filter,
           reply.rows.length < 50,
         )

@@ -1,6 +1,6 @@
 // The Club's Friends tab (specs/club-website.md §9; wireframe Friends.dc.html, 2b clubfriends): the
 // invite link as the server returns it, with copy and share-to-Telegram; the count and referral
-// total; the rows, 50 at a time, with the All / Earning / Not staking yet filters. Needs Telegram.
+// total; the rows, 50 at a time, with the All / Has earned / Not staking yet filters. Needs Telegram.
 import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import type { ClubModel } from './ClubModel.ts'
@@ -65,6 +65,15 @@ const FriendsTab = observer(({ club }: Props) => {
     const n = typeof value === 'string' ? Number(value) : value
     return n !== undefined && n !== 0 && Math.abs(n) < 0.01 ? club.amountFixed(n, 2) : club.amount(n, 2)
   }
+  // A missing count (older server) shows the label alone.
+  const filterLabel = (value: FriendsFilter): string => {
+    if (value === 'all') {
+      return t('club.friends.filterAll', { count: club.amount(meta.count ?? 0, 0) })
+    }
+    const count = value === 'has_earned' ? meta.hasEarnedCount : meta.notStakingCount
+    const key = value === 'has_earned' ? 'club.friends.filterHasEarned' : 'club.friends.filterNotStaking'
+    return count === undefined ? t(key + 'Plain') : t(key, { count: club.amount(count, 0) })
+  }
   const copy = async () => {
     if (link === undefined) {
       return
@@ -127,15 +136,13 @@ const FriendsTab = observer(({ club }: Props) => {
         <CardTitle
           aside={
             <Pills label={t('club.friends.listTitle')}>
-              {(['all', 'earning', 'not_staking'] as FriendsFilter[]).map((value) => (
+              {(['all', 'has_earned', 'not_staking'] as FriendsFilter[]).map((value) => (
                 <Pill
                   key={value}
                   active={club.friendsFilter === value}
                   onClick={() => void club.loadFriends(value, true)}
                 >
-                  {value === 'all'
-                    ? t('club.friends.filterAll', { count: club.amount(meta.count ?? 0, 0) })
-                    : t(value === 'earning' ? 'club.friends.filterEarning' : 'club.friends.filterNotStaking')}
+                  {filterLabel(value)}
                 </Pill>
               ))}
             </Pills>
@@ -149,10 +156,11 @@ const FriendsTab = observer(({ club }: Props) => {
           </p>
         ) : (
           <div className='overflow-x-auto'>
-            <table className='w-full min-w-[300px]'>
+            <table className='w-full min-w-[380px]'>
               <thead>
                 <tr>
                   <th className={tableTh}>{t('club.friends.colFriend')}</th>
+                  <th className={tableTh}>{t('club.friends.colStatus')}</th>
                   <th className={thEnd}>{t('club.friends.colTheirs')}</th>
                   <th className={thEnd}>{t('club.friends.colYours')}</th>
                 </tr>
@@ -161,6 +169,9 @@ const FriendsTab = observer(({ club }: Props) => {
                 {club.friendsRows.map((row, i) => (
                   <tr key={i} className={tableRow}>
                     <td className={tableTd + ' max-w-[10rem] truncate'}>{row.name}</td>
+                    <td className={tableTd + ' text-tone-success-fg font-semibold'}>
+                      {row.earningLastRound === true ? t('club.friends.statusEarning') : ''}
+                    </td>
                     <td className={tableTd + ' num text-end'}>{trimmed(row.friendHpo)}</td>
                     <td className={tableTd + ' num text-end'}>{trimmed(row.yourHpo)}</td>
                   </tr>

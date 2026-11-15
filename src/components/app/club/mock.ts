@@ -781,6 +781,10 @@ export class ClubMock implements ClubTransport {
               balance_hton_tonco: '3080000000',
               balances_at: now - 240,
               lp_at: now - 900,
+              hton_rank: 139,
+              hton_holders: 23194,
+              hpo_rank: 23,
+              hpo_holders: 7158,
             },
       estimate_now: perRound(coefficient),
       estimate_next: next === undefined ? undefined : perRound(COEFFICIENTS[next]),
@@ -897,10 +901,11 @@ export class ClubMock implements ClubTransport {
         name: i % 7 === 3 ? 'Hipo member' : NAMES[i % NAMES.length] + (i >= NAMES.length ? ' ' + (i + 1) : ''),
         friend_hpo: hpo(earning ? 2870 / (i + 1) : 0),
         your_hpo: hpo(earning ? 28.7 / (i + 1) : 0),
+        earning_last_round: earning && i % 2 === 0,
       }
     })
     const rows = all.filter((row) =>
-      filter === 'earning'
+      filter === 'has_earned'
         ? Number(row.friend_hpo) > 0
         : filter === 'not_staking'
           ? Number(row.friend_hpo) === 0
@@ -910,6 +915,8 @@ export class ClubMock implements ClubTransport {
       ...head,
       invite_link: 'https://t.me/HipoFinanceBot/join?startapp=' + a.account,
       count: a.friends,
+      has_earned_count: all.filter((row) => Number(row.friend_hpo) > 0).length,
+      not_staking_count: all.filter((row) => Number(row.friend_hpo) === 0).length,
       referral_total: hpo(a.friends === 0 ? 0 : 48.35),
       rows: rows.slice(offset, offset + limit),
     }

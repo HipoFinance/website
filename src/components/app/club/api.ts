@@ -196,6 +196,10 @@ export interface WalletSplit {
   balanceHtonTonco?: string
   balancesAt?: number
   lpAt?: number
+  htonRank?: number
+  htonHolders?: number
+  hpoRank?: number
+  hpoHolders?: number
 }
 
 export interface ClubRank {
@@ -325,6 +329,10 @@ export function toOverview(body: unknown): ClubOverview {
             balanceHtonTonco: str(split.balance_hton_tonco),
             balancesAt: int(split.balances_at),
             lpAt: int(split.lp_at),
+            htonRank: int(split.hton_rank),
+            htonHolders: int(split.hton_holders),
+            hpoRank: int(split.hpo_rank),
+            hpoHolders: int(split.hpo_holders),
           },
     estimateNow: str(b.estimate_now),
     estimateNext: str(b.estimate_next),
@@ -429,18 +437,21 @@ export function toRewards(body: unknown): ClubRewards {
   }
 }
 
-export type FriendsFilter = 'all' | 'earning' | 'not_staking'
+export type FriendsFilter = 'all' | 'has_earned' | 'not_staking'
 
 export interface ClubFriendRow {
   name: string
   friendHpo?: string
   yourHpo?: string
+  earningLastRound?: boolean
 }
 
 export interface ClubFriends extends ReplyHead {
   inviteLink?: string
   count?: number
   referralTotal?: string
+  hasEarnedCount?: number
+  notStakingCount?: number
   rows: ClubFriendRow[]
 }
 
@@ -451,9 +462,16 @@ export function toFriends(body: unknown): ClubFriends {
     inviteLink: str(b.invite_link),
     count: int(b.count),
     referralTotal: str(b.referral_total),
+    hasEarnedCount: int(b.has_earned_count),
+    notStakingCount: int(b.not_staking_count),
     rows: list(b.rows).map((value) => {
       const r = obj(value)
-      return { name: str(r.name) ?? '', friendHpo: str(r.friend_hpo), yourHpo: str(r.your_hpo) }
+      return {
+        name: str(r.name) ?? '',
+        friendHpo: str(r.friend_hpo),
+        yourHpo: str(r.your_hpo),
+        earningLastRound: r.earning_last_round === true,
+      }
     }),
   }
 }

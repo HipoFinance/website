@@ -915,8 +915,16 @@
     "sourceHash": "6f88766ea440d97d0b5daa1e9e180055a3149ea0",
     "reviewed": false
   },
+  "club.balances.hpoRank": {
+    "sourceHash": "563114927b7586871ae82d70efda91d477cfdb23",
+    "reviewed": false
+  },
   "club.balances.hton": {
     "sourceHash": "39612881a4e0bfdd6a690145cb7b021352bad307",
+    "reviewed": false
+  },
+  "club.balances.htonRank": {
+    "sourceHash": "4d5164f6a7c746c18889a480a4b2b3a5523d9d2c",
     "reviewed": false
   },
   "club.balances.inPool": {
@@ -935,12 +943,20 @@
     "sourceHash": "433fa791786dd4fb240ddea85632f0d9ff1c0e2e",
     "reviewed": false
   },
+  "club.balances.rankOf": {
+    "sourceHash": "7b349fb3c1c7a2d79c66741da9dbc46cf2ea0063",
+    "reviewed": false
+  },
+  "club.balances.rankOnly": {
+    "sourceHash": "8ff03b5391eaaed66b211d64f9be779192139ec3",
+    "reviewed": false
+  },
   "club.balances.subtitle": {
-    "sourceHash": "c9b0be104eb448bc1c99a215aeec1b458111233e",
+    "sourceHash": "35178c0f758b8b642b8bc8668ccc72741bf14997",
     "reviewed": false
   },
   "club.balances.subtitleNoTime": {
-    "sourceHash": "931edc17464604eb0a7025309063a7283ad847ee",
+    "sourceHash": "33df59749a4a1353924b6209976d720a71a45c97",
     "reviewed": false
   },
   "club.balances.title": {
@@ -1547,6 +1563,10 @@
     "sourceHash": "2394299d6feb2b15a7b93d335060360fa48cec5a",
     "reviewed": false
   },
+  "club.friends.colStatus": {
+    "sourceHash": "bae7d5be70820ed56467bd9a63744e23b47bd711",
+    "reviewed": false
+  },
   "club.friends.colTheirs": {
     "sourceHash": "742455d776a20298243575ace28d177057370ebb",
     "reviewed": false
@@ -1579,11 +1599,19 @@
     "sourceHash": "63cae911b59dddc68a639766e0a560642224185b",
     "reviewed": false
   },
-  "club.friends.filterEarning": {
-    "sourceHash": "a386431e66167ffdf61247b76cef690155aa76df",
+  "club.friends.filterHasEarned": {
+    "sourceHash": "144f20aebb81a6386c5f937ada5412fa30c0d976",
+    "reviewed": false
+  },
+  "club.friends.filterHasEarnedPlain": {
+    "sourceHash": "a9bcb178ac36e871deea93fb689f14a203a74f01",
     "reviewed": false
   },
   "club.friends.filterNotStaking": {
+    "sourceHash": "c0ff88a4849aa4b68f05fb1306828f427d2af427",
+    "reviewed": false
+  },
+  "club.friends.filterNotStakingPlain": {
     "sourceHash": "123b94e7177cc08da1378cf2bdac0e03052b47b8",
     "reviewed": false
   },
@@ -1621,6 +1649,10 @@
   },
   "club.friends.shareText": {
     "sourceHash": "0169c3959337f6a62a7c43510f026357d3380968",
+    "reviewed": false
+  },
+  "club.friends.statusEarning": {
+    "sourceHash": "a386431e66167ffdf61247b76cef690155aa76df",
     "reviewed": false
   },
   "club.friends.title": {
