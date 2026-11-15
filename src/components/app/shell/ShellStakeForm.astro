@@ -84,31 +84,22 @@ const idle = 'text-text-muted hover:text-accent'
         !stake && (
           <>
             <div class='grid grid-cols-2 gap-3'>
-              <div class='bg-surface-deep border-accent rounded-control flex cursor-pointer flex-col gap-2 border-2 p-3.5 select-none'>
-                <div class='flex flex-row items-center gap-2'>
-                  <ShellIcon name='clock' class='text-accent size-4' />
-                  <p class='text-body font-semibold' set:text={t('app.stake.optionFull')} />
-                  <span class='text-accent ms-auto font-bold'>✓</span>
-                </div>
-                <p class='text-text-muted text-[12.5px] leading-[1.45]'>
-                  {t('app.stake.optionFullLine1')}
-                  <br />
-                  {t('app.stake.optionFullLine2')}
-                </p>
+              <div class='bg-surface-deep border-accent rounded-control flex cursor-pointer flex-row flex-wrap items-center justify-center gap-x-2 gap-y-1 border-2 p-3.5 select-none'>
+                <ShellIcon name='clock' class='text-accent size-4 shrink-0' />
+                <p class='text-body font-semibold' set:text={t('app.stake.optionFull')} />
               </div>
 
-              <div class='bg-surface-deep border-border rounded-control flex cursor-pointer flex-col gap-2 border-2 p-3.5 select-none'>
-                <div class='flex flex-row items-center gap-2'>
-                  <ShellIcon name='zap' class='text-accent size-4' />
-                  <p class='text-body font-semibold' set:text={t('app.stake.optionInstant')} />
-                  <span class='text-accent invisible ms-auto font-bold'>✓</span>
-                </div>
-                <p class='text-text-muted text-[12.5px] leading-[1.45]'>
-                  {t('app.stake.optionInstantLine1')}
-                  <br />
-                  {t('app.stake.optionInstantLine2')}
-                </p>
+              <div class='bg-surface-deep border-border rounded-control flex cursor-pointer flex-row flex-wrap items-center justify-center gap-x-2 gap-y-1 border-2 p-3.5 select-none'>
+                <ShellIcon name='zap' class='text-accent size-4 shrink-0' />
+                <p class='text-body font-semibold' set:text={t('app.stake.optionInstant')} />
               </div>
+            </div>
+
+            <div class='text-text-muted -mt-2.5 grid text-[12.5px] leading-[1.45]'>
+              <p class='[grid-area:1/1]'>{`${t('app.stake.optionFullLine1')} · ${t('app.stake.optionFullLine2')}`}</p>
+              <p class='invisible [grid-area:1/1]'>
+                {`${t('app.stake.optionInstantLine1')} · ${t('app.stake.optionInstantLine2')}`}
+              </p>
             </div>
 
             <div class='text-text-faint -mt-2.5 text-[12.5px]'>&nbsp;</div>

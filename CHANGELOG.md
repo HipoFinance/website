@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — Unstake: the option text under the two options
+
+- The Full and Instant cards on the unstake form show only their icon and title; the chosen option's two lines follow under the pair as one line ("Wait until round ends · Maximum rewards"). Asked by Behrang: on a phone each card wrapped its two lines into three or four, so the page was taller than it needed to be. The cards drop from about 125px to 56px. Both texts share one grid cell and the other is only invisible, so the line is as tall as the longer of the two and switching options never moves the button (a point from the code review: in ru, uk, id and pt one text wraps and the other does not; checked, the button stays put in en, ru, pt, uk, id and the Mini App). Website and Mini App, since the form is one; the static first-paint copy (`ShellStakeForm.astro`) matches, so nothing moves when the app loads. No new text.
+- The check mark in the chosen card is gone: the coral border marks the choice, as on the Stake / Unstake toggle, and the room it took squeezed the icon out of six titles at phone widths (de "Vollständig", fr "Instantané", es "Instantáneo", pt "Completo" and "Instantâneo", ru "Мгновенный", uk "Миттєвий"), as it had before this change too. The icon no longer shrinks, and the card's content is centred; a title that still does not fit beside the icon wraps under it, so those cards are 75px tall instead of 55px. Checked in all 11 locales at 360 and 390px, website and Mini App: every icon at full size, every title inside its card, no horizontal scroll.
+
 ## 2026-11-15 — Mini App: the tab row stays on screen after the chat link
 
 - Reported by Behrang on Android: after the Hipo chat link minimized the Mini App, reopening it showed the page, then about a second later the bottom tab row was gone; minimizing and reopening by hand put it back, every time. The shell is the larger of Telegram's stable and current viewport heights (since the blank-screen fix earlier today), so a reported height taller than the window pushed the tab row, the shell's last row, off the bottom.

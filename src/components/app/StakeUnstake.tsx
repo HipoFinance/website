@@ -212,55 +212,44 @@ const StakeUnstake = observer(({ model }: Props) => {
               <div className='grid grid-cols-2 gap-3'>
                 <div
                   className={
-                    'bg-surface-deep rounded-control flex cursor-pointer flex-col gap-2 border-2 p-3.5 select-none ' +
+                    'bg-surface-deep rounded-control flex cursor-pointer flex-row flex-wrap items-center justify-center gap-x-2 gap-y-1 border-2 p-3.5 select-none ' +
                     (model.unstakeOption === 'best' ? 'border-accent' : 'border-border')
                   }
                   onClick={() => {
                     model.setUnstakeOption('best')
                   }}
                 >
-                  <div className='flex flex-row items-center gap-2'>
-                    <Clock className='text-accent size-4' />
-                    <p className='text-body font-semibold'>{t('app.stake.optionFull')}</p>
-                    <span
-                      className={'text-accent ms-auto font-bold' + (model.unstakeOption === 'best' ? '' : ' invisible')}
-                    >
-                      ✓
-                    </span>
-                  </div>
-                  <p className='text-text-muted text-[12.5px] leading-[1.45]'>
-                    {t('app.stake.optionFullLine1')}
-                    <br />
-                    {t('app.stake.optionFullLine2')}
-                  </p>
+                  <Clock className='text-accent size-4 shrink-0' />
+                  <p className='text-body font-semibold'>{t('app.stake.optionFull')}</p>
                 </div>
 
                 <div
                   className={
-                    'bg-surface-deep rounded-control flex cursor-pointer flex-col gap-2 border-2 p-3.5 select-none ' +
+                    'bg-surface-deep rounded-control flex cursor-pointer flex-row flex-wrap items-center justify-center gap-x-2 gap-y-1 border-2 p-3.5 select-none ' +
                     (model.unstakeOption === 'instant' ? 'border-accent' : 'border-border')
                   }
                   onClick={() => {
                     model.setUnstakeOption('instant')
                   }}
                 >
-                  <div className='flex flex-row items-center gap-2'>
-                    <Zap className='text-accent size-4' />
-                    <p className='text-body font-semibold'>{t('app.stake.optionInstant')}</p>
-                    <span
-                      className={
-                        'text-accent ms-auto font-bold' + (model.unstakeOption === 'instant' ? '' : ' invisible')
-                      }
-                    >
-                      ✓
-                    </span>
-                  </div>
-                  <p className='text-text-muted text-[12.5px] leading-[1.45]'>
-                    {t('app.stake.optionInstantLine1')}
-                    <br />
-                    {t('app.stake.optionInstantLine2')}
-                  </p>
+                  <Zap className='text-accent size-4 shrink-0' />
+                  <p className='text-body font-semibold'>{t('app.stake.optionInstant')}</p>
                 </div>
+              </div>
+
+              {/* The cards carry no check mark: the coral border marks the choice, as on the Stake / Unstake
+                  toggle, and the room it took made long titles (de, fr, es, pt, ru, uk) squeeze the icon out.
+                  The icon never shrinks; a title that still does not fit beside it wraps under it.
+                  The chosen option's two lines, under the pair rather than inside each card, so the cards
+                  stay one line tall on a phone. Both texts share one grid cell and the other one is only
+                  invisible, so the line is as tall as the longer one and switching never moves the button. */}
+              <div className='text-text-muted -mt-2.5 grid text-[12.5px] leading-[1.45]'>
+                <p className={'[grid-area:1/1]' + (model.unstakeOption === 'best' ? '' : ' invisible')}>
+                  {`${t('app.stake.optionFullLine1')} · ${t('app.stake.optionFullLine2')}`}
+                </p>
+                <p className={'[grid-area:1/1]' + (model.unstakeOption === 'instant' ? '' : ' invisible')}>
+                  {`${t('app.stake.optionInstantLine1')} · ${t('app.stake.optionInstantLine2')}`}
+                </p>
               </div>
 
               <div
