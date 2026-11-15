@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — Unstake: a check badge on the chosen option; the options are buttons
+
+- The chosen Full / Instant card gets a small coral badge with a dark check on its top corner (the other corner in Arabic and Persian), over the border so it takes no room from the title. Since the in-row check mark left this morning the choice was shown by the border's colour alone, which a review flagged against WCAG 1.4.1; Behrang chose the badge over a filled card or one segmented control.
+- The two cards are now buttons with `aria-pressed`, like the Stake / Unstake toggle: a keyboard reaches them (Tab, then Enter or Space) and a screen reader says which is chosen; before they were plain clickable boxes. The static first-paint copy draws the same badge with plain boxes, not buttons, since nothing in it works before the app loads, like its Max and submit (`ShellStakeForm.astro`; `ShellIcon` gains the check and a stroke-width).
+- Checked in a headless browser: all 11 locales at 360 and 390px, website and Mini App, the badge visible and not covered, icons full size, titles inside their cards, no horizontal scroll; Enter and Space switch the option and the button does not move; no shift when the app loads. The check is 7.0:1 on the badge; the badge's coral is 6–7:1 against the cards in the dark scheme but 2.1–2.5:1 in the light one, so in light it is the dark check that carries the mark.
+
 ## 2026-11-15 — Club Overview: wallet ranks in the Balances card
 
 - Each balance group (hGRAM, HPO) ends with a rank row, "#139 of 23,194 holders", and the subtitle adds "ranks among all holders", as in the wireframe. The row is left out when the wallet isn't ranked; with no holder count it shows "#139".

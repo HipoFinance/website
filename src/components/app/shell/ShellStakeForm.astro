@@ -84,14 +84,20 @@ const idle = 'text-text-muted hover:text-accent'
         !stake && (
           <>
             <div class='grid grid-cols-2 gap-3'>
-              <div class='bg-surface-deep border-accent rounded-control flex cursor-pointer flex-row flex-wrap items-center justify-center gap-x-2 gap-y-1 border-2 p-3.5 select-none'>
+              <div class='bg-surface-deep border-accent rounded-control relative flex cursor-pointer flex-row flex-wrap items-center justify-center gap-x-2 gap-y-1 border-2 p-3.5 select-none'>
                 <ShellIcon name='clock' class='text-accent size-4 shrink-0' />
-                <p class='text-body font-semibold' set:text={t('app.stake.optionFull')} />
+                <span class='text-body font-semibold' set:text={t('app.stake.optionFull')} />
+                <span
+                  aria-hidden='true'
+                  class='bg-accent-fill text-on-accent absolute -end-2 -top-2 flex size-5 items-center justify-center rounded-full'
+                >
+                  <ShellIcon name='check' class='size-3.5' strokeWidth={3} />
+                </span>
               </div>
 
-              <div class='bg-surface-deep border-border rounded-control flex cursor-pointer flex-row flex-wrap items-center justify-center gap-x-2 gap-y-1 border-2 p-3.5 select-none'>
+              <div class='bg-surface-deep border-border rounded-control relative flex cursor-pointer flex-row flex-wrap items-center justify-center gap-x-2 gap-y-1 border-2 p-3.5 select-none'>
                 <ShellIcon name='zap' class='text-accent size-4 shrink-0' />
-                <p class='text-body font-semibold' set:text={t('app.stake.optionInstant')} />
+                <span class='text-body font-semibold' set:text={t('app.stake.optionInstant')} />
               </div>
             </div>
 

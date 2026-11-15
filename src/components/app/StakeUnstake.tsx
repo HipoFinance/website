@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { Model } from './Model'
-import { Clock, Zap, ArrowRight } from 'lucide-react'
+import { Clock, Zap, ArrowRight, Check } from 'lucide-react'
 import { nodes } from './Interpolate'
 import { onAmountInput } from './amountInput'
 
@@ -62,6 +62,16 @@ const StakeUnstake = observer(({ model }: Props) => {
         ),
       })}
     </p>
+  )
+
+  // The badge on the chosen unstake option; mirrored in shell/ShellStakeForm.astro.
+  const checkBadge = (
+    <span
+      aria-hidden='true'
+      className='bg-accent-fill text-on-accent absolute -end-2 -top-2 flex size-5 items-center justify-center rounded-full'
+    >
+      <Check className='size-3.5' strokeWidth={3} />
+    </span>
   )
 
   return (
@@ -210,36 +220,45 @@ const StakeUnstake = observer(({ model }: Props) => {
           {!stake && (
             <>
               <div className='grid grid-cols-2 gap-3'>
-                <div
+                <button
+                  type='button'
+                  aria-pressed={model.unstakeOption === 'best'}
                   className={
-                    'bg-surface-deep rounded-control flex cursor-pointer flex-row flex-wrap items-center justify-center gap-x-2 gap-y-1 border-2 p-3.5 select-none ' +
+                    'bg-surface-deep rounded-control relative flex cursor-pointer flex-row flex-wrap items-center justify-center gap-x-2 gap-y-1 border-2 p-3.5 select-none ' +
                     (model.unstakeOption === 'best' ? 'border-accent' : 'border-border')
                   }
                   onClick={() => {
                     model.setUnstakeOption('best')
                   }}
                 >
-                  <Clock className='text-accent size-4 shrink-0' />
-                  <p className='text-body font-semibold'>{t('app.stake.optionFull')}</p>
-                </div>
+                  <Clock className='text-accent size-4 shrink-0' aria-hidden='true' />
+                  <span className='text-body font-semibold'>{t('app.stake.optionFull')}</span>
+                  {model.unstakeOption === 'best' && checkBadge}
+                </button>
 
-                <div
+                <button
+                  type='button'
+                  aria-pressed={model.unstakeOption === 'instant'}
                   className={
-                    'bg-surface-deep rounded-control flex cursor-pointer flex-row flex-wrap items-center justify-center gap-x-2 gap-y-1 border-2 p-3.5 select-none ' +
+                    'bg-surface-deep rounded-control relative flex cursor-pointer flex-row flex-wrap items-center justify-center gap-x-2 gap-y-1 border-2 p-3.5 select-none ' +
                     (model.unstakeOption === 'instant' ? 'border-accent' : 'border-border')
                   }
                   onClick={() => {
                     model.setUnstakeOption('instant')
                   }}
                 >
-                  <Zap className='text-accent size-4 shrink-0' />
-                  <p className='text-body font-semibold'>{t('app.stake.optionInstant')}</p>
-                </div>
+                  <Zap className='text-accent size-4 shrink-0' aria-hidden='true' />
+                  <span className='text-body font-semibold'>{t('app.stake.optionInstant')}</span>
+                  {model.unstakeOption === 'instant' && checkBadge}
+                </button>
               </div>
 
-              {/* The cards carry no check mark: the coral border marks the choice, as on the Stake / Unstake
-                  toggle, and the room it took made long titles (de, fr, es, pt, ru, uk) squeeze the icon out.
-                  The icon never shrinks; a title that still does not fit beside it wraps under it.
+              {/* The chosen card has a coral border and a check badge on its top corner, over the border, so
+                  the choice does not rest on colour alone and the badge takes no room from the title (an
+                  in-row check squeezed the icon out of long titles: de, fr, es, pt, ru, uk). The icon never
+                  shrinks; a title that still does not fit beside it wraps under it. Buttons with
+                  aria-pressed, like the Stake / Unstake toggle, so a keyboard reaches them and a screen
+                  reader says which is chosen.
                   The chosen option's two lines, under the pair rather than inside each card, so the cards
                   stay one line tall on a phone. Both texts share one grid cell and the other one is only
                   invisible, so the line is as tall as the longer one and switching never moves the button. */}
