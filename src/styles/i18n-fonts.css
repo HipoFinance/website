@@ -1,8 +1,8 @@
 /*
  * Per-script font faces for the translated site. See specs/multi-language-site.md §F (decision 11).
  *
- * Imported by all three stylesheet compilations (global.css, app.css, docs.css), so it must stand on
- * its own: no Tailwind directives, no dependency on global.css. Two things happen here:
+ * Imported by both stylesheet compilations (global.css, which app.css imports, and docs.css), so it
+ * must stand on its own: no Tailwind directives, no dependency on global.css. Two things happen here:
  *
  *   1. @font-face rules for the *script subset only* of each added family (Arabic for fa and, with a
  *      different pair, ar), with the `unicode-range` each fontsource
@@ -87,7 +87,7 @@
 
 /* ---------- Family tokens per locale ----------
  * --font-body / --font-display are the Tailwind @theme tokens behind `font-body` and `font-display`
- * (global.css, app.css; `--font-fredoka` is an alias of --font-display and follows it). --sl-font is
+ * (global.css; `--font-fredoka` is an alias of --font-display and follows it). --sl-font is
  * Starlight's body face and --hipo-font-display the docs display face (docs.css). IBM Plex Sans /
  * Nunito stay in every stack for the Latin glyphs the script subsets above don't carry. The wordmark
  * (`--font-wordmark`, `--hipo-font-wordmark`) is never swapped: "Hipo" is Latin in every locale. */
@@ -107,7 +107,7 @@ html[lang='ar'] {
   --hipo-font-display: 'Cairo Variable', 'Nunito Variable', ui-sans-serif, system-ui;
 }
 
-/* The display weight: 800 in the base (`--font-weight-heading` in global.css/app.css,
+/* The display weight: 800 in the base (`--font-weight-heading` in global.css,
  * `--hipo-font-weight-display` in docs.css). Cairo and Lalezar are heavy faces and keep the 600 they
  * had before the token, so ar and fa look as they did. Lalezar has one weight; Cairo is variable,
  * where 600 vs 800 shows. The Club's `font-extrabold` stays a fixed 800 here too. */

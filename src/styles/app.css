@@ -1,7 +1,7 @@
-/* Per-script faces + per-<html lang> family/metric overrides for translated pages (spec §F). This
-   stylesheet is compiled separately, so it has to pull the overrides in too. */
-@import './i18n-fonts.css';
-@import 'tailwindcss';
+/* The app pages' one stylesheet: the site's global.css (tokens, fonts, Tailwind) plus the app's own
+   tokens and rules below, in a single Tailwind compilation. It used to be a second compilation loaded
+   beside global.css, which repeated ~85% of global.css's utilities in a second render-blocking file. */
+@import './global.css';
 
 /* Chart palette for the Warm Dark redesign. Kept as CSS variables (rather than inlined in
    LineChart) so gridline/label colors stay tweakable in one place; the line colors themselves
@@ -65,42 +65,6 @@ html.tma body {
 }
 
 @theme {
-  /* Warm Dark tokens are declared in global.css; these are app-scoped font utilities.
-     Declaring them here as well as in global.css is deliberate: this stylesheet is compiled
-     separately, so the utilities have to exist in this build too. Keep the five equal to
-     global.css. Color utilities (bg-surface etc.) come from the global.css compilation, which app
-     pages also load. */
-  --font-body: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Nunito Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-fredoka: var(--font-display);
-  --font-wordmark: 'Fredoka Variable', ui-sans-serif, system-ui, sans-serif;
-  /* The display weight (`font-heading`); see global.css. */
-  --font-weight-heading: 800;
-
-  /* Corner radii and text sizes from the Club wireframe, by role (token list in
-     .claude/rules/styling.md). Text sizes carry no paired line-height on purpose: they replaced
-     hand-typed `text-[Npx]`, which set font-size only. Pills are Tailwind's `rounded-full`. Keep equal to global.css (separate compilation). */
-  --radius-card: 20px;
-  --radius-sheet: 24px;
-  --radius-mini: 18px;
-  --radius-tile: 16px;
-  --radius-control: 14px;
-  --radius-input: 12px;
-  --radius-chip: 10px;
-  --radius-bar: 3px;
-  --text-caption: 12px;
-  --text-label: 13px;
-  --text-small: 14px;
-  --text-body: 15px;
-  --text-lead: 17px;
-  --text-title-sm: 20px;
-  --text-title: 22px;
-  --text-section: 26px;
-  --text-stat: 28px;
-  --text-display-sm: 30px;
-  --text-display: 44px;
-  --text-display-lg: 48px;
-
   /* The Club's status strips and chips (specs/club-website.md §11): four tones, each a ground, a
      border and a foreground, re-declared for the light scheme below. Warm Dark values from the
      wireframes' strip colors. */
@@ -153,13 +117,6 @@ html.tma body {
     --color-text-secondary: #4d3f3a;
     --color-row-self: #fde9e5;
   }
-}
-
-/* Bidi isolation for formatted values, mirrored from global.css: this stylesheet is compiled
-   separately, so the utility has to exist in this build too. See specs/multi-language-site.md §F. */
-@utility num {
-  unicode-bidi: isolate;
-  font-variant-numeric: tabular-nums;
 }
 
 /* The wait dialog's progress bar. It used to fill in fixed steps, from a time when the plan was to

@@ -255,9 +255,8 @@
    long token in something other than a `code` opts in with Tailwind's own `wrap-anywhere` (or
    `break-all`, as /verify/ does) rather than a new rule here.
 
-   Unlike `@utility num` below, these are plain rules and so do NOT need mirroring into app.css:
-   utilities have to exist in each compilation because each scans its own markup, but a plain rule
-   just ships in this stylesheet, and AppLayout imports it. /docs/ is the only section this misses,
+   app.css imports this file, so the app pages get these rules (and every token and utility here)
+   from the same compilation; nothing is mirrored into app.css. /docs/ is the only section this misses,
    and Starlight covers it with its own copies of the pair (its reset.css and markdown.css) — which
    is what makes docs.css free to keep not importing this file. */
 body {
@@ -280,8 +279,8 @@ body {
    only be honored by engines that follow Chrome's older behavior.
 
    The class is put on <html> by src/scripts/landing-menu.js for the static pages and by
-   src/components/app/Header.tsx for the app pages. A plain rule, so it needs no mirror in app.css
-   (see the note above); html.tma in app.css pins the same property for Telegram Mini App mode. */
+   src/components/app/Header.tsx for the app pages (app.css imports this file); html.tma in app.css
+   pins the same property for Telegram Mini App mode. */
 html.menu-open {
   overscroll-behavior-y: none;
 }
@@ -299,8 +298,7 @@ code:not(pre code) {
 
 /* Diagonal hatching for HPO held in a project wallet (the supply bar and its list): stripes of
    --hatch-color over a faint tint of it, so it reads as allocated, not in the market. The element
-   sets --hatch-color. Like `num`, a utility, so it would need mirroring into app.css if the dApp
-   ever used it; it does not. */
+   sets --hatch-color. */
 @utility hatch {
   background-color: color-mix(in srgb, var(--hatch-color) 36%, transparent);
   background-image: repeating-linear-gradient(135deg, var(--hatch-color) 0 2.5px, transparent 2.5px 6px);

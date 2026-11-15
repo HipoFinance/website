@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-15 — App pages: one stylesheet
+
+- The app pages (Stake, Unstake, Rewards, Club, Stats, DeFi, HPO) load one stylesheet instead of two: `app.css` now imports `global.css` and adds only the app's own tokens and rules, so Tailwind compiles once and nothing is repeated. 14.7 KB gzipped in one file instead of 25.8 KB in two. Computed styles of every element were the same before and after on eight app pages at 390 and 1440 px, light and dark, with and without JavaScript; the homepage, FAQ and blog keep the same `global.css` file.
+- Held back: starting the app on /hpo/ only after the hero's fonts have painted. In 7 interleaved Lighthouse runs it did not show the gain the experiment showed (median LCP 1087 → 1565 ms, from 3 late-LCP runs in 7) and Connect opened about 60 ms later, so it waits for a 15-run measurement together with the homepage ([spec](specs/one-header-across-site.md)).
+
 ## 2026-11-15 — Stake form: less space above it on phones, equal tabs
 
 - On phones the stake form's heading block is tighter: 20px top padding instead of 40, a 26px heading instead of 30, a 14px subtitle instead of 16, and 20px instead of 28 under the heading and under the tabs. The amount field moves up 48px on Stake and 72px on Unstake at 390px width, so more of the form shows without scrolling. Asked by Behrang. Desktop (640px and wider) is unchanged.

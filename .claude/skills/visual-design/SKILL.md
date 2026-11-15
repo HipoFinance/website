@@ -25,7 +25,8 @@ when a visual change would change what a reader has to do or read, say so instea
 ## Hard constraints (the repo's rules; read `.claude/rules/styling.md` first)
 
 - **Tokens only.** Every colour is a custom property in the `@theme` block of
-  `src/styles/global.css` (the dApp has its own `src/styles/app.css`), with a light value in the
+  `src/styles/global.css` (the dApp pages load `src/styles/app.css`, which imports
+  `global.css` and adds the app's own tokens), with a light value in the
   `prefers-color-scheme: light` block. No raw hex in `.astro` or `.tsx`. When a component carries
   hex today (the tokenomics donut did), the fix is tokens, one per role, in both schemes.
 - **Two schemes, no toggle.** Warm Dark is the authored base; light is a token-for-token remap
