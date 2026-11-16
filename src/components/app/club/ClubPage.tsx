@@ -127,11 +127,56 @@ const DESK_TAB =
 const DESK_TAB_ON = 'md:border-accent md:font-semibold'
 const DESK_TAB_OFF = 'md:border-transparent md:font-normal'
 
+// The browser's note that the member has opened the Community tab: the "live" dot then stops pulsing.
+const COMMUNITY_SEEN_KEY = 'hipo.club.communitySeen'
+
+function readCommunitySeen(): boolean {
+  try {
+    return window.localStorage.getItem(COMMUNITY_SEEN_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+
+// The "live" mark on the Community tab: a green dot that pulses until the member has opened the tab,
+// and from md up on the web a "Live" pill after it. Hidden once the server says Community is off.
+const LiveMark = ({ label, seen, pill }: { label: string; seen: boolean; pill: boolean }) => (
+  <span className='inline-flex shrink-0 items-center gap-1.5' aria-label={label} title={label}>
+    <span className='relative inline-flex h-2 w-2' aria-hidden='true'>
+      {!seen && (
+        <span className='bg-tone-success-fg absolute inline-flex h-full w-full animate-ping rounded-full opacity-75'></span>
+      )}
+      <span className='bg-tone-success-fg relative inline-flex h-2 w-2 rounded-full'></span>
+    </span>
+    {pill && (
+      <span
+        className='text-tone-success-fg border-tone-success-fg hidden rounded-full border px-1.5 text-[11px] leading-4 font-semibold md:inline'
+        aria-hidden='true'
+      >
+        {label}
+      </span>
+    )}
+  </span>
+)
+
 export const ClubTabs = observer(({ club }: { club: ClubModel }) => {
   const t = club.t
   const active = club.model.clubTab
   // The Mini App keeps the switch at every width.
   const desk = !club.tma
+  const [communitySeen, setCommunitySeen] = useState(readCommunitySeen)
+  useEffect(() => {
+    if (active !== 'community' || communitySeen) {
+      return
+    }
+    setCommunitySeen(true)
+    try {
+      window.localStorage.setItem(COMMUNITY_SEEN_KEY, '1')
+    } catch {
+      // No storage (private window): the dot pulses again next visit, which is harmless.
+    }
+  }, [active, communitySeen])
+  const communityLive = club.community?.setting !== 'off'
   return (
     // A segmented switch on phones and in the Mini App; from md up on the web, the wireframe's
     // underline tabs (left-aligned links over a bottom rule, the active one underlined in coral).
@@ -154,7 +199,14 @@ export const ClubTabs = observer(({ club }: { club: ClubModel }) => {
             club.model.navigateToClubTab(tab)
           }}
         >
-          {t('club.tabs.' + tab)}
+          {tab === 'community' && communityLive ? (
+            <span className='inline-flex min-w-0 items-center gap-1.5'>
+              <span className='min-w-0'>{t('club.tabs.' + tab)}</span>
+              <LiveMark label={t('club.tabs.live')} seen={communitySeen} pill={desk} />
+            </span>
+          ) : (
+            t('club.tabs.' + tab)
+          )}
         </a>
       ))}
     </nav>
