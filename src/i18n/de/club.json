@@ -530,6 +530,7 @@
   "club.community.notCountedExcluded": "Diese Woche nicht gezählt: Team-Konto",
   "club.community.notCountedLeft": "Nicht gezählt: Sie waren nicht in den Abschlussdaten der Woche",
   "club.community.notCountedVoid": "Diese Woche wurde vom Team für ungültig erklärt",
+  "club.community.wouldCount": "Würde zählen, wenn teilnahmeberechtigt",
   "club.community.weekLine": "Diese Woche: {range} · ",
   "club.community.weekResets": "Reset Mo 00:00 UTC",
   "club.community.weekRange": "{start}–{end}",

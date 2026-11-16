@@ -530,6 +530,7 @@
   "club.community.notCountedExcluded": "Bu hafta sayılmadı: ekip hesabı",
   "club.community.notCountedLeft": "Sayılmadı: haftanın son verilerinde yoktunuz",
   "club.community.notCountedVoid": "Bu hafta ekip tarafından geçersiz sayıldı",
+  "club.community.wouldCount": "Uygun olsaydı sayılırdı",
   "club.community.weekLine": "Bu hafta: {range} · ",
   "club.community.weekResets": "Pzt 00:00 UTC'de sıfırlanır",
   "club.community.weekRange": "{start}–{end}",

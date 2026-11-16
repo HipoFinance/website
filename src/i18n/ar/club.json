@@ -530,6 +530,7 @@
   "club.community.notCountedExcluded": "غير محتسب هذا الأسبوع: حساب الفريق",
   "club.community.notCountedLeft": "غير محتسب: لم تكن في البيانات النهائية للأسبوع",
   "club.community.notCountedVoid": "ألغى الفريق هذا الأسبوع",
+  "club.community.wouldCount": "سيُحتسب عند استيفاء الشروط",
   "club.community.weekLine": "هذا الأسبوع: {range} · ",
   "club.community.weekResets": "يُعاد الضبط الاثنين 00:00 UTC",
   "club.community.weekRange": "{start}–{end}",

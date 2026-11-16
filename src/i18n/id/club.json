@@ -530,6 +530,7 @@
   "club.community.notCountedExcluded": "Tidak dihitung minggu ini: akun tim",
   "club.community.notCountedLeft": "Tidak dihitung: Anda tidak ada di data akhir minggu ini",
   "club.community.notCountedVoid": "Minggu ini dibatalkan oleh tim",
+  "club.community.wouldCount": "Akan dihitung jika memenuhi syarat",
   "club.community.weekLine": "Minggu ini: {range} · ",
   "club.community.weekResets": "direset Sen 00:00 UTC",
   "club.community.weekRange": "{start}–{end}",

@@ -353,38 +353,37 @@ const CommunityTab = observer(({ club }: Props) => {
       ? undefined
       : Math.min(7, Math.max(1, Math.floor((nowMs - Date.parse(e.start + 'T00:00:00Z')) / DAY_MS) + 1))
   const last = c.weeks[0]
-  const parts =
-    e === undefined
-      ? []
-      : [
-          {
-            name: t('club.community.partAppreciation'),
-            pts: part(w.appreciation, e.a2, 2 * g.appreciation),
-            max: w.appreciation,
-            color: 'bg-tone-success-fg',
-            detail: plural(club, 'club.community.detailAppreciation', Math.floor(e.a2 / 2), {
-              count: n(Math.floor(e.a2 / 2)),
-              members:
-                e.reactors === undefined
-                  ? DASH
-                  : plural(club, 'club.community.members', e.reactors, { count: n(e.reactors) }),
-            }),
-          },
-          {
-            name: t('club.community.partReplies'),
-            pts: part(w.replies, e.h, g.replies),
-            max: w.replies,
-            color: 'bg-tone-info-fg',
-            detail: plural(club, 'club.community.detailReplies', e.h, { count: n(e.h) }),
-          },
-          {
-            name: t('club.community.partDays'),
-            pts: part(w.days, e.d, g.days),
-            max: w.days,
-            color: 'bg-accent-fill',
-            detail: plural(club, 'club.community.detailDays', e.d, { count: n(e.d) }),
-          },
-        ]
+  // A member with no line this week (no activity, so not in Limzo's copy) sees the three parts at zero.
+  const pe = e ?? { a2: 0, h: 0, d: 0, reactors: 0 }
+  const parts = [
+    {
+      name: t('club.community.partAppreciation'),
+      pts: part(w.appreciation, pe.a2, 2 * g.appreciation),
+      max: w.appreciation,
+      color: 'bg-tone-success-fg',
+      detail: plural(club, 'club.community.detailAppreciation', Math.floor(pe.a2 / 2), {
+        count: n(Math.floor(pe.a2 / 2)),
+        members:
+          pe.reactors === undefined
+            ? DASH
+            : plural(club, 'club.community.members', pe.reactors, { count: n(pe.reactors) }),
+      }),
+    },
+    {
+      name: t('club.community.partReplies'),
+      pts: part(w.replies, pe.h, g.replies),
+      max: w.replies,
+      color: 'bg-tone-info-fg',
+      detail: plural(club, 'club.community.detailReplies', pe.h, { count: n(pe.h) }),
+    },
+    {
+      name: t('club.community.partDays'),
+      pts: part(w.days, pe.d, g.days),
+      max: w.days,
+      color: 'bg-accent-fill',
+      detail: plural(club, 'club.community.detailDays', pe.d, { count: n(pe.d) }),
+    },
+  ]
   const stickers = e?.stickers ?? 0
   const footnote = [
     stickers > 0 ? plural(club, 'club.community.notCountedStickers', stickers, { count: n(stickers) }) : '',
@@ -499,7 +498,7 @@ const CommunityTab = observer(({ club }: Props) => {
                 <Eyebrow icon={CalendarIcon}>
                   {t('club.community.weekTitle', { day: dayNo === undefined ? DASH : n(dayNo) })}
                 </Eyebrow>
-                {((e?.rank === undefined && !notCounted) || ranked) && (
+                {ranked && (
                   <Chip tone='success'>{t('club.community.rank', { rank: unseen(e?.rank), of: unseen(e?.of) })}</Chip>
                 )}
               </div>
@@ -516,6 +515,7 @@ const CommunityTab = observer(({ club }: Props) => {
               </div>
               {/* A member this week does not count still sees their activity, greyed: the parts are what
                   it would be worth, not points earned. */}
+              {notCounted && <p className='text-text-muted text-label -mb-2'>{t('club.community.wouldCount')}</p>}
               <div className={'flex flex-col gap-3' + (notCounted ? ' opacity-60 grayscale' : '')}>
                 {parts.map((p) => (
                   <div key={p.name} className='flex flex-col gap-1'>

@@ -530,6 +530,7 @@
   "club.community.notCountedExcluded": "Not counted this week: team account",
   "club.community.notCountedLeft": "Not counted: you weren't in the week's final data",
   "club.community.notCountedVoid": "This week was voided by the team",
+  "club.community.wouldCount": "Would count if eligible",
   "club.community.weekLine": "This week: {range} · ",
   "club.community.weekResets": "resets Mon 00:00 UTC",
   "club.community.weekRange": "{start}–{end}",

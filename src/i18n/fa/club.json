@@ -530,6 +530,7 @@
   "club.community.notCountedExcluded": "این هفته محاسبه نشد: حساب تیم",
   "club.community.notCountedLeft": "محاسبه نشد: در داده‌های نهایی هفته نبودید",
   "club.community.notCountedVoid": "این هفته توسط تیم باطل شد",
+  "club.community.wouldCount": "در صورت واجد شرایط بودن محاسبه می‌شد",
   "club.community.weekLine": "این هفته: {range} · ",
   "club.community.weekResets": "دوشنبه ساعت ۰۰:۰۰ UTC بازنشانی می‌شود",
   "club.community.weekRange": "{start}–{end}",

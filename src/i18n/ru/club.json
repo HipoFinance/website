@@ -530,6 +530,7 @@
   "club.community.notCountedExcluded": "Не засчитано на этой неделе: аккаунт команды",
   "club.community.notCountedLeft": "Не засчитано: вас не было в итоговых данных недели",
   "club.community.notCountedVoid": "Неделя аннулирована командой",
+  "club.community.wouldCount": "Засчиталось бы при соблюдении условий",
   "club.community.weekLine": "Эта неделя: {range} · ",
   "club.community.weekResets": "сброс в пн в 00:00 UTC",
   "club.community.weekRange": "{start}–{end}",
