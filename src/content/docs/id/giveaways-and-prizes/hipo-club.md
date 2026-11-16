@@ -55,6 +55,67 @@ Ada dua cara naik level, dan keduanya bisa digabung, hingga Level 10:
 
 Saat teman yang Anda undang mendapatkan HPO yang di-boost, Anda mendapatkan **1%** darinya, ditambahkan ke saldo yang bisa Anda klaim. Setelah diklaim, jumlah itu menambah minimal Level Anda seperti klaim lainnya.
 
+## Poin komunitas
+
+[Tab Community](/club/community/) di Club memberi imbalan atas keikutsertaan di [Hipo Chat](https://t.me/hipo_chat), grup Telegram kami. Setiap minggu, dari Senin sampai Minggu (UTC), Anda mendapatkan poin karena membantu dan dihargai di sana. Data aktivitasnya berasal dari Limzo, bot yang mencatat statistik Hipo Chat.
+
+### Apa yang ditampilkan tab
+
+- **Minggu ini:** poin Anda sejauh ini, diperbarui setiap jam, dan peringkat Anda di antara anggota yang mendapatkan poin ("#3 dari 25").
+- **Tiga bagian** poin Anda dalam bentuk bar, masing-masing dengan keterangan tentang apa yang dihitung, misalnya "8 reaksi dari 4 anggota".
+- **Kontributor minggu ini:** 5 teratas berdasarkan nama Telegram, dan peringkat Anda sendiri.
+- **Riwayat mingguan:** setiap minggu lalu beserta poin dan statusnya: _Dalam peninjauan_, _Final_, atau _Tidak ada aktivitas_. Jika tim mengubah suatu minggu, minggu itu tampil sebagai disesuaikan, lengkap dengan alasannya.
+- **Profil Hipo Chat Anda** dari Limzo: level, streak, dan lencana.
+
+Jika Anda belum bisa mendapatkan poin, tab menjelaskan alasannya: Telegram belum terhubung, Anda bergabung ke Hipo Chat kurang dari 7 hari lalu, atau minggu Anda tidak dihitung (aktivitas Anda tetap ditampilkan dengan warna abu-abu, sebagai "Akan dihitung jika memenuhi syarat").
+
+### Siapa yang mendapatkan poin
+
+Anda mendapatkan poin dalam suatu minggu jika semua hal ini terpenuhi:
+
+- Anda punya akun Club: Anda masuk ke Club dengan Telegram.
+- Anda sudah berada di Hipo Chat setidaknya **7 hari** sebelum minggu itu dimulai.
+- Anda tidak terkena mute atau ban di Hipo Chat pada minggu itu, kecuali admin membatalkannya.
+- Anda bukan bagian dari tim: admin dan akun tim tidak mendapatkan poin.
+
+### Cara poin dihitung
+
+Minggu Anda terdiri dari tiga bagian, hingga **120 poin** secara keseluruhan:
+
+| Bagian                | Yang dihitung                                                                   | Nilai penuh pada | Poin maks. |
+| --------------------- | ------------------------------------------------------------------------------- | ---------------- | ---------- |
+| Apresiasi             | Reaksi positif pada pesan Anda dari anggota lain yang mendapatkan poin          | 20 reaksi        | 60         |
+| Balasan yang membantu | Balasan Anda kepada orang lain yang mendapat jawaban                            | 10 balasan       | 42         |
+| Kehadiran             | Hari ketika Anda menulis sesuatu (hari yang hanya berisi stiker tidak dihitung) | 7 hari           | 18         |
+
+- **Yang pertama paling berarti.** Setiap bagian bertambah mengikuti akar kuadrat dari yang Anda lakukan, sehingga beberapa reaksi dan balasan pertama menambah poin paling banyak.
+- **Maksimal 3 per orang.** Dari satu anggota, paling banyak 3 reaksi dan 3 balasan yang dijawab dihitung setiap minggu, jadi poin datang dari banyak orang, bukan dari satu teman.
+- **Kehadiran membutuhkan dua bagian lainnya.** Hari hanya dihitung pada minggu ketika Anda juga mendapat apresiasi atau balasan yang membantu.
+- **Lingkaran kecil dihitung lebih sedikit.** Jika sebagian besar reaksi Anda datang dari 3 orang atau lebih yang juga Anda beri reaksi, reaksi itu dihitung setengah.
+
+Beberapa nilai untuk setiap bagian:
+
+| Apresiasi | Poin | Balasan yang membantu | Poin | Kehadiran | Poin |
+| --------- | ---- | --------------------- | ---- | --------- | ---- |
+| 5 reaksi  | 30   | 1 balasan             | 13   | 1 hari    | 6    |
+| 10 reaksi | 42   | 3 balasan             | 23   | 3 hari    | 11   |
+| 20 reaksi | 60   | 10 balasan            | 42   | 7 hari    | 18   |
+
+### Contoh
+
+- **Minggu yang membantu.** Anda menjawab beberapa pertanyaan, dan 4 anggota memberi reaksi pada jawaban Anda, masing-masing 2 reaksi: 8 reaksi. 3 balasan Anda mendapat jawaban kembali, dan Anda menulis pada 4 hari. Totalnya 37 + 23 + 13 = **73 poin**.
+- **Satu penggemar tidak cukup.** Satu teman memberi reaksi pada 10 pesan Anda dan tidak ada orang lain. Hanya 3 reaksi yang dihitung: **23 poin** untuk apresiasi. Dengan 1 balasan yang dijawab dan 2 hari, ditambah 13 + 9, jadi totalnya **45 poin**.
+- **Hanya stiker.** Anda mengirim stiker setiap hari tetapi tidak ada yang bereaksi dan tidak ada balasan yang dijawab: **0 poin**. Kehadiran hanya dihitung bersama dua bagian lainnya.
+- **Minggu penuh.** 20 reaksi dari setidaknya 7 anggota, 10 balasan yang dijawab, dan ketujuh hari: maksimum **120 poin**.
+
+### Kapan suatu minggu menjadi final
+
+- **Senin sampai Minggu:** tab menampilkan poin Anda saat bertambah, diperbarui setiap jam.
+- **Senin setelah minggu itu:** poin Anda untuk minggu itu dihitung dan minggu tersebut berstatus _Dalam peninjauan_. Tim memeriksa penyalahgunaan dan dapat mengoreksi atau membatalkan minggu seorang anggota, selalu disertai alasan.
+- **Kamis setelah minggu itu:** minggu dihitung sekali lagi, termasuk perubahan terlambat dari Limzo, dan menjadi _Final_.
+
+Jika tim mengubah minggu Anda, Anda menerima pesan Telegram berisi alasannya, dan alasan itu tampil di riwayat mingguan Anda.
+
 ## Musim
 
 **Musim 6** dimulai pada **31 Oktober 2026**, dan rencana berakhirnya **31 Desember 2026**; Club menampilkan tanggal dan hitung mundurnya. Di akhir musim, upgrade musiman diterapkan. Penangguhan yang masih berjalan membawa sisa harinya ke musim berikutnya.

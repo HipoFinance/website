@@ -55,6 +55,67 @@ Es gibt zwei Wege aufzusteigen, und sie lassen sich kombinieren, bis Level 10:
 
 Verdienen Freunde, die Sie einladen, geboosteten HPO, erhalten Sie **1 %** davon, Ihrem claimbaren Guthaben hinzugefügt. Nach dem Claim erhöht er Ihr Level-Minimum wie jeder andere Claim.
 
+## Community-Punkte
+
+Der [Community-Tab](/club/community/) des Clubs belohnt die Teilnahme an [Hipo Chat](https://t.me/hipo_chat), unserer Telegram-Gruppe. Jede Woche, von Montag bis Sonntag (UTC), verdienen Sie dort Punkte dafür, hilfreich zu sein und geschätzt zu werden. Die Aktivität stammt von Limzo, dem Bot, der die Statistiken von Hipo Chat führt.
+
+### Was der Tab zeigt
+
+- **Diese Woche:** Ihre bisherigen Punkte, stündlich aktualisiert, und Ihr Platz unter den Mitgliedern, die Punkte verdienen („Platz 3 von 25“).
+- **Die drei Teile** Ihrer Punkte als Balken, jeweils mit einer Zeile dazu, was gezählt hat, zum Beispiel „8 Reaktionen von 4 Mitgliedern“.
+- **Die Beitragenden dieser Woche:** die Top 5 nach Telegram-Namen und Ihr eigener Platz.
+- **Wochenverlauf:** jede vergangene Woche mit ihren Punkten und ihrem Status: _In Prüfung_, _Final_ oder _Keine Aktivität_. Hat das Team eine Woche geändert, wird sie als angepasst mit der Begründung angezeigt.
+- **Ihr Hipo-Chat-Profil** von Limzo: Level, Serie und Abzeichen.
+
+Wenn Sie noch keine Punkte verdienen können, sagt der Tab warum: Telegram ist nicht verknüpft, Sie sind Hipo Chat vor weniger als 7 Tagen beigetreten, oder Ihre Woche wird nicht gezählt (dann zeigt er Ihre Aktivität trotzdem ausgegraut an, als „Würde zählen, wenn teilnahmeberechtigt“).
+
+### Wer Punkte verdient
+
+Sie verdienen in einer Woche Punkte, wenn alle diese Bedingungen erfüllt sind:
+
+- Sie haben ein Club-Konto: Sie haben sich mit Telegram im Club angemeldet.
+- Sie waren vor Beginn der Woche mindestens **7 Tage** in Hipo Chat.
+- Sie hatten in dieser Woche keine Stummschaltung und keine Sperre in Hipo Chat, es sei denn, ein Admin hat sie aufgehoben.
+- Sie gehören nicht zum Team: Admins und Team-Konten verdienen keine Punkte.
+
+### So werden Punkte gezählt
+
+Ihre Woche besteht aus drei Teilen, insgesamt bis zu **120 Punkte**:
+
+| Teil                 | Was zählt                                                                              | Volle Punktzahl bei | Max. Punkte |
+| -------------------- | -------------------------------------------------------------------------------------- | ------------------- | ----------- |
+| Wertschätzung        | Positive Reaktionen auf Ihre Nachrichten von anderen Mitgliedern, die Punkte verdienen | 20 Reaktionen       | 60          |
+| Hilfreiche Antworten | Ihre Antworten an andere, auf die eine Rückmeldung kam                                 | 10 Antworten        | 42          |
+| Präsenz              | Tage, an denen Sie etwas geschrieben haben (Tage nur mit Stickern zählen nicht)        | 7 Tage              | 18          |
+
+- **Die ersten zählen am meisten.** Jeder Teil wächst mit der Quadratwurzel dessen, was Sie getan haben, daher bringen Ihre ersten Reaktionen und Antworten am meisten.
+- **Höchstens 3 pro Person.** Von jedem einzelnen Mitglied zählen pro Woche höchstens 3 Reaktionen und 3 beantwortete Antworten, damit die Punkte von vielen Personen kommen und nicht von einem einzigen Freund.
+- **Präsenz braucht die anderen beiden.** Tage zählen nur in einer Woche, in der Sie auch etwas Wertschätzung oder hilfreiche Antworten erhalten haben.
+- **Kleine Zirkel zählen weniger.** Wenn die meisten Ihrer Reaktionen von 3 oder mehr Personen kommen, auf die Sie ebenfalls reagieren, zählen diese Reaktionen nur zur Hälfte.
+
+Einige Werte für jeden Teil:
+
+| Wertschätzung | Punkte | Hilfreiche Antworten | Punkte | Präsenz | Punkte |
+| ------------- | ------ | -------------------- | ------ | ------- | ------ |
+| 5 Reaktionen  | 30     | 1 Antwort            | 13     | 1 Tag   | 6      |
+| 10 Reaktionen | 42     | 3 Antworten          | 23     | 3 Tage  | 11     |
+| 20 Reaktionen | 60     | 10 Antworten         | 42     | 7 Tage  | 18     |
+
+### Beispiele
+
+- **Eine hilfreiche Woche.** Sie beantworten ein paar Fragen, und 4 Mitglieder reagieren auf Ihre Antworten, jeweils 2 Reaktionen: 8 Reaktionen. Auf 3 Ihrer Antworten kommt eine Rückmeldung, und Sie schreiben an 4 Tagen. Das ergibt 37 + 23 + 13 = **73 Punkte**.
+- **Ein Fan reicht nicht.** Ein Freund reagiert auf 10 Ihrer Nachrichten und sonst niemand. Nur 3 dieser Reaktionen zählen: **23 Punkte** für Wertschätzung. Mit 1 beantworteten Antwort und 2 Tagen kommen 13 + 9 hinzu, insgesamt also **45 Punkte**.
+- **Nur Sticker.** Sie posten jeden Tag Sticker, aber niemand reagiert und auf keine Antwort kommt eine Rückmeldung: **0 Punkte**. Präsenz zählt nur zusammen mit den anderen beiden Teilen.
+- **Eine volle Woche.** 20 Reaktionen von mindestens 7 Mitgliedern, 10 beantwortete Antworten und alle 7 Tage: das Maximum von **120 Punkten**.
+
+### Wann eine Woche final wird
+
+- **Montag bis Sonntag:** Der Tab zeigt Ihre Punkte, während sie wachsen, stündlich aktualisiert.
+- **Montag nach der Woche:** Ihre Punkte für die Woche werden gezählt, und die Woche ist _In Prüfung_. Das Team prüft auf Missbrauch und kann die Woche eines Mitglieds korrigieren oder annullieren, immer mit einer Begründung.
+- **Donnerstag nach der Woche:** Die Woche wird noch einmal gezählt, mit späten Änderungen von Limzo, und wird _Final_.
+
+Ändert das Team Ihre Woche, erhalten Sie eine Telegram-Nachricht mit der Begründung, und die Begründung erscheint in Ihrem Wochenverlauf.
+
 ## Seasons
 
 **Season 6** begann am **31. Oktober 2026**, ihr geplantes Ende ist der **31. Dezember 2026**; der Club zeigt das Datum und einen Countdown. Am Ende einer Season werden die saisonalen Upgrades angewendet. Eine noch laufende Aussetzung nimmt ihre verbleibenden Tage in die nächste Season mit.

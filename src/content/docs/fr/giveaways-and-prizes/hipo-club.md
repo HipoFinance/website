@@ -55,6 +55,67 @@ Il y a deux façons de monter, qui se cumulent, jusqu’au niveau 10 :
 
 Quand les amis que tu invites gagnent des HPO boostés, tu en gagnes **1 %**, ajoutés à ton solde réclamable. Une fois réclamés, ils s’ajoutent à ton minimum de niveau comme n’importe quelle autre réclamation.
 
+## Points de la communauté
+
+L’[onglet Communauté](/club/community/) du Club récompense la participation à [Hipo Chat](https://t.me/hipo_chat), notre groupe Telegram. Chaque semaine, du lundi au dimanche (UTC), tu gagnes des points pour avoir été utile et apprécié·e là-bas. L’activité vient de Limzo, le bot qui tient les statistiques de Hipo Chat.
+
+### Ce que montre l’onglet
+
+- **Cette semaine :** tes points jusqu’ici, mis à jour toutes les heures, et ta place parmi les membres qui gagnent des points (« N° 3 sur 25 »).
+- **Les trois parties** de tes points sous forme de barres, chacune avec une ligne disant ce qui a compté, par exemple « 8 réactions de 4 membres ».
+- **Les contributeurs de la semaine :** le top 5 par nom Telegram, et ta propre place.
+- **Historique des semaines :** chaque semaine passée avec ses points et son statut : _En vérification_, _Final_ ou _Aucune activité_. Si l’équipe a modifié une semaine, elle apparaît comme ajustée, avec la raison.
+- **Ton profil Hipo Chat** de Limzo : niveau, série et badges.
+
+Si tu ne peux pas encore gagner de points, l’onglet dit pourquoi : Telegram n’est pas lié, tu as rejoint Hipo Chat il y a moins de 7 jours, ou ta semaine n’est pas comptée (il montre alors quand même ton activité, en grisé, avec « Compterait si éligible »).
+
+### Qui gagne des points
+
+Tu gagnes des points pour une semaine quand toutes ces conditions sont remplies :
+
+- Tu as un compte Club : tu t’es connecté·e au Club avec Telegram.
+- Tu étais dans Hipo Chat depuis au moins **7 jours** avant le début de la semaine.
+- Tu n’as eu ni mise en sourdine ni bannissement dans Hipo Chat cette semaine-là, sauf si un admin l’a annulé.
+- Tu ne fais pas partie de l’équipe : les admins et les comptes de l’équipe ne gagnent pas de points.
+
+### Comment les points sont comptés
+
+Ta semaine comporte trois parties, jusqu’à **120 points** au total :
+
+| Partie          | Ce qui compte                                                                               | Maximum atteint à | Points max. |
+| --------------- | ------------------------------------------------------------------------------------------- | ----------------- | ----------- |
+| Appréciation    | Réactions positives à tes messages venant d’autres membres qui gagnent des points           | 20 réactions      | 60          |
+| Réponses utiles | Tes réponses à d’autres personnes qui ont reçu une réponse en retour                        | 10 réponses       | 42          |
+| Présence        | Jours où tu as écrit quelque chose (les jours avec uniquement des stickers ne comptent pas) | 7 jours           | 18          |
+
+- **Les premières comptent le plus.** Chaque partie croît avec la racine carrée de ce que tu as fait, donc tes premières réactions et réponses rapportent le plus.
+- **Au maximum 3 par personne.** Pour un même membre, au maximum 3 réactions et 3 réponses ayant reçu une réponse comptent chaque semaine, donc les points viennent de nombreuses personnes, pas d’un seul ami.
+- **La présence a besoin des deux autres.** Les jours ne comptent que dans une semaine où tu as aussi reçu de l’appréciation ou des réponses utiles.
+- **Les petits cercles comptent moins.** Quand la plupart de tes réactions viennent de 3 personnes ou plus auxquelles tu réagis aussi, ces réactions comptent pour moitié.
+
+Quelques valeurs pour chaque partie :
+
+| Appréciation | Points | Réponses utiles | Points | Présence | Points |
+| ------------ | ------ | --------------- | ------ | -------- | ------ |
+| 5 réactions  | 30     | 1 réponse       | 13     | 1 jour   | 6      |
+| 10 réactions | 42     | 3 réponses      | 23     | 3 jours  | 11     |
+| 20 réactions | 60     | 10 réponses     | 42     | 7 jours  | 18     |
+
+### Exemples
+
+- **Une semaine utile.** Tu réponds à quelques questions, et 4 membres réagissent à tes réponses, 2 réactions chacun : 8 réactions. 3 de tes réponses reçoivent une réponse en retour, et tu écris pendant 4 jours. Cela fait 37 + 23 + 13 = **73 points**.
+- **Un seul fan ne suffit pas.** Un ami réagit à 10 de tes messages et personne d’autre. Seules 3 de ces réactions comptent : **23 points** d’appréciation. Avec 1 réponse ayant reçu une réponse et 2 jours, cela ajoute 13 + 9, donc **45 points** au total.
+- **Seulement des stickers.** Tu postes des stickers tous les jours mais personne ne réagit et aucune réponse ne reçoit de réponse en retour : **0 point**. La présence ne compte qu’avec les deux autres parties.
+- **Une semaine complète.** 20 réactions d’au moins 7 membres, 10 réponses ayant reçu une réponse et les 7 jours : le maximum de **120 points**.
+
+### Quand une semaine devient finale
+
+- **Du lundi au dimanche :** l’onglet montre tes points au fur et à mesure qu’ils augmentent, mis à jour toutes les heures.
+- **Le lundi après la semaine :** tes points de la semaine sont comptés et la semaine est _En vérification_. L’équipe cherche les abus et peut corriger ou annuler la semaine d’un membre, toujours avec une raison.
+- **Le jeudi après la semaine :** la semaine est comptée une dernière fois, avec les éventuelles modifications tardives de Limzo, et devient _Final_.
+
+Si l’équipe modifie ta semaine, tu reçois un message Telegram avec la raison, et la raison apparaît dans ton historique des semaines.
+
 ## Saisons
 
 La **saison 6** a commencé le **31 octobre 2026**, et sa fin prévue est le **31 décembre 2026** ; le Club affiche la date et un compte à rebours. À la fin d’une saison, les montées saisonnières sont appliquées. Une suspension encore en cours reporte ses jours restants sur la saison suivante.

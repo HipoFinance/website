@@ -55,6 +55,67 @@ There are two ways to move up, and they stack, up to Level 10:
 
 When friends you invite earn boosted HPO, you earn **1%** of it, added to your claimable balance. Once claimed, it adds to your Level minimum like any other claim.
 
+## Community points
+
+The Club's [Community tab](/club/community/) rewards taking part in [Hipo Chat](https://t.me/hipo_chat), our Telegram group. Each week, from Monday to Sunday (UTC), you earn points for being helpful and appreciated there. The activity comes from Limzo, the bot that keeps Hipo Chat's statistics.
+
+### What the tab shows
+
+- **This week:** your points so far, updated every hour, and your place among the members who earn ("#3 of 25").
+- **The three parts** of your points as bars, each with a line saying what counted, for example "8 reactions from 4 members".
+- **This week's contributors:** the top 5 by Telegram name, and your own place.
+- **Weekly history:** each past week with its points and status: _In review_, _Final_, or _No activity_. If the team changed a week, it shows as adjusted, with the reason.
+- **Your Hipo Chat profile** from Limzo: level, streak and badges.
+
+If you can't earn yet, the tab says why: Telegram is not linked, you joined Hipo Chat less than 7 days ago, or your week is not counted (it then still shows your activity, greyed, as "Would count if eligible").
+
+### Who earns
+
+You earn in a week when all of these are true:
+
+- You have a Club account: you logged in to the Club with Telegram.
+- You were in Hipo Chat for at least **7 days** before the week started.
+- You had no mute or ban in Hipo Chat that week, unless an admin undid it.
+- You are not on the team: admins and team accounts don't earn.
+
+### How points are counted
+
+Your week has three parts, up to **120 points** in all:
+
+| Part            | What counts                                                     | Full marks at | Max points |
+| --------------- | --------------------------------------------------------------- | ------------- | ---------- |
+| Appreciation    | Positive reactions to your messages from other members who earn | 20 reactions  | 60         |
+| Helpful replies | Your replies to others that got an answer                       | 10 replies    | 42         |
+| Showing up      | Days you wrote something (sticker-only days don't count)        | 7 days        | 18         |
+
+- **The first ones count most.** Each part grows with the square root of what you did, so your first few reactions and replies add the most.
+- **At most 3 per person.** From any one member, at most 3 reactions and 3 answered replies count each week, so points come from many people, not from one friend.
+- **Showing up needs the other two.** Days count only in a week where you also got some appreciation or helpful replies.
+- **Small circles count less.** When most of your reactions come from 3 or more people you also react to, those reactions count at half.
+
+Some values for each part:
+
+| Appreciation | Points | Helpful replies | Points | Showing up | Points |
+| ------------ | ------ | --------------- | ------ | ---------- | ------ |
+| 5 reactions  | 30     | 1 reply         | 13     | 1 day      | 6      |
+| 10 reactions | 42     | 3 replies       | 23     | 3 days     | 11     |
+| 20 reactions | 60     | 10 replies      | 42     | 7 days     | 18     |
+
+### Examples
+
+- **A helpful week.** You answer a few questions, and 4 members react to your answers, 2 reactions each: 8 reactions. 3 of your replies get an answer back, and you write on 4 days. That is 37 + 23 + 13 = **73 points**.
+- **One fan is not enough.** One friend reacts to 10 of your messages and nobody else does. Only 3 of those reactions count: **23 points** for appreciation. With 1 answered reply and 2 days that adds 13 + 9, so **45 points** in all.
+- **Only stickers.** You post stickers every day but nobody reacts and no reply gets an answer: **0 points**. Showing up counts only alongside the other two parts.
+- **A full week.** 20 reactions from at least 7 members, 10 answered replies and all 7 days: the **120 points** maximum.
+
+### When a week becomes final
+
+- **Monday to Sunday:** the tab shows your points as they grow, updated every hour.
+- **Monday after the week:** your points for the week are counted and the week is _In review_. The team checks for misuse and can correct or void a member's week, always with a reason.
+- **Thursday after the week:** the week is counted once more, with any late changes from Limzo, and becomes _Final_.
+
+If the team changes your week, you get a Telegram message with the reason, and the reason shows in your weekly history.
+
 ## Seasons
 
 **Season 6** started on **31 October 2026**, and its planned end is **31 December 2026**; the Club shows the date and a countdown. At the end of a season the seasonal upgrades are applied. A suspension that is still running carries its remaining days into the next season.

@@ -55,6 +55,67 @@ Seviye atlamanın iki yolu vardır ve Seviye 10'a kadar birleşirler:
 
 Davet ettiğiniz arkadaşlar güçlendirilmiş HPO kazandığında bunun **%1**'ini siz kazanırsınız; talep edilebilir bakiyenize eklenir. Talep edildiğinde, diğer talepler gibi Seviye minimumunuza eklenir.
 
+## Topluluk puanları
+
+Club'ın [Topluluk sekmesi](/club/community/), Telegram grubumuz [Hipo Chat](https://t.me/hipo_chat)'e katılımı ödüllendirir. Her hafta, Pazartesi'den Pazar'a (UTC), orada yardımcı olduğunuz ve takdir gördüğünüz için puan kazanırsınız. Etkinlik, Hipo Chat'in istatistiklerini tutan bot Limzo'dan gelir.
+
+### Sekme neyi gösterir
+
+- **Bu hafta:** şu ana kadarki puanlarınız (her saat güncellenir) ve puan kazanan üyeler arasındaki yeriniz ("25 içinde #3").
+- **Puanınızın üç bölümü** çubuklar olarak, her birinde neyin sayıldığını söyleyen bir satırla, örneğin "4 üyeden 8 tepki".
+- **Bu haftanın katkıda bulunanları:** Telegram adına göre ilk 5 ve kendi yeriniz.
+- **Haftalık geçmiş:** geçmiş her hafta, puanı ve durumuyla: _İncelemede_, _Kesinleşti_ veya _Etkinlik yok_. Ekip bir haftayı değiştirdiyse, nedeniyle birlikte düzeltilmiş olarak görünür.
+- **Limzo'dan Hipo Chat profiliniz:** seviye, seri ve rozetler.
+
+Henüz puan kazanamıyorsanız sekme nedenini söyler: Telegram bağlı değil, Hipo Chat'e 7 günden az önce katıldınız veya haftanız sayılmıyor (bu durumda etkinliğiniz yine de gri olarak ve "Uygun olsaydı sayılırdı" ifadesiyle gösterilir).
+
+### Kimler puan kazanır
+
+Bir haftada, şunların hepsi doğruysa puan kazanırsınız:
+
+- Club hesabınız var: Club'a Telegram ile giriş yaptınız.
+- Hafta başlamadan önce en az **7 gün** Hipo Chat'teydiniz.
+- O hafta Hipo Chat'te susturulmadınız veya yasaklanmadınız; bir yönetici geri aldıysa sayılmaz.
+- Ekipten değilsiniz: yöneticiler ve ekip hesapları puan kazanmaz.
+
+### Puanlar nasıl sayılır
+
+Haftanızın üç bölümü vardır, toplamda en fazla **120 puan**:
+
+| Bölüm            | Neyin sayıldığı                                                    | Tam puan için | En fazla puan |
+| ---------------- | ------------------------------------------------------------------ | ------------- | ------------- |
+| Takdir           | Mesajlarınıza puan kazanan diğer üyelerden gelen olumlu tepkiler   | 20 tepki      | 60            |
+| Faydalı yanıtlar | Başkalarına verdiğiniz ve karşılık alan yanıtlar                   | 10 yanıt      | 42            |
+| Düzenli katılım  | Bir şey yazdığınız günler (yalnızca çıkartma olan günler sayılmaz) | 7 gün         | 18            |
+
+- **İlkler en çok sayılır.** Her bölüm, yaptığınızın karekökü ile büyür; bu yüzden ilk birkaç tepkiniz ve yanıtınız en çok puan ekler.
+- **Kişi başına en fazla 3.** Bir üyeden her hafta en fazla 3 tepki ve 3 karşılık alan yanıt sayılır; böylece puanlar tek bir arkadaştan değil, çok kişiden gelir.
+- **Düzenli katılım diğer ikisine ihtiyaç duyar.** Günler yalnızca biraz takdir veya faydalı yanıt da aldığınız haftada sayılır.
+- **Küçük çevreler daha az sayılır.** Tepkilerinizin çoğu, sizin de tepki verdiğiniz 3 veya daha fazla kişiden geldiğinde, bu tepkiler yarım sayılır.
+
+Her bölüm için bazı değerler:
+
+| Takdir   | Puan | Faydalı yanıtlar | Puan | Düzenli katılım | Puan |
+| -------- | ---- | ---------------- | ---- | --------------- | ---- |
+| 5 tepki  | 30   | 1 yanıt          | 13   | 1 gün           | 6    |
+| 10 tepki | 42   | 3 yanıt          | 23   | 3 gün           | 11   |
+| 20 tepki | 60   | 10 yanıt         | 42   | 7 gün           | 18   |
+
+### Örnekler
+
+- **Faydalı bir hafta.** Birkaç soruyu yanıtlıyorsunuz ve 4 üye yanıtlarınıza tepki veriyor, her biri 2 tepki: 8 tepki. 3 yanıtınız karşılık alıyor ve 4 gün yazıyorsunuz. Toplam 37 + 23 + 13 = **73 puan**.
+- **Tek hayran yetmez.** Bir arkadaşınız 10 mesajınıza tepki veriyor, başka kimse vermiyor. Bunlardan yalnızca 3 tepki sayılır: takdir için **23 puan**. Karşılık alan 1 yanıt ve 2 günle 13 + 9 eklenir, toplam **45 puan**.
+- **Sadece çıkartma.** Her gün çıkartma atıyorsunuz ama kimse tepki vermiyor ve hiçbir yanıt karşılık almıyor: **0 puan**. Düzenli katılım yalnızca diğer iki bölümle birlikte sayılır.
+- **Tam bir hafta.** En az 7 üyeden 20 tepki, karşılık alan 10 yanıt ve 7 günün tamamı: en fazla **120 puan**.
+
+### Bir hafta ne zaman kesinleşir
+
+- **Pazartesi'den Pazar'a:** sekme puanlarınızı büyürken gösterir, her saat güncellenir.
+- **Haftadan sonraki Pazartesi:** haftanın puanlarınız sayılır ve hafta _İncelemede_ olur. Ekip kötüye kullanımı kontrol eder ve bir üyenin haftasını düzeltebilir veya geçersiz sayabilir, her zaman nedenini belirterek.
+- **Haftadan sonraki Perşembe:** hafta, Limzo'dan gelen geç değişikliklerle bir kez daha sayılır ve _Kesinleşti_ olur.
+
+Ekip haftanızı değiştirirse nedenini içeren bir Telegram mesajı alırsınız ve neden haftalık geçmişinizde de görünür.
+
 ## Sezonlar
 
 **Sezon 6**, **31 Ekim 2026**'da başladı ve planlanan bitişi **31 Aralık 2026**'dır; Club tarihi ve geri sayımı gösterir. Sezon sonunda sezonluk yükseltmeler uygulanır. Süren bir askı, kalan günlerini sonraki sezona taşır.

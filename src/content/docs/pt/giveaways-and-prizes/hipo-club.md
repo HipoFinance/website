@@ -55,6 +55,67 @@ Há duas formas de subir, e elas se somam, até o Nível 10:
 
 Quando os amigos que você convida ganham HPO com boost, você ganha **1 %** dele, somado ao seu saldo resgatável. Depois de resgatado, ele soma ao mínimo do seu nível como qualquer outro resgate.
 
+## Pontos da comunidade
+
+A [aba Comunidade](/club/community/) do Club recompensa a participação no [Hipo Chat](https://t.me/hipo_chat), nosso grupo no Telegram. Toda semana, de segunda a domingo (UTC), você ganha pontos por ser útil e valorizado lá. A atividade vem da Limzo, o bot que mantém as estatísticas do Hipo Chat.
+
+### O que a aba mostra
+
+- **Esta semana:** seus pontos até agora, atualizados a cada hora, e sua posição entre os membros que ganham pontos ("3º de 25").
+- **As três partes** dos seus pontos em barras, cada uma com uma linha dizendo o que contou, por exemplo "8 reações de 4 membros".
+- **Quem mais contribuiu esta semana:** o top 5 por nome no Telegram, e a sua própria posição.
+- **Histórico semanal:** cada semana passada com seus pontos e seu status: _Em revisão_, _Final_ ou _Sem atividade_. Se a equipe alterou uma semana, ela aparece como ajustada, com o motivo.
+- **Seu perfil no Hipo Chat** vindo da Limzo: nível, sequência e emblemas.
+
+Se você ainda não pode ganhar pontos, a aba diz o motivo: o Telegram não está vinculado, você entrou no Hipo Chat há menos de 7 dias, ou sua semana não é contada (nesse caso ela ainda mostra sua atividade, em cinza, como "Contaria se fosse elegível").
+
+### Quem ganha pontos
+
+Você ganha pontos em uma semana quando todas estas condições são verdadeiras:
+
+- Você tem uma conta no Club: entrou no Club com o Telegram.
+- Você estava no Hipo Chat há pelo menos **7 dias** antes de a semana começar.
+- Você não teve silenciamento nem banimento no Hipo Chat naquela semana, a menos que um admin o tenha desfeito.
+- Você não faz parte da equipe: admins e contas da equipe não ganham pontos.
+
+### Como os pontos são contados
+
+Sua semana tem três partes, até **120 pontos** no total:
+
+| Parte           | O que conta                                                             | Pontuação máxima em | Pontos máx. |
+| --------------- | ----------------------------------------------------------------------- | ------------------- | ----------- |
+| Valorização     | Reações positivas às suas mensagens de outros membros que ganham pontos | 20 reações          | 60          |
+| Respostas úteis | Suas respostas a outras pessoas que receberam um retorno                | 10 respostas        | 42          |
+| Presença        | Dias em que você escreveu algo (dias só com figurinhas não contam)      | 7 dias              | 18          |
+
+- **As primeiras contam mais.** Cada parte cresce com a raiz quadrada do que você fez, então suas primeiras reações e respostas são as que mais somam.
+- **No máximo 3 por pessoa.** De um mesmo membro, no máximo 3 reações e 3 respostas com retorno contam por semana, então os pontos vêm de muitas pessoas, não de um só amigo.
+- **A presença precisa das outras duas.** Os dias só contam em uma semana em que você também recebeu alguma valorização ou respostas úteis.
+- **Círculos pequenos contam menos.** Quando a maioria das suas reações vem de 3 ou mais pessoas às quais você também reage, essas reações contam pela metade.
+
+Alguns valores para cada parte:
+
+| Valorização | Pontos | Respostas úteis | Pontos | Presença | Pontos |
+| ----------- | ------ | --------------- | ------ | -------- | ------ |
+| 5 reações   | 30     | 1 resposta      | 13     | 1 dia    | 6      |
+| 10 reações  | 42     | 3 respostas     | 23     | 3 dias   | 11     |
+| 20 reações  | 60     | 10 respostas    | 42     | 7 dias   | 18     |
+
+### Exemplos
+
+- **Uma semana útil.** Você responde algumas perguntas, e 4 membros reagem às suas respostas, 2 reações cada: 8 reações. 3 das suas respostas recebem um retorno, e você escreve em 4 dias. Isso dá 37 + 23 + 13 = **73 pontos**.
+- **Um fã só não basta.** Um amigo reage a 10 das suas mensagens e mais ninguém reage. Só 3 dessas reações contam: **23 pontos** de valorização. Com 1 resposta com retorno e 2 dias, somam-se 13 + 9, então **45 pontos** no total.
+- **Só figurinhas.** Você manda figurinhas todos os dias, mas ninguém reage e nenhuma resposta recebe retorno: **0 ponto**. A presença só conta junto com as outras duas partes.
+- **Uma semana completa.** 20 reações de pelo menos 7 membros, 10 respostas com retorno e todos os 7 dias: o máximo de **120 pontos**.
+
+### Quando uma semana se torna final
+
+- **De segunda a domingo:** a aba mostra seus pontos conforme eles crescem, atualizados a cada hora.
+- **Segunda-feira depois da semana:** seus pontos da semana são contados e a semana fica _Em revisão_. A equipe verifica se houve uso indevido e pode corrigir ou anular a semana de um membro, sempre com um motivo.
+- **Quinta-feira depois da semana:** a semana é contada mais uma vez, com as alterações tardias da Limzo, e se torna _Final_.
+
+Se a equipe alterar sua semana, você recebe uma mensagem no Telegram com o motivo, e o motivo aparece no seu histórico semanal.
+
 ## Temporadas
 
 A **Temporada 6** começou em **31 de outubro de 2026**, e o fim previsto é **31 de dezembro de 2026**; o Club mostra a data e uma contagem regressiva. No fim de uma temporada, os upgrades sazonais são aplicados. Uma suspensão em andamento leva os dias restantes para a temporada seguinte.
