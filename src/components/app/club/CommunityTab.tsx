@@ -395,6 +395,8 @@ const CommunityTab = observer(({ club }: Props) => {
     .join(' ')
   const adjusted = c.weeks.filter((week) => week.p !== week.baseP)
   const ranked = e?.rank !== undefined && e.rank > 0
+  // Excluded, new, muted or without a Club account: the server sends P = 0 but each part as computed.
+  const notCounted = e !== undefined && e.why !== ''
   const own = c.top.find((row) => row.you)
   const ownName = own?.name ?? club.overview?.displayName ?? ''
   const profile = c.profile
@@ -497,21 +499,24 @@ const CommunityTab = observer(({ club }: Props) => {
                 <Eyebrow icon={CalendarIcon}>
                   {t('club.community.weekTitle', { day: dayNo === undefined ? DASH : n(dayNo) })}
                 </Eyebrow>
-                {(e?.rank === undefined || ranked) && (
+                {((e?.rank === undefined && !notCounted) || ranked) && (
                   <Chip tone='success'>{t('club.community.rank', { rank: unseen(e?.rank), of: unseen(e?.of) })}</Chip>
                 )}
               </div>
               {e !== undefined && e.why !== '' && <p className='text-text-muted text-label'>{whyLabel(club, e.why)}</p>}
               <div className='flex items-baseline gap-2'>
-                {/* With no estimate the dash takes the label's size, in bold, as on the HPO card. */}
-                {e === undefined ? (
+                {/* With no estimate, or a member this week does not count, the dash takes the label's size, in
+                    bold, as on the HPO card. */}
+                {e === undefined || notCounted ? (
                   <span className='text-lead font-bold'>{DASH}</span>
                 ) : (
                   <span className='font-display num text-display-lg leading-none font-extrabold'>{n(e.p)}</span>
                 )}
                 <span className='text-text-secondary text-lead'>{t('club.community.pointsSoFar')}</span>
               </div>
-              <div className='flex flex-col gap-3'>
+              {/* A member this week does not count still sees their activity, greyed: the parts are what
+                  it would be worth, not points earned. */}
+              <div className={'flex flex-col gap-3' + (notCounted ? ' opacity-60 grayscale' : '')}>
                 {parts.map((p) => (
                   <div key={p.name} className='flex flex-col gap-1'>
                     <div className='flex justify-between gap-3'>
