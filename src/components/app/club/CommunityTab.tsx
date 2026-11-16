@@ -503,9 +503,12 @@ const CommunityTab = observer(({ club }: Props) => {
               </div>
               {e !== undefined && e.why !== '' && <p className='text-text-muted text-label'>{whyLabel(club, e.why)}</p>}
               <div className='flex items-baseline gap-2'>
-                <span className='font-display num text-display-lg leading-none font-extrabold'>
-                  {e === undefined ? DASH : n(e.p)}
-                </span>
+                {/* With no estimate the dash takes the label's size, in bold, as on the HPO card. */}
+                {e === undefined ? (
+                  <span className='text-lead font-bold'>{DASH}</span>
+                ) : (
+                  <span className='font-display num text-display-lg leading-none font-extrabold'>{n(e.p)}</span>
+                )}
                 <span className='text-text-secondary text-lead'>{t('club.community.pointsSoFar')}</span>
               </div>
               <div className='flex flex-col gap-3'>
