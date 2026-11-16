@@ -4535,42 +4535,6 @@
     "sourceHash": "5ae718c31134a740fb2144fc07150867da9e57f1",
     "reviewed": false
   },
-  "site.app.loading": {
-    "sourceHash": "7dc100437b51bdd7185f7b240aa037ebdabc8609",
-    "reviewed": false
-  },
-  "site.app.nav.club": {
-    "sourceHash": "4014019824fdf070c6a39bf014c44be092f8f162",
-    "reviewed": false
-  },
-  "site.app.nav.defi": {
-    "sourceHash": "0ce66d2e3a7fbcd6a71d6ae0589fb9800604003d",
-    "reviewed": false
-  },
-  "site.app.nav.docs": {
-    "sourceHash": "68a4194227be4ab74bc3d32363417c0fc1f30055",
-    "reviewed": false
-  },
-  "site.app.nav.rewards": {
-    "sourceHash": "2f4f4b7fbc81bc11d4aa9263fddf484f1eb90d99",
-    "reviewed": false
-  },
-  "site.app.nav.stake": {
-    "sourceHash": "78d7103a319e808455d397513279d99f3b3f3768",
-    "reviewed": false
-  },
-  "site.app.nav.stats": {
-    "sourceHash": "be763e9aba2af6b8baabada85d5e26c043c93fed",
-    "reviewed": false
-  },
-  "site.app.nav.unstake": {
-    "sourceHash": "f2c62a134e4ba54965156bf541fff36bb520d4b4",
-    "reviewed": false
-  },
-  "site.app.pagesNav": {
-    "sourceHash": "f482852ae15a8e56399dfc05efeb9a2242c23abe",
-    "reviewed": false
-  },
   "site.app.reload": {
     "sourceHash": "cce7155371fc26686b89c7452337d8419692f31e",
     "reviewed": false

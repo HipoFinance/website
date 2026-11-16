@@ -35,8 +35,8 @@
    src/components/app/tma/telegram.ts. Nothing below matches without it, so the ordinary web app is
    untouched. */
 
-/* Everything the Astro shell renders around the island — the per-page SEO copy, the cross-link nav
-   and the footer — is out of place in a mini app, and it is markup the island cannot reach. */
+/* Everything the Astro shell renders around the island — the per-page SEO copy and the
+   footer — is out of place in a mini app, and it is markup the island cannot reach. */
 html.tma [data-tma-hide] {
   display: none !important;
 }

@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-16 — Less chrome: no footer links on app pages, Mini App header scrolls, no title above the amount
+
+- The row of links under the app pages (Stake, Unstake, Club, Stats, DeFi, Docs) is removed: the same pages are in the header menu and the bottom tabs. Each still has a plain link a crawler can follow without the app (the shell's bottom tabs, the Stake/Unstake toggle, the site footer's DeFi and Documentation), so search loses nothing. Its eight strings are removed from all 11 locales, with `site.app.loading`, unused since the static shell replaced the spinner.
+- In the Mini App the header (title, rates, wallet pill) is now the first row of the scroller, so it scrolls away with the page and leaves the room to the content; the tab row stays fixed at the bottom. Telegram's own bar stays above it.
+- The "Stake" / "Unstake" title above the amount field is removed, on the website and in the Mini App, and in the static first-paint copy: the toggle and the button below already say it, and on the website the page title too (the Mini App has no page title; its header title scrolls away with the header). The field's name for screen readers was its placeholder before and still is.
+- Checked headless at 390 and 1280px, en and fa: no shift between the shell and the loaded form on `/stake/` and `/unstake/`, no horizontal scroll, the Mini App header leaves the screen on Stats and HPO with the tabs still at the bottom, and the wallet menu still opens on top. Not money-audited (no-go by Behrang): the one change in `StakeUnstake.tsx` is that title.
+
 ## 2026-11-15 — No second header when moving to HPO; home and HPO start higher
 
 - Moving between app pages showed a second header under the real one for about half a second, most visibly into `/hpo/`. The incoming page's static shell header was removed only on `astro:page-load`, which waits for that page's scripts, so the view transition's cross-fade had already captured it. `App.tsx` now removes the shell on `astro:after-swap` too, before the capture. Checked with a frame-by-frame headless recording of `/stake/` → `/hpo/` before (two headers at 875ms) and after (one header in every frame), website and Mini App.

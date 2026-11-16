@@ -171,8 +171,6 @@ const StakeUnstake = observer(({ model }: Props) => {
         </div>
 
         <div className='border-border bg-surface rounded-card relative flex flex-col gap-4 border p-7'>
-          <div className='text-base font-medium'>{stake ? t('app.common.stake') : t('app.common.unstake')}</div>
-
           <label>
             <div
               className={

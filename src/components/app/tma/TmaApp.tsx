@@ -17,9 +17,11 @@ interface Props {
   model: Model
 }
 
-// The mini-app shell: exactly one viewport tall (see `.tma-shell` in app.css), with the header and
-// the tab row as fixed-size rows and one scroller between them. Document scrolling is off in this
-// mode, which is what keeps Telegram's pull-to-close gesture from fighting the form.
+// The mini-app shell: exactly one viewport tall (see `.tma-shell` in app.css), with one scroller and
+// the tab row fixed below it. The header is the scroller's first row, so it scrolls away with the
+// page and leaves the room to the content (Telegram draws its own bar above it anyway). Document
+// scrolling is off in this mode, which is what keeps Telegram's pull-to-close gesture from fighting
+// the form.
 //
 // Reward / Stats / DeFi keep their existing responsive components; the stake form is the web one with
 // Mini App adjustments (specs/mini-app-stake-form-unified.md). HPO shows the website's own static page
@@ -137,8 +139,8 @@ const TmaApp = observer(({ model }: Props) => {
 
   return (
     <div className='tma-shell font-body text-text flex flex-col overflow-hidden' onClickCapture={onLinkClick}>
-      <TmaHeader model={model} />
       <div ref={bodyRef} className='flex min-h-0 flex-1 flex-col overflow-x-hidden overflow-y-auto overscroll-contain'>
+        <TmaHeader model={model} />
         {page}
       </div>
       <TmaTabs model={model} />
