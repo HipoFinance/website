@@ -1,17 +1,14 @@
 ---
 title: 'Protocole de staking liquide Hipo'
 description: 'Documentation de Hipo, le protocole de staking liquide sur TON : son fonctionnement, comment staker et unstaker, les frais, les risques, les contrats et les audits.'
+template: splash
+# A front door, not a step in the reading order: no "Next" link at its foot.
+next: false
+hero:
+  tagline: 'Hipo est un protocole de staking liquide open source sur TON. Tu stakes des GRAM et tu reçois des hGRAM, un token de staking liquide qui représente tes GRAM en staking et qui s’utilise partout dans la DeFi TON pendant que les récompenses s’accumulent.'
+  image:
+    html: '<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Le staking liquide Hipo sur TON, comment ça marche !" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 ---
-
-<figure><img src="/docs/images/introduction-hipo-liquid-staking-protocol-1.png" alt="Bannière Hipo avec les icônes des pièces hGRAM, HPO et de la mascotte Hipo."></figure>
-
-Hipo est un protocole de staking liquide open source sur TON. Tu stakes des GRAM et tu reçois des hGRAM, un token de staking liquide qui représente tes GRAM en staking et qui s’utilise partout dans la DeFi TON pendant que les récompenses s’accumulent.
-
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Le staking liquide Hipo sur TON, comment ça marche !" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-:::tip
-Juste là pour agir ? Stake sur [/stake/](/stake/), unstake sur [/unstake/](/unstake/), et consulte les chiffres en direct sur [/stats/](/stats/).
-:::
 
 Hipo ne promet pas de rendement fixe, n’est pas sans risque et ne garantit pas un retrait natif instantané dans tous les cas — [Risques](/docs/risks/) détaille chaque risque et ce que le protocole fait pour y répondre.
 

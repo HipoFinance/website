@@ -1,17 +1,14 @@
 ---
 title: 'Hipo Liquid-Staking-Protokoll'
 description: 'Dokumentation zu Hipo, dem Liquid-Staking-Protokoll auf TON: So funktioniert es, so staken und unstaken Sie, dazu Gebühren, Risiken, Contracts und Audits.'
+template: splash
+# A front door, not a step in the reading order: no "Next" link at its foot.
+next: false
+hero:
+  tagline: 'Hipo ist ein Open-Source-Liquid-Staking-Protokoll auf TON. Sie staken GRAM und erhalten hGRAM, einen Liquid-Staking-Token, der Ihr gestaktes GRAM repräsentiert und im TON-DeFi eingesetzt werden kann, während weiter Rewards auflaufen.'
+  image:
+    html: '<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Liquid Staking mit Hipo auf TON — so funktioniert es!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 ---
-
-<figure><img src="/docs/images/introduction-hipo-liquid-staking-protocol-1.png" alt="Hipo-Banner mit den Münzsymbolen von hGRAM, HPO und dem Hipo-Maskottchen."></figure>
-
-Hipo ist ein Open-Source-Liquid-Staking-Protokoll auf TON. Sie staken GRAM und erhalten hGRAM, einen Liquid-Staking-Token, der Ihr gestaktes GRAM repräsentiert und im TON-DeFi eingesetzt werden kann, während weiter Rewards auflaufen.
-
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Liquid Staking mit Hipo auf TON — so funktioniert es!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-:::tip
-Sie wollen direkt loslegen? Staken unter [/stake/](/stake/), unstaken unter [/unstake/](/unstake/), und die aktuellen Zahlen finden Sie unter [/stats/](/stats/).
-:::
 
 Hipo verspricht keine festen Renditen, ist nicht risikofrei und garantiert nicht in jedem Fall eine sofortige native Auszahlung — [Risiken](/docs/risks/) erklärt jedes Risiko und was das Protokoll dagegen unternimmt.
 

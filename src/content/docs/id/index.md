@@ -1,17 +1,14 @@
 ---
 title: 'Protokol Liquid Staking Hipo'
 description: 'Dokumentasi Hipo, protokol liquid staking di TON: cara kerjanya, cara men-stake dan meng-unstake, biaya, risiko, kontrak dan audit.'
+template: splash
+# A front door, not a step in the reading order: no "Next" link at its foot.
+next: false
+hero:
+  tagline: 'Hipo adalah protokol liquid staking open-source di TON. Hipo memungkinkan Anda men-stake GRAM dan menerima hGRAM, token liquid staking yang mewakili GRAM Anda yang di-stake dan dapat digunakan di seluruh TON DeFi sementara imbalan terus terkumpul.'
+  image:
+    html: '<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Liquid Staking Hipo di TON, Begini Cara Kerjanya!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 ---
-
-<figure><img src="/docs/images/introduction-hipo-liquid-staking-protocol-1.png" alt="Banner Hipo dengan ikon koin hGRAM, HPO dan maskot Hipo."></figure>
-
-Hipo adalah protokol liquid staking open-source di TON. Hipo memungkinkan Anda men-stake GRAM dan menerima hGRAM, token liquid staking yang mewakili GRAM Anda yang di-stake dan dapat digunakan di seluruh TON DeFi sementara imbalan terus terkumpul.
-
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Liquid Staking Hipo di TON, Begini Cara Kerjanya!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-:::tip
-Hanya ingin langsung bertindak? Stake di [/stake/](/stake/), unstake di [/unstake/](/unstake/), dan lihat angka terkini di [/stats/](/stats/).
-:::
 
 Hipo tidak menjanjikan imbal hasil tetap, tidak bebas risiko, dan tidak menjamin penarikan native secara instan dalam setiap kasus — [Risiko](/docs/risks/) menjelaskan setiap risiko dan apa yang dilakukan protokol untuk mengatasinya.
 

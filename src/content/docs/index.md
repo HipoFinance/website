@@ -1,17 +1,14 @@
 ---
 title: 'Hipo Liquid Staking Protocol'
 description: 'Documentation for Hipo, the liquid staking protocol on TON: how it works, how to stake and unstake, fees, risks, contracts and audits.'
+template: splash
+# A front door, not a step in the reading order: no "Next" link at its foot.
+next: false
+hero:
+  tagline: 'Hipo is an open-source liquid staking protocol on TON. It lets you stake GRAM and receive hGRAM, a liquid staking token that represents your staked GRAM and can be used across TON DeFi while rewards accrue.'
+  image:
+    html: '<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Hipo Liquid Staking on TON, How It Works!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 ---
-
-<figure><img src="/docs/images/introduction-hipo-liquid-staking-protocol-1.png" alt="Hipo banner with hGRAM, HPO and Hipo mascot coin icons."></figure>
-
-Hipo is an open-source liquid staking protocol on TON. It lets you stake GRAM and receive hGRAM, a liquid staking token that represents your staked GRAM and can be used across TON DeFi while rewards accrue.
-
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Hipo Liquid Staking on TON, How It Works!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-:::tip
-Just here to act? Stake at [/stake/](/stake/), unstake at [/unstake/](/unstake/), and check the live numbers at [/stats/](/stats/).
-:::
 
 Hipo does not promise fixed returns, is not risk-free, and does not guarantee instant native withdrawal in every case — [Risks](/docs/risks/) explains each risk and what the protocol does about it.
 

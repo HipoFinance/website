@@ -1,17 +1,14 @@
 ---
 title: 'Hipo likit staking protokolü'
 description: "TON üzerindeki likit staking protokolü Hipo'nun dokümantasyonu: nasıl çalışır, nasıl stake ve unstake edilir, komisyonlar, riskler, sözleşmeler ve denetimler."
+template: splash
+# A front door, not a step in the reading order: no "Next" link at its foot.
+next: false
+hero:
+  tagline: 'Hipo, TON üzerinde açık kaynaklı bir likit staking protokolüdür. GRAM stake edip hGRAM almanızı sağlar; hGRAM, stake edilmiş GRAM’ınızı temsil eden ve ödüller birikirken TON DeFi’de kullanılabilen likit bir staking tokenidir.'
+  image:
+    html: '<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="TON üzerinde Hipo likit staking, nasıl çalışır!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 ---
-
-<figure><img src="/docs/images/introduction-hipo-liquid-staking-protocol-1.png" alt="hGRAM, HPO ve Hipo maskot madeni para simgelerinin yer aldığı Hipo afişi."></figure>
-
-Hipo, TON üzerinde açık kaynaklı bir likit staking protokolüdür. GRAM stake edip hGRAM almanızı sağlar; hGRAM, stake edilmiş GRAM'ınızı temsil eden ve ödüller birikirken TON DeFi'de kullanılabilen likit bir staking tokenidir.
-
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="TON üzerinde Hipo likit staking, nasıl çalışır!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-:::tip
-Sadece işlem yapmaya mı geldiniz? [/stake/](/stake/) adresinden stake edin, [/unstake/](/unstake/) adresinden unstake edin ve canlı rakamlara [/stats/](/stats/) adresinden bakın.
-:::
 
 Hipo sabit getiri vaat etmez, risksiz değildir ve her durumda anında yerel çekim garantisi vermez — [Riskler](/docs/risks/) sayfası her riski ve protokolün buna karşı ne yaptığını anlatır.
 

@@ -11,6 +11,7 @@ import { DEFAULT_LOCALE, LOCALES, builtLocales, indexableLocales } from './src/i
 import remarkLocalizeLinks from './src/i18n/remark-localize-links.mjs'
 import rehypeHeadingAnchors from './src/blog/rehype-heading-anchors.mjs'
 import rehypeResponsiveImages from './src/blog/rehype-responsive-images.mjs'
+import rehypeDocsHomeCards from './src/i18n/rehype-docs-home-cards.mjs'
 
 // Sitemap groups: the five dApp shell pages, the docs, and everything else (home, FAQ, HPO, verify,
 // vs, and any future top-level page) — in every indexable locale. The blog is English-only, so its
@@ -399,8 +400,9 @@ export default defineConfig({
     // Prefixes root-relative links in translated docs/prose Markdown with the entry's locale.
     remarkPlugins: [remarkLocalizeLinks],
     // Section links on blog headings, and responsive widths/sizes on blog body images; both a no-op
-    // for every file outside src/content/blog/.
-    rehypePlugins: [rehypeHeadingAnchors, rehypeResponsiveImages],
+    // for every file outside src/content/blog/. The docs home's section cards
+    // (specs/docs-home-landing.md); a no-op for every file but src/content/docs/[<locale>/]index.md.
+    rehypePlugins: [rehypeHeadingAnchors, rehypeResponsiveImages, rehypeDocsHomeCards],
   },
 
   vite: {
@@ -506,6 +508,8 @@ export default defineConfig({
         // The docs bar: a label, search and, on phones, the Contents button. It sits under the site
         // header, which PageFrame renders; no config option replaces Starlight's header.
         Header: './src/components/starlight/Header.astro',
+        // The docs home's hero: title, tagline, video and two buttons (specs/docs-home-landing.md).
+        Hero: './src/components/starlight/Hero.astro',
         // Drops draft-locale hreflang alternates and adds robots noindex on draft-locale pages, so
         // I18N_INCLUDE_DRAFTS=1 (local preview) never changes what crawlers see.
         Head: './src/components/starlight/Head.astro',

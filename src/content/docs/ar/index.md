@@ -1,17 +1,14 @@
 ---
 title: 'بروتوكول Hipo للستاكينغ السائل'
 description: 'وثائق Hipo، بروتوكول الستاكينغ السائل على TON: كيف يعمل، كيفية الستاكينغ وإلغاء الستاكينغ، الرسوم، المخاطر، العقود والتدقيقات الأمنية.'
+template: splash
+# A front door, not a step in the reading order: no "Next" link at its foot.
+next: false
+hero:
+  tagline: 'Hipo هو بروتوكول ستاكينغ سائل مفتوح المصدر على TON. يتيح لك إيداع GRAM في الستاكينغ واستلام hGRAM، وهو توكن ستاكينغ سائل يمثّل GRAM الذي أودعته في الستاكينغ ويمكن استخدامه في TON DeFi بينما تتراكم المكافآت.'
+  image:
+    html: '<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="ستاكينغ Hipo السائل على TON: كيف يعمل" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 ---
-
-<figure><img src="/docs/images/introduction-hipo-liquid-staking-protocol-1.png" alt="شعار Hipo يضم أيقونات عملات hGRAM و HPO وتميمة Hipo على شكل عملة."></figure>
-
-Hipo هو بروتوكول ستاكينغ سائل مفتوح المصدر على TON. يتيح لك إيداع GRAM في الستاكينغ واستلام hGRAM، وهو توكن ستاكينغ سائل يمثّل GRAM الذي أودعته في الستاكينغ ويمكن استخدامه في TON DeFi بينما تتراكم المكافآت.
-
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="ستاكينغ Hipo السائل على TON: كيف يعمل" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-:::tip
-تريد التنفيذ مباشرة؟ نفّذ الستاكينغ عبر [/stake/](/stake/)، وألغِ الستاكينغ عبر [/unstake/](/unstake/)، وتابع الأرقام المباشرة عبر [/stats/](/stats/).
-:::
 
 لا يَعِد Hipo بعوائد ثابتة، وهو ليس خاليًا من المخاطر، ولا يضمن سحبًا فوريًا بالعملة الأصلية في كل الحالات — يشرح [المخاطر](/docs/risks/) كل خطر وما يفعله البروتوكول حياله.
 

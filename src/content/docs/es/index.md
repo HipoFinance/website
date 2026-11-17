@@ -1,17 +1,14 @@
 ---
 title: 'Protocolo de staking líquido de Hipo'
 description: 'Documentación de Hipo, el protocolo de staking líquido en TON: cómo funciona, cómo hacer staking y retirar del staking, comisiones, riesgos, contratos y auditorías.'
+template: splash
+# A front door, not a step in the reading order: no "Next" link at its foot.
+next: false
+hero:
+  tagline: 'Hipo es un protocolo de staking líquido de código abierto en TON. Te permite hacer staking de GRAM y recibir hGRAM, un token de staking líquido que representa tu GRAM en staking y que puedes usar en el DeFi de TON mientras se acumulan las recompensas.'
+  image:
+    html: '<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Staking líquido con Hipo en TON: ¡así funciona!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 ---
-
-<figure><img src="/docs/images/introduction-hipo-liquid-staking-protocol-1.png" alt="Banner de Hipo con los iconos de moneda de hGRAM, HPO y la mascota de Hipo."></figure>
-
-Hipo es un protocolo de staking líquido de código abierto en TON. Te permite hacer staking de GRAM y recibir hGRAM, un token de staking líquido que representa tu GRAM en staking y que puedes usar en el DeFi de TON mientras se acumulan las recompensas.
-
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Staking líquido con Hipo en TON: ¡así funciona!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-:::tip
-¿Solo quieres empezar? Haz staking en [/stake/](/stake/), retira del staking en [/unstake/](/unstake/) y consulta las cifras en vivo en [/stats/](/stats/).
-:::
 
 Hipo no promete rendimientos fijos, no está libre de riesgos y no garantiza un retiro nativo instantáneo en todos los casos: [Riesgos](/docs/risks/) explica cada riesgo y qué hace el protocolo al respecto.
 

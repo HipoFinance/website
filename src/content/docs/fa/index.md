@@ -1,17 +1,14 @@
 ---
 title: 'پروتکل استیکینگ نقدشونده Hipo'
 description: 'مستندات Hipo ، پروتکل استیکینگ نقدشونده روی TON : اینکه چگونه کار می‌کند، چگونه استیک و آن‌استیک کنید، کارمزدها، ریسک‌ها، قراردادها و حسابرسی‌ها.'
+template: splash
+# A front door, not a step in the reading order: no "Next" link at its foot.
+next: false
+hero:
+  tagline: 'Hipo یک پروتکل استیکینگ نقدشوندهٔ متن‌باز روی TON است. با آن می‌توانید GRAM استیک کنید و hGRAM بگیرید؛ توکنی نقدشونده که نمایندهٔ GRAM استیک‌شدهٔ شماست و می‌توان آن را در سراسر TON DeFi به کار برد، در حالی که پاداش‌ها انباشته می‌شوند.'
+  image:
+    html: '<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Hipo Liquid Staking on TON, How It Works!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 ---
-
-<figure><img src="/docs/images/introduction-hipo-liquid-staking-protocol-1.png" alt="بنر Hipo با آیکون‌های سکه‌ای hGRAM و HPO و ماسکوت Hipo ."></figure>
-
-Hipo یک پروتکل استیکینگ نقدشوندهٔ متن‌باز روی TON است. با آن می‌توانید GRAM استیک کنید و hGRAM بگیرید؛ توکنی نقدشونده که نمایندهٔ GRAM استیک‌شدهٔ شماست و می‌توان آن را در سراسر TON DeFi به کار برد، در حالی که پاداش‌ها انباشته می‌شوند.
-
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Hipo Liquid Staking on TON, How It Works!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-:::tip
-فقط برای انجام کار آمده‌اید؟ در [/stake/](/stake/) استیک کنید، در [/unstake/](/unstake/) آن‌استیک کنید و اعداد زنده را در [/stats/](/stats/) ببینید.
-:::
 
 Hipo بازده ثابتی وعده نمی‌دهد، بدون ریسک نیست و برداشت آنی GRAM را در همهٔ حالت‌ها تضمین نمی‌کند — [ریسک‌ها](/docs/risks/) هر ریسک و کاری که پروتکل در برابر آن انجام می‌دهد را توضیح می‌دهد.
 

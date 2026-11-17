@@ -214,7 +214,8 @@
     padding: 0.75rem;
   }
   @media (min-width: 64rem) {
-    .hipo-docs-grid {
+    /* Only a page with a menu gets its column: the docs home (a splash page) has none. */
+    :root[data-has-sidebar] .hipo-docs-grid {
       grid-template-columns: 15rem minmax(0, 1fr);
       gap: 3rem;
       align-items: start;
@@ -258,7 +259,7 @@
     border-bottom: 0;
   }
   @media (min-width: 72rem) {
-    .hipo-two-col {
+    :root[data-has-toc] .hipo-two-col {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 12.5rem;
       gap: 2.5rem;
@@ -440,5 +441,178 @@
     margin: 1.5rem 0;
     border: 1px solid var(--color-border);
     border-radius: var(--radius-tile);
+  }
+
+  /* --- The docs home (specs/docs-home-landing.md): Starlight's splash page, our Hero.astro, and the
+     section cards made by src/i18n/rehype-docs-home-cards.mjs. --- */
+  /* A splash page has no menu column, so its content takes the whole site column (Starlight caps it
+     at 67.5rem through an inline style on <html>). */
+  :root:not([data-has-sidebar]) .content-panel .sl-container {
+    max-width: none;
+  }
+  .docs-hero {
+    display: grid;
+    gap: 2rem;
+    padding-block: 0.5rem 1rem;
+  }
+  @media (min-width: 64rem) {
+    .docs-hero {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      align-items: center;
+      gap: 3rem;
+    }
+  }
+  .docs-hero h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-heading);
+    font-size: var(--text-display-sm);
+    line-height: 1.1;
+    color: var(--color-text);
+  }
+  @media (min-width: 40rem) {
+    .docs-hero h1 {
+      font-size: var(--text-display);
+    }
+  }
+  .docs-hero-tagline {
+    margin: 1rem 0 0;
+    max-width: 36rem;
+    font-size: var(--text-lead);
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+  .docs-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+    margin-top: 1.75rem;
+  }
+  .docs-hero-actions a {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    padding: 0.75rem 1.75rem;
+    font: 600 1rem var(--font-body);
+    text-decoration: none;
+    transition:
+      background-color 0.15s,
+      border-color 0.15s;
+  }
+  .docs-hero-actions .docs-hero-primary {
+    background-color: var(--color-accent-fill);
+    color: var(--color-on-accent);
+    box-shadow: 0 6px 0 var(--color-accent-shadow);
+  }
+  .docs-hero-actions .docs-hero-primary:hover {
+    background-color: var(--color-accent-fill-hover);
+    color: var(--color-on-accent);
+  }
+  .docs-hero-actions .docs-hero-secondary {
+    border: 1px solid var(--color-border-strong);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+  }
+  .docs-hero-actions .docs-hero-secondary:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text);
+  }
+  .docs-hero-media iframe {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
+
+  .docs-home-cards {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 40rem) {
+    .docs-home-cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 64rem) {
+    .docs-home-cards {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .docs-home-card,
+  .docs-home-strip {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    background-color: var(--color-surface);
+    padding: 1.5rem;
+  }
+  .docs-home-strip {
+    grid-column: 1 / -1;
+    background-color: var(--color-surface-deep);
+  }
+  .docs-home-cards h2 {
+    margin: 0 0 1rem;
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-heading);
+    font-size: var(--text-title-sm);
+    line-height: 1.25;
+    color: var(--color-text);
+  }
+  .docs-home-cards .sl-heading-wrapper {
+    margin: 0 0 1rem;
+  }
+  .docs-home-cards .sl-heading-wrapper h2 {
+    margin: 0;
+  }
+  .docs-home-strip h2,
+  .docs-home-strip .sl-heading-wrapper {
+    margin-bottom: 0.5rem;
+  }
+  .docs-home-cards .sl-anchor-link {
+    display: none;
+  }
+  .docs-home-cards ul {
+    display: grid;
+    gap: 0.875rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .docs-home-cards li,
+  .docs-home-cards li > p {
+    margin: 0;
+  }
+  .docs-home-title,
+  .docs-home-summary {
+    display: block;
+  }
+  .docs-home-title {
+    font-weight: 500;
+    color: var(--color-text);
+  }
+  .docs-home-title a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .docs-home-title a:hover {
+    color: var(--color-accent);
+  }
+  .docs-home-summary {
+    margin-top: 0.125rem;
+    font-size: var(--text-small);
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+  .docs-home-strip p {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+  /* The darker coral: plain coral is 3.1:1 on the strip's deep surface in the light scheme. */
+  .docs-home-strip a {
+    color: var(--sl-color-accent-high);
+    text-underline-offset: 2px;
   }
 }

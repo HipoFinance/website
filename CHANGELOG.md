@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-17 — A landing layout for the docs home
+
+- `/docs/` in all 11 locales is now a landing page: a hero (title, the existing intro paragraph, "How Hipo Works" and "Open app" buttons, the video beside them from 1024 px) and the five link lists as cards with each link's summary on its own line, 3 / 2 / 1 across; "Still have a question?" closes the page as a strip. Spec: [`specs/docs-home-landing.md`](specs/docs-home-landing.md).
+- Built from the existing Markdown: Starlight's splash page (no menu column on the docs home), our `Hero.astro` override with buttons from existing strings, and `src/i18n/rehype-docs-home-cards.mjs`, which wraps each section into a card and fails the build on a docs home of another shape. No new words to translate; the intro and video moved into each page's `hero` frontmatter.
+- Removed from the docs home: the marketing banner image, the "Just here to act?" box (its /unstake/ and /stats/ links; the header and the Open app button cover the rest), and the "Next" link at its foot.
+- The Ukrainian "Documentation" string is "Документація" now (was "Уся документація", "All documentation"), in the docs bar and the footer link.
+
 ## 2026-11-17 — The docs wear the site's header and footer
 
 - Docs pages now render the site's banner, header and footer (phone tab bar included) through a `PageFrame.astro` override, so the docs no longer look like another site. Spec: [`specs/docs-site-chrome.md`](specs/docs-site-chrome.md).
@@ -18,8 +25,8 @@ here — `git log` remains the complete record.
 - `tokens.css` was split out of `global.css`; `docs.css` imports it with Tailwind's theme and utilities (no preflight) and maps Starlight's variables to the site tokens, so it has no hand-copied palette. The status tone tokens moved from `app.css` to `tokens.css` because docs asides use them.
 - `localeOf()` falls back to Starlight's route locale on docs routes.
 - Removed: the docs' own header links and language select (the site's switcher replaces them), the "Verify · Fees compared" line (the site footer has both), and the `hipo.header.*` strings.
-- New string `hipo.docs.contents` (the phone "Contents" button), translated into the ten other locales after the English review. Left as it is: the docs bar reuses the footer's "Documentation" string, which reads "Уся документація" ("All documentation") in Ukrainian.
-- Left open: a landing layout for `/docs/` (follow-up spec), and Starlight's site title and logo options, now unused visually and kept in the config.
+- New string `hipo.docs.contents` (the phone "Contents" button), translated into the ten other locales after the English review.
+- Left open: Starlight's site title and logo options, now unused visually and kept in the config. (The landing layout for `/docs/` followed the same day.)
 
 ## 2026-11-16 — Less chrome: no footer links on app pages, Mini App header scrolls, no title above the amount
 

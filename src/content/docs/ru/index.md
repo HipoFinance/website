@@ -1,17 +1,14 @@
 ---
 title: 'Протокол ликвидного стейкинга Hipo'
 description: 'Документация Hipo, протокола ликвидного стейкинга на TON: как это работает, как застейкать и вывести из стейкинга, комиссии, риски, контракты и аудиты.'
+template: splash
+# A front door, not a step in the reading order: no "Next" link at its foot.
+next: false
+hero:
+  tagline: 'Hipo — протокол ликвидного стейкинга с открытым исходным кодом на TON. Он позволяет застейкать GRAM и получить hGRAM — токен ликвидного стейкинга, который представляет ваш застейканный GRAM и может использоваться в TON DeFi, пока начисляются награды.'
+  image:
+    html: '<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Hipo Liquid Staking on TON, How It Works!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 ---
-
-<figure><img src="/docs/images/introduction-hipo-liquid-staking-protocol-1.png" alt="Баннер Hipo с иконками hGRAM, HPO и монеты-талисмана Hipo."></figure>
-
-Hipo — протокол ликвидного стейкинга с открытым исходным кодом на TON. Он позволяет застейкать GRAM и получить hGRAM — токен ликвидного стейкинга, который представляет ваш застейканный GRAM и может использоваться в TON DeFi, пока начисляются награды.
-
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Hipo Liquid Staking on TON, How It Works!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-:::tip
-Хотите сразу к делу? Стейкать на [/stake/](/stake/), выводить из стейкинга на [/unstake/](/unstake/), а актуальные цифры смотреть на [/stats/](/stats/).
-:::
 
 Hipo не обещает фиксированную доходность, не является безрисковым и не гарантирует мгновенный нативный вывод в любом случае — раздел [Риски](/docs/risks/) объясняет каждый риск и что протокол с ним делает.
 

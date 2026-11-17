@@ -1,17 +1,14 @@
 ---
 title: 'Hipo, protocolo de staking líquido'
 description: 'Documentação do Hipo, o protocolo de staking líquido na TON: como funciona, como fazer staking e unstake, taxas, riscos, contratos e auditorias.'
+template: splash
+# A front door, not a step in the reading order: no "Next" link at its foot.
+next: false
+hero:
+  tagline: 'O Hipo é um protocolo de staking líquido de código aberto na TON. Ele permite que você faça staking de GRAM e receba hGRAM, um token de staking líquido que representa o seu GRAM em staking e pode ser usado por todo o TON DeFi enquanto as recompensas se acumulam.'
+  image:
+    html: '<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Staking líquido do Hipo na TON: como funciona!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 ---
-
-<figure><img src="/docs/images/introduction-hipo-liquid-staking-protocol-1.png" alt="Banner do Hipo com os ícones de moeda do hGRAM, do HPO e do mascote do Hipo."></figure>
-
-O Hipo é um protocolo de staking líquido de código aberto na TON. Ele permite que você faça staking de GRAM e receba hGRAM, um token de staking líquido que representa o seu GRAM em staking e pode ser usado por todo o TON DeFi enquanto as recompensas se acumulam.
-
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Staking líquido do Hipo na TON: como funciona!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-:::tip
-Veio direto para agir? Faça staking em [/stake/](/stake/), faça unstake em [/unstake/](/unstake/) e veja os números ao vivo em [/stats/](/stats/).
-:::
 
 O Hipo não promete retornos fixos, não é livre de riscos e não garante saque nativo instantâneo em todos os casos — [Riscos](/docs/risks/) explica cada risco e o que o protocolo faz a respeito.
 

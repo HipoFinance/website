@@ -1,0 +1,53 @@
+---
+// The docs home's hero (specs/docs-home-landing.md). Overrides Starlight's Hero (~0.40), which renders
+// on a page whose frontmatter has `hero` — only src/content/docs/index.md and its translations. From the
+// frontmatter it takes the title (the page title unless `hero.title` is set), the tagline and the video
+// (`hero.image.html`, the YouTube embed). The two buttons are built here, not read from frontmatter, so
+// no locale has to repeat them: "How Hipo Works" is that page's translated sidebar label, "Open app" the
+// site's own string. Styles are in src/styles/docs.css (`.docs-hero`).
+import { isLocaleKey } from '../../i18n/registry.mjs'
+import { localizedPath } from '../../i18n/locale'
+import { getT } from '../../i18n/t'
+
+const HOW_IT_WORKS = '/docs/introduction/how-does-hipo-work/'
+
+const { data } = Astro.locals.starlightRoute.entry
+const routeLocale = Astro.locals.starlightRoute.locale
+const locale = routeLocale !== undefined && isLocaleKey(routeLocale) ? routeLocale : 'en'
+const { title = data.title, tagline, image } = data.hero ?? {}
+const { t } = getT(locale, ['site'])
+
+// Starlight's id for the page title (PAGE_TITLE_ID in its constants), which its skip link and "On this
+// page" "Overview" entry point at.
+const PAGE_TITLE_ID = '_top'
+
+// The sidebar label, as the menu shows it in this locale (src/i18n/<locale>/docs-sidebar.json), with
+// English as the fallback the sidebar itself uses.
+const sidebarCatalogs = import.meta.glob<Record<string, string>>('../../i18n/*/docs-sidebar.json', {
+  eager: true,
+  import: 'default',
+})
+function sidebarLabel(key: string): string {
+  for (const l of [locale, 'en']) {
+    const label = sidebarCatalogs[`../../i18n/${l}/docs-sidebar.json`]?.[key]
+    if (typeof label === 'string') {
+      return label
+    }
+  }
+  throw new Error(`docs-sidebar.json has no label for "${key}"`)
+}
+
+const video = image !== undefined && 'html' in image ? image.html : undefined
+---
+
+<div class='docs-hero'>
+  <div class='docs-hero-text'>
+    <h1 id={PAGE_TITLE_ID} data-page-title set:html={title} />
+    {tagline && <p class='docs-hero-tagline' set:html={tagline} />}
+    <div class='docs-hero-actions'>
+      <a class='docs-hero-primary' href={localizedPath(HOW_IT_WORKS, locale)}>{sidebarLabel(HOW_IT_WORKS)}</a>
+      <a class='docs-hero-secondary' href={localizedPath('/stake/', locale)}>{t('site.cta.openApp')}</a>
+    </div>
+  </div>
+  {video && <div class='docs-hero-media' set:html={video} />}
+</div>

@@ -1,17 +1,14 @@
 ---
 title: 'Протокол ліквідного стейкінгу Hipo'
 description: 'Документація Hipo — протоколу ліквідного стейкінгу в мережі TON: як він працює, як стейкати й робити анстейк, комісії, ризики, контракти та аудити.'
+template: splash
+# A front door, not a step in the reading order: no "Next" link at its foot.
+next: false
+hero:
+  tagline: 'Hipo — це протокол ліквідного стейкінгу з відкритим кодом у мережі TON. Він дозволяє тобі стейкати GRAM і отримувати hGRAM — токен ліквідного стейкінгу, який представляє твій GRAM у стейкінгу і який можна використовувати в TON DeFi, поки накопичуються винагороди.'
+  image:
+    html: '<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Ліквідний стейкінг Hipo у мережі TON — як це працює!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
 ---
-
-<figure><img src="/docs/images/introduction-hipo-liquid-staking-protocol-1.png" alt="Банер Hipo з іконками монет hGRAM, HPO та маскота Hipo."></figure>
-
-Hipo — це протокол ліквідного стейкінгу з відкритим кодом у мережі TON. Він дозволяє тобі стейкати GRAM і отримувати hGRAM — токен ліквідного стейкінгу, який представляє твій GRAM у стейкінгу і який можна використовувати в TON DeFi, поки накопичуються винагороди.
-
-<iframe class="docs-embed" src="https://www.youtube-nocookie.com/embed/hig4MBlddSg" title="Ліквідний стейкінг Hipo у мережі TON — як це працює!" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-:::tip
-Хочеш одразу до справи? Стейкай на [/stake/](/stake/), роби анстейк на [/unstake/](/unstake/), а поточні показники дивись на [/stats/](/stats/).
-:::
 
 Hipo не обіцяє фіксованої дохідності, не є безризиковим і не гарантує миттєвого виведення в нативний GRAM у кожному випадку — [Ризики](/docs/risks/) пояснюють кожен ризик і що протокол із ним робить.
 
