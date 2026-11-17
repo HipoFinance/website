@@ -250,13 +250,18 @@ const Boosted = observer(({ club }: Props) => {
             amount: club.amount2(
               r.season?.earnedStaking === undefined && r.season?.earnedReferral === undefined
                 ? undefined
-                : Number(r.season?.earnedStaking ?? '0') + Number(r.season?.earnedReferral ?? '0'),
+                : Number(r.season?.earnedStaking ?? '0') +
+                    Number(r.season?.earnedReferral ?? '0') +
+                    Number(r.season?.earnedCommunity ?? '0'),
             ),
           })}
           sub={
             r.season?.start === undefined
               ? undefined
-              : t('club.rewards.seasonSince', { date: club.sinceDate(r.season.start) })
+              : t('club.rewards.seasonSince', { date: club.sinceDate(r.season.start) }) +
+                (Number(r.season.earnedCommunity ?? '0') > 0
+                  ? ' · ' + t('club.rewards.seasonCommunity', { amount: club.amount2(r.season.earnedCommunity) })
+                  : '')
           }
         />
         <StatCard

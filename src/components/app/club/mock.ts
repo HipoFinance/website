@@ -5,7 +5,7 @@
 // The URL picks the scenario:
 //   ?clubState=  A  A0  B  C  D  D2  E  F  G  belowMin  claimed  top  launching  frozen  loading
 //                error  nolink  nowallet  flow2  flow3  empty         (default B)
-//   ?clubCommunity=  points  new                                       the Community tab (off otherwise; not linked = clubState=A)
+//   ?clubCommunity=  points  new  pay                                       the Community tab (off otherwise; not linked = clubState=A)
 //   ?clubChain=  clear  onway  old  stale  pagefail  limit            the chain read of the guard
 //   ?clubSend=   ok  reject  timeout                                   what the fake wallet answers
 //   ?clubNew=    meets  below                                          the HPO of a newly linked wallet
@@ -136,6 +136,7 @@ export class ClubMock implements ClubTransport {
   // Read on load, so the Community mode is remembered even when the page opens on another tab: a tab
   // switch drops the query string before the Community tab asks.
   private communityMode = sticky('clubCommunity')
+  private communityPay = () => (sticky('clubCommunity') ?? this.communityMode) === 'pay'
   private tgDone = false
   // The made-up wallets: the Club wallet, another of the member's wallets, and a wallet a proof links.
   readonly walletA: Address
@@ -870,7 +871,11 @@ export class ClubMock implements ClubTransport {
         claim_time: c.claimTime,
         request_time: c.requestTime,
       })),
-      totals: { staking: hpo(empty ? 0 : 6104.88), referral: hpo(empty ? 0 : 48.35) },
+      totals: {
+        staking: hpo(empty ? 0 : 6104.88),
+        referral: hpo(empty ? 0 : 48.35),
+        ...(this.communityPay() ? { community: hpo(empty ? 0 : 412.5) } : {}),
+      },
       unclaimed: hpo(a.unclaimed),
       unclaimed_by_stream: {
         staking: hpo(a.unclaimed - a.referral),
@@ -892,6 +897,7 @@ export class ClubMock implements ClubTransport {
         start: now - 9 * DAY,
         earned_staking: hpo(empty ? 0 : 162.47),
         earned_referral: hpo(empty ? 0 : 3.91),
+        ...(this.communityPay() ? { earned_community: hpo(empty ? 0 : 131.25) } : {}),
       },
     }
   }
@@ -902,7 +908,7 @@ export class ClubMock implements ClubTransport {
   // ones before it, so "day N of 7" and the review Thursday follow the real date.
   private communityBody(head: Record<string, unknown>) {
     const mode = sticky('clubCommunity') ?? this.communityMode
-    if (mode !== 'points' && mode !== 'new') {
+    if (mode !== 'points' && mode !== 'new' && mode !== 'pay') {
       return { ...head, setting: 'off' }
     }
     const day = (n: number) => new Date(n).toISOString().slice(0, 10)
@@ -942,13 +948,22 @@ export class ClubMock implements ClubTransport {
       }
     }
     // The wireframe's numbers are sample data; these follow the real formula, so the parts (35 + 18 + 6)
-    // add up to the total.
+    // add up to the total. ?clubCommunity=pay adds the HPO fields (club-community-pay.md §6): the review
+    // week and this week carry `hpo_est`, the weeks before it are credited.
+    const pay = mode === 'pay'
     return {
       ...head,
       setting: 'points',
+      ...(pay ? { pay: true, season_hpo: '131.250000000' } : {}),
       params,
       eligibility: { earner: true, why: '' },
-      estimate: { ...week(0, '', 59, { a2: 14, h: 2, d: 1 }), rank: 6, of: 18, reactors: 4, stickers: 1 },
+      estimate: {
+        ...week(0, '', 59, { a2: 14, h: 2, d: 1, ...(pay ? { hpo_est: '38.5' } : {}) }),
+        rank: 6,
+        of: 18,
+        reactors: 4,
+        stickers: 1,
+      },
       days_in_chat: 7,
       profile: { level: 12, streak: 9, badges: ['first_words', 'century', 'icebreaker'] },
       top: [
@@ -957,12 +972,13 @@ export class ClubMock implements ClubTransport {
         { rank: 3, name: 'Felicia', p: 71, you: false },
       ],
       weeks: [
-        week(1, 'review', 52),
-        week(2, 'final', 61, {
+        week(1, 'review', 52, pay ? { hpo_est: '34.123456789' } : {}),
+        week(2, pay ? 'credited' : 'final', 61, {
+          ...(pay ? { hpo: '40.25', share_pct: 4.03 } : {}),
           base_p: 67,
           note: '6 points removed for reactions from accounts that only react to each other.',
         }),
-        week(3, 'final', 44),
+        week(3, pay ? 'credited' : 'final', 44, pay ? { hpo: '28.5', share_pct: 2.85 } : {}),
         week(4, 'final', 0),
         week(5, 'final', 70),
         week(6, 'final', 95),

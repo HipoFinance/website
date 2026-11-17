@@ -64,7 +64,7 @@ Club'ın [Topluluk sekmesi](/club/community/), Telegram grubumuz [Hipo Chat](htt
 - **Bu hafta:** şu ana kadarki puanlarınız (her saat güncellenir) ve puan kazanan üyeler arasındaki yeriniz ("25 içinde #3").
 - **Puanınızın üç bölümü** çubuklar olarak, her birinde neyin sayıldığını söyleyen bir satırla, örneğin "4 üyeden 8 tepki".
 - **Bu haftanın katkıda bulunanları:** Telegram adına göre ilk 5 ve kendi yeriniz.
-- **Haftalık geçmiş:** geçmiş her hafta, puanı ve durumuyla: _İncelemede_, _Kesinleşti_ veya _Etkinlik yok_. Ekip bir haftayı değiştirdiyse, nedeniyle birlikte düzeltilmiş olarak görünür.
+- **Haftalık geçmiş:** geçmiş her hafta, puanı, havuzdan payınız, ödediği HPO ve durumuyla: _İncelemede_, _Hesaba eklendi_ veya _Etkinlik yok_. Ekip bir haftayı değiştirdiyse, nedeniyle birlikte düzeltilmiş olarak görünür.
 - **Limzo'dan Hipo Chat profiliniz:** seviye, seri ve rozetler.
 
 Henüz puan kazanamıyorsanız sekme nedenini söyler: Telegram bağlı değil, Hipo Chat'e 7 günden az önce katıldınız veya haftanız sayılmıyor (bu durumda etkinliğiniz yine de gri olarak ve "Uygun olsaydı sayılırdı" ifadesiyle gösterilir).
@@ -112,9 +112,20 @@ Her bölüm için bazı değerler:
 
 - **Pazartesi'den Pazar'a:** sekme puanlarınızı büyürken gösterir, her saat güncellenir.
 - **Haftadan sonraki Pazartesi:** haftanın puanlarınız sayılır ve hafta _İncelemede_ olur. Ekip kötüye kullanımı kontrol eder ve bir üyenin haftasını düzeltebilir veya geçersiz sayabilir, her zaman nedenini belirterek.
-- **Haftadan sonraki Perşembe:** hafta, Limzo'dan gelen geç değişikliklerle bir kez daha sayılır ve _Kesinleşti_ olur.
+- **Haftadan sonraki Perşembe:** hafta, Limzo'dan gelen geç değişikliklerle bir kez daha sayılır, kesinleşir ve ödenir (aşağıya bakın). Bundan sonra değiştirilemez, bu yüzden ekip düzeltmeleri inceleme sırasında yapar.
 
 Ekip haftanızı değiştirirse nedenini içeren bir Telegram mesajı alırsınız ve neden haftalık geçmişinizde de görünür.
+
+### Puanlar nasıl HPO olur
+
+Her haftanın, ekibin belirlediği bir HPO havuzu vardır. Bir hafta Perşembe günü kesinleştiğinde havuz puanlara göre bölüşülür: haftanın puanlarındaki payınız, havuzdaki payınızdır. İki sınır geçerlidir:
+
+- **Bir üyeye havuzun en fazla %10'u** gider.
+- **Her puan en fazla belirli bir miktar değerindedir**, böylece sakin bir hafta puan başına normal bir haftadan fazla ödemez.
+
+Sınırların geri tuttuğu kısım hazinede kalır. Topluluk HPO'su seviye güçlendirmesi almaz.
+
+HPO, Perşembe günü talep edilmemiş bakiyenize eklenir. Güçlendirilmiş HPO'nuzla birlikte talep edersiniz (alt sınır 100 HPO, ücret 1 GRAM) ve talep edildikten sonra Seviye minimumunuza eklenir.
 
 ## Sezonlar
 

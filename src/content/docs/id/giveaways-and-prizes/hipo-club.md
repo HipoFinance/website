@@ -64,7 +64,7 @@ Saat teman yang Anda undang mendapatkan HPO yang di-boost, Anda mendapatkan **1%
 - **Minggu ini:** poin Anda sejauh ini, diperbarui setiap jam, dan peringkat Anda di antara anggota yang mendapatkan poin ("#3 dari 25").
 - **Tiga bagian** poin Anda dalam bentuk bar, masing-masing dengan keterangan tentang apa yang dihitung, misalnya "8 reaksi dari 4 anggota".
 - **Kontributor minggu ini:** 5 teratas berdasarkan nama Telegram, dan peringkat Anda sendiri.
-- **Riwayat mingguan:** setiap minggu lalu beserta poin dan statusnya: _Dalam peninjauan_, _Final_, atau _Tidak ada aktivitas_. Jika tim mengubah suatu minggu, minggu itu tampil sebagai disesuaikan, lengkap dengan alasannya.
+- **Riwayat mingguan:** setiap minggu lalu beserta poin, bagian Anda dari pool, HPO yang dibayarkan, dan statusnya: _Dalam peninjauan_, _Dikreditkan_, atau _Tidak ada aktivitas_. Jika tim mengubah suatu minggu, minggu itu tampil sebagai disesuaikan, lengkap dengan alasannya.
 - **Profil Hipo Chat Anda** dari Limzo: level, streak, dan lencana.
 
 Jika Anda belum bisa mendapatkan poin, tab menjelaskan alasannya: Telegram belum terhubung, Anda bergabung ke Hipo Chat kurang dari 7 hari lalu, atau minggu Anda tidak dihitung (aktivitas Anda tetap ditampilkan dengan warna abu-abu, sebagai "Akan dihitung jika memenuhi syarat").
@@ -112,9 +112,20 @@ Beberapa nilai untuk setiap bagian:
 
 - **Senin sampai Minggu:** tab menampilkan poin Anda saat bertambah, diperbarui setiap jam.
 - **Senin setelah minggu itu:** poin Anda untuk minggu itu dihitung dan minggu tersebut berstatus _Dalam peninjauan_. Tim memeriksa penyalahgunaan dan dapat mengoreksi atau membatalkan minggu seorang anggota, selalu disertai alasan.
-- **Kamis setelah minggu itu:** minggu dihitung sekali lagi, termasuk perubahan terlambat dari Limzo, dan menjadi _Final_.
+- **Kamis setelah minggu itu:** minggu dihitung sekali lagi, termasuk perubahan terlambat dari Limzo, menjadi final, dan dibayarkan (lihat di bawah). Setelah itu tidak bisa diubah, jadi tim membuat koreksi selama peninjauan.
 
 Jika tim mengubah minggu Anda, Anda menerima pesan Telegram berisi alasannya, dan alasan itu tampil di riwayat mingguan Anda.
+
+### Cara poin menjadi HPO
+
+Setiap minggu punya pool HPO yang ditetapkan tim. Saat suatu minggu menjadi final pada hari Kamis, pool dibagi menurut poin: bagian Anda dari poin minggu itu adalah bagian Anda dari pool. Ada dua batas:
+
+- **Paling banyak 10% dari pool** untuk satu anggota.
+- **Setiap poin bernilai paling banyak jumlah tertentu**, sehingga minggu yang sepi tidak membayar lebih per poin daripada minggu biasa.
+
+Yang ditahan oleh batas-batas ini tetap berada di treasury. HPO komunitas tidak mendapat boost level.
+
+HPO ditambahkan ke saldo Anda yang belum diklaim pada hari Kamis. Anda mengklaimnya bersama HPO yang di-boost (minimal 100 HPO, biaya 1 GRAM), dan setelah diklaim, HPO itu menambah Minimal Level Anda.
 
 ## Musim
 

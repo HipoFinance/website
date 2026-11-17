@@ -64,7 +64,7 @@ La [pestaña Comunidad](/club/community/) del Club premia participar en [Hipo Ch
 - **Esta semana:** tus puntos hasta ahora, actualizados cada hora, y tu lugar entre los miembros que ganan puntos («N.º 3 de 25»).
 - **Las tres partes** de tus puntos como barras, cada una con una línea que dice qué contó, por ejemplo «8 reacciones de 4 miembros».
 - **Quienes más aportaron esta semana:** el top 5 por nombre de Telegram, y tu propio lugar.
-- **Historial semanal:** cada semana pasada con sus puntos y su estado: _En revisión_, _Final_ o _Sin actividad_. Si el equipo cambió una semana, aparece como ajustada, con el motivo.
+- **Historial semanal:** cada semana pasada con sus puntos, tu parte del fondo, el HPO que pagó y su estado: _En revisión_, _Acreditada_ o _Sin actividad_. Si el equipo cambió una semana, aparece como ajustada, con el motivo.
 - **Tu perfil de Hipo Chat** de Limzo: nivel, racha e insignias.
 
 Si todavía no puedes ganar puntos, la pestaña dice por qué: Telegram no está vinculado, te uniste a Hipo Chat hace menos de 7 días, o tu semana no se cuenta (entonces sigue mostrando tu actividad, en gris, como «Contaría si cumpliera los requisitos»).
@@ -112,9 +112,20 @@ Algunos valores de cada parte:
 
 - **De lunes a domingo:** la pestaña muestra tus puntos a medida que crecen, actualizados cada hora.
 - **El lunes después de la semana:** se cuentan tus puntos de la semana y la semana queda _En revisión_. El equipo busca usos indebidos y puede corregir o anular la semana de un miembro, siempre con un motivo.
-- **El jueves después de la semana:** la semana se cuenta una vez más, con los cambios tardíos de Limzo, y pasa a ser _Final_.
+- **El jueves después de la semana:** la semana se cuenta una vez más, con los cambios tardíos de Limzo, pasa a ser final y se paga (ver abajo). Después ya no se puede cambiar, así que el equipo hace las correcciones durante la revisión.
 
 Si el equipo cambia tu semana, recibes un mensaje de Telegram con el motivo, y el motivo aparece en tu historial semanal.
+
+### Cómo se convierten los puntos en HPO
+
+Cada semana tiene un fondo de HPO, fijado por el equipo. Cuando una semana pasa a ser final el jueves, el fondo se reparte según los puntos: tu parte de los puntos de la semana es tu parte del fondo. Se aplican dos límites:
+
+- **Como máximo el 10 % del fondo** va a un miembro.
+- **Cada punto vale como máximo una cantidad fija**, para que una semana tranquila no pague más por punto que una normal.
+
+Lo que los límites retienen se queda en la tesorería. El HPO de la comunidad no recibe el multiplicador del nivel.
+
+El HPO se suma a tu saldo sin reclamar el jueves. Lo reclamas junto con tu HPO potenciado (mínimo 100 HPO, comisión de 1 GRAM), y una vez reclamado se suma a tu mínimo de nivel.
 
 ## Temporadas
 

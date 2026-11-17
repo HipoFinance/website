@@ -64,7 +64,7 @@ Der [Community-Tab](/club/community/) des Clubs belohnt die Teilnahme an [Hipo C
 - **Diese Woche:** Ihre bisherigen Punkte, stündlich aktualisiert, und Ihr Platz unter den Mitgliedern, die Punkte verdienen („Platz 3 von 25“).
 - **Die drei Teile** Ihrer Punkte als Balken, jeweils mit einer Zeile dazu, was gezählt hat, zum Beispiel „8 Reaktionen von 4 Mitgliedern“.
 - **Die Beitragenden dieser Woche:** die Top 5 nach Telegram-Namen und Ihr eigener Platz.
-- **Wochenverlauf:** jede vergangene Woche mit ihren Punkten und ihrem Status: _In Prüfung_, _Final_ oder _Keine Aktivität_. Hat das Team eine Woche geändert, wird sie als angepasst mit der Begründung angezeigt.
+- **Wochenverlauf:** jede vergangene Woche mit ihren Punkten, Ihrem Anteil am Pool, dem ausgezahlten HPO und ihrem Status: _In Prüfung_, _Gutgeschrieben_ oder _Keine Aktivität_. Hat das Team eine Woche geändert, wird sie als angepasst mit der Begründung angezeigt.
 - **Ihr Hipo-Chat-Profil** von Limzo: Level, Serie und Abzeichen.
 
 Wenn Sie noch keine Punkte verdienen können, sagt der Tab warum: Telegram ist nicht verknüpft, Sie sind Hipo Chat vor weniger als 7 Tagen beigetreten, oder Ihre Woche wird nicht gezählt (dann zeigt er Ihre Aktivität trotzdem ausgegraut an, als „Würde zählen, wenn teilnahmeberechtigt“).
@@ -112,9 +112,20 @@ Einige Werte für jeden Teil:
 
 - **Montag bis Sonntag:** Der Tab zeigt Ihre Punkte, während sie wachsen, stündlich aktualisiert.
 - **Montag nach der Woche:** Ihre Punkte für die Woche werden gezählt, und die Woche ist _In Prüfung_. Das Team prüft auf Missbrauch und kann die Woche eines Mitglieds korrigieren oder annullieren, immer mit einer Begründung.
-- **Donnerstag nach der Woche:** Die Woche wird noch einmal gezählt, mit späten Änderungen von Limzo, und wird _Final_.
+- **Donnerstag nach der Woche:** Die Woche wird noch einmal gezählt, mit späten Änderungen von Limzo, wird final und ausgezahlt (siehe unten). Danach lässt sie sich nicht mehr ändern, deshalb korrigiert das Team während der Prüfung.
 
 Ändert das Team Ihre Woche, erhalten Sie eine Telegram-Nachricht mit der Begründung, und die Begründung erscheint in Ihrem Wochenverlauf.
+
+### So werden Punkte zu HPO
+
+Jede Woche hat einen HPO-Pool, den das Team festlegt. Wird eine Woche am Donnerstag final, wird der Pool nach Punkten aufgeteilt: Ihr Anteil an den Punkten der Woche ist Ihr Anteil am Pool. Zwei Grenzen gelten:
+
+- **Höchstens 10 % des Pools** gehen an ein Mitglied.
+- **Jeder Punkt ist höchstens einen festen Betrag wert**, damit eine ruhige Woche pro Punkt nicht mehr zahlt als eine normale.
+
+Was die Grenzen zurückhalten, bleibt in der Treasury. Community-HPO erhält keinen Level-Boost.
+
+Das HPO wird am Donnerstag Ihrem nicht geclaimten Guthaben hinzugefügt. Sie claimen es zusammen mit Ihrem geboosteten HPO (mindestens 100 HPO, Gebühr 1 GRAM), und nach dem Claim erhöht es Ihr Level-Minimum.
 
 ## Seasons
 

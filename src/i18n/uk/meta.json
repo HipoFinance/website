@@ -1583,6 +1583,14 @@
     "sourceHash": "3e6ba29b98920ce79330e185e4f858e3620a2ea2",
     "reviewed": false
   },
+  "club.community.sharePct": {
+    "sourceHash": "e95f652018ff7aa35cda95b3031021c5d3927d7d",
+    "reviewed": false
+  },
+  "club.community.stateCredited": {
+    "sourceHash": "0a3ee7ebf92e4cfb4d4f482dc289a72c9e148c5c",
+    "reviewed": false
+  },
   "club.community.stateFinal": {
     "sourceHash": "672b22cc516eadec8a685564932261281c4d2729",
     "reviewed": false
@@ -1628,7 +1636,7 @@
     "reviewed": false
   },
   "club.community.step3Body": {
-    "sourceHash": "9889369d74b53af3a2eca94a1a3e65a1eb1f709a",
+    "sourceHash": "3c9de08a9356e2e684ea83d9f6788562343d0aa0",
     "reviewed": false
   },
   "club.community.step3Label": {
@@ -3111,6 +3119,10 @@
     "sourceHash": "085812de11cce204da327f702ee20347359c1561",
     "reviewed": false
   },
+  "club.rewards.seasonCommunity": {
+    "sourceHash": "f05ed683a06411d092ec48badfdb176dd64175b9",
+    "reviewed": false
+  },
   "club.rewards.seasonEarned": {
     "sourceHash": "aea5c7174d387c1c9e7ebf5c1b681d32fad27b63",
     "reviewed": false
@@ -3660,7 +3672,7 @@
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-club.md": {
-    "sourceHash": "33bbcd44e7e32c3d9d3a5c7231bd27cdc2327c85",
+    "sourceHash": "b633df9b799d9eb3844716a1740639b8429a7948",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-club/hipo-club-season-2.md": {

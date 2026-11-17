@@ -64,7 +64,7 @@ L’[onglet Communauté](/club/community/) du Club récompense la participation 
 - **Cette semaine :** tes points jusqu’ici, mis à jour toutes les heures, et ta place parmi les membres qui gagnent des points (« N° 3 sur 25 »).
 - **Les trois parties** de tes points sous forme de barres, chacune avec une ligne disant ce qui a compté, par exemple « 8 réactions de 4 membres ».
 - **Les contributeurs de la semaine :** le top 5 par nom Telegram, et ta propre place.
-- **Historique des semaines :** chaque semaine passée avec ses points et son statut : _En vérification_, _Final_ ou _Aucune activité_. Si l’équipe a modifié une semaine, elle apparaît comme ajustée, avec la raison.
+- **Historique des semaines :** chaque semaine passée avec ses points, ta part de la cagnotte, les HPO versés et son statut : _En vérification_, _Crédité_ ou _Aucune activité_. Si l’équipe a modifié une semaine, elle apparaît comme ajustée, avec la raison.
 - **Ton profil Hipo Chat** de Limzo : niveau, série et badges.
 
 Si tu ne peux pas encore gagner de points, l’onglet dit pourquoi : Telegram n’est pas lié, tu as rejoint Hipo Chat il y a moins de 7 jours, ou ta semaine n’est pas comptée (il montre alors quand même ton activité, en grisé, avec « Compterait si éligible »).
@@ -112,9 +112,20 @@ Quelques valeurs pour chaque partie :
 
 - **Du lundi au dimanche :** l’onglet montre tes points au fur et à mesure qu’ils augmentent, mis à jour toutes les heures.
 - **Le lundi après la semaine :** tes points de la semaine sont comptés et la semaine est _En vérification_. L’équipe cherche les abus et peut corriger ou annuler la semaine d’un membre, toujours avec une raison.
-- **Le jeudi après la semaine :** la semaine est comptée une dernière fois, avec les éventuelles modifications tardives de Limzo, et devient _Final_.
+- **Le jeudi après la semaine :** la semaine est comptée une dernière fois, avec les éventuelles modifications tardives de Limzo, devient finale et est payée (voir ci-dessous). Ensuite, elle ne peut plus être modifiée : l’équipe fait donc les corrections pendant la vérification.
 
 Si l’équipe modifie ta semaine, tu reçois un message Telegram avec la raison, et la raison apparaît dans ton historique des semaines.
+
+### Comment les points deviennent des HPO
+
+Chaque semaine a une cagnotte de HPO, fixée par l’équipe. Quand une semaine devient finale le jeudi, la cagnotte est répartie selon les points : ta part des points de la semaine est ta part de la cagnotte. Deux limites s’appliquent :
+
+- **Au maximum 10 % de la cagnotte** va à un seul membre.
+- **Chaque point vaut au plus un montant fixé**, pour qu’une semaine calme ne paie pas plus par point qu’une semaine normale.
+
+Ce que les limites retiennent reste dans la trésorerie. Les HPO de la communauté ne reçoivent aucun boost de niveau.
+
+Les HPO sont ajoutés à ton solde non réclamé le jeudi. Tu les réclames avec tes HPO boostés (100 HPO minimum, 1 GRAM de frais), et une fois réclamés, ils s’ajoutent à ton minimum de niveau.
 
 ## Saisons
 

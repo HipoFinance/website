@@ -64,7 +64,7 @@ The Club's [Community tab](/club/community/) rewards taking part in [Hipo Chat](
 - **This week:** your points so far, updated every hour, and your place among the members who earn ("#3 of 25").
 - **The three parts** of your points as bars, each with a line saying what counted, for example "8 reactions from 4 members".
 - **This week's contributors:** the top 5 by Telegram name, and your own place.
-- **Weekly history:** each past week with its points and status: _In review_, _Final_, or _No activity_. If the team changed a week, it shows as adjusted, with the reason.
+- **Weekly history:** each past week with its points, your share of the pool, the HPO it paid and its status: _In review_, _Credited_, or _No activity_. If the team changed a week, it shows as adjusted, with the reason.
 - **Your Hipo Chat profile** from Limzo: level, streak and badges.
 
 If you can't earn yet, the tab says why: Telegram is not linked, you joined Hipo Chat less than 7 days ago, or your week is not counted (it then still shows your activity, greyed, as "Would count if eligible").
@@ -112,9 +112,20 @@ Some values for each part:
 
 - **Monday to Sunday:** the tab shows your points as they grow, updated every hour.
 - **Monday after the week:** your points for the week are counted and the week is _In review_. The team checks for misuse and can correct or void a member's week, always with a reason.
-- **Thursday after the week:** the week is counted once more, with any late changes from Limzo, and becomes _Final_.
+- **Thursday after the week:** the week is counted once more, with any late changes from Limzo, becomes final and is paid (see below). After that it can't be changed, so the team makes corrections during the review.
 
 If the team changes your week, you get a Telegram message with the reason, and the reason shows in your weekly history.
+
+### How points become HPO
+
+Each week has a pool of HPO, set by the team. When a week becomes final on Thursday, the pool is split by points: your share of the week's points is your share of the pool. Two limits apply:
+
+- **At most 10% of the pool** goes to one member.
+- **Each point is worth at most a set amount**, so a quiet week doesn't pay more per point than a normal one.
+
+What the limits hold back stays in the treasury. Community HPO gets no level boost.
+
+The HPO is added to your unclaimed balance on Thursday. You claim it together with your boosted HPO (100 HPO minimum, 1 GRAM fee), and once claimed it adds to your Level minimum.
 
 ## Seasons
 

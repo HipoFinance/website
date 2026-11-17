@@ -3,7 +3,7 @@
 // 'points': three states under the week line (Telegram not linked, almost set up, earning) and the
 // "How community rewards work" card. While the first read is on its way, a loading placeholder in the
 // earning layout's shape; otherwise (setting 'off', a refused read) the "coming soon" card. Display only: no Limzo calls from the browser. Every HPO figure and
-// the "Your share" column show "—" until the HPO payout exists (spec B).
+// the "Your share" column show "—" unless the reply has `pay` (club-server specs/club-community-pay.md §6).
 import { useEffect, type ReactNode } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Send } from 'lucide-react'
@@ -181,6 +181,9 @@ function weekStatus(club: ClubModel, week: CommunityWeek) {
   } else if (week.state === 'void') {
     status = t('club.community.stateVoid')
     tone = 'text-text-faint'
+  } else if (week.state === 'credited' || week.hpo !== undefined) {
+    status = t('club.community.stateCredited')
+    tone = 'text-tone-success-fg'
   } else if (week.p === 0 && week.why === '') {
     status = t('club.community.stateNone')
     tone = 'text-text-faint'
@@ -191,7 +194,7 @@ function weekStatus(club: ClubModel, week: CommunityWeek) {
   return { status, tone }
 }
 
-function WeekRow({ club, week }: { club: ClubModel; week: CommunityWeek }) {
+function WeekRow({ club, week, pay }: { club: ClubModel; week: CommunityWeek; pay: boolean }) {
   const t = club.t
   const delta = week.p - week.baseP
   const { status, tone } = weekStatus(club, week)
@@ -209,8 +212,12 @@ function WeekRow({ club, week }: { club: ClubModel; week: CommunityWeek }) {
           </>
         )}
       </td>
-      <td className={tableTd}>{DASH}</td>
-      <td className={tableTd + ' text-end'}>{DASH}</td>
+      <td className={tableTd}>
+        {pay && week.sharePct !== undefined
+          ? club.t('club.community.sharePct', { pct: club.amount(week.sharePct, 2) })
+          : DASH}
+      </td>
+      <td className={tableTd + ' text-end'}>{pay && week.hpo !== undefined ? club.amount2(week.hpo) : DASH}</td>
       <td className={tableTd + ' ' + tone}>{status}</td>
     </tr>
   )
@@ -342,8 +349,8 @@ const CommunityTab = observer(({ club }: Props) => {
     return <ComingSoon club={club} />
   }
 
-  // Community HPO credited this season: none until the HPO payout exists (spec B), so the card shows a dash.
-  const seasonHpo: number | undefined = undefined
+  // Community HPO credited this season: shown only when the server pays (`pay`), else a dash.
+  const seasonHpo: string | undefined = c.pay ? (c.seasonHpo ?? '0') : undefined
   const isNew = c.nowWhy === 'new' || e?.why === 'new'
   const { weights: w, targets: g } = c.params
   const n = (v: number) => club.amount(v, 0)
@@ -446,13 +453,13 @@ const CommunityTab = observer(({ club }: Props) => {
             <section className={box}>
               <Eyebrow icon={HpoIcon}>{t('club.community.hpoTitle')}</Eyebrow>
               <div className='flex items-baseline gap-2'>
-                {/* No HPO is credited until spec B: the dash takes the label's size, in bold; a real
+                {/* Without `pay` no HPO is credited: the dash takes the label's size, in bold; a real
                     amount keeps the wireframe's large figure. */}
                 {seasonHpo === undefined ? (
                   <span className='text-lead font-bold'>{DASH}</span>
                 ) : (
                   <span className='font-display num text-display-lg leading-none font-extrabold'>
-                    {club.amount(seasonHpo, 0)}
+                    {club.amount2(seasonHpo)}
                   </span>
                 )}
                 <span className='text-text-secondary text-lead'>{t('club.community.hpoCredited')}</span>
@@ -470,14 +477,23 @@ const CommunityTab = observer(({ club }: Props) => {
                     </span>
                     <span>
                       {last.state === 'review'
-                        ? t('club.community.hpoReview', { hpo: DASH, date: thursday(club, last.end) })
-                        : t('club.community.hpoPlain', { hpo: DASH })}
+                        ? t('club.community.hpoReview', {
+                            hpo: c.pay && last.hpoEst !== undefined ? '~' + club.amount2(last.hpoEst) : DASH,
+                            date: thursday(club, last.end),
+                          })
+                        : t('club.community.hpoPlain', {
+                            hpo: c.pay && last.hpo !== undefined ? club.amount2(last.hpo) : DASH,
+                          })}
                     </span>
                   </div>
                 )}
                 <div className='flex justify-between gap-3'>
                   <span className='text-text-muted'>{t('club.community.hpoSoFar')}</span>
-                  <span>{t('club.community.hpoEst', { hpo: DASH })}</span>
+                  <span>
+                    {t('club.community.hpoEst', {
+                      hpo: c.pay && e?.hpoEst !== undefined ? '~' + club.amount2(e.hpoEst) : DASH,
+                    })}
+                  </span>
                 </div>
               </div>
               <span className='text-text-faint text-label'>{t('club.community.hpoNote')}</span>
@@ -557,7 +573,7 @@ const CommunityTab = observer(({ club }: Props) => {
                       </td>
                     </tr>
                   ) : (
-                    c.weeks.map((week) => <WeekRow key={week.week} club={club} week={week} />)
+                    c.weeks.map((week) => <WeekRow key={week.week} club={club} week={week} pay={c.pay} />)
                   )}
                 </tbody>
               </table>

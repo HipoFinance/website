@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-17 — Club: Community pay shown (spec B), in all locales
+
+- The Community tab shows each final week's share of the pool, the HPO it paid and a _Credited_ state; the Rewards tab adds community HPO to the totals and to "Earned this season". Follows club-server `specs/club-community-pay.md` (spec B).
+- The Hipo Club docs page gains "How points become HPO": the weekly pool split by points, at most 10% to one member, a cap per point, credited on Thursday and claimed with boosted HPO.
+- Pushed while the server setting `club:setting:community` stays `points`, so no community HPO is paid yet; the new fields stay empty until the team switches it to `pay`.
+
 ## 2026-11-17 — A landing layout for the docs home
 
 - `/docs/` in all 11 locales is now a landing page: a hero (title, the existing intro paragraph, "How Hipo Works" and "Open app" buttons, the video beside them from 1024 px) and the five link lists as cards with each link's summary on its own line, 3 / 2 / 1 across; "Still have a question?" closes the page as a strip. Spec: [`specs/docs-home-landing.md`](specs/docs-home-landing.md).

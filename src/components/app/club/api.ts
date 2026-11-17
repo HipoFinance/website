@@ -394,14 +394,20 @@ export interface ClubRound {
 export interface ClubRewards extends ReplyHead {
   rounds: ClubRound[]
   claims: ClaimRecord[]
-  totals: { staking?: string; referral?: string }
+  totals: { staking?: string; referral?: string; community?: string }
   unclaimed?: string
   unclaimedByStream?: Streams
   referralRounds: { round?: number; time?: number; hpo?: string }[]
   referralBeforeLaunch?: string
   stakeSumRewards?: string
   stakeRewardsSince?: number
-  season?: { number?: number; start?: number; earnedStaking?: string; earnedReferral?: string }
+  season?: {
+    number?: number
+    start?: number
+    earnedStaking?: string
+    earnedReferral?: string
+    earnedCommunity?: string
+  }
 }
 
 export function toRewards(body: unknown): ClubRewards {
@@ -415,7 +421,7 @@ export function toRewards(body: unknown): ClubRewards {
       return { time: int(r.time), hpo: str(r.hpo), stakeReward: str(r.stake_reward), hton: str(r.hton) }
     }),
     claims: list(b.claims).map(toClaimRecord),
-    totals: { staking: str(totals.staking), referral: str(totals.referral) },
+    totals: { staking: str(totals.staking), referral: str(totals.referral), community: str(totals.community) },
     unclaimed: str(b.unclaimed),
     unclaimedByStream: toStreams(b.unclaimed_by_stream),
     referralRounds: list(b.referral_rounds).map((value) => {
@@ -433,6 +439,7 @@ export function toRewards(body: unknown): ClubRewards {
             start: int(season.start),
             earnedStaking: str(season.earned_staking),
             earnedReferral: str(season.earned_referral),
+            earnedCommunity: str(season.earned_community),
           },
   }
 }
@@ -477,7 +484,7 @@ export function toFriends(body: unknown): ClubFriends {
 }
 
 export type CommunityWhy = '' | 'new' | 'muted' | 'excluded' | 'no_club' | 'not_in_chat' | 'left' | 'void'
-export type CommunityWeekState = 'review' | 'final' | 'frozen' | 'void'
+export type CommunityWeekState = 'review' | 'final' | 'credited' | 'frozen' | 'void'
 
 interface CommunityParts {
   week: string
@@ -494,6 +501,8 @@ interface CommunityParts {
 // The member's place and counts this week (club-server specs/club-community-points.md §8); each is
 // absent until the server sends it, and the tab shows "—".
 export interface CommunityEstimate extends CommunityParts {
+  // Decimal HPO text, display only; sent with `pay` (club-server specs/club-community-pay.md §6).
+  hpoEst?: string
   rank?: number
   of?: number
   reactors?: number
@@ -517,12 +526,20 @@ export interface CommunityWeek extends CommunityParts {
   state: CommunityWeekState
   baseP: number
   note: string
+  // With `pay` (spec club-community-pay.md §6): `hpo` and `share_pct` once credited, `hpo_est` for the week
+  // in review. HPO figures are decimal strings, display only.
+  hpo?: string
+  sharePct?: number
+  hpoEst?: string
 }
 
 // `clubcommunity` (club-server specs/club-community-points.md §5). `setting` is 'off' unless the
 // server says 'points'; a failed or malformed reply reads as 'off', the "coming soon" card.
 export interface ClubCommunity extends ReplyHead {
   setting: 'off' | 'points'
+  // True when the server pays HPO for points (`pay`); `seasonHpo` is `season_hpo`, decimal HPO.
+  pay: boolean
+  seasonHpo?: string
   params: {
     weights: { appreciation: number; replies: number; days: number }
     targets: { appreciation: number; replies: number; days: number }
@@ -576,7 +593,14 @@ function toParts(value: unknown): CommunityParts {
 
 function toEstimate(value: unknown): CommunityEstimate {
   const r = obj(value)
-  return { ...toParts(value), rank: num(r.rank), of: num(r.of), reactors: num(r.reactors), stickers: num(r.stickers) }
+  return {
+    ...toParts(value),
+    rank: num(r.rank),
+    of: num(r.of),
+    reactors: num(r.reactors),
+    stickers: num(r.stickers),
+    hpoEst: str(r.hpo_est),
+  }
 }
 
 function toProfile(value: unknown): CommunityProfile {
@@ -598,6 +622,8 @@ export function toCommunity(body: unknown): ClubCommunity {
   return {
     ...head,
     setting: head.ok && b.setting === 'points' ? 'points' : 'off',
+    pay: head.ok && bool(b.pay),
+    seasonHpo: str(b.season_hpo),
     params: {
       weights: { appreciation: num(w.appreciation) ?? 60, replies: num(w.replies) ?? 42, days: num(w.days) ?? 18 },
       targets: { appreciation: num(g.appreciation) ?? 20, replies: num(g.replies) ?? 10, days: num(g.days) ?? 7 },
@@ -615,9 +641,19 @@ export function toCommunity(body: unknown): ClubCommunity {
     }),
     weeks: list(b.weeks).map((value) => {
       const r = obj(value)
-      const state = r.state === 'final' || r.state === 'frozen' || r.state === 'void' ? r.state : 'review'
+      const state =
+        r.state === 'final' || r.state === 'credited' || r.state === 'frozen' || r.state === 'void' ? r.state : 'review'
       const p = num(r.p) ?? 0
-      return { ...toParts(r), state, baseP: num(r.base_p) ?? p, note: str(r.note) ?? '' }
+      const sharePct = typeof r.share_pct === 'string' ? Number(r.share_pct) : num(r.share_pct)
+      return {
+        ...toParts(r),
+        state,
+        baseP: num(r.base_p) ?? p,
+        note: str(r.note) ?? '',
+        hpo: str(r.hpo),
+        sharePct: sharePct !== undefined && Number.isFinite(sharePct) ? sharePct : undefined,
+        hpoEst: str(r.hpo_est),
+      }
     }),
   }
 }
