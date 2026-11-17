@@ -95,63 +95,63 @@ function assertSitemapWritten() {
 // while sitting in a different group.
 const docsSidebar = [
   {
-    label: '💡 Start Here',
+    label: 'Start Here',
     items: [
-      { label: '🦛 What is Hipo?', link: '/docs/' },
-      { label: '🚰 Liquid Staking', link: '/docs/introduction/liquid-staking/' },
-      { label: '⚙️ How Hipo Works', link: '/docs/introduction/how-does-hipo-work/' },
+      { label: 'What is Hipo?', link: '/docs/' },
+      { label: 'Liquid Staking', link: '/docs/introduction/liquid-staking/' },
+      { label: 'How Hipo Works', link: '/docs/introduction/how-does-hipo-work/' },
       {
-        label: '💻 Validators & the Marketplace',
+        label: 'Validators & the Marketplace',
         link: '/docs/introduction/how-does-hipo-work/validators/',
       },
-      { label: '🔥 Why Hipo', link: '/docs/introduction/advantages-of-hipo/' },
-      { label: '🎁 Rewards & APY', link: '/docs/introduction/hipo-rewards/' },
-      { label: '📖 Glossary', link: '/docs/glossary/' },
+      { label: 'Why Hipo', link: '/docs/introduction/advantages-of-hipo/' },
+      { label: 'Rewards & APY', link: '/docs/introduction/hipo-rewards/' },
+      { label: 'Glossary', link: '/docs/glossary/' },
     ],
   },
   {
-    label: '📚 Using Hipo',
+    label: 'Using Hipo',
     items: [
-      { label: '🔒 Stake GRAM', link: '/docs/tutorials/staking/' },
-      { label: '🔓 Unstake hGRAM', link: '/docs/tutorials/unstaking/' },
-      { label: '⏳ How Unstaking Works', link: '/docs/introduction/how-does-hipo-work/unstaking/' },
-      { label: '✉️ Staking Without the App', link: '/docs/staking-without-the-app/' },
-      { label: '⛽ Fees & Gas', link: '/docs/fees-and-gas/' },
-      { label: '⚠️ Risks', link: '/docs/risks/' },
-      { label: '🔄 hGRAM in DeFi', link: '/docs/hipo-tokens/hipo-staked-gram-hgram/hgram-use-cases/' },
+      { label: 'Stake GRAM', link: '/docs/tutorials/staking/' },
+      { label: 'Unstake hGRAM', link: '/docs/tutorials/unstaking/' },
+      { label: 'How Unstaking Works', link: '/docs/introduction/how-does-hipo-work/unstaking/' },
+      { label: 'Staking Without the App', link: '/docs/staking-without-the-app/' },
+      { label: 'Fees & Gas', link: '/docs/fees-and-gas/' },
+      { label: 'Risks', link: '/docs/risks/' },
+      { label: 'hGRAM in DeFi', link: '/docs/hipo-tokens/hipo-staked-gram-hgram/hgram-use-cases/' },
     ],
   },
   {
-    label: '🪙 Tokens & Governance',
+    label: 'Tokens & Governance',
     items: [
-      { label: '💧 hGRAM', link: '/docs/hipo-tokens/hipo-staked-gram-hgram/' },
-      { label: '💎 HPO', link: '/docs/hipo-tokens/hipo-governance-token-hpo/' },
+      { label: 'hGRAM', link: '/docs/hipo-tokens/hipo-staked-gram-hgram/' },
+      { label: 'HPO', link: '/docs/hipo-tokens/hipo-governance-token-hpo/' },
       {
-        label: '🥧 HPO Distribution & Wallets',
+        label: 'HPO Distribution & Wallets',
         link: '/docs/hipo-tokens/hipo-governance-token-hpo/hpo-tokens-distribution/',
       },
-      { label: '🗳️ DAO', link: '/docs/dao/' },
-      { label: '💲 Profit Sharing', link: '/docs/profit-sharing/' },
-      { label: '⭐ Hipo Club', link: '/docs/giveaways-and-prizes/hipo-club/' },
-      { label: '👛 Using Multiple Wallets', link: '/docs/wallets-and-rewards/' },
+      { label: 'DAO', link: '/docs/dao/' },
+      { label: 'Profit Sharing', link: '/docs/profit-sharing/' },
+      { label: 'Hipo Club', link: '/docs/giveaways-and-prizes/hipo-club/' },
+      { label: 'Using Multiple Wallets', link: '/docs/wallets-and-rewards/' },
     ],
   },
   {
-    label: '🛡️ Security & Transparency',
+    label: 'Security & Transparency',
     items: [
-      { label: '🔐 Security Model', link: '/docs/security/why-your-security-matters/' },
-      { label: '🎣 Phishing Awareness', link: '/docs/security/phishing-awareness-and-prevention/' },
-      { label: '🧾 Contracts & Audits', link: '/docs/contracts-and-audits/' },
-      { label: '📈 Hipo Stats', link: '/docs/introduction/hipo-stats/' },
-      { label: '📊 Hipo on Dune', link: '/docs/introduction/hipo-on-dune/' },
+      { label: 'Security Model', link: '/docs/security/why-your-security-matters/' },
+      { label: 'Phishing Awareness', link: '/docs/security/phishing-awareness-and-prevention/' },
+      { label: 'Contracts & Audits', link: '/docs/contracts-and-audits/' },
+      { label: 'Hipo Stats', link: '/docs/introduction/hipo-stats/' },
+      { label: 'Hipo on Dune', link: '/docs/introduction/hipo-on-dune/' },
     ],
   },
   {
-    label: '🛠️ Developers',
-    items: [{ label: '🤖 Hipo MCP Server', link: '/docs/hipo-mcp-server/' }],
+    label: 'Developers',
+    items: [{ label: 'Hipo MCP Server', link: '/docs/hipo-mcp-server/' }],
   },
   {
-    label: '💰 Hipo Fund',
+    label: 'Hipo Fund',
     items: [
       { label: 'Overview', link: '/docs/hipo-fund/' },
       {
@@ -173,15 +173,15 @@ const docsSidebar = [
     ],
   },
   {
-    label: '🗄️ Archive: Past Programs',
+    label: 'Archive: Past Programs',
     items: [
       { label: 'Programs Overview', link: '/docs/giveaways-and-prizes/hipo-incentive-programs/' },
       {
-        label: '💹 TVL Milestone Rewards (ended 2024)',
+        label: 'TVL Milestone Rewards (ended 2024)',
         link: '/docs/giveaways-and-prizes/tvl-milestone-rewards/',
       },
       {
-        label: '🎩 Hipo Gang (ended 2025)',
+        label: 'Hipo Gang (ended 2025)',
         items: [
           { label: 'Overview', link: '/docs/giveaways-and-prizes/hipo-gang/' },
           {
@@ -191,7 +191,7 @@ const docsSidebar = [
         ],
       },
       {
-        label: '🏅 Hipo Club Seasons',
+        label: 'Hipo Club Seasons',
         items: [
           {
             label: 'Season 2 (2025)',
@@ -203,22 +203,22 @@ const docsSidebar = [
           },
         ],
       },
-      { label: '🖼️ Hipo NFTs (2024)', link: '/docs/giveaways-and-prizes/hipo-nfts/' },
+      { label: 'Hipo NFTs (2024)', link: '/docs/giveaways-and-prizes/hipo-nfts/' },
       {
-        label: '💵 $1,000,000 Rewards Program (paused)',
+        label: '$1,000,000 Rewards Program (paused)',
         link: '/docs/giveaways-and-prizes/hipo-usd1-000-000-rewards-program/',
       },
-      { label: '😎 Ambassadors Program (paused)', link: '/docs/hipo-ambassadors-program/' },
+      { label: 'Ambassadors Program (paused)', link: '/docs/hipo-ambassadors-program/' },
     ],
   },
   {
-    label: '📜 Legal',
+    label: 'Legal',
     items: [
-      { label: '📄 Terms of Use', link: '/docs/legal-agreements/terms-of-use/' },
-      { label: '🔏 Privacy Policy', link: '/docs/legal-agreements/privacy-policy/' },
+      { label: 'Terms of Use', link: '/docs/legal-agreements/terms-of-use/' },
+      { label: 'Privacy Policy', link: '/docs/legal-agreements/privacy-policy/' },
     ],
   },
-  { label: '🎨 Brand Kit', link: '/docs/brand-kit/' },
+  { label: 'Brand Kit', link: '/docs/brand-kit/' },
 ]
 
 // Starlight locales from the registry (specs/multi-language-site.md §G): English is the unprefixed
@@ -483,6 +483,8 @@ export default defineConfig({
     }),
     assertSitemapWritten(),
     starlight({
+      // Starlight's site title and logo are no longer rendered on docs pages (the site header replaces
+      // them); `title` still feeds the <title> suffix, and `logo` is unused visually.
       title: 'Hipo Docs',
       description: 'Documentation for Hipo, the liquid staking protocol on TON. Stake GRAM, receive hGRAM.',
       // Two marks, one per scheme: the cream-bodied hippo on the dark page, the warm-dark
@@ -501,18 +503,20 @@ export default defineConfig({
         // details.
         ThemeProvider: './src/components/starlight/ThemeProvider.astro',
         ThemeSelect: './src/components/starlight/ThemeSelect.astro',
-        // Adds the FAQ / Stats / Open app links from the design (Docs.dc.html); no config option
-        // exists for extra header links in @astrojs/starlight ~0.40.
+        // The docs bar: a label, search and, on phones, the Contents button. It sits under the site
+        // header, which PageFrame renders; no config option replaces Starlight's header.
         Header: './src/components/starlight/Header.astro',
         // Drops draft-locale hreflang alternates and adds robots noindex on draft-locale pages, so
         // I18N_INCLUDE_DRAFTS=1 (local preview) never changes what crawlers see.
         Head: './src/components/starlight/Head.astro',
-        // Renders nothing until a non-English locale is `public` (spec §G/§J); then lists public
-        // locales only.
-        LanguageSelect: './src/components/starlight/LanguageSelect.astro',
-        // Adds the /verify/ link, which reaches the docs no other way: Starlight renders its own
-        // footer, not src/components/SiteFooter.astro.
-        Footer: './src/components/starlight/Footer.astro',
+        // Renders nothing: the site header carries the language switcher and the social links.
+        MobileMenuFooter: './src/components/starlight/MobileMenuFooter.astro',
+        // The page frame: the promo banner, the site header, the docs bar, the sidebar and the
+        // article, then the site footer. Replaces Starlight's own frame.
+        PageFrame: './src/components/starlight/PageFrame.astro',
+        // A plain grid for the article and "On this page", so neither is position: fixed over the
+        // site header.
+        TwoColumnContent: './src/components/starlight/TwoColumnContent.astro',
       },
       // Imported GitBook pages use h3/h4 for their section headings.
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 4 },

@@ -88,15 +88,14 @@
 /* ---------- Family tokens per locale ----------
  * --font-body / --font-display are the Tailwind @theme tokens behind `font-body` and `font-display`
  * (global.css; `--font-fredoka` is an alias of --font-display and follows it). --sl-font is
- * Starlight's body face and --hipo-font-display the docs display face (docs.css). IBM Plex Sans /
+ * Starlight's body face; the docs display face is --font-display itself (docs.css reads it). IBM Plex Sans /
  * Nunito stay in every stack for the Latin glyphs the script subsets above don't carry. The wordmark
- * (`--font-wordmark`, `--hipo-font-wordmark`) is never swapped: "Hipo" is Latin in every locale. */
+ * (`--font-wordmark`) is never swapped: "Hipo" is Latin in every locale. */
 
 html[lang='fa'] {
   --font-body: 'Vazirmatn Variable', 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Lalezar', 'Nunito Variable', ui-sans-serif, system-ui, sans-serif;
   --sl-font: 'Vazirmatn Variable', 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
-  --hipo-font-display: 'Lalezar', 'Nunito Variable', ui-sans-serif, system-ui;
 }
 
 /* Arabic runs a different family from Persian: Cairo in both roles (see the section above). */
@@ -104,17 +103,15 @@ html[lang='ar'] {
   --font-body: 'Cairo Variable', 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Cairo Variable', 'Nunito Variable', ui-sans-serif, system-ui, sans-serif;
   --sl-font: 'Cairo Variable', 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
-  --hipo-font-display: 'Cairo Variable', 'Nunito Variable', ui-sans-serif, system-ui;
 }
 
-/* The display weight: 800 in the base (`--font-weight-heading` in global.css,
- * `--hipo-font-weight-display` in docs.css). Cairo and Lalezar are heavy faces and keep the 600 they
+/* The display weight: 800 in the base (`--font-weight-heading` in tokens.css,
+ * read by docs.css too). Cairo and Lalezar are heavy faces and keep the 600 they
  * had before the token, so ar and fa look as they did. Lalezar has one weight; Cairo is variable,
  * where 600 vs 800 shows. The Club's `font-extrabold` stays a fixed 800 here too. */
 html[lang='fa'],
 html[lang='ar'] {
   --font-weight-heading: 600;
-  --hipo-font-weight-display: 600;
 }
 
 /* ---------- Metrics ----------

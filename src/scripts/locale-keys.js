@@ -2,10 +2,10 @@
 // so the switchers, the suggestion bar and the pre-paint redirect (src/components/LocalePreference.astro)
 // cannot drift apart; same pattern as banner-constants.js. See specs/language-preference-and-locale-lineup.md.
 //
-// Two consumers spell the keys out instead of importing them, deliberately, because importing anything
+// Consumers spell the keys out instead of importing them, deliberately, because importing anything
 // makes Astro bundle a hoisted script into its own request rather than inlining it: the client script in
-// src/components/LanguageSwitcher.astro, and the inline string in starlight/LanguageSelect.astro (which
-// interpolates these constants at build time). Change a key here and grep for the literal.
+// src/components/LanguageSwitcher.astro and src/components/LanguageSwitcherScript.astro (the docs use the
+// same switcher, through SiteHeader). Change a key here and grep for the literal.
 
 // localStorage. "The suggestion bar has been answered, never ask again" — written by every explicit
 // pick AND by dismissing the bar. Read only by banner.js.

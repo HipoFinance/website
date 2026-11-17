@@ -9,6 +9,18 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-17 — The docs wear the site's header and footer
+
+- Docs pages now render the site's banner, header and footer (phone tab bar included) through a `PageFrame.astro` override, so the docs no longer look like another site. Spec: [`specs/docs-site-chrome.md`](specs/docs-site-chrome.md).
+- Starlight's own bar became a docs bar: a Documentation link, the search field, and on phones a "Contents" button. The menu sits inside the content column, FAQ-style, and the GitBook emoji are gone from the sidebar labels in all locales.
+- "On this page" is a sticky column from 1152 px (Starlight's breakpoint) and a sticky dropdown below it.
+- The page title uses the display face (closes the 2026-11 "Left open: the docs page title stays in the body face"), hairlines are gone, links look like the blog's, and asides use the site's status tones.
+- `tokens.css` was split out of `global.css`; `docs.css` imports it with Tailwind's theme and utilities (no preflight) and maps Starlight's variables to the site tokens, so it has no hand-copied palette. The status tone tokens moved from `app.css` to `tokens.css` because docs asides use them.
+- `localeOf()` falls back to Starlight's route locale on docs routes.
+- Removed: the docs' own header links and language select (the site's switcher replaces them), the "Verify · Fees compared" line (the site footer has both), and the `hipo.header.*` strings.
+- New string `hipo.docs.contents` (the phone "Contents" button), translated into the ten other locales after the English review. Left as it is: the docs bar reuses the footer's "Documentation" string, which reads "Уся документація" ("All documentation") in Ukrainian.
+- Left open: a landing layout for `/docs/` (follow-up spec), and Starlight's site title and logo options, now unused visually and kept in the config.
+
 ## 2026-11-16 — Less chrome: no footer links on app pages, Mini App header scrolls, no title above the amount
 
 - The row of links under the app pages (Stake, Unstake, Club, Stats, DeFi, Docs) is removed: the same pages are in the header menu and the bottom tabs. Each still has a plain link a crawler can follow without the app (the shell's bottom tabs, the Stake/Unstake toggle, the site footer's DeFi and Documentation), so search loses nothing. Its eight strings are removed from all 11 locales, with `site.app.loading`, unused since the static shell replaced the spinner.

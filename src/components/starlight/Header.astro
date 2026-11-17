@@ -1,116 +1,55 @@
 ---
-// Warm Dark docs header (Docs.dc.html): adds FAQ / Stats / Open app links, which Starlight's
-// config has no built-in slot for. Based on @astrojs/starlight's default Header.astro (~0.40),
-// with SocialIcons/ThemeSelect dropped from the desktop bar to match the design — they remain
-// reachable from the mobile menu footer (MobileMenuFooter.astro, untouched). LanguageSelect is our
-// own override (LanguageSelect.astro): it renders nothing until a non-English locale is `public`, and
-// only where this header places it — the full select in the desktop nav, a compact one beside search
-// below md — so the mobile menu footer's copy stays empty. The three links are localised
-// for the page's locale and their labels come from the Starlight i18n collection
-// (src/content/i18n/<lang>.json, `hipo.header.*`). Wired in astro.config.mjs via
-// `starlight({ components: { Header: ... } })`.
+// The docs bar (specs/docs-site-chrome.md): the first row of the docs content, below the site header
+// that PageFrame.astro renders. Overrides Starlight's Header (~0.40), which used to be the docs' own
+// top bar with its own title, links and language select; the site header carries all of those now.
+// It holds the section's name (a link to the docs home), Starlight's search field and, below lg, the
+// "Contents" button that opens the docs menu (its script is in PageFrame.astro, next to the menu).
+// A <div>, not a <header>: the page already has the site's banner landmark.
 import config from 'virtual:starlight/user-config'
-import LanguageSelect from 'virtual:starlight/components/LanguageSelect'
 import Search from 'virtual:starlight/components/Search'
-import SiteTitle from 'virtual:starlight/components/SiteTitle'
-import { isLocaleKey, publicLocales } from '../../i18n/registry.mjs'
 import { localizedPath } from '../../i18n/locale'
+import { getT } from '../../i18n/t'
+import { isLocaleKey } from '../../i18n/registry.mjs'
 
 const shouldRenderSearch = config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro'
-// Starlight reports `undefined` for the root locale; our locale keys double as Starlight's locale keys.
+// Starlight reports `undefined` for the root locale; our locale keys double as Starlight's.
 const routeLocale = Astro.locals.starlightRoute.locale
 const locale = routeLocale !== undefined && isLocaleKey(routeLocale) ? routeLocale : 'en'
-const showLanguageSelect = publicLocales().length >= 2
+const { t } = getT(locale, ['site'])
+const { hasSidebar } = Astro.locals.starlightRoute
 ---
 
-<div class='header'>
-  <div class='title-wrapper sl-flex'>
-    <SiteTitle />
-  </div>
-  <div class='sl-flex search-group print:hidden'>
+<div class='hipo-docs-bar print:hidden'>
+  <a href={localizedPath('/docs/', locale)} class='hipo-docs-title font-display font-heading text-text text-title'>
+    {t('site.footer.documentation')}
+  </a>
+  <div class='hipo-docs-tools'>
     {
-      showLanguageSelect && (
-        <div class='md:sl-hidden'>
-          <LanguageSelect placement='phone' />
-        </div>
+      hasSidebar && (
+        <button
+          type='button'
+          class='hipo-docs-menu-button'
+          data-docs-menu-toggle
+          aria-expanded='false'
+          aria-controls='hipo-docs-nav'
+        >
+          <svg class='size-4' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24' aria-hidden='true'>
+            <path stroke-linecap='round' d='M4 6h16M4 12h16M4 18h10' />
+          </svg>
+          {Astro.locals.t('hipo.docs.contents')}
+          <svg
+            class='hipo-docs-menu-caret size-3'
+            fill='none'
+            stroke='currentColor'
+            stroke-width='2'
+            viewBox='0 0 24 24'
+            aria-hidden='true'
+          >
+            <path stroke-linecap='round' stroke-linejoin='round' d='m6 9 6 6 6-6' />
+          </svg>
+        </button>
       )
     }
     {shouldRenderSearch && <Search />}
   </div>
-  <nav class='sl-hidden md:sl-flex hipo-links print:hidden' aria-label='Site'>
-    <a href={localizedPath('/faq/', locale)}>{Astro.locals.t('hipo.header.faq')}</a>
-    <a href={localizedPath('/stats/', locale)}>{Astro.locals.t('hipo.header.stats')}</a>
-    <a href={localizedPath('/stake/', locale)} class='cta'>{Astro.locals.t('hipo.header.openApp')}</a>
-    {showLanguageSelect && <LanguageSelect placement='bar' />}
-  </nav>
 </div>
-
-<style>
-  @layer starlight.core {
-    .header {
-      display: flex;
-      gap: var(--sl-nav-gap);
-      justify-content: space-between;
-      align-items: center;
-      height: 100%;
-    }
-
-    .title-wrapper {
-      /* Prevent long titles overflowing and covering the search and nav on narrow viewports. */
-      overflow: clip;
-      /* Avoid clipping focus ring around link inside title wrapper. */
-      padding: 0.25rem;
-      margin: -0.25rem;
-      min-width: 0;
-    }
-
-    @media (min-width: 50rem) {
-      :global(:root[data-has-sidebar]) {
-        --__sidebar-pad: calc(2 * var(--sl-nav-pad-x));
-      }
-      :global(:root:not([data-has-toc])) {
-        --__toc-width: 0rem;
-      }
-      .header {
-        --__sidebar-width: max(0rem, var(--sl-content-inline-start, 0rem) - var(--sl-nav-pad-x));
-        --__main-column-fr: calc(
-          (
-              100% + var(--__sidebar-pad, 0rem) - var(--__toc-width, var(--sl-sidebar-width)) -
-                (2 * var(--__toc-width, var(--sl-nav-pad-x))) - var(--sl-content-inline-start, 0rem) -
-                var(--sl-content-width)
-            ) /
-            2
-        );
-        display: grid;
-        grid-template-columns:
-          minmax(calc(var(--__sidebar-width) + max(0rem, var(--__main-column-fr) - var(--sl-nav-gap))), auto)
-          1fr
-          auto;
-        align-content: center;
-      }
-    }
-  }
-
-  .search-group {
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .hipo-links {
-    gap: 22px;
-    align-items: center;
-    font: 500 14px var(--sl-font);
-    color: var(--sl-color-gray-2);
-  }
-  .hipo-links a {
-    color: inherit;
-    /* "Открыть приложение" otherwise wraps at 800 px (md) once the language select sits in this row. */
-    white-space: nowrap;
-  }
-  .hipo-links a:hover {
-    color: var(--sl-color-accent);
-  }
-  .hipo-links a.cta {
-    color: var(--sl-color-accent);
-  }
-</style>

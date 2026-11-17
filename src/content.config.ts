@@ -53,9 +53,8 @@ export const collections = {
     schema: i18nSchema({
       extend: z
         .object({
-          'hipo.header.faq': z.string(),
-          'hipo.header.stats': z.string(),
-          'hipo.header.openApp': z.string(),
+          // The docs bar's button that opens the docs menu below lg (starlight/Header.astro).
+          'hipo.docs.contents': z.string(),
         })
         .partial(),
     }),

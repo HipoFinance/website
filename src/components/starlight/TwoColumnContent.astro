@@ -1,0 +1,19 @@
+---
+// The article beside "On this page" (specs/docs-site-chrome.md). Overrides Starlight's
+// TwoColumnContent (~0.40), whose right rail is `position: fixed` at the top of the viewport and full
+// height — under our PageFrame that would cover the site header and footer. Here it is a plain grid
+// inside the page column: from 72rem (Starlight's own ToC breakpoint, fixed in its PageSidebar) the
+// rail is a sticky second column; below, the rail holds Starlight's "On this page" dropdown, sticky at
+// the top of the viewport above the article. Styles are in src/styles/docs.css (`.hipo-two-col`).
+---
+
+<div class='hipo-two-col'>
+  {
+    Astro.locals.starlightRoute.toc && (
+      <aside class='hipo-toc print:hidden'>
+        <slot name='right-sidebar' />
+      </aside>
+    )
+  }
+  <div class='main-pane min-w-0'><slot /></div>
+</div>

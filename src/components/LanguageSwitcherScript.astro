@@ -17,8 +17,8 @@
   //
   // The two keys are spelled out rather than imported from src/scripts/locale-keys.js, which is their
   // canonical home: an import makes Astro bundle this hoisted script into its own request instead of
-  // inlining it, and closing the panel would then wait on that fetch on a cold load. Same reasoning as
-  // the inline script in starlight/LanguageSelect.astro. Change them in both places.
+  // inlining it, and closing the panel would then wait on that fetch on a cold load. The docs use this
+  // same switcher, through SiteHeader. Change a key in locale-keys.js and here.
   const LOCALE_KEY = 'hipo.locale'
   const PREF_KEY = 'hipo.locale.pref'
 

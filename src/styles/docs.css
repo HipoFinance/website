@@ -1,267 +1,444 @@
 /*
- * Hipo theming for the Starlight docs section (/docs). See specs/design handoff (Docs.dc.html)
- * and the changelog entries for 2026-08-11 (Warm Dark) and 2026-08-22 (light theme).
+ * The docs section (/docs/) in the site's own look (specs/docs-site-chrome.md). Loaded only by
+ * Starlight, through `customCss` in astro.config.mjs; Starlight's Page.astro imports it before its own
+ * CSS, so the layer order declared here holds.
  *
- * This file is loaded only by Starlight, via `customCss` in astro.config.mjs. It deliberately does
- * NOT import src/styles/global.css: that pulls in Tailwind's preflight, which conflicts with
- * Starlight's own reset. Brand alignment is done through Starlight's CSS custom properties instead.
+ * What it loads: the site's tokens (src/styles/tokens.css — fonts, @theme, both palettes, the
+ * logo/banner helpers) and Tailwind's theme and utilities, so the site's own header, banner and footer
+ * (rendered by src/components/starlight/PageFrame.astro) and our Starlight overrides can use the same
+ * classes as every other page. What it does not load: Tailwind's preflight (it ships with
+ * `@import 'tailwindcss'`, i.e. global.css), which clashes with Starlight's reset; `.hipo-chrome`
+ * below fills the few gaps that leaves under the site chrome.
  *
- * Two palettes, selected by `data-theme` on <html>, which src/components/starlight/ThemeProvider.astro
- * sets from `prefers-color-scheme`. There is still no theme picker (ThemeSelect.astro renders
- * nothing) — the OS setting is the only input.
- *
- * Raw color values below mirror the tokens in src/styles/global.css `@theme` and its light-scheme
- * override (kept as plain custom properties here, not Tailwind, since this file can't import that
- * stylesheet). Keep the two in sync by hand if the palette changes.
+ * The layers, lowest first: Starlight's own (`starlight.*`), then this file's rules in `starlight`
+ * itself (above every Starlight sublayer), then Tailwind's theme and utilities — so a utility class
+ * always wins over a rule here. The light palette in tokens.css is unlayered and so beats them all, as
+ * it does on the rest of the site. Starlight's light styles key off `data-theme`, which
+ * src/components/starlight/ThemeProvider.astro sets from the same `prefers-color-scheme` query.
  */
+@layer base, starlight, theme, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import './tokens.css';
+@import 'tailwindcss/utilities.css' layer(utilities);
 
-/* The same faces as src/styles/global.css: Nunito (display), IBM Plex Sans (body), and Fredoka's
-   Latin subset for the "Hipo" site title alone. Keep the two in sync. */
-@import '@fontsource-variable/nunito';
-@import '@fontsource/ibm-plex-sans/400.css';
-@import '@fontsource/ibm-plex-sans/500.css';
-@import '@fontsource/ibm-plex-sans/600.css';
-/* Per-script faces + per-<html lang> overrides of --sl-font / --hipo-font-display (spec §F). */
-@import './i18n-fonts.css';
+@layer starlight {
+  /* Starlight's variables, pointed at the site's tokens. Starlight declares its stock light palette
+     at `:root[data-theme='light']`, hence both selectors; the tokens are what change between the two
+     schemes. */
+  :root,
+  :root[data-theme='light'] {
+    --sl-color-white: var(--color-text);
+    --sl-color-black: var(--color-bg);
+    --sl-color-bg: var(--color-bg);
+    --sl-color-bg-nav: var(--color-bg);
+    --sl-color-bg-sidebar: var(--color-bg);
+    --sl-color-bg-inline-code: var(--color-surface-deep);
+    --sl-color-bg-accent: var(--color-accent-fill);
+    /* Article text: the blog's body colour (src/components/blog/Prose.astro). */
+    --sl-color-text: var(--color-text-muted);
+    --sl-color-text-accent: var(--color-accent);
+    --sl-color-text-invert: var(--color-on-accent);
+    --sl-color-hairline: var(--color-border);
+    --sl-color-hairline-light: var(--color-border);
+    --sl-color-hairline-shade: var(--color-border);
+    --sl-color-backdrop-overlay: var(--color-scrim);
 
-@font-face {
-  font-family: 'Fredoka Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 300 700;
-  src: url('@fontsource-variable/fredoka/files/fredoka-latin-wght-normal.woff2') format('woff2-variations');
-  unicode-range:
-    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC,
-    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
+    --sl-color-gray-1: var(--color-text);
+    --sl-color-gray-2: var(--color-text-muted);
+    --sl-color-gray-3: var(--color-text-faint);
+    --sl-color-gray-4: var(--color-text-faint);
+    --sl-color-gray-5: var(--color-border);
+    --sl-color-gray-6: var(--color-surface);
+    --sl-color-gray-7: var(--color-surface-deep);
 
-:root {
-  /* Warm Dark palette (see src/styles/global.css @theme). */
-  --hipo-bg: #1f1b1a;
-  --hipo-bg-nav: #241f1e;
-  --hipo-surface: #2a2523;
-  --hipo-surface-deep: #171312;
-  --hipo-border: #3a322e;
-  --hipo-text: #f3ede8;
-  --hipo-text-muted: #b8ada6;
-  --hipo-text-faint: #9c918a;
-  --hipo-body: #d9cfc8;
-  --hipo-accent: #ff7e73;
-  --hipo-accent-hover: #ff958c;
-  --hipo-accent-high: #ffc4bf;
-  --hipo-accent-tint: rgba(255, 126, 115, 0.14);
-  --hipo-on-accent: #2b1410;
-  --hipo-overlay: rgba(23, 19, 18, 0.72);
-  /* Coral as a solid fill under --hipo-on-accent text. Brand-constant, so it is declared once
-     and never re-declared for the light scheme — see the note in src/styles/global.css. */
-  --hipo-accent-fill: #ff7e73;
+    --sl-color-accent-low: color-mix(in srgb, var(--color-accent) 14%, transparent);
+    --sl-color-accent: var(--color-accent);
+    /* Starlight's high-contrast accent, for text on accent-low: coral pulled toward the text colour,
+       lighter in the dark scheme and darker in the light one. */
+    --sl-color-accent-high: color-mix(in srgb, var(--color-accent) 60%, var(--color-text));
 
-  /* Radii and text sizes: the same values as the --radius-* / --text-* tokens in global.css
-     @theme (token list in .claude/rules/styling.md). Keep in sync by hand. */
-  --hipo-radius-tile: 16px;
-  --hipo-radius-input: 12px;
-  --hipo-radius-chip: 10px;
-  --hipo-text-caption: 12px;
+    --sl-font: var(--font-body);
+    --sl-line-height: 1.7;
+    /* Heading sizes of the blog's prose; the page title is the site's 40px h1. Fixed at every width
+       (Starlight grows them by viewport otherwise). */
+    --sl-text-h1: 2.5rem;
+    --sl-text-h2: 1.625rem;
+    --sl-text-h3: 1.3125rem;
+    --sl-text-h4: 1.125rem;
+    --sl-text-h5: 1rem;
 
-  color-scheme: dark;
-
-  --sl-font: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
-  /* Display face for article headings; swapped per locale in i18n-fonts.css. */
-  --hipo-font-display: 'Nunito Variable', ui-sans-serif, system-ui;
-  /* Its weight, as --font-weight-heading in global.css: 800, and 600 for ar/fa (i18n-fonts.css). */
-  --hipo-font-weight-display: 800;
-  /* The "Hipo" site title is the wordmark, which stays Fredoka in every locale. */
-  --hipo-font-wordmark: 'Fredoka Variable', ui-sans-serif, system-ui;
-
-  /* Fixed heading sizes per the design (h1 40px, h3 24px), regardless of Starlight's own
-     viewport-based type scale below 50rem/72rem. */
-  --sl-text-h1: 2.5rem;
-  --sl-text-h3: 1.5rem;
-
-  /* Docs layout: 260px sidebar / 760px article / 200px "On this page" (see README layout §). */
-  --sl-sidebar-width: 16.25rem;
-  --sl-content-width: 47.5rem;
-
-  /* (Starlight semantic tokens are mapped below, at a selector that also matches
-     [data-theme='light'] — see the note there.) */
-}
-
-/* Starlight declares its stock light palette at `:root[data-theme='light']`, which outranks a bare
-   `:root`. Mapping at both selectors means these point at the --hipo-* primitives above whichever
-   scheme is active, and the primitives are the only thing that changes between the two. */
-:root,
-:root[data-theme='light'] {
-  --sl-color-white: var(--hipo-text);
-  --sl-color-black: var(--hipo-bg);
-  --sl-color-bg: var(--hipo-bg);
-  --sl-color-bg-nav: var(--hipo-bg-nav);
-  --sl-color-bg-sidebar: var(--hipo-bg);
-  --sl-color-bg-inline-code: var(--hipo-surface-deep);
-  --sl-color-bg-accent: var(--hipo-accent-fill);
-  --sl-color-text: var(--hipo-body);
-  --sl-color-text-accent: var(--hipo-accent);
-  --sl-color-text-invert: var(--hipo-on-accent);
-  --sl-color-hairline: var(--hipo-border);
-  --sl-color-hairline-light: var(--hipo-border);
-  --sl-color-hairline-shade: var(--hipo-border);
-  --sl-color-backdrop-overlay: var(--hipo-overlay);
-
-  --sl-color-gray-1: var(--hipo-text);
-  --sl-color-gray-2: var(--hipo-text-muted);
-  --sl-color-gray-3: var(--hipo-text-faint);
-  --sl-color-gray-4: var(--hipo-text-faint);
-  --sl-color-gray-5: var(--hipo-border);
-  --sl-color-gray-6: var(--hipo-surface);
-  --sl-color-gray-7: var(--hipo-surface-deep);
-
-  --sl-color-accent-low: var(--hipo-accent-tint);
-  --sl-color-accent: var(--hipo-accent);
-  --sl-color-accent-high: var(--hipo-accent-high);
-}
-
-/* Light palette. Accent darkens to keep its contrast on cream; --hipo-accent-high inverts from
-   "lighter than accent" to "darker than accent", since Starlight uses it as the high-contrast
-   accent for text on --sl-color-accent-low. --hipo-text-faint is darker than the dark scheme's so it
-   holds 4.5:1 on cream. */
-:root[data-theme='light'] {
-  --hipo-bg: #faf6ef;
-  --hipo-bg-nav: #fbf8f2;
-  --hipo-surface: #ffffff;
-  --hipo-surface-deep: #f1e9de;
-  --hipo-border: #e7dccf;
-  --hipo-text: #291f20;
-  --hipo-text-muted: #6f6058;
-  --hipo-text-faint: #776a62;
-  --hipo-body: #3f342f;
-  --hipo-accent: #e0574b;
-  --hipo-accent-hover: #c9483c;
-  --hipo-accent-high: #a83a2f;
-  --hipo-accent-tint: rgba(224, 87, 75, 0.1);
-  --hipo-on-accent: #2b1410;
-  --hipo-overlay: rgba(41, 31, 32, 0.5);
-
-  color-scheme: light;
-}
-
-@media (min-width: 72rem) {
-  :root {
-    /* 56px article padding (design layout §), up from Starlight's default 1.5rem/24px. */
-    --sl-content-pad-x: 3.5rem;
+    /* Nothing is fixed at the top of a docs page any more, so Starlight's offsets for its bar are
+       zero. With the unit: a bare 0 inside Starlight's calc() makes it invalid. */
+    --sl-nav-height: 0rem;
+    /* The site column (PageFrame.astro) already has its padding. */
+    --sl-content-pad-x: 0rem;
+    --sl-content-width: 47.5rem;
+    --sl-content-margin-inline: 0;
   }
-}
 
-.site-title {
-  font-family: var(--hipo-font-wordmark);
-  font-weight: 600;
-}
-
-::selection {
-  background: var(--hipo-accent-fill);
-  color: var(--hipo-on-accent);
-}
-
-a:hover {
-  color: var(--hipo-accent);
-}
-
-/* Article headings use the display face (Nunito); body text stays on --sl-font (IBM Plex Sans). */
-.sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
-  font-family: var(--hipo-font-display);
-  font-weight: var(--hipo-font-weight-display);
-}
-
-.sl-markdown-content strong:not(:where(.not-content *)),
-.sl-markdown-content b:not(:where(.not-content *)) {
-  color: var(--hipo-text);
-}
-
-.sl-markdown-content a:not(:where(.not-content *)):hover {
-  color: var(--hipo-accent);
-}
-
-/* Search field styled as a deep well, per the design (desktop only — mobile keeps the icon-only
-   button). */
-@media (min-width: 50rem) {
-  button[data-open-modal] {
-    background-color: var(--hipo-surface-deep);
-    border-color: var(--hipo-border);
-    border-radius: var(--hipo-radius-chip);
-    color: var(--hipo-text-faint);
+  ::selection {
+    background: var(--color-accent-fill);
+    color: var(--color-on-accent);
   }
-  button[data-open-modal]:hover {
-    border-color: var(--hipo-accent);
-    color: var(--hipo-text);
+
+  /* --- The site chrome. What preflight would give the header, banner and footer: links and buttons
+     that inherit, lists without bullets, block images, the site's line height. --- */
+  .hipo-chrome {
+    line-height: 1.5;
   }
-}
+  .hipo-chrome a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+  .hipo-chrome button,
+  .hipo-chrome summary {
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  .hipo-chrome ul,
+  .hipo-chrome ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .hipo-chrome :is(h1, h2, h3, p) {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+  }
+  .hipo-chrome img,
+  .hipo-chrome svg {
+    display: block;
+  }
+  :root[lang='fa'] .hipo-chrome,
+  :root[lang='ar'] .hipo-chrome {
+    line-height: 1.7;
+  }
 
-/* Sidebar: uppercase, faint group labels; coral-on-tint active pill (8px radius) instead of
-   Starlight's default solid-fill pill. Scoped to #starlight__sidebar so it can't collide with the
-   "On this page" ToC, which uses a different `aria-current` value. */
-#starlight__sidebar .group-label .large {
-  font: 600 var(--hipo-text-caption) var(--sl-font);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--hipo-text-faint);
-}
+  /* --- The docs bar (starlight/Header.astro). --- */
+  .hipo-docs-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    padding-block: 1.5rem 1rem;
+  }
+  .hipo-docs-title {
+    text-decoration: none;
+  }
+  .hipo-docs-title:hover {
+    color: var(--color-accent);
+  }
+  .hipo-docs-tools {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    flex: 1 1 18rem;
+    justify-content: flex-end;
+    min-width: 0;
+  }
+  .hipo-docs-menu-button {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 0.5rem;
+    height: 2.5rem;
+    padding-inline: 0.875rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-input);
+    background: var(--color-surface);
+    color: var(--color-text);
+    font: 500 var(--text-small) var(--font-body);
+    cursor: pointer;
+  }
+  .hipo-docs-menu-button[aria-expanded='true'] {
+    border-color: var(--color-accent);
+  }
+  .hipo-docs-menu-button[aria-expanded='true'] .hipo-docs-menu-caret {
+    transform: rotate(180deg);
+  }
+  @media (min-width: 64rem) {
+    .hipo-docs-menu-button {
+      display: none;
+    }
+  }
 
-#starlight__sidebar a {
-  border-radius: 8px;
-  font-size: 14.5px;
-}
+  /* Starlight's search button, drawn as a field at every width (its label shows from 50rem only by
+     default). Its <site-search> wrapper is `display: contents`, so the button is the flex item. */
+  .hipo-docs-tools button[data-open-modal] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    max-width: 22rem;
+    height: 2.5rem;
+    gap: 0.5rem;
+    padding-inline: 0.875rem 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-input);
+    background-color: var(--color-surface-deep);
+    color: var(--color-text-faint);
+    font-size: var(--text-small);
+  }
+  .hipo-docs-tools button[data-open-modal] > span {
+    display: block;
+    flex: 1;
+    text-align: start;
+  }
+  .hipo-docs-tools button[data-open-modal]:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text);
+  }
 
-#starlight__sidebar a[aria-current='page'],
-#starlight__sidebar a[aria-current='page']:hover,
-#starlight__sidebar a[aria-current='page']:focus {
-  background-color: var(--hipo-accent-tint);
-  color: var(--hipo-accent);
-  font-weight: 500;
-}
+  /* --- Menu beside article (PageFrame.astro); article beside "On this page" (TwoColumnContent). --- */
+  .hipo-docs-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    padding-bottom: 4rem;
+  }
+  .hipo-docs-nav {
+    display: none;
+  }
+  .hipo-docs-nav[data-open] {
+    display: block;
+    margin-bottom: 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    background: var(--color-surface);
+  }
+  .hipo-docs-nav-pane {
+    padding: 0.75rem;
+  }
+  @media (min-width: 64rem) {
+    .hipo-docs-grid {
+      grid-template-columns: 15rem minmax(0, 1fr);
+      gap: 3rem;
+      align-items: start;
+    }
+    .hipo-docs-nav,
+    .hipo-docs-nav[data-open] {
+      display: block;
+      position: sticky;
+      top: 1rem;
+      margin: 0;
+      border: 0;
+      background: none;
+    }
+    .hipo-docs-nav-pane {
+      max-height: calc(100vh - 2rem);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      padding-block: 0 1rem;
+      padding-inline: 0 0.5rem;
+    }
+  }
 
-/* "On this page" ToC: coral active item (color already comes from --sl-color-text-accent above). */
-.right-sidebar-panel a[aria-current='true'] {
-  font-weight: 500;
-}
+  .hipo-two-col {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Below 72rem the rail holds Starlight's "On this page" dropdown, kept in view while reading. */
+  .hipo-toc {
+    position: sticky;
+    top: 0;
+    z-index: var(--sl-z-index-toc);
+    background-color: var(--color-bg);
+  }
+  .hipo-toc mobile-starlight-toc nav {
+    position: static;
+    border-top: 0;
+  }
+  .hipo-toc mobile-starlight-toc summary {
+    padding-inline: 0;
+    border-bottom: 0;
+  }
+  @media (min-width: 72rem) {
+    .hipo-two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 12.5rem;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .hipo-toc {
+      order: 2;
+      top: 1rem;
+      max-height: calc(100vh - 2rem);
+      overflow-y: auto;
+      scrollbar-width: none;
+      background: none;
+    }
+    .hipo-toc .right-sidebar-panel {
+      padding: 1.5rem 0 0;
+    }
+  }
 
-/* Prev/next pagination cards: faint label, coral title, flat (no shadow). */
-.pagination-links a {
-  color: var(--hipo-text-faint);
-  border-radius: var(--hipo-radius-input);
-  box-shadow: none;
-}
-.pagination-links a:hover {
-  border-color: var(--hipo-accent);
-}
-.pagination-links .link-title {
-  color: var(--hipo-accent);
-}
+  /* Starlight's panels: no hairlines across the page, no side padding inside the site column. */
+  .content-panel {
+    padding-inline: 0;
+  }
+  .content-panel + .content-panel {
+    border-top: 0;
+    padding-top: 0;
+  }
 
-/* Imported GitBook figures. */
-.sl-markdown-content figure {
-  margin: 1.5rem 0;
-}
+  /* --- The docs menu, like the FAQ's section list: faint uppercase group labels, muted items, the
+     current page on a surface pill. Scoped to #starlight__sidebar so it can't touch the ToC. --- */
+  #starlight__sidebar .group-label .large {
+    font: 600 var(--text-caption) var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-faint);
+  }
+  /* No rule down the side of each group, as in the FAQ's list. */
+  #starlight__sidebar ul ul li {
+    margin-inline-start: 0;
+    border-inline-start: 0;
+    padding-inline-start: 0;
+  }
+  #starlight__sidebar a {
+    border-radius: var(--radius-chip);
+    padding: 0.4rem 0.625rem;
+    font-size: var(--text-small);
+    color: var(--color-text-muted);
+  }
+  #starlight__sidebar a:hover,
+  #starlight__sidebar a:focus-visible {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+  }
+  #starlight__sidebar a[aria-current='page'],
+  #starlight__sidebar a[aria-current='page']:hover,
+  #starlight__sidebar a[aria-current='page']:focus {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    font-weight: 500;
+  }
+  /* Inside the phone panel the card is the surface already, so the pill steps down. */
+  @media (max-width: 63.99rem) {
+    #starlight__sidebar a[aria-current='page'],
+    #starlight__sidebar a:hover {
+      background-color: var(--color-surface-deep);
+    }
+  }
 
-.sl-markdown-content figure img {
-  border-radius: 0.5rem;
-}
+  /* --- "On this page". --- */
+  .right-sidebar-panel h2 {
+    font: 600 var(--text-caption) var(--font-body);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-faint);
+  }
+  .right-sidebar-panel a {
+    font-size: var(--text-small);
+  }
+  .right-sidebar-panel a[aria-current='true'] {
+    font-weight: 500;
+  }
 
-.sl-markdown-content figcaption {
-  margin-top: 0.5rem;
-  font-size: var(--sl-text-sm);
-  color: var(--sl-color-gray-3);
-  text-align: center;
-}
+  /* --- The article. --- */
+  h1#_top,
+  .sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-heading);
+    color: var(--color-text);
+  }
+  h1#_top {
+    line-height: 1.1;
+  }
+  .sl-markdown-content strong:not(:where(.not-content *)),
+  .sl-markdown-content b:not(:where(.not-content *)) {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+  /* Links as in the blog: coral, underlined with a small offset. */
+  .sl-markdown-content a:not(:where(.not-content *)) {
+    color: var(--color-accent);
+    text-underline-offset: 2px;
+  }
+  .sl-markdown-content a:not(:where(.not-content *)):hover {
+    color: var(--color-accent-hover);
+  }
 
-.sl-markdown-content figcaption:empty {
-  display: none;
-}
+  /* Asides in the site's status tones (the Club's strips): note = info, tip = success,
+     caution = warn, danger = coral. A card, like the site's notes, with the tone on its icon and
+     title. */
+  .starlight-aside {
+    border: 1px solid var(--sl-color-asides-border);
+    border-radius: var(--radius-input);
+    color: var(--color-text);
+  }
+  .starlight-aside--note {
+    --sl-color-asides-text-accent: var(--color-tone-info-fg);
+    --sl-color-asides-border: var(--color-tone-info-border);
+    background-color: var(--color-tone-info-bg);
+  }
+  .starlight-aside--tip {
+    --sl-color-asides-text-accent: var(--color-tone-success-fg);
+    --sl-color-asides-border: var(--color-tone-success-border);
+    background-color: var(--color-tone-success-bg);
+  }
+  .starlight-aside--caution {
+    --sl-color-asides-text-accent: var(--color-tone-warn-fg);
+    --sl-color-asides-border: var(--color-tone-warn-border);
+    background-color: var(--color-tone-warn-bg);
+  }
+  .starlight-aside--danger {
+    /* Coral pulled toward the text colour: plain coral is under 4.5:1 on its own tint in light. */
+    --sl-color-asides-text-accent: var(--sl-color-accent-high);
+    --sl-color-asides-border: var(--color-accent);
+    background-color: var(--sl-color-accent-low);
+  }
+  .starlight-aside__title {
+    font-size: var(--text-body);
+  }
 
-/* YouTube embeds converted from GitBook's {% embed %} blocks. */
-.sl-markdown-content .docs-embed {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  height: auto;
-  margin: 1.5rem 0;
-  border: 1px solid var(--hipo-border);
-  border-radius: var(--hipo-radius-tile);
+  /* Prev/next cards: faint label, coral title, flat. */
+  .pagination-links a {
+    color: var(--color-text-faint);
+    border-color: var(--color-border);
+    border-radius: var(--radius-input);
+    box-shadow: none;
+    background-color: var(--color-surface);
+  }
+  .pagination-links a:hover {
+    border-color: var(--color-accent);
+  }
+  .pagination-links .link-title {
+    color: var(--color-accent);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-heading);
+  }
+
+  /* Imported GitBook figures. */
+  .sl-markdown-content figure {
+    margin: 1.5rem 0;
+  }
+  .sl-markdown-content figure img {
+    border-radius: var(--radius-input);
+  }
+  .sl-markdown-content figcaption {
+    margin-top: 0.5rem;
+    font-size: var(--sl-text-sm);
+    color: var(--color-text-faint);
+    text-align: center;
+  }
+  .sl-markdown-content figcaption:empty {
+    display: none;
+  }
+
+  /* YouTube embeds converted from GitBook's {% embed %} blocks. */
+  .sl-markdown-content .docs-embed {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-tile);
+  }
 }

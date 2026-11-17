@@ -8,12 +8,25 @@ export type Dir = 'ltr' | 'rtl'
 
 // Reads the locale from Astro.params (`Astro.params.locale ?? 'en'`). Throws on an unknown value so a
 // misrouted page fails at build time instead of rendering English under a foreign prefix.
-export function localeOf(astro: { params: Record<string, string | undefined> }): Locale {
-  const value = astro.params.locale ?? DEFAULT_LOCALE
+// Docs pages render SiteHeader, SiteFooter and Banner through the Starlight PageFrame override, and
+// Starlight's route has no `locale` param; its route data reports the locale instead (`undefined` for
+// English/root, e.g. 'fa' for the rest, the same keys as our registry), so that is the fallback.
+// Starlight's middleware defines `locals.starlightRoute` on every page and the getter throws outside
+// a Starlight route, hence the try/catch.
+export function localeOf(astro: { params: Record<string, string | undefined>; locals?: any }): Locale {
+  const value = astro.params.locale ?? starlightLocale(astro.locals) ?? DEFAULT_LOCALE
   if (!isLocaleKey(value)) {
     throw new Error(`Unknown locale "${value}" in route params`)
   }
   return value
+}
+
+function starlightLocale(locals: any): string | undefined {
+  try {
+    return locals?.starlightRoute?.locale
+  } catch {
+    return undefined
+  }
 }
 
 const EXTERNAL = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/i

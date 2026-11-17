@@ -1,0 +1,66 @@
+---
+// The frame of every docs page (specs/docs-site-chrome.md). Overrides Starlight's PageFrame (~0.40),
+// whose fixed top bar and full-height sidebar made the docs look like another site. Here a docs page
+// wears the site's own chrome — Banner, SiteHeader (with the phone tab bar) and SiteFooter, the same
+// components the landing pages, FAQ and blog render — and Starlight's parts sit inside the site's
+// centred 1280 px column: the docs bar (Starlight's `header` slot, our Header.astro override), then
+// the docs menu (`sidebar` slot) beside the article and "On this page" (default slot, laid out by our
+// TwoColumnContent.astro override).
+//
+// The footer stays outside Starlight's <main data-pagefind-body>, so search never indexes it. The
+// chrome finds the docs locale through localeOf()'s fallback to Starlight's route locale.
+//
+// The scroller keeps Starlight's id `starlight__sidebar`: SidebarPersistState restores the open groups
+// and the scroll position by it. Below lg the menu is a panel under the docs bar, closed on load and
+// opened by the bar's "Contents" button (Starlight's own menu toggle is not rendered).
+import Banner from '../Banner.astro'
+import SiteFooter from '../SiteFooter.astro'
+import SiteHeader from '../SiteHeader.astro'
+import { localeOf } from '../../i18n/locale.ts'
+import { getT } from '../../i18n/t.ts'
+
+const { hasSidebar } = Astro.locals.starlightRoute
+// The menu's landmark is named after the section ("Documentation"), not Starlight's "Main", which
+// sat too close to the site tab bar's "Main sections" in a screen reader's landmark list.
+const { t } = getT(localeOf(Astro), ['site'])
+---
+
+<div class='hipo-docs-page bg-bg font-body text-text flex min-h-screen flex-col'>
+  <div class='hipo-chrome print:hidden'>
+    <Banner />
+    <SiteHeader active='docs' />
+  </div>
+
+  <div class='mx-auto w-full max-w-[1280px] flex-1 px-6 md:px-12'>
+    <slot name='header' />
+    <div class='hipo-docs-grid'>
+      {
+        hasSidebar && (
+          <nav id='hipo-docs-nav' class='hipo-docs-nav print:hidden' aria-label={t('site.footer.documentation')}>
+            <div id='starlight__sidebar' class='hipo-docs-nav-pane'>
+              <slot name='sidebar' />
+            </div>
+          </nav>
+        )
+      }
+      <div class='hipo-docs-main min-w-0'><slot /></div>
+    </div>
+  </div>
+
+  <div class='hipo-chrome print:hidden'>
+    <SiteFooter />
+  </div>
+</div>
+
+<script>
+  // The docs bar's "Contents" button (Header.astro) opens and closes the menu panel below lg.
+  const button = document.querySelector<HTMLButtonElement>('[data-docs-menu-toggle]')
+  const nav = document.getElementById('hipo-docs-nav')
+  if (button && nav) {
+    button.addEventListener('click', () => {
+      const open = button.getAttribute('aria-expanded') !== 'true'
+      button.setAttribute('aria-expanded', String(open))
+      nav.toggleAttribute('data-open', open)
+    })
+  }
+</script>
