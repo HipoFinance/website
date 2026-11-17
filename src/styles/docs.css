@@ -290,16 +290,17 @@
   /* --- The docs menu, like the FAQ's section list: faint uppercase group labels, muted items, the
      current page on a surface pill. Scoped to #starlight__sidebar so it can't touch the ToC. --- */
   #starlight__sidebar .group-label .large {
-    font: 600 var(--text-caption) var(--font-body);
+    font: 600 var(--text-label) var(--font-body);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--color-text-faint);
+    color: var(--color-text);
   }
-  /* No rule down the side of each group, as in the FAQ's list. */
+  /* No rule down the side of each group, as in the FAQ's list; the items sit in from their label
+     (text at twice the label's inset) so a group reads as a group. */
   #starlight__sidebar ul ul li {
     margin-inline-start: 0;
     border-inline-start: 0;
-    padding-inline-start: 0;
+    padding-inline-start: 0.625rem;
   }
   #starlight__sidebar a {
     border-radius: var(--radius-chip);

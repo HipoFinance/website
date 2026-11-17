@@ -9,6 +9,10 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-17 — Docs menu: section titles stand apart from their items
+
+- In the docs menu, section titles are 13px (was 12px) in the main text colour (was the faint grey), and their items sit twice as far in from the left, so each group reads as one block; nothing else in the menu changed.
+
 ## 2026-11-17 — Club: Community pay shown (spec B), in all locales
 
 - The Community tab shows each final week's share of the pool, the HPO it paid and a _Credited_ state; the Rewards tab adds community HPO to the totals and to "Earned this season". Follows club-server `specs/club-community-pay.md` (spec B).
