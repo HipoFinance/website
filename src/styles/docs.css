@@ -220,20 +220,15 @@
       gap: 3rem;
       align-items: start;
     }
+    /* The menu scrolls with the article: one scroll bar for the whole page, none inside the menu. */
     .hipo-docs-nav,
     .hipo-docs-nav[data-open] {
       display: block;
-      position: sticky;
-      top: 1rem;
       margin: 0;
       border: 0;
       background: none;
     }
     .hipo-docs-nav-pane {
-      max-height: calc(100vh - 2rem);
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      scrollbar-width: thin;
       padding-block: 0 1rem;
       padding-inline: 0 0.5rem;
     }
