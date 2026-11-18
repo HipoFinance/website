@@ -5,7 +5,7 @@
 // The URL picks the scenario:
 //   ?clubState=  A  A0  B  C  D  D2  E  F  G  belowMin  claimed  top  launching  frozen  loading
 //                error  nolink  nowallet  flow2  flow3  empty         (default B)
-//   ?clubCommunity=  points  new  pay                                       the Community tab (off otherwise; not linked = clubState=A)
+//   ?clubCommunity=  points  new  pay  team  muted                                       the Community tab (off otherwise; not linked = clubState=A)
 //   ?clubChain=  clear  onway  old  stale  pagefail  limit            the chain read of the guard
 //   ?clubSend=   ok  reject  timeout                                   what the fake wallet answers
 //   ?clubNew=    meets  below                                          the HPO of a newly linked wallet
@@ -136,7 +136,7 @@ export class ClubMock implements ClubTransport {
   // Read on load, so the Community mode is remembered even when the page opens on another tab: a tab
   // switch drops the query string before the Community tab asks.
   private communityMode = sticky('clubCommunity')
-  private communityPay = () => (sticky('clubCommunity') ?? this.communityMode) === 'pay'
+  private communityPay = () => ['pay', 'team', 'muted'].includes(sticky('clubCommunity') ?? this.communityMode ?? '')
   private tgDone = false
   // The made-up wallets: the Club wallet, another of the member's wallets, and a wallet a proof links.
   readonly walletA: Address
@@ -908,7 +908,7 @@ export class ClubMock implements ClubTransport {
   // ones before it, so "day N of 7" and the review Thursday follow the real date.
   private communityBody(head: Record<string, unknown>) {
     const mode = sticky('clubCommunity') ?? this.communityMode
-    if (mode !== 'points' && mode !== 'new' && mode !== 'pay') {
+    if (mode !== 'points' && mode !== 'new' && mode !== 'pay' && mode !== 'team' && mode !== 'muted') {
       return { ...head, setting: 'off' }
     }
     const day = (n: number) => new Date(n).toISOString().slice(0, 10)
@@ -950,7 +950,14 @@ export class ClubMock implements ClubTransport {
     // The wireframe's numbers are sample data; these follow the real formula, so the parts (35 + 18 + 6)
     // add up to the total. ?clubCommunity=pay adds the HPO fields (club-community-pay.md §6): the review
     // week and this week carry `hpo_est`, the weeks before it are credited.
-    const pay = mode === 'pay'
+    // ?clubCommunity=team is a team member (excluded, with the preview fields); muted is a banned member (today's view).
+    const pay = mode === 'pay' || mode === 'team' || mode === 'muted'
+    const guest =
+      mode === 'team'
+        ? { why: 'excluded', team: true, would_p: 59, would_hpo_est: '38.5' }
+        : mode === 'muted'
+          ? { why: 'muted' }
+          : {}
     return {
       ...head,
       setting: 'points',
@@ -958,7 +965,7 @@ export class ClubMock implements ClubTransport {
       params,
       eligibility: { earner: true, why: '' },
       estimate: {
-        ...week(0, '', 59, { a2: 14, h: 2, d: 1, ...(pay ? { hpo_est: '38.5' } : {}) }),
+        ...week(0, '', 59, { a2: 14, h: 2, d: 1, ...(pay ? { hpo_est: '38.5' } : {}), ...guest }),
         rank: 6,
         of: 18,
         reactors: 4,

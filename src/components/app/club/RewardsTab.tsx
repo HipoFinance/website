@@ -28,7 +28,7 @@ interface Props {
   club: ClubModel
 }
 
-type Stream = 'all' | 'staking' | 'referral'
+type Stream = 'all' | 'staking' | 'referral' | 'community'
 
 const TONVIEWER = 'https://tonviewer.com/transaction/'
 // R1: a section is a heading row (coloured dot, display heading, outlined tag) followed by sibling
@@ -191,9 +191,23 @@ const Boosted = observer(({ club }: Props) => {
     )
   }
   const streams = r.unclaimedByStream
+  const cm = club.community
+  // A paid Community week is paid on the Thursday after it ends: the week's last day (a Sunday) + 4 days, 00:00 UTC.
+  const communityRows = (cm?.weeks ?? []).flatMap((week) => {
+    const end = Date.parse(week.end + 'T00:00:00Z')
+    if (week.state !== 'credited' || !(Number(week.hpo) > 0) || !Number.isFinite(end)) {
+      return []
+    }
+    return [{ time: end / 1000 + 4 * 86400, stream: 'community' as const, hpo: week.hpo }]
+  })
+  const streamList: Stream[] =
+    cm?.pay === true || communityRows.length > 0
+      ? ['all', 'staking', 'referral', 'community']
+      : ['all', 'staking', 'referral']
   const rows = [
     ...r.rounds.map((round) => ({ time: round.time, stream: 'staking' as const, hpo: round.hpo })),
     ...r.referralRounds.map((round) => ({ time: round.time, stream: 'referral' as const, hpo: round.hpo })),
+    ...communityRows,
   ]
     .filter((row) => filter === 'all' || row.stream === filter)
     .sort((a, b) => (b.time ?? 0) - (a.time ?? 0))
@@ -275,7 +289,7 @@ const Boosted = observer(({ club }: Props) => {
         <CardTitle
           aside={
             <Pills label={t('club.rewards.colStream')}>
-              {(['all', 'staking', 'referral'] as const).map((value) => (
+              {streamList.map((value) => (
                 <Pill key={value} active={filter === value} onClick={() => setFilter(value)}>
                   {t('club.rewards.filter.' + value)}
                 </Pill>
@@ -302,7 +316,13 @@ const Boosted = observer(({ club }: Props) => {
                   <tr key={i} className={tableRow}>
                     <td className={tableTd + ' num'}>{club.date(row.time)}</td>
                     <td className={tableTd}>
-                      {t(row.stream === 'staking' ? 'club.rewards.streamStaking' : 'club.rewards.streamReferral')}
+                      {t(
+                        row.stream === 'staking'
+                          ? 'club.rewards.streamStaking'
+                          : row.stream === 'community'
+                            ? 'club.rewards.streamCommunity'
+                            : 'club.rewards.streamReferral',
+                      )}
                     </td>
                     <td className={tableTd + ' num text-tone-success-fg text-end'}>{club.signed(row.hpo, 2, true)}</td>
                   </tr>
@@ -575,6 +595,12 @@ const RewardsTab = observer(({ club }: Props) => {
   useEffect(() => {
     void club.loadRewards()
   }, [club, club.session])
+  // The Community weeks give the history its Community rows and the filter its pill.
+  useEffect(() => {
+    if (club.session !== undefined && club.community === undefined) {
+      void club.loadCommunity()
+    }
+  }, [club, club.session, club.community])
   return (
     <div className='flex flex-col gap-6'>
       <Boosted club={club} />

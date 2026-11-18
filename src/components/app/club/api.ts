@@ -503,6 +503,10 @@ interface CommunityParts {
 export interface CommunityEstimate extends CommunityParts {
   // Decimal HPO text, display only; sent with `pay` (club-server specs/club-community-pay.md §6).
   hpoEst?: string
+  // Only for a team member (excluded): the preview of what a member with their activity would see.
+  team?: boolean
+  wouldP?: number
+  wouldHpoEst?: string
   rank?: number
   of?: number
   reactors?: number
@@ -600,6 +604,9 @@ function toEstimate(value: unknown): CommunityEstimate {
     reactors: num(r.reactors),
     stickers: num(r.stickers),
     hpoEst: str(r.hpo_est),
+    team: r.team === true ? true : undefined,
+    wouldP: num(r.would_p),
+    wouldHpoEst: str(r.would_hpo_est),
   }
 }
 

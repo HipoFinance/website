@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-18 — Club: Community rows on Rewards, team preview (English only)
+
+- Rewards history lists each credited Community week (payment Thursday, HPO) with a new "Community" filter; the pill shows while Community pay is on or a row exists. The tab loads the Community data itself.
+- Community tab: a team member (`estimate.team`) sees the colourful Points card and the HPO "so far" line with the would-be figures in grey, plus a preview note; muted, new and voided members look as before. Spec: club-server `specs/club-community-team-preview.md`. Mock: `?clubCommunity=team` and `muted`.
+- Other locales not translated yet (waiting for approval of the English).
+
 ## 2026-11-17 — Docs menu scrolls with the page
 
 - On wide screens the docs menu is no longer pinned in its own scrolling box: it scrolls with the article, so the page has one scroll bar. The phone "Contents" menu is unchanged, and the right-hand "On this page" column stays pinned (not asked to change).

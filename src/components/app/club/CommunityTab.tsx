@@ -402,7 +402,8 @@ const CommunityTab = observer(({ club }: Props) => {
   const adjusted = c.weeks.filter((week) => week.p !== week.baseP)
   const ranked = e?.rank !== undefined && e.rank > 0
   // Excluded, new, muted or without a Club account: the server sends P = 0 but each part as computed.
-  const notCounted = e !== undefined && e.why !== ''
+  const team = e?.team === true
+  const notCounted = e !== undefined && e.why !== '' && !team
   const own = c.top.find((row) => row.you)
   const ownName = own?.name ?? club.overview?.displayName ?? ''
   const profile = c.profile
@@ -489,13 +490,21 @@ const CommunityTab = observer(({ club }: Props) => {
                 )}
                 <div className='flex justify-between gap-3'>
                   <span className='text-text-muted'>{t('club.community.hpoSoFar')}</span>
-                  <span>
+                  <span className={team && c.pay && e?.wouldHpoEst !== undefined ? 'text-text-muted' : undefined}>
                     {t('club.community.hpoEst', {
-                      hpo: c.pay && e?.hpoEst !== undefined ? '~' + club.amount2(e.hpoEst) : DASH,
+                      hpo:
+                        team && c.pay && e?.wouldHpoEst !== undefined
+                          ? '~' + club.amount2(e.wouldHpoEst)
+                          : c.pay && e?.hpoEst !== undefined
+                            ? '~' + club.amount2(e.hpoEst)
+                            : DASH,
                     })}
                   </span>
                 </div>
               </div>
+              {team && c.pay && e?.wouldHpoEst !== undefined && (
+                <p className='text-text-muted text-label'>{t('club.community.teamPreview')}</p>
+              )}
               <span className='text-text-faint text-label'>{t('club.community.hpoNote')}</span>
               <a
                 className={linkClass + ' self-start'}
@@ -518,12 +527,18 @@ const CommunityTab = observer(({ club }: Props) => {
                   <Chip tone='success'>{t('club.community.rank', { rank: unseen(e?.rank), of: unseen(e?.of) })}</Chip>
                 )}
               </div>
-              {e !== undefined && e.why !== '' && <p className='text-text-muted text-label'>{whyLabel(club, e.why)}</p>}
+              {e !== undefined && e.why !== '' && !team && (
+                <p className='text-text-muted text-label'>{whyLabel(club, e.why)}</p>
+              )}
               <div className='flex items-baseline gap-2'>
                 {/* With no estimate, or a member this week does not count, the dash takes the label's size, in
                     bold, as on the HPO card. */}
                 {e === undefined || notCounted ? (
                   <span className='text-lead font-bold'>{DASH}</span>
+                ) : team ? (
+                  <span className='font-display num text-display-lg text-text-muted leading-none font-extrabold'>
+                    {e.wouldP === undefined ? DASH : n(e.wouldP)}
+                  </span>
                 ) : (
                   <span className='font-display num text-display-lg leading-none font-extrabold'>{n(e.p)}</span>
                 )}
@@ -546,6 +561,7 @@ const CommunityTab = observer(({ club }: Props) => {
                   </div>
                 ))}
               </div>
+              {team && <p className='text-text-muted text-label'>{t('club.community.teamPreview')}</p>}
               <div className='bg-surface-raised text-text-muted text-label rounded-input px-[14px] py-2.5'>
                 {footnote}
               </div>
