@@ -23,7 +23,7 @@ Hiç **bağlamadığınız** bir cüzdandaki hGRAM hiçbir HPO ödülü kazanmaz
 ## Club cüzdanınız ve diğer cüzdanlarınız
 
 - **Hipo Club seviyeniz bir cüzdana değil, Telegram hesabınıza aittir.** Aynı anda tek bir cüzdan, yani Club cüzdanınız, seviyenizin güçlendirmesiyle kazanır. Kayıtlı diğer cüzdanlarınız 1× ile kazanır.
-- **Talepler Club cüzdanı üzerinden yapılır.** Güçlendirilmiş HPO'nuz Telegram hesabınızdaki tek bir bakiyedir; 100 HPO'dan itibaren 1 GRAM ücretle talep edilir ve Club cüzdanınıza ödenir. Bir cüzdanın Club cüzdanınız değilken kazandığı HPO o cüzdanda kalır ve onu Club cüzdanınız yaptığınızda hesabınıza katılır.
+- **Talepler Club cüzdanı üzerinden yapılır.** Güçlendirilmiş HPO'nuz Telegram hesabınızdaki tek bir bakiyedir; şu anda 100 HPO olan bir alt sınırdan itibaren (Club geçerli alt sınırı gösterir) 1 GRAM ücretle talep edilir ve Club cüzdanınıza ödenir. Bir cüzdanın Club cüzdanınız değilken kazandığı HPO o cüzdanda kalır ve onu Club cüzdanınız yaptığınızda hesabınıza katılır.
 - **Ödüller elde tutulan miktarla ölçeklenir.** hGRAM'ı cüzdanlara bölmek aynı temel ödülleri kazandırır, ancak yalnızca Club cüzdanınızdaki kısım güçlendirilir. Tam güçlendirmenizi almak için hGRAM'ınızı Club cüzdanınızda veya onun desteklenen likidite havuzlarında tutun.
 - **Cüzdan başına bir hesap.** Bir cüzdan yalnızca tek bir Telegram hesabının Club cüzdanı olabilir.
 

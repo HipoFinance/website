@@ -23,7 +23,7 @@ El hGRAM que está en una billetera que **nunca** has conectado no gana ninguna 
 ## Tu billetera del Club y tus otras billeteras
 
 - **Tu nivel de Hipo Club pertenece a tu cuenta de Telegram, no a una billetera.** Una billetera a la vez, tu billetera del Club, gana con el multiplicador de tu nivel. Tus otras billeteras registradas ganan a 1×.
-- **Las reclamaciones pasan por la billetera del Club.** Tu HPO potenciado es un único saldo de tu cuenta de Telegram, que se reclama desde 100 HPO con una comisión de 1 GRAM y se paga a tu billetera del Club. El HPO que gana una billetera mientras no es tu billetera del Club se queda con ella, y se suma a tu cuenta cuando la conviertes en tu billetera del Club.
+- **Las reclamaciones pasan por la billetera del Club.** Tu HPO potenciado es un único saldo de tu cuenta de Telegram, que se reclama desde un mínimo que actualmente es de 100 HPO (el Club muestra el mínimo vigente), con una comisión de 1 GRAM y se paga a tu billetera del Club. El HPO que gana una billetera mientras no es tu billetera del Club se queda con ella, y se suma a tu cuenta cuando la conviertes en tu billetera del Club.
 - **Las recompensas dependen de la cantidad que tienes.** Repartir el hGRAM entre billeteras da las mismas recompensas base, pero solo la parte que está en tu billetera del Club se potencia. Para tener todo tu multiplicador, mantén tu hGRAM en tu billetera del Club o en sus pools de liquidez compatibles.
 - **Una cuenta por billetera.** Una billetera solo puede ser la billetera del Club de una cuenta de Telegram.
 

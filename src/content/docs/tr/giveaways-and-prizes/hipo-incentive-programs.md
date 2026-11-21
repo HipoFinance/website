@@ -65,7 +65,7 @@ Hipo Gang'in yerini, bugün aktif katılımcıları ödüllendiren [Hipo Club](/
 
 ## 7. Hipo Club
 
-Hipo Club, uzun vadeli bağlılığı ödüllendiren katmanlı bir topluluk programıdır. Üyeler hGRAM tutar ve her doğrulama turundan sonra HPO kazanır; seviyeleri — **10** seviyeden biri — güçlendirmeyi belirler: 1×'ten 10×'e. Ödüller bakiye 100 HPO'ya ulaştığında, 1 GRAM ücretle talep edilebilir ve seviyeyi korumak için talep edilen her şey üyenin Club cüzdanında kalmalıdır. Seviyeler, ücretli anında yükseltme veya ücretsiz sezonluk yükseltme ile yükselir.
+Hipo Club, uzun vadeli bağlılığı ödüllendiren katmanlı bir topluluk programıdır. Üyeler hGRAM tutar ve her doğrulama turundan sonra HPO kazanır; seviyeleri — **10** seviyeden biri — güçlendirmeyi belirler: 1×'ten 10×'e. Ödüller bakiye talep alt sınırına (şu anda 100 HPO; Club geçerli alt sınırı gösterir) ulaştığında, 1 GRAM ücretle talep edilebilir ve seviyeyi korumak için talep edilen her şey üyenin Club cüzdanında kalmalıdır. Seviyeler, ücretli anında yükseltme veya ücretsiz sezonluk yükseltme ile yükselir.
 
 [Hipo Club'ın nasıl çalıştığı hakkında daha fazla bilgi edinin](/docs/giveaways-and-prizes/hipo-club/)
 

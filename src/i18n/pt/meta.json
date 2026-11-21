@@ -448,7 +448,7 @@
     "reviewed": false
   },
   "app.reward.season.claimHint": {
-    "sourceHash": "bc7c9e8274f4b9bcdf2717a546563204a754a4e0",
+    "sourceHash": "e9f4ed84bf64d4d9bf15a5cfb9fd4ba57eeb0db3",
     "reviewed": false
   },
   "app.reward.season.claimRow": {
@@ -1120,7 +1120,7 @@
     "reviewed": false
   },
   "club.claim.opensAtMin": {
-    "sourceHash": "06b0812356e140af7540568c52c2e9fe9f6707e2",
+    "sourceHash": "ee4f641a9a3f043b09c5721310699bc8e542a362",
     "reviewed": false
   },
   "club.claim.opensIn": {
@@ -1144,7 +1144,7 @@
     "reviewed": false
   },
   "club.claim.terms": {
-    "sourceHash": "bc1e9ffa120296bd090cf9ebf59c6a10e4763622",
+    "sourceHash": "0298514b7d9e3e4e2d5fd33bbf80d93799e3fa51",
     "reviewed": false
   },
   "club.claim.title": {
@@ -1152,11 +1152,11 @@
     "reviewed": false
   },
   "club.claim.toMin": {
-    "sourceHash": "f2b55a23735110d223e59ba7231a52e9ba4093ab",
+    "sourceHash": "28ef3a3b8e9fa19951cc02dbe0026dec0fecdfc2",
     "reviewed": false
   },
   "club.claim.toMinRounds": {
-    "sourceHash": "b0eda5be04558b0ce35ae0378c9bf975e077d860",
+    "sourceHash": "3b9a1907f77c7faa4d70d7382a548829334f31ad",
     "reviewed": false
   },
   "club.claim.unknown": {
@@ -1744,7 +1744,7 @@
     "reviewed": false
   },
   "club.error.belowMin": {
-    "sourceHash": "2cb8834a1f5a2875eba5d53fd43352b5184d8b31",
+    "sourceHash": "37032a1380ff21b731d3c51efa402f35c57c7645",
     "reviewed": false
   },
   "club.error.busy": {
@@ -2088,7 +2088,7 @@
     "reviewed": false
   },
   "club.gate.belowMin": {
-    "sourceHash": "06b0812356e140af7540568c52c2e9fe9f6707e2",
+    "sourceHash": "ee4f641a9a3f043b09c5721310699bc8e542a362",
     "reviewed": false
   },
   "club.gate.frozen": {
@@ -2376,7 +2376,7 @@
     "reviewed": false
   },
   "club.levelUp.seasonBody": {
-    "sourceHash": "3012f654e9535cbc080ec9d7e2228120838b41d6",
+    "sourceHash": "e46cd9625f800a8536a550860e82f6d08bc02764",
     "reviewed": false
   },
   "club.levelUp.seasonHold": {
@@ -2908,7 +2908,7 @@
     "reviewed": false
   },
   "club.revenue.belowMin": {
-    "sourceHash": "dde0f62bb55d559b1b0fdbcf6690d8f3f646e642",
+    "sourceHash": "c1acd3fb3dda9b4c050c6bb9c65512c4d06da7b0",
     "reviewed": false
   },
   "club.revenue.body": {
@@ -2960,7 +2960,7 @@
     "reviewed": false
   },
   "club.revenue.rules": {
-    "sourceHash": "4da60bd70178a58f27147b39ec8eb1659daf0426",
+    "sourceHash": "03264b7eb0151bcc9a81ddd82fb591f46db9c66d",
     "reviewed": false
   },
   "club.revenue.title": {
@@ -3220,11 +3220,11 @@
     "reviewed": false
   },
   "club.status.belowMinBody": {
-    "sourceHash": "b7292c05730911fe4ecd76985ddae5156564f4c7",
+    "sourceHash": "d977d00964295bbc872c11a3b66be43874aeff5d",
     "reviewed": false
   },
   "club.status.belowMinBodyNoEstimate": {
-    "sourceHash": "c51ba246bf2b345f3e0308d63abca83c609fef9d",
+    "sourceHash": "47bbcbbbef47dbeed309ab259ae956c4bb14f702",
     "reviewed": false
   },
   "club.status.buyTitle": {
@@ -3684,7 +3684,7 @@
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-club.md": {
-    "sourceHash": "b633df9b799d9eb3844716a1740639b8429a7948",
+    "sourceHash": "1a84eed6005b2db331dfacf0b244c4f2496e4626",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-club/hipo-club-season-2.md": {
@@ -3704,7 +3704,7 @@
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-incentive-programs.md": {
-    "sourceHash": "490e49589042ae5f34edc75508543d1e9a1097cb",
+    "sourceHash": "b2d39fe6a7efe4152f9cbcf4fce19adb5cb2cf1b",
     "reviewed": false
   },
   "docs/giveaways-and-prizes/hipo-nfts.md": {
@@ -3780,7 +3780,7 @@
     "reviewed": false
   },
   "docs/introduction/hipo-rewards.md": {
-    "sourceHash": "ccd6a2124d8191615aca2edcb7120e178c7c09a4",
+    "sourceHash": "5234e39bcb47dba6d5ef74dc68a2d192e64a9b45",
     "reviewed": false
   },
   "docs/introduction/hipo-stats.md": {
@@ -3812,7 +3812,7 @@
     "reviewed": false
   },
   "docs/profit-sharing.md": {
-    "sourceHash": "5120fdc53209757f2a5e897771422df5cf8dd53a",
+    "sourceHash": "b42f0d1f0ac2e51107f9e5a3ab4725a99750d375",
     "reviewed": false
   },
   "docs/risks.md": {
@@ -3840,7 +3840,7 @@
     "reviewed": false
   },
   "docs/wallets-and-rewards.md": {
-    "sourceHash": "8f903ef38e43b34b5f8b727a36381b72d8f0a151",
+    "sourceHash": "2dbd74c1f195f2eb390a2aaea52e285fa4197c90",
     "reviewed": false
   },
   "faq.page.sections": {
@@ -4588,7 +4588,7 @@
     "reviewed": false
   },
   "prose/faq/hpo-token/what-is-hipo-club.md": {
-    "sourceHash": "e24da1ed5bd89cd76df2182d7e27fb56039031d7",
+    "sourceHash": "71986bbc1e112fabe86ad1816ca7203084bce496",
     "reviewed": false
   },
   "prose/faq/hpo-token/what-is-hpo.md": {
@@ -4720,7 +4720,7 @@
     "reviewed": false
   },
   "prose/hpo-faq/06-how-do-i-earn-hpo-and-get-paid.md": {
-    "sourceHash": "00aacb68dde9289173efe540a395d611b99fb7a7",
+    "sourceHash": "cc63868802fccd995a2406518e59c0831c9de9b3",
     "reviewed": false
   },
   "prose/hpo-faq/07-how-do-i-vote-on-hipo-proposals.md": {
@@ -4732,7 +4732,7 @@
     "reviewed": false
   },
   "prose/shell/club/cards/02-claims-and-your-level-minimum.md": {
-    "sourceHash": "dd7edc6ef4a27500c05f21dd0342cfbf36fdabb9",
+    "sourceHash": "55da64a1c1cf98a0409a7e097f02a000ff9bd9e1",
     "reviewed": false
   },
   "prose/shell/club/cards/03-moving-up.md": {

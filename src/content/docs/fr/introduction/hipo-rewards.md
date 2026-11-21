@@ -9,7 +9,7 @@ Staker des GRAM avec Hipo te rémunère via trois flux distincts, sur trois ryth
 - **Récompenses de base**\
   Les récompenses de staking des GRAM, reflétées dans le taux de conversion du hGRAM face au GRAM — réglées **à chaque cycle de validation** (~18 h), sans rien à réclamer
 - **Récompenses bonus**\
-  Des HPO supplémentaires sur la valeur en GRAM de ta mise, boostés par ton niveau [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — accumulés **à chaque cycle de validation**, réclamables dès que tu as 100 HPO, pour 1 GRAM de frais
+  Des HPO supplémentaires sur la valeur en GRAM de ta mise, boostés par ton niveau [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — accumulés **à chaque cycle de validation**, réclamables dès que tu atteins le minimum de réclamation (actuellement 100 HPO ; le Club affiche le minimum en vigueur), pour 1 GRAM de frais
 - **Récompenses supplémentaires**\
   Détiens des HPO → reçois une part des revenus du protocole — **en pause** tant que les frais du protocole sont à 0 %
 
@@ -83,7 +83,7 @@ Il y a deux façons de monter de niveau :
 Deux règles comptent :
 
 - **Garde ton minimum de niveau.** Tout ce que tu réclames s’y ajoute, et ton portefeuille Club doit détenir au moins cette quantité de HPO, dans le portefeuille ou ses pools de liquidité pris en charge. En dessous, tu as 24 heures de grâce à ton plein boost ; ensuite ton niveau est suspendu et gagne à 1×, et après 7 jours de plus tu retombes au niveau 1. Le Club est conçu pour récompenser celles et ceux qui gardent leurs tokens, et c’est le mécanisme qui le garantit — voir [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
-- **Il n’y a pas de fenêtre de réclamation.** Les récompenses s’accumulent à chaque cycle et peuvent être réclamées dès que tu as au moins **100 HPO**, pour 1 GRAM de frais.
+- **Il n’y a pas de fenêtre de réclamation.** Les récompenses s’accumulent à chaque cycle et peuvent être réclamées dès que tu as au moins le minimum de réclamation, pour 1 GRAM de frais. Le minimum est actuellement de **100 HPO** ; le Club affiche le minimum en vigueur.
 
 ## Récompenses supplémentaires : le partage des profits
 

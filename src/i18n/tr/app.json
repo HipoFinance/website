@@ -100,7 +100,7 @@
   "app.reward.claim": "Ödülleri talep et",
   "app.reward.claimableGram": "Gelir payı: {amount}",
   "app.reward.claimableHpo": "Güçlendirilmiş HPO hazır: {amount}",
-  "app.reward.season.claimHint": "Gelecek sezon bir seviye yükselmek için güçlendirilmiş HPO'nuzu sezon bitmeden talep edin. Bir talep en az 100 HPO gerektirir ve 1 GRAM ücrete tabidir.",
+  "app.reward.season.claimHint": "Gelecek sezon bir seviye yükselmek için güçlendirilmiş HPO'nuzu sezon bitmeden talep edin. Bir talep 1 GRAM ücrete tabidir.",
   "app.reward.season.claimRow": "{amount} HPO, ücret {fee} GRAM",
   "app.reward.season.claimed": "{date} tarihinde {amount} talep ettiniz. Gelecek sezon bir seviye yükseliyorsunuz.",
   "app.reward.season.claimedTop": "{date} tarihinde {amount} talep ettiniz. Zaten en üst seviye olan Seviye 10'dasınız.",

@@ -35,10 +35,18 @@ export const TOP_LEVEL = 10
 // The largest fee a payment is ever built for (Definitions, f_n): 0 < f_n ≤ 10,000 GRAM.
 export const MAX_FEE_GRAM = 10_000
 
-// The claim minimum, 100 HPO, in nanoHPO (spec 1 §5).
-export const CLAIM_MIN_NANO = 100_000_000_000n
+// The claim minimum the page falls back to when the server's `hpo_claim_min` is absent or invalid, whole HPO.
+export const DEFAULT_CLAIM_MIN_HPO = 100
 
 const NANO = 1_000_000_000n
+
+/** The claim minimum in nanoHPO: the server's whole-HPO value, else the built-in default. */
+export function claimMinNano(hpo: number | undefined): bigint {
+  return (
+    BigInt(hpo !== undefined && Number.isSafeInteger(hpo) && hpo >= 1 && hpo <= 1000 ? hpo : DEFAULT_CLAIM_MIN_HPO) *
+    NANO
+  )
+}
 
 /** validUntil for a request built now: an integer number of seconds, from the server clock only. */
 export function validUntilAt(serverTime: number): number | undefined {

@@ -28,7 +28,7 @@ Seu nível pertence à sua **conta do Telegram**, junto com o mínimo do nível,
 
 ## Resgate
 
-Você pode resgatar o seu HPO com boost quando tiver **100 HPO**, com uma taxa de **1 GRAM**. O resgate leva todo o seu saldo e o paga na sua carteira do Club. Não há janela de resgate nem desconto: as recompensas se acumulam a cada rodada e podem ser resgatadas sempre que você passar de 100 HPO.
+Você pode resgatar o seu HPO com boost quando atingir **o mínimo de resgate** (atualmente 100 HPO; o Club mostra o mínimo em vigor), com uma taxa de **1 GRAM**. O resgate leva todo o seu saldo e o paga na sua carteira do Club. Não há janela de resgate nem desconto: as recompensas se acumulam a cada rodada e podem ser resgatadas sempre que você passar do mínimo de resgate.
 
 ## O mínimo do seu nível
 
@@ -125,7 +125,7 @@ Cada semana tem um fundo de HPO, definido pela equipe. Quando uma semana se torn
 
 O que os limites seguram fica na tesouraria. O HPO da comunidade não recebe boost de nível.
 
-O HPO é adicionado ao seu saldo não resgatado na quinta-feira. Você o resgata junto com o seu HPO com boost (mínimo de 100 HPO, taxa de 1 GRAM) e, depois de resgatado, ele soma ao mínimo do seu nível.
+O HPO é adicionado ao seu saldo não resgatado na quinta-feira. Você o resgata junto com o seu HPO com boost (mínimo de resgate, taxa de 1 GRAM) e, depois de resgatado, ele soma ao mínimo do seu nível.
 
 ## Temporadas
 

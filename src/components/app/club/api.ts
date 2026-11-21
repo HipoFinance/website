@@ -23,6 +23,27 @@ function int(value: unknown): number | undefined {
   return typeof value === 'number' && Number.isSafeInteger(value) ? value : undefined
 }
 
+// hpo_claim_min: whole HPO, 1 to 1000 (the server's bounds).
+function claimMinHpo(value: unknown): number | undefined {
+  const n = int(value)
+  return n !== undefined && n >= 1 && n <= 1000 ? n : undefined
+}
+
+// gram_claim_min: the server's canonical decimal string, GRAM, 1 to 20: no leading zero, at most two
+// decimals, no trailing zero ("1.5", not "1.50"); anything else is not a minimum.
+const GRAM_MIN_PATTERN = /^[1-9][0-9]*(\.[0-9]?[1-9])?$/
+
+/** The revenue minimum the page falls back to when the server's `gram_claim_min` is absent or invalid. */
+export const DEFAULT_REVENUE_MIN = 10
+
+export function parseGramMin(value: unknown): number | undefined {
+  if (typeof value !== 'string' || !GRAM_MIN_PATTERN.test(value)) {
+    return undefined
+  }
+  const n = Number(value)
+  return n >= 1 && n <= 20 ? n : undefined
+}
+
 function bool(value: unknown): boolean {
   return value === true
 }
@@ -258,7 +279,8 @@ export interface ClubOverview extends ReplyHead {
 
   unclaimed?: string
   unclaimedByStream?: Streams
-  claimMin?: number
+  // hpo_claim_min: whole HPO, an integer from 1 to 1000 (the server's bounds); undefined when absent or invalid.
+  hpoClaimMin?: number
   lastRoundHpo?: string
 
   claim: ClaimGate
@@ -339,7 +361,7 @@ export function toOverview(body: unknown): ClubOverview {
 
     unclaimed: str(b.unclaimed),
     unclaimedByStream: toStreams(b.unclaimed_by_stream),
-    claimMin: int(b.claim_min),
+    hpoClaimMin: claimMinHpo(b.hpo_claim_min),
     lastRoundHpo: str(b.last_round_hpo),
 
     claim: { ok: bool(gate.ok), reason: str(gate.reason), opensAt: int(gate.opens_at) },
@@ -876,6 +898,8 @@ export interface WalletRewards {
   club?: WalletClub
   // R, the revenue-share balance in GRAM (decimal string).
   hpoSumRewards?: string
+  // gram_claim_min: the revenue withdrawal minimum, GRAM; undefined when absent or invalid.
+  gramClaimMin?: number
   hpoWithdrawals: { requestTime?: number; sent?: number; fee?: number; txHash?: string }[]
   earnedRewards: EarnedRound[]
   stakeSumRewards?: string
@@ -903,6 +927,7 @@ export function toWalletRewards(result: unknown): WalletRewards {
             status: str(club.status),
           },
     hpoSumRewards: str(b.hpo_sum_rewards),
+    gramClaimMin: parseGramMin(b.gram_claim_min),
     hpoWithdrawals: list(b.hpo_reward_withdrawals).map((value) => {
       const r = obj(value)
       return { requestTime: int(r.request_time), sent: num(r.sent), fee: num(r.fee), txHash: str(r.tx_hash) }

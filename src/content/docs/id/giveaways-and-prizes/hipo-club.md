@@ -28,7 +28,7 @@ Level Anda milik **akun Telegram** Anda, bersama minimal Level, HPO yang belum d
 
 ## Mengklaim
 
-Anda bisa mengklaim HPO yang di-boost setelah punya **100 HPO**, dengan biaya **1 GRAM**. Satu klaim mengambil seluruh saldo Anda dan membayarkannya ke dompet Club Anda. Tidak ada jendela klaim dan tidak ada diskon: imbalan terkumpul setiap putaran dan bisa diklaim kapan saja saat Anda di atas 100 HPO.
+Anda bisa mengklaim HPO yang di-boost setelah mencapai **minimal klaim** (saat ini 100 HPO; Club menampilkan minimal yang berlaku), dengan biaya **1 GRAM**. Satu klaim mengambil seluruh saldo Anda dan membayarkannya ke dompet Club Anda. Tidak ada jendela klaim dan tidak ada diskon: imbalan terkumpul setiap putaran dan bisa diklaim kapan saja saat Anda di atas minimal klaim.
 
 ## Minimal Level Anda
 
@@ -125,7 +125,7 @@ Setiap minggu punya pool HPO yang ditetapkan tim. Saat suatu minggu menjadi fina
 
 Yang ditahan oleh batas-batas ini tetap berada di treasury. HPO komunitas tidak mendapat boost level.
 
-HPO ditambahkan ke saldo Anda yang belum diklaim pada hari Kamis. Anda mengklaimnya bersama HPO yang di-boost (minimal 100 HPO, biaya 1 GRAM), dan setelah diklaim, HPO itu menambah Minimal Level Anda.
+HPO ditambahkan ke saldo Anda yang belum diklaim pada hari Kamis. Anda mengklaimnya bersama HPO yang di-boost (minimal klaim, biaya 1 GRAM), dan setelah diklaim, HPO itu menambah Minimal Level Anda.
 
 ## Musim
 

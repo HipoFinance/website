@@ -28,7 +28,7 @@ Ton niveau appartient à ton **compte Telegram**, avec ton minimum de niveau, te
 
 ## Réclamer
 
-Tu peux réclamer tes HPO boostés dès que tu as **100 HPO**, pour **1 GRAM** de frais. Une réclamation prend tout ton solde et le verse sur ton portefeuille Club. Il n’y a pas de fenêtre de réclamation ni de remise : les récompenses s’accumulent à chaque cycle et peuvent être réclamées dès que tu dépasses 100 HPO.
+Tu peux réclamer tes HPO boostés dès que tu atteins **le minimum de réclamation** (actuellement 100 HPO ; le Club affiche le minimum en vigueur), pour **1 GRAM** de frais. Une réclamation prend tout ton solde et le verse sur ton portefeuille Club. Il n’y a pas de fenêtre de réclamation ni de remise : les récompenses s’accumulent à chaque cycle et peuvent être réclamées dès que tu dépasses le minimum de réclamation.
 
 ## Ton minimum de niveau
 
@@ -125,7 +125,7 @@ Chaque semaine a une cagnotte de HPO, fixée par l’équipe. Quand une semaine 
 
 Ce que les limites retiennent reste dans la trésorerie. Les HPO de la communauté ne reçoivent aucun boost de niveau.
 
-Les HPO sont ajoutés à ton solde non réclamé le jeudi. Tu les réclames avec tes HPO boostés (100 HPO minimum, 1 GRAM de frais), et une fois réclamés, ils s’ajoutent à ton minimum de niveau.
+Les HPO sont ajoutés à ton solde non réclamé le jeudi. Tu les réclames avec tes HPO boostés (minimum de réclamation, 1 GRAM de frais), et une fois réclamés, ils s’ajoutent à ton minimum de niveau.
 
 ## Saisons
 

@@ -9,7 +9,7 @@ Hipo ile GRAM stake etmek size üç ayrı akıştan, üç farklı zamanlamayla �
 - **Temel ödüller**\
   hGRAM'ın GRAM karşısındaki dönüşüm oranına yansıyan GRAM staking ödülleri — **her doğrulama turunda** (~18 saat) hesaba geçer, talep etmeniz gereken bir şey olmaz
 - **Artırılmış ödüller**\
-  Stake'inizin GRAM cinsinden değeri üzerinden, [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) seviyenizle güçlendirilmiş ek HPO — **her doğrulama turunda** birikir, 100 HPO'ya ulaştığınızda 1 GRAM ücretle talep edilebilir
+  Stake'inizin GRAM cinsinden değeri üzerinden, [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) seviyenizle güçlendirilmiş ek HPO — **her doğrulama turunda** birikir, talep alt sınırına (şu anda 100 HPO; Club geçerli alt sınırı gösterir) ulaştığınızda 1 GRAM ücretle talep edilebilir
 - **Ekstra ödüller**\
   HPO tutun → protokol gelirinden pay alın — protokol ücreti %0 olduğu sürece **duraklatılmıştır**
 
@@ -83,7 +83,7 @@ Seviye atlamanın iki yolu vardır:
 İki kural önemlidir:
 
 - **Seviye minimumunuzu koruyun.** Talep ettiğiniz her şey ona eklenir ve Club cüzdanınızın, cüzdanda ya da desteklenen likidite havuzlarında, en az o kadar HPO tutması gerekir. Altına düşerseniz tam güçlendirmenizle 24 saatlik ek süreniz olur; sonra seviyeniz askıya alınır ve 1× kazanır, 7 gün daha geçince Seviye 1'e dönersiniz. Club, elde tutan kişileri ödüllendirmek üzere tasarlanmıştır ve mekanizma budur — bkz. [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
-- **Talep penceresi yoktur.** Ödüller her turda birikir ve en az **100 HPO**'nuz olduğunda, 1 GRAM ücretle istediğiniz zaman talep edilebilir.
+- **Talep penceresi yoktur.** Ödüller her turda birikir ve talep alt sınırına ulaştığınızda, 1 GRAM ücretle istediğiniz zaman talep edilebilir. Alt sınır şu anda **100 HPO**; Club geçerli alt sınırı gösterir.
 
 ## Ekstra ödüller: kâr paylaşımı
 

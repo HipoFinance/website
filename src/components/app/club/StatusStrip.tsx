@@ -3,7 +3,6 @@
 import { observer } from 'mobx-react-lite'
 import type { ClubModel, Tone } from './ClubModel.ts'
 import { BUY_HPO_URL, HIPO_CHAT_URL } from './ClubModel.ts'
-import { CLAIM_MIN_NANO } from './clubTx.ts'
 import { Button, ErrorLine, Strip, useCardBox } from './ui.tsx'
 
 interface Props {
@@ -281,12 +280,12 @@ const StatusStrip = observer(({ club }: Props) => {
       title = nextLevel === undefined ? t('club.status.bTopTitle') : t('club.status.bTitle', { next: nextLevel })
       const b = club.unclaimedNano
       const estimate = Number(o?.estimateNow ?? '0')
-      const left = b === undefined ? undefined : Number(CLAIM_MIN_NANO - b) / 1e9
+      const left = b === undefined ? undefined : Number(club.claimMin - b) / 1e9
       const rounds = left !== undefined && left > 0 && estimate > 0 ? Math.ceil(left / estimate) : undefined
       body =
         rounds !== undefined
-          ? t('club.status.belowMinBody', { rounds: club.amount(rounds, 0) })
-          : t('club.status.belowMinBodyNoEstimate')
+          ? t('club.status.belowMinBody', { rounds: club.amount(rounds, 0), min: club.claimMinText })
+          : t('club.status.belowMinBodyNoEstimate', { min: club.claimMinText })
       break
     }
     case 'gate': {

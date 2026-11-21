@@ -9,7 +9,7 @@ Fazer staking de GRAM com o Hipo paga você em três fluxos separados, em três 
 - **Recompensas base**\
   Recompensas de staking de GRAM, refletidas na taxa de conversão do hGRAM em relação ao GRAM — liquidadas **a cada rodada de validação** (~18 h), sem nada para resgatar
 - **Recompensas turbinadas**\
-  HPO extra sobre o valor em GRAM do que você tem em staking, com boost segundo o seu nível no [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — acumulado **a cada rodada de validação**, resgatável quando você tiver 100 HPO, com uma taxa de 1 GRAM
+  HPO extra sobre o valor em GRAM do que você tem em staking, com boost segundo o seu nível no [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) — acumulado **a cada rodada de validação**, resgatável quando você atingir o mínimo de resgate (atualmente 100 HPO; o Club mostra o mínimo em vigor), com uma taxa de 1 GRAM
 - **Recompensas adicionais**\
   Manter HPO → receber uma parte da receita do protocolo — **em pausa** enquanto a taxa do protocolo for 0 %
 
@@ -83,7 +83,7 @@ Há duas formas de subir de nível:
 Duas regras importam:
 
 - **Mantenha o mínimo do seu nível.** Tudo o que você resgata soma a ele, e a sua carteira do Club precisa ter pelo menos essa quantidade de HPO, na carteira ou nos pools de liquidez compatíveis. Abaixo dele você tem 24 horas de tolerância com o boost total; depois o nível é suspenso e rende a 1×, e após mais 7 dias você volta ao Nível 1. O Club foi feito para recompensar quem segura os tokens, e esse é o mecanismo — veja [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
-- **Não há janela de resgate.** As recompensas se acumulam a cada rodada e podem ser resgatadas sempre que você tiver pelo menos **100 HPO**, com uma taxa de 1 GRAM.
+- **Não há janela de resgate.** As recompensas se acumulam a cada rodada e podem ser resgatadas sempre que você tiver pelo menos o mínimo de resgate, com uma taxa de 1 GRAM. O mínimo é atualmente de **100 HPO**; o Club mostra o mínimo em vigor.
 
 ## Recompensas adicionais: participação nos lucros
 

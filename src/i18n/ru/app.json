@@ -100,7 +100,7 @@
   "app.reward.claim": "Забрать награды",
   "app.reward.claimableGram": "Доля дохода: {amount}",
   "app.reward.claimableHpo": "Усиленные HPO готовы: {amount}",
-  "app.reward.season.claimHint": "Заберите усиленные HPO до конца сезона, чтобы в следующем подняться на уровень выше. Для получения нужно не менее 100 HPO, комиссия 1 GRAM.",
+  "app.reward.season.claimHint": "Заберите усиленные HPO до конца сезона, чтобы в следующем подняться на уровень выше. Комиссия за получение 1 GRAM.",
   "app.reward.season.claimRow": "{amount} HPO, комиссия {fee} GRAM",
   "app.reward.season.claimed": "Вы забрали {amount} {date}. В следующем сезоне вы поднимитесь на уровень выше.",
   "app.reward.season.claimedTop": "Вы забрали {amount} {date}. Вы уже на уровне 10, максимальном.",

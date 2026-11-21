@@ -28,7 +28,7 @@ Ihr Level gehört zu Ihrem **Telegram-Konto**, zusammen mit Ihrem Level-Minimum,
 
 ## Claimen
 
-Sie können Ihren geboosteten HPO claimen, sobald Sie **100 HPO** haben, gegen eine Gebühr von **1 GRAM**. Ein Claim nimmt Ihr gesamtes Guthaben und zahlt es an Ihre Club-Wallet aus. Es gibt kein Claim-Fenster und keinen Rabatt: Rewards fallen in jeder Runde an und können geclaimt werden, sobald Sie über 100 HPO liegen.
+Sie können Ihren geboosteten HPO claimen, sobald Sie **das Claim-Minimum** erreichen (derzeit 100 HPO; der Club zeigt das jeweils gültige Minimum an), gegen eine Gebühr von **1 GRAM**. Ein Claim nimmt Ihr gesamtes Guthaben und zahlt es an Ihre Club-Wallet aus. Es gibt kein Claim-Fenster und keinen Rabatt: Rewards fallen in jeder Runde an und können geclaimt werden, sobald Sie über dem Claim-Minimum liegen.
 
 ## Ihr Level-Minimum
 
@@ -125,7 +125,7 @@ Jede Woche hat einen HPO-Pool, den das Team festlegt. Wird eine Woche am Donners
 
 Was die Grenzen zurückhalten, bleibt in der Treasury. Community-HPO erhält keinen Level-Boost.
 
-Das HPO wird am Donnerstag Ihrem nicht geclaimten Guthaben hinzugefügt. Sie claimen es zusammen mit Ihrem geboosteten HPO (mindestens 100 HPO, Gebühr 1 GRAM), und nach dem Claim erhöht es Ihr Level-Minimum.
+Das HPO wird am Donnerstag Ihrem nicht geclaimten Guthaben hinzugefügt. Sie claimen es zusammen mit Ihrem geboosteten HPO (Claim-Minimum, Gebühr 1 GRAM), und nach dem Claim erhöht es Ihr Level-Minimum.
 
 ## Seasons
 

@@ -45,9 +45,10 @@ import {
   type PrepareReply,
   type ReplyHead,
   type WalletRewards,
+  DEFAULT_REVENUE_MIN,
 } from './api.ts'
 import { authBody, authOutcome, sessionFitsInitData, type Credentials } from './auth.ts'
-import { CLAIM_MIN_NANO, HIPO_TON, parseHpoNano, upgradeAmountNano, upgradeTarget } from './clubTx.ts'
+import { HIPO_TON, claimMinNano, parseHpoNano, upgradeAmountNano, upgradeTarget } from './clubTx.ts'
 import {
   CLAIMS_OPEN_MARGIN,
   SUSPEND_DEADLINE_MARGIN,
@@ -97,8 +98,8 @@ const PROOF_AFTER_CANCEL = 5_000
 const PROOF_AFTER_SELECT = 120_000
 // How often a load may check the due claim locks on the chain (settleDueClaimLocks).
 const CLAIM_LOCK_CHECK_EVERY = 5 * 60_000
-// Revenue share: offered from 10 GRAM; the server deducts 0.5 GRAM (withdrawrewards.go:61).
-export const REVENUE_MIN = 10
+// Revenue share: offered from the server's minimum (gram_claim_min); the server deducts 0.5 GRAM
+// (withdrawrewards.go:61).
 export const REVENUE_FEE = 0.5
 // The swap link of the Buy HPO actions (2b §4, BUILD-PLAN §2).
 export const BUY_HPO_URL = 'https://app.ston.fi/swap?chartVisible=false&ft=TON&tt=HPO'
@@ -707,8 +708,8 @@ export class ClubModel {
     if (!o.claim.ok) {
       return this.gateError(o.claim.reason ?? 'unknown')
     }
-    if (b < CLAIM_MIN_NANO) {
-      return { key: 'club.claim.opensAtMin' }
+    if (b < this.claimMin) {
+      return { key: 'club.claim.opensAtMin', params: { min: this.claimMinText } }
     }
     // Reading tick makes the countdown re-render every second and the button turn on at zero by itself.
     void this.tick
@@ -731,7 +732,7 @@ export class ClubModel {
     if (!this.translator.has(key)) {
       return { key: 'club.gate.unknown' }
     }
-    return { key, params: { date: this.date(dateAt, true) } }
+    return { key, params: { date: this.date(dateAt, true), min: this.claimMinText } }
   }
 
   // n, the upgrade's target (1-based), and its fee from clublevels, when an upgrade can be offered.
@@ -804,6 +805,25 @@ export class ClubModel {
     return n !== undefined && Number.isFinite(n) ? n : undefined
   }
 
+  // The revenue withdrawal minimum, GRAM: the server's, else 10. Compared like the balance, both through Number().
+  get revenueMin(): number {
+    return this.walletRewards?.gramClaimMin ?? DEFAULT_REVENUE_MIN
+  }
+
+  // The claim minimum, nanoHPO: the server's, else 100 HPO.
+  get claimMin(): bigint {
+    return claimMinNano(this.overview?.hpoClaimMin)
+  }
+
+  // The two minimums as text for the sentences ({min}).
+  get revenueMinText(): string {
+    return this.amount(this.revenueMin, 2)
+  }
+
+  get claimMinText(): string {
+    return this.amount(Number(this.claimMin / 1_000_000_000n), 0)
+  }
+
   get withdrawBlock(): ActionError | undefined {
     if (this.session === undefined) {
       return { key: 'club.revenue.needsTelegram' }
@@ -815,8 +835,8 @@ export class ClubModel {
       return { key: 'club.revenue.noWallet' }
     }
     const r = this.revenueBalance
-    if (r === undefined || r < REVENUE_MIN) {
-      return { key: 'club.revenue.belowMin' }
+    if (r === undefined || r < this.revenueMin) {
+      return { key: 'club.revenue.belowMin', params: { min: this.revenueMinText } }
     }
     if (this.withdrawing) {
       return { key: 'club.revenue.inFlight' }
@@ -1456,6 +1476,10 @@ export class ClubModel {
     // A refusal reason this page has no sentence for (an older server's) gets the generic one.
     if (error !== undefined && error.key.startsWith('club.error.') && !this.translator.has(error.key)) {
       error = { key: 'club.error.retry' }
+    }
+    // The refusal sentence that names the claim minimum gets the server's value.
+    if (error?.key === 'club.error.belowMin') {
+      error = { ...error, params: { min: this.claimMinText, ...error.params } }
     }
     this.actionError = error
   }
@@ -2111,6 +2135,7 @@ export class ClubModel {
         upgradeFee: o.upgradeFee,
         wrapupPending: o.wrapupPending,
         payInProgress: o.payInProgress,
+        hpoClaimMin: o.hpoClaimMin,
       }
     }
     return {

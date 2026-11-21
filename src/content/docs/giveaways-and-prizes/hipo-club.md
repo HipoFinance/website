@@ -28,7 +28,7 @@ Your level belongs to your **Telegram account**, together with your Level minimu
 
 ## Claiming
 
-You can claim your boosted HPO once you have **100 HPO**, for a **1 GRAM** fee. A claim takes your whole balance and pays it to your Club wallet. There is no claiming window and no discount: rewards accrue every round and can be claimed whenever you are over 100 HPO.
+You can claim your boosted HPO once you have **the claim minimum** (currently 100 HPO; the Club shows the minimum in force), for a **1 GRAM** fee. A claim takes your whole balance and pays it to your Club wallet. There is no claiming window and no discount: rewards accrue every round and can be claimed whenever you are over the claim minimum.
 
 ## Your Level minimum
 
@@ -125,7 +125,7 @@ Each week has a pool of HPO, set by the team. When a week becomes final on Thurs
 
 What the limits hold back stays in the treasury. Community HPO gets no level boost.
 
-The HPO is added to your unclaimed balance on Thursday. You claim it together with your boosted HPO (100 HPO minimum, 1 GRAM fee), and once claimed it adds to your Level minimum.
+The HPO is added to your unclaimed balance on Thursday. You claim it together with your boosted HPO (claim minimum, 1 GRAM fee), and once claimed it adds to your Level minimum.
 
 ## Seasons
 

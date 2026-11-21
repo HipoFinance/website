@@ -23,7 +23,7 @@ O hGRAM numa carteira que você **nunca** conectou não rende nenhuma recompensa
 ## Sua carteira do Club e suas outras carteiras
 
 - **O seu nível do Hipo Club pertence à sua conta do Telegram, não a uma carteira.** Uma carteira por vez, a sua carteira do Club, rende no boost do seu nível. As suas outras carteiras registradas rendem a 1×.
-- **Os resgates passam pela carteira do Club.** O seu HPO com boost é um único saldo na sua conta do Telegram, resgatado a partir de 100 HPO com uma taxa de 1 GRAM e pago na sua carteira do Club. O HPO que uma carteira rende enquanto não é a sua carteira do Club fica com ela e passa para a sua conta quando você a torna a sua carteira do Club.
+- **Os resgates passam pela carteira do Club.** O seu HPO com boost é um único saldo na sua conta do Telegram, resgatado a partir de um mínimo que hoje é de 100 HPO (o Club mostra o mínimo em vigor), com uma taxa de 1 GRAM e pago na sua carteira do Club. O HPO que uma carteira rende enquanto não é a sua carteira do Club fica com ela e passa para a sua conta quando você a torna a sua carteira do Club.
 - **As recompensas dependem do valor mantido.** Dividir o hGRAM entre carteiras rende as mesmas recompensas básicas, mas só a parte na sua carteira do Club recebe boost. Para ter o boost total, mantenha o seu hGRAM na carteira do Club ou nos pools de liquidez compatíveis.
 - **Uma conta por carteira.** Uma carteira só pode ser a carteira do Club de uma conta do Telegram.
 

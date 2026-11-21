@@ -28,7 +28,7 @@ Tu nivel pertenece a tu **cuenta de Telegram**, junto con tu mínimo de nivel, t
 
 ## Reclamar
 
-Puedes reclamar tu HPO potenciado cuando tengas **100 HPO**, con una comisión de **1 GRAM**. Una reclamación toma todo tu saldo y lo paga a tu billetera del Club. No hay ventana de reclamación ni descuento: las recompensas se acumulan en cada ronda y se pueden reclamar siempre que pases de 100 HPO.
+Puedes reclamar tu HPO potenciado cuando llegues al **mínimo de reclamación** (actualmente 100 HPO; el Club muestra el mínimo vigente), con una comisión de **1 GRAM**. Una reclamación toma todo tu saldo y lo paga a tu billetera del Club. No hay ventana de reclamación ni descuento: las recompensas se acumulan en cada ronda y se pueden reclamar siempre que superes el mínimo de reclamación.
 
 ## Tu mínimo de nivel
 
@@ -125,7 +125,7 @@ Cada semana tiene un fondo de HPO, fijado por el equipo. Cuando una semana pasa 
 
 Lo que los límites retienen se queda en la tesorería. El HPO de la comunidad no recibe el multiplicador del nivel.
 
-El HPO se suma a tu saldo sin reclamar el jueves. Lo reclamas junto con tu HPO potenciado (mínimo 100 HPO, comisión de 1 GRAM), y una vez reclamado se suma a tu mínimo de nivel.
+El HPO se suma a tu saldo sin reclamar el jueves. Lo reclamas junto con tu HPO potenciado (mínimo de reclamación, comisión de 1 GRAM), y una vez reclamado se suma a tu mínimo de nivel.
 
 ## Temporadas
 

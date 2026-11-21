@@ -100,7 +100,7 @@
   "app.reward.claim": "Resgatar",
   "app.reward.claimableGram": "Participação na receita: {amount}",
   "app.reward.claimableHpo": "HPO impulsionados prontos: {amount}",
-  "app.reward.season.claimHint": "Resgate seus HPO impulsionados antes do fim da temporada para subir um nível na próxima. Um resgate exige pelo menos 100 HPO e custa 1 GRAM.",
+  "app.reward.season.claimHint": "Resgate seus HPO impulsionados antes do fim da temporada para subir um nível na próxima. Um resgate custa 1 GRAM.",
   "app.reward.season.claimRow": "{amount} HPO, taxa {fee} GRAM",
   "app.reward.season.claimed": "Você resgatou {amount} em {date}. Você sobe um nível na próxima temporada.",
   "app.reward.season.claimedTop": "Você resgatou {amount} em {date}. Você já está no nível 10, o mais alto.",

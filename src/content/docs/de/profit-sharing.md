@@ -8,5 +8,5 @@ Hipo schüttet einen Teil der Protokollerlöse an **HPO-Inhaber** aus. Ihr Antei
 
 - Wenn es Erlöse zu verteilen gibt, werden sie nach jeder Validierungsrunde berechnet. Je mehr HPO gehalten werden, desto größer ist der Anteil an den Erlösen.
 - **Derzeit pausiert:** Die Protokollgebühr beträgt aktuell 0 %, daher werden keine neuen Erlöse verteilt, und einen Termin für die Wiederaufnahme gibt es nicht.
-- Erlöse aus früheren Seasons können jederzeit abgehoben werden, ab 10 GRAM. Eine Gebühr von 0,5 GRAM wird abgezogen, der Rest wird als damit gekauftes HPO an Ihre Club-Wallet gezahlt. Dieses HPO erhöht nicht das Level-Minimum Ihres Hipo Club.
+- Erlöse aus früheren Seasons können jederzeit abgehoben werden, ab einem Minimum, das derzeit 10 GRAM beträgt (der Club zeigt das jeweils gültige Minimum an). Eine Gebühr von 0,5 GRAM wird abgezogen, der Rest wird als damit gekauftes HPO an Ihre Club-Wallet gezahlt. Dieses HPO erhöht nicht das Level-Minimum Ihres Hipo Club.
 - Die Parameter der Gewinnbeteiligung — etwa die Erlösaufteilung und die operativen Zuteilungen — werden per **DAO-Abstimmung** festgelegt, damit das Modell community-getrieben bleibt.

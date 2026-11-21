@@ -23,7 +23,7 @@ hGRAM sitting in a wallet you have **never** connected earns no HPO rewards at a
 ## Your Club wallet and your other wallets
 
 - **Your Hipo Club level belongs to your Telegram account, not to a wallet.** One wallet at a time, your Club wallet, earns at your level's boost. Your other registered wallets earn at 1×.
-- **Claims go through the Club wallet.** Your boosted HPO is one balance on your Telegram account, claimed from 100 HPO for a 1 GRAM fee and paid to your Club wallet. HPO a wallet earns while it is not your Club wallet stays with that wallet, and joins your account when you make it your Club wallet.
+- **Claims go through the Club wallet.** Your boosted HPO is one balance on your Telegram account, claimed from a minimum that is currently 100 HPO (the Club shows the minimum in force), for a 1 GRAM fee and paid to your Club wallet. HPO a wallet earns while it is not your Club wallet stays with that wallet, and joins your account when you make it your Club wallet.
 - **Rewards scale with the amount held.** Splitting hGRAM across wallets earns the same base rewards, but only the part in your Club wallet is boosted. To get your full boost, keep your hGRAM in your Club wallet or its supported liquidity pools.
 - **One account per wallet.** A wallet can be the Club wallet of only one Telegram account.
 

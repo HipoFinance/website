@@ -100,7 +100,7 @@
   "app.reward.claim": "دریافت پاداش‌ها",
   "app.reward.claimableGram": "سهم درآمد: {amount}",
   "app.reward.claimableHpo": "HPO تقویت‌شده آماده دریافت: {amount}",
-  "app.reward.season.claimHint": "HPO تقویت‌شده خود را پیش از پایان فصل دریافت کنید تا فصل بعد یک سطح بالا بروید. هر دریافت دست‌کم ۱۰۰ HPO لازم دارد و ۱ GRAM کارمزد دارد.",
+  "app.reward.season.claimHint": "HPO تقویت‌شده خود را پیش از پایان فصل دریافت کنید تا فصل بعد یک سطح بالا بروید. هر دریافت ۱ GRAM کارمزد دارد.",
   "app.reward.season.claimRow": "{amount} HPO، کارمزد {fee} GRAM",
   "app.reward.season.claimed": "شما در {date} مقدار {amount} دریافت کردید. فصل بعد یک سطح بالا می‌روید.",
   "app.reward.season.claimedTop": "شما در {date} مقدار {amount} دریافت کردید. شما از قبل در سطح ۱۰، بالاترین سطح، هستید.",

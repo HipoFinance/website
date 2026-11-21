@@ -6,7 +6,6 @@ import { observer } from 'mobx-react-lite'
 import { nodes, Num } from '../Interpolate'
 import type { ClubModel } from './ClubModel.ts'
 import type { ClubTab } from '../Model.ts'
-import { CLAIM_MIN_NANO } from './clubTx.ts'
 import Leaderboard from './Leaderboard.tsx'
 import {
   BalancesIcon,
@@ -181,7 +180,9 @@ export const ClaimCard = observer(({ club }: Props) => {
           <Button kind='primary' onClick={() => club.openModal({ kind: 'linkTelegram', after: 'claim' })}>
             {t('club.common.linkTelegram')}
           </Button>
-          <p className='text-text-faint text-label leading-normal'>{t('club.claim.terms')}</p>
+          <p className='text-text-faint text-label leading-normal'>
+            {t('club.claim.terms', { min: club.claimMinText })}
+          </p>
         </div>
       </Card>
     )
@@ -190,9 +191,10 @@ export const ClaimCard = observer(({ club }: Props) => {
     return <Skeleton className='h-56' />
   }
   const b = club.unclaimedNano
-  const below = b !== undefined && b < CLAIM_MIN_NANO
-  const percent = b === undefined ? 0 : Math.min(100, Number((b * 100n) / CLAIM_MIN_NANO))
-  const left = b === undefined ? undefined : Number(CLAIM_MIN_NANO - b) / 1e9
+  const min = club.claimMin
+  const below = b !== undefined && b < min
+  const percent = b === undefined ? 0 : Math.min(100, Number((b * 100n) / min))
+  const left = b === undefined ? undefined : Number(min - b) / 1e9
   const estimate = Number(o.estimateNow ?? '0')
   const rounds = left !== undefined && left > 0 && estimate > 0 ? Math.ceil(left / estimate) : undefined
   const block = club.claimBlock
@@ -233,8 +235,12 @@ export const ClaimCard = observer(({ club }: Props) => {
             </div>
             <p className='text-text-muted text-sm'>
               {rounds !== undefined
-                ? t('club.claim.toMinRounds', { left: club.amount2(left), rounds: club.amount(rounds, 0) })
-                : t('club.claim.toMin', { left: club.amount2(left) })}
+                ? t('club.claim.toMinRounds', {
+                    left: club.amount2(left),
+                    rounds: club.amount(rounds, 0),
+                    min: club.claimMinText,
+                  })
+                : t('club.claim.toMin', { left: club.amount2(left), min: club.claimMinText })}
             </p>
           </div>
         )
@@ -258,7 +264,7 @@ export const ClaimCard = observer(({ club }: Props) => {
             ? t('club.claim.button', { amount: club.amount2(o.unclaimed) })
             : t(block.key, block.params)}
         </Button>
-        <p className='text-text-faint text-label leading-normal'>{t('club.claim.terms')}</p>
+        <p className='text-text-faint text-label leading-normal'>{t('club.claim.terms', { min: club.claimMinText })}</p>
       </div>
     </Card>
   )
@@ -430,7 +436,7 @@ export const LevelUp = observer(({ club }: Props) => {
   const holdings = Number(o.holdings ?? '0')
   const above = reset || minimum === 0 || holdings >= minimum
   let seasonTitle = t('club.levelUp.seasonTitle', { level: nextLevel })
-  let seasonBody = t('club.levelUp.seasonBody')
+  let seasonBody = t('club.levelUp.seasonBody', { min: club.claimMinText })
   let seasonTone = 'text-text'
   if (top) {
     seasonTitle = t('club.levelUp.seasonTop')

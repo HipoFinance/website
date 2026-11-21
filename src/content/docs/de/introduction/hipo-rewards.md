@@ -9,7 +9,7 @@ Wenn Sie GRAM mit Hipo staken, werden Sie über drei getrennte Ströme in drei v
 - **Basis-Rewards**\
   Staking-Rewards auf GRAM, die sich im Wechselkurs von hGRAM gegenüber GRAM abbilden — verrechnet **in jeder Validierungsrunde** (~18 h), ohne dass Sie etwas beanspruchen müssen
 - **Zusätzliche Rewards**\
-  Extra HPO auf den GRAM-Wert Ihres Stakes, geboostet durch Ihr [Hipo-Club](/docs/giveaways-and-prizes/hipo-club/)-Level — fällt **in jeder Validierungsrunde** an und ist claimbar, sobald Sie 100 HPO haben, gegen eine Gebühr von 1 GRAM
+  Extra HPO auf den GRAM-Wert Ihres Stakes, geboostet durch Ihr [Hipo-Club](/docs/giveaways-and-prizes/hipo-club/)-Level — fällt **in jeder Validierungsrunde** an und ist claimbar, sobald Sie das Claim-Minimum erreichen (derzeit 100 HPO; der Club zeigt das jeweils gültige Minimum an), gegen eine Gebühr von 1 GRAM
 - **Weitere Rewards**\
   HPO halten → einen Anteil an den Einnahmen des Protokolls erhalten — **pausiert**, solange die Protokollgebühr 0 % beträgt
 
@@ -83,7 +83,7 @@ Es gibt zwei Wege, aufzusteigen:
 Zwei Regeln sind wichtig:
 
 - **Halten Sie Ihr Level-Minimum.** Alles, was Sie claimen, kommt dazu, und Ihre Club-Wallet muss mindestens so viel HPO halten, in der Wallet oder in ihren unterstützten Liquiditätspools. Darunter haben Sie 24 Stunden Schonfrist mit vollem Boost; danach wird Ihr Level ausgesetzt und verdient 1×, und nach weiteren 7 Tagen fallen Sie auf Level 1 zurück. Der Club ist darauf ausgelegt, Menschen zu belohnen, die halten, und das ist der Mechanismus dafür — siehe [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
-- **Es gibt kein Claim-Fenster.** Rewards fallen in jeder Runde an und können geclaimt werden, sobald Sie mindestens **100 HPO** haben, gegen eine Gebühr von 1 GRAM.
+- **Es gibt kein Claim-Fenster.** Rewards fallen in jeder Runde an und können geclaimt werden, sobald Sie mindestens das Claim-Minimum haben, gegen eine Gebühr von 1 GRAM. Das Minimum beträgt derzeit **100 HPO**; der Club zeigt das jeweils gültige Minimum an.
 
 ## Weitere Rewards: Gewinnbeteiligung
 

@@ -28,7 +28,7 @@ Seviyeniz **Telegram hesabınıza** aittir; Seviye minimumunuz, talep edilmemiş
 
 ## Talep etme
 
-Güçlendirilmiş HPO'nuzu **100 HPO**'ya ulaştığınızda, **1 GRAM** ücretle talep edebilirsiniz. Talep tüm bakiyenizi alır ve Club cüzdanınıza öder. Talep penceresi ve indirim yoktur: ödüller her turda birikir ve 100 HPO'nun üzerindeyken istediğiniz zaman talep edilebilir.
+Güçlendirilmiş HPO'nuzu **talep alt sınırına** (şu anda 100 HPO; Club geçerli alt sınırı gösterir) ulaştığınızda, **1 GRAM** ücretle talep edebilirsiniz. Talep tüm bakiyenizi alır ve Club cüzdanınıza öder. Talep penceresi ve indirim yoktur: ödüller her turda birikir ve talep alt sınırının üzerindeyken istediğiniz zaman talep edilebilir.
 
 ## Seviye minimumunuz
 
@@ -125,7 +125,7 @@ Her haftanın, ekibin belirlediği bir HPO havuzu vardır. Bir hafta Perşembe g
 
 Sınırların geri tuttuğu kısım hazinede kalır. Topluluk HPO'su seviye güçlendirmesi almaz.
 
-HPO, Perşembe günü talep edilmemiş bakiyenize eklenir. Güçlendirilmiş HPO'nuzla birlikte talep edersiniz (alt sınır 100 HPO, ücret 1 GRAM) ve talep edildikten sonra Seviye minimumunuza eklenir.
+HPO, Perşembe günü talep edilmemiş bakiyenize eklenir. Güçlendirilmiş HPO'nuzla birlikte talep edersiniz (talep alt sınırı, ücret 1 GRAM) ve talep edildikten sonra Seviye minimumunuza eklenir.
 
 ## Sezonlar
 

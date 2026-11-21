@@ -29,7 +29,7 @@ import type { Address, Cell } from '@ton/core'
 import type { TonClient4 } from '@ton/ton'
 import {
   CLAIM_FEE_NANO,
-  CLAIM_MIN_NANO,
+  claimMinNano,
   HIPO_TON,
   OP_CLAIM,
   OP_UPGRADE,
@@ -791,6 +791,8 @@ export interface GuardOverview extends GuardStatus {
   claims: ClaimRecordTimes[]
   upgradeFee?: unknown
   wrapupPending: boolean
+  // cluboverview.hpo_claim_min, whole HPO; undefined falls back to the built-in 100.
+  hpoClaimMin?: number
 }
 
 export interface GuardLevels {
@@ -953,7 +955,7 @@ export function claimProblem(overview: GuardOverview, serverNow: number): Paymen
   if (unclaimed === undefined) {
     return 'unknownBalance'
   }
-  if (unclaimed < CLAIM_MIN_NANO) {
+  if (unclaimed < claimMinNano(overview.hpoClaimMin)) {
     return 'belowMin'
   }
   if (

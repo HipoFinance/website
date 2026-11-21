@@ -9,7 +9,7 @@ Staking GRAM with Hipo pays you in three separate streams, on three different cl
 - **Base rewards**\
   GRAM staking rewards, reflected in hGRAM's exchange rate against GRAM — settled **every validation round** (~18 h), nothing to claim
 - **Boosted rewards**\
-  Extra HPO on the GRAM value of your stake, boosted by your [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) level — accrues **every validation round**, claimable once you have 100 HPO, for a 1 GRAM fee
+  Extra HPO on the GRAM value of your stake, boosted by your [Hipo Club](/docs/giveaways-and-prizes/hipo-club/) level — accrues **every validation round**, claimable once you have the claim minimum (currently 100 HPO; the Club shows the minimum in force), for a 1 GRAM fee
 - **Extra rewards**\
   Hold HPO → receive a share of protocol revenue — **paused** while the protocol fee is 0%
 
@@ -83,7 +83,7 @@ There are two ways to level up:
 Two rules matter:
 
 - **Keep your Level minimum.** Everything you claim adds to it, and your Club wallet has to hold at least that much HPO, in the wallet or its supported liquidity pools. Below it you have 24 hours of grace at your full boost; then your level is suspended and earns 1×, and after 7 more days you return to Level 1. The Club is designed to reward people who hold, and this is the mechanism — see [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
-- **There is no claiming window.** Rewards accrue every round and can be claimed whenever you have at least **100 HPO**, for a 1 GRAM fee.
+- **There is no claiming window.** Rewards accrue every round and can be claimed whenever you have at least the claim minimum, for a 1 GRAM fee. The minimum is currently **100 HPO**; the Club shows the minimum in force.
 
 ## Extra rewards: profit sharing
 

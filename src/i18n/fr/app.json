@@ -100,7 +100,7 @@
   "app.reward.claim": "Réclamer les récompenses",
   "app.reward.claimableGram": "Part des revenus : {amount}",
   "app.reward.claimableHpo": "HPO boostés prêts : {amount}",
-  "app.reward.season.claimHint": "Réclame tes HPO boostés avant la fin de la saison pour monter d'un niveau la saison prochaine. Une réclamation demande au moins 100 HPO et coûte 1 GRAM.",
+  "app.reward.season.claimHint": "Réclame tes HPO boostés avant la fin de la saison pour monter d'un niveau la saison prochaine. Une réclamation coûte 1 GRAM.",
   "app.reward.season.claimRow": "{amount} HPO, frais {fee} GRAM",
   "app.reward.season.claimed": "Tu as réclamé {amount} le {date}. Tu montes d'un niveau la saison prochaine.",
   "app.reward.season.claimedTop": "Tu as réclamé {amount} le {date}. Tu es déjà au niveau 10, le plus élevé.",

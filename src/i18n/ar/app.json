@@ -100,7 +100,7 @@
   "app.reward.claim": "استلام المكافآت",
   "app.reward.claimableGram": "حصة الإيرادات: {amount}",
   "app.reward.claimableHpo": "رموز HPO المعزّزة الجاهزة: {amount}",
-  "app.reward.season.claimHint": "استلم رموز HPO المعزّزة قبل نهاية الموسم لتنتقل إلى المستوى التالي في الموسم القادم. يتطلب الاستلام ١٠٠ HPO على الأقل وتبلغ رسومه ١ GRAM.",
+  "app.reward.season.claimHint": "استلم رموز HPO المعزّزة قبل نهاية الموسم لتنتقل إلى المستوى التالي في الموسم القادم. تبلغ رسوم الاستلام ١ GRAM.",
   "app.reward.season.claimRow": "{amount} HPO، الرسوم {fee} GRAM",
   "app.reward.season.claimed": "استلمت {amount} بتاريخ {date}. ستنتقل إلى المستوى التالي في الموسم القادم.",
   "app.reward.season.claimedTop": "استلمت {amount} بتاريخ {date}. أنت بالفعل في المستوى ١٠، وهو أعلى مستوى.",

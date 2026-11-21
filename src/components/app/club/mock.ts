@@ -12,6 +12,7 @@
 //   ?clubErr=    any spec 2 reason, returned by the next prepare/confirm (e.g. wallet_taken)
 //   ?clubFees=   next  mismatch  bad                                    a clublevels the guard refuses
 //   ?clubSkew=   seconds the server clock is ahead of the device (default 0)
+//   ?clubGramMin= ?clubHpoMin=  the server's minimums, e.g. 2.5 and 50 (default 10 and 100); none = field absent
 //   ?clubPay=    claim  upgrade  fail                                  the server's "payment in progress"
 //                record: claim / upgrade = one is open from another device (the buttons say "on its
 //                way", clubpayintent refuses, a wallet switch or release is refused with
@@ -24,7 +25,7 @@ import type { Address } from '@ton/core'
 import type { TreasuryConfig, WalletState } from '@hipo-finance/sdk'
 import { runInAction } from 'mobx'
 import type { Model } from '../Model'
-import { ClubSocketError, type ClubTransport, type WalletRewards } from './api.ts'
+import { ClubSocketError, parseGramMin, type ClubTransport, type WalletRewards } from './api.ts'
 import { ChainReadError, type ChainRead, type ChainReader } from './payments.ts'
 import type { ClubTx } from './clubTx.ts'
 
@@ -729,7 +730,7 @@ export class ClubMock implements ClubTransport {
       gate = { ok: false, reason: 'frozen' }
     } else if (a.switchPending) {
       gate = { ok: false, reason: 'switch_pending' }
-    } else if (a.unclaimed < 100) {
+    } else if (a.unclaimed < this.servedHpoMin()) {
       gate = { ok: false, reason: 'below_min' }
     }
     let chip = 'active'
@@ -801,7 +802,8 @@ export class ClubMock implements ClubTransport {
         referral: hpo(Math.min(a.referral, a.unclaimed)),
         community: hpo(0),
       },
-      claim_min: 100,
+      hpo_claim_min:
+        this.minimum('clubHpoMin', '100') === undefined ? undefined : Number(this.minimum('clubHpoMin', '100')),
       last_round_hpo: perRound(coefficient),
       claim: gate,
       claims_open_at: a.claimsOpenAt !== undefined && now < a.claimsOpenAt + 60 ? a.claimsOpenAt : undefined,
@@ -1091,6 +1093,7 @@ export class ClubMock implements ClubTransport {
               }
             : { clubWallet: false },
       hpoSumRewards: this.scenario === 'empty' ? '0' : '12.84',
+      gramClaimMin: parseGramMin(this.minimum('clubGramMin', '10')),
       hpoWithdrawals: [{ requestTime: now - 120 * DAY, sent: 7.3, fee: 0.5, txHash: '' }],
       earnedRewards: Array.from({ length: 10 }, (_, i) => ({
         time: now - i * ROUND - 3000,
@@ -1101,6 +1104,20 @@ export class ClubMock implements ClubTransport {
       stakeSumRewards: '19.4417',
       stakeRewardsSince: now - 75 * DAY,
     }
+  }
+
+  // The server's minimums as the preview serves them: ?clubGramMin=2.5&clubHpoMin=50 (default 10 and 100);
+  // 'none' leaves the field out, any other text is what the page must treat as invalid.
+  // The claim minimum the mock's gate holds: the served hpo_claim_min, or 100 when it is absent or
+  // invalid, the same fallback the page uses, so the gate and the page agree.
+  servedHpoMin(): number {
+    const n = Number(this.minimum('clubHpoMin', '100'))
+    return Number.isSafeInteger(n) && n >= 1 ? n : 100
+  }
+
+  minimum(name: 'clubGramMin' | 'clubHpoMin', fallback: string): string | undefined {
+    const value = sticky(name) ?? fallback
+    return value === 'none' ? undefined : value
   }
 
   // True when the preview should be logged in from the start (a scenario past state A).

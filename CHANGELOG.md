@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-21 — Club: withdrawal minimums read from the server (English only)
+
+- The revenue withdrawal minimum (`gram_claim_min` of `/wallet-rewards`) and the claim minimum (`hpo_claim_min` of `/cluboverview`, replacing the unused `claim_min`) replace the hard-coded `REVENUE_MIN` and `CLAIM_MIN_NANO`; the withdraw button, the claim gate, the progress bar, "HPO left" and the English sentences follow them, because admins now set them.
+- An absent or invalid value falls back to 10 GRAM / 100 HPO and the buttons stay on, so the page survives a server rollback; the server gates both actions anyway.
+- Fees unchanged: `REVENUE_FEE`, `CLAIM_FEE_NANO` and the 1 GRAM claim transaction. English docs say "currently" and that the Club shows the minimum in force. Other locales wait for approval of the English. Spec: `club-server/specs/configurable-withdrawal-minimums.md`.
+
 ## 2026-11-18 — Club: Community rows on Rewards, team preview (English only)
 
 - Rewards history lists each credited Community week (payment Thursday, HPO) with a new "Community" filter; the pill shows while Community pay is on or a row exists. The tab loads the Community data itself.

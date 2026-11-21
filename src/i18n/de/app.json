@@ -100,7 +100,7 @@
   "app.reward.claim": "Rewards holen",
   "app.reward.claimableGram": "Umsatzbeteiligung: {amount}",
   "app.reward.claimableHpo": "Geboostete HPO bereit: {amount}",
-  "app.reward.season.claimHint": "Holen Sie Ihre geboosteten HPO vor Saisonende, um nächste Saison ein Level aufzusteigen. Dafür sind mindestens 100 HPO nötig, die Gebühr beträgt 1 GRAM.",
+  "app.reward.season.claimHint": "Holen Sie Ihre geboosteten HPO vor Saisonende, um nächste Saison ein Level aufzusteigen. Die Gebühr beträgt 1 GRAM.",
   "app.reward.season.claimRow": "{amount} HPO, Gebühr {fee} GRAM",
   "app.reward.season.claimed": "Sie haben am {date} {amount} geholt. Nächste Saison steigen Sie ein Level auf.",
   "app.reward.season.claimedTop": "Sie haben am {date} {amount} geholt. Sie sind bereits auf Level 10, dem höchsten Level.",

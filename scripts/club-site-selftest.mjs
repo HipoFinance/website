@@ -11,11 +11,14 @@ import {
   gateMessage,
   parseGrowthBand,
   toLeaderboard,
+  parseGramMin,
   toOverview,
+  toWalletRewards,
   toPayIntentReply,
   toStatus,
 } from '../src/components/app/club/api.ts'
 import { intentCovers } from '../src/components/app/club/payments.ts'
+import { claimMinNano } from '../src/components/app/club/clubTx.ts'
 import { interpolate } from '../src/i18n/make-t.ts'
 import { CLUB_LIVE, CLUB_TG_BOT_ID, clubBuildProblems } from '../src/data/club-flag.mjs'
 
@@ -43,7 +46,7 @@ check('every claim gate sentence is shown with its date, never a literal {date}'
     const { key, dateAt } = gateMessage(reason, overview)
     assert.ok(club[key] !== undefined, `${key} is in the catalog`)
     // What ClubModel.gateError passes: the formatted dateAt as {date}.
-    const text = interpolate(club[key], { date: String(dateAt) })
+    const text = interpolate(club[key], { date: String(dateAt), min: '100' })
     assert.ok(!/[{}]/.test(text), `${key}: ${text}`)
   }
   // No opens_at on the gate: claims_open_at.
@@ -130,6 +133,73 @@ check('growth on the leaderboard: other rows a band string, the own row exact', 
   assert.equal(board.rows[1].growthBand, undefined)
   assert.equal(board.me.growth, 6.4)
   assert.equal(board.me.growthBand, undefined)
+})
+
+// ------------------------------------------------------- the withdrawal minimums (the server's)
+
+check('gram_claim_min is read only as the server writes it; anything else is absent', () => {
+  assert.equal(toWalletRewards({ gram_claim_min: '1' }).gramClaimMin, 1)
+  assert.equal(toWalletRewards({ gram_claim_min: '2.5' }).gramClaimMin, 2.5)
+  assert.equal(toWalletRewards({ gram_claim_min: '10' }).gramClaimMin, 10)
+  assert.equal(toWalletRewards({ gram_claim_min: '20' }).gramClaimMin, 20)
+  assert.equal(toWalletRewards({ gram_claim_min: '1.25' }).gramClaimMin, 1.25)
+  for (const bad of [
+    '0.5',
+    '01',
+    '00',
+    '1.50',
+    '20.01',
+    '21',
+    '99999999999999999999',
+    undefined,
+    null,
+    10,
+    2.5,
+    '',
+    'abc',
+    ' 1',
+    '1 ',
+    '1.',
+    '.5',
+    '-1',
+    '1e1',
+    '1.005',
+    '0',
+    '0.00',
+    '1,5',
+  ]) {
+    assert.equal(toWalletRewards({ gram_claim_min: bad }).gramClaimMin, undefined, String(bad))
+    assert.equal(parseGramMin(bad), undefined, String(bad))
+  }
+})
+
+check('hpo_claim_min is a safe integer 1 to 1000; anything else is absent', () => {
+  assert.equal(toOverview({ ok: true, hpo_claim_min: 50 }).hpoClaimMin, 50)
+  assert.equal(toOverview({ ok: true, hpo_claim_min: 1 }).hpoClaimMin, 1)
+  assert.equal(toOverview({ ok: true, hpo_claim_min: 1000 }).hpoClaimMin, 1000)
+  for (const bad of [1001, undefined, null, '100', 0, -5, 1.5, NaN, 2 ** 60]) {
+    assert.equal(toOverview({ ok: true, hpo_claim_min: bad }).hpoClaimMin, undefined, String(bad))
+  }
+  // The retired field is not read.
+  assert.equal('claimMin' in toOverview({ ok: true, claim_min: 100 }), false)
+})
+
+check("fallback: an absent or invalid claim minimum is 100 HPO, a valid one is the server's, in nanoHPO", () => {
+  assert.equal(claimMinNano(undefined), 100_000_000_000n)
+  assert.equal(claimMinNano(0), 100_000_000_000n)
+  assert.equal(claimMinNano(1.5), 100_000_000_000n)
+  assert.equal(claimMinNano(1001), 100_000_000_000n)
+  assert.equal(claimMinNano(1000), 1000_000_000_000n)
+  assert.equal(claimMinNano(50), 50_000_000_000n)
+  assert.equal(claimMinNano(100), 100_000_000_000n)
+})
+
+check('the English minimum sentences take {min}, none hard-codes 10 GRAM or 100 HPO', () => {
+  for (const [key, text] of Object.entries(club)) {
+    if (/minimum|claim opens|withdrawals start|claim from|to claim/i.test(text)) {
+      assert.ok(!/\b(10 GRAM|100 HPO)\b/.test(text), key)
+    }
+  }
 })
 
 // ------------------------------------------------------------------------------ the build guards

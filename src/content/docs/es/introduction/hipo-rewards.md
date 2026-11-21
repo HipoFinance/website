@@ -9,7 +9,7 @@ Hacer staking de GRAM con Hipo te paga en tres flujos separados, con tres ritmos
 - **Recompensas base**\
   Recompensas de staking de GRAM, reflejadas en la tasa de cambio de hGRAM frente a GRAM: se liquidan **en cada ronda de validación** (~18 h), sin nada que reclamar
 - **Recompensas potenciadas**\
-  HPO adicional sobre el valor en GRAM de tu staking, potenciado por tu nivel de [Hipo Club](/docs/giveaways-and-prizes/hipo-club/): se acumula **en cada ronda de validación** y se puede reclamar cuando tienes 100 HPO, con una comisión de 1 GRAM
+  HPO adicional sobre el valor en GRAM de tu staking, potenciado por tu nivel de [Hipo Club](/docs/giveaways-and-prizes/hipo-club/): se acumula **en cada ronda de validación** y se puede reclamar cuando llegas al mínimo de reclamación (actualmente 100 HPO; el Club muestra el mínimo vigente), con una comisión de 1 GRAM
 - **Recompensas extra**\
   Ten HPO → recibe una parte de los ingresos del protocolo: **en pausa** mientras la comisión del protocolo sea 0 %
 
@@ -83,7 +83,7 @@ Hay dos formas de subir de nivel:
 Hay dos reglas que importan:
 
 - **Mantén tu mínimo de nivel.** Todo lo que reclamas se suma a él, y tu billetera del Club debe tener al menos esa cantidad de HPO, en la billetera o en sus pools de liquidez compatibles. Por debajo del mínimo tienes 24 horas de gracia con todo tu multiplicador; después tu nivel se suspende y ganas a 1×, y pasados 7 días más vuelves al Nivel 1. El Club está diseñado para premiar a quien mantiene, y este es el mecanismo; consulta [Hipo Club](/docs/giveaways-and-prizes/hipo-club/).
-- **No hay ventana para reclamar.** Las recompensas se acumulan en cada ronda y se pueden reclamar cuando tengas al menos **100 HPO**, con una comisión de 1 GRAM.
+- **No hay ventana para reclamar.** Las recompensas se acumulan en cada ronda y se pueden reclamar cuando tengas al menos el mínimo de reclamación, con una comisión de 1 GRAM. El mínimo es actualmente de **100 HPO**; el Club muestra el mínimo vigente.
 
 ## Recompensas extra: reparto de beneficios
 

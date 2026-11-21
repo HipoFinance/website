@@ -23,7 +23,7 @@ Les hGRAM d’un portefeuille que tu n’as **jamais** connecté ne rapportent a
 ## Ton portefeuille Club et tes autres portefeuilles
 
 - **Ton niveau Hipo Club appartient à ton compte Telegram, pas à un portefeuille.** Un seul portefeuille à la fois, ton portefeuille Club, gagne au boost de ton niveau. Tes autres portefeuilles enregistrés gagnent à 1×.
-- **Les réclamations passent par le portefeuille Club.** Tes HPO boostés forment un seul solde sur ton compte Telegram, réclamable dès 100 HPO pour 1 GRAM de frais et versé sur ton portefeuille Club. Les HPO qu’un portefeuille gagne quand il n’est pas ton portefeuille Club restent avec lui, et rejoignent ton compte quand tu en fais ton portefeuille Club.
+- **Les réclamations passent par le portefeuille Club.** Tes HPO boostés forment un seul solde sur ton compte Telegram, réclamable à partir d'un minimum actuellement de 100 HPO (le Club affiche le minimum en vigueur), pour 1 GRAM de frais et versé sur ton portefeuille Club. Les HPO qu’un portefeuille gagne quand il n’est pas ton portefeuille Club restent avec lui, et rejoignent ton compte quand tu en fais ton portefeuille Club.
 - **Les récompenses dépendent du montant détenu.** Répartir tes hGRAM sur plusieurs portefeuilles rapporte les mêmes récompenses de base, mais seule la part qui est dans ton portefeuille Club est boostée. Pour avoir ton plein boost, garde tes hGRAM dans ton portefeuille Club ou ses pools de liquidité pris en charge.
 - **Un compte par portefeuille.** Un portefeuille ne peut être le portefeuille Club que d’un seul compte Telegram.
 

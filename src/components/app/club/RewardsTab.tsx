@@ -560,7 +560,9 @@ export const Revenue = observer(({ club }: Props) => {
             </div>
           )}
         </div>
-        <p className='text-text-faint text-sm leading-normal'>{t('club.revenue.rules')}</p>
+        <p className='text-text-faint text-sm leading-normal'>
+          {t('club.revenue.rules', { min: club.revenueMinText })}
+        </p>
         {history.length > 0 && (
           <p className='text-text-faint text-sm leading-normal'>
             {t('club.revenue.past', {
@@ -582,7 +584,7 @@ export const Revenue = observer(({ club }: Props) => {
           busy={club.withdrawing}
           onClick={() => void club.withdraw()}
         >
-          {block === undefined ? t('club.revenue.button', { amount: club.amount2(r) }) : t(block.key)}
+          {block === undefined ? t('club.revenue.button', { amount: club.amount2(r) }) : t(block.key, block.params)}
         </Button>
         {club.withdrawResult === 'done' && <p className='text-tone-success-fg text-sm'>{t('club.revenue.done')}</p>}
         {club.withdrawResult === 'failed' && <ErrorLine>{t('club.revenue.failed')}</ErrorLine>}

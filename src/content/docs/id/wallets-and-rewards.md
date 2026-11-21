@@ -23,7 +23,7 @@ hGRAM di dompet yang **belum pernah** Anda hubungkan tidak menghasilkan imbalan 
 ## Dompet Club Anda dan dompet Anda yang lain
 
 - **Level Hipo Club Anda milik akun Telegram Anda, bukan dompet.** Satu dompet dalam satu waktu, yaitu dompet Club Anda, menghasilkan dengan boost level Anda. Dompet terdaftar Anda yang lain menghasilkan dengan 1×.
-- **Klaim lewat dompet Club.** HPO yang di-boost adalah satu saldo di akun Telegram Anda, bisa diklaim mulai 100 HPO dengan biaya 1 GRAM dan dibayarkan ke dompet Club Anda. HPO yang dihasilkan sebuah dompet saat bukan dompet Club Anda tetap bersama dompet itu, dan bergabung ke akun Anda saat Anda menjadikannya dompet Club.
+- **Klaim lewat dompet Club.** HPO yang di-boost adalah satu saldo di akun Telegram Anda, bisa diklaim mulai dari batas minimal yang saat ini 100 HPO (Club menampilkan minimal yang berlaku) dengan biaya 1 GRAM dan dibayarkan ke dompet Club Anda. HPO yang dihasilkan sebuah dompet saat bukan dompet Club Anda tetap bersama dompet itu, dan bergabung ke akun Anda saat Anda menjadikannya dompet Club.
 - **Imbalan berskala dengan jumlah yang dipegang.** Membagi hGRAM ke beberapa dompet menghasilkan imbalan dasar yang sama, tetapi hanya bagian di dompet Club Anda yang di-boost. Untuk mendapat boost penuh, simpan hGRAM di dompet Club Anda atau pool likuiditas yang didukung.
 - **Satu akun per dompet.** Sebuah dompet hanya bisa menjadi dompet Club dari satu akun Telegram.
 
