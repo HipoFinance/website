@@ -1762,7 +1762,13 @@ export class Model {
   get unstakeBestRemain() {
     const participations = this.treasuryState?.participations
     if (participations != null) {
-      const keys = participations.keys().sort()
+      // Skip an open round: under the treasury's soft close its stakeHeldUntil is the auction close, not a hold time.
+      const keys = participations
+        .keys()
+        .filter(
+          (key) => (participations.get(key)?.state ?? chain!.ParticipationState.Open) > chain!.ParticipationState.Open,
+        )
+        .sort()
       const remain = this.remainUntil(participations.get(keys[0] ?? 0n)?.stakeHeldUntil ?? 0n)
       if (remain != null) {
         return this.t('app.model.receiveGramIn', { remain: this.isolate(remain) })

@@ -9,6 +9,10 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-22 — Unstake: the "receive GRAM in" time skips an open round
+
+- `unstakeBestRemain` now reads `stakeHeldUntil` from the lowest participation past `Open`, because under the treasury's soft close an open round's slot holds the auction close, which the page would have shown as a payout time. Display only; no amount or transaction changes. Spec: `contract/docs/specs/2026-11-17-soft-close-four-hours.md` (upgrade checklist item in `contract/scripts/upgrade_treasury.md`).
+
 ## 2026-11-21 — Club: withdrawal minimums read from the server (English only)
 
 - The revenue withdrawal minimum (`gram_claim_min` of `/wallet-rewards`) and the claim minimum (`hpo_claim_min` of `/cluboverview`, replacing the unused `claim_min`) replace the hard-coded `REVENUE_MIN` and `CLAIM_MIN_NANO`; the withdraw button, the claim gate, the progress bar, "HPO left" and the English sentences follow them, because admins now set them.
