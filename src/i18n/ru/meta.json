@@ -2771,6 +2771,14 @@
     "sourceHash": "64601734734ee7308822b157556ee7fbd61893d3",
     "reviewed": false
   },
+  "club.modal.tg.phoneNote": {
+    "sourceHash": "f8d901e51ffbc6d3941121e7b6b6c0994a036fe5",
+    "reviewed": false
+  },
+  "club.modal.tg.phoneTitle": {
+    "sourceHash": "ffe5f9a101d06d416a5e9a972b2b3d7f7dd1ba6c",
+    "reviewed": false
+  },
   "club.modal.tg.step1": {
     "sourceHash": "7c8013151c33a6fa48667c5dcc141f15d6af8c36",
     "reviewed": false

@@ -358,6 +358,8 @@
   "club.modal.tg.body": "Claims, Level-Upgrades und Empfehlungen gehören zu Ihrem Club-Konto, das Ihre Telegram-Identität verwendet. Wir schreiben Ihnen auch auf Telegram, falls Ihr HPO unter Ihr Level-Minimum fällt.",
   "club.modal.tg.continue": "Weiter mit Telegram",
   "club.modal.tg.note": "Ihr Level gehört zu Ihrem Telegram-Konto, und jeweils eine Wallet erhält es. Verwendet dieses Telegram-Konto bereits eine andere Wallet, zeigen wir Ihnen deren Level und fragen, bevor wir wechseln.",
+  "club.modal.tg.phoneNote": "Das ist die eigene Anmeldeprüfung von Telegram: Ihre Nummer geht nur an Telegram, Hipo sieht sie nie. Wir erhalten nur Ihren Telegram-Namen und Benutzernamen.",
+  "club.modal.tg.phoneTitle": "Telegram fragt eventuell nach Ihrer Telefonnummer.",
   "club.modal.tg.step1": "1. Mit Telegram anmelden",
   "club.modal.tg.step1Note": "Öffnet Telegram",
   "club.modal.tg.step2": "2. Bestätigen, dass {wallet} Ihnen gehört",

@@ -358,6 +358,8 @@
   "club.modal.tg.body": "المطالبات وترقيات المستوى والإحالات تتبع حساب النادي الخاص بك، الذي يستخدم هويتك على Telegram. سنراسلك أيضًا على Telegram إذا انخفض HPO لديك عن الحد الأدنى لمستواك.",
   "club.modal.tg.continue": "المتابعة عبر Telegram",
   "club.modal.tg.note": "مستواك يتبع حساب Telegram الخاص بك، وتحصل عليه محفظة واحدة في كل مرة. إذا كان حساب Telegram هذا يستخدم محفظة أخرى بالفعل، سنعرض لك مستواها ونسألك قبل التبديل.",
+  "club.modal.tg.phoneNote": "هذا تحقق تسجيل الدخول الخاص بـ Telegram نفسه: رقمك يذهب إلى Telegram فقط، ولا تراه Hipo أبدًا. نحصل فقط على اسمك واسم المستخدم على Telegram.",
+  "club.modal.tg.phoneTitle": "قد يطلب Telegram رقم هاتفك.",
   "club.modal.tg.step1": "١. سجّل الدخول عبر Telegram",
   "club.modal.tg.step1Note": "يفتح Telegram",
   "club.modal.tg.step2": "٢. أكِّد ملكيتك لـ {wallet}",

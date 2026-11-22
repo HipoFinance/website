@@ -358,6 +358,8 @@
   "club.modal.tg.body": "Resgates, upgrades de nível e indicações pertencem à sua conta do Club, que usa a sua identidade no Telegram. Também enviaremos uma mensagem no Telegram se o seu HPO ficar abaixo do mínimo do nível.",
   "club.modal.tg.continue": "Continuar com o Telegram",
   "club.modal.tg.note": "Seu nível pertence à sua conta do Telegram, e uma carteira por vez o recebe. Se esta conta do Telegram já usar outra carteira, mostraremos o nível dela e perguntaremos antes de trocar.",
+  "club.modal.tg.phoneNote": "É a verificação de login do próprio Telegram: o seu número vai só para o Telegram, e a Hipo nunca o vê. Recebemos apenas o seu nome e nome de usuário do Telegram.",
+  "club.modal.tg.phoneTitle": "O Telegram pode pedir o seu número de telefone.",
   "club.modal.tg.step1": "1. Entre com o Telegram",
   "club.modal.tg.step1Note": "Abre o Telegram",
   "club.modal.tg.step2": "2. Confirme que {wallet} é sua",

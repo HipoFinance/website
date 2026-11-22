@@ -358,6 +358,8 @@
   "club.modal.tg.body": "Claims, level upgrades and referrals belong to your Club account, which uses your Telegram identity. We’ll also message you on Telegram if your HPO drops below your Level minimum.",
   "club.modal.tg.continue": "Continue with Telegram",
   "club.modal.tg.note": "Your level belongs to your Telegram account, and one wallet at a time receives it. If this Telegram account already uses another wallet, we’ll show you its level and ask before switching.",
+  "club.modal.tg.phoneNote": "It’s Telegram’s own login check: your number goes to Telegram only, and Hipo never sees it. We get only your Telegram name and username.",
+  "club.modal.tg.phoneTitle": "Telegram may ask for your phone number.",
   "club.modal.tg.step1": "1. Sign in with Telegram",
   "club.modal.tg.step1Note": "Opens Telegram",
   "club.modal.tg.step2": "2. Confirm you own {wallet}",

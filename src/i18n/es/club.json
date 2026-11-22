@@ -358,6 +358,8 @@
   "club.modal.tg.body": "Las reclamaciones, las mejoras de nivel y los referidos pertenecen a tu cuenta del Club, que usa tu identidad de Telegram. También te escribiremos por Telegram si tu HPO cae por debajo del mínimo de tu nivel.",
   "club.modal.tg.continue": "Continuar con Telegram",
   "club.modal.tg.note": "Tu nivel pertenece a tu cuenta de Telegram, y una sola billetera a la vez lo recibe. Si esta cuenta de Telegram ya usa otra billetera, te mostraremos su nivel y te preguntaremos antes de cambiar.",
+  "club.modal.tg.phoneNote": "Es la verificación de inicio de sesión de Telegram: tu número va solo a Telegram y Hipo nunca lo ve. Solo recibimos tu nombre y tu usuario de Telegram.",
+  "club.modal.tg.phoneTitle": "Puede que Telegram te pida tu número de teléfono.",
   "club.modal.tg.step1": "1. Inicia sesión con Telegram",
   "club.modal.tg.step1Note": "Abre Telegram",
   "club.modal.tg.step2": "2. Confirma que {wallet} es tuya",

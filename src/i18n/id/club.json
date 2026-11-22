@@ -358,6 +358,8 @@
   "club.modal.tg.body": "Klaim, upgrade level, dan referral milik akun Club Anda, yang memakai identitas Telegram Anda. Kami juga akan mengirim pesan di Telegram jika HPO Anda turun di bawah minimal Level.",
   "club.modal.tg.continue": "Lanjutkan dengan Telegram",
   "club.modal.tg.note": "Level Anda milik akun Telegram Anda, dan satu dompet pada satu waktu menerimanya. Jika akun Telegram ini sudah memakai dompet lain, kami akan menampilkan levelnya dan bertanya sebelum berpindah.",
+  "club.modal.tg.phoneNote": "Ini pemeriksaan login milik Telegram sendiri: nomor Anda hanya dikirim ke Telegram, dan Hipo tidak pernah melihatnya. Kami hanya menerima nama dan nama pengguna Telegram Anda.",
+  "club.modal.tg.phoneTitle": "Telegram mungkin meminta nomor telepon Anda.",
   "club.modal.tg.step1": "1. Masuk dengan Telegram",
   "club.modal.tg.step1Note": "Membuka Telegram",
   "club.modal.tg.step2": "2. Konfirmasi Anda memiliki {wallet}",

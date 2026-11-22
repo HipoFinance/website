@@ -4,6 +4,7 @@
 // The confirm and the two payment modals only show; ClubModel and payments.ts decide.
 import { observer } from 'mobx-react-lite'
 import type { ClubModel, Modal } from './ClubModel.ts'
+import { ShieldIcon } from './icons.tsx'
 import { Button, ErrorLine, Row, Sheet } from './ui.tsx'
 
 interface Props {
@@ -53,9 +54,20 @@ const LinkTelegram = observer(({ club, modal }: Props & { modal: Extract<Modal, 
     <>
       <p className='text-text-secondary text-body leading-normal'>{t('club.modal.tg.body')}</p>
       <ol className='flex flex-col gap-2'>
-        <li className='border-border flex flex-wrap justify-between gap-2 rounded-xl border p-3 text-sm'>
-          <span className='font-semibold'>{t('club.modal.tg.step1')}</span>
-          <span className='text-text-faint'>{t('club.modal.tg.step1Note')}</span>
+        <li className='border-border flex flex-col gap-3 rounded-xl border p-3 text-sm'>
+          <div className='flex flex-wrap justify-between gap-2'>
+            <span className='font-semibold'>{t('club.modal.tg.step1')}</span>
+            <span className='text-text-faint'>{t('club.modal.tg.step1Note')}</span>
+          </div>
+          {/* Telegram's login window asks for a phone number; some users took it for Hipo asking and
+              gave up. Shown on the step that opens it, before the window appears. */}
+          <div className='bg-tone-info-bg border-tone-info-border flex min-w-0 items-start gap-2.5 rounded-lg border p-3'>
+            <ShieldIcon size={18} className='text-tone-info-fg mt-px' />
+            <p className='text-text-secondary min-w-0 leading-normal'>
+              <span className='text-text font-semibold'>{t('club.modal.tg.phoneTitle')}</span>{' '}
+              {t('club.modal.tg.phoneNote')}
+            </p>
+          </div>
         </li>
         <li className='border-border flex flex-wrap justify-between gap-2 rounded-xl border p-3 text-sm'>
           <span className='font-semibold'>

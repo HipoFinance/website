@@ -9,6 +9,11 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-22 — Club: Link Telegram dialog says Hipo never sees your phone number
+
+- A note under step 1 of the Link Telegram dialog (keys `club.modal.tg.phoneTitle` and `phoneNote`) says Telegram's login window may ask for a phone number, that the number goes to Telegram only, and that Hipo gets only the Telegram name and username. Why: some users thought Hipo was asking for their number and gave up on linking.
+- Translated into all ten released locales after the English was approved.
+
 ## 2026-11-22 — Unstake: the "receive GRAM in" time skips an open round
 
 - `unstakeBestRemain` now reads `stakeHeldUntil` from the lowest participation past `Open`, because under the treasury's soft close an open round's slot holds the auction close, which the page would have shown as a payout time. Display only; no amount or transaction changes. Spec: `contract/docs/specs/2026-11-17-soft-close-four-hours.md` (upgrade checklist item in `contract/scripts/upgrade_treasury.md`).

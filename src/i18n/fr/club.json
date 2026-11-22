@@ -358,6 +358,8 @@
   "club.modal.tg.body": "Les réclamations, les mises à niveau et les parrainages sont rattachés à ton compte Club, qui utilise ton identité Telegram. Nous t’écrirons aussi sur Telegram si tes HPO passent sous ton minimum de niveau.",
   "club.modal.tg.continue": "Continuer avec Telegram",
   "club.modal.tg.note": "Ton niveau est rattaché à ton compte Telegram, et un seul portefeuille à la fois le reçoit. Si ce compte Telegram utilise déjà un autre portefeuille, nous t’en montrerons le niveau et te demanderons avant de changer.",
+  "club.modal.tg.phoneNote": "C’est la vérification de connexion propre à Telegram : ton numéro va uniquement à Telegram, et Hipo ne le voit jamais. Nous recevons seulement ton nom et ton nom d’utilisateur Telegram.",
+  "club.modal.tg.phoneTitle": "Telegram peut te demander ton numéro de téléphone.",
   "club.modal.tg.step1": "1. Connecte-toi avec Telegram",
   "club.modal.tg.step1Note": "Ouvre Telegram",
   "club.modal.tg.step2": "2. Confirme que tu possèdes {wallet}",

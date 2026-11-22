@@ -358,6 +358,8 @@
   "club.modal.tg.body": "Talepler, seviye yükseltmeleri ve davetler, Telegram kimliğinizi kullanan Club hesabınıza aittir. HPO'nuz Seviye minimumunuzun altına düşerse size Telegram'dan da mesaj göndeririz.",
   "club.modal.tg.continue": "Telegram ile devam et",
   "club.modal.tg.note": "Seviyeniz Telegram hesabınıza aittir ve aynı anda yalnızca bir cüzdan onu alır. Bu Telegram hesabı zaten başka bir cüzdan kullanıyorsa, geçişten önce seviyesini gösterir ve sorarız.",
+  "club.modal.tg.phoneNote": "Bu, Telegram'ın kendi giriş doğrulamasıdır: numaranız yalnızca Telegram'a gider ve Hipo onu asla görmez. Biz yalnızca Telegram adınızı ve kullanıcı adınızı alırız.",
+  "club.modal.tg.phoneTitle": "Telegram telefon numaranızı isteyebilir.",
   "club.modal.tg.step1": "1. Telegram ile giriş yapın",
   "club.modal.tg.step1Note": "Telegram'ı açar",
   "club.modal.tg.step2": "2. {wallet} cüzdanının sizin olduğunu onaylayın",
