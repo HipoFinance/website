@@ -93,6 +93,27 @@ async function check(name, fn) {
 
 // ------------------------------------------------------------------------------------ the socket
 
+await check(
+  'clubseason opens an accountless socket without clubauth; any other request still needs credentials',
+  async () => {
+    const socket = new ClubSocket('wss://x')
+    socket.setAuth(() => undefined)
+    FakeSocket.onCreate = opens
+    const before = created.length
+    const season = outcome(socket.request('clubseason', null))
+    await until(() => created.length === before + 1 && sent(created.at(-1), 'clubseason'), 'the clubseason message')
+    const s = created.at(-1)
+    assert.deepEqual(s.types(), ['clubseason'])
+    s.reply('clubseason', { ok: true, season: { number: 7, paused: true } })
+    assert.deepEqual((await season)[1], { ok: true, season: { number: 7, paused: true } })
+    // The same socket serves a second one; another request type is refused before anything is sent.
+    assert.equal(created.length, before + 1)
+    assert.deepEqual(await outcome(socket.request('clubstatus')), ['err', 'auth: no_credentials'])
+    assert.equal(created.length, before + 1)
+    socket.close()
+  },
+)
+
 await check('a late close of the old socket never rejects the new socket’s requests', async () => {
   const socket = new ClubSocket('wss://x')
   socket.setAuth(() => ({ token: 't' }))

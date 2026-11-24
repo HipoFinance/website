@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-24 — Club: season break card, held payments
+
+- While the api's `season.paused` is true (a break between seasons, and after its start until the server releases), the Club page hides every tab and the season pill and shows one break card to everyone: "Season N has ended", the closed and start dates in local time with zone, a countdown (days, hours, under an hour, then "Season N+1 is starting"), and the stake and unstake line. From the start on the page re-reads the season every minute, so the tabs return without a reload. A member with withdrawable rewards sees the amount and Withdraw (the Rewards tab's own `withdraw()`).
+- `held_payment` of `cluboverview` / `clubstatus`: in a break the card says the claim or upgrade payment was received and will be handled at the start; outside a break the Claim or Upgrade button is replaced by "Payment received on {date}. It is being handled." The pay guard (`payments.ts`) refuses while paused and while a payment is held; the api errors `season_break` and `payment_in_progress` show the paused and held sentences.
+- A visitor with no Club session (logged out, no wallet) gets the season from the accountless `clubseason` message, which the socket sends on a connection that never sends `clubauth`; it also carries `prev_end`. The pay guard refuses only the held payment's own target, as the server does. Mocks: `?clubBreak=3d|1d|5h|30m|starting`, `?clubHeld=claim|upgrade`. Spec: `club-server/specs/season-break-pause.md`. English and all ten released locales are in; `check-i18n` passes.
+
 ## 2026-11-22 — Club: Link Telegram dialog says Hipo never sees your phone number
 
 - A note under step 1 of the Link Telegram dialog (keys `club.modal.tg.phoneTitle` and `phoneNote`) says Telegram's login window may ask for a phone number, that the number goes to Telegram only, and that Hipo gets only the Telegram name and username. Why: some users thought Hipo was asking for their number and gave up on linking.

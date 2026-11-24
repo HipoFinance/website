@@ -18,6 +18,11 @@
 //                way", clubpayintent refuses, a wallet switch or release is refused with
 //                payment_in_progress); fail = clubpayintent closes the socket (nothing is sent)
 //
+//   ?clubBreak=  3d  1d  5h  30m  starting                               the season break: the Club is paused and Season 7
+//                starts that long from now; starting = the start has passed and the server has not
+//                released yet (it does after two minutes, so the tabs come back without a reload)
+//   ?clubHeld=   claim  upgrade                                         the server holds a claim / upgrade payment (`held_payment`)
+//
 // Every figure here is made up for the preview and differs from the wireframes' sample data.
 // With a real wallet connected the account follows that wallet (its Club wallet is the connected
 // one), the chain reads and the claim send are real, and an upgrade is never sent (payments.ts).
@@ -25,7 +30,7 @@ import type { Address } from '@ton/core'
 import type { TreasuryConfig, WalletState } from '@hipo-finance/sdk'
 import { runInAction } from 'mobx'
 import type { Model } from '../Model'
-import { ClubSocketError, parseGramMin, type ClubTransport, type WalletRewards } from './api.ts'
+import { ClubSocketError, parseGramMin, toSeason, type ClubTransport, type WalletRewards } from './api.ts'
 import { ChainReadError, type ChainRead, type ChainReader } from './payments.ts'
 import type { ClubTx } from './clubTx.ts'
 
@@ -134,6 +139,7 @@ export class ClubMock implements ClubTransport {
   private auth?: () => Record<string, unknown> | undefined
   private intents = new Map<string, { to?: string; release: boolean; expiresAt: number }>()
   private errOnce = sticky('clubErr')
+  private createdAt = Date.now()
   // Read on load, so the Community mode is remembered even when the page opens on another tab: a tab
   // switch drops the query string before the Community tab asks.
   private communityMode = sticky('clubCommunity')
@@ -462,6 +468,24 @@ export class ClubMock implements ClubTransport {
     return intent
   }
 
+  // The api's `season` object: the open Season 6, or, with ?clubBreak=, the break before Season 7
+  // (start ahead, no end, the previous end as `prev_end`, `paused` until the mock releases).
+  private seasonBody(now: number): Record<string, unknown> {
+    const mode = sticky('clubBreak')
+    if (mode === undefined || mode === 'none') {
+      return { number: 6, start: now - 9 * DAY, paused: false }
+    }
+    const ahead: Record<string, number> = { '3d': 3 * DAY, '1d': DAY, '5h': 5 * HOUR, '30m': 1800, starting: -60 }
+    const start = now + (ahead[mode] ?? 3 * DAY)
+    const released = mode === 'starting' && Date.now() - this.createdAt > 120_000
+    return { number: 7, start, prev_end: start - 7 * DAY, paused: !released }
+  }
+
+  private heldBody(now: number): Record<string, unknown> | undefined {
+    const target = sticky('clubHeld')
+    return target === 'claim' || target === 'upgrade' ? { target, sent_at: now - HOUR } : undefined
+  }
+
   private payIntentBody(): Record<string, unknown> | undefined {
     const intent = this.openPayIntent()
     return intent === undefined
@@ -497,6 +521,7 @@ export class ClubMock implements ClubTransport {
     if (
       !this.authed &&
       type !== 'clubauth' &&
+      type !== 'clubseason' &&
       this.scenario !== 'loading' &&
       this.scenario !== 'error' &&
       this.scenario !== 'launching'
@@ -541,6 +566,8 @@ export class ClubMock implements ClubTransport {
       case 'clublogout':
         this.authed = false
         return head
+      case 'clubseason':
+        return { ...head, season: this.seasonBody(now) }
       case 'clubstatus':
         return this.statusBody(head)
       case 'cluboverview':
@@ -713,6 +740,7 @@ export class ClubMock implements ClubTransport {
       frozen: a.frozen,
       notify_failed: false,
       pay_in_progress: this.payIntentBody(),
+      held_payment: this.heldBody(this.now()),
     }
   }
 
@@ -820,7 +848,8 @@ export class ClubMock implements ClubTransport {
       })),
       wrapup_pending: a.wrapupPending,
       pay_in_progress: this.payIntentBody(),
-      season: { number: 6, start: now - 9 * DAY },
+      season: this.seasonBody(now),
+      held_payment: this.heldBody(now),
       claimed_this_season: a.claimedThisSeason,
       seasonal_ok: a.claimedThisSeason && a.state !== 'suspended',
       club_wallet: a.clubWallet,
@@ -1103,6 +1132,7 @@ export class ClubMock implements ClubTransport {
       })),
       stakeSumRewards: '19.4417',
       stakeRewardsSince: now - 75 * DAY,
+      season: toSeason(this.seasonBody(now)),
     }
   }
 

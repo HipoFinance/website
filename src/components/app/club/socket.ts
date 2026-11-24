@@ -35,6 +35,8 @@ interface Connection {
   socket: WebSocket
   waiters: Map<string, Waiter[]>
   closed: boolean
+  // Opened without clubauth, for the one message that needs no account (`clubseason`).
+  accountless?: boolean
 }
 
 export class ClubSocket implements ClubTransport {
@@ -44,6 +46,7 @@ export class ClubSocket implements ClubTransport {
   // The connection being made (the backoff pause, the socket's opening and its clubauth), shared by
   // every request that arrives meanwhile.
   private connecting?: Promise<Connection>
+  private connectingAccountless = false
   // Bumped by close(): a connection still being made for an older generation is thrown away.
   private generation = 0
   private auth?: () => Record<string, unknown> | undefined
@@ -86,7 +89,9 @@ export class ClubSocket implements ClubTransport {
   }
 
   private async send(type: string, body: Record<string, unknown>): Promise<unknown> {
-    const connection = await this.connect()
+    // `clubseason` needs no account: with no credentials it rides a connection that never sends clubauth.
+    const accountless = type === 'clubseason' && this.auth?.() === undefined
+    const connection = await this.connect(accountless)
     return this.exchange(connection, type, body)
   }
 
@@ -116,13 +121,27 @@ export class ClubSocket implements ClubTransport {
     })
   }
 
-  private connect(): Promise<Connection> {
+  private connect(accountless = false): Promise<Connection> {
     const live = this.live
     if (live !== undefined && !live.closed && live.socket.readyState === WebSocket.OPEN) {
-      return Promise.resolve(live)
+      // An accountless connection serves only accountless requests; an authenticated one serves all.
+      if (accountless || live.accountless !== true) {
+        return Promise.resolve(live)
+      }
+      this.shut(live, new ClubSocketError('closed'))
+      this.live = undefined
+    }
+    if (this.connecting !== undefined && this.connectingAccountless !== accountless && !accountless) {
+      // A pending accountless open cannot serve an authenticated request: wait it out, then open anew.
+      const pending = this.connecting
+      return pending.then(
+        () => this.connect(accountless),
+        () => this.connect(accountless),
+      )
     }
     if (this.connecting === undefined) {
-      const attempt = this.open(this.generation)
+      this.connectingAccountless = accountless
+      const attempt = this.open(this.generation, accountless)
       this.connecting = attempt
       const settle = () => {
         if (this.connecting === attempt) {
@@ -134,7 +153,7 @@ export class ClubSocket implements ClubTransport {
     return this.connecting
   }
 
-  private async open(generation: number): Promise<Connection> {
+  private async open(generation: number, accountless = false): Promise<Connection> {
     const wait = this.nextConnectAt - Date.now()
     if (wait > 0) {
       await new Promise((resolve) => setTimeout(resolve, wait))
@@ -143,11 +162,11 @@ export class ClubSocket implements ClubTransport {
       throw new ClubSocketError('closed')
     }
     // A peek only: nothing is taken from the callback until the socket is open.
-    if (this.auth?.() === undefined) {
+    if (!accountless && this.auth?.() === undefined) {
       throw new ClubSocketError('auth', 'no_credentials')
     }
     const socket = new WebSocket(this.url)
-    const connection: Connection = { socket, waiters: new Map(), closed: false }
+    const connection: Connection = { socket, waiters: new Map(), closed: false, accountless }
     await new Promise<void>((resolve, reject) => {
       const timer = setTimeout(() => {
         socket.close()
@@ -176,6 +195,12 @@ export class ClubSocket implements ClubTransport {
     if (generation !== this.generation) {
       this.shut(connection, new ClubSocketError('closed'))
       throw new ClubSocketError('closed')
+    }
+    if (accountless) {
+      this.failures = 0
+      this.nextConnectAt = 0
+      this.live = connection
+      return connection
     }
     // clubauth is the first message on every connection; nothing else is sent before its reply.
     const auth = this.auth?.()

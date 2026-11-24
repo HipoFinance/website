@@ -1503,6 +1503,32 @@ await check('wallet_changed from clubpayintent → walletChanged, nothing sent, 
   assert.equal(ctx.cancels.length, 0)
 })
 
+await check('a held payment refuses its own target only (heldPayment), the other goes on to the intent', async () => {
+  const heldClaim = { target: 'claim', sentAt: T0 - 3600 }
+  const heldUpgrade = { target: 'upgrade', sentAt: T0 - 3600 }
+  for (const [kind, snapshot, held] of [
+    ['claim', claimSnapshot, heldClaim],
+    ['upgrade', upgradeSnapshot, heldUpgrade],
+  ]) {
+    for (const where of ['overview', 'status']) {
+      const ctx = context({ [where]: { heldPayment: held } })
+      await expectRefused(ctx, kind, snapshot, 'heldPayment')
+      assert.equal(ctx.sent.length, 0)
+    }
+  }
+  // The other target is not refused by the page: the intent is asked (here it answers with a refusal).
+  let asked = 0
+  const ctx = context({
+    overview: { heldPayment: heldClaim },
+    intent: async () => {
+      asked++
+      return { ok: false, reason: 'wallet_changed' }
+    },
+  })
+  await expectRefused(ctx, 'upgrade', upgradeSnapshot, 'walletChanged')
+  assert.equal(asked, 1)
+})
+
 await check("another payment's open record → payInProgress, nothing sent", async () => {
   const claimOpen = { target: 'claim', validUntil: T0 + 200, created: T0 - 100 }
   const upgradeOpen = { target: 'upgrade', level: 5, validUntil: T0 + 200, created: T0 - 100 }

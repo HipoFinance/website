@@ -1055,6 +1055,58 @@
     "sourceHash": "4032bf2396a25b4e0b9dbf1efb593c6d97fc127d",
     "reviewed": false
   },
+  "club.break.dates": {
+    "sourceHash": "dd4eb5b5c8f44d65146d578ae84880d1db44f3f4",
+    "reviewed": false
+  },
+  "club.break.datesNoEnd": {
+    "sourceHash": "2bf1caabe6d4e7f6f13b8890dcf4208e1db39f36",
+    "reviewed": false
+  },
+  "club.break.daysToGo_one": {
+    "sourceHash": "f28c398939f283bbd8c6d48c41197a3f6eef84e5",
+    "reviewed": false
+  },
+  "club.break.daysToGo_other": {
+    "sourceHash": "142824070278ddfe39fd47e694d94ef172bc120e",
+    "reviewed": false
+  },
+  "club.break.heldClaim": {
+    "sourceHash": "59086840ce7d0f332f39a16cf88d65939d789e2b",
+    "reviewed": false
+  },
+  "club.break.heldUpgrade": {
+    "sourceHash": "670207e6959b6942f58a48114bbd7b2d34f6c1bc",
+    "reviewed": false
+  },
+  "club.break.hoursToGo_one": {
+    "sourceHash": "5249a55692e8c0e643d07fa569b56b7cd0396033",
+    "reviewed": false
+  },
+  "club.break.hoursToGo_other": {
+    "sourceHash": "3282a35791d0674d66bd8cb549f485b6a405bce2",
+    "reviewed": false
+  },
+  "club.break.lessThanHour": {
+    "sourceHash": "39db4cc9f04fbcc2f6969d5f793ae4c7481bb423",
+    "reviewed": false
+  },
+  "club.break.rewards": {
+    "sourceHash": "a9a7102b1a6886a8df20576574d2901f8ba932e5",
+    "reviewed": false
+  },
+  "club.break.stake": {
+    "sourceHash": "294ed9d6214e382df58c6b0af10f61a46623bfe7",
+    "reviewed": false
+  },
+  "club.break.starting": {
+    "sourceHash": "6b6d966d255faec2e3b95be2554afa3efadf7977",
+    "reviewed": false
+  },
+  "club.break.title": {
+    "sourceHash": "06b6e151700bff4329c29c97811848990b8c1129",
+    "reviewed": false
+  },
   "club.chip.active": {
     "sourceHash": "a733b809d2f1233496ab516eed0f3ef75cf3791a",
     "reviewed": false
@@ -1883,6 +1935,10 @@
     "sourceHash": "abe39d1d40414fa4fdb99125788feb3fa61aa670",
     "reviewed": false
   },
+  "club.error.seasonBreak": {
+    "sourceHash": "0936c2bc82833910b7a6d7a1d563066fa46e7485",
+    "reviewed": false
+  },
   "club.error.serverRead": {
     "sourceHash": "2f7202c6b1e09b3f1145f157f3d0330414a92a18",
     "reviewed": false
@@ -2165,6 +2221,10 @@
   },
   "club.header.title": {
     "sourceHash": "4014019824fdf070c6a39bf014c44be092f8f162",
+    "reviewed": false
+  },
+  "club.held.received": {
+    "sourceHash": "88c078dd144095b01ffe7ae14aa71eb33d993077",
     "reviewed": false
   },
   "club.hpo.above": {

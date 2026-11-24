@@ -10,7 +10,7 @@ import FriendsTab from './FriendsTab.tsx'
 import CommunityTab from './CommunityTab.tsx'
 import Modals from './Modals.tsx'
 import { ClockIcon } from './icons.tsx'
-import { Skeleton, TmaContext } from './ui.tsx'
+import { Button, Card, ErrorLine, Skeleton, TmaContext } from './ui.tsx'
 
 interface Props {
   model: Model
@@ -25,7 +25,8 @@ const DAYS_MARK = '\uE000'
 const Header = observer(({ club }: { club: ClubModel }) => {
   const t = club.t
   const o = club.overview
-  const season = o?.season
+  // In a break the season line is the break card's job.
+  const season = club.paused ? undefined : o?.season
   // H1: the season pill — "Season N ends <date> · **D days left**", the part after the last " · "
   // that holds the day count in bold (just the number if a locale has no such part).
   let seasonPill: ReactNode
@@ -213,6 +214,64 @@ export const ClubTabs = observer(({ club }: { club: ClubModel }) => {
   )
 })
 
+// The season break (specs/season-break-pause.md): the one card that replaces the tabs while the season
+// is paused, for every visitor. The member's withdraw runs through the Rewards tab's own flow.
+const BreakCard = observer(({ club }: { club: ClubModel }) => {
+  const t = club.t
+  const season = club.season
+  const number = season?.number
+  const prev = club.amount(number === undefined ? undefined : number - 1, 0)
+  const params = {
+    prev,
+    number: club.amount(number, 0),
+    end: club.dateZone(season?.prevEnd),
+    start: club.dateZone(season?.start),
+  }
+  const held = club.heldPayment
+  const rewards = club.revenueBalance
+  const block = club.withdrawBlock
+  return (
+    <Card>
+      <h2 className='font-body text-title leading-normal font-semibold'>{t('club.break.title', params)}</h2>
+      <p className='text-body leading-normal'>
+        {t(season?.prevEnd === undefined ? 'club.break.datesNoEnd' : 'club.break.dates', params)}
+      </p>
+      <p className='text-body leading-normal font-semibold'>{club.breakCountdown}</p>
+      <p className='text-text-secondary text-body leading-normal'>{t('club.break.stake')}</p>
+      {held !== undefined && (
+        <p className='text-tone-success-fg text-body leading-normal'>
+          {t(held.target === 'upgrade' ? 'club.break.heldUpgrade' : 'club.break.heldClaim', {
+            ...params,
+            date: club.dateZone(held.sentAt),
+          })}
+        </p>
+      )}
+      {club.session !== undefined && ((rewards !== undefined && rewards > 0) || club.withdrawResult !== undefined) && (
+        <div className='border-border flex flex-col gap-2 border-t pt-4'>
+          <p className='num text-lead font-semibold'>{t('club.break.rewards', { amount: club.amount2(rewards) })}</p>
+          <Button
+            kind='secondary'
+            size='sm'
+            className='self-start'
+            disabled={block !== undefined}
+            busy={club.withdrawing}
+            onClick={() => void club.withdraw()}
+          >
+            {block === undefined
+              ? t('club.revenue.button', { amount: club.amount2(rewards) })
+              : t(block.key, block.params)}
+          </Button>
+          {club.withdrawResult === 'done' && <p className='text-tone-success-fg text-sm'>{t('club.revenue.done')}</p>}
+          {club.withdrawResult === 'failed' && <ErrorLine>{t('club.revenue.failed')}</ErrorLine>}
+        </div>
+      )}
+      {club.actionError !== undefined && club.modal === undefined && (
+        <ErrorLine>{t(club.actionError.key, club.actionError.params)}</ErrorLine>
+      )}
+    </Card>
+  )
+})
+
 const ClubPage = observer(({ model }: Props) => {
   const [club, setClub] = useState<ClubModel | undefined>(undefined)
   const [failed, setFailed] = useState(false)
@@ -251,12 +310,13 @@ const ClubPage = observer(({ model }: Props) => {
           (club.tma ? 'gap-3.5' : 'gap-6')
         }
       >
-        {club.tma ? <ClubTabs club={club} /> : <Header club={club} />}
-        {!club.tma && <ClubTabs club={club} />}
-        {tab === 'overview' && <Overview club={club} />}
-        {tab === 'rewards' && <RewardsTab club={club} />}
-        {tab === 'friends' && <FriendsTab club={club} />}
-        {tab === 'community' && <CommunityTab club={club} />}
+        {club.tma ? !club.paused && <ClubTabs club={club} /> : <Header club={club} />}
+        {!club.tma && !club.paused && <ClubTabs club={club} />}
+        {club.paused && <BreakCard club={club} />}
+        {!club.paused && tab === 'overview' && <Overview club={club} />}
+        {!club.paused && tab === 'rewards' && <RewardsTab club={club} />}
+        {!club.paused && tab === 'friends' && <FriendsTab club={club} />}
+        {!club.paused && tab === 'community' && <CommunityTab club={club} />}
         <Modals club={club} />
       </div>
     </TmaContext.Provider>

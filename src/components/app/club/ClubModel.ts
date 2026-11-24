@@ -30,6 +30,7 @@ import {
   toPayIntentReply,
   toPrepare,
   toRewards,
+  toSeason,
   toSettingsReply,
   toStatus,
   toWithdraw,
@@ -38,6 +39,8 @@ import {
   type ClubLeaderboard,
   type ClubLevels,
   type ClubOverview,
+  type ClubSeason,
+  type HeldPayment,
   type ClubRewards,
   type ClubStatus,
   type ClubTransport,
@@ -283,6 +286,10 @@ export class ClubModel {
   claimOnItsWay?: number
   withdrawing = false
   withdrawResult?: 'done' | 'failed'
+  // The season from the accountless `clubseason` (a visitor with no Club session).
+  seasonOnly?: ClubSeason
+  // The tick of the last re-read of a paused season past its start.
+  private pausedReadAt = 0
   tma: boolean
   private initDataUsed = false
   // One immediate retry with the stored token after a refused widget or initData (loadFailed).
@@ -342,6 +349,7 @@ export class ClubModel {
       claimOnItsWay: observable,
       withdrawing: observable,
       withdrawResult: observable,
+      seasonOnly: observable.ref,
       connected: computed,
       translator: computed,
       view: computed,
@@ -496,6 +504,85 @@ export class ClubModel {
     })
     const text = day + ' · ' + time
     return utc ? this.t('club.common.utc', { time: text }) : text
+  }
+
+  // A date and time in the reader's local time with its zone, "31 Dec 2026, 12:30 GMT+3:30" (the season break).
+  dateZone = (unix: number | undefined): string => {
+    if (unix === undefined || unix <= 0) {
+      return '—'
+    }
+    return fmt.formatDate(this.model.locale, unix * 1000, {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+      timeZoneName: 'short',
+    })
+  }
+
+  // ------------------------------------------------------------------------------ the season break
+
+  // The api's season: the account's (cluboverview), else the wallet's (/wallet-rewards, for a visitor
+  // with no account). The one place the page reads it from.
+  get season(): ClubSeason | undefined {
+    return this.overview?.season ?? this.seasonOnly ?? this.walletRewards?.season
+  }
+
+  // The break card shows while the server says the season is paused (specs/season-break-pause.md).
+  get paused(): boolean {
+    return this.season?.paused === true
+  }
+
+  // A claim or upgrade payment the server holds for this account.
+  get heldPayment(): HeldPayment | undefined {
+    return this.overview?.heldPayment ?? this.status?.heldPayment
+  }
+
+  // "Payment received on {date}. It is being handled." for the held payment of this target.
+  heldReceived(target: 'claim' | 'upgrade'): ActionError | undefined {
+    const held = this.heldPayment
+    return held?.target === target
+      ? { key: 'club.held.received', params: { date: this.dateZone(held.sentAt) } }
+      : undefined
+  }
+
+  // The held payment's sentence: in a break it also says when it will be handled.
+  heldPaymentError(held: HeldPayment): ActionError {
+    const date = this.dateZone(held.sentAt)
+    return this.paused
+      ? {
+          key: held.target === 'upgrade' ? 'club.break.heldUpgrade' : 'club.break.heldClaim',
+          params: { date, number: this.amount(this.season?.number, 0) },
+        }
+      : { key: 'club.held.received', params: { date } }
+  }
+
+  // The countdown line of the break card, from the api's season.start and the server's clock.
+  get breakCountdown(): string {
+    const start = this.season?.start
+    if (start === undefined) {
+      return ''
+    }
+    const left = start - this.displayNow
+    const number = this.amount(this.season?.number, 0)
+    if (left <= 0) {
+      return this.t('club.break.starting', { number })
+    }
+    const plural = (key: string, count: number, params: Record<string, string>) => {
+      const category = new Intl.PluralRules(this.model.locale).select(count)
+      return this.t(this.translator.has(`${key}_${category}`) ? `${key}_${category}` : `${key}_other`, params)
+    }
+    if (left >= 86400) {
+      const days = Math.ceil(left / 86400)
+      return plural('club.break.daysToGo', days, { days: this.amount(days, 0) })
+    }
+    if (left >= 3600) {
+      const hours = Math.ceil(left / 3600)
+      return plural('club.break.hoursToGo', hours, { hours: this.amount(hours, 0) })
+    }
+    return this.t('club.break.lessThanHour')
   }
 
   // "3h 20m" under two days, whole days above (a 7-day restore window reads "5 days").
@@ -692,6 +779,10 @@ export class ClubModel {
     if (o.switchPending) {
       return { key: 'club.gate.switchPending' }
     }
+    const heldClaim = this.heldReceived('claim')
+    if (heldClaim !== undefined) {
+      return heldClaim
+    }
     if (o.claimInProgress !== undefined || this.claimOnItsWay !== undefined) {
       return { key: 'club.gate.inProgress' }
     }
@@ -774,6 +865,10 @@ export class ClubModel {
     }
     if (o.switchPending) {
       return { key: 'club.gate.switchPending' }
+    }
+    const heldUpgrade = this.heldReceived('upgrade')
+    if (heldUpgrade !== undefined) {
+      return heldUpgrade
     }
     if (o.payInProgress !== undefined) {
       return intentCovers(o.payInProgress, upgradeTarget(o.clubLevel))
@@ -870,6 +965,20 @@ export class ClubModel {
       runInAction(() => {
         this.tick = Math.floor(Date.now() / 1000)
       })
+      // From the start on while still paused, read the season again every minute: the tabs come back
+      // by themselves once the server releases the season.
+      const start = this.season?.start
+      if (
+        this.paused &&
+        start !== undefined &&
+        this.displayNow >= start &&
+        this.tick - this.pausedReadAt >= 60 &&
+        this.model.activePage === 'club' &&
+        !document.hidden
+      ) {
+        this.pausedReadAt = this.tick
+        void this.load(true)
+      }
     }, 1000)
     this.disposers.push(() => clearInterval(clock))
     document.addEventListener('astro:page-load', this.onPageLoad)
@@ -1039,7 +1148,24 @@ export class ClubModel {
 
   private mockLoggedOut = false
 
+  // The season for a visitor with no Club session: `clubseason` needs no account. Best effort.
+  private async loadSeasonOnly() {
+    try {
+      const reply = await this.req('clubseason')
+      const head = headOf(reply)
+      const body = reply as { season?: unknown }
+      if (head.ok && body.season != null) {
+        runInAction(() => {
+          this.seasonOnly = toSeason(body.season)
+        })
+      }
+    } catch {
+      // The wallet's own season (/wallet-rewards) still serves, when there is one.
+    }
+  }
+
   private async loadWalletOnly() {
+    await this.loadSeasonOnly()
     const address = this.connected
     if (address === undefined) {
       runInAction(() => {
@@ -1480,6 +1606,17 @@ export class ClubModel {
     // The refusal sentence that names the claim minimum gets the server's value.
     if (error?.key === 'club.error.belowMin') {
       error = { ...error, params: { min: this.claimMinText, ...error.params } }
+    }
+    // The break sentence names the season that is about to start and its date.
+    if (error?.key === 'club.error.seasonBreak') {
+      error = {
+        ...error,
+        params: {
+          number: this.amount(this.season?.number, 0),
+          start: this.dateZone(this.season?.start),
+          ...error.params,
+        },
+      }
     }
     this.actionError = error
   }
@@ -2135,6 +2272,8 @@ export class ClubModel {
         upgradeFee: o.upgradeFee,
         wrapupPending: o.wrapupPending,
         payInProgress: o.payInProgress,
+        heldPayment: o.heldPayment,
+        paused: o.season.paused,
         hpoClaimMin: o.hpoClaimMin,
       }
     }
@@ -2267,7 +2406,13 @@ export class ClubModel {
         }
         if (result.reason === 'onItsWay') {
           if (result.at === undefined) {
-            // A server record with no time: the same "on its way" without the date.
+            // `payment_in_progress` with no record of an open intent: a payment the server holds says when
+            // it was received (after a fresh read); otherwise the same "on its way" without the date.
+            await this.load(true)
+            if (this.heldPayment !== undefined) {
+              this.setError(this.heldPaymentError(this.heldPayment))
+              return
+            }
             this.setError({ key: 'club.error.locked' })
             return
           }
@@ -2277,6 +2422,14 @@ export class ClubModel {
             }
           })
           this.setError({ key: 'club.error.onItsWay', params: { date: this.date(result.at, true) } })
+          return
+        }
+        if (result.reason === 'heldPayment') {
+          // The server holds a payment of this account: say when it was received, from a fresh read.
+          await this.load(true)
+          this.setError(
+            this.heldPayment === undefined ? { key: 'club.error.locked' } : this.heldPaymentError(this.heldPayment),
+          )
           return
         }
         if (result.reason === 'balance') {

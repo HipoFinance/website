@@ -125,6 +125,7 @@ export interface ClubStatus extends ReplyHead {
   frozen: boolean
   notifyFailed: boolean
   payInProgress?: ServerPayIntent
+  heldPayment?: HeldPayment
 }
 
 export function toStatus(body: unknown): ClubStatus {
@@ -142,6 +143,7 @@ export function toStatus(body: unknown): ClubStatus {
     frozen: bool(b.frozen),
     notifyFailed: bool(b.notify_failed),
     payInProgress: toPayInProgress(b.pay_in_progress),
+    heldPayment: toHeldPayment(b.held_payment),
   }
 }
 
@@ -249,6 +251,41 @@ export interface ClubSeason {
   number?: number
   start?: number
   end?: number
+  // True in a break between two seasons and after its start until the server releases (specs/season-break-pause.md).
+  paused: boolean
+  // End of the season before this one (a break's "Season N-1 closed on"): `prev_end`, unix seconds, while paused;
+  // undefined makes the break card drop the date.
+  prevEnd?: number
+}
+
+// The one place the api's `season` object is read (cluboverview, /wallet-rewards).
+export function toSeason(value: unknown): ClubSeason {
+  const b = value == null ? {} : obj(value)
+  return {
+    number: int(b.number),
+    start: int(b.start),
+    end: int(b.end),
+    paused: bool(b.paused),
+    prevEnd: int(b.prev_end),
+  }
+}
+
+// `held_payment` {target, sent_at}: a claim or upgrade payment the server kept unjudged (a break, or a hold).
+export interface HeldPayment {
+  target: 'claim' | 'upgrade'
+  sentAt: number
+}
+
+export function toHeldPayment(value: unknown): HeldPayment | undefined {
+  if (value == null) {
+    return undefined
+  }
+  const b = obj(value)
+  const sentAt = int(b.sent_at)
+  if ((b.target !== 'claim' && b.target !== 'upgrade') || sentAt === undefined) {
+    return undefined
+  }
+  return { target: b.target, sentAt }
 }
 
 export interface ClubOverview extends ReplyHead {
@@ -289,6 +326,7 @@ export interface ClubOverview extends ReplyHead {
   recentClaims: ClaimRecord[]
   wrapupPending: boolean
   payInProgress?: ServerPayIntent
+  heldPayment?: HeldPayment
 
   season: ClubSeason
   claimedThisSeason: boolean
@@ -378,8 +416,9 @@ export function toOverview(body: unknown): ClubOverview {
     recentClaims: list(b.recent_claims).map(toClaimRecord),
     wrapupPending: bool(b.wrapup_pending),
     payInProgress: toPayInProgress(b.pay_in_progress),
+    heldPayment: toHeldPayment(b.held_payment),
 
-    season: { number: int(season.number), start: int(season.start), end: int(season.end) },
+    season: toSeason(season),
     claimedThisSeason: bool(b.claimed_this_season),
     seasonalOk: bool(b.seasonal_ok),
 
@@ -904,6 +943,8 @@ export interface WalletRewards {
   earnedRewards: EarnedRound[]
   stakeSumRewards?: string
   stakeRewardsSince?: number
+  // The season object, when the api sends it: the break card of a visitor with no account needs it.
+  season?: ClubSeason
 }
 
 export const WALLET_REWARDS_URL = 'https://api.hipogang.io/wallet-rewards?address='
@@ -943,6 +984,7 @@ export function toWalletRewards(result: unknown): WalletRewards {
     }),
     stakeSumRewards: str(b.stake_sum_rewards),
     stakeRewardsSince: int(b.stake_rewards_since),
+    season: b.season == null ? undefined : toSeason(b.season),
   }
 }
 

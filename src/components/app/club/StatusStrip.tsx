@@ -122,6 +122,9 @@ const StatusStrip = observer(({ club }: Props) => {
       {t('club.common.linkTelegram')}
     </Button>
   )
+  // A claim or upgrade payment the server holds replaces the button (the member must not pay twice).
+  const heldNote = (held: { key: string; params?: Record<string, string> } | undefined) =>
+    held === undefined ? null : <span className='text-body leading-normal'>{t(held.key, held.params)}</span>
   const buyButton = (amount: string) => (
     <Button kind='primary' href={BUY_HPO_URL}>
       {t('club.common.buyAmount', { amount })}
@@ -225,7 +228,9 @@ const StatusStrip = observer(({ club }: Props) => {
       title = t('club.status.gTitle')
       body = t('club.status.gBody', { from: club.level(o?.resetFromLevel), date: club.date(o?.resetAt) })
       action =
-        club.upgradeOffer !== undefined && typeof club.upgradeOffer.fee === 'number' ? (
+        club.heldReceived('upgrade') !== undefined ? (
+          heldNote(club.heldReceived('upgrade'))
+        ) : club.upgradeOffer !== undefined && typeof club.upgradeOffer.fee === 'number' ? (
           <Button disabled={club.upgradeBlock !== undefined} onClick={() => void club.openUpgrade()}>
             {t('club.levelUp.button', { level: club.level(1), fee: club.amount(club.upgradeOffer.fee, 0) })}
           </Button>
@@ -270,7 +275,9 @@ const StatusStrip = observer(({ club }: Props) => {
         amount: club.amount2(o?.unclaimed),
       })
       action =
-        club.claimBlock === undefined ? (
+        club.heldReceived('claim') !== undefined ? (
+          heldNote(club.heldReceived('claim'))
+        ) : club.claimBlock === undefined ? (
           <Button kind='primary' onClick={() => void club.openClaim()}>
             {t('club.claim.button', { amount: club.amount2(o?.unclaimed) })}
           </Button>

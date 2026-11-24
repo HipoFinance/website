@@ -779,9 +779,13 @@ export interface GuardStatus {
   frozen: boolean
   // The server's open "payment in progress" record, when there is one.
   payInProgress?: ServerPayIntent
+  // The server holds a claim or upgrade payment of this account, unjudged (cluboverview / clubstatus `held_payment`).
+  heldPayment?: { target: 'claim' | 'upgrade'; sentAt: number }
 }
 
 export interface GuardOverview extends GuardStatus {
+  // The season is paused: a break between seasons, or its start not yet released (`season.paused`).
+  paused?: boolean
   stateUntil?: number
   unclaimed?: string
   claimOk: boolean
@@ -842,6 +846,8 @@ export type PaymentRefusal =
   | 'mockUpgrade'
   | 'serverRead'
   | 'payInProgress'
+  | 'seasonBreak'
+  | 'heldPayment'
   | 'intentFailed'
   | 'walletChanged'
 
@@ -1332,6 +1338,15 @@ async function guard(ctx: PaymentContext, kind: PaymentKind, snapshot: ModalSnap
   } catch {
     return refused('serverRead')
   }
+  // A break pauses claims and upgrades; a payment the server already holds is not paid twice.
+  if (overview.paused === true) {
+    return refused('seasonBreak')
+  }
+  // The server holds one target at a time and refuses only the same one: the other still goes on to the intent.
+  const held = overview.heldPayment ?? status.heldPayment
+  if (held !== undefined && held.target === kind) {
+    return refused('heldPayment')
+  }
   const evidence: AppliedEvidence = { clubLevel: status.clubLevel, claims: overview.claims }
 
   // 3. A pending lock in this browser: send nothing, and try to release it.
@@ -1453,6 +1468,9 @@ async function guard(ctx: PaymentContext, kind: PaymentKind, snapshot: ModalSnap
     return refused('intentFailed')
   }
   if (answer?.ok !== true) {
+    if (answer?.reason === 'season_break') {
+      return refused('seasonBreak')
+    }
     if (answer?.reason === 'payment_in_progress') {
       return answer.open !== undefined ? intentRefusal(answer.open, target) : refused('onItsWay')
     }
