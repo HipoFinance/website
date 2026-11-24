@@ -160,7 +160,7 @@
   "club.error.unknownBalance": "Não foi possível ler o seu HPO resgatável. Tente novamente.",
   "club.error.walletError": "Sua carteira não respondeu. Se você aprovou lá, o pagamento ainda pode chegar: aguarde alguns minutos antes de tentar novamente.",
   "club.error.walletTaken": "Esta carteira está vinculada a outra conta do Telegram.",
-  "club.error.wrapup": "Os upgrades reabrem após o encerramento da Temporada 5.",
+  "club.error.wrapup": "Os upgrades reabrem quando o encerramento da Temporada que acabou de terminar for concluído.",
   "club.flow.doneBelowBody": "Ela tem {held} HPO; o mínimo do seu nível é {minimum}. Adicione {short} HPO em até 24 horas para manter o boost total. Enviamos uma confirmação para {name} no Telegram.",
   "club.flow.doneBelowTitle": "{wallet} agora é a sua carteira do Club · 24 horas para atingir o mínimo do nível",
   "club.flow.doneBody": "Ela rende na sua taxa de {boost} e tem HPO suficiente para manter o seu nível. {old} deixa de contar. Enviamos uma confirmação para {name} no Telegram.",

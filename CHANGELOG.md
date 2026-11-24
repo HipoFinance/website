@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-24 — Club: the wrap-up pause and the Seasons docs for every season
+
+- `payments.ts`, `ClubModel.ts`: the `WRAPUP_PAUSE_FROM` gate (L + 23 h, Season 5's pass 2) is gone; the server's `wrapup_pending` alone pauses Upgrade, for any season. No change today: that time passed on 2026-11-01. The selftest now refuses an upgrade with `wrapup_pending` at the second before the old gate as well.
+- `club.error.wrapup`: "Upgrades reopen once the wrap-up of the season that just ended is finished." in place of the Season 5 text, in all 11 locales. No season number: the site cannot always tell which season's wrap-up the server means.
+- Docs `hipo-club.md` "Seasons": a lasting paragraph (seasons, the wrap-up, a break between seasons) in place of the Season 6 dates, in all 11 locales.
+- Reviewed: team:code-reviewer (pay guard lens), one test gap fixed. Not a money-audit candidate (no behaviour change).
+
 ## 2026-11-24 — Pages deploy split into build and deploy jobs
 
 - `.github/workflows/deploy.yml`: the one job is now `build` (build, upload the Pages artifact) and `deploy` (`needs: build`; deploy, then the render check). With both in one job, `deploy-pages` asked for the artifact right after the upload and often found none ("No artifacts named github-pages": 4 of 6 runs on 2026-11-24, the push of `8cf21b1` never went live). It is GitHub's own Pages template layout; a failed deploy job can be re-run alone. Checked first: `club.hipo.finance` is published by the separate `club-web` → `club-web-build` repos (their own Pages site, legacy branch build), with no trigger or concurrency group shared with this workflow, so it is not affected. Left: a wait step before the deploy, declined as only usually enough.

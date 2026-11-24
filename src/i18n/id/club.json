@@ -160,7 +160,7 @@
   "club.error.unknownBalance": "HPO yang dapat diklaim tidak dapat dibaca. Coba lagi.",
   "club.error.walletError": "Dompet Anda tidak merespons. Jika Anda sudah menyetujuinya di sana, transaksi mungkin masih tiba: tunggu beberapa menit sebelum mencoba lagi.",
   "club.error.walletTaken": "Dompet ini tertaut ke akun Telegram lain.",
-  "club.error.wrapup": "Upgrade dibuka kembali setelah penutupan Season 5.",
+  "club.error.wrapup": "Upgrade dibuka kembali setelah penutupan Season yang baru saja berakhir selesai.",
   "club.flow.doneBelowBody": "Dompet ini menyimpan {held} HPO; minimal Level Anda adalah {minimum}. Tambahkan {short} HPO dalam 24 jam untuk mempertahankan boost penuh. Kami telah mengirim konfirmasi ke {name} di Telegram.",
   "club.flow.doneBelowTitle": "{wallet} kini menjadi dompet Club Anda · 24 jam untuk mencapai minimal Level",
   "club.flow.doneBody": "Dompet ini menghasilkan dengan tarif {boost} Anda dan menyimpan cukup HPO untuk mempertahankan level Anda. {old} tidak lagi dihitung. Kami telah mengirim konfirmasi ke {name} di Telegram.",

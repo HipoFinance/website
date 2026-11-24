@@ -69,8 +69,6 @@ export const CHAIN_TIME_SKEW = 60
 export const SUSPEND_DEADLINE_MARGIN = 60 * 60
 // L, the launch: Sat 2026-10-31 09:00 UTC (the server's --season-end).
 export const CLUB_LAUNCH = 1793437200
-// Wrapup pass 2 may raise a `noclaim` account from L + 24 h; Upgrade pauses for it from L + 23 h.
-export const WRAPUP_PAUSE_FROM = CLUB_LAUNCH + 23 * 60 * 60
 // A claim that opens at `claims_open_at` is offered from 60 s after it, by server time (§6a).
 export const CLAIMS_OPEN_MARGIN = 60
 
@@ -1005,7 +1003,9 @@ export function upgradeProblem(
       return { problem: 'deadline' }
     }
   }
-  if (overview.wrapupPending && serverNow >= WRAPUP_PAUSE_FROM) {
+  // The server's wrapup_pending alone decides (any season): the wrap-up of the season that ended may
+  // still raise this account, so an upgrade paid now could be for the wrong level.
+  if (overview.wrapupPending) {
     return { problem: 'wrapup' }
   }
   return { n, fee: fee as number }

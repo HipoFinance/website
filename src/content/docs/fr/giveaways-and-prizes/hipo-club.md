@@ -129,7 +129,9 @@ Les HPO sont ajoutés à ton solde non réclamé le jeudi. Tu les réclames avec
 
 ## Saisons
 
-La **saison 6** a commencé le **31 octobre 2026**, et sa fin prévue est le **31 décembre 2026** ; le Club affiche la date et un compte à rebours. À la fin d’une saison, les montées saisonnières sont appliquées. Une suspension encore en cours reporte ses jours restants sur la saison suivante.
+Le Club fonctionne par saisons. La page du Club affiche la saison en cours, sa date de fin et un compte à rebours ; l’équipe annonce chaque date de fin à l’avance. À la fin d’une saison vient la clôture : chaque membre qui a réclamé pendant la saison monte d’un niveau (jusqu’au niveau 10 ; un membre suspendu n’est pas monté). Tant que la clôture n’est pas terminée, les montées peuvent être suspendues quelques jours. Une suspension encore en cours reporte ses jours restants sur la saison suivante.
+
+Il y a parfois une pause entre deux saisons. Pendant une pause, la page du Club affiche la date de début de la saison suivante. Tu peux toujours staker et unstaker dans l’app Hipo et retirer tes revenus ; les réclamations, les montées et les changements de portefeuille rouvrent au début de la saison suivante.
 
 Le partage des profits pour les détenteurs de HPO est un flux distinct, en pause tant que les frais du protocole sont à 0 % ; voir [Partage des profits](/docs/profit-sharing/).
 

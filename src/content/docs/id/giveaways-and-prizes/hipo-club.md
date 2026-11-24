@@ -129,7 +129,9 @@ HPO ditambahkan ke saldo Anda yang belum diklaim pada hari Kamis. Anda mengklaim
 
 ## Musim
 
-**Musim 6** dimulai pada **31 Oktober 2026**, dan rencana berakhirnya **31 Desember 2026**; Club menampilkan tanggal dan hitung mundurnya. Di akhir musim, upgrade musiman diterapkan. Penangguhan yang masih berjalan membawa sisa harinya ke musim berikutnya.
+Club berjalan dalam musim. Halaman Club menampilkan musim saat ini, tanggal berakhirnya, dan hitung mundur; tim mengumumkan setiap tanggal berakhir sebelumnya. Di akhir musim ada penutupan musim: setiap anggota yang mengklaim selama musim naik satu level (hingga Level 10; anggota yang ditangguhkan tidak dinaikkan). Sampai penutupan selesai, upgrade bisa berhenti beberapa hari. Penangguhan yang masih berjalan membawa sisa harinya ke musim berikutnya.
+
+Kadang ada jeda di antara dua musim. Selama jeda, halaman Club menampilkan kapan musim berikutnya dimulai. Anda masih bisa stake dan unstake di aplikasi Hipo serta menarik pendapatan Anda; klaim, upgrade, dan perubahan dompet dibuka kembali saat musim berikutnya dimulai.
 
 Bagi hasil untuk pemegang HPO adalah aliran terpisah, dijeda selama biaya protokol 0%; lihat [Bagi Hasil](/docs/profit-sharing/).
 

@@ -160,7 +160,7 @@
   "club.error.unknownBalance": "Impossible de lire tes HPO réclamables. Réessaie.",
   "club.error.walletError": "Ton portefeuille n’a pas répondu. Si tu as approuvé la demande là-bas, elle peut encore arriver : attends quelques minutes avant de réessayer.",
   "club.error.walletTaken": "Ce portefeuille est associé à un autre compte Telegram.",
-  "club.error.wrapup": "Les mises à niveau rouvrent après la clôture de la saison 5.",
+  "club.error.wrapup": "Les mises à niveau rouvrent une fois la clôture de la saison qui vient de se terminer achevée.",
   "club.flow.doneBelowBody": "Il détient {held} HPO ; ton minimum de niveau est de {minimum}. Ajoute {short} HPO dans les 24 heures pour conserver le boost complet. Nous avons envoyé une confirmation à {name} sur Telegram.",
   "club.flow.doneBelowTitle": "{wallet} est maintenant ton portefeuille Club · 24 heures pour atteindre le minimum de niveau",
   "club.flow.doneBody": "Il gagne à ton taux de {boost} et détient assez de HPO pour conserver ton niveau. {old} ne compte plus. Nous avons envoyé une confirmation à {name} sur Telegram.",

@@ -459,11 +459,15 @@ await check(
     )
     const fine = context({ status: suspended, overview: { ...suspended, stateUntil: T0 + 5 + 3601 } })
     assert.equal((await sendClubPayment(fine, 'upgrade', { ...upgradeSnapshot, state: 'suspended' })).outcome, 'sent')
-    // wrapup_pending from L + 23 h by server time.
-    const at = (now) =>
-      context({ overview: { wrapupPending: true }, ctx: { serverNow: () => now }, read: read({ blockTime: now }) })
-    await expectRefused(at(CLUB_LAUNCH + 23 * 3600), 'upgrade', upgradeSnapshot, 'wrapup')
-    assert.equal((await sendClubPayment(at(CLUB_LAUNCH + 23 * 3600 - 1), 'upgrade', upgradeSnapshot)).outcome, 'sent')
+    // wrapup_pending refuses an upgrade whenever the server sends it (any season, no time gate);
+    // without it the same upgrade is sent.
+    const at = (now, wrapupPending) =>
+      context({ overview: { wrapupPending }, ctx: { serverNow: () => now }, read: read({ blockTime: now }) })
+    await expectRefused(at(T0, true), 'upgrade', upgradeSnapshot, 'wrapup')
+    // The second before the old L + 23 h gate: refused too, so this checks there is no time gate.
+    await expectRefused(at(CLUB_LAUNCH + 23 * 3600 - 1, true), 'upgrade', upgradeSnapshot, 'wrapup')
+    await expectRefused(at(CLUB_LAUNCH + 60 * 24 * 3600, true), 'upgrade', upgradeSnapshot, 'wrapup')
+    assert.equal((await sendClubPayment(at(T0, false), 'upgrade', upgradeSnapshot)).outcome, 'sent')
     await expectRefused(context({ ctx: { mockWithRealWallet: true } }), 'upgrade', upgradeSnapshot, 'mockUpgrade')
     // A claim from mock data with a real wallet is allowed (the pre-L claim test).
     assert.equal(

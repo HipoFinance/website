@@ -129,7 +129,9 @@ O HPO é adicionado ao seu saldo não resgatado na quinta-feira. Você o resgata
 
 ## Temporadas
 
-A **Temporada 6** começou em **31 de outubro de 2026**, e o fim previsto é **31 de dezembro de 2026**; o Club mostra a data e uma contagem regressiva. No fim de uma temporada, os upgrades sazonais são aplicados. Uma suspensão em andamento leva os dias restantes para a temporada seguinte.
+O Club funciona em temporadas. A página do Club mostra a temporada atual, a data de fim e uma contagem regressiva; a equipe anuncia cada data de fim com antecedência. No fim de uma temporada vem o encerramento: cada membro que resgatou durante a temporada sobe um nível (até o Nível 10; um membro suspenso não sobe). Até o encerramento terminar, os upgrades podem ficar pausados por alguns dias. Uma suspensão em andamento leva os dias restantes para a temporada seguinte.
+
+Às vezes há uma pausa entre duas temporadas. Durante a pausa, a página do Club mostra quando a próxima temporada começa. Você ainda pode fazer staking e unstake no app da Hipo e sacar a sua receita; resgates, upgrades e trocas de carteira reabrem quando a próxima temporada começa.
 
 A participação nos lucros para holders de HPO é um fluxo separado, em pausa enquanto a taxa do protocolo for 0 %; veja [Participação nos lucros](/docs/profit-sharing/).
 

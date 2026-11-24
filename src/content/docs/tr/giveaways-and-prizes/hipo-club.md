@@ -129,7 +129,9 @@ HPO, Perşembe günü talep edilmemiş bakiyenize eklenir. Güçlendirilmiş HPO
 
 ## Sezonlar
 
-**Sezon 6**, **31 Ekim 2026**'da başladı ve planlanan bitişi **31 Aralık 2026**'dır; Club tarihi ve geri sayımı gösterir. Sezon sonunda sezonluk yükseltmeler uygulanır. Süren bir askı, kalan günlerini sonraki sezona taşır.
+Club sezonlar hâlinde işler. Club sayfası mevcut sezonu, bitiş tarihini ve geri sayımı gösterir; ekip her bitiş tarihini önceden duyurur. Sezon sonunda kapanış gelir: sezon boyunca talepte bulunan her üye bir seviye yükselir (Seviye 10'a kadar; askıdaki üye yükseltilmez). Kapanış bitene kadar yükseltmeler birkaç gün durabilir. Süren bir askı, kalan günlerini sonraki sezona taşır.
+
+Bazen iki sezon arasında bir ara olur. Ara sırasında Club sayfası bir sonraki sezonun ne zaman başlayacağını gösterir. Hipo uygulamasında yine stake ve unstake edebilir, gelirinizi çekebilirsiniz; talepler, yükseltmeler ve cüzdan değişiklikleri bir sonraki sezon başlayınca yeniden açılır.
 
 HPO sahipleri için kâr paylaşımı ayrı bir akıştır ve protokol ücreti %0 olduğu sürece duraklatılmıştır; bkz. [Kâr paylaşımı](/docs/profit-sharing/).
 

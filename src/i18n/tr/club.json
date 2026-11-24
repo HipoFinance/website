@@ -160,7 +160,7 @@
   "club.error.unknownBalance": "Talep edilebilir HPO'nuz okunamadı. Tekrar deneyin.",
   "club.error.walletError": "Cüzdanınız yanıt vermedi. Orada onayladıysanız yine de ulaşmış olabilir: tekrar denemeden önce birkaç dakika bekleyin.",
   "club.error.walletTaken": "Bu cüzdan başka bir Telegram hesabına bağlı.",
-  "club.error.wrapup": "Yükseltmeler Sezon 5 kapanışından sonra yeniden açılır.",
+  "club.error.wrapup": "Yükseltmeler, yeni sona eren sezonun kapanışı tamamlanınca yeniden açılır.",
   "club.flow.doneBelowBody": "Cüzdanda {held} HPO var; Seviye minimumunuz {minimum}. Tam güçlendirmeyi korumak için 24 saat içinde {short} HPO ekleyin. {name} adlı hesaba Telegram'dan bir onay gönderdik.",
   "club.flow.doneBelowTitle": "{wallet} artık Club cüzdanınız · Seviye minimumuna ulaşmak için 24 saat",
   "club.flow.doneBody": "{boost} oranınızla kazanır ve seviyenizi korumaya yetecek kadar HPO tutar. {old} artık sayılmaz. {name} adlı hesaba Telegram'dan bir onay gönderdik.",

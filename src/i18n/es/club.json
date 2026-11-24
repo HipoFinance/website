@@ -160,7 +160,7 @@
   "club.error.unknownBalance": "No se pudo leer tu HPO reclamable. Inténtalo de nuevo.",
   "club.error.walletError": "Tu billetera no respondió. Si lo aprobaste allí, aún puede llegar: espera unos minutos antes de intentarlo de nuevo.",
   "club.error.walletTaken": "Esta billetera está vinculada a otra cuenta de Telegram.",
-  "club.error.wrapup": "Las mejoras se reabren tras el cierre de la Temporada 5.",
+  "club.error.wrapup": "Las mejoras se reabren cuando termine el cierre de la temporada que acaba de finalizar.",
   "club.flow.doneBelowBody": "Tiene {held} HPO; el mínimo de tu nivel es {minimum}. Añade {short} HPO en 24 horas para mantener el multiplicador completo. Enviamos una confirmación a {name} en Telegram.",
   "club.flow.doneBelowTitle": "{wallet} es ahora tu billetera del Club · 24 horas para alcanzar el mínimo del nivel",
   "club.flow.doneBody": "Gana a tu tasa de {boost} y tiene HPO suficiente para mantener tu nivel. {old} ya no cuenta. Enviamos una confirmación a {name} en Telegram.",

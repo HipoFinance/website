@@ -160,7 +160,7 @@
   "club.error.unknownBalance": "Couldn’t read your claimable HPO. Try again.",
   "club.error.walletError": "Your wallet didn’t answer. If you approved it there, it may still arrive: wait a few minutes before trying again.",
   "club.error.walletTaken": "This wallet is linked to another Telegram account.",
-  "club.error.wrapup": "Upgrades reopen after the Season 5 wrap-up.",
+  "club.error.wrapup": "Upgrades reopen once the wrap-up of the season that just ended is finished.",
   "club.flow.doneBelowBody": "It holds {held} HPO; your Level minimum is {minimum}. Add {short} HPO within 24 hours to keep full boost. We sent a confirmation to {name} on Telegram.",
   "club.flow.doneBelowTitle": "{wallet} is now your Club wallet · 24 hours to reach the Level minimum",
   "club.flow.doneBody": "It earns at your {boost} rate and holds enough HPO to keep your level. {old} no longer counts. We sent a confirmation to {name} on Telegram.",

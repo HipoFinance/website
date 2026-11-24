@@ -129,7 +129,9 @@ Das HPO wird am Donnerstag Ihrem nicht geclaimten Guthaben hinzugefügt. Sie cla
 
 ## Seasons
 
-**Season 6** begann am **31. Oktober 2026**, ihr geplantes Ende ist der **31. Dezember 2026**; der Club zeigt das Datum und einen Countdown. Am Ende einer Season werden die saisonalen Upgrades angewendet. Eine noch laufende Aussetzung nimmt ihre verbleibenden Tage in die nächste Season mit.
+Der Club läuft in Seasons. Die Club-Seite zeigt die aktuelle Season, ihr Enddatum und einen Countdown; das Team kündigt jedes Enddatum vorab an. Am Ende einer Season folgt der Abschluss: Jedes Mitglied, das während der Season geclaimt hat, steigt ein Level auf (bis Level 10; ein ausgesetztes Mitglied wird nicht angehoben). Bis der Abschluss beendet ist, können Upgrades einige Tage pausieren. Eine noch laufende Aussetzung nimmt ihre verbleibenden Tage in die nächste Season mit.
+
+Manchmal gibt es zwischen zwei Seasons eine Pause. Während einer Pause zeigt die Club-Seite, wann die nächste Season beginnt. Sie können in der Hipo-App weiterhin staken und unstaken und Ihre Einnahmen auszahlen; Claims, Upgrades und Wallet-Wechsel öffnen wieder, wenn die nächste Season beginnt.
 
 Die Gewinnbeteiligung für HPO-Inhaber ist ein separater Strom, pausiert, solange die Protokollgebühr 0 % beträgt; siehe [Gewinnbeteiligung](/docs/profit-sharing/).
 

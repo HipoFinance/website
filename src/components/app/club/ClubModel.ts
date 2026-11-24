@@ -56,7 +56,6 @@ import {
   CHAIN_TIME_SKEW,
   CLAIMS_OPEN_MARGIN,
   SUSPEND_DEADLINE_MARGIN,
-  WRAPUP_PAUSE_FROM,
   addAck,
   archiveFirstPage,
   createChainReader,
@@ -883,7 +882,7 @@ export class ClubModel {
     if (o.state === 'suspended' && (o.stateUntil === undefined || o.stateUntil - now <= SUSPEND_DEADLINE_MARGIN)) {
       return { key: 'club.error.deadline' }
     }
-    if (o.wrapupPending && now >= WRAPUP_PAUSE_FROM) {
+    if (o.wrapupPending) {
       return { key: 'club.error.wrapup' }
     }
     if (this.levels?.hasNext) {

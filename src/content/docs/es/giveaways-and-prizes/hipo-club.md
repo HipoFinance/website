@@ -129,7 +129,9 @@ El HPO se suma a tu saldo sin reclamar el jueves. Lo reclamas junto con tu HPO p
 
 ## Temporadas
 
-La **Temporada 6** empezó el **31 de octubre de 2026** y su final previsto es el **31 de diciembre de 2026**; el Club muestra la fecha y una cuenta atrás. Al terminar una temporada se aplican las subidas de temporada. Una suspensión que sigue en curso lleva sus días restantes a la siguiente temporada.
+El Club funciona por temporadas. La página del Club muestra la temporada actual, su fecha de fin y una cuenta atrás; el equipo anuncia cada fecha de fin con antelación. Al terminar una temporada llega el cierre: cada miembro que reclamó durante la temporada sube un nivel (hasta el Nivel 10; un miembro suspendido no sube). Hasta que el cierre termine, las subidas pueden pausarse unos días. Una suspensión que sigue en curso lleva sus días restantes a la siguiente temporada.
+
+A veces hay una pausa entre dos temporadas. Durante una pausa, la página del Club muestra cuándo empieza la siguiente temporada. Puedes seguir haciendo staking y retirando del staking en la app de Hipo, y retirar tus ingresos; las reclamaciones, las subidas y los cambios de billetera se reabren cuando empieza la siguiente temporada.
 
 El reparto de beneficios para los holders de HPO es un flujo aparte, en pausa mientras la comisión del protocolo sea 0 %; consulta [Reparto de beneficios](/docs/profit-sharing/).
 

@@ -129,7 +129,9 @@ The HPO is added to your unclaimed balance on Thursday. You claim it together wi
 
 ## Seasons
 
-**Season 6** started on **31 October 2026**, and its planned end is **31 December 2026**; the Club shows the date and a countdown. At the end of a season the seasonal upgrades are applied. A suspension that is still running carries its remaining days into the next season.
+The Club runs in seasons. The Club page shows the current season, its end date and a countdown; the team announces each end date ahead of time. At the end of a season comes the wrap-up: every member who claimed during the season moves up one level (up to Level 10; a suspended member is not raised). Until the wrap-up is finished, upgrades may pause for a few days. A suspension that is still running carries its remaining days into the next season.
+
+Sometimes there is a break between two seasons. During a break the Club page shows when the next season starts. You can still stake and unstake in the Hipo app and withdraw your revenue; claims, upgrades and wallet changes reopen when the next season starts.
 
 Profit sharing for HPO holders is a separate stream, paused while the protocol fee is 0%; see [Profit Sharing](/docs/profit-sharing/).
 
