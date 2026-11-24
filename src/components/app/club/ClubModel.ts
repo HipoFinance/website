@@ -53,6 +53,7 @@ import {
 import { authBody, authOutcome, sessionFitsInitData, type Credentials } from './auth.ts'
 import { HIPO_TON, claimMinNano, parseHpoNano, upgradeAmountNano, upgradeTarget } from './clubTx.ts'
 import {
+  CHAIN_TIME_SKEW,
   CLAIMS_OPEN_MARGIN,
   SUSPEND_DEADLINE_MARGIN,
   WRAPUP_PAUSE_FROM,
@@ -1418,9 +1419,14 @@ export class ClubModel {
       // A claim that landed more than 24 h ago and was never applied: its lock waits for the member
       // to read that, and the guard that shows it never runs while the lock turns Claim off.
       // An ack stored while this check awaited the chain (the member read an earlier window) is not
-      // shown again.
+      // shown again. While the server holds this claim (held_payment for a claim sent no later than
+      // this one, e.g. sent just before a season ended and landed in the break), it is not "not
+      // applied": the modal waits and the lock stays (the strip shows it on its way, the break card
+      // the received line). A held claim that is newer than this one does not hide it.
+      const held = this.heldPayment
       if (
         due.notApplied !== undefined &&
+        !(held?.target === 'claim' && held.sentAt <= due.notApplied.at + CHAIN_TIME_SKEW) &&
         this.modal === undefined &&
         this.session?.account === account &&
         !readAcks(this.storage).has(due.notApplied.ackKey)
