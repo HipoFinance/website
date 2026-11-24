@@ -30,11 +30,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  # Two jobs, as in GitHub's own Pages template: build uploads the artifact, deploy publishes it.
+  # With both in one job, deploy-pages asked for the artifact right after the upload and often
+  # found none ("No artifacts named github-pages", 4 of 6 runs on 2026-11-24); the job hand-off
+  # gives it time to register, and a failed deploy job can be re-run alone without a second upload.
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -63,9 +63,24 @@ jobs:
         with:
           # Upload dist repository
           path: "./dist"
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+      # The render check below runs scripts/render-check.mjs, so this job needs the repository too.
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
 
       # A deploy that responds is not a deploy that works. On 2026-09-08 one import moved
       # @ton/core into the eager island chunk, ahead of the Buffer polyfill behind loadChain(),

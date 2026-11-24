@@ -9,6 +9,10 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-24 — Pages deploy split into build and deploy jobs
+
+- `.github/workflows/deploy.yml`: the one job is now `build` (build, upload the Pages artifact) and `deploy` (`needs: build`; deploy, then the render check). With both in one job, `deploy-pages` asked for the artifact right after the upload and often found none ("No artifacts named github-pages": 4 of 6 runs on 2026-11-24, the push of `8cf21b1` never went live). It is GitHub's own Pages template layout; a failed deploy job can be re-run alone. Checked first: `club.hipo.finance` is published by the separate `club-web` → `club-web-build` repos (their own Pages site, legacy branch build), with no trigger or concurrency group shared with this workflow, so it is not affected. Left: a wait step before the deploy, declined as only usually enough.
+
 ## 2026-11-24 — Club: season break card, held payments
 
 - While the api's `season.paused` is true (a break between seasons, and after its start until the server releases), the Club page hides every tab and the season pill and shows one break card to everyone: "Season N has ended", the closed and start dates in local time with zone, a countdown (days, hours, under an hour, then "Season N+1 is starting"), and the stake and unstake line. From the start on the page re-reads the season every minute, so the tabs return without a reload. A member with withdrawable rewards sees the amount and Withdraw (the Rewards tab's own `withdraw()`).
