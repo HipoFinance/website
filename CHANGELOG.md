@@ -9,6 +9,13 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-28 — Stake form: the rate row says "Deposit price"
+
+- `StakeUnstake.tsx` and its static mirror `shell/ShellStakeForm.astro`: on the stake tab the rate row is now labelled "Deposit price" (new key `app.stake.depositPrice`, in all 11 locales), since it shows the price a deposit pays, (C + P) / T; the unstake tab keeps "Exchange rate", C / T. The two numbers differ by about P / C (0.06% on 2026-11-28), and the old shared label left that difference unexplained.
+- Translations use the glossary's deposit verb and rate words: ru "Курс при внесении", uk "Курс при внесенні", de "Einzahlungskurs", es "Precio de depósito", pt "Preço de depósito", fr "Prix de dépôt", tr "Yatırma fiyatı", id "Harga setoran", fa "قیمت واریز", ar "سعر الإيداع".
+- Declined: a hint while the treasury refuses deposits (`deciding`, about 0–3 s per round). A wallet can sign a deposit up to 5 minutes after the page reads the treasury, so the hint could not predict the window.
+- Reviewed: team:code-reviewer, no confirmed failing case. Not money-audited (no-go by Behrang).
+
 ## 2026-11-28 — Club: Community tab says rewards are live before Telegram is linked
 
 - `CommunityTab.tsx`: without a Club session the tab showed "Community rewards are coming soon", though they are live. It now shows "Community rewards are live" with a line that asks the user to link the Telegram account they use in Hipo Chat (new keys `club.community.liveTitle`, `club.community.liveBody`). "Coming soon" stays for when the server reports the setting off.

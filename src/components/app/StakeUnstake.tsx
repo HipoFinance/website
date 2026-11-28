@@ -308,7 +308,7 @@ const StakeUnstake = observer(({ model }: Props) => {
               <p className='text-text num ms-auto font-medium'>{model.youWillReceive}</p>
             </div>
             <div className='flex flex-row flex-wrap'>
-              <p>{t('app.stake.exchangeRate')}</p>
+              <p>{stake ? t('app.stake.depositPrice') : t('app.stake.exchangeRate')}</p>
               <p className='text-text num ms-auto font-medium'>{model.exchangeRateFormatted}</p>
             </div>
             <div className='flex flex-row flex-wrap'>

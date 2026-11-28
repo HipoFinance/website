@@ -551,6 +551,10 @@
     "sourceHash": "a80e3858c02a1432c564b5ba05613ef65fee3001",
     "reviewed": false
   },
+  "app.stake.depositPrice": {
+    "sourceHash": "ad28cecf38bd6844ba7389ba710c0c4e0806d469",
+    "reviewed": false
+  },
   "app.stake.docs": {
     "sourceHash": "68a4194227be4ab74bc3d32363417c0fc1f30055",
     "reviewed": false

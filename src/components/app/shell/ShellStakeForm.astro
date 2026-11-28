@@ -137,7 +137,7 @@ const idle = 'text-text-muted hover:text-accent'
           <p class='text-text num ms-auto font-medium'></p>
         </div>
         <div class='flex flex-row flex-wrap'>
-          <p set:text={t('app.stake.exchangeRate')} />
+          <p set:text={stake ? t('app.stake.depositPrice') : t('app.stake.exchangeRate')} />
           <p class='text-text num ms-auto font-medium'></p>
         </div>
         <div class='flex flex-row flex-wrap'>
