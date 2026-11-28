@@ -9,6 +9,10 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-28 — Stake form: the pending take through sdk 8.2.0
+
+- `Model.ts`, `chain.ts`: `get_pending_take` is read with `@hipo-finance/sdk` 8.2.0's `Treasury.getPendingTake` (same parse, same block) instead of the site's own small reader, which is deleted; the sdk goes from 8.0.0 to 8.2.0, which adds only new methods and an optional argument the site does not use. A comment now says the Stats rate matches the unstake form's "Exchange rate" row. Checked live: the same pending take through the sdk method. Reviewed: team:code-reviewer, no confirmed failing case. Not money-audited (no-go by Behrang).
+
 ## 2026-11-28 — Stake form: the rate row says "Deposit price"
 
 - `StakeUnstake.tsx` and its static mirror `shell/ShellStakeForm.astro`: on the stake tab the rate row is now labelled "Deposit price" (new key `app.stake.depositPrice`, in all 11 locales), since it shows the price a deposit pays, (C + P) / T; the unstake tab keeps "Exchange rate", C / T. The two numbers differ by about P / C (0.06% on 2026-11-28), and the old shared label left that difference unexplained.
