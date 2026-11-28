@@ -2185,7 +2185,7 @@ export class Model {
   }
 
   // The protocol rate — how much GRAM one hGRAM redeems for — straight from treasury state, the
-  // same source as the stake form's "Exchange rate" row.
+  // same C / T as the unstake form's "Exchange rate" row (the stake form shows the deposit price).
   //
   // It is deliberately NOT the ratio of the gauge's two USD quotes, which this used to prefer: that
   // ratio is a market price, it trades below 1 (it read 0.9627 on the live card), and it flatly
@@ -2996,12 +2996,7 @@ export class Model {
 
       const readMaxBurnableTokens = retry(treasury.getMaxBurnableTokens)
 
-      const readPendingTake = retry(() =>
-        tonClient
-          .openAt(lastBlock, new chain!.PendingTake(chain!.treasuryAddress!))
-          .getPendingTake()
-          .then((value) => value.pendingTake),
-      )
+      const readPendingTake = retry(treasury.getPendingTake).then((value) => value.pendingTake)
 
       const readAccountInfo =
         address == null

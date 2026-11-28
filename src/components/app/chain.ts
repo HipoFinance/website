@@ -42,19 +42,3 @@ import { treasuryAddresses } from '@hipo-finance/sdk'
 // Mainnet only; testnet support was removed 2026-08-10. Resolved here rather than at Model's
 // module scope, which would have dragged the sdk back into the eager chunk.
 export const treasuryAddress = treasuryAddresses.get('mainnet')
-
-import type { Address as AddressType, Contract, ContractProvider } from '@ton/core'
-
-// get_pending_take, added by the treasury release of 2026-11-28. @hipo-finance/sdk 8.1 has no wrapper
-// for it yet; move to the sdk's once it has one. A deposit of c nano-GRAM mints
-// floor(c · total_tokens / (total_coins + pendingTake)) nano-hGRAM: the reward the owing rounds will
-// book, net of the governance fee, is counted in the price. deciding is true for the few seconds a
-// round's loans are being decided, when the treasury refuses deposits and bounces them.
-export class PendingTake implements Contract {
-  constructor(readonly address: AddressType) {}
-
-  async getPendingTake(provider: ContractProvider) {
-    const { stack } = await provider.get('get_pending_take', [])
-    return { pendingTake: stack.readBigNumber(), deciding: stack.readBoolean() }
-  }
-}
