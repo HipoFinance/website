@@ -253,7 +253,13 @@ const retryAttempts = 30
 // 2026-09-10: at 250ms the wait loop ran at ~4.7 req/s against a 120r/m allowance and started
 // drawing 429s on any wait longer than ~25s.
 const waitForCompletionDelay = 1000
+// How often send() looks for its own transaction on chain while the wallet has not answered yet.
+// Slower than waitForCompletionDelay: this runs for every request, mostly in parallel with a
+// wallet reply that arrives first anyway, and the gateway allows 120 reads a minute per IP.
+const watchForSentDelay = 5 * 1000
 const txValidUntil = 5 * 60
+// What guardSession resolves with when send()'s chain watch finds the transaction before the wallet answers.
+const LANDED: unique symbol = Symbol('landed')
 // How long connectAndStake waits for onStatusChange to publish the freshly connected account
 // before it starts reading the chain. The connection is already established by then, so this is
 // a handful of microtasks in practice, never the full second.
@@ -478,6 +484,19 @@ function waitForElement(id: string): Promise<void> {
     }
     check()
   })
+}
+
+// TonConnect UI 5.0.1 has no public way to close its "Confirm the transaction" modal. Its close
+// button calls setAction(null), which aborts the pending request (sendTransaction rejects with
+// "Transaction was not sent") and raises TonConnect's "error" action, but its toasts render only
+// inside TonConnect's own connect button, which this site does not mount, so nothing shows.
+// Re-verify when bumping @tonconnect/ui. Tested in a browser against 5.0.1 on 2026-11-28 with a
+// wallet that never replies: the modal closed and sendTransaction rejected with "Transaction was
+// not sent".
+function closeTonConnectActionModal(): boolean {
+  const button = document.querySelector<HTMLElement>('[data-tc-actions-modal-container] [data-tc-icon-button]')
+  button?.click()
+  return button != null
 }
 
 // Marks <html> while the Telegram locale override rewrites its lang/dir (see Model.syncLocale and
@@ -3124,16 +3143,38 @@ export class Model {
   // or browser silently drops this one while the UI still shows the wallet as connected.
   // A request over a dropped session never gets an answer, so bound every request by its
   // validUntil window and drop the stale session when the wallet stays silent.
-  private guardSession = async <T>(tonConnectUI: TonConnectUI, send: Promise<T>): Promise<T> => {
+  //
+  // `landed`, when given, resolves true once the transaction is seen on chain (see watchForSent).
+  // That counts as the wallet's answer: the race ends with LANDED, the session is left alone, and
+  // the request's own later rejection is ignored.
+  private guardSession<T>(tonConnectUI: TonConnectUI, send: Promise<T>): Promise<T>
+  private guardSession<T>(
+    tonConnectUI: TonConnectUI,
+    send: Promise<T>,
+    landed: Promise<boolean>,
+  ): Promise<T | typeof LANDED>
+  private async guardSession<T>(
+    tonConnectUI: TonConnectUI,
+    send: Promise<T>,
+    landed?: Promise<boolean>,
+  ): Promise<T | typeof LANDED> {
     let timer: ReturnType<typeof setTimeout> | undefined = undefined
     const timeout = new Promise<never>((_, reject) => {
       timer = setTimeout(() => {
         reject(new StaleSessionError())
       }, txValidUntil * 1000)
     })
+    const races: Promise<T | typeof LANDED>[] = [send, timeout]
+    if (landed != null) {
+      races.push(landed.then((found) => (found ? LANDED : new Promise<never>(() => undefined))))
+    }
 
     try {
-      return await Promise.race([send, timeout])
+      const result = await Promise.race(races)
+      if (result === LANDED) {
+        send.catch(() => undefined)
+      }
+      return result
     } catch (e) {
       send.catch(() => undefined)
       if (e instanceof StaleSessionError || isNotConnectedError(e)) {
@@ -3152,6 +3193,19 @@ export class Model {
       return Promise.reject(new NotConnectedError())
     }
     return this.guardSession(tonConnectUI, tonConnectUI.sendTransaction(tx))
+  }
+
+  // The same, also watching the chain: resolves with LANDED when `landed` finds the transaction
+  // before the wallet answers. See guardSession.
+  guardedSendTransactionWatched = (
+    tx: SendTransactionRequest,
+    landed: Promise<boolean>,
+  ): Promise<SendTransactionResponse | typeof LANDED> => {
+    const tonConnectUI = this.tonConnectUI
+    if (tonConnectUI == null) {
+      return Promise.reject(new NotConnectedError())
+    }
+    return this.guardSession(tonConnectUI, tonConnectUI.sendTransaction(tx), landed)
   }
 
   // The connect-and-stake half of the same guard. With enableEmbeddedRequest the call no longer
@@ -3212,12 +3266,22 @@ export class Model {
         track('stake_initiated', { amount_gram: pending.amountGram })
       }
 
-      void this.guardedSendTransaction(tx).then(
-        () =>
-          this.waitForCompletion(queryId, pending).then(() => {
+      // The wallet may sign and broadcast without its reply ever reaching us (seen with Keeper,
+      // 2026-11-28), so the chain is watched too; see watchForSent.
+      const watch = new AbortController()
+      const landed = this.watchForSent(queryId, watch.signal)
+      void this.guardedSendTransactionWatched(tx, landed).then(
+        (response) => {
+          watch.abort()
+          if (response === LANDED) {
+            closeTonConnectActionModal()
+          }
+          return this.waitForCompletion(queryId, pending).then(() => {
             this.clearAmount()
-          }),
+          })
+        },
         (e: unknown) => {
+          watch.abort()
           if (!(e instanceof StaleSessionError) && !isNotConnectedError(e)) {
             this.showMultisigHint()
           }
@@ -3338,7 +3402,7 @@ export class Model {
   // Hence a URL neither layer has seen. TonClient4 stays the fallback rather than the default,
   // because it is the one that goes through the caches; it also owns failover, so a fetch that
   // fails for any reason hands the question back to it rather than guessing.
-  private readHeadSeqno = async (tonClient: TonClient4): Promise<number> => {
+  private readHeadSeqno = async (tonClient: TonClient4, retries = retryAttempts): Promise<number> => {
     const endpoint = this.tonEndpoint
     if (endpoint !== '') {
       try {
@@ -3353,7 +3417,70 @@ export class Model {
         // Fall through to the client below.
       }
     }
-    return (await retry(() => tonClient.getLastBlock())).last.seqno
+    return (await retry(() => tonClient.getLastBlock(), retries)).last.seqno
+  }
+
+  // Whether this request's transaction shows up on chain, whatever the wallet says. The wallet
+  // signed and broadcast but its bridge reply was lost (seen with Keeper, 2026-11-28), so the chain
+  // is the other way to learn the request went out. Never throws; false when aborted, when the
+  // validUntil window passes, or when there is no client or address to look with.
+  private watchForSent = async (queryId: bigint, signal: AbortSignal): Promise<boolean> => {
+    const tonClient = this.tonClient
+    const address = this.address
+    if (tonClient == null || address == null) {
+      return false
+    }
+    const deadline = Date.now() + txValidUntil * 1000
+    let scannedSeqno = 0
+    // The newest lt scanned so far. Unset until the first successful read; that first batch is
+    // scanned too, so a transaction that landed before it is not missed.
+    let baseline: string | undefined = undefined
+    let started = false
+
+    while (!signal.aborted && Date.now() < deadline) {
+      await sleep(watchForSentDelay)
+      if (signal.aborted) {
+        return false
+      }
+      try {
+        const seqno = await this.readHeadSeqno(tonClient, 1)
+        if (signal.aborted) {
+          return false
+        }
+        if (seqno === scannedSeqno) {
+          continue
+        }
+        const last = (await tonClient.getAccountLite(seqno, address)).account.last
+        if (signal.aborted) {
+          return false
+        }
+        scannedSeqno = seqno
+        if (last == null || (started && last.lt === baseline)) {
+          started = true
+          continue
+        }
+        const txs = await tonClient.getAccountTransactions(address, BigInt(last.lt), Buffer.from(last.hash, 'base64'))
+        started = true
+        baseline = last.lt
+        for (const txBlock of txs) {
+          const outMessage = txBlock.tx.outMessages.get(0)
+          if (outMessage == null) {
+            continue
+          }
+          const outPayload = outMessage.body.beginParse()
+          if (outPayload.remainingBits >= 32 + 64) {
+            outPayload.skip(32)
+            if (outPayload.loadUintBig(64) === queryId) {
+              return true
+            }
+          }
+        }
+      } catch {
+        // A failed read just waits for the next turn.
+        continue
+      }
+    }
+    return false
   }
 
   // What a message arriving back at the visitor's own wallet says actually happened. Read from

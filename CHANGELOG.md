@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-28 — Stake form: a lost wallet reply no longer leaves the confirm dialog spinning
+
+- `Model.ts`: `send()` now also looks for its own queryId on chain every 5s while the wallet has not answered. A user's Keeper signed and broadcast an unstake but its bridge reply never arrived, so TonConnect's "Confirm the transaction" modal spun for good, our result dialog never opened, and after 5 minutes `guardSession` would have disconnected the wallet with "session expired". When the chain shows the transaction first, that counts as the reply: the modal is closed and `waitForCompletion` runs as for any reply. The transaction (messages, amounts, destination) and the `sendTransaction` call are unchanged; nothing is sent twice.
+- It relies on one TonConnect UI 5.0.1 internal, to re-verify when `@tonconnect/ui` is bumped: the close button of the confirm modal (`[data-tc-actions-modal-container] [data-tc-icon-button]`, clicked to close it). Browser-tested against 5.0.1 on 2026-11-28 with a wallet that never replies: the modal closed and `sendTransaction` rejected with "Transaction was not sent". TonConnect's toasts render only inside its own connect button, which this site does not mount, so closing shows nothing. If the selector breaks, the cost is a modal that stays open.
+- Left open: the connect-and-stake embedded path has no such watch, and neither does a request the wallet rejects but signs anyway (as before). Reviewed: team:code-reviewer on both lenses, no confirmed failing case. Money-audited, one run (go by Behrang): no finding with a loss scenario.
+
 ## 2026-11-28 — Stake form: the pending take through sdk 8.2.0
 
 - `Model.ts`, `chain.ts`: `get_pending_take` is read with `@hipo-finance/sdk` 8.2.0's `Treasury.getPendingTake` (same parse, same block) instead of the site's own small reader, which is deleted; the sdk goes from 8.0.0 to 8.2.0, which adds only new methods and an optional argument the site does not use. A comment now says the Stats rate matches the unstake form's "Exchange rate" row. Checked live: the same pending take through the sdk method. Reviewed: team:code-reviewer, no confirmed failing case. Not money-audited (no-go by Behrang).
