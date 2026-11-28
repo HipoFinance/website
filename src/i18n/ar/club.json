@@ -101,6 +101,8 @@
   "club.community.chat": "Hipo Chat",
   "club.community.limzo": "بدعم من Limzo",
   "club.community.title": "مكافآت المجتمع قادمة قريبًا",
+  "club.community.liveTitle": "مكافآت المجتمع متاحة الآن",
+  "club.community.liveBody": "كل أسبوع تكسب HPO لمشاركتك في Hipo Chat: الردود المفيدة وتقدير الأعضاء الآخرين وحضورك. اربط حساب Telegram الذي تتحدث به في Hipo Chat لترى نقاطك و HPO الخاصة بك.",
   "club.connectClub.body": "تُرسل المطالبات والترقيات من محفظة النادي الخاصة بك، لذا اربطها للمتابعة.",
   "club.connectClub.title": "اربط محفظة النادي {wallet}",
   "club.error.accountMoved": "تم نقل حساب النادي الخاص بحساب Telegram هذا إلى حساب Telegram آخر. سجّل الدخول بذلك الحساب.",

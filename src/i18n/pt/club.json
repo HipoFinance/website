@@ -101,6 +101,8 @@
   "club.community.chat": "Hipo Chat",
   "club.community.limzo": "Com tecnologia Limzo",
   "club.community.title": "As recompensas da comunidade chegam em breve",
+  "club.community.liveTitle": "As recompensas da comunidade já estão ativas",
+  "club.community.liveBody": "Toda semana você ganha HPO por fazer parte do Hipo Chat: respostas úteis, reconhecimento de outros membros e presença. Vincule a conta do Telegram com que você conversa no Hipo Chat para ver seus pontos e seu HPO.",
   "club.connectClub.body": "Resgates e upgrades são enviados da sua carteira do Club, então conecte-a para continuar.",
   "club.connectClub.title": "Conectar a sua carteira do Club {wallet}",
   "club.error.accountMoved": "A conta do Club desta conta do Telegram foi movida para outra conta do Telegram. Faça login com ela.",

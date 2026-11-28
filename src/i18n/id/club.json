@@ -101,6 +101,8 @@
   "club.community.chat": "Hipo Chat",
   "club.community.limzo": "Didukung oleh Limzo",
   "club.community.title": "Imbalan komunitas segera hadir",
+  "club.community.liveTitle": "Imbalan komunitas sudah aktif",
+  "club.community.liveBody": "Setiap minggu Anda mendapatkan HPO karena menjadi bagian dari Hipo Chat: balasan yang membantu, apresiasi dari anggota lain, dan kehadiran Anda. Tautkan akun Telegram yang Anda pakai di Hipo Chat untuk melihat poin dan HPO Anda.",
   "club.connectClub.body": "Klaim dan upgrade dikirim dari dompet Club Anda, jadi hubungkan dompet tersebut untuk melanjutkan.",
   "club.connectClub.title": "Hubungkan dompet Club Anda {wallet}",
   "club.error.accountMoved": "Akun Club dari akun Telegram ini sudah dipindahkan ke akun Telegram lain. Masuk dengan akun tersebut.",

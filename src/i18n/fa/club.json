@@ -101,6 +101,8 @@
   "club.community.chat": "چت Hipo",
   "club.community.limzo": "با پشتیبانی Limzo",
   "club.community.title": "پاداش‌های انجمن به‌زودی می‌آید",
+  "club.community.liveTitle": "پاداش‌های جامعه فعال شده است",
+  "club.community.liveBody": "هر هفته با حضور در Hipo Chat پاداش HPO کسب می‌کنید: پاسخ‌های مفید، قدردانی اعضای دیگر و حضور فعال. حساب تلگرامی را که با آن در Hipo Chat گفتگو می‌کنید متصل کنید تا امتیازها و HPO خود را ببینید.",
   "club.connectClub.body": "دریافت‌ها و ارتقاها از کیف پول Club شما ارسال می‌شوند، پس برای ادامه آن را متصل کنید.",
   "club.connectClub.title": "کیف پول Club خود را متصل کنید: {wallet}",
   "club.error.accountMoved": "حساب Club این حساب تلگرام به حساب تلگرام دیگری منتقل شده است. با همان حساب وارد شوید.",

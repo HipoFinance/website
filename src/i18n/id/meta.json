@@ -1487,6 +1487,14 @@
     "sourceHash": "dcc45dab9ccc3cbc20d15d233d09a6b0ee5ea868",
     "reviewed": false
   },
+  "club.community.liveBody": {
+    "sourceHash": "0e17a9c12b3de47a010e84dc831717fa63246bae",
+    "reviewed": false
+  },
+  "club.community.liveTitle": {
+    "sourceHash": "be1fe19d545284ec9280c8ca2b1abba71382aeb3",
+    "reviewed": false
+  },
   "club.community.members_one": {
     "sourceHash": "c6a306f1a11ccbcdcbea49cd3428e8e4e67bfc0a",
     "reviewed": false
@@ -4924,7 +4932,7 @@
     "reviewed": false
   },
   "seo.club.community.description": {
-    "sourceHash": "95516b7d69770c87999563a6686110bf26cca842",
+    "sourceHash": "f86f53c63e7f0e321be6a5b56fd2bbd705ebc6a5",
     "reviewed": false
   },
   "seo.club.community.title": {

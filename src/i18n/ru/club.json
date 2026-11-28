@@ -101,6 +101,8 @@
   "club.community.chat": "Hipo Chat",
   "club.community.limzo": "Работает на Limzo",
   "club.community.title": "Награды за участие в сообществе скоро появятся",
+  "club.community.liveTitle": "Награды сообщества уже работают",
+  "club.community.liveBody": "Каждую неделю вы получаете HPO за участие в Hipo Chat: полезные ответы, благодарности от других участников и активность. Привяжите аккаунт Telegram, с которого пишете в Hipo Chat, чтобы видеть свои баллы и HPO.",
   "club.connectClub.body": "Вывод наград и повышение уровня отправляются с вашего кошелька Club, поэтому подключите его, чтобы продолжить.",
   "club.connectClub.title": "Подключите свой кошелёк Club {wallet}",
   "club.error.accountMoved": "Аккаунт Club, привязанный к этому аккаунту Telegram, перенесён в другой аккаунт Telegram. Войдите через него.",

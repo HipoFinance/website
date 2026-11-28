@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-28 — Club: Community tab says rewards are live before Telegram is linked
+
+- `CommunityTab.tsx`: without a Club session the tab showed "Community rewards are coming soon", though they are live. It now shows "Community rewards are live" with a line that asks the user to link the Telegram account they use in Hipo Chat (new keys `club.community.liveTitle`, `club.community.liveBody`). "Coming soon" stays for when the server reports the setting off.
+- `seo.club.community.description`: "are live" in place of "are coming soon".
+- All 11 locales. Left open: Persian's older strings use انجمن for "community" (the tab label, the page title), while the glossary says جامعه; the new strings follow the glossary.
+
 ## 2026-11-28 — Stake form: the deposit price after the treasury release
 
 - `Model.ts`, `chain.ts`: since the treasury release of 2026-11-28 (code `e968bebe…`) a deposit of c nano-GRAM mints floor(c · total_tokens / (total_coins + pending_take)), where pending_take is the reward the rounds still owing will book. The stake tab now reads `get_pending_take` in the same block as `get_treasury_state`, quotes "you will receive" with that exact formula in bigint, and shows the deposit price (C + P) / T as its exchange rate. The unstake tab keeps C / T, so the two rates now differ by about P / C (0.06% on 2026-11-28). Checked on mainnet: 1 GRAM quotes 828,816,143 nano-hGRAM, the same as the first real deposit minted; the old quote said 829,298,080. The transaction sent is unchanged. `@hipo-finance/sdk` 8.1 has no wrapper for the getter yet, so `chain.ts` carries a small one; move to the sdk's when it has one. `club/mock.ts` fills `pendingTake` with 0 for the mock preview.

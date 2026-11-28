@@ -309,11 +309,15 @@ const CommunityTab = observer(({ club }: Props) => {
   const weekEnd = e?.end || iso(monday + 6 * DAY_MS)
 
   if (club.session === undefined) {
-    // No Club reply is readable without a session, so the setting is unknown: coming soon, plus the link
-    // card. "How it works" waits until the setting is known to be 'points'.
+    // No Club reply is readable without a session: community rewards are live, so point to linking
+    // Telegram. "How it works" waits until the setting is known to be 'points'.
     return (
       <div className='text-body flex min-w-0 flex-col gap-6 leading-normal tabular-nums'>
-        <ComingSoon club={club} />
+        <Card>
+          <h2 className='font-display text-2xl font-extrabold'>{t('club.community.liveTitle')}</h2>
+          <p className={bodyText}>{t('club.community.liveBody')}</p>
+          <ChatLinks club={club} />
+        </Card>
         <section className={noticeBox}>
           <Notice
             title={t('club.community.notLinkedTitle')}

@@ -101,6 +101,8 @@
   "club.community.chat": "Hipo Chat",
   "club.community.limzo": "Limzo tarafından desteklenir",
   "club.community.title": "Topluluk ödülleri yakında geliyor",
+  "club.community.liveTitle": "Topluluk ödülleri artık aktif",
+  "club.community.liveBody": "Hipo Chat'in bir parçası olduğunuz için her hafta HPO kazanıyorsunuz: faydalı yanıtlar, diğer üyelerin takdiri ve etkin katılım. Puanlarınızı ve HPO'nuzu görmek için Hipo Chat'te yazdığınız Telegram hesabını bağlayın.",
   "club.connectClub.body": "Talepler ve yükseltmeler Club cüzdanınızdan gönderilir; devam etmek için bağlayın.",
   "club.connectClub.title": "Club cüzdanınızı bağlayın: {wallet}",
   "club.error.accountMoved": "Bu Telegram hesabının Club hesabı başka bir Telegram hesabına taşındı. O hesapla giriş yapın.",
