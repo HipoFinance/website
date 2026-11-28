@@ -180,6 +180,7 @@ export class ClubMock implements ClubTransport {
           lastSettledRound: 1_794_133_768n,
           participations: this.participations(),
         } as unknown as TreasuryConfig
+        model.pendingTake ??= 0n
         if (model.address !== undefined && this.realWallet === undefined && model.tonConnectUI?.wallet == null) {
           model.tonBalance ??= 25_000_000_000n
           model.walletState ??= { tokens: 412_750_000_000n } as WalletState

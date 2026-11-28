@@ -703,6 +703,9 @@ export class Model {
   treasury?: OpenedContract<Treasury>
   treasuryState?: TreasuryConfig
   maxBurnableTokens?: bigint
+  // The treasury's get_pending_take, read with treasuryState from the same block: the owing rounds'
+  // reward, net of the governance fee, that a deposit's price counts (see depositTokensFor).
+  pendingTake?: bigint
   walletAddress?: Address
   wallet?: OpenedContract<Wallet>
   walletState?: WalletState
@@ -831,6 +834,7 @@ export class Model {
       treasury: observable,
       treasuryState: observable,
       maxBurnableTokens: observable,
+      pendingTake: observable,
       walletAddress: observable,
       wallet: observable,
       walletState: observable,
@@ -1701,11 +1705,25 @@ export class Model {
     } else if (nano == null || !this.isAmountValid || !this.isAmountPositive) {
       return ''
     } else if (this.isStakeTabActive) {
-      return this.formatNano(Number(nano) * rate)
+      const tokens = this.depositTokensFor(nano)
+      return tokens == null ? '' : this.formatNano(tokens)
     } else {
       const tokens = this.unstakeTokensInNano
       return tokens == null ? '' : this.formatNano(tokens)
     }
+  }
+
+  // The hGRAM, in nano, that a deposit of `nano` GRAM mints: floor(c · T / (C + P)), the treasury's
+  // own muldiv since its 2026-11-28 release, where P is pendingTake. A deposit's coins can't be lent
+  // in the rounds already owing their reward, so it is priced as if that reward were already booked.
+  // undefined until both the state and the pending take are read.
+  depositTokensFor(nano: bigint) {
+    const state = this.treasuryState
+    const pendingTake = this.pendingTake
+    if (state == null || pendingTake == null || state.totalCoins + pendingTake <= 0n) {
+      return undefined
+    }
+    return (nano * state.totalTokens) / (state.totalCoins + pendingTake)
   }
 
   // Both tabs: the field is GRAM, the figure under it hGRAM.
@@ -1728,21 +1746,29 @@ export class Model {
       : this.withUnit('app.model.hgram', amount)
   }
 
+  // The stake tab's rate is the deposit price, which counts pendingTake (see depositTokensFor), so it
+  // stays undefined until that is read; the unstake tab's is the plain rate an unstake pays at.
   get exchangeRate() {
     const state = this.treasuryState
     if (state != null) {
       if (this.isStakeTabActive) {
-        return Number(state.totalTokens) / Number(state.totalCoins) || 1
+        const pendingTake = this.pendingTake
+        return pendingTake == null ? undefined : Number(state.totalTokens) / Number(state.totalCoins + pendingTake) || 1
       } else {
         return Number(state.totalCoins) / Number(state.totalTokens) || 1
       }
     }
   }
 
+  // GRAM per hGRAM: on the stake tab the price a deposit pays, (C + P) / T, on the unstake tab C / T.
   get exchangeRateFormatted() {
     const state = this.treasuryState
     if (state != null) {
-      const rate = (Number(state.totalCoins) / Number(state.totalTokens)) * 1000000000 || 1
+      const pendingTake = this.isStakeTabActive ? this.pendingTake : 0n
+      if (pendingTake == null) {
+        return
+      }
+      const rate = (Number(state.totalCoins + pendingTake) / Number(state.totalTokens)) * 1000000000 || 1
       return this.t('app.model.rate', { rate: this.isolate(this.formatNano(rate, 4)) })
     }
   }
@@ -2942,6 +2968,7 @@ export class Model {
         this.tonBalance = undefined
         this.treasury = undefined
         this.treasuryState = undefined
+        this.pendingTake = undefined
         this.walletAddress = undefined
         this.wallet = undefined
         this.walletState = undefined
@@ -2968,6 +2995,13 @@ export class Model {
       const readTreasuryState = retry(treasury.getTreasuryState)
 
       const readMaxBurnableTokens = retry(treasury.getMaxBurnableTokens)
+
+      const readPendingTake = retry(() =>
+        tonClient
+          .openAt(lastBlock, new chain!.PendingTake(chain!.treasuryAddress!))
+          .getPendingTake()
+          .then((value) => value.pendingTake),
+      )
 
       const readAccountInfo =
         address == null
@@ -3005,8 +3039,9 @@ export class Model {
         Promise<bigint>,
         Promise<{ tonBalance: bigint; codeHash: string | undefined } | undefined>,
         Promise<[Address, OpenedContract<Wallet>, typeof this.walletState] | undefined>,
-      ] = [readTreasuryState, readMaxBurnableTokens, readAccountInfo, readWallet]
-      const [treasuryState, maxBurnableTokens, accountInfo, hton] = await Promise.all(parallel)
+        Promise<bigint>,
+      ] = [readTreasuryState, readMaxBurnableTokens, readAccountInfo, readWallet, readPendingTake]
+      const [treasuryState, maxBurnableTokens, accountInfo, hton, pendingTake] = await Promise.all(parallel)
       let [walletAddress, wallet, walletState] = hton ?? []
 
       if (walletAddress == null && address != null && treasuryState.parent != null) {
@@ -3041,6 +3076,7 @@ export class Model {
         this.treasury = treasury
         this.treasuryState = treasuryState
         this.maxBurnableTokens = maxBurnableTokens
+        this.pendingTake = pendingTake
         this.walletAddress = walletAddress
         this.wallet = wallet
         this.walletState = walletState

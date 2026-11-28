@@ -9,6 +9,12 @@ Covers Claude-assisted sessions on this repo, starting with the first one
 (2026-07-22). Ordinary commits before and between those sessions are not listed
 here — `git log` remains the complete record.
 
+## 2026-11-28 — Stake form: the deposit price after the treasury release
+
+- `Model.ts`, `chain.ts`: since the treasury release of 2026-11-28 (code `e968bebe…`) a deposit of c nano-GRAM mints floor(c · total_tokens / (total_coins + pending_take)), where pending_take is the reward the rounds still owing will book. The stake tab now reads `get_pending_take` in the same block as `get_treasury_state`, quotes "you will receive" with that exact formula in bigint, and shows the deposit price (C + P) / T as its exchange rate. The unstake tab keeps C / T, so the two rates now differ by about P / C (0.06% on 2026-11-28). Checked on mainnet: 1 GRAM quotes 828,816,143 nano-hGRAM, the same as the first real deposit minted; the old quote said 829,298,080. The transaction sent is unchanged. `@hipo-finance/sdk` 8.1 has no wrapper for the getter yet, so `chain.ts` carries a small one; move to the sdk's when it has one. `club/mock.ts` fills `pendingTake` with 0 for the mock preview.
+- Left open: the stake tab's rate row is still labelled "Exchange rate"; a "Deposit price" label needs a new string in every locale. The getter's `deciding` flag (deposits are refused for about 0–3 s once per round, and bounce) is read but not shown.
+- Reviewed: team:code-reviewer, and money-audited twice (prove correct, make it lose money), at Behrang's word: no confirmed failing case.
+
 ## 2026-11-24 — Club: the wrap-up pause and the Seasons docs for every season
 
 - `payments.ts`, `ClubModel.ts`: the `WRAPUP_PAUSE_FROM` gate (L + 23 h, Season 5's pass 2) is gone; the server's `wrapup_pending` alone pauses Upgrade, for any season. No change today: that time passed on 2026-11-01. The selftest now refuses an upgrade with `wrapup_pending` at the second before the old gate as well.
